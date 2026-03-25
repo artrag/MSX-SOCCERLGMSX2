@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "configurations": [
+     
+      {
+        "name": "soccerlg (openMSX)",
+        "type": "node",           
+        "request": "launch",
+        "preLaunchTask": "prepareAndBuild",  
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "program": "false"
+      }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//e/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/projects/MysoccerlgMSX2/**)",
+      "Bash(done)",
+      "Bash(file \"e:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/projects/MysoccerlgMSX2/Tools/OutField/\"*.png)"
+    ]
+  }
+}
