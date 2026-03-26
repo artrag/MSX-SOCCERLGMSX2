@@ -1,0 +1,5083 @@
+;--------------------------------------------------------
+; File Created by SDCC : free open source ANSI-C Compiler
+; Version 4.2.0 #13081 (MINGW64)
+;--------------------------------------------------------
+	.module soccerlg_s5_b3
+	.optsdcc -mz80
+	
+;--------------------------------------------------------
+; Public variables in this module
+;--------------------------------------------------------
+	.globl _CallSpriteFrame_B3
+	.globl _VPD_CommandSetupR32
+	.globl _g_SLTSL
+	.globl _g_GRPACY
+	.globl _g_GRPACX
+	.globl _g_LOGOPR
+	.globl _g_CMASK
+	.globl _g_CLOC
+	.globl _g_FNKSTR
+	.globl _g_ATRBYT
+	.globl _g_BDRCLR
+	.globl _g_BAKCLR
+	.globl _g_FORCLR
+	.globl _g_CSRX
+	.globl _g_CSRY
+	.globl _g_CLIKSW
+	.globl _g_MLTPAT
+	.globl _g_MLTATR
+	.globl _g_MLTCGP
+	.globl _g_MLTCOL
+	.globl _g_MLTNAM
+	.globl _g_GRPPAT
+	.globl _g_GRPATR
+	.globl _g_GRPCGP
+	.globl _g_GRPCOL
+	.globl _g_GRPNAM
+	.globl _g_T32PAT
+	.globl _g_T32ATR
+	.globl _g_T32CGP
+	.globl _g_T32COL
+	.globl _g_T32NAM
+	.globl _g_TXTPAT
+	.globl _g_TXTATR
+	.globl _g_TXTCGP
+	.globl _g_TXTCOL
+	.globl _g_TXTNAM
+	.globl _g_CLMLST
+	.globl _g_CRTCNT
+	.globl _g_LINLEN
+	.globl _g_LINL32
+	.globl _g_LINL40
+	.globl _g_BDOS
+	.globl _g_MASTER
+	.globl _g_RAMAD3
+	.globl _g_RAMAD2
+	.globl _g_RAMAD1
+	.globl _g_RAMAD0
+	.globl _g_BREAKV
+	.globl _g_DISKVE
+	.globl _g_KANJTABLE
+	.globl _g_STRSRC
+	.globl _g_SUBRID
+	.globl _g_CHAR_16
+	.globl _g_MSXMID
+	.globl _g_MSXVER
+	.globl _g_ROMVersion
+	.globl _g_BASRVN
+	.globl _g_VDP_DW
+	.globl _g_VDP_DR
+	.globl _g_CGTABL
+	.globl _g_SVFFFD
+	.globl _g_RG27SAV
+	.globl _g_RG26SAV
+	.globl _g_RG25SAV
+	.globl _g_SVFFF8
+	.globl _g_MINROM
+	.globl _g_RG23SAV
+	.globl _g_RG22SAV
+	.globl _g_RG21SAV
+	.globl _g_RG20SAV
+	.globl _g_RG19SAV
+	.globl _g_RG18SAV
+	.globl _g_RG17SAV
+	.globl _g_RG16SAV
+	.globl _g_RG15SAV
+	.globl _g_RG14SAV
+	.globl _g_RG13SAV
+	.globl _g_RG12SAV
+	.globl _g_RG11SAV
+	.globl _g_RG10SAV
+	.globl _g_RG09SAV
+	.globl _g_RG08SAV
+	.globl _g_PROCNM
+	.globl _g_SLTWRK
+	.globl _g_SLTATR
+	.globl _g_SLTTBL
+	.globl _g_EXPTBL
+	.globl _g_MNROM
+	.globl _g_DRWANG
+	.globl _g_DRWSCL
+	.globl _g_DRWFLG
+	.globl _g_GYPOS
+	.globl _g_GXPOS
+	.globl _g_BRDATR
+	.globl _g_CASPRV
+	.globl _g_OLDSCR
+	.globl _g_SCRMOD
+	.globl _g_FLBMEM
+	.globl _g_KANAMD
+	.globl _g_KANAST
+	.globl _g_CAPST
+	.globl _g_CSTYLE
+	.globl _g_CSRSW
+	.globl _g_INSFLG
+	.globl _g_ESCCNT
+	.globl _g_GRPHED
+	.globl _g_WINWID
+	.globl _g_LOWLIM
+	.globl _g_INTCNT
+	.globl _g_INTVAL
+	.globl _g_JIFFY
+	.globl _g_PADX
+	.globl _g_PADY
+	.globl _g_INTFLG
+	.globl _g_RTYCNT
+	.globl _g_TRPTBL
+	.globl _g_HIMEM
+	.globl _g_BOTTOM
+	.globl _g_PATWRK
+	.globl _g_LINWRK
+	.globl _g_KEYBUF
+	.globl _g_NEWKEY
+	.globl _g_OLDKEY
+	.globl _g_CLIKFL
+	.globl _g_ONGSBF
+	.globl _g_FNKFLG
+	.globl _g_FNKSWI
+	.globl _g_CODSAV
+	.globl _g_FSTPOS
+	.globl _g_LINTTB
+	.globl _g_BASROM
+	.globl _g_ENSTOP
+	.globl _g_VCBC
+	.globl _g_VCBB
+	.globl _g_VCBA
+	.globl _g_PLYCNT
+	.globl _g_MUSICF
+	.globl _g_QUEUEN
+	.globl _g_MCLPTR
+	.globl _g_MCLLEN
+	.globl _g_SAVVOL
+	.globl _g_VOICEN
+	.globl _g_SAVSP
+	.globl _g_PRSCNT
+	.globl _g_LSTMOD
+	.globl _g_LSTCOM
+	.globl _g_COMMSK
+	.globl _g_ESTBLS
+	.globl _g_FLAGS
+	.globl _g_ERRORS
+	.globl _g_DATCNT
+	.globl _g_DEVNUM
+	.globl _g_OLDINT
+	.globl _g_OLDSTT
+	.globl _g_MEXBIh
+	.globl _g_RSIQLN
+	.globl _g_RSFCB
+	.globl _g_TOCNT
+	.globl _g_RSTMP
+	.globl _g_YSAVE
+	.globl _g_XSAVE
+	.globl _g_NORUSE
+	.globl _g_MODE
+	.globl _g_ROMA
+	.globl _g_CHRCNT
+	.globl _g_EXBRSA
+	.globl _g_AVCSAV
+	.globl _g_ACPAGE
+	.globl _g_DPPAGE
+	.globl _g_RS2IQ
+	.globl _g_VOICCQ
+	.globl _g_VOICBQ
+	.globl _g_VOICAQ
+	.globl _g_QUEBAK
+	.globl _g_QUETAB
+	.globl _g_ASPCT2
+	.globl _g_ASPCT1
+	.globl _g_HEADER
+	.globl _g_HIGH
+	.globl _g_LOW
+	.globl _g_CS240
+	.globl _g_CS120
+	.globl _g_GETPNT
+	.globl _g_PUTPNT
+	.globl _g_REPCNT
+	.globl _g_SCNCNT
+	.globl _g_FRCNEW
+	.globl _g_QUEUES
+	.globl _g_MINUPD
+	.globl _g_MAXUPD
+	.globl _g_TRGFLG
+	.globl _g_STATFL
+	.globl _g_RG7SAV
+	.globl _g_RG6SAV
+	.globl _g_RG5SAV
+	.globl _g_RG4SAV
+	.globl _g_RG3SAV
+	.globl _g_RG2SAV
+	.globl _g_RG1SAV
+	.globl _g_RG0SAV
+	.globl _g_CNSDFG
+	.globl _g_USRTAB
+	.globl _g_CLPRIM
+	.globl _g_WRPRIM
+	.globl _g_RDPRIM
+	.globl _InitScrollPages
+	.globl _ScrollInsertRowDown
+	.globl _ScrollInsertRowUp
+	.globl _UpdatePhase1
+	.globl _UpdatePhase2
+	.globl _UpdatePhase3
+;--------------------------------------------------------
+; special function registers
+;--------------------------------------------------------
+_g_PortPrimarySlot	=	0x00a8
+_g_PortReadKeyboard	=	0x00a9
+_g_PortAccessKeyboard	=	0x00aa
+_g_PortControl	=	0x00ab
+_g_VDP_DataPort	=	0x0098
+_g_VDP_RegPort	=	0x0099
+_g_VDP_AddrPort	=	0x0099
+_g_VDP_StatPort	=	0x0099
+_g_VDP_PalPort	=	0x009a
+_g_VDP_IRegPort	=	0x009b
+_g_PSG_RegPort	=	0x00a0
+_g_PSG_DataPort	=	0x00a1
+_g_PSG_StatPort	=	0x00a2
+_g_PSG_Ext_RegPort	=	0x0010
+_g_PSG_Ext_DataPort	=	0x0011
+_g_PSG_Ext_StatPort	=	0x0012
+_g_MSXMusic_IndexPort	=	0x007c
+_g_MSXMusic_DataPort	=	0x007d
+_g_MSXAudio_IndexPort	=	0x00c0
+_g_MSXAudio_DataPort	=	0x00c1
+_g_MSXAudio_IndexPort2	=	0x00c2
+_g_MSXAudio_DataPort2	=	0x00c3
+_g_RTC_AddrPort	=	0x00b4
+_g_RTC_DataPort	=	0x00b5
+;--------------------------------------------------------
+; ram data
+;--------------------------------------------------------
+	.area _DATA
+_g_LINL40	=	0xf3ae
+_g_LINL32	=	0xf3af
+_g_LINLEN	=	0xf3b0
+_g_CRTCNT	=	0xf3b1
+_g_CLMLST	=	0xf3b2
+_g_TXTNAM	=	0xf3b3
+_g_TXTCOL	=	0xf3b5
+_g_TXTCGP	=	0xf3b7
+_g_TXTATR	=	0xf3b9
+_g_TXTPAT	=	0xf3bb
+_g_T32NAM	=	0xf3bd
+_g_T32COL	=	0xf3bf
+_g_T32CGP	=	0xf3c1
+_g_T32ATR	=	0xf3c3
+_g_T32PAT	=	0xf3c5
+_g_GRPNAM	=	0xf3c7
+_g_GRPCOL	=	0xf3c9
+_g_GRPCGP	=	0xf3cb
+_g_GRPATR	=	0xf3cd
+_g_GRPPAT	=	0xf3cf
+_g_MLTNAM	=	0xf3d1
+_g_MLTCOL	=	0xf3d3
+_g_MLTCGP	=	0xf3d5
+_g_MLTATR	=	0xf3d7
+_g_MLTPAT	=	0xf3d9
+_g_CLIKSW	=	0xf3db
+_g_CSRY	=	0xf3dc
+_g_CSRX	=	0xf3dd
+_g_FORCLR	=	0xf3e9
+_g_BAKCLR	=	0xf3ea
+_g_BDRCLR	=	0xf3eb
+_g_ATRBYT	=	0xf3f2
+_g_FNKSTR	=	0xf87f
+_g_CLOC	=	0xf92a
+_g_CMASK	=	0xf92c
+_g_LOGOPR	=	0xfb02
+_g_GRPACX	=	0xfcb7
+_g_GRPACY	=	0xfcb9
+_g_SLTSL	=	0xffff
+;--------------------------------------------------------
+; ram data
+;--------------------------------------------------------
+	.area _INITIALIZED
+;--------------------------------------------------------
+; absolute external ram data
+;--------------------------------------------------------
+	.area _DABS (ABS)
+;--------------------------------------------------------
+; global & static initialisations
+;--------------------------------------------------------
+	.area _HOME
+	.area _GSINIT
+	.area _GSFINAL
+	.area _GSINIT
+;--------------------------------------------------------
+; Home
+;--------------------------------------------------------
+	.area _HOME
+	.area _HOME
+;--------------------------------------------------------
+; code
+;--------------------------------------------------------
+	.area _SEG5
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:24: static void RebuildPage(u8 page, u16 scroll_y)
+;	---------------------------------
+; Function RebuildPage
+; ---------------------------------
+_RebuildPage:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-11
+	add	hl, sp
+	ld	sp, hl
+	ld	c, a
+	ld	-4 (ix), e
+	ld	-3 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:26: u16 dst_y = (u16)page * 256u + HUD_LINES;
+	ld	d, c
+	ld	e, #0x00
+	ld	hl, #0x0008
+	add	hl, de
+	ld	-7 (ix), l
+	ld	-6 (ix), h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:27: const u8* pField = &FieldMap[scroll_y];
+	ld	de, #_FieldMap+0
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
+	add	hl, de
+	ex	de, hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:28: u8 remaining = (u8)(SCREEN_LINES - HUD_LINES);
+	ld	-2 (ix), #0xb8
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:30: while (remaining > 0)
+00114$:
+	ld	a, -2 (ix)
+	or	a, a
+	jp	Z, 00116$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:32: u8 src = pField[0];
+	ld	a, (de)
+	ld	-5 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:34: while (step < remaining && pField[step] == (u8)(src + step))
+	ld	-1 (ix), #0x01
+00102$:
+	ld	a, -1 (ix)
+	sub	a, -2 (ix)
+	jr	NC, 00132$
+	ld	a, e
+	add	a, -1 (ix)
+	ld	-9 (ix), a
+	ld	a, d
+	adc	a, #0x00
+	ld	-8 (ix), a
+	ld	l, -9 (ix)
+	ld	h, -8 (ix)
+	ld	b, (hl)
+	ld	a, -5 (ix)
+	add	a, -1 (ix)
+	sub	a, b
+	jr	NZ, 00132$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:35: step++;
+	inc	-1 (ix)
+	jp	00102$
+00132$:
+	ld	b, -1 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:37: if (step > 1) {
+	ld	a, #0x01
+	sub	a, -1 (ix)
+	jr	NC, 00129$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
+	ld	a, -1 (ix)
+	ld	-9 (ix), a
+	ld	-8 (ix), #0x00
+	ld	l, -5 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+	xor	a, a
+	add	a, #0x03
+	ld	-11 (ix), l
+	ld	-10 (ix), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -11 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -10 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	push	de
+	call	_VPD_CommandSetupR32
+	pop	de
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
+	jp	00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:40: while (step < remaining && pField[step] == src)
+00129$:
+00106$:
+	ld	a, -1 (ix)
+	sub	a, -2 (ix)
+	jr	NC, 00133$
+	ld	l, -1 (ix)
+	ld	h, #0x00
+	add	hl, de
+	ld	a,-5 (ix)
+	sub	a,(hl)
+	jr	NZ, 00133$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:41: step++;
+	inc	-1 (ix)
+	jp	00106$
+00133$:
+	ld	b, -1 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:42: VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
+	ld	l, -5 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+	xor	a, a
+	add	a, #0x03
+	ld	-9 (ix), l
+	ld	-8 (ix), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	hl, #0x0001
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	push	de
+	call	_VPD_CommandSetupR32
+	pop	de
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:43: if (step > 1)
+	ld	a, #0x01
+	sub	a, -1 (ix)
+	jr	NC, 00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:44: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	dec	hl
+	ex	(sp), hl
+	ld	l, -7 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, -6 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	inc	hl
+	ld	-9 (ix), l
+	ld	-8 (ix), h
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -11 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -10 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	push	de
+	call	_VPD_CommandSetupR32
+	pop	de
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:44: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:46: pField += step;
+	ld	a, e
+	add	a, b
+	ld	e, a
+	jr	NC, 00178$
+	inc	d
+00178$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:47: dst_y += step;
+	ld	l, b
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, -7 (ix)
+	ld	-10 (ix), a
+	ld	a, -6 (ix)
+	ld	-9 (ix), a
+	ld	a, l
+	add	a, -10 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, h
+	adc	a, -9 (ix)
+	ld	-7 (ix), l
+	ld	-6 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:48: remaining -= step;
+	ld	a, -2 (ix)
+	sub	a, b
+	ld	-2 (ix), a
+	jp	00114$
+00116$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:50: g_R23[page]         = 0;
+	ld	hl, #_g_R23
+	ld	b, #0x00
+	add	hl, bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:51: g_PageScrollY[page] = scroll_y;
+	ld	(hl), #0x00
+	ld	h, (hl)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, c
+	add	hl, hl
+	ld	de, #_g_PageScrollY
+	add	hl, de
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:52: }
+	ld	sp, ix
+	pop	ix
+	ret
+_g_RDPRIM	=	0xf380
+_g_WRPRIM	=	0xf385
+_g_CLPRIM	=	0xf38c
+_g_USRTAB	=	0xf39a
+_g_CNSDFG	=	0xf3de
+_g_RG0SAV	=	0xf3df
+_g_RG1SAV	=	0xf3e0
+_g_RG2SAV	=	0xf3e1
+_g_RG3SAV	=	0xf3e2
+_g_RG4SAV	=	0xf3e3
+_g_RG5SAV	=	0xf3e4
+_g_RG6SAV	=	0xf3e5
+_g_RG7SAV	=	0xf3e6
+_g_STATFL	=	0xf3e7
+_g_TRGFLG	=	0xf3e8
+_g_MAXUPD	=	0xf3ec
+_g_MINUPD	=	0xf3ef
+_g_QUEUES	=	0xf3f3
+_g_FRCNEW	=	0xf3f5
+_g_SCNCNT	=	0xf3f6
+_g_REPCNT	=	0xf3f7
+_g_PUTPNT	=	0xf3f8
+_g_GETPNT	=	0xf3fa
+_g_CS120	=	0xf3fc
+_g_CS240	=	0xf401
+_g_LOW	=	0xf406
+_g_HIGH	=	0xf408
+_g_HEADER	=	0xf40a
+_g_ASPCT1	=	0xf40b
+_g_ASPCT2	=	0xf40d
+_g_QUETAB	=	0xf959
+_g_QUEBAK	=	0xf971
+_g_VOICAQ	=	0xf975
+_g_VOICBQ	=	0xf9f5
+_g_VOICCQ	=	0xfa75
+_g_RS2IQ	=	0xfaf5
+_g_DPPAGE	=	0xfaf5
+_g_ACPAGE	=	0xfaf6
+_g_AVCSAV	=	0xfaf7
+_g_EXBRSA	=	0xfaf8
+_g_CHRCNT	=	0xfaf9
+_g_ROMA	=	0xfafa
+_g_MODE	=	0xfafc
+_g_NORUSE	=	0xfafd
+_g_XSAVE	=	0xfafe
+_g_YSAVE	=	0xfb00
+_g_RSTMP	=	0xfb03
+_g_TOCNT	=	0xfb03
+_g_RSFCB	=	0xfb04
+_g_RSIQLN	=	0xfb06
+_g_MEXBIh	=	0xfb07
+_g_OLDSTT	=	0xfb0c
+_g_OLDINT	=	0xfb0c
+_g_DEVNUM	=	0xfb16
+_g_DATCNT	=	0xfb17
+_g_ERRORS	=	0xfb1a
+_g_FLAGS	=	0xfb1b
+_g_ESTBLS	=	0xfb1c
+_g_COMMSK	=	0xfb1d
+_g_LSTCOM	=	0xfb1e
+_g_LSTMOD	=	0xfb1f
+_g_PRSCNT	=	0xfb35
+_g_SAVSP	=	0xfb36
+_g_VOICEN	=	0xfb38
+_g_SAVVOL	=	0xfb39
+_g_MCLLEN	=	0xfb3b
+_g_MCLPTR	=	0xfb3c
+_g_QUEUEN	=	0xfb3e
+_g_MUSICF	=	0xfb3f
+_g_PLYCNT	=	0xfb40
+_g_VCBA	=	0xfb41
+_g_VCBB	=	0xfb66
+_g_VCBC	=	0xfb8b
+_g_ENSTOP	=	0xfbb0
+_g_BASROM	=	0xfbb1
+_g_LINTTB	=	0xfbb2
+_g_FSTPOS	=	0xfbca
+_g_CODSAV	=	0xfbcc
+_g_FNKSWI	=	0xfbcd
+_g_FNKFLG	=	0xfbce
+_g_ONGSBF	=	0xfbd8
+_g_CLIKFL	=	0xfbd9
+_g_OLDKEY	=	0xfbda
+_g_NEWKEY	=	0xfbe5
+_g_KEYBUF	=	0xfbf0
+_g_LINWRK	=	0xfc18
+_g_PATWRK	=	0xfc40
+_g_BOTTOM	=	0xfc48
+_g_HIMEM	=	0xfc4a
+_g_TRPTBL	=	0xfc4c
+_g_RTYCNT	=	0xfc9a
+_g_INTFLG	=	0xfc9b
+_g_PADY	=	0xfc9c
+_g_PADX	=	0xfc9d
+_g_JIFFY	=	0xfc9e
+_g_INTVAL	=	0xfca0
+_g_INTCNT	=	0xfca2
+_g_LOWLIM	=	0xfca4
+_g_WINWID	=	0xfca5
+_g_GRPHED	=	0xfca6
+_g_ESCCNT	=	0xfca7
+_g_INSFLG	=	0xfca8
+_g_CSRSW	=	0xfca9
+_g_CSTYLE	=	0xfcaa
+_g_CAPST	=	0xfcab
+_g_KANAST	=	0xfcac
+_g_KANAMD	=	0xfcad
+_g_FLBMEM	=	0xfcae
+_g_SCRMOD	=	0xfcaf
+_g_OLDSCR	=	0xfcb0
+_g_CASPRV	=	0xfcb1
+_g_BRDATR	=	0xfcb2
+_g_GXPOS	=	0xfcb3
+_g_GYPOS	=	0xfcb5
+_g_DRWFLG	=	0xfcbb
+_g_DRWSCL	=	0xfcbc
+_g_DRWANG	=	0xfcbd
+_g_MNROM	=	0xfcc1
+_g_EXPTBL	=	0xfcc1
+_g_SLTTBL	=	0xfcc5
+_g_SLTATR	=	0xfcc9
+_g_SLTWRK	=	0xfd09
+_g_PROCNM	=	0xfd89
+_g_RG08SAV	=	0xffe7
+_g_RG09SAV	=	0xffe8
+_g_RG10SAV	=	0xffe9
+_g_RG11SAV	=	0xffea
+_g_RG12SAV	=	0xffeb
+_g_RG13SAV	=	0xffec
+_g_RG14SAV	=	0xffed
+_g_RG15SAV	=	0xffee
+_g_RG16SAV	=	0xffef
+_g_RG17SAV	=	0xfff0
+_g_RG18SAV	=	0xfff1
+_g_RG19SAV	=	0xfff2
+_g_RG20SAV	=	0xfff3
+_g_RG21SAV	=	0xfff4
+_g_RG22SAV	=	0xfff5
+_g_RG23SAV	=	0xfff6
+_g_MINROM	=	0xfff7
+_g_SVFFF8	=	0xfff8
+_g_RG25SAV	=	0xfffa
+_g_RG26SAV	=	0xfffb
+_g_RG27SAV	=	0xfffc
+_g_SVFFFD	=	0xfffd
+_g_CGTABL	=	0x0004
+_g_VDP_DR	=	0x0006
+_g_VDP_DW	=	0x0007
+_g_BASRVN	=	0x002b
+_g_ROMVersion	=	0x002b
+_g_MSXVER	=	0x002d
+_g_MSXMID	=	0x002e
+_g_CHAR_16	=	0x0034
+_g_SUBRID	=	0x0000
+_g_STRSRC	=	0x0002
+_g_KANJTABLE	=	0xf30f
+_g_DISKVE	=	0xf323
+_g_BREAKV	=	0xf325
+_g_RAMAD0	=	0xf341
+_g_RAMAD1	=	0xf342
+_g_RAMAD2	=	0xf343
+_g_RAMAD3	=	0xf344
+_g_MASTER	=	0xf348
+_g_BDOS	=	0xf37d
+_FieldMap:
+	.db #0x00	; 0
+	.db #0x01	; 1
+	.db #0x02	; 2
+	.db #0x03	; 3
+	.db #0x04	; 4
+	.db #0x05	; 5
+	.db #0x06	; 6
+	.db #0x07	; 7
+	.db #0x08	; 8
+	.db #0x09	; 9
+	.db #0x0a	; 10
+	.db #0x0b	; 11
+	.db #0x0c	; 12
+	.db #0x0d	; 13
+	.db #0x0e	; 14
+	.db #0x0f	; 15
+	.db #0x10	; 16
+	.db #0x11	; 17
+	.db #0x12	; 18
+	.db #0x13	; 19
+	.db #0x14	; 20
+	.db #0x15	; 21
+	.db #0x16	; 22
+	.db #0x17	; 23
+	.db #0x18	; 24
+	.db #0x19	; 25
+	.db #0x1a	; 26
+	.db #0x1b	; 27
+	.db #0x1c	; 28
+	.db #0x1d	; 29
+	.db #0x1e	; 30
+	.db #0x1f	; 31
+	.db #0x20	; 32
+	.db #0x21	; 33
+	.db #0x22	; 34
+	.db #0x23	; 35
+	.db #0x24	; 36
+	.db #0x25	; 37
+	.db #0x26	; 38
+	.db #0x27	; 39
+	.db #0x28	; 40
+	.db #0x29	; 41
+	.db #0x2a	; 42
+	.db #0x2b	; 43
+	.db #0x2c	; 44
+	.db #0x2d	; 45
+	.db #0x2e	; 46
+	.db #0x2f	; 47
+	.db #0x30	; 48	'0'
+	.db #0x31	; 49	'1'
+	.db #0x32	; 50	'2'
+	.db #0x33	; 51	'3'
+	.db #0x34	; 52	'4'
+	.db #0x35	; 53	'5'
+	.db #0x36	; 54	'6'
+	.db #0x37	; 55	'7'
+	.db #0x38	; 56	'8'
+	.db #0x39	; 57	'9'
+	.db #0x3a	; 58
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3b	; 59
+	.db #0x3c	; 60
+	.db #0x3d	; 61
+	.db #0x3e	; 62
+	.db #0x3f	; 63
+	.db #0x40	; 64
+	.db #0x41	; 65	'A'
+	.db #0x42	; 66	'B'
+	.db #0x43	; 67	'C'
+	.db #0x44	; 68	'D'
+	.db #0x45	; 69	'E'
+	.db #0x46	; 70	'F'
+	.db #0x47	; 71	'G'
+	.db #0x48	; 72	'H'
+	.db #0x49	; 73	'I'
+	.db #0x4a	; 74	'J'
+	.db #0x4b	; 75	'K'
+	.db #0x4c	; 76	'L'
+	.db #0x4d	; 77	'M'
+	.db #0x4e	; 78	'N'
+	.db #0x4f	; 79	'O'
+	.db #0x50	; 80	'P'
+	.db #0x51	; 81	'Q'
+	.db #0x52	; 82	'R'
+	.db #0x53	; 83	'S'
+	.db #0x54	; 84	'T'
+	.db #0x55	; 85	'U'
+	.db #0x56	; 86	'V'
+	.db #0x57	; 87	'W'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x58	; 88	'X'
+	.db #0x59	; 89	'Y'
+	.db #0x5a	; 90	'Z'
+	.db #0x5b	; 91
+	.db #0x5c	; 92
+	.db #0x5d	; 93
+	.db #0x5e	; 94
+	.db #0x5f	; 95
+	.db #0x60	; 96
+	.db #0x61	; 97	'a'
+	.db #0x62	; 98	'b'
+	.db #0x63	; 99	'c'
+	.db #0x64	; 100	'd'
+	.db #0x65	; 101	'e'
+	.db #0x66	; 102	'f'
+	.db #0x67	; 103	'g'
+	.db #0x68	; 104	'h'
+	.db #0x69	; 105	'i'
+	.db #0x6a	; 106	'j'
+	.db #0x6b	; 107	'k'
+	.db #0x6c	; 108	'l'
+	.db #0x6d	; 109	'm'
+	.db #0x6e	; 110	'n'
+	.db #0x6f	; 111	'o'
+	.db #0x70	; 112	'p'
+	.db #0x71	; 113	'q'
+	.db #0x72	; 114	'r'
+	.db #0x73	; 115	's'
+	.db #0x74	; 116	't'
+	.db #0x75	; 117	'u'
+	.db #0x76	; 118	'v'
+	.db #0x77	; 119	'w'
+	.db #0x78	; 120	'x'
+	.db #0x79	; 121	'y'
+	.db #0x7a	; 122	'z'
+	.db #0x7b	; 123
+	.db #0x7c	; 124
+	.db #0x7d	; 125
+	.db #0x7e	; 126
+	.db #0x7f	; 127
+	.db #0x80	; 128
+	.db #0x81	; 129
+	.db #0x82	; 130
+	.db #0x83	; 131
+	.db #0x84	; 132
+	.db #0x85	; 133
+	.db #0x86	; 134
+	.db #0x87	; 135
+	.db #0x88	; 136
+	.db #0x89	; 137
+	.db #0x8a	; 138
+	.db #0x8b	; 139
+	.db #0x8c	; 140
+	.db #0x8d	; 141
+	.db #0x8e	; 142
+	.db #0x8f	; 143
+	.db #0x90	; 144
+	.db #0x91	; 145
+	.db #0x92	; 146
+	.db #0x93	; 147
+	.db #0x94	; 148
+	.db #0x95	; 149
+	.db #0x96	; 150
+	.db #0x97	; 151
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x98	; 152
+	.db #0x99	; 153
+	.db #0x9a	; 154
+	.db #0x9b	; 155
+	.db #0x9c	; 156
+	.db #0x9d	; 157
+	.db #0x9e	; 158
+	.db #0x9f	; 159
+	.db #0xa0	; 160
+	.db #0xa1	; 161
+	.db #0xa2	; 162
+	.db #0xa3	; 163
+	.db #0xa4	; 164
+	.db #0xa5	; 165
+	.db #0xa6	; 166
+	.db #0xa7	; 167
+	.db #0xa8	; 168
+	.db #0xa9	; 169
+	.db #0xaa	; 170
+	.db #0xab	; 171
+	.db #0xac	; 172
+	.db #0xad	; 173
+	.db #0xae	; 174
+	.db #0xaf	; 175
+	.db #0xb0	; 176
+	.db #0xb1	; 177
+	.db #0xb2	; 178
+	.db #0xb3	; 179
+	.db #0xb4	; 180
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb5	; 181
+	.db #0xb6	; 182
+	.db #0xb7	; 183
+	.db #0xb8	; 184
+	.db #0xb9	; 185
+	.db #0xba	; 186
+	.db #0xbb	; 187
+	.db #0xbc	; 188
+	.db #0xbd	; 189
+	.db #0xbe	; 190
+	.db #0xbf	; 191
+	.db #0xc0	; 192
+	.db #0xc1	; 193
+	.db #0xc2	; 194
+	.db #0xc3	; 195
+	.db #0xc4	; 196
+	.db #0xc5	; 197
+	.db #0xc6	; 198
+	.db #0xc7	; 199
+	.db #0xc8	; 200
+	.db #0xc9	; 201
+	.db #0xca	; 202
+	.db #0xcb	; 203
+	.db #0xcc	; 204
+	.db #0xcd	; 205
+	.db #0xce	; 206
+	.db #0xcf	; 207
+	.db #0xd0	; 208
+	.db #0xd1	; 209
+	.db #0xd2	; 210
+	.db #0xd3	; 211
+	.db #0xd4	; 212
+	.db #0xd5	; 213
+	.db #0xd6	; 214
+	.db #0xd7	; 215
+	.db #0xd8	; 216
+	.db #0xd9	; 217
+	.db #0xda	; 218
+	.db #0xdb	; 219
+	.db #0xdc	; 220
+	.db #0xdd	; 221
+	.db #0xde	; 222
+	.db #0xdf	; 223
+	.db #0xe0	; 224
+	.db #0xe1	; 225
+	.db #0xe2	; 226
+	.db #0xe3	; 227
+	.db #0xe4	; 228
+	.db #0xe5	; 229
+	.db #0xe6	; 230
+	.db #0xe7	; 231
+	.db #0xe8	; 232
+	.db #0xe9	; 233
+	.db #0xea	; 234
+	.db #0xeb	; 235
+	.db #0xec	; 236
+	.db #0xed	; 237
+	.db #0xee	; 238
+	.db #0xef	; 239
+	.db #0xf0	; 240
+	.db #0xf1	; 241
+	.db #0xf2	; 242
+	.db #0xf3	; 243
+	.db #0xf4	; 244
+	.db #0xf5	; 245
+	.db #0xf6	; 246
+	.db #0xf7	; 247
+	.db #0xf8	; 248
+	.db #0xf9	; 249
+	.db #0xfa	; 250
+	.db #0xfb	; 251
+	.db #0xfc	; 252
+	.db #0xfd	; 253
+	.db #0xfe	; 254
+	.db #0xff	; 255
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:55: static void RebuildPageUp(u8 page, u16 scroll_y)
+;	---------------------------------
+; Function RebuildPageUp
+; ---------------------------------
+_RebuildPageUp:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-13
+	add	hl, sp
+	ld	sp, hl
+	ld	-5 (ix), a
+	ld	-7 (ix), e
+	ld	-6 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:57: u16 dst_y        = (u16)page * 256u + HUD_LINES;
+	ld	a, -5 (ix)
+	ld	-2 (ix), a
+	ld	-1 (ix), #0x00
+	ld	a, -2 (ix)
+	ld	-3 (ix), a
+	ld	-4 (ix), #0x00
+	xor	a, a
+	add	a, #0x08
+	ld	-2 (ix), a
+	ld	a, -3 (ix)
+	adc	a, #0x00
+	ld	-1 (ix), a
+	ld	a, -2 (ix)
+	ld	-13 (ix), a
+	ld	a, -1 (ix)
+	ld	-12 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:58: u8  vtop         = (scroll_y >= VTOP_MAX) ? VTOP_MAX : (u8)scroll_y;
+	ld	a, -7 (ix)
+	sub	a, #0x31
+	ld	a, -6 (ix)
+	sbc	a, #0x00
+	jr	C, 00122$
+	ld	a, #0x31
+	jp	00123$
+00122$:
+	ld	a, -7 (ix)
+00123$:
+	ld	-11 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:59: const u8* pField = &FieldMap[scroll_y - vtop];
+	ld	bc, #_FieldMap+0
+	ld	e, -11 (ix)
+	ld	d, #0x00
+	ld	l, -7 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, -6 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	cp	a, a
+	sbc	hl, de
+	add	hl, bc
+	ld	-4 (ix), l
+	ld	-3 (ix), h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:60: u8  remaining    = vtop + SCREEN_LINES - HUD_LINES;
+	ld	a, -11 (ix)
+	add	a, #0xb8
+	ld	-2 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:62: while (remaining > 0)
+00114$:
+	ld	a, -2 (ix)
+	or	a, a
+	jp	Z, 00116$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:64: u8 src = pField[0];
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
+	ld	a, (hl)
+	ld	-10 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:66: while (step < remaining && pField[step] == (u8)(src + step))
+	ld	-1 (ix), #0x01
+00102$:
+	ld	a, -1 (ix)
+	sub	a, -2 (ix)
+	jr	NC, 00135$
+	ld	a, -4 (ix)
+	add	a, -1 (ix)
+	ld	-9 (ix), a
+	ld	a, -3 (ix)
+	adc	a, #0x00
+	ld	-8 (ix), a
+	ld	l, -9 (ix)
+	ld	h, -8 (ix)
+	ld	c, (hl)
+	ld	a, -10 (ix)
+	add	a, -1 (ix)
+	sub	a, c
+	jr	NZ, 00135$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:67: step++;
+	inc	-1 (ix)
+	jp	00102$
+00135$:
+	ld	c, -1 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:69: if (step > 1) {
+	ld	a, #0x01
+	sub	a, -1 (ix)
+	jr	NC, 00132$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:70: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
+	ld	e, -1 (ix)
+	ld	d, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	b, -10 (ix)
+	xor	a, a
+	add	a, #0x03
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #_g_VDP_Command + 2
+	ld	(hl), b
+	inc	hl
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -13 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -12 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	((_g_VDP_Command + 10)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	call	_VPD_CommandSetupR32
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:70: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
+	jp	00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:72: while (step < remaining && pField[step] == src)
+00132$:
+	ld	e, -1 (ix)
+00106$:
+	ld	a, e
+	sub	a, -2 (ix)
+	jr	NC, 00136$
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
+	ld	d, #0x00
+	add	hl, de
+	ld	a,-10 (ix)
+	sub	a,(hl)
+	jr	NZ, 00136$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:73: step++;
+	inc	e
+	jp	00106$
+00136$:
+	ld	c, e
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:74: VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
+	ld	l, -10 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+;	spillPairReg hl
+	xor	a, a
+	add	a, #0x03
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	b, l
+	ld	d, h
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	(hl), b
+	inc	hl
+	ld	(hl), d
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -13 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -12 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	hl, #0x0001
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	push	de
+	call	_VPD_CommandSetupR32
+	pop	de
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:75: if (step > 1)
+	ld	a, #0x01
+	sub	a, e
+	jr	NC, 00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
+	ld	d, #0x00
+	dec	de
+	ld	-9 (ix), e
+	ld	-8 (ix), d
+	pop	de
+	push	de
+	inc	de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -13 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -12 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	bc
+	call	_VPD_CommandSetupR32
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:78: pField += step;
+	ld	a, -4 (ix)
+	add	a, c
+	ld	-4 (ix), a
+	jr	NC, 00185$
+	inc	-3 (ix)
+00185$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:79: dst_y += step;
+	ld	e, c
+	ld	d, #0x00
+	pop	hl
+	push	hl
+	add	hl, de
+	ex	(sp), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:80: remaining -= step;
+	ld	a, -2 (ix)
+	sub	a, c
+	ld	-2 (ix), a
+	jp	00114$
+00116$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:82: g_R23[page]         = vtop;
+	ld	bc, #_g_R23+0
+	ld	l, -5 (ix)
+	ld	h, #0x00
+	add	hl, bc
+	ld	a, -11 (ix)
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:83: g_PageScrollY[page] = scroll_y;
+	ld	l, -5 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #_g_PageScrollY
+	add	hl, de
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:84: }
+	ld	sp, ix
+	pop	ix
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:90: void InitScrollPages(void)
+;	---------------------------------
+; Function InitScrollPages
+; ---------------------------------
+_InitScrollPages::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:92: RebuildPage(0, 0);
+	ld	de, #0x0000
+	xor	a, a
+	call	_RebuildPage
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:93: RebuildPage(1, 0);
+	ld	de, #0x0000
+	ld	a, #0x01
+	call	_RebuildPage
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:94: RebuildPage(2, 0);
+	ld	de, #0x0000
+	ld	a, #0x02
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:95: }
+	jp	_RebuildPage
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:103: void ScrollInsertRowDown(u8 write_page)
+;	---------------------------------
+; Function ScrollInsertRowDown
+; ---------------------------------
+_ScrollInsertRowDown::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-6
+	add	hl, sp
+	ld	sp, hl
+	ld	-1 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:108: if (g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS) return;
+	ld	bc, #_g_PageScrollY+0
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	add	hl, bc
+	ld	e, l
+	ld	d, h
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	ld	hl, #0x00b8
+	add	hl, bc
+	ex	(sp), hl
+	ld	a, -6 (ix)
+	sub	a, #0xf8
+	ld	a, -5 (ix)
+	sbc	a, #0x01
+	jp	NC,00106$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:110: if (g_R23[write_page] >= VTOP_MAX)
+	ld	a, #<(_g_R23)
+	add	a, -1 (ix)
+	ld	-4 (ix), a
+	ld	a, #>(_g_R23)
+	adc	a, #0x00
+	ld	-3 (ix), a
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
+	ld	a, (hl)
+	ld	-2 (ix), a
+	sub	a, #0x31
+	jr	C, 00104$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:112: RebuildPage(write_page, g_PageScrollY[write_page] + 1);
+	inc	bc
+	ld	e, c
+	ld	d, b
+	ld	a, -1 (ix)
+	call	_RebuildPage
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:113: return;
+	jp	00106$
+00104$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:116: logical_row = g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES);
+	pop	bc
+	push	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:117: src   = FieldMap[logical_row];
+	ld	hl, #_FieldMap
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:118: dst_y = g_R23[write_page] + (u8)SCREEN_LINES;
+	ld	a, -2 (ix)
+	add	a, #0xc0
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:120: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
+	ld	b, -1 (ix)
+	ld	c, #0x00
+	ld	h, c
+;	spillPairReg hl
+;	spillPairReg hl
+	add	a, c
+	ld	c, a
+	ld	a, h
+	adc	a, b
+	ld	b, a
+;	spillPairReg hl
+;	spillPairReg hl
+	xor	a, a
+	add	a, #0x03
+	ld	-6 (ix), l
+	ld	-5 (ix), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	l, #0x01
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	push	de
+	call	_VPD_CommandSetupR32
+	pop	de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:122: g_R23[write_page]++;
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
+	ld	a, (hl)
+	inc	a
+	pop	bc
+	pop	hl
+	push	hl
+	push	bc
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:123: g_PageScrollY[write_page]++;
+	ld	l, e
+	ld	h, d
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	inc	bc
+	ld	a, c
+	ld	(de), a
+	inc	de
+	ld	a, b
+	ld	(de), a
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:124: }
+	ld	sp, ix
+	pop	ix
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:128: void ScrollInsertRowUp(u8 write_page)
+;	---------------------------------
+; Function ScrollInsertRowUp
+; ---------------------------------
+_ScrollInsertRowUp::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	ld	-1 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:131: if (g_PageScrollY[write_page] == 0) return;
+	ld	bc, #_g_PageScrollY+0
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	add	hl, bc
+	ld	e, l
+	ld	d, h
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	ld	a, b
+	or	a, c
+	jr	Z, 00106$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:133: if (g_R23[write_page] == 0)
+	ld	a, #<(_g_R23)
+	add	a, -1 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_R23)
+	adc	a, #0x00
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, (hl)
+	or	a, a
+	jr	NZ, 00104$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:135: RebuildPageUp(write_page, g_PageScrollY[write_page] - 1);
+	dec	bc
+	ld	e, c
+	ld	d, b
+	ld	a, -1 (ix)
+	call	_RebuildPageUp
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:136: return;
+	jp	00106$
+00104$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:139: g_R23[write_page]--;
+	dec	a
+	ld	-2 (ix), a
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:140: g_PageScrollY[write_page]--;
+	ld	l, e
+	ld	h, d
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	dec	bc
+	ld	a, c
+	ld	(de), a
+	inc	de
+	ld	a, b
+	ld	(de), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:142: src   = FieldMap[g_PageScrollY[write_page]];
+	ld	hl, #_FieldMap
+	add	hl, bc
+	ld	c, (hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:143: dst_y = g_R23[write_page] + HUD_LINES;
+	ld	a, -2 (ix)
+	add	a, #0x08
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:144: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
+	ld	d, -1 (ix)
+	ld	e, #0x00
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, de
+	ex	de, hl
+	xor	a, a
+	add	a, #0x03
+	ld	b, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	l, #0x01
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:144: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:145: }
+	ld	sp, ix
+	pop	ix
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:152: static void EraseSprite16(u8 x, u16 dst_y, u16 absolute_logical_y)
+;	---------------------------------
+; Function EraseSprite16
+; ---------------------------------
+_EraseSprite16:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	push	af
+	ld	c, a
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:155: if (absolute_logical_y > max_y) absolute_logical_y = max_y;
+	ld	a, #0xe8
+	cp	a, 4 (ix)
+	ld	a, #0x01
+	sbc	a, 5 (ix)
+	jr	NC, 00102$
+	ld	4 (ix), #0xe8
+	ld	5 (ix), #0x01
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:157: u8 src = FieldMap[absolute_logical_y];
+	ld	de, #_FieldMap+0
+	ld	l, 4 (ix)
+	ld	h, 5 (ix)
+	add	hl, de
+	ld	e, (hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:159: VDP_CommandHMMM(x, 768u + src, x, dst_y, 16, 16);
+	ld	b, #0x00
+	inc	sp
+	inc	sp
+	push	bc
+	ld	d, #0x00
+	ld	hl, #0x0300
+	add	hl, de
+	ex	de, hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	(_g_VDP_Command), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -2 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -1 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0010
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:159: VDP_CommandHMMM(x, 768u + src, x, dst_y, 16, 16);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:160: }
+	ld	sp, ix
+	pop	ix
+	pop	hl
+	pop	af
+	jp	(hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:203: void UpdatePhase1(u8 r23_w, u8 r23_e, u16 scroll_e)
+;	---------------------------------
+; Function UpdatePhase1
+; ---------------------------------
+_UpdatePhase1::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	ld	-1 (ix), a
+	ld	-2 (ix), l
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:205: UNROLL_PHASE(1, 2, 256u, 512u, r23_w, r23_e, scroll_e);
+	ld	bc, #_g_x1+14
+	ld	a, (#(_g_lx + 14) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 14) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 28)), bc
+	ld	a, (#(_g_y2 + 28) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00102$
+	ld	bc, #0x0000
+00102$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 28) + 0)
+	ld	de, (#(_g_y1 + 28) + 0)
+	ld	hl, #_g_x1+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+14
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 14) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00103$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00104$
+00103$:
+	ld	bc, #_g_dx+14
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00104$:
+	ld	bc, #_g_x1+13
+	ld	a, (#(_g_lx + 13) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 13) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 26)), bc
+	ld	a, (#(_g_y2 + 26) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00107$
+	ld	bc, #0x0000
+00107$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 26) + 0)
+	ld	de, (#(_g_y1 + 26) + 0)
+	ld	hl, #_g_x1+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+13
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 13) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00108$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00109$
+00108$:
+	ld	bc, #_g_dx+13
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00109$:
+	ld	bc, #_g_x1+12
+	ld	a, (#(_g_lx + 12) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 12) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 24)), bc
+	ld	a, (#(_g_y2 + 24) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00112$
+	ld	bc, #0x0000
+00112$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 24) + 0)
+	ld	de, (#(_g_y1 + 24) + 0)
+	ld	hl, #_g_x1+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+12
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 12) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00113$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00114$
+00113$:
+	ld	bc, #_g_dx+12
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00114$:
+	ld	bc, #_g_x1+11
+	ld	a, (#(_g_lx + 11) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 11) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 22)), bc
+	ld	a, (#(_g_y2 + 22) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00117$
+	ld	bc, #0x0000
+00117$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 22) + 0)
+	ld	de, (#(_g_y1 + 22) + 0)
+	ld	hl, #_g_x1+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+11
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 11) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00118$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00119$
+00118$:
+	ld	bc, #_g_dx+11
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00119$:
+	ld	bc, #_g_x1+10
+	ld	a, (#(_g_lx + 10) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 10) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 20)), bc
+	ld	a, (#(_g_y2 + 20) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00122$
+	ld	bc, #0x0000
+00122$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 20) + 0)
+	ld	de, (#(_g_y1 + 20) + 0)
+	ld	hl, #_g_x1+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+10
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 10) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00123$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00124$
+00123$:
+	ld	bc, #_g_dx+10
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00124$:
+	ld	bc, #_g_x1+9
+	ld	a, (#(_g_lx + 9) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 9) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 18)), bc
+	ld	a, (#(_g_y2 + 18) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00127$
+	ld	bc, #0x0000
+00127$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 18) + 0)
+	ld	de, (#(_g_y1 + 18) + 0)
+	ld	hl, #_g_x1+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+9
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 9) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00128$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00129$
+00128$:
+	ld	bc, #_g_dx+9
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00129$:
+	ld	bc, #_g_x1+8
+	ld	a, (#(_g_lx + 8) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 8) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 16)), bc
+	ld	a, (#(_g_y2 + 16) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00132$
+	ld	bc, #0x0000
+00132$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 16) + 0)
+	ld	de, (#(_g_y1 + 16) + 0)
+	ld	hl, #_g_x1+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+8
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 8) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00133$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00134$
+00133$:
+	ld	bc, #_g_dx+8
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00134$:
+	ld	bc, #_g_x1+7
+	ld	a, (#(_g_lx + 7) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 7) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 14)), bc
+	ld	a, (#(_g_y2 + 14) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00137$
+	ld	bc, #0x0000
+00137$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 14) + 0)
+	ld	de, (#(_g_y1 + 14) + 0)
+	ld	hl, #_g_x1+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+7
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 7) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00138$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00139$
+00138$:
+	ld	bc, #_g_dx+7
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00139$:
+	ld	bc, #_g_x1+6
+	ld	a, (#(_g_lx + 6) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 6) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 12)), bc
+	ld	a, (#(_g_y2 + 12) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00142$
+	ld	bc, #0x0000
+00142$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 12) + 0)
+	ld	de, (#(_g_y1 + 12) + 0)
+	ld	hl, #_g_x1+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+6
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 6) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00143$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00144$
+00143$:
+	ld	bc, #_g_dx+6
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00144$:
+	ld	bc, #_g_x1+5
+	ld	a, (#(_g_lx + 5) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 5) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 10)), bc
+	ld	a, (#(_g_y2 + 10) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00147$
+	ld	bc, #0x0000
+00147$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 10) + 0)
+	ld	de, (#(_g_y1 + 10) + 0)
+	ld	hl, #_g_x1+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+5
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 5) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00148$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00149$
+00148$:
+	ld	bc, #_g_dx+5
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00149$:
+	ld	bc, #_g_x1+4
+	ld	a, (#(_g_lx + 4) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 4) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 8)), bc
+	ld	a, (#(_g_y2 + 8) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00152$
+	ld	bc, #0x0000
+00152$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 8) + 0)
+	ld	de, (#(_g_y1 + 8) + 0)
+	ld	hl, #_g_x1+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+4
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 4) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00153$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00154$
+00153$:
+	ld	bc, #_g_dx+4
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00154$:
+	ld	bc, #_g_x1+3
+	ld	a, (#(_g_lx + 3) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 3) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 6)), bc
+	ld	a, (#(_g_y2 + 6) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00157$
+	ld	bc, #0x0000
+00157$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 6) + 0)
+	ld	de, (#(_g_y1 + 6) + 0)
+	ld	hl, #_g_x1+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+3
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 3) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00158$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00159$
+00158$:
+	ld	bc, #_g_dx+3
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00159$:
+	ld	bc, #_g_x1+2
+	ld	a, (#(_g_lx + 2) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 2) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 4)), bc
+	ld	a, (#(_g_y2 + 4) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00162$
+	ld	bc, #0x0000
+00162$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 4) + 0)
+	ld	de, (#(_g_y1 + 4) + 0)
+	ld	hl, #_g_x1+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+2
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 2) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00163$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00164$
+00163$:
+	ld	bc, #_g_dx+2
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00164$:
+	ld	bc, #_g_x1+1
+	ld	a, (#(_g_lx + 1) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 1) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	((_g_y1 + 2)), bc
+	ld	a, (#(_g_y2 + 2) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00167$
+	ld	bc, #0x0000
+00167$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 2) + 0)
+	ld	de, (#(_g_y1 + 2) + 0)
+	ld	hl, #_g_x1+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+1
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 1) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00168$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00169$
+00168$:
+	ld	bc, #_g_dx+1
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00169$:
+	ld	bc, #_g_x1+0
+	ld	a, (#_g_lx + 0)
+	ld	(bc), a
+	ld	a, (#_g_ly + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	0, b
+	ld	(_g_y1), bc
+	ld	a, (#_g_y2 + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00172$
+	ld	bc, #0x0000
+00172$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	1, d
+	ld	hl, #_g_x2+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#_g_frame + 0)
+	ld	de, (#_g_y1 + 0)
+	ld	hl, #_g_x1+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+0
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#_g_dx + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00173$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00176$
+00173$:
+	ld	bc, #_g_dx+0
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00176$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:206: }
+	ld	sp, ix
+	pop	ix
+	pop	hl
+	pop	af
+	jp	(hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:208: void UpdatePhase2(u8 r23_w, u8 r23_e, u16 scroll_e)
+;	---------------------------------
+; Function UpdatePhase2
+; ---------------------------------
+_UpdatePhase2::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	ld	-1 (ix), a
+	ld	-2 (ix), l
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:210: UNROLL_PHASE(2, 0, 512u, 0u, r23_w, r23_e, scroll_e);
+	ld	bc, #_g_x2+14
+	ld	a, (#(_g_lx + 14) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 14) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 28)), bc
+	ld	a, (#(_g_y0 + 28) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00102$
+	ld	bc, #0x0000
+00102$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 28) + 0)
+	ld	de, (#(_g_y2 + 28) + 0)
+	ld	hl, #_g_x2+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+14
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 14) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00103$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00104$
+00103$:
+	ld	bc, #_g_dx+14
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00104$:
+	ld	bc, #_g_x2+13
+	ld	a, (#(_g_lx + 13) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 13) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 26)), bc
+	ld	a, (#(_g_y0 + 26) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00107$
+	ld	bc, #0x0000
+00107$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 26) + 0)
+	ld	de, (#(_g_y2 + 26) + 0)
+	ld	hl, #_g_x2+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+13
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 13) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00108$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00109$
+00108$:
+	ld	bc, #_g_dx+13
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00109$:
+	ld	bc, #_g_x2+12
+	ld	a, (#(_g_lx + 12) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 12) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 24)), bc
+	ld	a, (#(_g_y0 + 24) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00112$
+	ld	bc, #0x0000
+00112$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 24) + 0)
+	ld	de, (#(_g_y2 + 24) + 0)
+	ld	hl, #_g_x2+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+12
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 12) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00113$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00114$
+00113$:
+	ld	bc, #_g_dx+12
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00114$:
+	ld	bc, #_g_x2+11
+	ld	a, (#(_g_lx + 11) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 11) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 22)), bc
+	ld	a, (#(_g_y0 + 22) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00117$
+	ld	bc, #0x0000
+00117$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 22) + 0)
+	ld	de, (#(_g_y2 + 22) + 0)
+	ld	hl, #_g_x2+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+11
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 11) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00118$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00119$
+00118$:
+	ld	bc, #_g_dx+11
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00119$:
+	ld	bc, #_g_x2+10
+	ld	a, (#(_g_lx + 10) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 10) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 20)), bc
+	ld	a, (#(_g_y0 + 20) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00122$
+	ld	bc, #0x0000
+00122$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 20) + 0)
+	ld	de, (#(_g_y2 + 20) + 0)
+	ld	hl, #_g_x2+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+10
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 10) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00123$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00124$
+00123$:
+	ld	bc, #_g_dx+10
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00124$:
+	ld	bc, #_g_x2+9
+	ld	a, (#(_g_lx + 9) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 9) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 18)), bc
+	ld	a, (#(_g_y0 + 18) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00127$
+	ld	bc, #0x0000
+00127$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 18) + 0)
+	ld	de, (#(_g_y2 + 18) + 0)
+	ld	hl, #_g_x2+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+9
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 9) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00128$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00129$
+00128$:
+	ld	bc, #_g_dx+9
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00129$:
+	ld	bc, #_g_x2+8
+	ld	a, (#(_g_lx + 8) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 8) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 16)), bc
+	ld	a, (#(_g_y0 + 16) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00132$
+	ld	bc, #0x0000
+00132$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 16) + 0)
+	ld	de, (#(_g_y2 + 16) + 0)
+	ld	hl, #_g_x2+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+8
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 8) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00133$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00134$
+00133$:
+	ld	bc, #_g_dx+8
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00134$:
+	ld	bc, #_g_x2+7
+	ld	a, (#(_g_lx + 7) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 7) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 14)), bc
+	ld	a, (#(_g_y0 + 14) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00137$
+	ld	bc, #0x0000
+00137$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 14) + 0)
+	ld	de, (#(_g_y2 + 14) + 0)
+	ld	hl, #_g_x2+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+7
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 7) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00138$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00139$
+00138$:
+	ld	bc, #_g_dx+7
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00139$:
+	ld	bc, #_g_x2+6
+	ld	a, (#(_g_lx + 6) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 6) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 12)), bc
+	ld	a, (#(_g_y0 + 12) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00142$
+	ld	bc, #0x0000
+00142$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 12) + 0)
+	ld	de, (#(_g_y2 + 12) + 0)
+	ld	hl, #_g_x2+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+6
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 6) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00143$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00144$
+00143$:
+	ld	bc, #_g_dx+6
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00144$:
+	ld	bc, #_g_x2+5
+	ld	a, (#(_g_lx + 5) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 5) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 10)), bc
+	ld	a, (#(_g_y0 + 10) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00147$
+	ld	bc, #0x0000
+00147$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 10) + 0)
+	ld	de, (#(_g_y2 + 10) + 0)
+	ld	hl, #_g_x2+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+5
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 5) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00148$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00149$
+00148$:
+	ld	bc, #_g_dx+5
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00149$:
+	ld	bc, #_g_x2+4
+	ld	a, (#(_g_lx + 4) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 4) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 8)), bc
+	ld	a, (#(_g_y0 + 8) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00152$
+	ld	bc, #0x0000
+00152$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 8) + 0)
+	ld	de, (#(_g_y2 + 8) + 0)
+	ld	hl, #_g_x2+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+4
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 4) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00153$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00154$
+00153$:
+	ld	bc, #_g_dx+4
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00154$:
+	ld	bc, #_g_x2+3
+	ld	a, (#(_g_lx + 3) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 3) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 6)), bc
+	ld	a, (#(_g_y0 + 6) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00157$
+	ld	bc, #0x0000
+00157$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 6) + 0)
+	ld	de, (#(_g_y2 + 6) + 0)
+	ld	hl, #_g_x2+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+3
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 3) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00158$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00159$
+00158$:
+	ld	bc, #_g_dx+3
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00159$:
+	ld	bc, #_g_x2+2
+	ld	a, (#(_g_lx + 2) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 2) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 4)), bc
+	ld	a, (#(_g_y0 + 4) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00162$
+	ld	bc, #0x0000
+00162$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 4) + 0)
+	ld	de, (#(_g_y2 + 4) + 0)
+	ld	hl, #_g_x2+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+2
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 2) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00163$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00164$
+00163$:
+	ld	bc, #_g_dx+2
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00164$:
+	ld	bc, #_g_x2+1
+	ld	a, (#(_g_lx + 1) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 1) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	((_g_y2 + 2)), bc
+	ld	a, (#(_g_y0 + 2) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00167$
+	ld	bc, #0x0000
+00167$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 2) + 0)
+	ld	de, (#(_g_y2 + 2) + 0)
+	ld	hl, #_g_x2+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+1
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 1) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00168$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00169$
+00168$:
+	ld	bc, #_g_dx+1
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00169$:
+	ld	bc, #_g_x2+0
+	ld	a, (#_g_lx + 0)
+	ld	(bc), a
+	ld	a, (#_g_ly + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	set	1, b
+	ld	(_g_y2), bc
+	ld	a, (#_g_y0 + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00172$
+	ld	bc, #0x0000
+00172$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	ld	hl, #_g_x0+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#_g_frame + 0)
+	ld	de, (#_g_y2 + 0)
+	ld	hl, #_g_x2+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+0
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#_g_dx + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00173$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00176$
+00173$:
+	ld	bc, #_g_dx+0
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00176$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:211: }
+	ld	sp, ix
+	pop	ix
+	pop	hl
+	pop	af
+	jp	(hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:213: void UpdatePhase3(u8 r23_w, u8 r23_e, u16 scroll_e)
+;	---------------------------------
+; Function UpdatePhase3
+; ---------------------------------
+_UpdatePhase3::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	ld	-1 (ix), a
+	ld	-2 (ix), l
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:215: UNROLL_PHASE(0, 1, 0u, 256u, r23_w, r23_e, scroll_e);
+	ld	bc, #_g_x0+14
+	ld	a, (#(_g_lx + 14) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 14) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 28)), bc
+	ld	a, (#(_g_y1 + 28) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00102$
+	ld	bc, #0x0000
+00102$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 28) + 0)
+	ld	de, (#(_g_y0 + 28) + 0)
+	ld	hl, #_g_x0+14
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+14
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 14) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00103$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00104$
+00103$:
+	ld	bc, #_g_dx+14
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00104$:
+	ld	bc, #_g_x0+13
+	ld	a, (#(_g_lx + 13) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 13) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 26)), bc
+	ld	a, (#(_g_y1 + 26) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00107$
+	ld	bc, #0x0000
+00107$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 26) + 0)
+	ld	de, (#(_g_y0 + 26) + 0)
+	ld	hl, #_g_x0+13
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+13
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 13) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00108$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00109$
+00108$:
+	ld	bc, #_g_dx+13
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00109$:
+	ld	bc, #_g_x0+12
+	ld	a, (#(_g_lx + 12) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 12) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 24)), bc
+	ld	a, (#(_g_y1 + 24) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00112$
+	ld	bc, #0x0000
+00112$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 24) + 0)
+	ld	de, (#(_g_y0 + 24) + 0)
+	ld	hl, #_g_x0+12
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+12
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 12) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00113$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00114$
+00113$:
+	ld	bc, #_g_dx+12
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00114$:
+	ld	bc, #_g_x0+11
+	ld	a, (#(_g_lx + 11) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 11) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 22)), bc
+	ld	a, (#(_g_y1 + 22) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00117$
+	ld	bc, #0x0000
+00117$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 22) + 0)
+	ld	de, (#(_g_y0 + 22) + 0)
+	ld	hl, #_g_x0+11
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+11
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 11) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00118$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00119$
+00118$:
+	ld	bc, #_g_dx+11
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00119$:
+	ld	bc, #_g_x0+10
+	ld	a, (#(_g_lx + 10) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 10) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 20)), bc
+	ld	a, (#(_g_y1 + 20) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00122$
+	ld	bc, #0x0000
+00122$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 20) + 0)
+	ld	de, (#(_g_y0 + 20) + 0)
+	ld	hl, #_g_x0+10
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+10
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 10) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00123$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00124$
+00123$:
+	ld	bc, #_g_dx+10
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00124$:
+	ld	bc, #_g_x0+9
+	ld	a, (#(_g_lx + 9) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 9) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 18)), bc
+	ld	a, (#(_g_y1 + 18) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00127$
+	ld	bc, #0x0000
+00127$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 18) + 0)
+	ld	de, (#(_g_y0 + 18) + 0)
+	ld	hl, #_g_x0+9
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+9
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 9) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00128$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00129$
+00128$:
+	ld	bc, #_g_dx+9
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00129$:
+	ld	bc, #_g_x0+8
+	ld	a, (#(_g_lx + 8) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 8) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 16)), bc
+	ld	a, (#(_g_y1 + 16) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00132$
+	ld	bc, #0x0000
+00132$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 16) + 0)
+	ld	de, (#(_g_y0 + 16) + 0)
+	ld	hl, #_g_x0+8
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+8
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 8) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00133$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00134$
+00133$:
+	ld	bc, #_g_dx+8
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00134$:
+	ld	bc, #_g_x0+7
+	ld	a, (#(_g_lx + 7) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 7) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 14)), bc
+	ld	a, (#(_g_y1 + 14) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00137$
+	ld	bc, #0x0000
+00137$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 14) + 0)
+	ld	de, (#(_g_y0 + 14) + 0)
+	ld	hl, #_g_x0+7
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+7
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 7) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00138$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00139$
+00138$:
+	ld	bc, #_g_dx+7
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00139$:
+	ld	bc, #_g_x0+6
+	ld	a, (#(_g_lx + 6) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 6) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 12)), bc
+	ld	a, (#(_g_y1 + 12) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00142$
+	ld	bc, #0x0000
+00142$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 12) + 0)
+	ld	de, (#(_g_y0 + 12) + 0)
+	ld	hl, #_g_x0+6
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+6
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 6) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00143$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00144$
+00143$:
+	ld	bc, #_g_dx+6
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00144$:
+	ld	bc, #_g_x0+5
+	ld	a, (#(_g_lx + 5) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 5) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 10)), bc
+	ld	a, (#(_g_y1 + 10) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00147$
+	ld	bc, #0x0000
+00147$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 10) + 0)
+	ld	de, (#(_g_y0 + 10) + 0)
+	ld	hl, #_g_x0+5
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+5
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 5) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00148$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00149$
+00148$:
+	ld	bc, #_g_dx+5
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00149$:
+	ld	bc, #_g_x0+4
+	ld	a, (#(_g_lx + 4) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 4) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 8)), bc
+	ld	a, (#(_g_y1 + 8) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00152$
+	ld	bc, #0x0000
+00152$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 8) + 0)
+	ld	de, (#(_g_y0 + 8) + 0)
+	ld	hl, #_g_x0+4
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+4
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 4) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00153$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00154$
+00153$:
+	ld	bc, #_g_dx+4
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00154$:
+	ld	bc, #_g_x0+3
+	ld	a, (#(_g_lx + 3) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 3) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 6)), bc
+	ld	a, (#(_g_y1 + 6) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00157$
+	ld	bc, #0x0000
+00157$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 6) + 0)
+	ld	de, (#(_g_y0 + 6) + 0)
+	ld	hl, #_g_x0+3
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+3
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 3) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00158$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00159$
+00158$:
+	ld	bc, #_g_dx+3
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00159$:
+	ld	bc, #_g_x0+2
+	ld	a, (#(_g_lx + 2) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 2) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 4)), bc
+	ld	a, (#(_g_y1 + 4) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00162$
+	ld	bc, #0x0000
+00162$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 4) + 0)
+	ld	de, (#(_g_y0 + 4) + 0)
+	ld	hl, #_g_x0+2
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+2
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 2) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00163$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00164$
+00163$:
+	ld	bc, #_g_dx+2
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00164$:
+	ld	bc, #_g_x0+1
+	ld	a, (#(_g_lx + 1) + 0)
+	ld	(bc), a
+	ld	a, (#(_g_ly + 1) + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	((_g_y0 + 2)), bc
+	ld	a, (#(_g_y1 + 2) + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00167$
+	ld	bc, #0x0000
+00167$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#(_g_frame + 2) + 0)
+	ld	de, (#(_g_y0 + 2) + 0)
+	ld	hl, #_g_x0+1
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+1
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#(_g_dx + 1) + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00168$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00169$
+00168$:
+	ld	bc, #_g_dx+1
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00169$:
+	ld	bc, #_g_x0+0
+	ld	a, (#_g_lx + 0)
+	ld	(bc), a
+	ld	a, (#_g_ly + 0)
+	add	a, -1 (ix)
+	add	a, #0x08
+	ld	c, a
+	ld	b, #0x00
+	ld	(_g_y0), bc
+	ld	a, (#_g_y1 + 0)
+	ld	e, a
+	res	0, e
+	ld	a, e
+	sub	a, -2 (ix)
+	add	a, #0xf8
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	d, b
+	ld	a, #0xf0
+	cp	a, l
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00172$
+	ld	bc, #0x0000
+00172$:
+	ld	a, 4 (ix)
+	add	a, c
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, b
+	ld	b, a
+	ld	d, #0x00
+	set	0, d
+	ld	hl, #_g_x1+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_EraseSprite16
+	ld	bc, (#_g_frame + 0)
+	ld	de, (#_g_y0 + 0)
+	ld	hl, #_g_x0+0
+	ld	l, (hl)
+;	spillPairReg hl
+	push	bc
+	ld	a, l
+	call	_CallSpriteFrame_B3
+	ld	de, #_g_lx+0
+	ld	a, (de)
+	ld	c, a
+	ld	a, (#_g_dx + 0)
+	add	a, c
+	ld	c, a
+	ld	(de), a
+	ld	a, #0xee
+	sub	a, c
+	jr	C, 00173$
+	ld	a, c
+	sub	a, #0x04
+	jr	NC, 00176$
+00173$:
+	ld	bc, #_g_dx+0
+	ld	a, (bc)
+	neg
+	ld	(bc), a
+00176$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:216: }
+	ld	sp, ix
+	pop	ix
+	pop	hl
+	pop	af
+	jp	(hl)
+	.area _SEG5
+	.area _INITIALIZER
+	.area _CABS (ABS)

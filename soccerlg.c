@@ -14,12 +14,7 @@
 // -----------------
 // *** CONSTANTS ***
 // -----------------
-#define HUD_LINES 8
-// HUD_SOURCE_Y: ultime HUD_LINES righe di pag0, fuori dal reach di campo+sprite.
-// VTOP_MAX reale = 255-(SCREEN_LINES-1)-(SPRITE_H-1) = 255-191-15 = 49 (il commento "=28" in soccerlg.h è sbagliato).
-// Max scroll write: dst_y = (VTOP_MAX-1)+SCREEN_LINES = 48+192 = 240.
-// Max sprite bottom: (168+48+8)+15 = 239.  →  righe 241..255 sicure.
-#define HUD_SOURCE_Y (256 - HUD_LINES)  // = 248, righe 248..255, mai toccate
+// HUD_LINES e HUD_SOURCE_Y definiti in soccerlg.h
 
 
 
@@ -52,8 +47,8 @@ volatile bool g_VSynch=FALSE;
 // --- Scroll verticale campo ---
 // g_PageScrollY[p] = riga logica del campo in cima alla pagina p
 // g_R23[p]         = valore di R#23 (VDP_SetVerticalOffset) per la pagina p
-static u16 g_PageScrollY[3] = {0, 0, 0};
-static u8  g_R23[3]         = {0, 0, 0};
+u16 g_PageScrollY[3] = {0, 0, 0};
+u8  g_R23[3]         = {0, 0, 0};
 static i8  g_scrollDir      = 1;        // +1 = giù, -1 = su
 
 // --- HUD timer ---
@@ -64,12 +59,116 @@ static u8 g_hudTimer  = 0;   // contatore iterazioni loop (0..HUD_ITERS_PER_SEC-
 static u8 g_hudSec    = 0;   // secondi trascorsi (0..255)
 
 // --- Sprite objects: array paralleli (SDCC/Z80: accesso HL-based, no IX+d) ---
-static u8  g_lx[NOBJ];                           // x logica
-static u8  g_ly[NOBJ];                           // y on-screen (0..191) → u8
-static u8  g_x0[NOBJ], g_x1[NOBJ], g_x2[NOBJ];  // x fisica per pagina
-static u16 g_y0[NOBJ], g_y1[NOBJ], g_y2[NOBJ];  // y piena (page_offset | phys_row)
-static u16 g_frame[NOBJ];
-static i8  g_dx[NOBJ];
+u8  g_lx[NOBJ];                           // x logica
+u8  g_ly[NOBJ];                           // y on-screen (0..191) → u8
+u8  g_x0[NOBJ], g_x1[NOBJ], g_x2[NOBJ];  // x fisica per pagina
+u16 g_y0[NOBJ], g_y1[NOBJ], g_y2[NOBJ];  // y piena (page_offset | phys_row)
+u16 g_frame[NOBJ];
+i8  g_dx[NOBJ];
+
+
+// -----------------------------
+// *** TRAMPOLINES FUNCTIONS ***
+// -----------------------------
+
+// +++ Call void function without parameters +++
+void CallFnc_VOID(u8 segment, void (*func)()) {
+    u8 _old = GET_BANK_SEGMENT(3);
+    SET_BANK_SEGMENT(3, segment);
+    func();
+    SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 1 parameter +++
+void CallFnc_VOID_P1(u8 segment, void (*func)(u8), u8 p1) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 1 parameter +++
+void CallFnc_VOID_P2(u8 segment, void (*func)(u8, bool), u8 p1, bool p2) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 2 u16 parameters +++
+void CallFnc_VOID_16_P2(u8 segment, void (*func)(u16,u16), u16 p1, u16 p2) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call function without parameters with u8 returned value +++
+u8 CallFnc_U8(u8 segment, u8 (*func)()) {
+	u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func();
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u8 returned value +++
+u8 CallFnc_U8_P1(u8 segment, u8 (*func)(u8), u8 p1) {
+	u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u16 returned value +++
+u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u8 returned value +++
+u8 CallFnc_U8_P2(u8 segment, u8 (*func)(u8, u8), u8 p1, u8 p2) {
+    u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+	return _res;
+}
+// +++ Call function without parameter and with bool returned value +++
+bool CallFnc_BOOL(u8 segment, bool (*func)()) {
+    bool _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func();
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 1 u8 parameter and with bool returned value +++
+bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
+    bool _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call void function with 3 parameters (u8, u8, u16) +++
+void CallFnc_VOID_U8U8U16(u8 segment, void (*func)(u8, u8, u16), u8 p1, u8 p2, u16 p3) {
+    u8 _old = GET_BANK_SEGMENT(3);
+    SET_BANK_SEGMENT(3, segment);
+    func(p1, p2, p3);
+    SET_BANK_SEGMENT(3, _old);
+}
+
+// +++ CallSpriteFrame_B3: versione sicura da bank3 +++
+// Salva/ripristina bank3 attorno a CallSpriteFrame, che non lo fa da sola.
+// Da usare quando il chiamante è in un segmento mappato su bank3.
+void CallSpriteFrame_B3(u8 x, u16 y, u16 frame) {
+    u8 _old = GET_BANK_SEGMENT(3);
+    CallSpriteFrame(x, y, frame);
+    SET_BANK_SEGMENT(3, _old);
+}
 
 void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 {
@@ -124,9 +223,6 @@ void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 	__endasm;
 }
 
-//	u8 FieldMap[] 
-	#include "Tools/OutField/FieldMap.h"
-
 
 // -----------
 // *** ISR ***
@@ -161,192 +257,6 @@ void DrawField(u8 vdp_page)
     SET_BANK_SEGMENT(3, saved_seg);
 }
 
-
-// Ricostruisce la pagina da scroll_y con vtop=0, raggruppando le righe FieldMap
-// in sequenze (1 HMMM) o ripetizioni (1 HMMM + overlap-fill) per minimizzare i comandi.
-// Richiama VDP_CommandWait() non necessario: ogni HMMM attende implicitamente l'inizio.
-static void RebuildPage(u8 page, u16 scroll_y)
-{
-    u16 dst_y = (u16)page * 256u + HUD_LINES;
-    const u8* pField = &FieldMap[scroll_y];
-    u8 remaining = (u8)(SCREEN_LINES - HUD_LINES);
-
-    while (remaining > 0)
-    {
-        u8 src = pField[0];
-        u8 step = 1;
-        while (step < remaining && pField[step] == (u8)(src + step))
-            step++;
-            
-        if (step > 1) {
-            VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-        } else {
-            while (step < remaining && pField[step] == src)
-                step++;
-            VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
-            if (step > 1)
-                VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-        }
-        pField += step;
-        dst_y += step;
-        remaining -= step;
-    }
-    g_R23[page]         = 0;
-    g_PageScrollY[page] = scroll_y;
-}
-
-// Ricostruisce la pagina per scroll verso l'alto: r23 = vtop (max VTOP_MAX),
-// in modo da avere vtop righe libere sopra la vista corrente.
-// Riempie righe fisiche 0..vtop+SCREEN_LINES-1 da FieldMap[scroll_y-vtop..scroll_y+SCREEN_LINES-1].
-static void RebuildPageUp(u8 page, u16 scroll_y)
-{
-    u16 dst_y       = (u16)page * 256u + HUD_LINES;
-    u8  vtop        = (scroll_y >= VTOP_MAX) ? VTOP_MAX : (u8)scroll_y;
-    const u8* pField = &FieldMap[scroll_y - vtop];
-    u8  remaining   = vtop + SCREEN_LINES - HUD_LINES;
-
-    while (remaining > 0)
-    {
-        u8 src = pField[0];
-        u8 step = 1;
-        while (step < remaining && pField[step] == (u8)(src + step))
-            step++;
-            
-        if (step > 1) {
-            VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-        } else {
-            while (step < remaining && pField[step] == src)
-                step++;
-            VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
-            if (step > 1)
-                VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-        }
-        pField += step;
-        dst_y += step;
-        remaining -= step;
-    }
-    g_R23[page]         = vtop;
-    g_PageScrollY[page] = scroll_y;
-}
-
-// Inserisce la prossima riga in basso nel buffer circolare della write_page
-// (scrolling verso il basso di 1 riga logica).
-// Se g_R23 raggiungerebbe VTOP_MAX, ricostruisce la pagina con vtop=0 per
-// evitare che sprite/erase sconfinino oltre riga 255 della pagina VDP.
-void ScrollInsertRowDown(u8 write_page)
-{
-    u16 logical_row;
-    u8  src, dst_y;
-
-    if (g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS) return;
-
-    if (g_R23[write_page] >= VTOP_MAX)
-    {
-
-        RebuildPage(write_page, g_PageScrollY[write_page] + 1);
-        return;
-    }
-
-
-    logical_row = g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES);
-    src   = FieldMap[logical_row];
-    dst_y = g_R23[write_page] + (u8)SCREEN_LINES;
-
-    VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
-
-    g_R23[write_page]++;
-    g_PageScrollY[write_page]++;
-}
-
-// Inserisce la prossima riga in alto nel buffer circolare della write_page
-// (scrolling verso l'alto di 1 riga logica).
-// Se g_R23 è 0, ricostruisce la pagina con vtop=VTOP_MAX per avere margine.
-void ScrollInsertRowUp(u8 write_page)
-{
-    u8 src, dst_y;
-    if (g_PageScrollY[write_page] == 0) return;
-
-    if (g_R23[write_page] == 0)
-    {
-        RebuildPageUp(write_page, g_PageScrollY[write_page] - 1);
-        return;
-    }
-
-    g_R23[write_page]--;
-    g_PageScrollY[write_page]--;
-
-    src   = FieldMap[g_PageScrollY[write_page]];
-    dst_y = g_R23[write_page] + HUD_LINES;
-    VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
-}
-
-// Cancella un blocco 16x16 sfruttando il blocco 16x16 contiguo dell'immagine compatta in un singolo istante HMMM
-static void EraseSprite16(u8 x, u16 dst_y, u16 absolute_logical_y)
-{
-    u16 max_y = FIELD_ROWS > 16 ? FIELD_ROWS - 16 : 0;
-    if (absolute_logical_y > max_y) absolute_logical_y = max_y;
-    
-    u8 src = FieldMap[absolute_logical_y];
-    // Il blocco dati prodotto dallo script Python ci garantisce sempre 16 righe contigue valide!
-    VDP_CommandHMMM(x, 768u + src, x, dst_y, 16, 16);
-}
-
-// --- Macro di Srotolamento (Loop Unrolling) per SDCC ---
-// Con SDCC su Z80, indicizzare array paralleli causa colli di bottiglia nei calcoli
-// aritmetici. Srotolando a tempo di compilazione, 'i' diventa una costante. 
-// SDCC genererà accessi diretti e fulminei: es. ld a, (_g_lx + 5).
-// NOTA: La macro è tarata per NOBJ = 15 (va da 14 a 0 per preservare lo z-order). 
-// Se modificherai NOBJ in futuro, dovrai aggiungere/rimuovere righe qui sotto!
-#define DO_SPRITE(i, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) { \
-    u8 start, lx; \
-    u16 log_y; \
-    g_x##W[i] = g_lx[i]; \
-    g_y##W[i] = (u16)W_BASE | (u8)(g_ly[i] + R23_W + HUD_LINES); \
-    start = (u8)g_y##E[i] & 0xFE; \
-    log_y = (u8)(start - R23_E - HUD_LINES); \
-    if (log_y > 240) log_y = 0; \
-    EraseSprite16(g_x##E[i], (u16)E_BASE | start, SCROLL_E + log_y); \
-    CallSpriteFrame(g_x##W[i], g_y##W[i], g_frame[i]); \
-    lx = g_lx[i] + g_dx[i]; \
-    g_lx[i] = lx; \
-    if (lx > 238 || lx < 4) g_dx[i] = -g_dx[i]; \
-}
-
-#define UNROLL_PHASE(W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(14, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(13, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(12, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(11, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(10, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(9, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(8, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(7, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(6, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(5, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(4, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(3, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(2, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(1, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E) \
-    DO_SPRITE(0, W, E, W_BASE, E_BASE, R23_W, R23_E, SCROLL_E)
-
-#pragma save
-#pragma nogcse
-#pragma noinduction
-void UpdatePhase1(u8 r23_w, u8 r23_e, u16 scroll_e)
-{
-    UNROLL_PHASE(1, 2, 256u, 512u, r23_w, r23_e, scroll_e);
-}
-
-void UpdatePhase2(u8 r23_w, u8 r23_e, u16 scroll_e)
-{
-    UNROLL_PHASE(2, 0, 512u, 0u, r23_w, r23_e, scroll_e);
-}
-
-void UpdatePhase3(u8 r23_w, u8 r23_e, u16 scroll_e)
-{
-    UNROLL_PHASE(0, 1, 0u, 256u, r23_w, r23_e, scroll_e);
-}
-#pragma restore
 
 // Ridisegna l'HUD master nell'area sicura (HUD_SOURCE_Y).
 // Chiamata una sola volta all'init e poi una volta al secondo.
@@ -404,9 +314,7 @@ void main(){
 
 
     DrawField(3);           // carica il campo compresso in pagina 3 (sorgente per HMMM)
-    RebuildPage(0, 0);     // inizializza pag0 sfruttando l'ottimizzazione YMMM
-    RebuildPage(1, 0);     // idem pag1
-    RebuildPage(2, 0);     // idem pag2
+    CallFnc_VOID(SEG_MAIN, InitScrollPages); // RebuildPage(0..2, 0) via seg5
 
     // Pulisce l'area HUD di base con un rettangolo nero (0x11 = MSX index 1 -> #010101)
     VDP_CommandLMMV(0, 0, 256, HUD_LINES, 0x11, VDP_OP_IMP);
@@ -477,8 +385,8 @@ void main(){
 	for (;;)
 	{
 		// ── FASE 1: vedo 0 │ cancello 2 │ scrivo 1 ──────────────────────────────
-		if (g_scrollDir > 0) { ScrollInsertRowDown(1); ScrollInsertRowDown(1); }
-		else                 { ScrollInsertRowUp(1);   ScrollInsertRowUp(1);   }
+		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); }
+		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); }
 		Halt();
 		VDP_SetPage(0);
 		VDP_SetVerticalOffset(g_R23[0]);
@@ -486,11 +394,11 @@ void main(){
 		// Copia HUD master → HUD di pag 1 (puro VDP, CPU libera subito)
 		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
 
-		UpdatePhase1(g_R23[1], g_R23[2], g_PageScrollY[2]);
+		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
 
 		// ── FASE 2: vedo 1 │ cancello 0 │ scrivo 2 ──────────────────────────────
-		if (g_scrollDir > 0) { ScrollInsertRowDown(2); ScrollInsertRowDown(2); }
-		else                 { ScrollInsertRowUp(2);   ScrollInsertRowUp(2);   }
+		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); }
+		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); }
 		Halt();
 		VDP_SetPage(1);
 		VDP_SetVerticalOffset(g_R23[1]);
@@ -498,11 +406,11 @@ void main(){
 		// Copia HUD master → HUD di pag 2
 		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
 
-		UpdatePhase2(g_R23[2], g_R23[0], g_PageScrollY[0]);
+		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
 
 		// ── FASE 3: vedo 2 │ cancello 1 │ scrivo 0 ──────────────────────────────
-		if (g_scrollDir > 0) { ScrollInsertRowDown(0); ScrollInsertRowDown(0); }
-		else                 { ScrollInsertRowUp(0);   ScrollInsertRowUp(0);   }
+		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); }
+		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); }
 		Halt();
 		VDP_SetPage(2);
 		VDP_SetVerticalOffset(g_R23[2]);
@@ -510,7 +418,7 @@ void main(){
 		// Copia HUD master → HUD di pag 0
 		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
 
-		UpdatePhase3(g_R23[0], g_R23[1], g_PageScrollY[1]);
+		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
 
 		// ── Aggiornamento HUD una volta al secondo (50 frame PAL) ────────────
 		if (++g_hudTimer >= HUD_ITERS_PER_SEC)
