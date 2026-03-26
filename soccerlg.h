@@ -17,16 +17,38 @@
 #define FIELD_SEG_COUNT         4
 #define SPRITE_H                16      // altezza sprite in pixel
 #define NOBJ                    15      // numero oggetti sprite
-// VTOP_MAX: valore massimo sicuro di g_R23 per evitare che sprite o erase
-// sconfinino oltre riga 255 della pagina VDP.
-// phys_y_max = (SCREEN_LINES-1) + VTOP_MAX; bottom = phys_y_max + SPRITE_H - 1 <= 255
-#define VTOP_MAX                (255 - (SCREEN_LINES - 1) - (SPRITE_H - 1))  // = 49
+// VTOP_MAX: valore massimo sicuro di g_R23 per evitare che sprite o erase 
+// sconfinino nella HUD_SOURCE_Y (riga 248).
+// phys_y_max = (SCREEN_LINES-1) + VTOP_MAX; bottom = phys_y_max + SPRITE_H - 1 < HUD_SOURCE_Y
+#define VTOP_MAX                (HUD_SOURCE_Y - 1 - (SCREEN_LINES - 1) - (SPRITE_H - 1))  // = 41
 #define HUD_LINES               8
 // HUD_SOURCE_Y: ultime HUD_LINES righe di pag0, fuori dal reach di campo+sprite.
 #define HUD_SOURCE_Y            (256 - HUD_LINES)   // = 248, righe 248..255
 
 // Numero segmento per soccerlg_s5_b3.c
 #define SEG_MAIN                5
+
+// Numero segmento per la presentazione
+#define SEG_PRESENTATION        6
+
+// --- Formazione Iniziale ---
+#define TEAM1_NPLAYERS          7
+#define TEAM2_NPLAYERS          7
+#define TEAM1_FIELD_Y_FWD       (FIELD_ROWS/2 - 30)
+#define TEAM1_FIELD_Y_DEF       (FIELD_ROWS/2 - 46)
+#define TEAM2_FIELD_Y_FWD       (FIELD_ROWS/2 + 14)
+#define TEAM2_FIELD_Y_DEF       (FIELD_ROWS/2 + 30)
+#define BALL_FIELD_Y            (FIELD_ROWS/2 - 8)
+#define TEAM_X_START            24
+#define TEAM_X_STEP             32
+#define GY_OFFSCREEN            (SCREEN_LINES - HUD_LINES) // 184
+#define PRESENT_TARGET_SCROLL   (FIELD_ROWS/2 - (SCREEN_LINES - HUD_LINES)/2)
+// Soglia scroll_y alla quale il PRIMO giocatore (TEAM1_FIELD_Y_FWD) entra
+// nel frame dal basso: da qui si attivano gli sprite.
+// Team2 (field_y=266) è ancora off-screen ma clamped a g_ly=183 → nessun
+// glitch VDP, entra scivolando dal basso nei frame successivi.
+// TEAM1_FIELD_Y_FWD - (SCREEN_LINES - HUD_LINES - 1) = 222 - 183 = 39
+#define PRESENT_APPEAR_SCROLL   (TEAM1_FIELD_Y_FWD - (SCREEN_LINES - HUD_LINES - 1))
 
 // -----------------
 // *** VARIABLES ***
@@ -80,3 +102,9 @@ void ScrollInsertRowUp(u8 write_page);
 void UpdatePhase1(u8 r23_w, u8 r23_e, u16 scroll_e);
 void UpdatePhase2(u8 r23_w, u8 r23_e, u16 scroll_e);
 void UpdatePhase3(u8 r23_w, u8 r23_e, u16 scroll_e);
+
+// +++ SEGMENT SEG_PRESENTATION (seg6, bank3) +++
+void PlayPresentation(void);
+
+// +++ TEST PRESTAZIONI (bank0) +++
+void TestPerformanceAnimation(void);

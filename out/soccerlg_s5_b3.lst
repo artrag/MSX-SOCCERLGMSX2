@@ -1305,11 +1305,11 @@
     00000400 DD 77 F4         [19] 1305 	ld	-12 (ix), a
                                    1306 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:58: u8  vtop         = (scroll_y >= VTOP_MAX) ? VTOP_MAX : (u8)scroll_y;
     00000403 DD 7E F9         [19] 1307 	ld	a, -7 (ix)
-    00000406 D6 31            [ 7] 1308 	sub	a, #0x31
+    00000406 D6 29            [ 7] 1308 	sub	a, #0x29
     00000408 DD 7E FA         [19] 1309 	ld	a, -6 (ix)
     0000040B DE 00            [ 7] 1310 	sbc	a, #0x00
     0000040D 38 05            [12] 1311 	jr	C, 00122$
-    0000040F 3E 31            [ 7] 1312 	ld	a, #0x31
+    0000040F 3E 29            [ 7] 1312 	ld	a, #0x29
     00000411 C3r17r04         [10] 1313 	jp	00123$
     00000414                       1314 00122$:
     00000414 DD 7E F9         [19] 1315 	ld	a, -7 (ix)
@@ -1626,7 +1626,7 @@
     000005F4 DD 66 FD         [19] 1626 	ld	h, -3 (ix)
     000005F7 7E               [ 7] 1627 	ld	a, (hl)
     000005F8 DD 77 FE         [19] 1628 	ld	-2 (ix), a
-    000005FB D6 31            [ 7] 1629 	sub	a, #0x31
+    000005FB D6 29            [ 7] 1629 	sub	a, #0x29
     000005FD 38 0C            [12] 1630 	jr	C, 00104$
                                    1631 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:112: RebuildPage(write_page, g_PageScrollY[write_page] + 1);
     000005FF 03               [ 6] 1632 	inc	bc

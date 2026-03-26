@@ -24,6 +24,7 @@ Symbol Table
     _DEBUG_INIT                                                     ******** GX
   0 _DrawField                                                      00000461 GR
     _InitScrollPages                                                ******** GX
+    _PlayPresentation                                               ******** GX
     _Print_DrawText                                                 ******** GX
     _Print_Initialize                                               ******** GX
     _Print_SetBitmapFont                                            ******** GX
@@ -32,6 +33,7 @@ Symbol Table
     _ScreenPos                                                  =   0000C00B G
     _ScrollInsertRowDown                                            ******** GX
     _ScrollInsertRowUp                                              ******** GX
+  0 _TestPerformanceAnimation                                       0000073C GR
   0 _UpdateHUDMaster                                                00000557 R
     _UpdatePhase1                                                   ******** GX
     _UpdatePhase2                                                   ******** GX
@@ -49,20 +51,20 @@ Symbol Table
   0 _WaitForVBlank                                                  00000455 GR
     ___sdcc_call_hl                                                 ******** GX
     ___sdcc_call_iy                                                 ******** GX
-  0 ___str_0                                                        00000A45 R
+  0 ___str_0                                                        0000071F R
     __divsint                                                       ******** GX
     __modsint                                                       ******** GX
   7 __xinit__g_PageScrollY                                          00000001 R
   7 __xinit__g_R23                                                  00000007 R
   7 __xinit__g_VSynch                                               00000000 R
   7 __xinit__g_hudSec                                               0000000C R
-  7 __xinit__g_hudTimer                                             0000000B R
-  7 __xinit__g_scrollDir                                            0000000A R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+  7 __xinit__g_hudTimer                                             0000000B R
+  7 __xinit__g_scrollDir                                            0000000A R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -116,13 +118,13 @@ Symbol Table
     _g_FNKFLG                                                   =   0000FBCE G
     _g_FNKSTR                                                   =   0000F87F G
     _g_FNKSWI                                                   =   0000FBCD G
-    _g_FORCLR                                                   =   0000F3E9 G
-    _g_FRCNEW                                                   =   0000F3F5 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_FORCLR                                                   =   0000F3E9 G
+    _g_FRCNEW                                                   =   0000F3F5 G
     _g_FSTPOS                                                   =   0000FBCA G
     _g_Fonts                                                        ******** GX
     _g_GETPNT                                                   =   0000F3FA G
@@ -176,13 +178,13 @@ Symbol Table
     _g_MSXAudio_DataPort2                                       =   000000C3 
     _g_MSXAudio_IndexPort                                       =   000000C0 
     _g_MSXAudio_IndexPort2                                      =   000000C2 
-    _g_MSXMID                                                   =   0000002E G
-    _g_MSXMusic_DataPort                                        =   0000007D 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_MSXMID                                                   =   0000002E G
+    _g_MSXMusic_DataPort                                        =   0000007D 
     _g_MSXMusic_IndexPort                                       =   0000007C 
     _g_MSXVER                                                   =   0000002D G
     _g_MUSICF                                                   =   0000FB3F G
@@ -236,13 +238,13 @@ Symbol Table
     _g_RG16SAV                                                  =   0000FFEF G
     _g_RG17SAV                                                  =   0000FFF0 G
     _g_RG18SAV                                                  =   0000FFF1 G
-    _g_RG19SAV                                                  =   0000FFF2 G
-    _g_RG1SAV                                                   =   0000F3E0 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RG19SAV                                                  =   0000FFF2 G
+    _g_RG1SAV                                                   =   0000F3E0 G
     _g_RG20SAV                                                  =   0000FFF3 G
     _g_RG21SAV                                                  =   0000FFF4 G
     _g_RG22SAV                                                  =   0000FFF5 G
@@ -296,13 +298,13 @@ Symbol Table
     _g_VCBB                                                     =   0000FB66 G
     _g_VCBC                                                     =   0000FB8B G
     _g_VDP_AddrPort                                             =   00000099 
-    _g_VDP_Command                                                  ******** GX
-    _g_VDP_DR                                                   =   00000006 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_VDP_Command                                                  ******** GX
+    _g_VDP_DR                                                   =   00000006 G
     _g_VDP_DW                                                   =   00000007 G
     _g_VDP_DataPort                                             =   00000098 
     _g_VDP_IRegPort                                             =   0000009B 
@@ -333,13 +335,12 @@ Symbol Table
   1 _g_y2                                                           00000087 GR
   0 _main                                                           00000618 GR
 
-
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size      A62   flags    0
+   0 _CODE                                      size      A61   flags    0
    1 _DATA                                      size       D2   flags    0
    2 _INITIALIZED                               size        D   flags    0
    3 _DABS                                      size        0   flags    8

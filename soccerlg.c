@@ -322,14 +322,6 @@ void main(){
     VDP_CommandLMMV(0, 512, 256, HUD_LINES, 0x11, VDP_OP_IMP);
 
     //VDP_EnableDisplay(TRUE);
-
-
-	for (i=0; i<NOBJ; i++) {
-		g_lx[i]    = (u8)(i*16+4);
-		g_ly[i]    = (u8)(i*12);
-		g_frame[i] = 38;
-		g_dx[i]    = 2;
-	}
     SET_BANK_SEGMENT(3, 4);
     Print_SetMode(PRINT_MODE_BITMAP);
     Print_Initialize();
@@ -339,6 +331,23 @@ void main(){
     // Prima render HUD master (tempo 00:00)
     UpdateHUDMaster();
 
+    // 1. Esegui la presentazione iniziale del gioco
+    CallFnc_VOID(SEG_PRESENTATION, PlayPresentation);
+
+    // 2. Passa al loop infinito di test prestazioni (animazione originale)
+    TestPerformanceAnimation();
+}
+
+void TestPerformanceAnimation(void)
+{
+	u8 i;
+
+	for (i=0; i<NOBJ; i++) {
+		g_lx[i]    = (u8)(i*16+4);
+		g_ly[i]    = (u8)(i*12);
+		g_frame[i] = 38;
+		g_dx[i]    = 2;
+	}
 
 // Passi del triplo buffering
 

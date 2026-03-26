@@ -1305,11 +1305,11 @@ _RebuildPageUp:
 	ld	-12 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:58: u8  vtop         = (scroll_y >= VTOP_MAX) ? VTOP_MAX : (u8)scroll_y;
 	ld	a, -7 (ix)
-	sub	a, #0x31
+	sub	a, #0x29
 	ld	a, -6 (ix)
 	sbc	a, #0x00
 	jr	C, 00122$
-	ld	a, #0x31
+	ld	a, #0x29
 	jp	00123$
 00122$:
 	ld	a, -7 (ix)
@@ -1626,7 +1626,7 @@ _ScrollInsertRowDown::
 	ld	h, -3 (ix)
 	ld	a, (hl)
 	ld	-2 (ix), a
-	sub	a, #0x31
+	sub	a, #0x29
 	jr	C, 00104$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:112: RebuildPage(write_page, g_PageScrollY[write_page] + 1);
 	inc	bc

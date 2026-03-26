@@ -10,6 +10,7 @@
 ;--------------------------------------------------------
 	.globl _WaitForVBlank
 	.globl _DEBUG_INIT
+	.globl _PlayPresentation
 	.globl _UpdatePhase3
 	.globl _UpdatePhase2
 	.globl _UpdatePhase1
@@ -265,6 +266,7 @@
 	.globl _VSyncCallback
 	.globl _DrawField
 	.globl _main
+	.globl _TestPerformanceAnimation
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -1727,16 +1729,9 @@ _UpdateHUDMaster:
 ; Function main
 ; ---------------------------------
 _main::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	hl, #-7
-	add	hl, sp
-	ld	sp, hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:193: inline u8 Sys_GetMSXVersion() { return g_MSXVER; } 
 	ld	a, (_g_MSXVER+0)
 ;./soccerlg.c:287: if (Sys_GetMSXVersion() == MSXVER_1)
-	ld	-1 (ix), a
 	or	a, a
 	jr	NZ, 00102$
 ;./soccerlg.c:289: Bios_ClearScreen();
@@ -1744,10 +1739,10 @@ _main::
 ;./soccerlg.c:290: Bios_TextPrintSting("This game need MSX2 or above");
 	ld	bc, #___str_0+0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
-00125$:
+00104$:
 	ld	a, (bc)
 	or	a, a
-	jr	Z, 00129$
+	jp	Z,0x009f
 	inc	bc
 	ld	e, a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:339: inline void Bios_TextPrintChar(c8 chr) { ((void(*)(u8))R_CHPUT)(chr); }
@@ -1756,13 +1751,10 @@ _main::
 	call	0x00a2
 	pop	bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
-	jp	00125$
 ;./soccerlg.c:290: Bios_TextPrintSting("This game need MSX2 or above");
-00129$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:331: inline c8 Bios_GetCharacter() { return ((u8(*)(void))R_CHGET)(); }
-	call	0x009f
 ;./soccerlg.c:292: return;
-	jp	00177$
+	jp	00104$
 00102$:
 ;./soccerlg.c:295: DEBUG_INIT();
 	call	_DEBUG_INIT
@@ -1825,13 +1817,16 @@ _main::
 	ld	hl, #(_g_VDP_Command + 12)
 	ld	(hl), #0x11
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:303: g_VDP_Command.ARG = arg; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
+	ld	bc, #_g_VDP_Command + 13
+	xor	a, a
+	ld	(bc), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:304: g_VDP_Command.CMD = VDP_CMD_LMMV + op;
 	ld	hl, #(_g_VDP_Command + 14)
 	ld	(hl), #0x80
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:305: VPD_CommandSetupR36();
+	push	bc
 	call	_VPD_CommandSetupR36
+	pop	bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:298: g_VDP_Command.DX = dx; 
 	ld	hl, #0x0000
 	ld	((_g_VDP_Command + 4)), hl
@@ -1847,13 +1842,15 @@ _main::
 	ld	hl, #(_g_VDP_Command + 12)
 	ld	(hl), #0x11
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:303: g_VDP_Command.ARG = arg; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
+	xor	a, a
+	ld	(bc), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:304: g_VDP_Command.CMD = VDP_CMD_LMMV + op;
 	ld	hl, #(_g_VDP_Command + 14)
 	ld	(hl), #0x80
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:305: VPD_CommandSetupR36();
+	push	bc
 	call	_VPD_CommandSetupR36
+	pop	bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:298: g_VDP_Command.DX = dx; 
 	ld	hl, #0x0000
 	ld	((_g_VDP_Command + 4)), hl
@@ -1870,65 +1867,13 @@ _main::
 	ld	hl, #(_g_VDP_Command + 12)
 	ld	(hl), #0x11
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:303: g_VDP_Command.ARG = arg; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
+	xor	a, a
+	ld	(bc), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:304: g_VDP_Command.CMD = VDP_CMD_LMMV + op;
 	ld	hl, #(_g_VDP_Command + 14)
 	ld	(hl), #0x80
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:305: VPD_CommandSetupR36();
 	call	_VPD_CommandSetupR36
-;./soccerlg.c:327: for (i=0; i<NOBJ; i++) {
-	ld	de, #_g_frame+0
-	ld	c, #0x00
-00171$:
-;./soccerlg.c:328: g_lx[i]    = (u8)(i*16+4);
-	ld	hl, #_g_lx
-	ld	b, #0x00
-	add	hl, bc
-	ld	a, c
-	add	a, a
-	add	a, a
-	add	a, a
-	add	a, a
-	add	a, #0x04
-	ld	(hl), a
-;./soccerlg.c:329: g_ly[i]    = (u8)(i*12);
-	ld	a, #<(_g_ly)
-	add	a, c
-	ld	-2 (ix), a
-	ld	a, #>(_g_ly)
-	adc	a, #0x00
-	ld	-1 (ix), a
-	ld	a, c
-	add	a, a
-	add	a, c
-	add	a, a
-	add	a, a
-	ld	l, -2 (ix)
-	ld	h, -1 (ix)
-	ld	(hl), a
-;./soccerlg.c:330: g_frame[i] = 38;
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, de
-	ld	(hl), #0x26
-	inc	hl
-	ld	(hl), #0x00
-;./soccerlg.c:331: g_dx[i]    = 2;
-	ld	hl, #_g_dx
-	ld	b, #0x00
-	add	hl, bc
-	ld	(hl), #0x02
-;./soccerlg.c:327: for (i=0; i<NOBJ; i++) {
-	inc	c
-	ld	a, c
-	sub	a, #0x0f
-	jr	C, 00171$
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
 	ld	hl, #0x0004
 	ld	((_g_Bank0Segment + 6)), hl
@@ -1941,26 +1886,97 @@ _main::
 	ld	a, #0x04
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	(#0xb000),a
-;./soccerlg.c:334: Print_SetMode(PRINT_MODE_BITMAP);
+;./soccerlg.c:326: Print_SetMode(PRINT_MODE_BITMAP);
 	xor	a, a
 	call	_Print_SetMode
-;./soccerlg.c:335: Print_Initialize();
+;./soccerlg.c:327: Print_Initialize();
 	call	_Print_Initialize
-;./soccerlg.c:336: Print_SetBitmapFont(g_Fonts);
+;./soccerlg.c:328: Print_SetBitmapFont(g_Fonts);
 	ld	hl, #_g_Fonts
 	call	_Print_SetBitmapFont
-;./soccerlg.c:337: Print_SetColor(4,1);
+;./soccerlg.c:329: Print_SetColor(4,1);
 	ld	l, #0x01
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	a, #0x04
 	call	_Print_SetColor
-;./soccerlg.c:340: UpdateHUDMaster();
+;./soccerlg.c:332: UpdateHUDMaster();
 	call	_UpdateHUDMaster
-;./soccerlg.c:362: for (i=0; i<NOBJ; i++)
+;./soccerlg.c:335: CallFnc_VOID(SEG_PRESENTATION, PlayPresentation);
+	ld	de, #_PlayPresentation
+	ld	a, #0x06
+	call	_CallFnc_VOID
+;./soccerlg.c:338: TestPerformanceAnimation();
+;./soccerlg.c:339: }
+	jp	_TestPerformanceAnimation
+___str_0:
+	.ascii "This game need MSX2 or above"
+	.db 0x00
+;./soccerlg.c:341: void TestPerformanceAnimation(void)
+;	---------------------------------
+; Function TestPerformanceAnimation
+; ---------------------------------
+_TestPerformanceAnimation::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-7
+	add	hl, sp
+	ld	sp, hl
+;./soccerlg.c:345: for (i=0; i<NOBJ; i++) {
+	ld	c, #0x00
+00134$:
+;./soccerlg.c:346: g_lx[i]    = (u8)(i*16+4);
+	ld	hl, #_g_lx
+	ld	b, #0x00
+	add	hl, bc
+	ld	a, c
+	add	a, a
+	add	a, a
+	add	a, a
+	add	a, a
+	add	a, #0x04
+	ld	(hl), a
+;./soccerlg.c:347: g_ly[i]    = (u8)(i*12);
+	ld	a, #<(_g_ly)
+	add	a, c
+	ld	e, a
+	ld	a, #>(_g_ly)
+	adc	a, #0x00
+	ld	d, a
+	ld	a, c
+	add	a, a
+	add	a, c
+	add	a, a
+	add	a, a
+	ld	(de), a
+;./soccerlg.c:348: g_frame[i] = 38;
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #_g_frame
+	add	hl, de
+	ld	(hl), #0x26
+	inc	hl
+	ld	(hl), #0x00
+;./soccerlg.c:349: g_dx[i]    = 2;
+	ld	hl, #_g_dx
+	ld	b, #0x00
+	add	hl, bc
+	ld	(hl), #0x02
+;./soccerlg.c:345: for (i=0; i<NOBJ; i++) {
+	inc	c
+	ld	a, c
+	sub	a, #0x0f
+	jr	C, 00134$
+;./soccerlg.c:371: for (i=0; i<NOBJ; i++)
 	ld	-1 (ix), #0x00
-00173$:
-;./soccerlg.c:364: g_x0[i] = g_lx[i];
+00136$:
+;./soccerlg.c:373: g_x0[i] = g_lx[i];
 	ld	a, #<(_g_x0)
 	add	a, -1 (ix)
 	ld	c, a
@@ -1977,7 +1993,7 @@ _main::
 	push	hl
 	ld	a, (hl)
 	ld	(bc), a
-;./soccerlg.c:365: g_y0[i] = g_ly[i] + HUD_LINES;                   // page 0: offset 0, r23=0
+;./soccerlg.c:374: g_y0[i] = g_ly[i] + HUD_LINES;                   // page 0: offset 0, r23=0
 	ld	l, -1 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1985,33 +2001,39 @@ _main::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, hl
-	ld	-5 (ix), l
-	ld	-4 (ix), h
-	ld	a, #<(_g_y0)
-	add	a, -5 (ix)
-	ld	-3 (ix), a
-	ld	a, #>(_g_y0)
-	adc	a, -4 (ix)
-	ld	-2 (ix), a
+	ld	c, l
+	ld	b, h
+	ld	hl, #_g_y0
+	add	hl, bc
+	ex	de, hl
 	ld	a, #<(_g_ly)
 	add	a, -1 (ix)
-	ld	c, a
+	ld	-5 (ix), a
 	ld	a, #>(_g_ly)
 	adc	a, #0x00
-	ld	b, a
-	ld	a, (bc)
-	ld	d, #0x00
+	ld	-4 (ix), a
+	ld	l, -5 (ix)
+	ld	h, -4 (ix)
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, l
 	add	a, #0x08
-	ld	e, a
-	jr	NC, 00264$
-	inc	d
-00264$:
-	ld	l, -3 (ix)
-	ld	h, -2 (ix)
-	ld	(hl), e
-	inc	hl
-	ld	(hl), d
-;./soccerlg.c:366: g_x1[i] = g_lx[i];
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, h
+	adc	a, #0x00
+	ld	-3 (ix), l
+	ld	-2 (ix), a
+	ld	a, -3 (ix)
+	ld	(de), a
+	inc	de
+	ld	a, -2 (ix)
+	ld	(de), a
+;./soccerlg.c:375: g_x1[i] = g_lx[i];
 	ld	a, #<(_g_x1)
 	add	a, -1 (ix)
 	ld	e, a
@@ -2022,26 +2044,24 @@ _main::
 	push	hl
 	ld	a, (hl)
 	ld	(de), a
-;./soccerlg.c:367: g_y1[i] = (u16)256u | (u8)(g_ly[i] + HUD_LINES);       // page 1: offset 256
-	ld	a, #<(_g_y1)
-	add	a, -5 (ix)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, #>(_g_y1)
-	adc	a, -4 (ix)
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, (bc)
+;./soccerlg.c:376: g_y1[i] = (u16)256u | (u8)(g_ly[i] + HUD_LINES);       // page 1: offset 256
+	ld	hl, #_g_y1
+	add	hl, bc
+	ld	-3 (ix), l
+	ld	-2 (ix), h
+	ld	l, -5 (ix)
+	ld	h, -4 (ix)
+	ld	a, (hl)
 	add	a, #0x08
-	ld	d, #0x00
 	ld	e, a
+	ld	d, #0x00
 	set	0, d
+	ld	l, -3 (ix)
+	ld	h, -2 (ix)
 	ld	(hl), e
 	inc	hl
 	ld	(hl), d
-;./soccerlg.c:368: g_x2[i] = g_lx[i];
+;./soccerlg.c:377: g_x2[i] = g_lx[i];
 	ld	a, #<(_g_x2)
 	add	a, -1 (ix)
 	ld	e, a
@@ -2052,39 +2072,36 @@ _main::
 	push	hl
 	ld	a, (hl)
 	ld	(de), a
-;./soccerlg.c:369: g_y2[i] = (u16)512u | (u8)(g_ly[i] + HUD_LINES);                        // page 2: inizializzato correttamente per primo erase
-	ld	a, -5 (ix)
-	add	a, #<(_g_y2)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, -4 (ix)
-	adc	a, #>(_g_y2)
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, (bc)
+;./soccerlg.c:378: g_y2[i] = (u16)512u | (u8)(g_ly[i] + HUD_LINES);                        // page 2: inizializzato correttamente per primo erase
+	ld	hl, #_g_y2
+	add	hl, bc
+	ex	de, hl
+	ld	l, -5 (ix)
+	ld	h, -4 (ix)
+	ld	a, (hl)
 	add	a, #0x08
-	ld	b, #0x00
 	ld	c, a
+	ld	b, #0x00
 	set	1, b
-	ld	(hl), c
-	inc	hl
-	ld	(hl), b
-;./soccerlg.c:362: for (i=0; i<NOBJ; i++)
+	ld	a, c
+	ld	(de), a
+	inc	de
+	ld	a, b
+	ld	(de), a
+;./soccerlg.c:371: for (i=0; i<NOBJ; i++)
 	inc	-1 (ix)
 	ld	a, -1 (ix)
 	sub	a, #0x0f
-	jp	C, 00173$
-00175$:
-;./soccerlg.c:388: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); }
+	jp	C, 00136$
+00138$:
+;./soccerlg.c:397: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); }
 	xor	a, a
 	ld	hl, #_g_scrollDir
 	sub	a, (hl)
-	jp	PO, 00265$
+	jp	PO, 00204$
 	xor	a, #0x80
-00265$:
-	jp	P, 00106$
+00204$:
+	jp	P, 00104$
 	ld	a, #0x01
 	push	af
 	inc	sp
@@ -2097,9 +2114,9 @@ _main::
 	ld	de, #_ScrollInsertRowDown
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-	jp	00107$
-00106$:
-;./soccerlg.c:389: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); }
+	jp	00105$
+00104$:
+;./soccerlg.c:398: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); }
 	ld	a, #0x01
 	push	af
 	inc	sp
@@ -2112,20 +2129,20 @@ _main::
 	ld	de, #_ScrollInsertRowUp
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-00107$:
+00105$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;./soccerlg.c:391: VDP_SetPage(0);
+;./soccerlg.c:400: VDP_SetPage(0);
 	xor	a, a
 	call	_VDP_SetPage
-;./soccerlg.c:392: VDP_SetVerticalOffset(g_R23[0]);
+;./soccerlg.c:401: VDP_SetVerticalOffset(g_R23[0]);
 	ld	hl, #_g_R23
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;./soccerlg.c:395: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
+;./soccerlg.c:404: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 1) + 0)
 	ld	h, #0x00
 ;	spillPairReg hl
@@ -2161,7 +2178,7 @@ _main::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;./soccerlg.c:397: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
+;./soccerlg.c:406: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
 	ld	de, (#_g_PageScrollY + 4)
 	ld	hl, #(_g_R23 + 2)
 	ld	b, (hl)
@@ -2174,14 +2191,14 @@ _main::
 	ld	de, #_UpdatePhase1
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-;./soccerlg.c:400: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); }
+;./soccerlg.c:409: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); }
 	xor	a, a
 	ld	hl, #_g_scrollDir
 	sub	a, (hl)
-	jp	PO, 00266$
+	jp	PO, 00205$
 	xor	a, #0x80
-00266$:
-	jp	P, 00109$
+00205$:
+	jp	P, 00107$
 	ld	a, #0x02
 	push	af
 	inc	sp
@@ -2194,9 +2211,9 @@ _main::
 	ld	de, #_ScrollInsertRowDown
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-	jp	00110$
-00109$:
-;./soccerlg.c:401: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); }
+	jp	00108$
+00107$:
+;./soccerlg.c:410: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); }
 	ld	a, #0x02
 	push	af
 	inc	sp
@@ -2209,20 +2226,20 @@ _main::
 	ld	de, #_ScrollInsertRowUp
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-00110$:
+00108$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;./soccerlg.c:403: VDP_SetPage(1);
+;./soccerlg.c:412: VDP_SetPage(1);
 	ld	a, #0x01
 	call	_VDP_SetPage
-;./soccerlg.c:404: VDP_SetVerticalOffset(g_R23[1]);
+;./soccerlg.c:413: VDP_SetVerticalOffset(g_R23[1]);
 	ld	hl, #(_g_R23 + 1)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;./soccerlg.c:407: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
+;./soccerlg.c:416: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 2) + 0)
 	ld	h, #0x00
 ;	spillPairReg hl
@@ -2258,7 +2275,7 @@ _main::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;./soccerlg.c:409: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
+;./soccerlg.c:418: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
 	ld	de, (#_g_PageScrollY + 0)
 	ld	hl, #_g_R23
 	ld	b, (hl)
@@ -2271,14 +2288,14 @@ _main::
 	ld	de, #_UpdatePhase2
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-;./soccerlg.c:412: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); }
+;./soccerlg.c:421: if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); }
 	xor	a, a
 	ld	hl, #_g_scrollDir
 	sub	a, (hl)
-	jp	PO, 00267$
+	jp	PO, 00206$
 	xor	a, #0x80
-00267$:
-	jp	P, 00112$
+00206$:
+	jp	P, 00110$
 	xor	a, a
 	push	af
 	inc	sp
@@ -2291,9 +2308,9 @@ _main::
 	ld	de, #_ScrollInsertRowDown
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-	jp	00113$
-00112$:
-;./soccerlg.c:413: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); }
+	jp	00111$
+00110$:
+;./soccerlg.c:422: else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); }
 	xor	a, a
 	push	af
 	inc	sp
@@ -2306,20 +2323,20 @@ _main::
 	ld	de, #_ScrollInsertRowUp
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-00113$:
+00111$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;./soccerlg.c:415: VDP_SetPage(2);
+;./soccerlg.c:424: VDP_SetPage(2);
 	ld	a, #0x02
 	call	_VDP_SetPage
-;./soccerlg.c:416: VDP_SetVerticalOffset(g_R23[2]);
+;./soccerlg.c:425: VDP_SetVerticalOffset(g_R23[2]);
 	ld	hl, #(_g_R23 + 2)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;./soccerlg.c:419: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
+;./soccerlg.c:428: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
 	ld	a, (#_g_R23 + 0)
 	ld	c, a
 	ld	b, #0x00
@@ -2348,73 +2365,66 @@ _main::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;./soccerlg.c:421: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
-	ld	de, (#_g_PageScrollY + 2)
-	ld	hl, #(_g_R23 + 1)
-	ld	b, (hl)
-	ld	a, (#_g_R23 + 0)
-	push	de
+;./soccerlg.c:430: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
+	ld	bc, (#_g_PageScrollY + 2)
+	ld	a, (#(_g_R23 + 1) + 0)
+	ld	hl, #_g_R23
+	ld	d, (hl)
 	push	bc
-	inc	sp
 	push	af
+	inc	sp
+	push	de
 	inc	sp
 	ld	de, #_UpdatePhase3
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-;./soccerlg.c:424: if (++g_hudTimer >= HUD_ITERS_PER_SEC)
+;./soccerlg.c:433: if (++g_hudTimer >= HUD_ITERS_PER_SEC)
 	ld	iy, #_g_hudTimer
 	inc	0 (iy)
 	ld	a, (_g_hudTimer+0)
 	sub	a, #0x11
-	jr	C, 00115$
-;./soccerlg.c:426: g_hudTimer = 0;
+	jr	C, 00113$
+;./soccerlg.c:435: g_hudTimer = 0;
 	ld	0 (iy), #0x00
-;./soccerlg.c:427: g_hudSec++;
+;./soccerlg.c:436: g_hudSec++;
 	ld	hl, #_g_hudSec
 	inc	(hl)
-;./soccerlg.c:428: UpdateHUDMaster();
+;./soccerlg.c:437: UpdateHUDMaster();
 	call	_UpdateHUDMaster
-00115$:
-;./soccerlg.c:432: if (g_scrollDir > 0 && g_PageScrollY[0] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS)
+00113$:
+;./soccerlg.c:441: if (g_scrollDir > 0 && g_PageScrollY[0] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS)
 	xor	a, a
 	ld	hl, #_g_scrollDir
 	sub	a, (hl)
-	jp	PO, 00268$
+	jp	PO, 00207$
 	xor	a, #0x80
-00268$:
-	jp	P, 00120$
+00207$:
+	jp	P, 00118$
 	ld	hl, (#_g_PageScrollY + 0)
 	ld	bc, #0x00b8
 	add	hl, bc
 	ld	de, #0x01f8
 	cp	a, a
 	sbc	hl, de
-	jr	C, 00120$
-;./soccerlg.c:433: g_scrollDir = -1;
+	jr	C, 00118$
+;./soccerlg.c:442: g_scrollDir = -1;
 	ld	hl, #_g_scrollDir
 	ld	(hl), #0xff
-	jp	00175$
-00120$:
-;./soccerlg.c:434: else if (g_scrollDir < 0 && g_PageScrollY[0] == 0)
+	jp	00138$
+00118$:
+;./soccerlg.c:443: else if (g_scrollDir < 0 && g_PageScrollY[0] == 0)
 	ld	a, (_g_scrollDir+0)
 	bit	7, a
-	jp	Z, 00175$
+	jp	Z, 00138$
 	ld	hl, (#_g_PageScrollY + 0)
 	ld	a, h
 	or	a, l
-	jp	NZ, 00175$
-;./soccerlg.c:435: g_scrollDir = 1;
+	jp	NZ, 00138$
+;./soccerlg.c:444: g_scrollDir = 1;
 	ld	hl, #_g_scrollDir
 	ld	(hl), #0x01
-	jp	00175$
-00177$:
-;./soccerlg.c:439: }
-	ld	sp, ix
-	pop	ix
-	ret
-___str_0:
-	.ascii "This game need MSX2 or above"
-	.db 0x00
+;./soccerlg.c:448: }
+	jp	00138$
 	.area _CODE
 	.area _INITIALIZER
 __xinit__g_VSynch:
