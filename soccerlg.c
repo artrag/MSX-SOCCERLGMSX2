@@ -364,7 +364,7 @@ static void UpdateHUDMaster(void)
     buf[5] = '\0';
     VDP_CommandLMMV(0, HUD_SOURCE_Y, 256, HUD_LINES, 0x11, VDP_OP_IMP);
     SET_BANK_SEGMENT(3, 4);     // ripristina segmento font (CallSpriteFrame lo cambia)
-    Print_SetPosition(0, HUD_SOURCE_Y);
+    Print_SetPosition(0, (UY)HUD_SOURCE_Y);
     Print_DrawText(buf);
 }
 
