@@ -988,9 +988,60 @@ const unsigned char g_Fonts[] =
 
 
 void MainLoop(){
+	
+	// --- INIZIALIZZAZIONE PRESENTAZIONE ---
+	Field.ly = 0; // Parte da estremo Nord
+	Field.dy = 1; // Avanzamento scorrimento per fase (3 px a frame)
+	u16 target_ly = 156; // Centrocampo (252) - metà altezza visibile (96)
+
+	// Posizionamento delle due squadre a centrocampo (Y = 252)
+	for (u8 i = 0; i < 7; i++) {
+		// Squadra 1 (Nord - Difende l'area in alto)
+		SwSprite[i].lx = 24 + i * 32;
+		SwSprite[i].ly = 252 - 24; // Schierata sopra la riga di centrocampo
+		SwSprite[i].frame = 32;    // Frame rivolto verso il basso
+		SwSprite[i].dx = 0;
+		SwSprite[i].dy = 0;
+
+		// Squadra 2 (Sud - Difende l'area in basso)
+		SwSprite[i+7].lx = 24 + i * 32;
+		SwSprite[i+7].ly = 252 + 8; // Schierata sotto la riga di centrocampo
+		SwSprite[i+7].frame = 14*16; // Frame rivolto verso l'alto
+		SwSprite[i+7].dx = 0;
+		SwSprite[i+7].dy = 0;
+	}
+	
+	// Pallone (singolo)
+	SwSprite[14].lx = 120;
+	SwSprite[14].ly = 252 - 8;
+	SwSprite[14].frame = 0;
+	SwSprite[14].dx = 0;
+	SwSprite[14].dy = 0;
+
+	// Nascondi gli sprite in eccesso (fuori dal campo)
+	for (u8 i = 15; i < NumSprite; i++) {
+		SwSprite[i].lx = 0;
+		SwSprite[i].ly = 1000; // Valore Y alto, fuori dal limite del campo (504)
+		SwSprite[i].frame = 0;
+		SwSprite[i].dx = 0;
+		SwSprite[i].dy = 0;
+	}
+
+	// Allineamento coordinate fisiche per i tre buffer (sprite immobili)
+	for (u8 i = 0; i < NumSprite; i++) {
+		SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
+		SwSprite[i].y0 = SwSprite[i].y1 = SwSprite[i].y2 = SwSprite[i].ly;
+	}
+
+	// Sincronizzazione tabelloni per l'inizio del Triplo Buffer
+	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly;
+	ScoreBoardLeft.y0 = ScoreBoardRight.y0 = Field.ly;
+	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly + Field.dy;
+
     for (;;)
 	{
-        
+        u8 move = (Field.ly < target_ly) ? Field.dy : 0;
+
 		// vedo 	0
 		VDP_SetPage(0);		
 		VDP_SetVerticalOffset(Field.ly & 255);
@@ -1003,31 +1054,20 @@ void MainLoop(){
 			// scrivo 	1
 			if OnScreen(SwSprite[i].y1) 
 				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
-			// game AI
-			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 		// cancello 2	 scrivo 	1
-		//RemoveTimer(Timer.x2,Timer.y2,512);
-		//PrintTimer(Timer.x1,Timer.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
+		Field.ly += move;
 
-		// Halt();
-	
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x2 = SwSprite[i].lx;
-			SwSprite[i].y2 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y2 = Field.ly+Field.dy;	
-		ScoreBoardRight.y2 = Field.ly+Field.dy;	
+		ScoreBoardLeft.y2 = Field.ly + move;	
+		ScoreBoardRight.y2 = Field.ly + move;	
 	
 		// vedo 	1
+		move = (Field.ly < target_ly) ? Field.dy : 0;
 		VDP_SetPage(1);		
 		VDP_SetVerticalOffset(Field.ly & 255);
 		CallFnc_VOID(SEG_DRAW, AddLines);
@@ -1039,31 +1079,20 @@ void MainLoop(){
 			// scrivo 	2 
 			if OnScreen(SwSprite[i].y2) 
 				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
-			// game AI
-			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 		// cancello 0	 scrivo 	2
-		//RemoveTimer(Timer.x0,Timer.y0,  0);
-		//PrintTimer(Timer.x2,Timer.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
+		Field.ly += move;
 
-		// Halt();
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x0 = SwSprite[i].lx;
-			SwSprite[i].y0 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y0 = Field.ly+Field.dy;
-		ScoreBoardRight.y0 = Field.ly+Field.dy;
+		ScoreBoardLeft.y0 = Field.ly + move;
+		ScoreBoardRight.y0 = Field.ly + move;
 		
 		// vedo 	2	
+		move = (Field.ly < target_ly) ? Field.dy : 0;
 		VDP_SetPage(2);		
 		VDP_SetVerticalOffset(Field.ly & 255);
 		CallFnc_VOID(SEG_DRAW, AddLines);
@@ -1075,29 +1104,17 @@ void MainLoop(){
 			// scrivo 	0	
 			if OnScreen(SwSprite[i].y0) 
 				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
-			// game AI
-			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 		// cancello 1	scrivo 	0
-		//RemoveTimer(Timer.x1,Timer.y1,256);
-		//PrintTimer(Timer.x0,Timer.y0,   0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
+		Field.ly += move;
 
-		// Halt();
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x1 = SwSprite[i].lx;
-			SwSprite[i].y1 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y1 = Field.ly+Field.dy;
-		ScoreBoardRight.y1 = Field.ly+Field.dy;
+		ScoreBoardLeft.y1 = Field.ly + move;
+		ScoreBoardRight.y1 = Field.ly + move;
 
 		// update scoreboard
 		Print_SetPosition(1, 24+768);
@@ -1118,7 +1135,11 @@ void MainLoop(){
             }
 	        	
         }
-		
-		
+
+		// Se abbiamo raggiunto il bersaglio (centrocampo in mezzo allo schermo)
+		// blocca l'esecuzione in un loop infinito come richiesto
+		if (Field.ly >= target_ly) {
+			for(;;) { Halt(); }
+		}
 	}
 }

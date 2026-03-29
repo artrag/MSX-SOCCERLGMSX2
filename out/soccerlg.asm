@@ -13,7 +13,6 @@
 	.globl _DEBUG_INIT
 	.globl _PlotField
 	.globl _MainLoop
-	.globl _Math_GetRandom16
 	.globl _Print_SetColor
 	.globl _Print_DrawFormat
 	.globl _Print_DrawText
@@ -2076,12 +2075,6 @@ _LoadField::
 ; Function main
 ; ---------------------------------
 _main::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	hl, #-5
-	add	hl, sp
-	ld	sp, hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:193: inline u8 Sys_GetMSXVersion() { return g_MSXVER; } 
 	ld	a, (_g_MSXVER+0)
 ;./soccerlg.c:272: if (Sys_GetMSXVersion() == MSXVER_1)
@@ -2092,10 +2085,10 @@ _main::
 ;./soccerlg.c:275: Bios_TextPrintSting("This game need MSX2 or above");
 	ld	bc, #___str_0+0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
-00106$:
+00104$:
 	ld	a, (bc)
 	or	a, a
-	jr	Z, 00110$
+	jp	Z,0x009f
 	inc	bc
 	ld	e, a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:339: inline void Bios_TextPrintChar(c8 chr) { ((void(*)(u8))R_CHPUT)(chr); }
@@ -2104,13 +2097,10 @@ _main::
 	call	0x00a2
 	pop	bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
-	jp	00106$
 ;./soccerlg.c:275: Bios_TextPrintSting("This game need MSX2 or above");
-00110$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:331: inline c8 Bios_GetCharacter() { return ((u8(*)(void))R_CHGET)(); }
-	call	0x009f
 ;./soccerlg.c:277: return;
-	jp	00168$
+	jp	00104$
 00102$:
 ;./soccerlg.c:280: DEBUG_INIT();
 	call	_DEBUG_INIT
@@ -2530,251 +2520,30 @@ _main::
 	ld	de, #_VSyncCallback
 	ld	hl, #0xfd9f
 	call	_Bios_SetHookCallback
-;./soccerlg.c:358: for (u8 i=0; i<NumSprite;i++) 
-	ld	-1 (ix), #0x00
-00163$:
-	ld	a, -1 (ix)
-	sub	a, #0x18
-	jp	NC, 00103$
-;./soccerlg.c:360: SwSprite[i].lx = Math_GetRandomRange16(4,238) 		& 0xFFFE;
-	ld	a, -1 (ix)
-	ld	-5 (ix), a
-	ld	-4 (ix), #0x00
-	pop	hl
-	push	hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	ld	de, #_SwSprite
-	add	hl, de
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/math.h:390: inline u16 Math_GetRandomRange16(u16 min, u16 max) { return min + Math_GetRandom16() % (max - min); }
-	push	hl
-	call	_Math_GetRandom16
-	ld	de, #0x00ea
-	call	__moduint
-	pop	bc
-	ld	a, e
-	add	a, #0x04
-;./soccerlg.c:360: SwSprite[i].lx = Math_GetRandomRange16(4,238) 		& 0xFFFE;
-	res	0, a
+;./soccerlg.c:356: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
+	ld	bc, #_ScoreBoardLeft + 1
+	ld	a, (#_ScoreBoardLeft + 0)
 	ld	(bc), a
-;./soccerlg.c:361: SwSprite[i].ly = Math_GetRandomRange16(16,504-16)	& 0xFFFE;
-	ld	hl, #0x0004
-	add	hl, bc
-	ld	-3 (ix), l
-	ld	-2 (ix), h
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/math.h:390: inline u16 Math_GetRandomRange16(u16 min, u16 max) { return min + Math_GetRandom16() % (max - min); }
-	push	bc
-	call	_Math_GetRandom16
-	ld	de, #0x01d8
-	call	__moduint
-	pop	bc
-	ld	hl, #0x0010
-	add	hl, de
-	ex	de, hl
-;./soccerlg.c:361: SwSprite[i].ly = Math_GetRandomRange16(16,504-16)	& 0xFFFE;
-	res	0, e
-	ld	l, -3 (ix)
-	ld	h, -2 (ix)
-	ld	(hl), e
-	inc	hl
-	ld	(hl), d
-;./soccerlg.c:362: SwSprite[i].frame = (i<NumSprite/2) ? (32+i):(14*16+i);
-	ld	hl, #0x000c
-	add	hl, bc
-	ld	-3 (ix), l
-	ld	-2 (ix), h
-	ld	a, -1 (ix)
-	sub	a, #0x0c
-	jr	NC, 00176$
-	pop	hl
-	push	hl
-	ld	de, #0x0020
-	add	hl, de
-	jp	00177$
-00176$:
-	pop	hl
-	push	hl
-	ld	de, #0x00e0
-	add	hl, de
-00177$:
-	ex	de, hl
-	ld	l, -3 (ix)
-	ld	h, -2 (ix)
-	ld	(hl), e
-	inc	hl
-	ld	(hl), d
-;./soccerlg.c:363: SwSprite[i].dx = 2;
-	ld	hl, #0x000e
-	add	hl, bc
-	ld	(hl), #0x02
-;./soccerlg.c:364: SwSprite[i].dy = 2*(Math_GetRandomRange16(0,3)-1);
-	ld	hl, #0x000f
-	add	hl, bc
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/math.h:390: inline u16 Math_GetRandomRange16(u16 min, u16 max) { return min + Math_GetRandom16() % (max - min); }
-	push	hl
-	call	_Math_GetRandom16
-	ld	de, #0x0003
-	call	__moduint
-	pop	bc
-	ld	a, e
-;./soccerlg.c:364: SwSprite[i].dy = 2*(Math_GetRandomRange16(0,3)-1);
-	dec	a
-	add	a, a
+;./soccerlg.c:357: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
+	ld	bc, #_ScoreBoardLeft + 2
+	ld	a, (#_ScoreBoardLeft + 0)
 	ld	(bc), a
-;./soccerlg.c:358: for (u8 i=0; i<NumSprite;i++) 
-	inc	-1 (ix)
-	jp	00163$
-00103$:
-;./soccerlg.c:368: for (u8 i=0; i<NumSprite;i++) 
-	ld	-1 (ix), #0x00
-00166$:
-	ld	a, -1 (ix)
-	sub	a, #0x18
-	jr	NC, 00104$
-;./soccerlg.c:370: SwSprite[i].x0 = SwSprite[i].lx;
-	ld	a, -1 (ix)
-	ld	-3 (ix), a
-	ld	-2 (ix), #0x00
-	ld	b, #0x04
-00231$:
-	sla	-3 (ix)
-	rl	-2 (ix)
-	djnz	00231$
-	ld	a, #<(_SwSprite)
-	add	a, -3 (ix)
-	ld	c, a
-	ld	a, #>(_SwSprite)
-	adc	a, -2 (ix)
-	ld	b, a
-	ld	e, c
-	ld	d, b
-	inc	de
-	ld	a, (bc)
-	ld	(de), a
-;./soccerlg.c:371: SwSprite[i].y0 = SwSprite[i].ly;
-	ld	hl, #0x0006
-	add	hl, bc
-	ex	(sp), hl
-	ld	hl, #0x0004
-	add	hl, bc
-	ex	de, hl
-	ld	a, (de)
-	ld	-3 (ix), a
-	inc	de
-	ld	a, (de)
-	ld	-2 (ix), a
-	dec	de
-	pop	hl
-	push	hl
-	ld	a, -3 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -2 (ix)
-	ld	(hl), a
-;./soccerlg.c:372: SwSprite[i].x1 = SwSprite[i].lx;
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, b
-;	spillPairReg hl
-;	spillPairReg hl
-	inc	hl
-	inc	hl
-	ld	a, (bc)
-	ld	(hl), a
-;./soccerlg.c:373: SwSprite[i].y1 = SwSprite[i].ly;
-	ld	hl, #0x0008
-	add	hl, bc
-	ld	-3 (ix), l
-	ld	-2 (ix), h
-	ex	de,hl
-	ld	e, (hl)
-	inc	hl
-	ld	d, (hl)
-	ld	l, -3 (ix)
-	ld	h, -2 (ix)
-	ld	(hl), e
-	inc	hl
-	ld	(hl), d
-;./soccerlg.c:374: SwSprite[i].x2 = 0;
-	ld	e, c
-	ld	d, b
-	inc	de
-	inc	de
-	inc	de
-	xor	a, a
-	ld	(de), a
-;./soccerlg.c:375: SwSprite[i].y2 = 0;
-	ld	hl, #0x000a
-	add	hl, bc
-	xor	a, a
-	ld	(hl), a
-	inc	hl
-	ld	(hl), a
-;./soccerlg.c:368: for (u8 i=0; i<NumSprite;i++) 
-	inc	-1 (ix)
-	jp	00166$
-00104$:
-;./soccerlg.c:378: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
+;./soccerlg.c:358: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
+	ld	bc, #_ScoreBoardLeft + 3
 	ld	a, (#_ScoreBoardLeft + 0)
-	ld	(#(_ScoreBoardLeft + 1)),a
-;./soccerlg.c:379: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
-	ld	a, (#_ScoreBoardLeft + 0)
-	ld	(#(_ScoreBoardLeft + 2)),a
-;./soccerlg.c:380: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
-	ld	a, (#_ScoreBoardLeft + 0)
-	ld	(#(_ScoreBoardLeft + 3)),a
-;./soccerlg.c:382: ScoreBoardRight.x0 = ScoreBoardRight.lx;
+	ld	(bc), a
+;./soccerlg.c:360: ScoreBoardRight.x0 = ScoreBoardRight.lx;
+	ld	bc, #_ScoreBoardRight + 1
 	ld	a, (#_ScoreBoardRight + 0)
-	ld	(#(_ScoreBoardRight + 1)),a
-;./soccerlg.c:383: ScoreBoardRight.x1 = ScoreBoardRight.lx;
+	ld	(bc), a
+;./soccerlg.c:361: ScoreBoardRight.x1 = ScoreBoardRight.lx;
+	ld	bc, #_ScoreBoardRight + 2
 	ld	a, (#_ScoreBoardRight + 0)
-	ld	(#(_ScoreBoardRight + 2)),a
-;./soccerlg.c:384: ScoreBoardRight.x2 = ScoreBoardRight.lx;
+	ld	(bc), a
+;./soccerlg.c:362: ScoreBoardRight.x2 = ScoreBoardRight.lx;
+	ld	bc, #_ScoreBoardRight + 3
 	ld	a, (#_ScoreBoardRight + 0)
-	ld	(#(_ScoreBoardRight + 3)),a
-;./soccerlg.c:387: ScoreBoardLeft.y2 = Field.ly;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	((_ScoreBoardLeft + 10)), bc
-;./soccerlg.c:388: ScoreBoardLeft.y0 = Field.ly;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	((_ScoreBoardLeft + 6)), bc
-;./soccerlg.c:389: ScoreBoardLeft.y1 = Field.ly + Field.dy;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	a, (#(_Field + 15) + 0)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	rlca
-	sbc	a, a
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, bc
-	ex	de, hl
-	ld	((_ScoreBoardLeft + 8)), de
-;./soccerlg.c:391: ScoreBoardRight.y2 = Field.ly;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	((_ScoreBoardRight + 10)), bc
-;./soccerlg.c:392: ScoreBoardRight.y0 = Field.ly;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	((_ScoreBoardRight + 6)), bc
-;./soccerlg.c:393: ScoreBoardRight.y1 = Field.ly + Field.dy;
-	ld	bc, (#(_Field + 4) + 0)
-	ld	a, (#(_Field + 15) + 0)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	rlca
-	sbc	a, a
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, bc
-	ex	de, hl
-	ld	((_ScoreBoardRight + 8)), de
+	ld	(bc), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
 	ld	a, #0x40
 	push	af
@@ -2784,15 +2553,11 @@ _main::
 ;	spillPairReg hl
 	ld	a, #0x01
 	call	_VDP_RegWriteBakMask
-;./soccerlg.c:398: CallFnc_VOID(4,MainLoop);
+;./soccerlg.c:367: CallFnc_VOID(4,MainLoop);
 	ld	de, #_MainLoop
 	ld	a, #0x04
-	call	_CallFnc_VOID
-00168$:
-;./soccerlg.c:400: }
-	ld	sp, ix
-	pop	ix
-	ret
+;./soccerlg.c:369: }
+	jp	_CallFnc_VOID
 ___str_0:
 	.ascii "This game need MSX2 or above"
 	.db 0x00

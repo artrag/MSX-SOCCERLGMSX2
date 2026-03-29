@@ -353,28 +353,6 @@ void main()
 
 	Bios_SetHookCallback(H_TIMI, VSyncCallback);
 
-    // --- CONFIGURAZIONE INIZIALE ---
-
-	for (u8 i=0; i<NumSprite;i++) 
-	{
-		SwSprite[i].lx = Math_GetRandomRange16(4,238) 		& 0xFFFE;
-		SwSprite[i].ly = Math_GetRandomRange16(16,504-16)	& 0xFFFE;
-		SwSprite[i].frame = (i<NumSprite/2) ? (32+i):(14*16+i);
-		SwSprite[i].dx = 2;
-		SwSprite[i].dy = 2*(Math_GetRandomRange16(0,3)-1);
-	}
-
-
-	for (u8 i=0; i<NumSprite;i++) 
-	{
-		SwSprite[i].x0 = SwSprite[i].lx;
-		SwSprite[i].y0 = SwSprite[i].ly;
-		SwSprite[i].x1 = SwSprite[i].lx;
-		SwSprite[i].y1 = SwSprite[i].ly;
-		SwSprite[i].x2 = 0;
-		SwSprite[i].y2 = 0;
-	}
-
 	ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
 	ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
 	ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
@@ -382,15 +360,6 @@ void main()
     ScoreBoardRight.x0 = ScoreBoardRight.lx;
 	ScoreBoardRight.x1 = ScoreBoardRight.lx;
 	ScoreBoardRight.x2 = ScoreBoardRight.lx;
-
-// Sincronizzazione perfetta del Triplo Buffer al frame 0
-	ScoreBoardLeft.y2 = Field.ly;
-	ScoreBoardLeft.y0 = Field.ly;
-	ScoreBoardLeft.y1 = Field.ly + Field.dy;
-
-	ScoreBoardRight.y2 = Field.ly;
-	ScoreBoardRight.y0 = Field.ly;
-	ScoreBoardRight.y1 = Field.ly + Field.dy;
 
 
 // loop 
