@@ -76,7 +76,7 @@
 // - VDP_UNIT_X16 ................. X use 16-bits and Y use 8-bits values
 // - VDP_UNIT_Y16 ................. X use 8-bits and Y use 16-bits values
 // - VDP_UNIT_U16 ................. X and Y use 16-bits values
-#define VDP_UNIT					VDP_UNIT_X16
+#define VDP_UNIT					VDP_UNIT_Y16
 
 // VDP screen modes (additionnal limitations come from the selected MSX_VERSION)
 #define VDP_USE_MODE_T1				TRUE	// MSX1		Screen 0 Width 40
@@ -207,25 +207,25 @@
 #define PRINT_USE_SPRITE			FALSE	// Allow use of Sprite font (G3-G7)
 #define PRINT_USE_FX_SHADOW			FALSE	// [Bitmap] Allow use of text shadow
 #define PRINT_USE_FX_OUTLINE		FALSE	// [Bitmap] Allow use of text outline
-#define PRINT_USE_2_PASS_FX			FALSE	// [Bitmap] Allow use 2-pass FX render to prevent character overlap
+#define PRINT_USE_2_PASS_FX			FALSE 	// [Bitmap] Allow use 2-pass FX render to prevent character overlap
 #define PRINT_USE_GRAPH				FALSE	// Allow use of character lines and boxes
-#define PRINT_USE_VALIDATOR			TRUE	// Add validator character code
+#define PRINT_USE_VALIDATOR			FALSE	// Add validator character code
 #define PRINT_USE_UNIT				FALSE	// Display integer type (h: hexadecimal, b: binary)
 #define PRINT_USE_FORMAT			TRUE	// Add printf type function
 #define PRINT_USE_32B				FALSE	// Allow to print 32-bits integers
-#define PRINT_SKIP_SPACE			FALSE	// Skill space character
-#define PRINT_COLOR_NUM				1		// 1 color per line
+#define PRINT_SKIP_SPACE			TRUE	// Skill space character
+#define PRINT_COLOR_NUM				12		// 1 color per line
 // Character width
 // - PRINT_WIDTH_1 (text mode)
 // - PRINT_WIDTH_6
 // - PRINT_WIDTH_8
 // - PRINT_WIDTH_X (variable)
-#define PRINT_WIDTH					PRINT_WIDTH_8
+#define PRINT_WIDTH					PRINT_WIDTH_X
 // Character height
 // - PRINT_HEIGHT_1 (text mode)
 // - PRINT_HEIGHT_8
 // - PRINT_HEIGHT_X (variable)
-#define PRINT_HEIGHT				PRINT_HEIGHT_8
+#define PRINT_HEIGHT				PRINT_HEIGHT_X
 
 //-----------------------------------------------------------------------------
 // SPRITE FX MODULE

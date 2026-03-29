@@ -14,10 +14,6 @@
 // -----------------
 // *** CONSTANTS ***
 // -----------------
-// HUD_LINES e HUD_SOURCE_Y definiti in soccerlg.h
-
-
-
 const c8 g_Palette[] = {
     0x55, 0x02, // [0]  #A349A4  TRASPARENTE
     0x00, 0x00, // [1]  #010101  Fisso  - Scarpe, capelli, maglietta arbitro
@@ -37,140 +33,23 @@ const c8 g_Palette[] = {
     0x77, 0x07, // [F]  #FEFEFE  Var    - Pantaloncini squadra 2
 };
 
+	const u8 ScoreBoardNX_Left = 8;
+	const u8 ScoreBoardNY_Left = 212;
+
+	const u8 ScoreBoardNX_Right = 8;
+	const u8 ScoreBoardNY_Right = 212;
 // -----------------
 // *** VARIABLES ***
 // -----------------
 
-volatile u16 __at(0xC00B)ScreenPos;
+
+// Fonts data
+#include "font/font_mgl_mini1.h"
+
+
 volatile bool g_VSynch=FALSE;
 
-// --- Scroll verticale campo ---
-// g_PageScrollY[p] = riga logica del campo in cima alla pagina p
-// g_R23[p]         = valore di R#23 (VDP_SetVerticalOffset) per la pagina p
-u16 g_PageScrollY[3] = {0, 0, 0};
-u8  g_R23[3]         = {0, 0, 0};
-static i8  g_scrollDir      = 1;        // +1 = giù, -1 = su
-
-// --- HUD timer ---
-// Ogni iterazione del loop principale contiene 3 Halt() = 3 frame VBlank.
-// PAL: 50 frame/s → 50/3 ≈ 17 iterazioni/s  (errore < 2%)
-#define HUD_ITERS_PER_SEC  17u
-static u8 g_hudTimer  = 0;   // contatore iterazioni loop (0..HUD_ITERS_PER_SEC-1)
-static u8 g_hudSec    = 0;   // secondi trascorsi (0..255)
-
-// --- Sprite objects: array paralleli (SDCC/Z80: accesso HL-based, no IX+d) ---
-u8  g_lx[NOBJ];                           // x logica
-u8  g_ly[NOBJ];                           // y on-screen (0..191) → u8
-u8  g_x0[NOBJ], g_x1[NOBJ], g_x2[NOBJ];  // x fisica per pagina
-u16 g_y0[NOBJ], g_y1[NOBJ], g_y2[NOBJ];  // y piena (page_offset | phys_row)
-u16 g_frame[NOBJ];
-i8  g_dx[NOBJ];
-
-
-// -----------------------------
-// *** TRAMPOLINES FUNCTIONS ***
-// -----------------------------
-
-// +++ Call void function without parameters +++
-void CallFnc_VOID(u8 segment, void (*func)()) {
-    u8 _old = GET_BANK_SEGMENT(3);
-    SET_BANK_SEGMENT(3, segment);
-    func();
-    SET_BANK_SEGMENT(3, _old);
-}
-// +++ Call void function with 1 parameter +++
-void CallFnc_VOID_P1(u8 segment, void (*func)(u8), u8 p1) {
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    func(p1);
-	SET_BANK_SEGMENT(3, _old);
-}
-// +++ Call void function with 1 parameter +++
-void CallFnc_VOID_P2(u8 segment, void (*func)(u8, bool), u8 p1, bool p2) {
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    func(p1,p2);
-	SET_BANK_SEGMENT(3, _old);
-}
-// +++ Call void function with 2 u16 parameters +++
-void CallFnc_VOID_16_P2(u8 segment, void (*func)(u16,u16), u16 p1, u16 p2) {
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    func(p1,p2);
-	SET_BANK_SEGMENT(3, _old);
-}
-// +++ Call function without parameters with u8 returned value +++
-u8 CallFnc_U8(u8 segment, u8 (*func)()) {
-	u8 _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func();
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
-}
-// +++ Call function with 2 parameters with u8 returned value +++
-u8 CallFnc_U8_P1(u8 segment, u8 (*func)(u8), u8 p1) {
-	u8 _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func(p1);
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
-}
-// +++ Call function with 2 parameters with u16 returned value +++
-u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
-	u16 _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func(p1);
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
-}
-// +++ Call function with 2 parameters with u8 returned value +++
-u8 CallFnc_U8_P2(u8 segment, u8 (*func)(u8, u8), u8 p1, u8 p2) {
-    u8 _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func(p1,p2);
-	SET_BANK_SEGMENT(3, _old);
-	return _res;
-}
-// +++ Call function without parameter and with bool returned value +++
-bool CallFnc_BOOL(u8 segment, bool (*func)()) {
-    bool _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func();
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
-}
-// +++ Call function with 1 u8 parameter and with bool returned value +++
-bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
-    bool _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func(p1);
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
-}
-// +++ Call void function with 3 parameters (u8, u8, u16) +++
-void CallFnc_VOID_U8U8U16(u8 segment, void (*func)(u8, u8, u16), u8 p1, u8 p2, u16 p3) {
-    u8 _old = GET_BANK_SEGMENT(3);
-    SET_BANK_SEGMENT(3, segment);
-    func(p1, p2, p3);
-    SET_BANK_SEGMENT(3, _old);
-}
-
-// +++ CallSpriteFrame_B3: versione sicura da bank3 +++
-// Salva/ripristina bank3 attorno a CallSpriteFrame, che non lo fa da sola.
-// Da usare quando il chiamante è in un segmento mappato su bank3.
-void CallSpriteFrame_B3(u8 x, u16 y, u16 frame) {
-    u8 _old = GET_BANK_SEGMENT(3);
-    CallSpriteFrame(x, y, frame);
-    SET_BANK_SEGMENT(3, _old);
-}
-
-void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
+void MyCallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 {
 	x;			// A
 	y;			// DE
@@ -181,7 +60,16 @@ void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 	pop af		; pop return
 	pop hl		; hl = frame
 	push af		; push return
+	
+	ld	a,(#(_g_Bank0Segment + 6) + 0)
+	push 	af								; save the current mapper page
+	call  SpriteFrame
+	pop 	af
+	ld	(#0xB000),a							; restore the mapper page
+	ld	(#(_g_Bank0Segment + 6) + 0),a		
+	ret
 
+SpriteFrame::
 	ld	a,l
 	and #3
 	add a,a
@@ -223,13 +111,35 @@ void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 	__endasm;
 }
 
+//	u8 FieldMap[] 
+	#include "Tools/OutField/FieldMap.h"
+
+	const u8 dummy[] = {0,0,0,0,0,0,0,0};
 
 // -----------
 // *** ISR ***
 // -----------
+
+	u8	Frms = 60;
+	u8	Secs = 5;
+	u8	Mins = 3;
+    u8  LastSecs=5;
+
 void VSyncCallback()
 {
 	g_VSynch = TRUE;
+	
+	Frms--;
+	if (Frms==0) {
+		Frms = 60;
+        LastSecs=Secs;
+		Secs--;
+		if (Secs==0) {
+			Secs = 60;
+			Mins--;
+			if (Mins==0) Mins = 3;
+		}
+	}
 }
 
 void WaitForVBlank(){
@@ -237,14 +147,12 @@ void WaitForVBlank(){
     g_VSynch = FALSE;
 }
 
-void DrawField(u8 vdp_page)
+void LoadField(u8 vdp_page)
 {
-    u8 i;
-
     u32 base     = (u32)vdp_page * 0x8000;
     u8  saved_seg = GET_BANK_SEGMENT(3);
 
-    for (i = 0; i < FIELD_SEG_COUNT; i++)
+    for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
     {
         u32 addr    = base + (u32)i * 8192;
         u16 addrLow = (u16)(addr & 0xFFFF);
@@ -257,32 +165,135 @@ void DrawField(u8 vdp_page)
     SET_BANK_SEGMENT(3, saved_seg);
 }
 
-
-// Ridisegna l'HUD master nell'area sicura (HUD_SOURCE_Y).
-// Chiamata una sola volta all'init e poi una volta al secondo.
-// Formato: "MM:SS" calcolato da g_hudSec.
-static void UpdateHUDMaster(void)
+void PlotField(u16 y,u16 page)
 {
-    u8 s  = g_hudSec % 60;
-    u8 m  = g_hudSec / 60;
-    c8 buf[6];
-    buf[0] = '0' + m / 10;
-    buf[1] = '0' + m % 10;
-    buf[2] = ':';
-    buf[3] = '0' + s / 10;
-    buf[4] = '0' + s % 10;
-    buf[5] = '\0';
-    VDP_CommandLMMV(0, HUD_SOURCE_Y, 256, HUD_LINES, 0x11, VDP_OP_IMP);
-    SET_BANK_SEGMENT(3, 4);     // ripristina segmento font (CallSpriteFrame lo cambia)
-    Print_SetPosition(0, (UY)HUD_SOURCE_Y);
-    Print_DrawText(buf);
+	for (u16 i=y;i<y+192;i+=16)
+		VDP_CommandYMMM(FieldMap[i]+768,0,i+page,16, 0);		
+}
+
+struct MyObj {
+	u8 lx;			// Logical x
+	u8 x0,x1,x2;	// Physical x's in the 3 pages
+	u16 ly;			// Logical Y
+	u16 y0,y1,y2;	// Physical y's in the 3 pages
+	u16 frame;
+	i8 dx;			// x direction
+	i8 dy;			// y direction
+};
+
+void AddLines(struct MyObj* Field) 
+{
+	u16 v;
+	
+	if (Field->dy==0) return;
+	
+	if (Field->dy>0) {
+		v = (Field->ly + 192) & 511;
+	}
+	else	{
+		v = (Field->ly -   1) & 511;
+	}
+	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);
+	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);
+	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);
+}
+
+void PlayerAI(struct MyObj* Player) 
+{
+	Player->lx += Player->dx; 
+	if  (Player->lx>238 || Player->lx<4) 
+		Player->dx = -Player->dx;
+	
+	Player->ly += Player->dy; 
+	if  (Player->ly>504-16 || Player->ly<=16) 
+		Player->dy = -Player->dy;
+	
+}
+
+#define OnScreen(y)  	(((y)+15)>=Field.ly && (y)<Field.ly+192)
+#define SplitSprite(y)  (((y & 255))>240)
+#define NumSprite	(24)
+
+struct MyObj SwSprite[NumSprite];
+struct MyObj Field;
+struct MyObj ScoreBoardLeft;
+struct MyObj ScoreBoardRight;
+
+
+void RemoveSwSprite(u8 px,u16 py,u16 page) 
+{
+	if OnScreen(py) 
+	{
+		if SplitSprite(py) {
+			u8 t = 256 - (py & 255) ;
+			VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
+			VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
+		}
+		else
+		VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
+	}
+}
+
+
+
+
+
+
+
+void RemoveScoreBoardLeft(u8 px,u16 py,u16 page)
+{
+	if (((py&255)>256-ScoreBoardNY_Left) ) 
+	{
+		u8 t = 256 - (py & 255) ;
+		VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
+		VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	}
+	else
+		VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+}
+
+void PrintScoreBoardLeft(u8 px,u16 py,u16 page)
+{
+	if (((py&255)>256-ScoreBoardNY_Left) ) 
+	{
+		u8 t = 256 - (py & 255) ;
+		VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
+		VDP_CommandHMMM(0, 768+t, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	}
+	else
+		VDP_CommandHMMM(0, 768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+}
+
+
+void RemoveScoreBoardRight(u8 px,u16 py,u16 page)
+{
+	if (((py&255)>256-ScoreBoardNY_Right) ) 
+	{
+		u8 t = 256 - (py & 255) ;
+		VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
+		VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	}
+	else
+		VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
+}
+
+void PrintScoreBoardRight(u8 px,u16 py,u16 page)
+{
+	if (((py&255)>256-ScoreBoardNY_Right) ) 
+	{
+		u8 t = 256 - (py & 255) ;
+		VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
+		VDP_CommandHMMM(px, 768+t, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	}
+	else
+		VDP_CommandHMMM(px, 768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
 }
 
 // ------------
 // *** MAIN ***
 // ------------
-void main(){
-	u8 i;
+void main()
+{
 	
 	if (Sys_GetMSXVersion() == MSXVER_1)
 	{
@@ -294,155 +305,254 @@ void main(){
 	
 	DEBUG_INIT();
     Bios_SetKeyClick(FALSE);
-	//Bios_SetHookCallback(H_TIMI, VSyncCallback);
 	VDP_SetMode(VDP_MODE_SCREEN5);
-    VDP_SetLineCount(VDP_LINE_192);     // 192 righe: VBlank più lungo, più CPU per frame
-    VDP_SetLayoutTable(VDP_G4_ADDR_NT);
-	// VDP_EnableVBlank(TRUE);
-
+	VDP_EnableTransparency(FALSE);
     VDP_SetPalette(g_Palette);
-    VDP_SetColor(0X01);
-    // VDP_FillVRAM_128K(6,0,0,0);
-    // VDP_FillVRAM_128K(6,0,1,0);
- 
+    VDP_SetBackdropColor(0x1);
+ 	VDP_SetLineCount(VDP_LINE_192);
 	VDP_DisableSprite();
+	VDP_ClearVRAM();
+	VDP_FillVRAM(0x77, 0x0000, 0, 0x8000);
+  
+
+  
+  
+	LoadField(3);
 	
-    // --- CONFIGURAZIONE INIZIALE ---
-    
-    // 1. Imposta la posizione dove vuoi disegnare nella VRAM (es. X=100, Y=100)
-    // In Screen 5, ogni riga occupa 128 byte. (Y * 128) + (X / 2)
+	VDP_CommandHMMV(0,768,ScoreBoardNX_Left,ScoreBoardNY_Left,0x77);
+    VDP_CommandHMMV(0,768,ScoreBoardNX_Right,ScoreBoardNY_Right,0x77);
+
+    SET_BANK_SEGMENT(3,4);
+	Print_SetBitmapFont(g_Fonts);
+	Print_SetColor(4, 7);
+
+	Print_SetPosition(0,  8+768);Print_DrawText("A");
+    Print_SetPosition(0,  16+768);Print_DrawText("U");
+    Print_SetPosition(0,  24+768);Print_DrawText("S");
+    Print_SetPosition(0,  32+768);Print_DrawText(" ");
+    Print_SetPosition(0,  40+768);Print_DrawText("1");
+
+	Print_SetPosition(0,  56+768);Print_DrawText("I");
+    Print_SetPosition(0,  64+768);Print_DrawText("T");
+    Print_SetPosition(0,  72+768);Print_DrawText("A");
+    Print_SetPosition(0,  80+768);Print_DrawText(" ");
+    Print_SetPosition(0,  88+768);Print_DrawText("2");
 
 
-    DrawField(3);           // carica il campo compresso in pagina 3 (sorgente per HMMM)
-    CallFnc_VOID(SEG_MAIN, InitScrollPages); // RebuildPage(0..2, 0) via seg5
+    Print_SetPosition(248,  8+768);Print_DrawText("T");
+    Print_SetPosition(248,  16+768);Print_DrawText("I");
+    Print_SetPosition(248,  24+768);Print_DrawText("M");
+    Print_SetPosition(248,  32+768);Print_DrawText("E");
 
-    // Pulisce l'area HUD di base con un rettangolo nero (0x11 = MSX index 1 -> #010101)
-    VDP_CommandLMMV(0, 0, 256, HUD_LINES, 0x11, VDP_OP_IMP);
-    VDP_CommandLMMV(0, 256, 256, HUD_LINES, 0x11, VDP_OP_IMP);
-    VDP_CommandLMMV(0, 512, 256, HUD_LINES, 0x11, VDP_OP_IMP);
-
-    //VDP_EnableDisplay(TRUE);
-    SET_BANK_SEGMENT(3, 4);
-    Print_SetMode(PRINT_MODE_BITMAP);
-    Print_Initialize();
-    Print_SetBitmapFont(g_Fonts);
-    Print_SetColor(4,1);
-
-    // Prima render HUD master (tempo 00:00)
-    UpdateHUDMaster();
-
-    // 1. Esegui la presentazione iniziale del gioco
-    CallFnc_VOID(SEG_PRESENTATION, PlayPresentation);
-
-    // 2. Passa al loop infinito di test prestazioni (animazione originale)
-    TestPerformanceAnimation();
-}
-
-void TestPerformanceAnimation(void)
-{
-	u8 i;
-
-	for (i=0; i<NOBJ; i++) {
-		g_lx[i]    = (u8)(i*16+4);
-		g_ly[i]    = (u8)(i*12);
-		g_frame[i] = 38;
-		g_dx[i]    = 2;
-	}
-
+	Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);//Print_DrawText("3");	
+	Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
+    Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);	
 // Passi del triplo buffering
-
-// 1)	
-// vedo 	0
-// cancello 2
-// scrivo 	1
-
-// 2)	
-// vedo 	1
-// cancello 0
-// scrivo 	2
-
-// 3)	
-// vedo 	2
-// cancello 1
-// scrivo 	0
+//
+// 1) vedo 	0, cancello 2, scrivo 	1
+// 2) vedo 	1, cancello 0, scrivo 	2
+// 3) vedo 	2, cancello 1, scrivo 	0
+	
 
 
-// init
-	for (i=0; i<NOBJ; i++)
+	Field.dy = 1;
+	Field.ly = 0;
+	
+	ScoreBoardLeft.lx = 0;
+	ScoreBoardLeft.ly = Field.ly;
+	
+	ScoreBoardRight.lx = 248;
+	ScoreBoardRight.ly = Field.ly;
+	
+	VDP_EnableDisplay(false);
+	PlotField(Field.ly,   0);
+	PlotField(Field.ly, 256);
+	PlotField(Field.ly, 512);
+//
+
+
+	//RemoveScoreBoardLeft(0,0,0);
+    //RemoveScoreBoardLeft(0,0,1);
+    //RemoveScoreBoardLeft(0,0,2);
+    //RemoveScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0,  0);
+
+
+	Bios_SetHookCallback(H_TIMI, VSyncCallback);
+
+    // --- CONFIGURAZIONE INIZIALE ---
+
+	for (u8 i=0; i<NumSprite;i++) 
 	{
-		g_x0[i] = g_lx[i];
-		g_y0[i] = g_ly[i] + HUD_LINES;                   // page 0: offset 0, r23=0
-		g_x1[i] = g_lx[i];
-		g_y1[i] = (u16)256u | (u8)(g_ly[i] + HUD_LINES);       // page 1: offset 256
-		g_x2[i] = g_lx[i];
-		g_y2[i] = (u16)512u | (u8)(g_ly[i] + HUD_LINES);                        // page 2: inizializzato correttamente per primo erase
+		SwSprite[i].lx = Math_GetRandomRange16(4,238) 		& 0xFFFE;
+		SwSprite[i].ly = Math_GetRandomRange16(16,504-16)	& 0xFFFE;
+		SwSprite[i].frame = (i<NumSprite/2) ? (32+i):(14*16+i);
+		SwSprite[i].dx = 2;
+		SwSprite[i].dy = 2*(Math_GetRandomRange16(0,3)-1);
 	}
 
-// loop
-// Per ogni fase:
-//   1. ScrollInsertRowDown(write_page)  → inserisce la riga nuova in fondo al buffer
-//      circolare, incrementa g_R23[write_page] e g_PageScrollY[write_page]
-//   2. Calcola coordinate fisiche sprite per write_page con il nuovo g_R23
-//   3. VDP_SetPage(show_page) + VDP_SetVerticalOffset(g_R23[show_page])
-//   4. Cancella sprite da erase_page (con riga sorgente via FieldMap), disegna su write_page
-//
-// Erase via FieldMap:
-//   phys_y_in_page = y_erase & 0xFF
-//   screen_row     = (phys_y_in_page - g_R23[erase_page]) & 0xFF
-//   src_in_pag3    = FieldMap[ g_PageScrollY[erase_page] + screen_row ]
 
+	for (u8 i=0; i<NumSprite;i++) 
+	{
+		SwSprite[i].x0 = SwSprite[i].lx;
+		SwSprite[i].y0 = SwSprite[i].ly;
+		SwSprite[i].x1 = SwSprite[i].lx;
+		SwSprite[i].y1 = SwSprite[i].ly;
+		SwSprite[i].x2 = 0;
+		SwSprite[i].y2 = 0;
+	}
+
+	ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
+	ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
+	ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
+
+    ScoreBoardRight.x0 = ScoreBoardRight.lx;
+	ScoreBoardRight.x1 = ScoreBoardRight.lx;
+	ScoreBoardRight.x2 = ScoreBoardRight.lx;
+
+// Sincronizzazione perfetta del Triplo Buffer al frame 0
+	ScoreBoardLeft.y2 = Field.ly;
+	ScoreBoardLeft.y0 = Field.ly;
+	ScoreBoardLeft.y1 = Field.ly + Field.dy;
+
+	ScoreBoardRight.y2 = Field.ly;
+	ScoreBoardRight.y0 = Field.ly;
+	ScoreBoardRight.y1 = Field.ly + Field.dy;
+
+
+// loop 
+    VDP_EnableDisplay(true);
 	for (;;)
 	{
-		// ── FASE 1: vedo 0 │ cancello 2 │ scrivo 1 ──────────────────────────────
-		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1); }
-		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   1); }
-		Halt();
-		VDP_SetPage(0);
-		VDP_SetVerticalOffset(g_R23[0]);
-
-		// Copia HUD master → HUD di pag 1 (puro VDP, CPU libera subito)
-		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
-
-		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
-
-		// ── FASE 2: vedo 1 │ cancello 0 │ scrivo 2 ──────────────────────────────
-		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2); }
-		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   2); }
-		Halt();
-		VDP_SetPage(1);
-		VDP_SetVerticalOffset(g_R23[1]);
-
-		// Copia HUD master → HUD di pag 2
-		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
-
-		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
-
-		// ── FASE 3: vedo 2 │ cancello 1 │ scrivo 0 ──────────────────────────────
-		if (g_scrollDir > 0) { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0); }
-		else                 { CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowUp,   0); }
-		Halt();
-		VDP_SetPage(2);
-		VDP_SetVerticalOffset(g_R23[2]);
-
-		// Copia HUD master → HUD di pag 0
-		VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
-
-		CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
-
-		// ── Aggiornamento HUD una volta al secondo (50 frame PAL) ────────────
-		if (++g_hudTimer >= HUD_ITERS_PER_SEC)
+        
+		// vedo 	0
+		VDP_SetPage(0);		
+		VDP_SetVerticalOffset(Field.ly & 255);
+		AddLines(&Field);
+  
+		for (u8 i=0; i<NumSprite;i++) 
 		{
-			g_hudTimer = 0;
-			g_hudSec++;
-			UpdateHUDMaster();
+			// cancello 2		
+			RemoveSwSprite(SwSprite[i].x2,SwSprite[i].y2,512);
+			// scrivo 	1
+			if OnScreen(SwSprite[i].y1) 
+				MyCallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
+			// game AI
+			PlayerAI(&SwSprite[i]);
 		}
+		// cancello 2	 scrivo 	1
+		//RemoveTimer(Timer.x2,Timer.y2,512);
+		//PrintTimer(Timer.x1,Timer.y1, 256);
+		RemoveScoreBoardLeft(ScoreBoardLeft.x2,ScoreBoardLeft.y2,512);
+		PrintScoreBoardLeft(ScoreBoardLeft.x1,ScoreBoardLeft.y1, 256);
+        RemoveScoreBoardRight(ScoreBoardRight.x2,ScoreBoardRight.y2, 512);
+		PrintScoreBoardRight(ScoreBoardRight.x1,ScoreBoardRight.y1, 256);
+		//
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
 
-		// ── Inversione direzione scroll ai limiti del campo ──────────────────
-		if (g_scrollDir > 0 && g_PageScrollY[0] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS)
-			g_scrollDir = -1;
-		else if (g_scrollDir < 0 && g_PageScrollY[0] == 0)
-			g_scrollDir = 1;
+		// Halt();
+	
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x2 = SwSprite[i].lx;
+			SwSprite[i].y2 = SwSprite[i].ly;
+		}
+		ScoreBoardLeft.y2 = Field.ly+Field.dy;	
+		ScoreBoardRight.y2 = Field.ly+Field.dy;	
+	
+		// vedo 	1
+		VDP_SetPage(1);		
+		VDP_SetVerticalOffset(Field.ly & 255);
+		AddLines(&Field);
+		
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			// cancello 0
+			RemoveSwSprite(SwSprite[i].x0,SwSprite[i].y0,0);
+			// scrivo 	2 
+			if OnScreen(SwSprite[i].y2) 
+				MyCallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
+			// game AI
+			PlayerAI(&SwSprite[i]);
+		}
+		// cancello 0	 scrivo 	2
+		//RemoveTimer(Timer.x0,Timer.y0,  0);
+		//PrintTimer(Timer.x2,Timer.y2, 512);
+		RemoveScoreBoardLeft(ScoreBoardLeft.x0,ScoreBoardLeft.y0,  0);
+		PrintScoreBoardLeft(ScoreBoardLeft.x2,ScoreBoardLeft.y2, 512);
+        RemoveScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0,  0);
+		PrintScoreBoardRight(ScoreBoardRight.x2,ScoreBoardRight.y2, 512);
+		//
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
 
+		// Halt();
+		
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x0 = SwSprite[i].lx;
+			SwSprite[i].y0 = SwSprite[i].ly;
+		}
+		ScoreBoardLeft.y0 = Field.ly+Field.dy;
+		ScoreBoardRight.y0 = Field.ly+Field.dy;
+		
+		// vedo 	2	
+		VDP_SetPage(2);		
+		VDP_SetVerticalOffset(Field.ly & 255);
+		AddLines(&Field);
+		
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			// cancello 1
+			RemoveSwSprite(SwSprite[i].x1,SwSprite[i].y1,256);
+			// scrivo 	0	
+			if OnScreen(SwSprite[i].y0) 
+				MyCallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
+			// game AI
+			PlayerAI(&SwSprite[i]);
+		}
+		// cancello 1	scrivo 	0
+		//RemoveTimer(Timer.x1,Timer.y1,256);
+		//PrintTimer(Timer.x0,Timer.y0,   0);
+		RemoveScoreBoardLeft(ScoreBoardLeft.x1,ScoreBoardLeft.y1,256);
+		PrintScoreBoardLeft(ScoreBoardLeft.x0,ScoreBoardLeft.y0,   0);
+        RemoveScoreBoardRight(ScoreBoardRight.x1,ScoreBoardRight.y1, 256);
+		PrintScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0, 0);
+		//
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
+
+		// Halt();
+		
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x1 = SwSprite[i].lx;
+			SwSprite[i].y1 = SwSprite[i].ly;
+		}
+		ScoreBoardLeft.y1 = Field.ly+Field.dy;
+		ScoreBoardRight.y1 = Field.ly+Field.dy;
+
+		// update scoreboard
+		Print_SetPosition(1, 24+768);
+        
+    
+		if(LastSecs!=Secs){
+            LastSecs=Secs;
+            //Print_DrawText("3");	
+            if(Secs==60){
+                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins+1);
+                Print_SetPosition(248,  60+768);Print_DrawFormat("0");	
+                Print_SetPosition(248,  68+768);Print_DrawFormat("0");
+            }
+            else{
+                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);
+                Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
+                Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);
+            }
+	        	
+        }
+		
+		
 	}
 
 }

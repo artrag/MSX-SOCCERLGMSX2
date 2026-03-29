@@ -315,7 +315,7 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG6
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:17: static void UpdatePresentationY(u16 write_scroll_y)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:16: static void UpdatePresentationY(u16 write_scroll_y)
 ;	---------------------------------
 ; Function UpdatePresentationY
 ; ---------------------------------
@@ -324,120 +324,66 @@ _UpdatePresentationY:
 	ld	ix,#0
 	add	ix,sp
 	push	af
-	push	af
-	push	af
+	dec	sp
 	ld	c, l
 	ld	b, h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:22: for (i = 0; i < TEAM1_NPLAYERS; i++) {
-	ld	e, #0x00
-00103$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:23: sy = (i16)TEAM1_FIELD_Y_FWD - (i16)write_scroll_y;
-	inc	sp
-	inc	sp
-	push	bc
-	ld	a, #0xde
-	sub	a, -6 (ix)
-	ld	-4 (ix), a
-	sbc	a, a
-	sub	a, -5 (ix)
-	ld	-3 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:24: g_ly[i] = (sy >= 0 && sy < (i16)(SCREEN_LINES - HUD_LINES))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:21: for (i = 0; i < NOBJ; i++) {
+	ld	-1 (ix), #0x00
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:22: sy = (i16)g_fy[i] - (i16)write_scroll_y;
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #_g_fy
+	add	hl, de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ex	de, hl
+	ld	e, c
+	ld	d, b
+	cp	a, a
+	sbc	hl, de
+	ex	de, hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:23: g_ly[i] = (sy >= 0 && sy < (i16)(SCREEN_LINES - HUD_LINES))
 	ld	a, #<(_g_ly)
-	add	a, e
-	ld	-2 (ix), a
+	add	a, -1 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
 	ld	a, #>(_g_ly)
 	adc	a, #0x00
-	ld	-1 (ix), a
-	ld	l, -3 (ix)
+	ld	h, a
 ;	spillPairReg hl
 ;	spillPairReg hl
-	bit	7, l
-	jr	NZ, 00110$
-	ld	a, -4 (ix)
+	inc	sp
+	inc	sp
+	push	de
+	bit	7, -2 (ix)
+	jr	NZ, 00106$
+	ld	a, e
 	sub	a, #0xb8
-	ld	a, -3 (ix)
+	ld	a, d
 	rla
 	ccf
 	rra
 	sbc	a, #0x80
-	jr	NC, 00110$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:25: ? (u8)sy : (u8)(SCREEN_LINES - HUD_LINES - 1);
-	ld	a, -4 (ix)
-	jp	00111$
-00110$:
-	ld	a, #0xb7
-00111$:
-	ld	l, -2 (ix)
-	ld	h, -1 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:22: for (i = 0; i < TEAM1_NPLAYERS; i++) {
-	inc	e
-	ld	a, e
-	sub	a, #0x07
-	jr	C, 00103$
-	ld	a, #0x0a
-	sub	a, -6 (ix)
-	ld	-2 (ix), a
-	ld	a, #0x01
-	sbc	a, -5 (ix)
-	ld	-1 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:24: ? (u8)sy : (u8)(SCREEN_LINES - HUD_LINES - 1);
+	jr	C, 00107$
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:27: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
-	ld	a, e
-	sub	a, #0x0e
-	jr	NC, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:29: g_ly[i] = (sy >= 0 && sy < (i16)(SCREEN_LINES - HUD_LINES))
-	ld	hl, #_g_ly
-	ld	d, #0x00
-	add	hl, de
-	ld	b, -1 (ix)
-	bit	7, b
-	jr	NZ, 00115$
-	ld	a, -2 (ix)
-	sub	a, #0xb8
+	ld	e, #0xb7
+00107$:
+	ld	(hl), e
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:21: for (i = 0; i < NOBJ; i++) {
+	inc	-1 (ix)
 	ld	a, -1 (ix)
-	rla
-	ccf
-	rra
-	sbc	a, #0x80
-	jr	NC, 00115$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:30: ? (u8)sy : (u8)(SCREEN_LINES - HUD_LINES - 1);
-	ld	a, -2 (ix)
-	jp	00116$
-00115$:
-	ld	a, #0xb7
-00116$:
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:27: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
-	inc	e
-	jp	00106$
-00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:33: sy = (i16)BALL_FIELD_Y - (i16)write_scroll_y;
-	ld	a, #0xf4
-	sub	a, -6 (ix)
-	ld	c, a
-	sbc	a, a
-	sub	a, -5 (ix)
-	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:34: g_ly[NOBJ - 1] = (sy >= 0 && sy < (i16)(SCREEN_LINES - HUD_LINES))
-	ld	d, b
-	bit	7, d
-	jr	NZ, 00120$
-	ld	a, c
-	sub	a, #0xb8
-	ld	a, b
-	rla
-	ccf
-	rra
-	sbc	a, #0x80
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:35: ? (u8)sy : (u8)(SCREEN_LINES - HUD_LINES - 1);
-	jr	C, 00121$
-00120$:
-	ld	c, #0xb7
-00121$:
-	ld	hl, #(_g_ly + 14)
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:36: }
+	sub	a, #0x0f
+	jr	C, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:26: }
 	ld	sp, ix
 	pop	ix
 	ret
@@ -1110,7 +1056,127 @@ _FieldMap:
 	.db #0xfd	; 253
 	.db #0xfe	; 254
 	.db #0xff	; 255
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:44: static void InitSpritePositions(void)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:33: static void AdvanceFieldY(void)
+;	---------------------------------
+; Function AdvanceFieldY
+; ---------------------------------
+_AdvanceFieldY:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:37: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	ld	-1 (ix), #0x00
+00112$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:38: if (g_fy[i] < (u16)TEAM1_FIELD_Y_FWD) g_fy[i]++;
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	bc,#_g_fy
+	add	hl,bc
+	ld	e, l
+	ld	d, h
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	ld	a, c
+	sub	a, #0xde
+	ld	a, b
+	sbc	a, #0x00
+	jr	NC, 00102$
+	inc	bc
+	ld	a, c
+	ld	(de), a
+	inc	de
+	ld	a, b
+	ld	(de), a
+	jp	00113$
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:39: else                                    g_fy[i] = (u16)TEAM1_FIELD_Y_FWD;
+	ld	a, #0xde
+	ld	(de), a
+	inc	de
+	xor	a, a
+	ld	(de), a
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:37: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	inc	-1 (ix)
+	ld	a, -1 (ix)
+	sub	a, #0x07
+	jr	C, 00112$
+	ld	c, -1 (ix)
+00115$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:41: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	ld	a, c
+	sub	a, #0x0e
+	jr	NC, 00108$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:42: if (g_fy[i] < (u16)TEAM2_FIELD_Y_FWD) g_fy[i]++;
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	a, l
+	add	a, #<(_g_fy)
+	ld	-2 (ix), a
+	ld	a, h
+	adc	a, #>(_g_fy)
+	ld	-1 (ix), a
+	pop	hl
+	push	hl
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	a, e
+	sub	a, #0x0a
+	ld	a, d
+	sbc	a, #0x01
+	jr	NC, 00106$
+	inc	de
+	pop	hl
+	push	hl
+	ld	(hl), e
+	inc	hl
+	ld	(hl), d
+	jp	00116$
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:43: else                                    g_fy[i] = (u16)TEAM2_FIELD_Y_FWD;
+	pop	hl
+	push	hl
+	ld	(hl), #0x0a
+	inc	hl
+	ld	(hl), #0x01
+00116$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:41: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	inc	c
+	jp	00115$
+00108$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:46: if (g_fy[NOBJ - 1] < (u16)BALL_FIELD_Y) g_fy[NOBJ - 1]++;
+	ld	bc, (#(_g_fy + 28) + 0)
+	ld	a, c
+	sub	a, #0xf4
+	ld	a, b
+	sbc	a, #0x00
+	jr	NC, 00110$
+	inc	bc
+	ld	((_g_fy + 28)), bc
+	jp	00117$
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:47: else                                      g_fy[NOBJ - 1] = (u16)BALL_FIELD_Y;
+	ld	hl, #0x00f4
+	ld	((_g_fy + 28)), hl
+00117$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:48: }
+	ld	sp, ix
+	pop	ix
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:54: static void InitSpritePositions(void)
 ;	---------------------------------
 ; Function InitSpritePositions
 ; ---------------------------------
@@ -1121,32 +1187,16 @@ _InitSpritePositions:
 	ld	hl, #-12
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:51: for (i = 0; i < NOBJ; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:60: for (i = 0; i < NOBJ; i++) {
 	ld	-2 (ix), #0x00
-00121$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:52: if (i < TEAM1_NPLAYERS)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:61: for (p = 0; p < 3; p++) {
+00123$:
 	ld	a, -2 (ix)
-	sub	a, #0x07
-	jr	NC, 00105$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:53: field_y = (u16)TEAM1_FIELD_Y_FWD;
-	ld	hl, #0x00de
-	ex	(sp), hl
-	jp	00131$
-00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:54: else if (i < TEAM1_NPLAYERS + TEAM2_NPLAYERS)
-	ld	a, -2 (ix)
-	sub	a, #0x0e
-	jr	NC, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:55: field_y = (u16)TEAM2_FIELD_Y_FWD;
-	ld	hl, #0x010a
-	ex	(sp), hl
-	jp	00131$
-00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:57: field_y = (u16)BALL_FIELD_Y;
-	ld	hl, #0x00f4
-	ex	(sp), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:59: for (p = 0; p < 3; p++) {
-00131$:
+	add	a, #<(_g_lx)
+	ld	-12 (ix), a
+	ld	a, #0x00
+	adc	a, #>(_g_lx)
+	ld	-11 (ix), a
 	ld	a, #<(_g_lx)
 	add	a, -2 (ix)
 	ld	-10 (ix), a
@@ -1159,17 +1209,31 @@ _InitSpritePositions:
 	ld	a, #>(_g_lx)
 	adc	a, #0x00
 	ld	-7 (ix), a
-	ld	a, #<(_g_lx)
-	add	a, -2 (ix)
-	ld	-6 (ix), a
-	ld	a, #>(_g_lx)
-	adc	a, #0x00
-	ld	-5 (ix), a
 	ld	-1 (ix), #0x00
-00119$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:60: sy = (i16)field_y - (i16)g_PageScrollY[p];
-	pop	bc
-	push	bc
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:62: sy = (i16)g_fy[i] - (i16)g_PageScrollY[p];
+	ld	l, -2 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	-6 (ix), l
+	ld	-5 (ix), h
+	ld	a, #<(_g_fy)
+	add	a, -6 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_fy)
+	adc	a, -5 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
 	ld	l, -1 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1188,17 +1252,17 @@ _InitSpritePositions:
 	ld	a, b
 	sbc	a, d
 	ld	-4 (ix), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:62: if (sy < 0)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:63: if (sy < 0)
 	ld	-3 (ix), a
 	ld	b, a
 	bit	7, b
-	jr	Z, 00108$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:63: sy = 0;
+	jr	Z, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:64: sy = 0;
 	xor	a, a
 	ld	-4 (ix), a
 	ld	-3 (ix), a
-00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:64: if (sy >= (i16)(SCREEN_LINES - HUD_LINES))
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:65: if (sy >= (i16)(SCREEN_LINES - HUD_LINES))
 	ld	a, -4 (ix)
 	sub	a, #0xb8
 	ld	a, -3 (ix)
@@ -1206,12 +1270,12 @@ _InitSpritePositions:
 	ccf
 	rra
 	sbc	a, #0x80
-	jr	C, 00110$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:65: sy = (i16)(SCREEN_LINES - HUD_LINES) - 1;
+	jr	C, 00104$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:66: sy = (i16)(SCREEN_LINES - HUD_LINES) - 1;
 	ld	-4 (ix), #0xb7
 	ld	-3 (ix), #0
-00110$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:66: phy_y = (u8)sy + g_R23[p] + HUD_LINES;
+00104$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:67: phy_y = (u8)sy + g_R23[p] + HUD_LINES;
 	ld	c, -4 (ix)
 	ld	a, #<(_g_R23)
 	add	a, -1 (ix)
@@ -1222,96 +1286,109 @@ _InitSpritePositions:
 	ld	a, (de)
 	add	a, c
 	add	a, #0x08
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:69: g_y0[i] = (u16)0u   | phy_y;
-	ld	e, -2 (ix)
-	ld	d, #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:70: g_y0[i] = (u16)0u   | phy_y;
 	ld	c, a
 	ld	b, #0x00
-	ex	de, hl
-	add	hl, hl
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:67: if (p == 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: if (p == 0) {
 	ld	a, -1 (ix)
 	or	a, a
-	jr	NZ, 00115$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: g_x0[i] = g_lx[i];
+	jr	NZ, 00109$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:69: g_x0[i] = g_lx[i];
 	ld	a, #<(_g_x0)
 	add	a, -2 (ix)
-	ld	-4 (ix), a
+	ld	e, a
 	ld	a, #>(_g_x0)
 	adc	a, #0x00
-	ld	-3 (ix), a
-	ld	l, -6 (ix)
-	ld	h, -5 (ix)
-	ld	a, (hl)
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:69: g_y0[i] = (u16)0u   | phy_y;
-	ld	hl, #_g_y0
-	add	hl, de
-	ld	(hl), c
-	inc	hl
-	ld	(hl), b
-	jp	00120$
-00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:70: } else if (p == 1) {
-	ld	a, -1 (ix)
-	dec	a
-	jr	NZ, 00112$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: g_x1[i] = g_lx[i];
-	ld	a, #<(_g_x1)
-	add	a, -2 (ix)
-	ld	-4 (ix), a
-	ld	a, #>(_g_x1)
-	adc	a, #0x00
-	ld	-3 (ix), a
+	ld	d, a
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
 	ld	a, (hl)
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:72: g_y1[i] = (u16)256u | phy_y;
-	ld	hl, #_g_y1
-	add	hl, de
+	ld	(de), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:70: g_y0[i] = (u16)0u   | phy_y;
+	ld	a, #<(_g_y0)
+	add	a, -6 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_y0)
+	adc	a, -5 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	(hl), c
+	inc	hl
+	ld	(hl), b
+	jp	00114$
+00109$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: } else if (p == 1) {
+	ld	a, -1 (ix)
+	dec	a
+	jr	NZ, 00106$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:72: g_x1[i] = g_lx[i];
+	ld	a, #<(_g_x1)
+	add	a, -2 (ix)
+	ld	e, a
+	ld	a, #>(_g_x1)
+	adc	a, #0x00
+	ld	d, a
+	ld	l, -10 (ix)
+	ld	h, -9 (ix)
+	ld	a, (hl)
+	ld	(de), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:73: g_y1[i] = (u16)256u | phy_y;
+	ld	a, #<(_g_y1)
+	add	a, -6 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_y1)
+	adc	a, -5 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
 	set	0, b
 	ld	(hl), c
 	inc	hl
 	ld	(hl), b
-	jp	00120$
-00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:74: g_x2[i] = g_lx[i];
+	jp	00114$
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:75: g_x2[i] = g_lx[i];
 	ld	a, #<(_g_x2)
 	add	a, -2 (ix)
-	ld	-4 (ix), a
+	ld	e, a
 	ld	a, #>(_g_x2)
 	adc	a, #0x00
-	ld	-3 (ix), a
-	ld	l, -10 (ix)
-	ld	h, -9 (ix)
+	ld	d, a
+	pop	hl
+	push	hl
 	ld	a, (hl)
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:75: g_y2[i] = (u16)512u | phy_y;
-	ld	hl, #_g_y2
-	add	hl, de
+	ld	(de), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:76: g_y2[i] = (u16)512u | phy_y;
+	ld	a, #<(_g_y2)
+	add	a, -6 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_y2)
+	adc	a, -5 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
 	set	1, b
 	ld	(hl), c
 	inc	hl
 	ld	(hl), b
-00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:59: for (p = 0; p < 3; p++) {
+00114$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:61: for (p = 0; p < 3; p++) {
 	inc	-1 (ix)
 	ld	a, -1 (ix)
 	sub	a, #0x03
-	jp	C, 00119$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:51: for (i = 0; i < NOBJ; i++) {
+	jp	C, 00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:60: for (i = 0; i < NOBJ; i++) {
 	inc	-2 (ix)
 	ld	a, -2 (ix)
 	sub	a, #0x0f
-	jp	C, 00121$
+	jp	C, 00123$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:80: UpdatePresentationY(g_PageScrollY[0]);
 	ld	hl, (#_g_PageScrollY + 0)
 	call	_UpdatePresentationY
@@ -1319,7 +1396,88 @@ _InitSpritePositions:
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:96: void PlayPresentation(void)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:86: static void CheckArrival(void)
+;	---------------------------------
+; Function CheckArrival
+; ---------------------------------
+_CheckArrival:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	dec	sp
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:91: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	ld	bc, #_g_dx+0
+	ld	e, #0x00
+00107$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:92: tgt = (u8)(TEAM_X_START + i * TEAM_X_STEP);
+	ld	a, e
+	rrca
+	rrca
+	rrca
+	and	a, #0xe0
+	add	a, #0x18
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:93: if (g_lx[i] >= tgt) { g_lx[i] = tgt; g_dx[i] = 0; }
+	ld	a, #<(_g_lx)
+	add	a, e
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_g_lx)
+	adc	a, #0x00
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, (hl)
+	sub	a, d
+	jr	C, 00108$
+	ld	(hl), d
+	ld	l, e
+	ld	h, #0x00
+	add	hl, bc
+	ld	(hl), #0x00
+00108$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:91: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	inc	e
+	ld	a, e
+	sub	a, #0x07
+	jr	C, 00107$
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:95: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:96: tgt = (u8)(TEAM_X_START + (i - TEAM1_NPLAYERS) * TEAM_X_STEP);
+	ld	a,e
+	cp	a,#0x0e
+	jr	NC, 00112$
+	add	a, #0xf9
+	rrca
+	rrca
+	rrca
+	and	a, #0xe0
+	add	a, #0x18
+	ld	-1 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:97: if (g_lx[i] <= tgt) { g_lx[i] = tgt; g_dx[i] = 0; }
+	ld	hl, #_g_lx
+	ld	d, #0x00
+	add	hl, de
+	ld	a,-1 (ix)
+	sub	a,(hl)
+	jr	C, 00111$
+	ld	a, -1 (ix)
+	ld	(hl), a
+	ld	l, e
+	ld	h, #0x00
+	add	hl, bc
+	ld	(hl), #0x00
+00111$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:95: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	inc	e
+	jp	00110$
+00112$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:99: }
+	inc	sp
+	pop	ix
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:117: void PlayPresentation(void)
 ;	---------------------------------
 ; Function PlayPresentation
 ; ---------------------------------
@@ -1329,109 +1487,98 @@ _PlayPresentation::
 	add	ix,sp
 	push	af
 	dec	sp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:101: for (i = 0; i < TEAM1_NPLAYERS; i++) {
-	ld	c, #0x00
-00135$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:102: g_lx[i]    = (u8)(TEAM_X_START + i * TEAM_X_STEP);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:123: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	ld	bc, #_g_frame+0
+	ld	e, #0x00
+00136$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:124: g_lx[i]    = 0;          // entra da sinistra
 	ld	hl, #_g_lx
-	ld	b, #0x00
-	add	hl, bc
-	ld	a, c
-	rrca
-	rrca
-	rrca
-	and	a, #0xe0
-	add	a, #0x18
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:103: g_frame[i] = 38;
-	ld	l, c
+	ld	d, #0x00
+	add	hl, de
+	ld	(hl), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:125: g_frame[i] = 38;
+	ld	l, e
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	h, #0x00
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, hl
-	ld	de, #_g_frame
-	add	hl, de
+	add	hl, bc
 	ld	(hl), #0x26
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:104: g_dx[i]    = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:126: g_dx[i]    = 4;          // cammina verso destra
 	ld	hl, #_g_dx
-	ld	b, #0x00
-	add	hl, bc
-	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:101: for (i = 0; i < TEAM1_NPLAYERS; i++) {
-	inc	c
-	ld	a, c
+	ld	d, #0x00
+	add	hl, de
+	ld	(hl), #0x04
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:123: for (i = 0; i < TEAM1_NPLAYERS; i++) {
+	inc	e
+	ld	a, e
 	sub	a, #0x07
-	jr	C, 00135$
-	ld	-1 (ix), c
-00138$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:106: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
-	ld	a, -1 (ix)
+	jr	C, 00136$
+00139$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:128: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	ld	a, e
 	sub	a, #0x0e
 	jr	NC, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:107: g_lx[i]    = (u8)(TEAM_X_START + (i - TEAM1_NPLAYERS) * TEAM_X_STEP);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:129: g_lx[i]    = 240;        // entra da destra
 	ld	a, #<(_g_lx)
-	add	a, -1 (ix)
-	ld	-3 (ix), a
+	add	a, e
+	ld	-2 (ix), a
 	ld	a, #>(_g_lx)
 	adc	a, #0x00
-	ld	-2 (ix), a
-	ld	a, -1 (ix)
-	add	a, #0xf9
-	rrca
-	rrca
-	rrca
-	and	a, #0xe0
-	add	a, #0x18
-	pop	hl
-	push	hl
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:108: g_frame[i] = 38;
-	ld	l, -1 (ix)
+	ld	-1 (ix), a
+	ld	l, -2 (ix)
+	ld	h, -1 (ix)
+	ld	(hl), #0xf0
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:130: g_frame[i] = 38;
+	ld	l, e
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	h, #0x00
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, hl
-	ld	de, #_g_frame
-	add	hl, de
+	add	hl, bc
 	ld	(hl), #0x26
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:109: g_dx[i]    = 0;
-	ld	a, #<(_g_dx)
-	add	a, -1 (ix)
-	ld	c, a
-	ld	a, #>(_g_dx)
-	adc	a, #0x00
-	ld	b, a
-	xor	a, a
-	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:106: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
-	inc	-1 (ix)
-	jp	00138$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:131: g_dx[i]    = (i8)(-4);   // cammina verso sinistra
+	ld	hl, #_g_dx
+	ld	d, #0x00
+	add	hl, de
+	ld	(hl), #0xfc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:128: for (; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	inc	e
+	jp	00139$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:111: g_lx[NOBJ - 1]    = 120;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:133: g_lx[NOBJ - 1]    = 120;     // palla al centro, ferma
 	ld	hl, #(_g_lx + 14)
 	ld	(hl), #0x78
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:112: g_frame[NOBJ - 1] = 38;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:134: g_frame[NOBJ - 1] = 38;
 	ld	hl, #0x0026
 	ld	((_g_frame + 28)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:113: g_dx[NOBJ - 1]    = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:135: g_dx[NOBJ - 1]    = 0;
 	ld	hl, #(_g_dx + 14)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:121: while (g_PageScrollY[0] < (u16)PRESENT_APPEAR_SCROLL)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:140: while (g_PageScrollY[0] < (u16)PRESENT_APPEAR_SCROLL)
 00103$:
-	ld	hl, (#_g_PageScrollY + 0)
-	ld	de, #0x0027
-	cp	a, a
-	sbc	hl, de
+	ld	bc, (#_g_PageScrollY + 0)
+	ld	a, c
+	sub	a, #0x27
+	ld	a, b
+	sbc	a, #0x00
 	jp	NC, 00105$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:123: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:142: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1);
+	ld	a, #0x01
+	push	af
+	inc	sp
+	ld	de, #_ScrollInsertRowDown
+	ld	a, #0x05
+	call	_CallFnc_VOID_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:143: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1);
 	ld	a, #0x01
 	push	af
 	inc	sp
@@ -1440,17 +1587,16 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:125: VDP_SetPage(0);
 	xor	a, a
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:126: VDP_SetVerticalOffset(g_R23[0]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:146: VDP_SetVerticalOffset(g_R23[0]);
 	ld	hl, #_g_R23
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:127: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:147: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 1) + 0)
 	ld	h, #0x00
 ;	spillPairReg hl
@@ -1486,7 +1632,14 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:129: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:149: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2);
+	ld	a, #0x02
+	push	af
+	inc	sp
+	ld	de, #_ScrollInsertRowDown
+	ld	a, #0x05
+	call	_CallFnc_VOID_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:150: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2);
 	ld	a, #0x02
 	push	af
 	inc	sp
@@ -1495,17 +1648,17 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:131: VDP_SetPage(1);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:152: VDP_SetPage(1);
 	ld	a, #0x01
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:132: VDP_SetVerticalOffset(g_R23[1]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:153: VDP_SetVerticalOffset(g_R23[1]);
 	ld	hl, #(_g_R23 + 1)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:133: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:154: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 2) + 0)
 	ld	l, a
 ;	spillPairReg hl
@@ -1542,7 +1695,14 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:135: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:156: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0);
+	xor	a, a
+	push	af
+	inc	sp
+	ld	de, #_ScrollInsertRowDown
+	ld	a, #0x05
+	call	_CallFnc_VOID_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:157: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0);
 	xor	a, a
 	push	af
 	inc	sp
@@ -1551,17 +1711,17 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:137: VDP_SetPage(2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:159: VDP_SetPage(2);
 	ld	a, #0x02
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:138: VDP_SetVerticalOffset(g_R23[2]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:160: VDP_SetVerticalOffset(g_R23[2]);
 	ld	hl, #(_g_R23 + 2)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:139: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:161: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
 	ld	a, (#_g_R23 + 0)
 	ld	c, a
 	ld	b, #0x00
@@ -1590,19 +1750,61 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:139: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:161: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
 	jp	00103$
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:147: InitSpritePositions();
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:170: base_fy = g_PageScrollY[0] + (u16)HUD_LINES;
+	ld	hl, #0x0008
+	add	hl, bc
+	ex	de, hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:171: for (i = 0; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	ld	-1 (ix), #0x00
+00141$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:172: g_fy[i] = base_fy - (u16)((u16)i * 3u);
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	bc,#_g_fy
+	add	hl,bc
+	ex	(sp), hl
+	ld	c, -1 (ix)
+	ld	b, #0x00
+	ld	l, c
+	ld	h, b
+	add	hl, hl
+	add	hl, bc
+	ld	a, e
+	sub	a, l
+	ld	c, a
+	ld	a, d
+	sbc	a, h
+	ld	b, a
+	pop	hl
+	push	hl
+	ld	(hl), c
+	inc	hl
+	ld	(hl), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:171: for (i = 0; i < TEAM1_NPLAYERS + TEAM2_NPLAYERS; i++) {
+	inc	-1 (ix)
+	ld	a, -1 (ix)
+	sub	a, #0x0e
+	jr	C, 00141$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:174: g_fy[NOBJ - 1] = base_fy;   // palla: entra in testa alla fila
+	ld	((_g_fy + 28)), de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:176: InitSpritePositions();
 	call	_InitSpritePositions
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:154: while (g_PageScrollY[0] < (u16)PRESENT_TARGET_SCROLL)
-00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: while (g_PageScrollY[0] < (u16)PRESENT_TARGET_SCROLL)
+00107$:
 	ld	hl, (#_g_PageScrollY + 0)
 	ld	de, #0x00a0
 	cp	a, a
 	sbc	hl, de
-	jp	NC, 00140$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:157: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1);
+	jp	NC, 00143$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:184: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 1);
 	ld	a, #0x01
 	push	af
 	inc	sp
@@ -1611,17 +1813,17 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:159: VDP_SetPage(0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:186: VDP_SetPage(0);
 	xor	a, a
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:160: VDP_SetVerticalOffset(g_R23[0]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:187: VDP_SetVerticalOffset(g_R23[0]);
 	ld	hl, #_g_R23
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:161: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:188: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 256u + g_R23[1], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 1) + 0)
 	ld	h, #0x00
 ;	spillPairReg hl
@@ -1657,10 +1859,12 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:162: UpdatePresentationY(g_PageScrollY[1]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:189: AdvanceFieldY();
+	call	_AdvanceFieldY
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:190: UpdatePresentationY(g_PageScrollY[1]);
 	ld	hl, (#(_g_PageScrollY + 2) + 0)
 	call	_UpdatePresentationY
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:163: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:191: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase1, g_R23[1], g_R23[2], g_PageScrollY[2]);
 	ld	de, (#(_g_PageScrollY + 4) + 0)
 	ld	hl, #(_g_R23 + 2)
 	ld	b, (hl)
@@ -1673,7 +1877,9 @@ _PlayPresentation::
 	ld	de, #_UpdatePhase1
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:166: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:192: CheckArrival();
+	call	_CheckArrival
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:195: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 2);
 	ld	a, #0x02
 	push	af
 	inc	sp
@@ -1682,25 +1888,24 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:168: VDP_SetPage(1);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:197: VDP_SetPage(1);
 	ld	a, #0x01
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:169: VDP_SetVerticalOffset(g_R23[1]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:198: VDP_SetVerticalOffset(g_R23[1]);
 	ld	hl, #(_g_R23 + 1)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:170: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:199: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, 512u + g_R23[2], 256, HUD_LINES);
 	ld	a, (#(_g_R23 + 2) + 0)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
 	ld	h, #0x00
 ;	spillPairReg hl
 ;	spillPairReg hl
-	ld	c, l
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, a
 	ld	a, h
 	add	a, #0x02
 	ld	b, a
@@ -1729,10 +1934,12 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:171: UpdatePresentationY(g_PageScrollY[2]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:200: AdvanceFieldY();
+	call	_AdvanceFieldY
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:201: UpdatePresentationY(g_PageScrollY[2]);
 	ld	hl, (#(_g_PageScrollY + 4) + 0)
 	call	_UpdatePresentationY
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:172: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:202: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase2, g_R23[2], g_R23[0], g_PageScrollY[0]);
 	ld	de, (#_g_PageScrollY + 0)
 	ld	hl, #_g_R23
 	ld	b, (hl)
@@ -1745,7 +1952,9 @@ _PlayPresentation::
 	ld	de, #_UpdatePhase2
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:175: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:203: CheckArrival();
+	call	_CheckArrival
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:206: CallFnc_VOID_P1(SEG_MAIN, ScrollInsertRowDown, 0);
 	xor	a, a
 	push	af
 	inc	sp
@@ -1754,17 +1963,17 @@ _PlayPresentation::
 	call	_CallFnc_VOID_P1
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:177: VDP_SetPage(2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:208: VDP_SetPage(2);
 	ld	a, #0x02
 	call	_VDP_SetPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:178: VDP_SetVerticalOffset(g_R23[2]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:209: VDP_SetVerticalOffset(g_R23[2]);
 	ld	hl, #(_g_R23 + 2)
 	ld	l, (hl)
 ;	spillPairReg hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
 	ld	a, #0x17
 	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:179: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:210: VDP_CommandHMMM(0, HUD_SOURCE_Y, 0, g_R23[0], 256, HUD_LINES);
 	ld	a, (#_g_R23 + 0)
 	ld	c, a
 	ld	b, #0x00
@@ -1793,10 +2002,12 @@ _PlayPresentation::
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:180: UpdatePresentationY(g_PageScrollY[0]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:211: AdvanceFieldY();
+	call	_AdvanceFieldY
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:212: UpdatePresentationY(g_PageScrollY[0]);
 	ld	hl, (#_g_PageScrollY + 0)
 	call	_UpdatePresentationY
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:213: CallFnc_VOID_U8U8U16(SEG_MAIN, UpdatePhase3, g_R23[0], g_R23[1], g_PageScrollY[1]);
 	ld	de, (#(_g_PageScrollY + 2) + 0)
 	ld	hl, #(_g_R23 + 1)
 	ld	b, (hl)
@@ -1809,13 +2020,15 @@ _PlayPresentation::
 	ld	de, #_UpdatePhase3
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U8U16
-	jp	00106$
-00140$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:214: CheckArrival();
+	call	_CheckArrival
+	jp	00107$
+00143$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:145: inline void Halt() { __asm__("halt"); }
 	halt
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:185: for (;;) { Halt(); }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:186: }
-	jp	00140$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:218: for (;;) { Halt(); }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:219: }
+	jp	00143$
 	.area _SEG6
 	.area _INITIALIZER
 	.area _CABS (ABS)
