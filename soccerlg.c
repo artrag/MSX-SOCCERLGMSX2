@@ -49,7 +49,99 @@ const c8 g_Palette[] = {
 
 volatile bool g_VSynch=FALSE;
 
-void MyCallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
+
+// -----------------------------
+// *** TRAMPOLINES FUNCTIONS ***
+// -----------------------------
+
+// +++ Call void function without parameters +++
+void CallFnc_VOID(u8 segment, void (*func)()) {
+    u8 _old = GET_BANK_SEGMENT(3);
+    SET_BANK_SEGMENT(3, segment);
+    func();
+    SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 1 parameter +++
+void CallFnc_VOID_P1(u8 segment, void (*func)(u8), u8 p1) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 1 parameter +++
+void CallFnc_VOID_P2(u8 segment, void (*func)(u8, bool), u8 p1, bool p2) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 2 u16 parameters +++
+void CallFnc_VOID_16_P2(u8 segment, void (*func)(u16,u16), u16 p1, u16 p2) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call function without parameters with u8 returned value +++
+u8 CallFnc_U8(u8 segment, u8 (*func)()) {
+	u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func();
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u8 returned value +++
+u8 CallFnc_U8_P1(u8 segment, u8 (*func)(u8), u8 p1) {
+	u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u16 returned value +++
+u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 2 parameters with u8 returned value +++
+u8 CallFnc_U8_P2(u8 segment, u8 (*func)(u8, u8), u8 p1, u8 p2) {
+    u8 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
+	return _res;
+}
+// +++ Call function without parameter and with bool returned value +++
+bool CallFnc_BOOL(u8 segment, bool (*func)()) {
+    bool _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func();
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 1 u8 parameter and with bool returned value +++
+bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
+    bool _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+
+// -----------------
+// *** FUNCTIONS ***
+// -----------------
+
+void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 {
 	x;			// A
 	y;			// DE
@@ -435,7 +527,7 @@ void main()
 			RemoveSwSprite(SwSprite[i].x2,SwSprite[i].y2,512);
 			// scrivo 	1
 			if OnScreen(SwSprite[i].y1) 
-				MyCallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
+				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
 			// game AI
 			PlayerAI(&SwSprite[i]);
 		}
@@ -471,7 +563,7 @@ void main()
 			RemoveSwSprite(SwSprite[i].x0,SwSprite[i].y0,0);
 			// scrivo 	2 
 			if OnScreen(SwSprite[i].y2) 
-				MyCallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
+				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
 			// game AI
 			PlayerAI(&SwSprite[i]);
 		}
@@ -507,7 +599,7 @@ void main()
 			RemoveSwSprite(SwSprite[i].x1,SwSprite[i].y1,256);
 			// scrivo 	0	
 			if OnScreen(SwSprite[i].y0) 
-				MyCallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
+				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
 			// game AI
 			PlayerAI(&SwSprite[i]);
 		}
@@ -538,7 +630,7 @@ void main()
     
 		if(LastSecs!=Secs){
             LastSecs=Secs;
-            //Print_DrawText("3");	
+
             if(Secs==60){
                 Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins+1);
                 Print_SetPosition(248,  60+768);Print_DrawFormat("0");	
