@@ -33,19 +33,19 @@ const c8 g_Palette[] = {
     0x77, 0x07, // [F]  #FEFEFE  Var    - Pantaloncini squadra 2
 };
 
-	const u8 ScoreBoardNX_Left = 8;
-	const u8 ScoreBoardNY_Left = 212;
-
-	const u8 ScoreBoardNX_Right = 8;
-	const u8 ScoreBoardNY_Right = 212;
 // -----------------
 // *** VARIABLES ***
 // -----------------
 
+	u8	Frms = 60;
+	u8	Secs = 5;
+	u8	Mins = 3;
+    u8  LastSecs=5;
 
-// Fonts data
-#include "font/font_mgl_mini1.h"
-
+struct ObjectInfo SwSprite[NumSprite];
+struct ObjectInfo Field;
+struct ObjectInfo ScoreBoardLeft;
+struct ObjectInfo ScoreBoardRight;
 
 volatile bool g_VSynch=FALSE;
 
@@ -66,6 +66,13 @@ void CallFnc_VOID_P1(u8 segment, void (*func)(u8), u8 p1) {
 	u8 _old = GET_BANK_SEGMENT(3);
 	SET_BANK_SEGMENT(3, segment);
     func(p1);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 3 parameters (u8, u16, u16) +++
+void CallFnc_VOID_U8U16U16(u8 segment, void (*func)(u8, u16, u16), u8 p1, u16 p2, u16 p3) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1, p2, p3);
 	SET_BANK_SEGMENT(3, _old);
 }
 // +++ Call void function with 1 parameter +++
@@ -212,10 +219,7 @@ SpriteFrame::
 // *** ISR ***
 // -----------
 
-	u8	Frms = 60;
-	u8	Secs = 5;
-	u8	Mins = 3;
-    u8  LastSecs=5;
+
 
 void VSyncCallback()
 {
@@ -257,129 +261,7 @@ void LoadField(u8 vdp_page)
     SET_BANK_SEGMENT(3, saved_seg);
 }
 
-void PlotField(u16 y,u16 page)
-{
-	for (u16 i=y;i<y+192;i+=16)
-		VDP_CommandYMMM(FieldMap[i]+768,0,i+page,16, 0);		
-}
 
-struct MyObj {
-	u8 lx;			// Logical x
-	u8 x0,x1,x2;	// Physical x's in the 3 pages
-	u16 ly;			// Logical Y
-	u16 y0,y1,y2;	// Physical y's in the 3 pages
-	u16 frame;
-	i8 dx;			// x direction
-	i8 dy;			// y direction
-};
-
-void AddLines(struct MyObj* Field) 
-{
-	u16 v;
-	
-	if (Field->dy==0) return;
-	
-	if (Field->dy>0) {
-		v = (Field->ly + 192) & 511;
-	}
-	else	{
-		v = (Field->ly -   1) & 511;
-	}
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);
-}
-
-void PlayerAI(struct MyObj* Player) 
-{
-	Player->lx += Player->dx; 
-	if  (Player->lx>238 || Player->lx<4) 
-		Player->dx = -Player->dx;
-	
-	Player->ly += Player->dy; 
-	if  (Player->ly>504-16 || Player->ly<=16) 
-		Player->dy = -Player->dy;
-	
-}
-
-#define OnScreen(y)  	(((y)+15)>=Field.ly && (y)<Field.ly+192)
-#define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(24)
-
-struct MyObj SwSprite[NumSprite];
-struct MyObj Field;
-struct MyObj ScoreBoardLeft;
-struct MyObj ScoreBoardRight;
-
-
-void RemoveSwSprite(u8 px,u16 py,u16 page) 
-{
-	if OnScreen(py) 
-	{
-		if SplitSprite(py) {
-			u8 t = 256 - (py & 255) ;
-			VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
-			VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
-		}
-		else
-		VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
-	}
-}
-
-
-
-
-
-
-
-void RemoveScoreBoardLeft(u8 px,u16 py,u16 page)
-{
-	if (((py&255)>256-ScoreBoardNY_Left) ) 
-	{
-		u8 t = 256 - (py & 255) ;
-		VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
-		VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
-	}
-	else
-		VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
-}
-
-void PrintScoreBoardLeft(u8 px,u16 py,u16 page)
-{
-	if (((py&255)>256-ScoreBoardNY_Left) ) 
-	{
-		u8 t = 256 - (py & 255) ;
-		VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
-		VDP_CommandHMMM(0, 768+t, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
-	}
-	else
-		VDP_CommandHMMM(0, 768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
-}
-
-
-void RemoveScoreBoardRight(u8 px,u16 py,u16 page)
-{
-	if (((py&255)>256-ScoreBoardNY_Right) ) 
-	{
-		u8 t = 256 - (py & 255) ;
-		VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
-		VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
-	}
-	else
-		VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
-}
-
-void PrintScoreBoardRight(u8 px,u16 py,u16 page)
-{
-	if (((py&255)>256-ScoreBoardNY_Right) ) 
-	{
-		u8 t = 256 - (py & 255) ;
-		VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
-		VDP_CommandHMMM(px, 768+t, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
-	}
-	else
-		VDP_CommandHMMM(px, 768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
-}
 
 // ------------
 // *** MAIN ***
@@ -457,9 +339,9 @@ void main()
 	ScoreBoardRight.ly = Field.ly;
 	
 	VDP_EnableDisplay(false);
-	PlotField(Field.ly,   0);
-	PlotField(Field.ly, 256);
-	PlotField(Field.ly, 512);
+	CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+	CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+	CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
 //
 
 
@@ -513,138 +395,6 @@ void main()
 
 // loop 
     VDP_EnableDisplay(true);
-	for (;;)
-	{
-        
-		// vedo 	0
-		VDP_SetPage(0);		
-		VDP_SetVerticalOffset(Field.ly & 255);
-		AddLines(&Field);
-  
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			// cancello 2		
-			RemoveSwSprite(SwSprite[i].x2,SwSprite[i].y2,512);
-			// scrivo 	1
-			if OnScreen(SwSprite[i].y1) 
-				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
-			// game AI
-			PlayerAI(&SwSprite[i]);
-		}
-		// cancello 2	 scrivo 	1
-		//RemoveTimer(Timer.x2,Timer.y2,512);
-		//PrintTimer(Timer.x1,Timer.y1, 256);
-		RemoveScoreBoardLeft(ScoreBoardLeft.x2,ScoreBoardLeft.y2,512);
-		PrintScoreBoardLeft(ScoreBoardLeft.x1,ScoreBoardLeft.y1, 256);
-        RemoveScoreBoardRight(ScoreBoardRight.x2,ScoreBoardRight.y2, 512);
-		PrintScoreBoardRight(ScoreBoardRight.x1,ScoreBoardRight.y1, 256);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
-
-		// Halt();
-	
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x2 = SwSprite[i].lx;
-			SwSprite[i].y2 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y2 = Field.ly+Field.dy;	
-		ScoreBoardRight.y2 = Field.ly+Field.dy;	
-	
-		// vedo 	1
-		VDP_SetPage(1);		
-		VDP_SetVerticalOffset(Field.ly & 255);
-		AddLines(&Field);
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			// cancello 0
-			RemoveSwSprite(SwSprite[i].x0,SwSprite[i].y0,0);
-			// scrivo 	2 
-			if OnScreen(SwSprite[i].y2) 
-				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
-			// game AI
-			PlayerAI(&SwSprite[i]);
-		}
-		// cancello 0	 scrivo 	2
-		//RemoveTimer(Timer.x0,Timer.y0,  0);
-		//PrintTimer(Timer.x2,Timer.y2, 512);
-		RemoveScoreBoardLeft(ScoreBoardLeft.x0,ScoreBoardLeft.y0,  0);
-		PrintScoreBoardLeft(ScoreBoardLeft.x2,ScoreBoardLeft.y2, 512);
-        RemoveScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0,  0);
-		PrintScoreBoardRight(ScoreBoardRight.x2,ScoreBoardRight.y2, 512);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
-
-		// Halt();
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x0 = SwSprite[i].lx;
-			SwSprite[i].y0 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y0 = Field.ly+Field.dy;
-		ScoreBoardRight.y0 = Field.ly+Field.dy;
-		
-		// vedo 	2	
-		VDP_SetPage(2);		
-		VDP_SetVerticalOffset(Field.ly & 255);
-		AddLines(&Field);
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			// cancello 1
-			RemoveSwSprite(SwSprite[i].x1,SwSprite[i].y1,256);
-			// scrivo 	0	
-			if OnScreen(SwSprite[i].y0) 
-				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
-			// game AI
-			PlayerAI(&SwSprite[i]);
-		}
-		// cancello 1	scrivo 	0
-		//RemoveTimer(Timer.x1,Timer.y1,256);
-		//PrintTimer(Timer.x0,Timer.y0,   0);
-		RemoveScoreBoardLeft(ScoreBoardLeft.x1,ScoreBoardLeft.y1,256);
-		PrintScoreBoardLeft(ScoreBoardLeft.x0,ScoreBoardLeft.y0,   0);
-        RemoveScoreBoardRight(ScoreBoardRight.x1,ScoreBoardRight.y1, 256);
-		PrintScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0, 0);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=504)||(Field.ly<=0)) Field.dy =- Field.dy;
-
-		// Halt();
-		
-		for (u8 i=0; i<NumSprite;i++) 
-		{
-			SwSprite[i].x1 = SwSprite[i].lx;
-			SwSprite[i].y1 = SwSprite[i].ly;
-		}
-		ScoreBoardLeft.y1 = Field.ly+Field.dy;
-		ScoreBoardRight.y1 = Field.ly+Field.dy;
-
-		// update scoreboard
-		Print_SetPosition(1, 24+768);
-        
-    
-		if(LastSecs!=Secs){
-            LastSecs=Secs;
-
-            if(Secs==60){
-                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins+1);
-                Print_SetPosition(248,  60+768);Print_DrawFormat("0");	
-                Print_SetPosition(248,  68+768);Print_DrawFormat("0");
-            }
-            else{
-                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);
-                Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
-                Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);
-            }
-	        	
-        }
-		
-		
-	}
+	CallFnc_VOID(4,MainLoop);
 
 }

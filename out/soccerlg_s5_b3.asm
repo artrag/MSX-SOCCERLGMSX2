@@ -8,7 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _CallSpriteFrame_B3
 	.globl _VPD_CommandSetupR32
 	.globl _g_SLTSL
 	.globl _g_GRPACY
@@ -213,12 +212,13 @@
 	.globl _g_CLPRIM
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
-	.globl _InitScrollPages
-	.globl _ScrollInsertRowDown
-	.globl _ScrollInsertRowUp
-	.globl _UpdatePhase1
-	.globl _UpdatePhase2
-	.globl _UpdatePhase3
+	.globl _PlotField
+	.globl _AddLines
+	.globl _RemoveSwSprite
+	.globl _RemoveScoreBoardLeft
+	.globl _PrintScoreBoardLeft
+	.globl _RemoveScoreBoardRight
+	.globl _PrintScoreBoardRight
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -313,168 +313,71 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG5
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:24: static void RebuildPage(u8 page, u16 scroll_y)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:10: void PlotField(u16 y,u16 page)
 ;	---------------------------------
-; Function RebuildPage
+; Function PlotField
 ; ---------------------------------
-_RebuildPage:
+_PlotField::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	hl, #-11
-	add	hl, sp
-	ld	sp, hl
-	ld	c, a
-	ld	-4 (ix), e
-	ld	-3 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:26: u16 dst_y = (u16)page * 256u + HUD_LINES;
-	ld	d, c
-	ld	e, #0x00
-	ld	hl, #0x0008
-	add	hl, de
-	ld	-7 (ix), l
-	ld	-6 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:27: const u8* pField = &FieldMap[scroll_y];
-	ld	de, #_FieldMap+0
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:28: u8 remaining = (u8)(SCREEN_LINES - HUD_LINES);
-	ld	-2 (ix), #0xb8
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:30: while (remaining > 0)
-00114$:
-	ld	a, -2 (ix)
-	or	a, a
-	jp	Z, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:32: u8 src = pField[0];
-	ld	a, (de)
-	ld	-5 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:34: while (step < remaining && pField[step] == (u8)(src + step))
-	ld	-1 (ix), #0x01
-00102$:
-	ld	a, -1 (ix)
-	sub	a, -2 (ix)
-	jr	NC, 00132$
-	ld	a, e
-	add	a, -1 (ix)
-	ld	-9 (ix), a
-	ld	a, d
-	adc	a, #0x00
-	ld	-8 (ix), a
-	ld	l, -9 (ix)
-	ld	h, -8 (ix)
-	ld	b, (hl)
-	ld	a, -5 (ix)
-	add	a, -1 (ix)
-	sub	a, b
-	jr	NZ, 00132$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:35: step++;
-	inc	-1 (ix)
-	jp	00102$
-00132$:
-	ld	b, -1 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:37: if (step > 1) {
-	ld	a, #0x01
-	sub	a, -1 (ix)
-	jr	NC, 00129$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-	ld	a, -1 (ix)
-	ld	-9 (ix), a
-	ld	-8 (ix), #0x00
-	ld	l, -5 (ix)
+	push	af
+	push	af
+	push	af
+	ld	c, l
+	ld	b, h
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:12: for (u16 i=y;i<y+192;i+=16)
+	ld	e, c
+	ld	d, b
+00104$:
+	ld	l, c
 ;	spillPairReg hl
 ;	spillPairReg hl
+	ld	h, b
 ;	spillPairReg hl
 ;	spillPairReg hl
-	xor	a, a
-	add	a, #0x03
-	ld	-11 (ix), l
-	ld	-10 (ix), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	a, -11 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -10 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -7 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -6 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	hl, #(_g_VDP_Command + 10)
-	ld	a, -9 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -8 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	bc
 	push	de
-	call	_VPD_CommandSetupR32
-	pop	de
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-	jp	00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:40: while (step < remaining && pField[step] == src)
-00129$:
-00106$:
-	ld	a, -1 (ix)
-	sub	a, -2 (ix)
-	jr	NC, 00133$
-	ld	l, -1 (ix)
-	ld	h, #0x00
+	ld	de, #0x00c0
 	add	hl, de
-	ld	a,-5 (ix)
-	sub	a,(hl)
-	jr	NZ, 00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:41: step++;
-	inc	-1 (ix)
-	jp	00106$
-00133$:
-	ld	b, -1 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:42: VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
-	ld	l, -5 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-	xor	a, a
+	pop	de
+	inc	sp
+	inc	sp
+	push	de
+	ld	a, -6 (ix)
+	sub	a, l
+	ld	a, -5 (ix)
+	sbc	a, h
+	jr	NC, 00106$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:13: VDP_CommandYMMM(FieldMap[i]+768,0,i+page,16, 0);		
+	ld	l, -2 (ix)
+	ld	h, -1 (ix)
+	add	hl, de
+	ld	-4 (ix), l
+	ld	-3 (ix), h
+	ld	hl, #_FieldMap
+	add	hl, de
+	ld	a, (hl)
+	ld	d, #0x00
+	ld	e, a
+	ld	a, d
 	add	a, #0x03
-	ld	-9 (ix), l
-	ld	-8 (ix), a
+	ld	d, a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	a, -9 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -8 (ix)
-	ld	(hl), a
+	ld	((_g_VDP_Command + 2)), de
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
 	ld	hl, #0x0000
 	ld	((_g_VDP_Command + 4)), hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
 	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -7 (ix)
+	ld	a, -4 (ix)
 	ld	(hl), a
 	inc	hl
-	ld	a, -6 (ix)
+	ld	a, -3 (ix)
 	ld	(hl), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	hl, #0x0001
+	ld	hl, #0x0010
 	ld	((_g_VDP_Command + 10)), hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
 	ld	hl, #(_g_VDP_Command + 13)
@@ -484,122 +387,17 @@ _RebuildPage:
 	ld	(hl), #0xe0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
 	push	bc
-	push	de
 	call	_VPD_CommandSetupR32
-	pop	de
 	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:43: if (step > 1)
-	ld	a, #0x01
-	sub	a, -1 (ix)
-	jr	NC, 00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:44: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-	ld	l, -1 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	dec	hl
-	ex	(sp), hl
-	ld	l, -7 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, -6 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	inc	hl
-	ld	-9 (ix), l
-	ld	-8 (ix), h
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	a, -7 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -6 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -9 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -8 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	hl, #(_g_VDP_Command + 10)
-	ld	a, -11 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -10 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	bc
-	push	de
-	call	_VPD_CommandSetupR32
-	pop	de
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:44: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:46: pField += step;
-	ld	a, e
-	add	a, b
-	ld	e, a
-	jr	NC, 00178$
-	inc	d
-00178$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:47: dst_y += step;
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, -7 (ix)
-	ld	-10 (ix), a
-	ld	a, -6 (ix)
-	ld	-9 (ix), a
-	ld	a, l
-	add	a, -10 (ix)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, h
-	adc	a, -9 (ix)
-	ld	-7 (ix), l
-	ld	-6 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:48: remaining -= step;
-	ld	a, -2 (ix)
-	sub	a, b
-	ld	-2 (ix), a
-	jp	00114$
-00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:50: g_R23[page]         = 0;
-	ld	hl, #_g_R23
-	ld	b, #0x00
-	add	hl, bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:51: g_PageScrollY[page] = scroll_y;
-	ld	(hl), #0x00
-	ld	h, (hl)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	l, c
-	add	hl, hl
-	ld	de, #_g_PageScrollY
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:12: for (u16 i=y;i<y+192;i+=16)
+	pop	hl
+	push	hl
+	ld	de, #0x0010
 	add	hl, de
-	ld	a, -4 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -3 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:52: }
+	ex	de, hl
+	jp	00104$
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:14: }
 	ld	sp, ix
 	pop	ix
 	ret
@@ -1272,536 +1070,58 @@ _FieldMap:
 	.db #0xfd	; 253
 	.db #0xfe	; 254
 	.db #0xff	; 255
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:55: static void RebuildPageUp(u8 page, u16 scroll_y)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:16: void AddLines(void) 
 ;	---------------------------------
-; Function RebuildPageUp
+; Function AddLines
 ; ---------------------------------
-_RebuildPageUp:
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	hl, #-13
-	add	hl, sp
-	ld	sp, hl
-	ld	-5 (ix), a
-	ld	-7 (ix), e
-	ld	-6 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:57: u16 dst_y        = (u16)page * 256u + HUD_LINES;
-	ld	a, -5 (ix)
-	ld	-2 (ix), a
-	ld	-1 (ix), #0x00
-	ld	a, -2 (ix)
-	ld	-3 (ix), a
-	ld	-4 (ix), #0x00
-	xor	a, a
-	add	a, #0x08
-	ld	-2 (ix), a
-	ld	a, -3 (ix)
-	adc	a, #0x00
-	ld	-1 (ix), a
-	ld	a, -2 (ix)
-	ld	-13 (ix), a
-	ld	a, -1 (ix)
-	ld	-12 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:58: u8  vtop         = (scroll_y >= VTOP_MAX) ? VTOP_MAX : (u8)scroll_y;
-	ld	a, -7 (ix)
-	sub	a, #0x29
-	ld	a, -6 (ix)
-	sbc	a, #0x00
-	jr	C, 00122$
-	ld	a, #0x29
-	jp	00123$
-00122$:
-	ld	a, -7 (ix)
-00123$:
-	ld	-11 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:59: const u8* pField = &FieldMap[scroll_y - vtop];
-	ld	bc, #_FieldMap+0
-	ld	e, -11 (ix)
-	ld	d, #0x00
-	ld	l, -7 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, -6 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	cp	a, a
-	sbc	hl, de
-	add	hl, bc
-	ld	-4 (ix), l
-	ld	-3 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:60: u8  remaining    = vtop + SCREEN_LINES - HUD_LINES;
-	ld	a, -11 (ix)
-	add	a, #0xb8
-	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:62: while (remaining > 0)
-00114$:
-	ld	a, -2 (ix)
-	or	a, a
-	jp	Z, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:64: u8 src = pField[0];
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	a, (hl)
-	ld	-10 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:66: while (step < remaining && pField[step] == (u8)(src + step))
-	ld	-1 (ix), #0x01
-00102$:
-	ld	a, -1 (ix)
-	sub	a, -2 (ix)
-	jr	NC, 00135$
-	ld	a, -4 (ix)
-	add	a, -1 (ix)
-	ld	-9 (ix), a
-	ld	a, -3 (ix)
-	adc	a, #0x00
-	ld	-8 (ix), a
-	ld	l, -9 (ix)
-	ld	h, -8 (ix)
-	ld	c, (hl)
-	ld	a, -10 (ix)
-	add	a, -1 (ix)
-	sub	a, c
-	jr	NZ, 00135$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:67: step++;
-	inc	-1 (ix)
-	jp	00102$
-00135$:
-	ld	c, -1 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:69: if (step > 1) {
-	ld	a, #0x01
-	sub	a, -1 (ix)
-	jr	NC, 00132$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:70: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-	ld	e, -1 (ix)
-	ld	d, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	b, -10 (ix)
-	xor	a, a
-	add	a, #0x03
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #_g_VDP_Command + 2
-	ld	(hl), b
-	inc	hl
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -13 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -12 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	((_g_VDP_Command + 10)), de
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	bc
-	call	_VPD_CommandSetupR32
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:70: VDP_CommandYMMM(768u + src, 0, dst_y, step, 0);
-	jp	00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:72: while (step < remaining && pField[step] == src)
-00132$:
-	ld	e, -1 (ix)
-00106$:
-	ld	a, e
-	sub	a, -2 (ix)
-	jr	NC, 00136$
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	d, #0x00
-	add	hl, de
-	ld	a,-10 (ix)
-	sub	a,(hl)
-	jr	NZ, 00136$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:73: step++;
-	inc	e
-	jp	00106$
-00136$:
-	ld	c, e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:74: VDP_CommandYMMM(768u + src, 0, dst_y, 1, 0);
-	ld	l, -10 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-;	spillPairReg hl
-	xor	a, a
-	add	a, #0x03
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	b, l
-	ld	d, h
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	(hl), b
-	inc	hl
-	ld	(hl), d
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -13 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -12 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	hl, #0x0001
-	ld	((_g_VDP_Command + 10)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	bc
-	push	de
-	call	_VPD_CommandSetupR32
-	pop	de
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:75: if (step > 1)
-	ld	a, #0x01
-	sub	a, e
-	jr	NC, 00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-	ld	d, #0x00
-	dec	de
-	ld	-9 (ix), e
-	ld	-8 (ix), d
-	pop	de
-	push	de
-	inc	de
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	a, -13 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -12 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	((_g_VDP_Command + 6)), de
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	hl, #(_g_VDP_Command + 10)
-	ld	a, -9 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -8 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	bc
-	call	_VPD_CommandSetupR32
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandYMMM(dst_y, 0, dst_y + 1, step - 1, 0);
-00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:78: pField += step;
-	ld	a, -4 (ix)
-	add	a, c
-	ld	-4 (ix), a
-	jr	NC, 00185$
-	inc	-3 (ix)
-00185$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:79: dst_y += step;
-	ld	e, c
-	ld	d, #0x00
-	pop	hl
-	push	hl
-	add	hl, de
-	ex	(sp), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:80: remaining -= step;
-	ld	a, -2 (ix)
-	sub	a, c
-	ld	-2 (ix), a
-	jp	00114$
-00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:82: g_R23[page]         = vtop;
-	ld	bc, #_g_R23+0
-	ld	l, -5 (ix)
-	ld	h, #0x00
-	add	hl, bc
-	ld	a, -11 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:83: g_PageScrollY[page] = scroll_y;
-	ld	l, -5 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	ld	de, #_g_PageScrollY
-	add	hl, de
-	ld	a, -7 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -6 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:84: }
-	ld	sp, ix
-	pop	ix
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:90: void InitScrollPages(void)
-;	---------------------------------
-; Function InitScrollPages
-; ---------------------------------
-_InitScrollPages::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:92: RebuildPage(0, 0);
-	ld	de, #0x0000
-	xor	a, a
-	call	_RebuildPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:93: RebuildPage(1, 0);
-	ld	de, #0x0000
-	ld	a, #0x01
-	call	_RebuildPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:94: RebuildPage(2, 0);
-	ld	de, #0x0000
-	ld	a, #0x02
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:95: }
-	jp	_RebuildPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:103: void ScrollInsertRowDown(u8 write_page)
-;	---------------------------------
-; Function ScrollInsertRowDown
-; ---------------------------------
-_ScrollInsertRowDown::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	hl, #-6
-	add	hl, sp
-	ld	sp, hl
-	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:108: if (g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES) >= FIELD_ROWS) return;
-	ld	bc, #_g_PageScrollY+0
-	ld	l, -1 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, bc
-	ld	e, l
-	ld	d, h
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
-	ld	hl, #0x00b8
-	add	hl, bc
-	ex	(sp), hl
-	ld	a, -6 (ix)
-	sub	a, #0xf8
-	ld	a, -5 (ix)
-	sbc	a, #0x01
-	jp	NC,00106$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:110: if (g_R23[write_page] >= VTOP_MAX)
-	ld	a, #<(_g_R23)
-	add	a, -1 (ix)
-	ld	-4 (ix), a
-	ld	a, #>(_g_R23)
-	adc	a, #0x00
-	ld	-3 (ix), a
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	a, (hl)
-	ld	-2 (ix), a
-	sub	a, #0x29
-	jr	C, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:112: RebuildPage(write_page, g_PageScrollY[write_page] + 1);
-	inc	bc
-	ld	e, c
-	ld	d, b
-	ld	a, -1 (ix)
-	call	_RebuildPage
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:113: return;
-	jp	00106$
-00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:116: logical_row = g_PageScrollY[write_page] + (SCREEN_LINES - HUD_LINES);
-	pop	bc
-	push	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:117: src   = FieldMap[logical_row];
-	ld	hl, #_FieldMap
-	add	hl, bc
-	ld	l, (hl)
-;	spillPairReg hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:118: dst_y = g_R23[write_page] + (u8)SCREEN_LINES;
-	ld	a, -2 (ix)
-	add	a, #0xc0
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:120: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
-	ld	b, -1 (ix)
-	ld	c, #0x00
-	ld	h, c
-;	spillPairReg hl
-;	spillPairReg hl
-	add	a, c
-	ld	c, a
-	ld	a, h
-	adc	a, b
-	ld	b, a
-;	spillPairReg hl
-;	spillPairReg hl
-	xor	a, a
-	add	a, #0x03
-	ld	-6 (ix), l
-	ld	-5 (ix), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-	ld	hl, #(_g_VDP_Command + 2)
-	ld	a, -6 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -5 (ix)
-	ld	(hl), a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-	ld	hl, #0x0000
-	ld	((_g_VDP_Command + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-	ld	((_g_VDP_Command + 6)), bc
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-	ld	l, #0x01
-	ld	((_g_VDP_Command + 10)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-	ld	hl, #(_g_VDP_Command + 13)
-	ld	(hl), #0x00
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-	ld	hl, #(_g_VDP_Command + 14)
-	ld	(hl), #0xe0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-	push	de
-	call	_VPD_CommandSetupR32
-	pop	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:122: g_R23[write_page]++;
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	a, (hl)
-	inc	a
-	pop	bc
-	pop	hl
-	push	hl
-	push	bc
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:123: g_PageScrollY[write_page]++;
-	ld	l, e
-	ld	h, d
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
-	inc	bc
-	ld	a, c
-	ld	(de), a
-	inc	de
-	ld	a, b
-	ld	(de), a
-00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:124: }
-	ld	sp, ix
-	pop	ix
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:128: void ScrollInsertRowUp(u8 write_page)
-;	---------------------------------
-; Function ScrollInsertRowUp
-; ---------------------------------
-_ScrollInsertRowUp::
+_AddLines::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
 	push	af
-	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:131: if (g_PageScrollY[write_page] == 0) return;
-	ld	bc, #_g_PageScrollY+0
-	ld	l, -1 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, bc
-	ld	e, l
-	ld	d, h
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
-	ld	a, b
-	or	a, c
-	jr	Z, 00106$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:133: if (g_R23[write_page] == 0)
-	ld	a, #<(_g_R23)
-	add	a, -1 (ix)
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, #>(_g_R23)
-	adc	a, #0x00
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, (hl)
+	push	af
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:20: if (Field.dy==0) return;
+	ld	hl, #_Field + 15
+	ld	e, (hl)
+	ld	a, e
 	or	a, a
-	jr	NZ, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:135: RebuildPageUp(write_page, g_PageScrollY[write_page] - 1);
-	dec	bc
-	ld	e, c
-	ld	d, b
-	ld	a, -1 (ix)
-	call	_RebuildPageUp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:136: return;
-	jp	00106$
+	jp	Z,00109$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:23: v = (Field.ly + 192) & 511;
+	ld	bc, (#_Field + 4)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:22: if (Field.dy>0) {
+	xor	a, a
+	sub	a, e
+	jp	PO, 00121$
+	xor	a, #0x80
+00121$:
+	jp	P, 00104$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:23: v = (Field.ly + 192) & 511;
+	ld	hl, #0x00c0
+	add	hl, bc
+	ld	c, l
+	ld	a, h
+	and	a, #0x01
+	ld	b, a
+	jp	00105$
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:139: g_R23[write_page]--;
-	dec	a
-	ld	-2 (ix), a
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:140: g_PageScrollY[write_page]--;
-	ld	l, e
-	ld	h, d
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:26: v = (Field.ly -   1) & 511;
 	dec	bc
-	ld	a, c
-	ld	(de), a
-	inc	de
 	ld	a, b
-	ld	(de), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:142: src   = FieldMap[g_PageScrollY[write_page]];
+	and	a, #0x01
+	ld	b, a
+00105$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:28: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);
+	ld	-4 (ix), c
+	ld	-3 (ix), #0x00
+	pop	de
+	push	de
 	ld	hl, #_FieldMap
 	add	hl, bc
+	ld	-2 (ix), l
+	ld	-1 (ix), h
 	ld	c, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:143: dst_y = g_R23[write_page] + HUD_LINES;
-	ld	a, -2 (ix)
-	add	a, #0x08
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:144: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
-	ld	d, -1 (ix)
-	ld	e, #0x00
-	ld	l, a
 ;	spillPairReg hl
 ;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, de
-	ex	de, hl
 	xor	a, a
 	add	a, #0x03
 	ld	b, a
@@ -1823,66 +1143,314 @@ _ScrollInsertRowUp::
 	ld	(hl), #0xe0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:144: VDP_CommandYMMM(768u + src, 0, (u16)write_page * 256u + dst_y, 1, 0);
-00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:145: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:29: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);
+	ld	c, -4 (ix)
+	ld	a, -3 (ix)
+	inc	a
+	ld	b, a
+	ld	l, -2 (ix)
+	ld	h, -1 (ix)
+	ld	a, (hl)
+	ld	d, #0x00
+	ld	e, a
+	ld	a, d
+	add	a, #0x03
+	ld	d, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	l, #0x01
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:30: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);
+	ld	c, -4 (ix)
+	ld	a, -3 (ix)
+	add	a, #0x02
+	ld	b, a
+	ld	l, -2 (ix)
+	ld	h, -1 (ix)
+	ld	e, (hl)
+	ld	d, #0x00
+	ld	hl, #0x0300
+	add	hl, de
+	ex	de, hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+	ld	hl, #0x0000
+	ld	((_g_VDP_Command + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+	ld	l, #0x01
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xe0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:30: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);
+00109$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:31: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:152: static void EraseSprite16(u8 x, u16 dst_y, u16 absolute_logical_y)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:33: void RemoveSwSprite(u8 px,u16 py,u16 page) 
 ;	---------------------------------
-; Function EraseSprite16
+; Function RemoveSwSprite
 ; ---------------------------------
-_EraseSprite16:
+_RemoveSwSprite::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	push	af
-	push	af
-	ld	c, a
-	ld	-2 (ix), e
-	ld	-1 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:155: if (absolute_logical_y > max_y) absolute_logical_y = max_y;
-	ld	a, #0xe8
-	cp	a, 4 (ix)
-	ld	a, #0x01
-	sbc	a, 5 (ix)
-	jr	NC, 00102$
-	ld	4 (ix), #0xe8
-	ld	5 (ix), #0x01
-00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:157: u8 src = FieldMap[absolute_logical_y];
-	ld	de, #_FieldMap+0
-	ld	l, 4 (ix)
-	ld	h, 5 (ix)
+	ld	hl, #-14
+	add	hl, sp
+	ld	sp, hl
+	ld	-1 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:35: if OnScreen(py) 
+	ld	-3 (ix), e
+	ld	-2 (ix), d
+	ld	c, e
+	ld	b, d
+	ld	hl, #0x000f
+	add	hl, bc
+	ex	de, hl
+	ld	hl, (#(_Field + 4) + 0)
+	ld	a, e
+	sub	a, l
+	ld	a, d
+	sbc	a, h
+	jp	C, 00113$
+	ld	de, #0x00c0
 	add	hl, de
-	ld	e, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:159: VDP_CommandHMMM(x, 768u + src, x, dst_y, 16, 16);
-	ld	b, #0x00
-	inc	sp
-	inc	sp
+	ld	a, c
+	sub	a, l
+	ld	a, b
+	sbc	a, h
+	jp	NC, 00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:37: if SplitSprite(py) {
+	ld	-5 (ix), c
+	ld	-4 (ix), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:39: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
+	ld	a, -1 (ix)
+	ld	-14 (ix), a
+	ld	-13 (ix), #0x00
+	ld	-12 (ix), c
+	ld	a, b
+	and	a, #0x01
+	ld	-11 (ix), a
+	ld	a, -5 (ix)
+	ld	d, -4 (ix)
+	add	a, 4 (ix)
+	ld	e, a
+	ld	a, d
+	adc	a, 5 (ix)
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:37: if SplitSprite(py) {
+	ld	a, #0xf0
+	cp	a, -5 (ix)
+	ld	a, #0x00
+	sbc	a, -4 (ix)
+	jp	NC, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: u8 t = 256 - (py & 255) ;
+	ld	a, -3 (ix)
+	neg
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:39: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
+	ld	-10 (ix), a
+	ld	-9 (ix), a
+	ld	-8 (ix), #0x00
+	ld	-7 (ix), e
+	ld	-6 (ix), d
+	ld	a, -14 (ix)
+	ld	-5 (ix), a
+	ld	a, -13 (ix)
+	ld	-4 (ix), a
+	ld	a, #<(_FieldMap)
+	add	a, -12 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_FieldMap)
+	adc	a, -11 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	e, l
+	ld	a, h
+	add	a, #0x03
+	ld	d, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -14 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -13 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -5 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -4 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0010
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	push	bc
+	call	_VPD_CommandSetupR32
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:40: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
+	ld	l, -10 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #0x10
+	sub	a, l
+	ld	e, a
+	sbc	a, a
+	sub	a, h
+	ld	-5 (ix), e
+	ld	-4 (ix), a
+	ld	e, 4 (ix)
+	ld	d, 5 (ix)
+	add	hl, bc
+	ld	a, h
+	and	a, #0x01
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	bc, #_FieldMap
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, l
+	ld	a, h
+	add	a, #0x03
+	ld	b, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -14 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -13 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -14 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -13 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0010
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -5 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -4 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:40: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
+	jp	00113$
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:43: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
+	ld	-5 (ix), e
+	ld	-4 (ix), d
+	pop	bc
+	push	bc
+	ld	a, #<(_FieldMap)
+	add	a, -12 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>(_FieldMap)
+	adc	a, -11 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	e, (hl)
 	ld	d, #0x00
 	ld	hl, #0x0300
 	add	hl, de
 	ex	de, hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
-	ld	(_g_VDP_Command), bc
+	ld	hl, #_g_VDP_Command
+	ld	a, -14 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -13 (ix)
+	ld	(hl), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
 	ld	((_g_VDP_Command + 2)), de
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
-	ld	hl, #(_g_VDP_Command + 4)
-	ld	a, -4 (ix)
-	ld	(hl), a
-	inc	hl
-	ld	a, -3 (ix)
-	ld	(hl), a
+	ld	((_g_VDP_Command + 4)), bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
 	ld	hl, #(_g_VDP_Command + 6)
-	ld	a, -2 (ix)
+	ld	a, -5 (ix)
 	ld	(hl), a
 	inc	hl
-	ld	a, -1 (ix)
+	ld	a, -4 (ix)
 	ld	(hl), a
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
 	ld	hl, #0x0010
@@ -1897,3182 +1465,789 @@ _EraseSprite16:
 	ld	(hl), #0xd0
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
 	call	_VPD_CommandSetupR32
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:159: VDP_CommandHMMM(x, 768u + src, x, dst_y, 16, 16);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:160: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:43: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:45: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:203: void UpdatePhase1(u8 r23_w, u8 r23_e, u16 scroll_e)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:47: void RemoveScoreBoardLeft(u8 px,u16 py,u16 page)
 ;	---------------------------------
-; Function UpdatePhase1
+; Function RemoveScoreBoardLeft
 ; ---------------------------------
-_UpdatePhase1::
+_RemoveScoreBoardLeft::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	push	af
-	ld	-1 (ix), a
-	ld	-2 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:205: UNROLL_PHASE(1, 2, 256u, 512u, r23_w, r23_e, scroll_e);
-	ld	bc, #_g_x1+14
-	ld	a, (#(_g_lx + 14) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 14) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
+	ld	hl, #-11
+	add	hl, sp
+	ld	sp, hl
 	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 28)), bc
-	ld	a, (#(_g_y2 + 28) + 0)
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:49: if (((py&255)>256-ScoreBoardNY_Left) ) 
+	ld	a, -2 (ix)
+	ld	-11 (ix), a
+	ld	a, -1 (ix)
+	ld	-10 (ix), a
+	ld	a, -11 (ix)
+	ld	-4 (ix), a
+	ld	-3 (ix), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:52: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
+	ld	-9 (ix), c
+	ld	-8 (ix), #0x00
+	ld	c, -11 (ix)
+	ld	a, -10 (ix)
+	and	a, #0x01
+	ld	b, a
+	ld	a, -4 (ix)
+	ld	d, -3 (ix)
+	add	a, 4 (ix)
 	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
+	ld	a, d
+	adc	a, 5 (ix)
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:49: if (((py&255)>256-ScoreBoardNY_Left) ) 
+	ld	a, #0x2c
+	cp	a, -4 (ix)
 	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00102$
-	ld	bc, #0x0000
+	sbc	a, -3 (ix)
+	jp	NC, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:51: u8 t = 256 - (py & 255) ;
+	ld	a, -2 (ix)
+	neg
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:52: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
+	ld	-7 (ix), a
+	ld	-6 (ix), a
+	ld	-5 (ix), #0x00
+	ld	-4 (ix), e
+	ld	-3 (ix), d
+	ld	e, -9 (ix)
+	ld	d, -8 (ix)
+	ld	hl, #_FieldMap
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, l
+	ld	a, h
+	add	a, #0x03
+	ld	b, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	((_g_VDP_Command + 4)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	ld	e, -7 (ix)
+	ld	d, #0x00
+	ld	hl, #0x00d4
+	cp	a, a
+	sbc	hl, de
+	ld	-4 (ix), l
+	ld	-3 (ix), h
+	ld	c, 4 (ix)
+	ld	b, 5 (ix)
+	ld	a, -11 (ix)
+	add	a, e
+	ld	e, a
+	ld	a, -10 (ix)
+	adc	a, d
+	and	a, #0x01
+	ld	d, a
+	ld	hl, #_FieldMap
+	add	hl, de
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	e, l
+	ld	a, h
+	add	a, #0x03
+	ld	d, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	jp	00110$
 00102$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:56: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+	ld	a, -9 (ix)
+	ld	-4 (ix), a
+	ld	a, -8 (ix)
+	ld	-3 (ix), a
+	ld	hl, #_FieldMap+0
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, l
+	ld	a, h
+	add	a, #0x03
 	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 28) + 0)
-	ld	de, (#(_g_y1 + 28) + 0)
-	ld	hl, #_g_x1+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+14
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 14) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00103$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00104$
-00103$:
-	ld	bc, #_g_dx+14
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00104$:
-	ld	bc, #_g_x1+13
-	ld	a, (#(_g_lx + 13) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 13) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 26)), bc
-	ld	a, (#(_g_y2 + 26) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00107$
-	ld	bc, #0x0000
-00107$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 26) + 0)
-	ld	de, (#(_g_y1 + 26) + 0)
-	ld	hl, #_g_x1+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+13
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 13) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00108$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00109$
-00108$:
-	ld	bc, #_g_dx+13
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00109$:
-	ld	bc, #_g_x1+12
-	ld	a, (#(_g_lx + 12) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 12) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 24)), bc
-	ld	a, (#(_g_y2 + 24) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00112$
-	ld	bc, #0x0000
-00112$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 24) + 0)
-	ld	de, (#(_g_y1 + 24) + 0)
-	ld	hl, #_g_x1+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+12
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 12) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00113$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00114$
-00113$:
-	ld	bc, #_g_dx+12
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00114$:
-	ld	bc, #_g_x1+11
-	ld	a, (#(_g_lx + 11) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 11) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 22)), bc
-	ld	a, (#(_g_y2 + 22) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00117$
-	ld	bc, #0x0000
-00117$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 22) + 0)
-	ld	de, (#(_g_y1 + 22) + 0)
-	ld	hl, #_g_x1+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+11
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 11) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00118$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00119$
-00118$:
-	ld	bc, #_g_dx+11
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00119$:
-	ld	bc, #_g_x1+10
-	ld	a, (#(_g_lx + 10) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 10) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 20)), bc
-	ld	a, (#(_g_y2 + 20) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00122$
-	ld	bc, #0x0000
-00122$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 20) + 0)
-	ld	de, (#(_g_y1 + 20) + 0)
-	ld	hl, #_g_x1+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+10
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 10) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00123$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00124$
-00123$:
-	ld	bc, #_g_dx+10
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00124$:
-	ld	bc, #_g_x1+9
-	ld	a, (#(_g_lx + 9) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 9) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 18)), bc
-	ld	a, (#(_g_y2 + 18) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00127$
-	ld	bc, #0x0000
-00127$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 18) + 0)
-	ld	de, (#(_g_y1 + 18) + 0)
-	ld	hl, #_g_x1+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+9
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 9) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00128$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00129$
-00128$:
-	ld	bc, #_g_dx+9
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00129$:
-	ld	bc, #_g_x1+8
-	ld	a, (#(_g_lx + 8) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 8) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 16)), bc
-	ld	a, (#(_g_y2 + 16) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00132$
-	ld	bc, #0x0000
-00132$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 16) + 0)
-	ld	de, (#(_g_y1 + 16) + 0)
-	ld	hl, #_g_x1+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+8
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 8) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00133$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00134$
-00133$:
-	ld	bc, #_g_dx+8
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00134$:
-	ld	bc, #_g_x1+7
-	ld	a, (#(_g_lx + 7) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 7) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 14)), bc
-	ld	a, (#(_g_y2 + 14) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00137$
-	ld	bc, #0x0000
-00137$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 14) + 0)
-	ld	de, (#(_g_y1 + 14) + 0)
-	ld	hl, #_g_x1+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+7
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 7) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00138$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00139$
-00138$:
-	ld	bc, #_g_dx+7
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00139$:
-	ld	bc, #_g_x1+6
-	ld	a, (#(_g_lx + 6) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 6) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 12)), bc
-	ld	a, (#(_g_y2 + 12) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00142$
-	ld	bc, #0x0000
-00142$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 12) + 0)
-	ld	de, (#(_g_y1 + 12) + 0)
-	ld	hl, #_g_x1+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+6
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 6) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00143$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00144$
-00143$:
-	ld	bc, #_g_dx+6
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00144$:
-	ld	bc, #_g_x1+5
-	ld	a, (#(_g_lx + 5) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 5) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 10)), bc
-	ld	a, (#(_g_y2 + 10) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00147$
-	ld	bc, #0x0000
-00147$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 10) + 0)
-	ld	de, (#(_g_y1 + 10) + 0)
-	ld	hl, #_g_x1+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+5
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 5) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00148$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00149$
-00148$:
-	ld	bc, #_g_dx+5
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00149$:
-	ld	bc, #_g_x1+4
-	ld	a, (#(_g_lx + 4) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 4) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 8)), bc
-	ld	a, (#(_g_y2 + 8) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00152$
-	ld	bc, #0x0000
-00152$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 8) + 0)
-	ld	de, (#(_g_y1 + 8) + 0)
-	ld	hl, #_g_x1+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+4
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 4) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00153$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00154$
-00153$:
-	ld	bc, #_g_dx+4
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00154$:
-	ld	bc, #_g_x1+3
-	ld	a, (#(_g_lx + 3) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 3) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 6)), bc
-	ld	a, (#(_g_y2 + 6) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00157$
-	ld	bc, #0x0000
-00157$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 6) + 0)
-	ld	de, (#(_g_y1 + 6) + 0)
-	ld	hl, #_g_x1+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+3
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 3) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00158$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00159$
-00158$:
-	ld	bc, #_g_dx+3
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00159$:
-	ld	bc, #_g_x1+2
-	ld	a, (#(_g_lx + 2) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 2) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 4)), bc
-	ld	a, (#(_g_y2 + 4) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00162$
-	ld	bc, #0x0000
-00162$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 4) + 0)
-	ld	de, (#(_g_y1 + 4) + 0)
-	ld	hl, #_g_x1+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+2
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 2) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00163$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00164$
-00163$:
-	ld	bc, #_g_dx+2
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00164$:
-	ld	bc, #_g_x1+1
-	ld	a, (#(_g_lx + 1) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 1) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	((_g_y1 + 2)), bc
-	ld	a, (#(_g_y2 + 2) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00167$
-	ld	bc, #0x0000
-00167$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 2) + 0)
-	ld	de, (#(_g_y1 + 2) + 0)
-	ld	hl, #_g_x1+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+1
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 1) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00168$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00169$
-00168$:
-	ld	bc, #_g_dx+1
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00169$:
-	ld	bc, #_g_x1+0
-	ld	a, (#_g_lx + 0)
-	ld	(bc), a
-	ld	a, (#_g_ly + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	0, b
-	ld	(_g_y1), bc
-	ld	a, (#_g_y2 + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00172$
-	ld	bc, #0x0000
-00172$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	1, d
-	ld	hl, #_g_x2+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#_g_frame + 0)
-	ld	de, (#_g_y1 + 0)
-	ld	hl, #_g_x1+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+0
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#_g_dx + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00173$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00176$
-00173$:
-	ld	bc, #_g_dx+0
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00176$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:206: }
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	l, #0xd4
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:56: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:57: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:208: void UpdatePhase2(u8 r23_w, u8 r23_e, u16 scroll_e)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:59: void PrintScoreBoardLeft(u8 px,u16 py,u16 page)
 ;	---------------------------------
-; Function UpdatePhase2
+; Function PrintScoreBoardLeft
 ; ---------------------------------
-_UpdatePhase2::
+_PrintScoreBoardLeft::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	push	af
-	ld	-1 (ix), a
-	ld	-2 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:210: UNROLL_PHASE(2, 0, 512u, 0u, r23_w, r23_e, scroll_e);
-	ld	bc, #_g_x2+14
-	ld	a, (#(_g_lx + 14) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 14) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
+	ld	hl, #-7
+	add	hl, sp
+	ld	sp, hl
 	ld	c, a
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:61: if (((py&255)>256-ScoreBoardNY_Left) ) 
+	ld	a, -2 (ix)
+	ld	-4 (ix), a
+	ld	-3 (ix), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:64: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
 	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 28)), bc
-	ld	a, (#(_g_y0 + 28) + 0)
+	ld	a, -4 (ix)
+	ld	d, -3 (ix)
+	add	a, 4 (ix)
 	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
+	ld	a, d
+	adc	a, 5 (ix)
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:61: if (((py&255)>256-ScoreBoardNY_Left) ) 
+	ld	a, #0x2c
+	cp	a, -4 (ix)
 	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00102$
-	ld	bc, #0x0000
+	sbc	a, -3 (ix)
+	jp	NC, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:63: u8 t = 256 - (py & 255) ;
+	ld	a, -2 (ix)
+	neg
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:64: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, ScoreBoardNX_Left, t);
+	ld	-7 (ix), a
+	ld	-6 (ix), a
+	ld	-5 (ix), #0x00
+	ld	-4 (ix), c
+	ld	-3 (ix), b
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #0x0000
+	ld	(_g_VDP_Command), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	h, #0x03
+	ld	((_g_VDP_Command + 2)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	push	bc
+	call	_VPD_CommandSetupR32
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(0, 768+t, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	ld	l, -7 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #0xd4
+	sub	a, l
+	ld	e, a
+	sbc	a, a
+	sub	a, h
+	ld	-6 (ix), e
+	ld	-5 (ix), a
+	ld	e, 4 (ix)
+	ld	d, 5 (ix)
+	ld	a, h
+	add	a, #0x03
+	ld	-4 (ix), l
+	ld	-3 (ix), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #0x0000
+	ld	(_g_VDP_Command), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	((_g_VDP_Command + 4)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(0, 768+t, px, page,            ScoreBoardNX_Left, ScoreBoardNY_Left-t);
+	jp	00110$
 00102$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 28) + 0)
-	ld	de, (#(_g_y2 + 28) + 0)
-	ld	hl, #_g_x2+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+14
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 14) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00103$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00104$
-00103$:
-	ld	bc, #_g_dx+14
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00104$:
-	ld	bc, #_g_x2+13
-	ld	a, (#(_g_lx + 13) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 13) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 26)), bc
-	ld	a, (#(_g_y0 + 26) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00107$
-	ld	bc, #0x0000
-00107$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 26) + 0)
-	ld	de, (#(_g_y2 + 26) + 0)
-	ld	hl, #_g_x2+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+13
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 13) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00108$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00109$
-00108$:
-	ld	bc, #_g_dx+13
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00109$:
-	ld	bc, #_g_x2+12
-	ld	a, (#(_g_lx + 12) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 12) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 24)), bc
-	ld	a, (#(_g_y0 + 24) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00112$
-	ld	bc, #0x0000
-00112$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 24) + 0)
-	ld	de, (#(_g_y2 + 24) + 0)
-	ld	hl, #_g_x2+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+12
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 12) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00113$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00114$
-00113$:
-	ld	bc, #_g_dx+12
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00114$:
-	ld	bc, #_g_x2+11
-	ld	a, (#(_g_lx + 11) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 11) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 22)), bc
-	ld	a, (#(_g_y0 + 22) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00117$
-	ld	bc, #0x0000
-00117$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 22) + 0)
-	ld	de, (#(_g_y2 + 22) + 0)
-	ld	hl, #_g_x2+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+11
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 11) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00118$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00119$
-00118$:
-	ld	bc, #_g_dx+11
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00119$:
-	ld	bc, #_g_x2+10
-	ld	a, (#(_g_lx + 10) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 10) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 20)), bc
-	ld	a, (#(_g_y0 + 20) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00122$
-	ld	bc, #0x0000
-00122$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 20) + 0)
-	ld	de, (#(_g_y2 + 20) + 0)
-	ld	hl, #_g_x2+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+10
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 10) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00123$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00124$
-00123$:
-	ld	bc, #_g_dx+10
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00124$:
-	ld	bc, #_g_x2+9
-	ld	a, (#(_g_lx + 9) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 9) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 18)), bc
-	ld	a, (#(_g_y0 + 18) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00127$
-	ld	bc, #0x0000
-00127$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 18) + 0)
-	ld	de, (#(_g_y2 + 18) + 0)
-	ld	hl, #_g_x2+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+9
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 9) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00128$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00129$
-00128$:
-	ld	bc, #_g_dx+9
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00129$:
-	ld	bc, #_g_x2+8
-	ld	a, (#(_g_lx + 8) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 8) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 16)), bc
-	ld	a, (#(_g_y0 + 16) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00132$
-	ld	bc, #0x0000
-00132$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 16) + 0)
-	ld	de, (#(_g_y2 + 16) + 0)
-	ld	hl, #_g_x2+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+8
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 8) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00133$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00134$
-00133$:
-	ld	bc, #_g_dx+8
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00134$:
-	ld	bc, #_g_x2+7
-	ld	a, (#(_g_lx + 7) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 7) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 14)), bc
-	ld	a, (#(_g_y0 + 14) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00137$
-	ld	bc, #0x0000
-00137$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 14) + 0)
-	ld	de, (#(_g_y2 + 14) + 0)
-	ld	hl, #_g_x2+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+7
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 7) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00138$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00139$
-00138$:
-	ld	bc, #_g_dx+7
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00139$:
-	ld	bc, #_g_x2+6
-	ld	a, (#(_g_lx + 6) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 6) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 12)), bc
-	ld	a, (#(_g_y0 + 12) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00142$
-	ld	bc, #0x0000
-00142$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 12) + 0)
-	ld	de, (#(_g_y2 + 12) + 0)
-	ld	hl, #_g_x2+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+6
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 6) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00143$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00144$
-00143$:
-	ld	bc, #_g_dx+6
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00144$:
-	ld	bc, #_g_x2+5
-	ld	a, (#(_g_lx + 5) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 5) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 10)), bc
-	ld	a, (#(_g_y0 + 10) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00147$
-	ld	bc, #0x0000
-00147$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 10) + 0)
-	ld	de, (#(_g_y2 + 10) + 0)
-	ld	hl, #_g_x2+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+5
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 5) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00148$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00149$
-00148$:
-	ld	bc, #_g_dx+5
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00149$:
-	ld	bc, #_g_x2+4
-	ld	a, (#(_g_lx + 4) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 4) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 8)), bc
-	ld	a, (#(_g_y0 + 8) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00152$
-	ld	bc, #0x0000
-00152$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 8) + 0)
-	ld	de, (#(_g_y2 + 8) + 0)
-	ld	hl, #_g_x2+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+4
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 4) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00153$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00154$
-00153$:
-	ld	bc, #_g_dx+4
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00154$:
-	ld	bc, #_g_x2+3
-	ld	a, (#(_g_lx + 3) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 3) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 6)), bc
-	ld	a, (#(_g_y0 + 6) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00157$
-	ld	bc, #0x0000
-00157$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 6) + 0)
-	ld	de, (#(_g_y2 + 6) + 0)
-	ld	hl, #_g_x2+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+3
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 3) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00158$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00159$
-00158$:
-	ld	bc, #_g_dx+3
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00159$:
-	ld	bc, #_g_x2+2
-	ld	a, (#(_g_lx + 2) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 2) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 4)), bc
-	ld	a, (#(_g_y0 + 4) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00162$
-	ld	bc, #0x0000
-00162$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 4) + 0)
-	ld	de, (#(_g_y2 + 4) + 0)
-	ld	hl, #_g_x2+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+2
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 2) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00163$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00164$
-00163$:
-	ld	bc, #_g_dx+2
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00164$:
-	ld	bc, #_g_x2+1
-	ld	a, (#(_g_lx + 1) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 1) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	((_g_y2 + 2)), bc
-	ld	a, (#(_g_y0 + 2) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00167$
-	ld	bc, #0x0000
-00167$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 2) + 0)
-	ld	de, (#(_g_y2 + 2) + 0)
-	ld	hl, #_g_x2+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+1
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 1) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00168$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00169$
-00168$:
-	ld	bc, #_g_dx+1
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00169$:
-	ld	bc, #_g_x2+0
-	ld	a, (#_g_lx + 0)
-	ld	(bc), a
-	ld	a, (#_g_ly + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	set	1, b
-	ld	(_g_y2), bc
-	ld	a, (#_g_y0 + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00172$
-	ld	bc, #0x0000
-00172$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	ld	hl, #_g_x0+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#_g_frame + 0)
-	ld	de, (#_g_y2 + 0)
-	ld	hl, #_g_x2+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+0
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#_g_dx + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00173$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00176$
-00173$:
-	ld	bc, #_g_dx+0
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00176$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:211: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:68: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #0x0000
+	ld	(_g_VDP_Command), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	h, #0x03
+	ld	((_g_VDP_Command + 2)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	((_g_VDP_Command + 4)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	l, #0xd4
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:68: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, ScoreBoardNX_Left, ScoreBoardNY_Left);
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:69: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:213: void UpdatePhase3(u8 r23_w, u8 r23_e, u16 scroll_e)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:71: void RemoveScoreBoardRight(u8 px,u16 py,u16 page)
 ;	---------------------------------
-; Function UpdatePhase3
+; Function RemoveScoreBoardRight
 ; ---------------------------------
-_UpdatePhase3::
+_RemoveScoreBoardRight::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	push	af
-	ld	-1 (ix), a
-	ld	-2 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:215: UNROLL_PHASE(0, 1, 0u, 256u, r23_w, r23_e, scroll_e);
-	ld	bc, #_g_x0+14
-	ld	a, (#(_g_lx + 14) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 14) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
+	ld	hl, #-11
+	add	hl, sp
+	ld	sp, hl
 	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 28)), bc
-	ld	a, (#(_g_y1 + 28) + 0)
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:73: if (((py&255)>256-ScoreBoardNY_Right) ) 
+	ld	a, -2 (ix)
+	ld	-11 (ix), a
+	ld	a, -1 (ix)
+	ld	-10 (ix), a
+	ld	a, -11 (ix)
+	ld	-4 (ix), a
+	ld	-3 (ix), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
+	ld	-9 (ix), c
+	ld	-8 (ix), #0x00
+	ld	c, -11 (ix)
+	ld	a, -10 (ix)
+	and	a, #0x01
+	ld	b, a
+	ld	a, -4 (ix)
+	ld	d, -3 (ix)
+	add	a, 4 (ix)
 	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
+	ld	a, d
+	adc	a, 5 (ix)
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:73: if (((py&255)>256-ScoreBoardNY_Right) ) 
+	ld	a, #0x2c
+	cp	a, -4 (ix)
 	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00102$
-	ld	bc, #0x0000
+	sbc	a, -3 (ix)
+	jp	NC, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:75: u8 t = 256 - (py & 255) ;
+	ld	a, -2 (ix)
+	neg
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
+	ld	-7 (ix), a
+	ld	-6 (ix), a
+	ld	-5 (ix), #0x00
+	ld	-4 (ix), e
+	ld	-3 (ix), d
+	ld	e, -9 (ix)
+	ld	d, -8 (ix)
+	ld	hl, #_FieldMap
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, l
+	ld	a, h
+	add	a, #0x03
+	ld	b, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	((_g_VDP_Command + 4)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	hl, #(_g_VDP_Command + 6)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	ld	e, -7 (ix)
+	ld	d, #0x00
+	ld	hl, #0x00d4
+	cp	a, a
+	sbc	hl, de
+	ld	-4 (ix), l
+	ld	-3 (ix), h
+	ld	c, 4 (ix)
+	ld	b, 5 (ix)
+	ld	a, -11 (ix)
+	add	a, e
+	ld	e, a
+	ld	a, -10 (ix)
+	adc	a, d
+	and	a, #0x01
+	ld	d, a
+	ld	hl, #_FieldMap
+	add	hl, de
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	e, l
+	ld	a, h
+	add	a, #0x03
+	ld	d, a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	jp	00110$
 00102$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:80: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
+	ld	a, -9 (ix)
+	ld	-4 (ix), a
+	ld	a, -8 (ix)
+	ld	-3 (ix), a
+	ld	hl, #_FieldMap+0
+	add	hl, bc
+	ld	l, (hl)
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	c, l
+	ld	a, h
+	add	a, #0x03
 	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 28) + 0)
-	ld	de, (#(_g_y0 + 28) + 0)
-	ld	hl, #_g_x0+14
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+14
-	ld	a, (de)
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	hl, #_g_VDP_Command
+	ld	a, -9 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -8 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	((_g_VDP_Command + 2)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	l, #0xd4
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:80: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:81: }
+	ld	sp, ix
+	pop	ix
+	pop	hl
+	pop	af
+	jp	(hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:83: void PrintScoreBoardRight(u8 px,u16 py,u16 page)
+;	---------------------------------
+; Function PrintScoreBoardRight
+; ---------------------------------
+_PrintScoreBoardRight::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-7
+	add	hl, sp
+	ld	sp, hl
 	ld	c, a
-	ld	a, (#(_g_dx + 14) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00103$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00104$
-00103$:
-	ld	bc, #_g_dx+14
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00104$:
-	ld	bc, #_g_x0+13
-	ld	a, (#(_g_lx + 13) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 13) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
+	ld	-2 (ix), e
+	ld	-1 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:85: if (((py&255)>256-ScoreBoardNY_Right) ) 
+	ld	a, -2 (ix)
+	ld	-4 (ix), a
+	ld	-3 (ix), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:88: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
 	ld	b, #0x00
-	ld	((_g_y0 + 26)), bc
-	ld	a, (#(_g_y1 + 26) + 0)
+	ld	a, -4 (ix)
+	ld	d, -3 (ix)
+	add	a, 4 (ix)
 	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
+	ld	a, d
+	adc	a, 5 (ix)
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:85: if (((py&255)>256-ScoreBoardNY_Right) ) 
+	ld	a, #0x2c
+	cp	a, -4 (ix)
 	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00107$
-	ld	bc, #0x0000
-00107$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 26) + 0)
-	ld	de, (#(_g_y0 + 26) + 0)
-	ld	hl, #_g_x0+13
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+13
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 13) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00108$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00109$
-00108$:
-	ld	bc, #_g_dx+13
-	ld	a, (bc)
+	sbc	a, -3 (ix)
+	jp	NC, 00102$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:87: u8 t = 256 - (py & 255) ;
+	ld	a, -2 (ix)
 	neg
-	ld	(bc), a
-00109$:
-	ld	bc, #_g_x0+12
-	ld	a, (#(_g_lx + 12) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 12) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 24)), bc
-	ld	a, (#(_g_y1 + 24) + 0)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:88: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, ScoreBoardNX_Right, t);
+	ld	-7 (ix), a
+	ld	-6 (ix), a
+	ld	-5 (ix), #0x00
+	ld	-4 (ix), c
+	ld	-3 (ix), b
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	(_g_VDP_Command), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	hl, #0x0300
+	ld	((_g_VDP_Command + 2)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	push	bc
+	call	_VPD_CommandSetupR32
+	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:89: VDP_CommandHMMM(px, 768+t, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	ld	l, -7 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #0xd4
+	sub	a, l
 	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00112$
-	ld	bc, #0x0000
-00112$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 24) + 0)
-	ld	de, (#(_g_y0 + 24) + 0)
-	ld	hl, #_g_x0+12
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+12
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 12) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00113$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00114$
-00113$:
-	ld	bc, #_g_dx+12
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00114$:
-	ld	bc, #_g_x0+11
-	ld	a, (#(_g_lx + 11) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 11) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 22)), bc
-	ld	a, (#(_g_y1 + 22) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00117$
-	ld	bc, #0x0000
-00117$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 22) + 0)
-	ld	de, (#(_g_y0 + 22) + 0)
-	ld	hl, #_g_x0+11
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+11
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 11) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00118$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00119$
-00118$:
-	ld	bc, #_g_dx+11
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00119$:
-	ld	bc, #_g_x0+10
-	ld	a, (#(_g_lx + 10) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 10) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 20)), bc
-	ld	a, (#(_g_y1 + 20) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00122$
-	ld	bc, #0x0000
-00122$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 20) + 0)
-	ld	de, (#(_g_y0 + 20) + 0)
-	ld	hl, #_g_x0+10
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+10
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 10) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00123$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00124$
-00123$:
-	ld	bc, #_g_dx+10
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00124$:
-	ld	bc, #_g_x0+9
-	ld	a, (#(_g_lx + 9) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 9) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 18)), bc
-	ld	a, (#(_g_y1 + 18) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00127$
-	ld	bc, #0x0000
-00127$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 18) + 0)
-	ld	de, (#(_g_y0 + 18) + 0)
-	ld	hl, #_g_x0+9
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+9
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 9) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00128$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00129$
-00128$:
-	ld	bc, #_g_dx+9
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00129$:
-	ld	bc, #_g_x0+8
-	ld	a, (#(_g_lx + 8) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 8) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 16)), bc
-	ld	a, (#(_g_y1 + 16) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00132$
-	ld	bc, #0x0000
-00132$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 16) + 0)
-	ld	de, (#(_g_y0 + 16) + 0)
-	ld	hl, #_g_x0+8
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+8
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 8) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00133$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00134$
-00133$:
-	ld	bc, #_g_dx+8
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00134$:
-	ld	bc, #_g_x0+7
-	ld	a, (#(_g_lx + 7) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 7) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 14)), bc
-	ld	a, (#(_g_y1 + 14) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00137$
-	ld	bc, #0x0000
-00137$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 14) + 0)
-	ld	de, (#(_g_y0 + 14) + 0)
-	ld	hl, #_g_x0+7
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+7
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 7) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00138$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00139$
-00138$:
-	ld	bc, #_g_dx+7
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00139$:
-	ld	bc, #_g_x0+6
-	ld	a, (#(_g_lx + 6) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 6) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 12)), bc
-	ld	a, (#(_g_y1 + 12) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00142$
-	ld	bc, #0x0000
-00142$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 12) + 0)
-	ld	de, (#(_g_y0 + 12) + 0)
-	ld	hl, #_g_x0+6
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+6
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 6) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00143$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00144$
-00143$:
-	ld	bc, #_g_dx+6
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00144$:
-	ld	bc, #_g_x0+5
-	ld	a, (#(_g_lx + 5) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 5) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 10)), bc
-	ld	a, (#(_g_y1 + 10) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00147$
-	ld	bc, #0x0000
-00147$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 10) + 0)
-	ld	de, (#(_g_y0 + 10) + 0)
-	ld	hl, #_g_x0+5
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+5
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 5) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00148$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00149$
-00148$:
-	ld	bc, #_g_dx+5
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00149$:
-	ld	bc, #_g_x0+4
-	ld	a, (#(_g_lx + 4) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 4) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 8)), bc
-	ld	a, (#(_g_y1 + 8) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00152$
-	ld	bc, #0x0000
-00152$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 8) + 0)
-	ld	de, (#(_g_y0 + 8) + 0)
-	ld	hl, #_g_x0+4
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+4
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 4) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00153$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00154$
-00153$:
-	ld	bc, #_g_dx+4
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00154$:
-	ld	bc, #_g_x0+3
-	ld	a, (#(_g_lx + 3) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 3) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 6)), bc
-	ld	a, (#(_g_y1 + 6) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00157$
-	ld	bc, #0x0000
-00157$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 6) + 0)
-	ld	de, (#(_g_y0 + 6) + 0)
-	ld	hl, #_g_x0+3
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+3
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 3) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00158$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00159$
-00158$:
-	ld	bc, #_g_dx+3
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00159$:
-	ld	bc, #_g_x0+2
-	ld	a, (#(_g_lx + 2) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 2) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 4)), bc
-	ld	a, (#(_g_y1 + 4) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00162$
-	ld	bc, #0x0000
-00162$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 4) + 0)
-	ld	de, (#(_g_y0 + 4) + 0)
-	ld	hl, #_g_x0+2
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+2
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 2) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00163$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00164$
-00163$:
-	ld	bc, #_g_dx+2
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00164$:
-	ld	bc, #_g_x0+1
-	ld	a, (#(_g_lx + 1) + 0)
-	ld	(bc), a
-	ld	a, (#(_g_ly + 1) + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	((_g_y0 + 2)), bc
-	ld	a, (#(_g_y1 + 2) + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00167$
-	ld	bc, #0x0000
-00167$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#(_g_frame + 2) + 0)
-	ld	de, (#(_g_y0 + 2) + 0)
-	ld	hl, #_g_x0+1
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+1
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#(_g_dx + 1) + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00168$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00169$
-00168$:
-	ld	bc, #_g_dx+1
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00169$:
-	ld	bc, #_g_x0+0
-	ld	a, (#_g_lx + 0)
-	ld	(bc), a
-	ld	a, (#_g_ly + 0)
-	add	a, -1 (ix)
-	add	a, #0x08
-	ld	c, a
-	ld	b, #0x00
-	ld	(_g_y0), bc
-	ld	a, (#_g_y1 + 0)
-	ld	e, a
-	res	0, e
-	ld	a, e
-	sub	a, -2 (ix)
-	add	a, #0xf8
-	ld	c, a
-	ld	b, #0x00
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, b
-	ld	a, #0xf0
-	cp	a, l
-	ld	a, #0x00
-	sbc	a, d
-	jr	NC, 00172$
-	ld	bc, #0x0000
-00172$:
-	ld	a, 4 (ix)
-	add	a, c
-	ld	c, a
-	ld	a, 5 (ix)
-	adc	a, b
-	ld	b, a
-	ld	d, #0x00
-	set	0, d
-	ld	hl, #_g_x1+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_EraseSprite16
-	ld	bc, (#_g_frame + 0)
-	ld	de, (#_g_y0 + 0)
-	ld	hl, #_g_x0+0
-	ld	l, (hl)
-;	spillPairReg hl
-	push	bc
-	ld	a, l
-	call	_CallSpriteFrame_B3
-	ld	de, #_g_lx+0
-	ld	a, (de)
-	ld	c, a
-	ld	a, (#_g_dx + 0)
-	add	a, c
-	ld	c, a
-	ld	(de), a
-	ld	a, #0xee
-	sub	a, c
-	jr	C, 00173$
-	ld	a, c
-	sub	a, #0x04
-	jr	NC, 00176$
-00173$:
-	ld	bc, #_g_dx+0
-	ld	a, (bc)
-	neg
-	ld	(bc), a
-00176$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:216: }
+	sbc	a, a
+	sub	a, h
+	ld	-6 (ix), e
+	ld	-5 (ix), a
+	ld	e, 4 (ix)
+	ld	d, 5 (ix)
+	ld	a, h
+	add	a, #0x03
+	ld	-4 (ix), l
+	ld	-3 (ix), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	(_g_VDP_Command), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	hl, #(_g_VDP_Command + 2)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	((_g_VDP_Command + 4)), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -6 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -5 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:89: VDP_CommandHMMM(px, 768+t, px, page,            ScoreBoardNX_Right, ScoreBoardNY_Right-t);
+	jp	00110$
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:92: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
+	ld	-4 (ix), c
+	ld	-3 (ix), b
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+	ld	(_g_VDP_Command), bc
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+	ld	hl, #0x0300
+	ld	((_g_VDP_Command + 2)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), de
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+	ld	l, #0xd4
+	ld	((_g_VDP_Command + 10)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xd0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+	call	_VPD_CommandSetupR32
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:92: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
+00110$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:93: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
