@@ -1216,6 +1216,19 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				if (dist_x <= 6 && dist_y <= 6 && Ball->anim == 0) {
 					Ball->dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
 					Ball->dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					
+					// Allinea dinamicamente la palla al corpo/piedi del giocatore
+					i8 off_x = 0;
+					i8 off_y = 4;
+					if (Ball->dx > 0) off_x = 6;
+					else if (Ball->dx < 0) off_x = -6;
+					
+					if (Ball->dy > 0) off_y = 6;
+					else if (Ball->dy < 0) off_y = 2;
+					
+					Ball->lx = Carrier->lx + off_x;
+					Ball->ly = Carrier->ly + off_y;
+
 					Ball->anim = 4; // Innesca 4 frame di allungo in avanti della palla
 					CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 				}

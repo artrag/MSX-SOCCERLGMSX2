@@ -26,7 +26,7 @@ Symbol Table
     _FindReceiver                                                   ******** GX
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
-  7 _GetDrawFrame                                                   000011DB GR
+  7 _GetDrawFrame                                                   000012AD GR
     _GetJoystickDirection                                           ******** GX
   7 _GetPlayerAnimFrame                                             000003BA GR
     _Half                                                           ******** GX
@@ -34,7 +34,7 @@ Symbol Table
     _IsBallForeground                                               ******** GX
     _KickOffTeam                                                    ******** GX
     _LastSecs                                                       ******** GX
-  7 _MainLoop                                                       0000121E GR
+  7 _MainLoop                                                       000012F0 GR
     _Mins                                                           ******** GX
     _PrintScoreBoardLeft                                            ******** GX
     _PrintScoreBoardRight                                           ******** GX
@@ -63,7 +63,7 @@ Hexadecimal [32-Bits]
 
 Symbol Table
 
-  7 ___str_0                                                        00001CE8 R
+  7 ___str_0                                                        00001DBA R
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     __muluschar                                                     ******** GX
@@ -331,7 +331,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size     1CEB   flags    0
+   7 _SEG4                                      size     1DBD   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

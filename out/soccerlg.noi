@@ -31,7 +31,7 @@ DEF l__SEG7 0x135
 DEF l__DATA 0x2ED
 DEF l__SEG6 0x37B
 DEF l__SEG5 0xCB7
-DEF l__SEG4 0x1CEB
+DEF l__SEG4 0x1DBD
 DEF l__CODE 0x2658
 DEF s__CODE 0x4000
 DEF s__HOME 0x6658
@@ -454,8 +454,8 @@ DEF _AssignKickOffTargets 0x4A000
 DEF _g_Fonts 0x4A0C6
 DEF _GetPlayerAnimFrame 0x4A3BA
 DEF _UpdateGameState 0x4A813
-DEF _GetDrawFrame 0x4B1DB
-DEF _MainLoop 0x4B21E
+DEF _GetDrawFrame 0x4B2AD
+DEF _MainLoop 0x4B2F0
 DEF _PlotField 0x5A000
 DEF _RemoveSwSprite 0x5A27D
 DEF _RemoveScoreBoardLeft 0x5A434
