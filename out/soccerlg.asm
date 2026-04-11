@@ -2909,7 +2909,7 @@ __xinit__Team1Code:
 __xinit__Team2Code:
 	.db #0x04	; 4
 __xinit__KickOffTeam:
-	.db #0x00	; 0
+	.db #0x01	; 1
 __xinit__g_VSynch:
 	.db #0x00	; 0
 	.area _CABS (ABS)

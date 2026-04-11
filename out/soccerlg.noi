@@ -29,7 +29,7 @@ DEF _g_CHAR_16 0x34
 DEF l__SEG6 0x6F
 DEF l__DATA 0x2ED
 DEF l__SEG5 0x990
-DEF l__SEG4 0x135E
+DEF l__SEG4 0x1342
 DEF l__CODE 0x256A
 DEF s__CODE 0x4000
 DEF s__HOME 0x656A
@@ -432,7 +432,7 @@ DEF _g_VDPInitilized 0xC2F7
 DEF _GetPlayerAnimFrame 0x4A000
 DEF _g_Fonts 0x4A459
 DEF _UpdateGameState 0x4A74D
-DEF _MainLoop 0x4AB98
+DEF _MainLoop 0x4AB7C
 DEF _PlotField 0x5A000
 DEF _RemoveSwSprite 0x5A27D
 DEF _RemoveScoreBoardLeft 0x5A434

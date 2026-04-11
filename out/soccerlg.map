@@ -38,7 +38,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000006F  l__SEG6                         
      000002ED  l__DATA                         
      00000990  l__SEG5                         
-     0000135E  l__SEG4                         
+     00001342  l__SEG4                         
      0000256A  l__CODE                         
      00004000  s__CODE                         
      0000656A  s__HOME                         
@@ -546,14 +546,14 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    0000135E =        4958. bytes (REL,CON)
+_SEG4                               0004A000    00001342 =        4930. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0004A000  _GetPlayerAnimFrame                soccerlg_s4_b3
      0004A459  _g_Fonts                           soccerlg_s4_b3
      0004A74D  _UpdateGameState                   soccerlg_s4_b3
-     0004AB98  _MainLoop                          soccerlg_s4_b3
+     0004AB7C  _MainLoop                          soccerlg_s4_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]

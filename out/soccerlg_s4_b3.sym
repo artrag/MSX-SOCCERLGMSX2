@@ -14,7 +14,7 @@ Symbol Table
   7 _GetPlayerAnimFrame                                             00000000 GR
     _KickOffTeam                                                    ******** GX
     _LastSecs                                                       ******** GX
-  7 _MainLoop                                                       00000B98 GR
+  7 _MainLoop                                                       00000B7C GR
     _Mins                                                           ******** GX
     _PrintScoreBoardLeft                                            ******** GX
     _PrintScoreBoardRight                                           ******** GX
@@ -32,8 +32,8 @@ Symbol Table
   7 _UpdateGameState                                                0000074D GR
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
-  7 ___str_0                                                        00001359 R
-  7 ___str_1                                                        0000135C R
+  7 ___str_0                                                        0000133D R
+  7 ___str_1                                                        00001340 R
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -300,7 +300,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size     135E   flags    0
+   7 _SEG4                                      size     1342   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

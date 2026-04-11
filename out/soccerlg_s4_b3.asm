@@ -1971,15 +1971,15 @@ _UpdateGameState::
 	ld	(hl), #0xb0
 	ld	hl, #0x0060
 	ld	((_SwSprite + 59)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1054: SwSprite[5].tx = 40;  SwSprite[5].ty = 180;  
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1054: SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
 	ld	hl, #(_SwSprite + 127)
 	ld	(hl), #0x28
-	ld	hl, #0x00b4
+	ld	hl, #0x00a0
 	ld	((_SwSprite + 128)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1055: SwSprite[6].tx = 200; SwSprite[6].ty = 180;  
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1055: SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
 	ld	hl, #(_SwSprite + 150)
 	ld	(hl), #0xc8
-	ld	hl, #0x00b4
+	ld	hl, #0x00a0
 	ld	((_SwSprite + 151)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1057: SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
 	ld	hl, #(_SwSprite + 173)
@@ -1996,65 +1996,65 @@ _UpdateGameState::
 	ld	(hl), #0xb0
 	ld	hl, #0x01a0
 	ld	((_SwSprite + 220)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1060: SwSprite[12].tx= 40;  SwSprite[12].ty= 332;  
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1060: SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
 	ld	hl, #(_SwSprite + 288)
 	ld	(hl), #0x28
-	ld	hl, #0x014c
+	ld	hl, #0x0138
 	ld	((_SwSprite + 289)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1061: SwSprite[13].tx= 200; SwSprite[13].ty= 332;  
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1061: SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
 	ld	hl, #(_SwSprite + 311)
 	ld	(hl), #0xc8
-	ld	hl, #0x014c
+	ld	hl, #0x0138
 	ld	((_SwSprite + 312)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1065: SwSprite[3].tx = 112; SwSprite[3].ty = 244;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1065: SwSprite[3].tx = 112; SwSprite[3].ty = 236;
 	ld	de, #_SwSprite + 81
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1066: SwSprite[4].tx = 128; SwSprite[4].ty = 244;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1066: SwSprite[4].tx = 128; SwSprite[4].ty = 236;
 	ld	bc, #_SwSprite + 104
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1067: SwSprite[10].tx= 100; SwSprite[10].ty= 300;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1068: SwSprite[11].tx= 140; SwSprite[11].ty= 300;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1067: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1068: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1063: if (KickOffTeam == TEAM_1) {
 	ld	a, (_KickOffTeam+0)
 	or	a, a
 	jr	NZ, 00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1065: SwSprite[3].tx = 112; SwSprite[3].ty = 244;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1065: SwSprite[3].tx = 112; SwSprite[3].ty = 236;
 	ld	a, #0x70
 	ld	(de), a
-	ld	hl, #0x00f4
+	ld	hl, #0x00ec
 	ld	((_SwSprite + 82)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1066: SwSprite[4].tx = 128; SwSprite[4].ty = 244;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1066: SwSprite[4].tx = 128; SwSprite[4].ty = 236;
 	ld	a, #0x80
 	ld	(bc), a
 	ld	((_SwSprite + 105)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1067: SwSprite[10].tx= 100; SwSprite[10].ty= 300;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1067: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
 	ld	hl, #(_SwSprite + 242)
 	ld	(hl), #0x64
-	ld	hl, #0x012c
+	ld	hl, #0x0128
 	ld	((_SwSprite + 243)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1068: SwSprite[11].tx= 140; SwSprite[11].ty= 300;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1068: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
 	ld	hl, #(_SwSprite + 265)
 	ld	(hl), #0x8c
-	ld	hl, #0x012c
+	ld	hl, #0x0128
 	ld	((_SwSprite + 266)), hl
 	jp	00142$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1071: SwSprite[3].tx = 100; SwSprite[3].ty = 228;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1071: SwSprite[3].tx = 100; SwSprite[3].ty = 200;
 	ld	a, #0x64
 	ld	(de), a
-	ld	hl, #0x00e4
+	ld	hl, #0x00c8
 	ld	((_SwSprite + 82)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1072: SwSprite[4].tx = 140; SwSprite[4].ty = 228;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1072: SwSprite[4].tx = 140; SwSprite[4].ty = 200;
 	ld	a, #0x8c
 	ld	(bc), a
 	ld	((_SwSprite + 105)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1073: SwSprite[10].tx= 112; SwSprite[10].ty= 268;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1073: SwSprite[10].tx= 112; SwSprite[10].ty= 254;
 	ld	hl, #(_SwSprite + 242)
 	ld	(hl), #0x70
-	ld	hl, #0x010c
+	ld	hl, #0x00fe
 	ld	((_SwSprite + 243)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1074: SwSprite[11].tx= 128; SwSprite[11].ty= 268;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1074: SwSprite[11].tx= 128; SwSprite[11].ty= 254;
 	ld	hl, #(_SwSprite + 265)
 	ld	(hl), #0x80
-	ld	hl, #0x010c
+	ld	hl, #0x00fe
 	ld	((_SwSprite + 266)), hl
 	jp	00142$
 00134$:
@@ -2148,18 +2148,16 @@ _UpdateGameState::
 	jr	NZ, 00123$
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
-	ld	a, (hl)
-	ld	-5 (ix), a
-	inc	hl
-	ld	a, (hl)
-	ld	-4 (ix), a
-	ld	l, -17 (ix)
-	ld	h, -16 (ix)
 	ld	c, (hl)
 	inc	hl
 	ld	b, (hl)
-	ld	l, -5 (ix)
-	ld	h, -4 (ix)
+	ld	l, -17 (ix)
+	ld	h, -16 (ix)
+	ld	e, (hl)
+	inc	hl
+	ld	h, (hl)
+;	spillPairReg hl
+	ld	l, e
 	cp	a, a
 	sbc	hl, bc
 	jp	Z,00124$
@@ -2406,15 +2404,15 @@ _UpdateGameState::
 	jp	00141$
 00124$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1099: i8 dir_x = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
-	ld	hl, #_SwSprite + 322
-	ld	c, (hl)
+	ld	a, (#_SwSprite + 322)
+	ld	-4 (ix), a
 	ld	a, -21 (ix)
-	sub	a, c
+	sub	a, -4 (ix)
 	jr	NC, 00152$
-	ld	bc, #0x0001
+	ld	de, #0x0001
 	jp	00153$
 00152$:
-	ld	a, c
+	ld	a, -4 (ix)
 	sub	a, -21 (ix)
 	jr	NC, 00154$
 	ld	de, #0xffff
@@ -2422,30 +2420,17 @@ _UpdateGameState::
 00154$:
 	ld	de, #0x0000
 00155$:
-	ld	c, e
 00153$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1100: i8 dir_y = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
-	ld	hl, (#_SwSprite + 326)
-	ld	a, -5 (ix)
-	sub	a, l
-	ld	a, -4 (ix)
-	sbc	a, h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1100: i8 dir_y = (i < 7) ? 1 : -1; // Team 1 guarda sempre a Sud, Team 2 sempre a Nord
+	ld	a, -1 (ix)
+	sub	a, #0x07
 	jr	NC, 00156$
-	ld	de, #0x0001
+	ld	bc, #0x0001
 	jp	00157$
 00156$:
-	ld	a, l
-	sub	a, -5 (ix)
-	ld	a, h
-	sbc	a, -4 (ix)
-	jr	NC, 00158$
-	ld	de, #0xffff
-	jp	00159$
-00158$:
-	ld	de, #0x0000
-00159$:
+	ld	bc, #0xffff
 00157$:
-	ld	a, e
+	ld	a, c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1101: p->dx = 0; p->dy = 0;
 	ld	l, -15 (ix)
 	ld	h, -14 (ix)
@@ -2461,7 +2446,7 @@ _UpdateGameState::
 	inc	sp
 	push	af
 	inc	sp
-	ld	l, c
+	ld	l, e
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	a, -1 (ix)
