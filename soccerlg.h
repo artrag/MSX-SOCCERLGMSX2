@@ -236,7 +236,9 @@ struct TeamColors {
 #define SPR_MSG_THROWIN								297
 #define SPR_MSG_CORNERKICK							304
 #define SPR_MSG_INGOAL								313
-
+#define SPR_MSG_TIMEUP								320
+#define SPR_MSG_HALFTIME							324
+#define SPR_MSG_PENALTIES							329
 
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
 
@@ -245,6 +247,10 @@ struct TeamColors {
 #define SPRITE_MSG_THROWIN_LENGTH					4
 #define SPRITE_MSG_CORNERKICK_LENGTH				6
 #define SPRITE_MSG_INGOAL_LENGTH					4
+
+#define SPRITE_MSG_TIMEUP_LENGTH					4
+#define SPRITE_MSG_HALFTIME_LENGTH					5
+#define SPRITE_MSG_PENALTIES_LENGTH					5
 
 #define TEAM_1                                      0
 #define TEAM_2                                      1
@@ -259,6 +265,8 @@ struct TeamColors {
 #define GAMEMODE_P1_VS_CPU                          0
 #define GAMEMODE_P1_VS_P2                           1
 
+#define HALF_TIME_DURATION                          3
+
 #define PRESENTATION_WAIT_TIME                      (2 * 60) // 2 secondi a 60 fps
 
 #define BALL_START_X                                120
@@ -272,6 +280,7 @@ struct TeamColors {
 #define SEG_DRAW 	5
 #define SEG_LOGIC 	6
 #define SEG_INPUT 	7
+#define SEG_EVENTS  8
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -311,11 +320,13 @@ extern  struct ObjectInfo ScoreBoardRight;
 extern	u8  Team1Code;
 extern	u8  Team2Code;
 extern  u8  KickOffTeam;
+extern  u8  Half;
 extern  u8  GameMode;
 extern  u8  T1_Carrier;
 extern  u8  T1_Receiver;
 extern  u8  T2_Carrier;
 extern  u8  T2_Receiver;
+extern  bool TimerEnabled;
 
 
 
@@ -346,10 +357,6 @@ void SetTeamColors(u8 team, const struct TeamColors* colors);
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
-void EventStartPresentationScrollig();
-void EventPlayerFirstPresentationStarted();
-void EventKickOffReady();
-void EventBallKicked();
 u16 GetDrawFrame(u8 i);
 
 // +++ SEGMENT SEG_DRAW (5) +++
@@ -373,3 +380,11 @@ u8 FindReceiver(u8 carrier, u8 ignore_player);
 // +++ SEGMENT SEG_INPUT (7) +++
 bool IsTeamJoystickTriggerPressed(u8 player);
 u8 GetJoystickDirection(u8 player);
+
+// +++ SEGMENT SEG_EVENTS (8) +++
+void EventStartPresentationScrollig();
+void EventPlayerFirstPresentationStarted();
+void EventKickOffReady();
+void EventBallKicked();
+void EventHalfTime();
+void EventTimeUp();

@@ -52,19 +52,21 @@ const struct TeamColors g_TeamColorsArray[] = {
 // -----------------
 
 	u8	Frms = 60;
-	u8	Secs = 5;
-	u8	Mins = 3;
-    u8  LastSecs=5;
-	u8  ScoreA = 1;
-	u8  ScoreB = 3;
+	u8	Secs = 0;
+	u8	Mins = HALF_TIME_DURATION;
+    u8  LastSecs=0xFF;
+    u8  Half = 1;
+	u8  ScoreA = 0;
+	u8  ScoreB = 0;
 	u8  Team1Code=TEAM_ITA_COLORS;
 	u8  Team2Code=TEAM_NLD_COLORS;
-	u8  KickOffTeam=TEAM_1;
+	u8  KickOffTeam=TEAM_2; // P1 (Team 2) batte nel primo tempo
 	u8  GameMode = GAMEMODE_P1_VS_CPU;
 	u8  T1_Carrier = 0xFF;
 	u8  T1_Receiver = 0xFF;
 	u8  T2_Carrier = 0xFF;
 	u8  T2_Receiver = 0xFF;
+	bool TimerEnabled = FALSE;
 
 
 struct ObjectInfo SwSprite[NumSprite];
@@ -314,12 +316,15 @@ void VSyncCallback()
 	Frms--;
 	if (Frms==0) {
 		Frms = 60;
-        LastSecs=Secs;
-		Secs--;
-		if (Secs==0) {
-			Secs = 60;
-			Mins--;
-			if (Mins==0) Mins = 3;
+		if (TimerEnabled) {
+			if (Mins > 0 || Secs > 0) {
+				if (Secs==0) {
+					Secs = 59;
+					Mins--;
+				} else {
+					Secs--;
+				}
+			}
 		}
 	}
 }

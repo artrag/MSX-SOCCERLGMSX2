@@ -990,33 +990,39 @@ const unsigned char g_Fonts[] =
 // Total size : 756 bytes
 
 
-// --------------
-// *** EVENTS ***
-// --------------
-void EventBallKicked()
-{
-	// Trigger sonoro per il tocco della palla durante il dribbling
-}
-void EventStartPresentationScrollig()
-{
-	// Trigger sonoro per l'inizio dello scrolling di presentazione
-}
 
-void EventPlayerFirstPresentationStarted()
-{
-	// Trigger sonoro per l'inizio del movimento dei giocatori
-}
 
-void EventKickOffReady()
-{
-	
-	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
-	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
-}
+
 
 // -----------------
 // *** FUNCTIONS ***
 // -----------------
+
+void AssignKickOffTargets() {
+	SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
+	SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
+	SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
+	SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
+	SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
+
+	SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
+	SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
+	SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
+	SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
+	SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
+
+	if (KickOffTeam == TEAM_1) {
+		SwSprite[3].tx = 112; SwSprite[3].ty = 236;
+		SwSprite[4].tx = 128; SwSprite[4].ty = 236;
+		SwSprite[10].tx= 100; SwSprite[10].ty= 296;
+		SwSprite[11].tx= 140; SwSprite[11].ty= 296;
+	} else {
+		SwSprite[3].tx = 100; SwSprite[3].ty = 200;
+		SwSprite[4].tx = 140; SwSprite[4].ty = 200;
+		SwSprite[10].tx= 112; SwSprite[10].ty= 254;
+		SwSprite[11].tx= 128; SwSprite[11].ty= 254;
+	}
+}
 
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 
 {
@@ -1065,48 +1071,22 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			Field.dy = 0; // Ferma lo scorrimento
 			*game_state = 1;
 			*wait_secs = 2; 
-			*start_sec = Secs;
+			*start_sec = Frms;
 		} else {
 			Field.ly += Field.dy;
 			// Nello scorrimento iniziale non serve il rimbalzo
 			// se si volesse usare: if ((Field.ly+192>=FIELD_HEIGHT)||(Field.ly<=0)) Field.dy =- Field.dy;
 		}
 	} else if (*game_state == 1) {
-		if (Secs != *start_sec) {
-			*start_sec = Secs;
+		if (*start_sec < Frms) { // Frms wrapped from 1 to 60
 			(*wait_secs)--;
-		}
-		if (*wait_secs == 0) {
-			*game_state = 2; // Passa al posizionamento
-			EventPlayerFirstPresentationStarted();
-			
-			// Imposta le destinazioni tattiche finali
-			SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
-			SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
-			SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
-			SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
-			SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
-
-			SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
-			SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
-			SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
-			SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
-			SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
-
-			if (KickOffTeam == TEAM_1) {
-				// Team 1 batte nel cerchio, Team 2 attende fuori
-				SwSprite[3].tx = 112; SwSprite[3].ty = 236;
-				SwSprite[4].tx = 128; SwSprite[4].ty = 236;
-				SwSprite[10].tx= 100; SwSprite[10].ty= 296;
-				SwSprite[11].tx= 140; SwSprite[11].ty= 296;
-			} else {
-				// Team 2 batte nel cerchio, Team 1 attende fuori
-				SwSprite[3].tx = 100; SwSprite[3].ty = 200;
-				SwSprite[4].tx = 140; SwSprite[4].ty = 200;
-				SwSprite[10].tx= 112; SwSprite[10].ty= 254;
-				SwSprite[11].tx= 128; SwSprite[11].ty= 254;
+			if (*wait_secs == 0) {
+				*game_state = 2; // Passa al posizionamento
+				CallFnc_VOID(SEG_EVENTS, EventPlayerFirstPresentationStarted);
+				AssignKickOffTargets();
 			}
 		}
+		*start_sec = Frms;
 	} else if (*game_state == 2) {
 		bool all_in_position = TRUE;
 		for (u8 i = 0; i < 14; i++) {
@@ -1150,19 +1130,37 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			}
 			
 			*wait_secs = 2;
-			*start_sec = Secs;
-			EventKickOffReady();
+			*start_sec = Frms;
+			CallFnc_VOID(SEG_EVENTS, EventKickOffReady);
 		}
 	} else if (*game_state == 3) {
+		// Gestione cambio tempo
+		if (Mins == 0 && Secs == 0) {
+			if (Half == 1) {
+				*game_state = 4;
+				*wait_secs = 2;
+				*start_sec = Frms;
+				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_HALFTIME);
+				CallFnc_VOID(SEG_EVENTS, EventHalfTime);
+			} else if (Half == 2) {
+				*game_state = 5;
+				*wait_secs = 2;
+				*start_sec = Frms;
+				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_TIMEUP);
+			}
+			return;
+		}
+
 		// Ciclo infinito attivo, pronti per giocare
 		if (*wait_secs > 0) {
-			if (Secs != *start_sec) {
-				*start_sec = Secs;
+			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
 				(*wait_secs)--;
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
+					TimerEnabled = TRUE; // Avvia il cronometro alla sparizione della scritta
 				}
 			}
+			*start_sec = Frms;
 		}
 
 		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
@@ -1181,8 +1179,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
 		u8 dirs[2] = { DIRECTION_NONE, DIRECTION_NONE };
 		
-		if (T1_Carrier != 0xFF) dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0);
-		if (T2_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1);
+		if (T2_Carrier != 0xFF) dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0); // P1 controlla Team 2
+		if (T1_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1); // P2 controlla Team 1
 
 		for (u8 i = 0; i < 2; i++) {
 			u8 carrier = carriers[i];
@@ -1219,7 +1217,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					Ball->dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
 					Ball->dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
 					Ball->anim = 4; // Innesca 4 frame di allungo in avanti della palla
-					EventBallKicked();
+					CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 				}
 			} else {
 				// Se è fermo, guarda la palla orientandosi verso di essa
@@ -1228,15 +1226,60 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				Carrier->frame = GetPlayerAnimFrame(carrier, dir_x, dir_y, 0);
 			}
 		}
+	} else if (*game_state == 4) {
+		// Pausa di fine primo tempo
+		if (*wait_secs > 0) {
+			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
+				(*wait_secs)--;
+				if (*wait_secs == 0) {
+					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
+					
+					// Inizia il secondo tempo
+					Half = 2;
+					Mins = HALF_TIME_DURATION; Secs = 0;
+					KickOffTeam = TEAM_1; // Secondo tempo batte il Team 1
+					TimerEnabled = FALSE; // Congela il timer fino al prossimo tocco
+					
+					// Reset palla
+					SwSprite[14].lx = BALL_START_X;
+					SwSprite[14].ly = BALL_START_Y;
+					SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
+					
+					Field.ly = target_ly; // Centra campo immediatamente per 2T
+					
+					AssignKickOffTargets();
+					for (u8 i = 0; i < 14; i++) {
+						SwSprite[i].lx = SwSprite[i].tx;
+						SwSprite[i].ly = SwSprite[i].ty;
+						SwSprite[i].dx = 0; SwSprite[i].dy = 0;
+					}
+					
+					*game_state = 2;
+				}
+			}
+			*start_sec = Frms;
+		}
+	} else if (*game_state == 5) {
+		// Pausa di fine partita
+		if (*wait_secs > 0) {
+			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
+				(*wait_secs)--;
+				if (*wait_secs == 0) {
+					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
+					CallFnc_VOID(SEG_EVENTS, EventTimeUp);
+				}
+			}
+			*start_sec = Frms;
+		}
 	}
 }
 // Helper per ottenere il frame con l'eventuale offset di focus per il giocatore attivo
 u16 GetDrawFrame(u8 i) {
 	u16 f = SwSprite[i].frame;
-	if (i < 7) {
-		if (i == T1_Carrier || i == T1_Receiver) return f + SPRITE_FOCUSED_PLAYER_OFFSET;
-	} else if (GameMode == GAMEMODE_P1_VS_P2) {
+	if (i >= 7) { // P1 controls Team 2
 		if (i == T2_Carrier || i == T2_Receiver) return f + SPRITE_FOCUSED_PLAYER_OFFSET;
+	} else if (GameMode == GAMEMODE_P1_VS_P2) { // P2 controls Team 1
+		if (i == T1_Carrier || i == T1_Receiver) return f + SPRITE_FOCUSED_PLAYER_OFFSET;
 	}
 	return f;
 }
@@ -1305,7 +1348,7 @@ void MainLoop(){
 	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly;
 	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly;
 
-	EventStartPresentationScrollig();
+	CallFnc_VOID(SEG_EVENTS, EventStartPresentationScrollig);
 
     for (;;)
 	{
@@ -1470,16 +1513,9 @@ void MainLoop(){
 		if(LastSecs!=Secs){
             LastSecs=Secs;
 
-            if(Secs==60){
-                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins+1);
-                Print_SetPosition(248,  60+768);Print_DrawFormat("0");	
-                Print_SetPosition(248,  68+768);Print_DrawFormat("0");
-            }
-            else{
-                Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);
-                Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
-                Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);
-            }
+            Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);
+            Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
+            Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);
 	        	
         }
 	}

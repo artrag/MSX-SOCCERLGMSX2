@@ -1,0 +1,531 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module soccerlg_s8_b3
+                                      6 	.optsdcc -mz80
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _ShowSpriteMessage
+                                     12 	.globl _CallFnc_VOID_16_P1
+                                     13 	.globl _g_SLTSL
+                                     14 	.globl _g_GRPACY
+                                     15 	.globl _g_GRPACX
+                                     16 	.globl _g_LOGOPR
+                                     17 	.globl _g_CMASK
+                                     18 	.globl _g_CLOC
+                                     19 	.globl _g_FNKSTR
+                                     20 	.globl _g_ATRBYT
+                                     21 	.globl _g_BDRCLR
+                                     22 	.globl _g_BAKCLR
+                                     23 	.globl _g_FORCLR
+                                     24 	.globl _g_CSRX
+                                     25 	.globl _g_CSRY
+                                     26 	.globl _g_CLIKSW
+                                     27 	.globl _g_MLTPAT
+                                     28 	.globl _g_MLTATR
+                                     29 	.globl _g_MLTCGP
+                                     30 	.globl _g_MLTCOL
+                                     31 	.globl _g_MLTNAM
+                                     32 	.globl _g_GRPPAT
+                                     33 	.globl _g_GRPATR
+                                     34 	.globl _g_GRPCGP
+                                     35 	.globl _g_GRPCOL
+                                     36 	.globl _g_GRPNAM
+                                     37 	.globl _g_T32PAT
+                                     38 	.globl _g_T32ATR
+                                     39 	.globl _g_T32CGP
+                                     40 	.globl _g_T32COL
+                                     41 	.globl _g_T32NAM
+                                     42 	.globl _g_TXTPAT
+                                     43 	.globl _g_TXTATR
+                                     44 	.globl _g_TXTCGP
+                                     45 	.globl _g_TXTCOL
+                                     46 	.globl _g_TXTNAM
+                                     47 	.globl _g_CLMLST
+                                     48 	.globl _g_CRTCNT
+                                     49 	.globl _g_LINLEN
+                                     50 	.globl _g_LINL32
+                                     51 	.globl _g_LINL40
+                                     52 	.globl _g_BDOS
+                                     53 	.globl _g_MASTER
+                                     54 	.globl _g_RAMAD3
+                                     55 	.globl _g_RAMAD2
+                                     56 	.globl _g_RAMAD1
+                                     57 	.globl _g_RAMAD0
+                                     58 	.globl _g_BREAKV
+                                     59 	.globl _g_DISKVE
+                                     60 	.globl _g_KANJTABLE
+                                     61 	.globl _g_STRSRC
+                                     62 	.globl _g_SUBRID
+                                     63 	.globl _g_CHAR_16
+                                     64 	.globl _g_MSXMID
+                                     65 	.globl _g_MSXVER
+                                     66 	.globl _g_ROMVersion
+                                     67 	.globl _g_BASRVN
+                                     68 	.globl _g_VDP_DW
+                                     69 	.globl _g_VDP_DR
+                                     70 	.globl _g_CGTABL
+                                     71 	.globl _g_SVFFFD
+                                     72 	.globl _g_RG27SAV
+                                     73 	.globl _g_RG26SAV
+                                     74 	.globl _g_RG25SAV
+                                     75 	.globl _g_SVFFF8
+                                     76 	.globl _g_MINROM
+                                     77 	.globl _g_RG23SAV
+                                     78 	.globl _g_RG22SAV
+                                     79 	.globl _g_RG21SAV
+                                     80 	.globl _g_RG20SAV
+                                     81 	.globl _g_RG19SAV
+                                     82 	.globl _g_RG18SAV
+                                     83 	.globl _g_RG17SAV
+                                     84 	.globl _g_RG16SAV
+                                     85 	.globl _g_RG15SAV
+                                     86 	.globl _g_RG14SAV
+                                     87 	.globl _g_RG13SAV
+                                     88 	.globl _g_RG12SAV
+                                     89 	.globl _g_RG11SAV
+                                     90 	.globl _g_RG10SAV
+                                     91 	.globl _g_RG09SAV
+                                     92 	.globl _g_RG08SAV
+                                     93 	.globl _g_PROCNM
+                                     94 	.globl _g_SLTWRK
+                                     95 	.globl _g_SLTATR
+                                     96 	.globl _g_SLTTBL
+                                     97 	.globl _g_EXPTBL
+                                     98 	.globl _g_MNROM
+                                     99 	.globl _g_DRWANG
+                                    100 	.globl _g_DRWSCL
+                                    101 	.globl _g_DRWFLG
+                                    102 	.globl _g_GYPOS
+                                    103 	.globl _g_GXPOS
+                                    104 	.globl _g_BRDATR
+                                    105 	.globl _g_CASPRV
+                                    106 	.globl _g_OLDSCR
+                                    107 	.globl _g_SCRMOD
+                                    108 	.globl _g_FLBMEM
+                                    109 	.globl _g_KANAMD
+                                    110 	.globl _g_KANAST
+                                    111 	.globl _g_CAPST
+                                    112 	.globl _g_CSTYLE
+                                    113 	.globl _g_CSRSW
+                                    114 	.globl _g_INSFLG
+                                    115 	.globl _g_ESCCNT
+                                    116 	.globl _g_GRPHED
+                                    117 	.globl _g_WINWID
+                                    118 	.globl _g_LOWLIM
+                                    119 	.globl _g_INTCNT
+                                    120 	.globl _g_INTVAL
+                                    121 	.globl _g_JIFFY
+                                    122 	.globl _g_PADX
+                                    123 	.globl _g_PADY
+                                    124 	.globl _g_INTFLG
+                                    125 	.globl _g_RTYCNT
+                                    126 	.globl _g_TRPTBL
+                                    127 	.globl _g_HIMEM
+                                    128 	.globl _g_BOTTOM
+                                    129 	.globl _g_PATWRK
+                                    130 	.globl _g_LINWRK
+                                    131 	.globl _g_KEYBUF
+                                    132 	.globl _g_NEWKEY
+                                    133 	.globl _g_OLDKEY
+                                    134 	.globl _g_CLIKFL
+                                    135 	.globl _g_ONGSBF
+                                    136 	.globl _g_FNKFLG
+                                    137 	.globl _g_FNKSWI
+                                    138 	.globl _g_CODSAV
+                                    139 	.globl _g_FSTPOS
+                                    140 	.globl _g_LINTTB
+                                    141 	.globl _g_BASROM
+                                    142 	.globl _g_ENSTOP
+                                    143 	.globl _g_VCBC
+                                    144 	.globl _g_VCBB
+                                    145 	.globl _g_VCBA
+                                    146 	.globl _g_PLYCNT
+                                    147 	.globl _g_MUSICF
+                                    148 	.globl _g_QUEUEN
+                                    149 	.globl _g_MCLPTR
+                                    150 	.globl _g_MCLLEN
+                                    151 	.globl _g_SAVVOL
+                                    152 	.globl _g_VOICEN
+                                    153 	.globl _g_SAVSP
+                                    154 	.globl _g_PRSCNT
+                                    155 	.globl _g_LSTMOD
+                                    156 	.globl _g_LSTCOM
+                                    157 	.globl _g_COMMSK
+                                    158 	.globl _g_ESTBLS
+                                    159 	.globl _g_FLAGS
+                                    160 	.globl _g_ERRORS
+                                    161 	.globl _g_DATCNT
+                                    162 	.globl _g_DEVNUM
+                                    163 	.globl _g_OLDINT
+                                    164 	.globl _g_OLDSTT
+                                    165 	.globl _g_MEXBIh
+                                    166 	.globl _g_RSIQLN
+                                    167 	.globl _g_RSFCB
+                                    168 	.globl _g_TOCNT
+                                    169 	.globl _g_RSTMP
+                                    170 	.globl _g_YSAVE
+                                    171 	.globl _g_XSAVE
+                                    172 	.globl _g_NORUSE
+                                    173 	.globl _g_MODE
+                                    174 	.globl _g_ROMA
+                                    175 	.globl _g_CHRCNT
+                                    176 	.globl _g_EXBRSA
+                                    177 	.globl _g_AVCSAV
+                                    178 	.globl _g_ACPAGE
+                                    179 	.globl _g_DPPAGE
+                                    180 	.globl _g_RS2IQ
+                                    181 	.globl _g_VOICCQ
+                                    182 	.globl _g_VOICBQ
+                                    183 	.globl _g_VOICAQ
+                                    184 	.globl _g_QUEBAK
+                                    185 	.globl _g_QUETAB
+                                    186 	.globl _g_ASPCT2
+                                    187 	.globl _g_ASPCT1
+                                    188 	.globl _g_HEADER
+                                    189 	.globl _g_HIGH
+                                    190 	.globl _g_LOW
+                                    191 	.globl _g_CS240
+                                    192 	.globl _g_CS120
+                                    193 	.globl _g_GETPNT
+                                    194 	.globl _g_PUTPNT
+                                    195 	.globl _g_REPCNT
+                                    196 	.globl _g_SCNCNT
+                                    197 	.globl _g_FRCNEW
+                                    198 	.globl _g_QUEUES
+                                    199 	.globl _g_MINUPD
+                                    200 	.globl _g_MAXUPD
+                                    201 	.globl _g_TRGFLG
+                                    202 	.globl _g_STATFL
+                                    203 	.globl _g_RG7SAV
+                                    204 	.globl _g_RG6SAV
+                                    205 	.globl _g_RG5SAV
+                                    206 	.globl _g_RG4SAV
+                                    207 	.globl _g_RG3SAV
+                                    208 	.globl _g_RG2SAV
+                                    209 	.globl _g_RG1SAV
+                                    210 	.globl _g_RG0SAV
+                                    211 	.globl _g_CNSDFG
+                                    212 	.globl _g_USRTAB
+                                    213 	.globl _g_CLPRIM
+                                    214 	.globl _g_WRPRIM
+                                    215 	.globl _g_RDPRIM
+                                    216 	.globl _EventBallKicked
+                                    217 	.globl _EventStartPresentationScrollig
+                                    218 	.globl _EventPlayerFirstPresentationStarted
+                                    219 	.globl _EventKickOffReady
+                                    220 	.globl _EventHalfTime
+                                    221 	.globl _EventTimeUp
+                                    222 ;--------------------------------------------------------
+                                    223 ; special function registers
+                                    224 ;--------------------------------------------------------
+                         000000A8   225 _g_PortPrimarySlot	=	0x00a8
+                         000000A9   226 _g_PortReadKeyboard	=	0x00a9
+                         000000AA   227 _g_PortAccessKeyboard	=	0x00aa
+                         000000AB   228 _g_PortControl	=	0x00ab
+                         00000098   229 _g_VDP_DataPort	=	0x0098
+                         00000099   230 _g_VDP_RegPort	=	0x0099
+                         00000099   231 _g_VDP_AddrPort	=	0x0099
+                         00000099   232 _g_VDP_StatPort	=	0x0099
+                         0000009A   233 _g_VDP_PalPort	=	0x009a
+                         0000009B   234 _g_VDP_IRegPort	=	0x009b
+                         000000A0   235 _g_PSG_RegPort	=	0x00a0
+                         000000A1   236 _g_PSG_DataPort	=	0x00a1
+                         000000A2   237 _g_PSG_StatPort	=	0x00a2
+                         00000010   238 _g_PSG_Ext_RegPort	=	0x0010
+                         00000011   239 _g_PSG_Ext_DataPort	=	0x0011
+                         00000012   240 _g_PSG_Ext_StatPort	=	0x0012
+                         0000007C   241 _g_MSXMusic_IndexPort	=	0x007c
+                         0000007D   242 _g_MSXMusic_DataPort	=	0x007d
+                         000000C0   243 _g_MSXAudio_IndexPort	=	0x00c0
+                         000000C1   244 _g_MSXAudio_DataPort	=	0x00c1
+                         000000C2   245 _g_MSXAudio_IndexPort2	=	0x00c2
+                         000000C3   246 _g_MSXAudio_DataPort2	=	0x00c3
+                         000000B4   247 _g_RTC_AddrPort	=	0x00b4
+                         000000B5   248 _g_RTC_DataPort	=	0x00b5
+                                    249 ;--------------------------------------------------------
+                                    250 ; ram data
+                                    251 ;--------------------------------------------------------
+                                    252 	.area _DATA
+                         0000F3AE   253 _g_LINL40	=	0xf3ae
+                         0000F3AF   254 _g_LINL32	=	0xf3af
+                         0000F3B0   255 _g_LINLEN	=	0xf3b0
+                         0000F3B1   256 _g_CRTCNT	=	0xf3b1
+                         0000F3B2   257 _g_CLMLST	=	0xf3b2
+                         0000F3B3   258 _g_TXTNAM	=	0xf3b3
+                         0000F3B5   259 _g_TXTCOL	=	0xf3b5
+                         0000F3B7   260 _g_TXTCGP	=	0xf3b7
+                         0000F3B9   261 _g_TXTATR	=	0xf3b9
+                         0000F3BB   262 _g_TXTPAT	=	0xf3bb
+                         0000F3BD   263 _g_T32NAM	=	0xf3bd
+                         0000F3BF   264 _g_T32COL	=	0xf3bf
+                         0000F3C1   265 _g_T32CGP	=	0xf3c1
+                         0000F3C3   266 _g_T32ATR	=	0xf3c3
+                         0000F3C5   267 _g_T32PAT	=	0xf3c5
+                         0000F3C7   268 _g_GRPNAM	=	0xf3c7
+                         0000F3C9   269 _g_GRPCOL	=	0xf3c9
+                         0000F3CB   270 _g_GRPCGP	=	0xf3cb
+                         0000F3CD   271 _g_GRPATR	=	0xf3cd
+                         0000F3CF   272 _g_GRPPAT	=	0xf3cf
+                         0000F3D1   273 _g_MLTNAM	=	0xf3d1
+                         0000F3D3   274 _g_MLTCOL	=	0xf3d3
+                         0000F3D5   275 _g_MLTCGP	=	0xf3d5
+                         0000F3D7   276 _g_MLTATR	=	0xf3d7
+                         0000F3D9   277 _g_MLTPAT	=	0xf3d9
+                         0000F3DB   278 _g_CLIKSW	=	0xf3db
+                         0000F3DC   279 _g_CSRY	=	0xf3dc
+                         0000F3DD   280 _g_CSRX	=	0xf3dd
+                         0000F3E9   281 _g_FORCLR	=	0xf3e9
+                         0000F3EA   282 _g_BAKCLR	=	0xf3ea
+                         0000F3EB   283 _g_BDRCLR	=	0xf3eb
+                         0000F3F2   284 _g_ATRBYT	=	0xf3f2
+                         0000F87F   285 _g_FNKSTR	=	0xf87f
+                         0000F92A   286 _g_CLOC	=	0xf92a
+                         0000F92C   287 _g_CMASK	=	0xf92c
+                         0000FB02   288 _g_LOGOPR	=	0xfb02
+                         0000FCB7   289 _g_GRPACX	=	0xfcb7
+                         0000FCB9   290 _g_GRPACY	=	0xfcb9
+                         0000FFFF   291 _g_SLTSL	=	0xffff
+                                    292 ;--------------------------------------------------------
+                                    293 ; ram data
+                                    294 ;--------------------------------------------------------
+                                    295 	.area _INITIALIZED
+                                    296 ;--------------------------------------------------------
+                                    297 ; absolute external ram data
+                                    298 ;--------------------------------------------------------
+                                    299 	.area _DABS (ABS)
+                                    300 ;--------------------------------------------------------
+                                    301 ; global & static initialisations
+                                    302 ;--------------------------------------------------------
+                                    303 	.area _HOME
+                                    304 	.area _GSINIT
+                                    305 	.area _GSFINAL
+                                    306 	.area _GSINIT
+                                    307 ;--------------------------------------------------------
+                                    308 ; Home
+                                    309 ;--------------------------------------------------------
+                                    310 	.area _HOME
+                                    311 	.area _HOME
+                                    312 ;--------------------------------------------------------
+                                    313 ; code
+                                    314 ;--------------------------------------------------------
+                                    315 	.area _SEG8
+                                    316 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:21: void EventBallKicked()
+                                    317 ;	---------------------------------
+                                    318 ; Function EventBallKicked
+                                    319 ; ---------------------------------
+    00000000                        320 _EventBallKicked::
+                                    321 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:24: }
+    00000000 C9               [10]  322 	ret
+                         0000F380   323 _g_RDPRIM	=	0xf380
+                         0000F385   324 _g_WRPRIM	=	0xf385
+                         0000F38C   325 _g_CLPRIM	=	0xf38c
+                         0000F39A   326 _g_USRTAB	=	0xf39a
+                         0000F3DE   327 _g_CNSDFG	=	0xf3de
+                         0000F3DF   328 _g_RG0SAV	=	0xf3df
+                         0000F3E0   329 _g_RG1SAV	=	0xf3e0
+                         0000F3E1   330 _g_RG2SAV	=	0xf3e1
+                         0000F3E2   331 _g_RG3SAV	=	0xf3e2
+                         0000F3E3   332 _g_RG4SAV	=	0xf3e3
+                         0000F3E4   333 _g_RG5SAV	=	0xf3e4
+                         0000F3E5   334 _g_RG6SAV	=	0xf3e5
+                         0000F3E6   335 _g_RG7SAV	=	0xf3e6
+                         0000F3E7   336 _g_STATFL	=	0xf3e7
+                         0000F3E8   337 _g_TRGFLG	=	0xf3e8
+                         0000F3EC   338 _g_MAXUPD	=	0xf3ec
+                         0000F3EF   339 _g_MINUPD	=	0xf3ef
+                         0000F3F3   340 _g_QUEUES	=	0xf3f3
+                         0000F3F5   341 _g_FRCNEW	=	0xf3f5
+                         0000F3F6   342 _g_SCNCNT	=	0xf3f6
+                         0000F3F7   343 _g_REPCNT	=	0xf3f7
+                         0000F3F8   344 _g_PUTPNT	=	0xf3f8
+                         0000F3FA   345 _g_GETPNT	=	0xf3fa
+                         0000F3FC   346 _g_CS120	=	0xf3fc
+                         0000F401   347 _g_CS240	=	0xf401
+                         0000F406   348 _g_LOW	=	0xf406
+                         0000F408   349 _g_HIGH	=	0xf408
+                         0000F40A   350 _g_HEADER	=	0xf40a
+                         0000F40B   351 _g_ASPCT1	=	0xf40b
+                         0000F40D   352 _g_ASPCT2	=	0xf40d
+                         0000F959   353 _g_QUETAB	=	0xf959
+                         0000F971   354 _g_QUEBAK	=	0xf971
+                         0000F975   355 _g_VOICAQ	=	0xf975
+                         0000F9F5   356 _g_VOICBQ	=	0xf9f5
+                         0000FA75   357 _g_VOICCQ	=	0xfa75
+                         0000FAF5   358 _g_RS2IQ	=	0xfaf5
+                         0000FAF5   359 _g_DPPAGE	=	0xfaf5
+                         0000FAF6   360 _g_ACPAGE	=	0xfaf6
+                         0000FAF7   361 _g_AVCSAV	=	0xfaf7
+                         0000FAF8   362 _g_EXBRSA	=	0xfaf8
+                         0000FAF9   363 _g_CHRCNT	=	0xfaf9
+                         0000FAFA   364 _g_ROMA	=	0xfafa
+                         0000FAFC   365 _g_MODE	=	0xfafc
+                         0000FAFD   366 _g_NORUSE	=	0xfafd
+                         0000FAFE   367 _g_XSAVE	=	0xfafe
+                         0000FB00   368 _g_YSAVE	=	0xfb00
+                         0000FB03   369 _g_RSTMP	=	0xfb03
+                         0000FB03   370 _g_TOCNT	=	0xfb03
+                         0000FB04   371 _g_RSFCB	=	0xfb04
+                         0000FB06   372 _g_RSIQLN	=	0xfb06
+                         0000FB07   373 _g_MEXBIh	=	0xfb07
+                         0000FB0C   374 _g_OLDSTT	=	0xfb0c
+                         0000FB0C   375 _g_OLDINT	=	0xfb0c
+                         0000FB16   376 _g_DEVNUM	=	0xfb16
+                         0000FB17   377 _g_DATCNT	=	0xfb17
+                         0000FB1A   378 _g_ERRORS	=	0xfb1a
+                         0000FB1B   379 _g_FLAGS	=	0xfb1b
+                         0000FB1C   380 _g_ESTBLS	=	0xfb1c
+                         0000FB1D   381 _g_COMMSK	=	0xfb1d
+                         0000FB1E   382 _g_LSTCOM	=	0xfb1e
+                         0000FB1F   383 _g_LSTMOD	=	0xfb1f
+                         0000FB35   384 _g_PRSCNT	=	0xfb35
+                         0000FB36   385 _g_SAVSP	=	0xfb36
+                         0000FB38   386 _g_VOICEN	=	0xfb38
+                         0000FB39   387 _g_SAVVOL	=	0xfb39
+                         0000FB3B   388 _g_MCLLEN	=	0xfb3b
+                         0000FB3C   389 _g_MCLPTR	=	0xfb3c
+                         0000FB3E   390 _g_QUEUEN	=	0xfb3e
+                         0000FB3F   391 _g_MUSICF	=	0xfb3f
+                         0000FB40   392 _g_PLYCNT	=	0xfb40
+                         0000FB41   393 _g_VCBA	=	0xfb41
+                         0000FB66   394 _g_VCBB	=	0xfb66
+                         0000FB8B   395 _g_VCBC	=	0xfb8b
+                         0000FBB0   396 _g_ENSTOP	=	0xfbb0
+                         0000FBB1   397 _g_BASROM	=	0xfbb1
+                         0000FBB2   398 _g_LINTTB	=	0xfbb2
+                         0000FBCA   399 _g_FSTPOS	=	0xfbca
+                         0000FBCC   400 _g_CODSAV	=	0xfbcc
+                         0000FBCD   401 _g_FNKSWI	=	0xfbcd
+                         0000FBCE   402 _g_FNKFLG	=	0xfbce
+                         0000FBD8   403 _g_ONGSBF	=	0xfbd8
+                         0000FBD9   404 _g_CLIKFL	=	0xfbd9
+                         0000FBDA   405 _g_OLDKEY	=	0xfbda
+                         0000FBE5   406 _g_NEWKEY	=	0xfbe5
+                         0000FBF0   407 _g_KEYBUF	=	0xfbf0
+                         0000FC18   408 _g_LINWRK	=	0xfc18
+                         0000FC40   409 _g_PATWRK	=	0xfc40
+                         0000FC48   410 _g_BOTTOM	=	0xfc48
+                         0000FC4A   411 _g_HIMEM	=	0xfc4a
+                         0000FC4C   412 _g_TRPTBL	=	0xfc4c
+                         0000FC9A   413 _g_RTYCNT	=	0xfc9a
+                         0000FC9B   414 _g_INTFLG	=	0xfc9b
+                         0000FC9C   415 _g_PADY	=	0xfc9c
+                         0000FC9D   416 _g_PADX	=	0xfc9d
+                         0000FC9E   417 _g_JIFFY	=	0xfc9e
+                         0000FCA0   418 _g_INTVAL	=	0xfca0
+                         0000FCA2   419 _g_INTCNT	=	0xfca2
+                         0000FCA4   420 _g_LOWLIM	=	0xfca4
+                         0000FCA5   421 _g_WINWID	=	0xfca5
+                         0000FCA6   422 _g_GRPHED	=	0xfca6
+                         0000FCA7   423 _g_ESCCNT	=	0xfca7
+                         0000FCA8   424 _g_INSFLG	=	0xfca8
+                         0000FCA9   425 _g_CSRSW	=	0xfca9
+                         0000FCAA   426 _g_CSTYLE	=	0xfcaa
+                         0000FCAB   427 _g_CAPST	=	0xfcab
+                         0000FCAC   428 _g_KANAST	=	0xfcac
+                         0000FCAD   429 _g_KANAMD	=	0xfcad
+                         0000FCAE   430 _g_FLBMEM	=	0xfcae
+                         0000FCAF   431 _g_SCRMOD	=	0xfcaf
+                         0000FCB0   432 _g_OLDSCR	=	0xfcb0
+                         0000FCB1   433 _g_CASPRV	=	0xfcb1
+                         0000FCB2   434 _g_BRDATR	=	0xfcb2
+                         0000FCB3   435 _g_GXPOS	=	0xfcb3
+                         0000FCB5   436 _g_GYPOS	=	0xfcb5
+                         0000FCBB   437 _g_DRWFLG	=	0xfcbb
+                         0000FCBC   438 _g_DRWSCL	=	0xfcbc
+                         0000FCBD   439 _g_DRWANG	=	0xfcbd
+                         0000FCC1   440 _g_MNROM	=	0xfcc1
+                         0000FCC1   441 _g_EXPTBL	=	0xfcc1
+                         0000FCC5   442 _g_SLTTBL	=	0xfcc5
+                         0000FCC9   443 _g_SLTATR	=	0xfcc9
+                         0000FD09   444 _g_SLTWRK	=	0xfd09
+                         0000FD89   445 _g_PROCNM	=	0xfd89
+                         0000FFE7   446 _g_RG08SAV	=	0xffe7
+                         0000FFE8   447 _g_RG09SAV	=	0xffe8
+                         0000FFE9   448 _g_RG10SAV	=	0xffe9
+                         0000FFEA   449 _g_RG11SAV	=	0xffea
+                         0000FFEB   450 _g_RG12SAV	=	0xffeb
+                         0000FFEC   451 _g_RG13SAV	=	0xffec
+                         0000FFED   452 _g_RG14SAV	=	0xffed
+                         0000FFEE   453 _g_RG15SAV	=	0xffee
+                         0000FFEF   454 _g_RG16SAV	=	0xffef
+                         0000FFF0   455 _g_RG17SAV	=	0xfff0
+                         0000FFF1   456 _g_RG18SAV	=	0xfff1
+                         0000FFF2   457 _g_RG19SAV	=	0xfff2
+                         0000FFF3   458 _g_RG20SAV	=	0xfff3
+                         0000FFF4   459 _g_RG21SAV	=	0xfff4
+                         0000FFF5   460 _g_RG22SAV	=	0xfff5
+                         0000FFF6   461 _g_RG23SAV	=	0xfff6
+                         0000FFF7   462 _g_MINROM	=	0xfff7
+                         0000FFF8   463 _g_SVFFF8	=	0xfff8
+                         0000FFFA   464 _g_RG25SAV	=	0xfffa
+                         0000FFFB   465 _g_RG26SAV	=	0xfffb
+                         0000FFFC   466 _g_RG27SAV	=	0xfffc
+                         0000FFFD   467 _g_SVFFFD	=	0xfffd
+                         00000004   468 _g_CGTABL	=	0x0004
+                         00000006   469 _g_VDP_DR	=	0x0006
+                         00000007   470 _g_VDP_DW	=	0x0007
+                         0000002B   471 _g_BASRVN	=	0x002b
+                         0000002B   472 _g_ROMVersion	=	0x002b
+                         0000002D   473 _g_MSXVER	=	0x002d
+                         0000002E   474 _g_MSXMID	=	0x002e
+                         00000034   475 _g_CHAR_16	=	0x0034
+                         00000000   476 _g_SUBRID	=	0x0000
+                         00000002   477 _g_STRSRC	=	0x0002
+                         0000F30F   478 _g_KANJTABLE	=	0xf30f
+                         0000F323   479 _g_DISKVE	=	0xf323
+                         0000F325   480 _g_BREAKV	=	0xf325
+                         0000F341   481 _g_RAMAD0	=	0xf341
+                         0000F342   482 _g_RAMAD1	=	0xf342
+                         0000F343   483 _g_RAMAD2	=	0xf343
+                         0000F344   484 _g_RAMAD3	=	0xf344
+                         0000F348   485 _g_MASTER	=	0xf348
+                         0000F37D   486 _g_BDOS	=	0xf37d
+                                    487 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:25: void EventStartPresentationScrollig()
+                                    488 ;	---------------------------------
+                                    489 ; Function EventStartPresentationScrollig
+                                    490 ; ---------------------------------
+    00000001                        491 _EventStartPresentationScrollig::
+                                    492 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: }
+    00000001 C9               [10]  493 	ret
+                                    494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:30: void EventPlayerFirstPresentationStarted()
+                                    495 ;	---------------------------------
+                                    496 ; Function EventPlayerFirstPresentationStarted
+                                    497 ; ---------------------------------
+    00000002                        498 _EventPlayerFirstPresentationStarted::
+                                    499 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:33: }
+    00000002 C9               [10]  500 	ret
+                                    501 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:35: void EventKickOffReady()
+                                    502 ;	---------------------------------
+                                    503 ; Function EventKickOffReady
+                                    504 ; ---------------------------------
+    00000003                        505 _EventKickOffReady::
+                                    506 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:38: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
+    00000003 21 20 01         [10]  507 	ld	hl, #0x0120
+    00000006 E5               [11]  508 	push	hl
+    00000007 11r00r00         [10]  509 	ld	de, #_ShowSpriteMessage
+    0000000A 3E 05            [ 7]  510 	ld	a, #0x05
+    0000000C CDr00r00         [17]  511 	call	_CallFnc_VOID_16_P1
+                                    512 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:39: }
+    0000000F C9               [10]  513 	ret
+                                    514 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:41: void EventHalfTime()
+                                    515 ;	---------------------------------
+                                    516 ; Function EventHalfTime
+                                    517 ; ---------------------------------
+    00000010                        518 _EventHalfTime::
+                                    519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:44: }
+    00000010 C9               [10]  520 	ret
+                                    521 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:46: void EventTimeUp()
+                                    522 ;	---------------------------------
+                                    523 ; Function EventTimeUp
+                                    524 ; ---------------------------------
+    00000011                        525 _EventTimeUp::
+    00000011                        526 00103$:
+                                    527 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:50: }
+    00000011 C3r11r00         [10]  528 	jp	00103$
+                                    529 	.area _SEG8
+                                    530 	.area _INITIALIZER
+                                    531 	.area _CABS (ABS)

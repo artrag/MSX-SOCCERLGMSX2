@@ -138,6 +138,15 @@ void ShowSpriteMessage(u16 messageId)
 	} else if (messageId == SPR_MSG_INGOAL) {
 		len = SPRITE_MSG_INGOAL_LENGTH;
 		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_TIMEUP) {
+		len = SPRITE_MSG_TIMEUP_LENGTH;
+		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_HALFTIME) {
+		len = SPRITE_MSG_HALFTIME_LENGTH;
+		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_PENALTIES) {
+		len = SPRITE_MSG_PENALTIES_LENGTH;
+		logical_y = Field.ly + 96;
 	} else {
 		return;
 	}
