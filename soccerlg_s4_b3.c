@@ -31,7 +31,10 @@
 //  - Compressor:     None
 //  - Skip empty:     TRUE
 
-// Data table
+// -------------
+// *** FONTS ***
+// -------------
+
 const unsigned char g_Fonts[] =
 {
 // Font header data
@@ -986,6 +989,24 @@ const unsigned char g_Fonts[] =
 };
 // Total size : 756 bytes
 
+
+// --------------
+// *** EVENTS ***
+// --------------
+void EventPlayerFirstPresentationStarted()
+{
+	// Trigger sonoro per l'inizio del movimento dei giocatori
+}
+
+void EventKickOffReady()
+{
+	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
+}
+
+// -----------------
+// *** FUNCTIONS ***
+// -----------------
+
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 
 {
 	bool is_gk = (i == 0 || i == 7);
@@ -1037,7 +1058,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		} else {
 			Field.ly += Field.dy;
 			// Nello scorrimento iniziale non serve il rimbalzo
-			// se si volesse usare: if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
+			// se si volesse usare: if ((Field.ly+192>=FIELD_HEIGHT)||(Field.ly<=0)) Field.dy =- Field.dy;
 		}
 	} else if (*game_state == 1) {
 		if (Secs != *start_sec) {
@@ -1046,6 +1067,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		}
 		if (*wait_secs == 0) {
 			*game_state = 2; // Passa al posizionamento
+			EventPlayerFirstPresentationStarted();
 			
 			// Imposta le destinazioni tattiche finali
 			SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
@@ -1102,7 +1124,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				p->frame = GetPlayerAnimFrame(i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
 			}
 		}
-		if (all_in_position) *game_state = 3;
+		if (all_in_position) {
+			*game_state = 3;
+			EventKickOffReady();
+		}
 	} else if (*game_state == 3) {
 		// Ciclo infinito attivo, pronti per giocare
 	}
@@ -1117,6 +1142,7 @@ void MainLoop(){
 	u8 game_state = 0; // 0: Scorrimento, 1: Pausa, 2: Posizionamento, 3: Partita
 	u8 wait_secs = 0;
 	u8 start_sec = 0;
+	bool ball_fg = FALSE;
 
 	// --- INIZIALIZZAZIONE PRESENTAZIONE ---
 	Field.ly = 0; // Parte da estremo Nord
@@ -1179,14 +1205,28 @@ void MainLoop(){
 		VDP_SetVerticalOffset(Field.ly & 255);
 		AddLines(&Field);
   
+		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
+
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			// cancello 2		
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x2, SwSprite[i].y2, 512);
+		}
+
+		if (!ball_fg && OnScreen(SwSprite[14].y1)) 
+			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
+
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			if (i == 14) continue;
 			// scrivo 	1
 			if OnScreen(SwSprite[i].y1) 
 				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
 		}
+
+		if (ball_fg && OnScreen(SwSprite[14].y1)) 
+			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
+
 		// cancello 2	 scrivo 	1
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
@@ -1210,14 +1250,28 @@ void MainLoop(){
 		VDP_SetVerticalOffset(Field.ly & 255);
 		AddLines(&Field);
 		
+		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
+
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			// cancello 0
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x0, SwSprite[i].y0, 0);
+		}
+
+		if (!ball_fg && OnScreen(SwSprite[14].y2)) 
+			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
+
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			if (i == 14) continue;
 			// scrivo 	2 
 			if OnScreen(SwSprite[i].y2) 
 				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
 		}
+
+		if (ball_fg && OnScreen(SwSprite[14].y2)) 
+			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
+
 		// cancello 0	 scrivo 	2
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
@@ -1242,14 +1296,28 @@ void MainLoop(){
 		VDP_SetVerticalOffset(Field.ly & 255);
 		AddLines(&Field);
 		
+		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
+
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			// cancello 1
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x1, SwSprite[i].y1, 256);
+		}
+
+		if (!ball_fg && OnScreen(SwSprite[14].y0)) 
+			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
+
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			if (i == 14) continue;
 			// scrivo 	0	
 			if OnScreen(SwSprite[i].y0) 
 				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
 		}
+
+		if (ball_fg && OnScreen(SwSprite[14].y0)) 
+			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
+
 		// cancello 1	scrivo 	0
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);

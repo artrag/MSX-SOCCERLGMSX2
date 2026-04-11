@@ -366,8 +366,8 @@ void main()
   
 	LoadField(3);
 	
-	VDP_CommandHMMV(0,768,ScoreBoardNX_Left,ScoreBoardNY_Left,0x77);
-    VDP_CommandHMMV(0,768,ScoreBoardNX_Right,ScoreBoardNY_Right,0x77);
+	VDP_CommandHMMV(0,768,SCOREBOARD_NX_LEFT,SCOREBOARD_NY_LEFT,0x77);
+    VDP_CommandHMMV(0,768,SCOREBOARD_NX_RIGHT,SCOREBOARD_NY_RIGHT,0x77);
 
     SET_BANK_SEGMENT(3,4);
 	Print_SetBitmapFont(g_Fonts);

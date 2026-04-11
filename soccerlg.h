@@ -242,24 +242,26 @@ struct TeamColors {
 #define BANK3_BASE              0xA000
 #define FIELD_SEG_COUNT         4
 
-#define SEG_DRAW 5
-#define SEG_LOGIC 6
+#define SEG_LOOP 	4
+#define SEG_DRAW 	5
+#define SEG_LOGIC 	6
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
 #define NumSprite	(24)
 
-#define ScoreBoardNX_Left 8
-#define ScoreBoardNY_Left 212
-#define ScoreBoardNX_Right 8
-#define ScoreBoardNY_Right 212
+#define SCOREBOARD_NX_LEFT 8
+#define SCOREBOARD_NY_LEFT 212
+#define SCOREBOARD_NX_RIGHT 8
+#define SCOREBOARD_NY_RIGHT 212
 
-#define PlayFieldHeight 512
+#define FIELD_HEIGHT 512
 
-extern struct ObjectInfo SwSprite[NumSprite];
-extern struct ObjectInfo Field;
-extern struct ObjectInfo ScoreBoardLeft;
-extern struct ObjectInfo ScoreBoardRight;
+
+// -----------------
+// *** CONSTANTS ***
+// -----------------
+
 extern const unsigned char g_Fonts[];
 extern const struct TeamColors g_TeamColorsArray[];
 
@@ -267,6 +269,10 @@ extern const struct TeamColors g_TeamColorsArray[];
 // *** VARIABLES ***
 // -----------------
 
+extern  struct ObjectInfo SwSprite[NumSprite];
+extern 	struct ObjectInfo Field;
+extern 	struct ObjectInfo ScoreBoardLeft;
+extern 	struct ObjectInfo ScoreBoardRight;
 extern	u8	Frms;
 extern	u8	Secs;
 extern	u8	Mins;
@@ -304,8 +310,11 @@ u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1);
 void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
 
-// +++ SEGMENT SEG_DRAW (4) +++
+
+// +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
+void EventPlayerFirstPresentationStarted();
+void EventKickOffReady();
 
 // +++ SEGMENT SEG_DRAW (5) +++
 void PlotField(u16 y,u16 page);
@@ -314,6 +323,7 @@ void RemoveScoreBoardLeft(u8 px,u16 py,u16 page);
 void PrintScoreBoardLeft(u8 px,u16 py,u16 page);
 void RemoveScoreBoardRight(u8 px,u16 py,u16 page);
 void PrintScoreBoardRight(u8 px,u16 py,u16 page);
+bool IsBallForeground();
 
 
 

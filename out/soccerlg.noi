@@ -28,8 +28,8 @@ DEF _g_MSXMID 0x2E
 DEF _g_CHAR_16 0x34
 DEF l__SEG6 0x6F
 DEF l__DATA 0x2ED
-DEF l__SEG5 0x990
-DEF l__SEG4 0x1342
+DEF l__SEG5 0xAC5
+DEF l__SEG4 0x1513
 DEF l__CODE 0x256A
 DEF s__CODE 0x4000
 DEF s__HOME 0x656A
@@ -429,10 +429,12 @@ DEF _Team2Code 0xC2F4
 DEF _KickOffTeam 0xC2F5
 DEF _g_VSynch 0xC2F6
 DEF _g_VDPInitilized 0xC2F7
-DEF _GetPlayerAnimFrame 0x4A000
-DEF _g_Fonts 0x4A459
-DEF _UpdateGameState 0x4A74D
-DEF _MainLoop 0x4AB7C
+DEF _EventPlayerFirstPresentationStarted 0x4A000
+DEF _g_Fonts 0x4A001
+DEF _EventKickOffReady 0x4A2F5
+DEF _GetPlayerAnimFrame 0x4A2F6
+DEF _UpdateGameState 0x4A74F
+DEF _MainLoop 0x4AB84
 DEF _PlotField 0x5A000
 DEF _RemoveSwSprite 0x5A27D
 DEF _RemoveScoreBoardLeft 0x5A434
@@ -440,5 +442,6 @@ DEF _PrintScoreBoardLeft 0x5A5B8
 DEF _RemoveScoreBoardRight 0x5A6D3
 DEF _PrintScoreBoardRight 0x5A857
 DEF _SetBallSprite 0x5A97C
+DEF _IsBallForeground 0x5A990
 DEF _PlayerAI 0x6A000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx
