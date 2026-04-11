@@ -1082,7 +1082,9 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				p->lx += p->dx;
 				p->ly += p->dy;
 				p->anim++;
-				p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, (p->anim / 3) % 3); 
+				
+				const u8 walk_seq[4] = {0, 1, 2, 1}; // 1->2->3->2->1...
+				p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 			} else {
 				p->dx = 0; p->dy = 0;
 				p->frame = (i < 7) ? ((i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH) : ((i == 7) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH);

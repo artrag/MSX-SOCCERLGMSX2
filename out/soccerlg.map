@@ -38,14 +38,14 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000006F  l__SEG6                         
      000002ED  l__DATA                         
      00000990  l__SEG5                         
-     000012E8  l__SEG4                         
-     00002576  l__CODE                         
+     000012FC  l__SEG4                         
+     0000256A  l__CODE                         
      00004000  s__CODE                         
-     00006576  s__HOME                         
-     00006576  s__INITIALIZER                  
-     00006576  s__RODATA                       
-     00006580  s__GSFINAL                      
-     00006580  s__GSINIT                       
+     0000656A  s__HOME                         
+     0000656A  s__INITIALIZER                  
+     0000656A  s__RODATA                       
+     00006574  s__GSFINAL                      
+     00006574  s__GSINIT                       
      0000C000  s__DATA                         
      0000C2ED  s__INITIALIZED                  
      0000C2F7  s__BSEG                         
@@ -288,7 +288,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
+_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -347,7 +347,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
+_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -407,7 +407,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
+_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -455,44 +455,34 @@ _CODE                               00004000    00002576 =        9590. bytes (R
      000064BE  _Sys_CheckSlot                     system
      00006522  __modschar                         
      0000652A  __modsint                          
-     00006530  __moduchar                         
-     00006537  __moduint                          
-     0000653C  __divschar                         
-     0000653E  __div8                             
-     00006542  __div_signexte                     
-     00006546  __div16                            
-     00006546  __divsint                          
+     00006530  __divschar                         
+     00006532  __div8                             
+     00006536  __div_signexte                     
+     0000653A  __div16                            
+     0000653A  __divsint                          
+     00006560  __get_remainder                    
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
+_INITIALIZER                        0000656A    0000000A =          10. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000656C  __get_remainder                    
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        00006576    0000000A =          10. bytes (REL,CON)
+_GSFINAL                            00006574    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     00006574  _g_LastAddr                        crt0
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00006580    00000000 =           0. bytes (REL,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-     00006580  _g_LastAddr                        crt0
-
-ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -530,7 +520,7 @@ _DATA                               0000C000    000002ED =         749. bytes (R
      0000C2EB  _g_SpritePatternHigh               vdp
      0000C2EC  _g_SpriteColorHigh                 vdp
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -550,21 +540,21 @@ _INITIALIZED                        0000C2ED    0000000A =          10. bytes (R
      0000C2F5  _g_VSynch                          soccerlg
      0000C2F6  _g_VDPInitilized                   vdp
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    000012E8 =        4840. bytes (REL,CON)
+_SEG4                               0004A000    000012FC =        4860. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0004A000  _GetPlayerAnimFrame                soccerlg_s4_b3
      0004A459  _g_Fonts                           soccerlg_s4_b3
      0004A74D  _UpdateGameState                   soccerlg_s4_b3
-     0004AB22  _MainLoop                          soccerlg_s4_b3
+     0004AB36  _MainLoop                          soccerlg_s4_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -581,7 +571,7 @@ _SEG5                               0005A000    00000990 =        2448. bytes (R
      0005A857  _PrintScoreBoardRight              soccerlg_s5_b3
      0005A97C  _SetBallSprite                     soccerlg_s5_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -592,7 +582,7 @@ _SEG6                               0006A000    0000006F =         111. bytes (R
       -----  --------------------------------   ------------------------
      0006A000  _PlayerAI                          soccerlg_s6_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 
 Files Linked                              [ module(s) ]
 
@@ -629,11 +619,9 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ modsigned.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
-                                          [ modunsigned.rel ]
-E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ divsigned.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 
 User Base Address Definitions
 
