@@ -321,7 +321,9 @@ _PlayerAI::
 	add	hl, hl
 	add	hl, de
 	add	hl, hl
+	add	hl, de
 	add	hl, hl
+	add	hl, de
 	add	hl, bc
 	ex	de, hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:12: Player->lx += Player->dx; 
@@ -330,7 +332,7 @@ _PlayerAI::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	a, e
-	add	a, #0x0e
+	add	a, #0x11
 	ld	c, a
 	ld	a, d
 	adc	a, #0x00
@@ -362,7 +364,7 @@ _PlayerAI::
 	ld	b, (hl)
 	dec	hl
 	ld	a, e
-	add	a, #0x0f
+	add	a, #0x12
 	ld	e, a
 	jr	NC, 00119$
 	inc	d

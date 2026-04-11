@@ -27,7 +27,7 @@ Symbol Table
   0 _CallFnc_VOID_U8U16U16                                          000002E7 GR
   0 _CallSpriteFrame                                                00000759 GR
     _DEBUG_INIT                                                     ******** GX
-  1 _Field                                                          000001E0 GR
+  1 _Field                                                          00000228 GR
   0 _FieldMap                                                       0000004F R
   2 _Frms                                                           00000000 GR
   2 _LastSecs                                                       00000003 GR
@@ -41,8 +41,8 @@ Symbol Table
     _Print_SetColor                                                 ******** GX
   2 _ScoreA                                                         00000004 GR
   2 _ScoreB                                                         00000005 GR
-  1 _ScoreBoardLeft                                                 000001F4 GR
-  1 _ScoreBoardRight                                                00000208 GR
+  1 _ScoreBoardLeft                                                 0000023F GR
+  1 _ScoreBoardRight                                                00000256 GR
   2 _Secs                                                           00000001 GR
   0 _SetTeamColors                                                  00000611 GR
   1 _SwSprite                                                       00000000 GR
@@ -353,7 +353,7 @@ Hexadecimal [32-Bits]
 Area Table
 
    0 _CODE                                      size      BB7   flags    0
-   1 _DATA                                      size      21C   flags    0
+   1 _DATA                                      size      26D   flags    0
    2 _INITIALIZED                               size        9   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0

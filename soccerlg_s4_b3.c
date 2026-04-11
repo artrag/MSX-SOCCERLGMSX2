@@ -986,11 +986,54 @@ const unsigned char g_Fonts[] =
 };
 // Total size : 756 bytes
 
+u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 
+{
+	bool is_gk = (i == 0 || i == 7);
+	u8 team = (i < 7) ? 1 : 2;
+	
+	if (is_gk) {
+		if (dy < 0 && dx == 0) return (step==0) ? SPR_GK_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_DIRECTION_2 : SPR_GK_PLAYER_NORTH_DIRECTION_3;
+		if (dy > 0 && dx == 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_DIRECTION_3;
+		if (dy == 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_EAST_DIRECTION_2 : SPR_GK_PLAYER_EAST_DIRECTION_3;
+		if (dy == 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_WEST_DIRECTION_2 : SPR_GK_PLAYER_WEST_DIRECTION_3;
+		if (dy < 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_GK_PLAYER_NORTH_EAST_DIRECTION_3;
+		if (dy < 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_GK_PLAYER_NORTH_WEST_DIRECTION_3;
+		if (dy > 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_3;
+		if (dy > 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_3;
+		return SPR_GK_PLAYER_FACE_TO_SOUTH;
+	} 
+	else if (team == 1) {
+		if (dy < 0 && dx == 0) return (step==0) ? SPR_T1_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_DIRECTION_2 : SPR_T1_PLAYER_NORTH_DIRECTION_3;
+		if (dy > 0 && dx == 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_DIRECTION_3;
+		if (dy == 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_EAST_DIRECTION_2 : SPR_T1_PLAYER_EAST_DIRECTION_3;
+		if (dy == 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_WEST_DIRECTION_2 : SPR_T1_PLAYER_WEST_DIRECTION_3;
+		if (dy < 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_T1_PLAYER_NORTH_EAST_DIRECTION_3;
+		if (dy < 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_T1_PLAYER_NORTH_WEST_DIRECTION_3;
+		if (dy > 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_3;
+		if (dy > 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_3;
+		return SPR_T1_PLAYER_FACE_TO_SOUTH;
+	} 
+	else {
+		if (dy < 0 && dx == 0) return (step==0) ? SPR_T2_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_DIRECTION_2 : SPR_T2_PLAYER_NORTH_DIRECTION_3;
+		if (dy > 0 && dx == 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_DIRECTION_3;
+		if (dy == 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_EAST_DIRECTION_2 : SPR_T2_PLAYER_EAST_DIRECTION_3;
+		if (dy == 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_WEST_DIRECTION_2 : SPR_T2_PLAYER_WEST_DIRECTION_3;
+		if (dy < 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_T2_PLAYER_NORTH_EAST_DIRECTION_3;
+		if (dy < 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_T2_PLAYER_NORTH_WEST_DIRECTION_3;
+		if (dy > 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_3;
+		if (dy > 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_3;
+		return SPR_T2_PLAYER_FACE_TO_NORTH;
+	}
+}
 
 void MainLoop(){
 	
 	SetTeamColors(TEAM_1, &g_TeamColorsArray[Team1Code]);
 	SetTeamColors(TEAM_2, &g_TeamColorsArray[Team2Code]);
+
+	// Variabili di stato
+	u8 game_state = 0; // 0: Scorrimento, 1: Pausa, 2: Posizionamento, 3: Partita
+	u16 wait_timer = 0;
 
 	// --- INIZIALIZZAZIONE PRESENTAZIONE ---
 	Field.ly = 0; // Parte da estremo Nord
@@ -1162,10 +1205,58 @@ void MainLoop(){
 	        	
         }
 
-		// Se abbiamo raggiunto il bersaglio (centrocampo in mezzo allo schermo)
-		// blocca l'esecuzione in un loop infinito come richiesto
-		if (Field.ly >= target_ly) {
-			for(;;) { Halt(); }
+		// --- MACCHINA A STATI DELLA PRESENTAZIONE ---
+		if (game_state == 0) {
+			// Se abbiamo raggiunto il centrocampo
+			if (Field.ly >= target_ly) {
+				Field.dy = 0; // Ferma lo scorrimento
+				game_state = 1;
+				wait_timer = PRESENTATION_WAIT_TIME;
+			}
+		} else if (game_state == 1) {
+			wait_timer--;
+			if (wait_timer == 0) {
+				game_state = 2; // Passa al posizionamento
+				
+				// Imposta le destinazioni tattiche finali (Modulo tipo 2-2-2 su 7vs7)
+				// Squadra 1 (Nord - batte)
+				SwSprite[0].tx = 120; SwSprite[0].ty = 32;   // Portiere davanti alla porta Nord
+				SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   // Difensore Sx fuori area
+				SwSprite[2].tx = 176; SwSprite[2].ty = 96;   // Difensore Dx fuori area
+				SwSprite[3].tx = 104; SwSprite[3].ty = 240;  // Centrocampista Sx nel cerchio (batte)
+				SwSprite[4].tx = 136; SwSprite[4].ty = 240;  // Centrocampista Dx nel cerchio
+				SwSprite[5].tx = 40;  SwSprite[5].ty = 180;  // Attaccante Sx
+				SwSprite[6].tx = 200; SwSprite[6].ty = 180;  // Attaccante Dx
+
+				// Squadra 2 (Sud - difende la battuta)
+				SwSprite[7].tx = 120; SwSprite[7].ty = 480;  // Portiere davanti alla porta Sud
+				SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  // Difensore Sx fuori area
+				SwSprite[9].tx = 176; SwSprite[9].ty = 416;  // Difensore Dx fuori area
+				SwSprite[10].tx= 104; SwSprite[10].ty= 272;  // Centrocampista Sx fuori dal cerchio
+				SwSprite[11].tx= 136; SwSprite[11].ty= 272;  // Centrocampista Dx fuori dal cerchio
+				SwSprite[12].tx= 40;  SwSprite[12].ty= 332;  // Attaccante Sx
+				SwSprite[13].tx= 200; SwSprite[13].ty= 332;  // Attaccante Dx
+			}
+		} else if (game_state == 2) {
+			bool all_in_position = TRUE;
+			for (u8 i = 0; i < 14; i++) {
+				struct ObjectInfo* p = &SwSprite[i];
+				if (p->lx != p->tx || p->ly != p->ty) {
+					all_in_position = FALSE;
+					p->dx = (p->tx > p->lx) ? 1 : ((p->tx < p->lx) ? -1 : 0);
+					p->dy = (p->ty > p->ly) ? 1 : ((p->ty < p->ly) ? -1 : 0);
+					p->lx += p->dx;
+					p->ly += p->dy;
+					p->anim++;
+					p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, (p->anim / 8) % 3);
+				} else {
+					p->dx = 0; p->dy = 0;
+					p->frame = (i < 7) ? ((i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH) : ((i == 7) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH);
+				}
+			}
+			if (all_in_position) game_state = 3;
+		} else if (game_state == 3) {
+			// Ciclo infinito attivo, i giocatori sono in attesa
 		}
 	}
 }

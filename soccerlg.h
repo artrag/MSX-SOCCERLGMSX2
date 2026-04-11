@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 
+
 // ------------------
 // *** STRUCTURES ***
 // ------------------
@@ -11,6 +12,8 @@ struct ObjectInfo {
 	u8 x0,x1,x2;	// Physical x's in the 3 pages
 	u16 ly;			// Logical Y
 	u16 y0,y1,y2;	// Physical y's in the 3 pages
+	u8 tx;			// Target x
+	u16 ty;			// Target y
 	u16 frame;
 	i8 dx;			// x direction
 	i8 dy;			// y direction
@@ -227,8 +230,10 @@ struct TeamColors {
 #define TEAM_FRA_COLORS                             1
 #define TEAM_BRA_COLORS                             2
 #define TEAM_GER_COLORS                             3
-#define TEAM_ITA_COLORS                             4
+#define TEAM_NLD_COLORS                             4
 #define TEAM_ESP_COLORS                             5
+
+#define PRESENTATION_WAIT_TIME                      (2 * 60) // 2 secondi a 60 fps
 
 #define BALL_START_X                                120
 #define BALL_START_Y                                256

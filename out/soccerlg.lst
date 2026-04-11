@@ -335,13 +335,13 @@
                          0000FCB9   335 _g_GRPACY	=	0xfcb9
                          0000FFFF   336 _g_SLTSL	=	0xffff
     00000000                        337 _SwSprite::
-    00000000                        338 	.ds 480
-    000001E0                        339 _Field::
-    000001E0                        340 	.ds 20
-    000001F4                        341 _ScoreBoardLeft::
-    000001F4                        342 	.ds 20
-    00000208                        343 _ScoreBoardRight::
-    00000208                        344 	.ds 20
+    00000000                        338 	.ds 552
+    00000228                        339 _Field::
+    00000228                        340 	.ds 23
+    0000023F                        341 _ScoreBoardLeft::
+    0000023F                        342 	.ds 23
+    00000256                        343 _ScoreBoardRight::
+    00000256                        344 	.ds 23
                                     345 ;--------------------------------------------------------
                                     346 ; ram data
                                     347 ;--------------------------------------------------------
@@ -1167,9 +1167,9 @@
     00000281 77 07                 1167 	.dw #0x0777
     00000283 11 01                 1168 	.dw #0x0111
     00000285 11 01                 1169 	.dw #0x0111
-    00000287 26 05                 1170 	.dw #0x0526
-    00000289 77 07                 1171 	.dw #0x0777
-    0000028B 77 07                 1172 	.dw #0x0777
+    00000287 70 04                 1170 	.dw #0x0470
+    00000289 11 01                 1171 	.dw #0x0111
+    0000028B 11 01                 1172 	.dw #0x0111
     0000028D 71 00                 1173 	.dw #0x0071
     0000028F 71 00                 1174 	.dw #0x0071
     00000291 77 07                 1175 	.dw #0x0777
@@ -1865,7 +1865,7 @@
     00000611 4F               [ 4] 1865 	ld	c, a
     00000612 B7               [ 4] 1866 	or	a, a
     00000613 20 2B            [12] 1867 	jr	NZ, 00104$
-                                   1868 ;./soccerlg.c:176: VDP_SetPaletteEntry(10, colors->Stripes); // [A] Contorni / Righe
+                                   1868 ;./soccerlg.c:176: VDP_SetPaletteEntry(10, colors->Stripes); // [A] Righe Squadra 1
     00000615 4B               [ 4] 1869 	ld	c, e
     00000616 42               [ 4] 1870 	ld	b, d
     00000617 21 04 00         [10] 1871 	ld	hl, #4
@@ -1879,7 +1879,7 @@
     00000621 3E 0A            [ 7] 1879 	ld	a, #0x0a
     00000623 CDr00r00         [17] 1880 	call	_VDP_SetPaletteEntry
     00000626 D1               [10] 1881 	pop	de
-                                   1882 ;./soccerlg.c:177: VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta
+                                   1882 ;./soccerlg.c:177: VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta Squadra 1
     00000627 6B               [ 4] 1883 	ld	l, e
     00000628 62               [ 4] 1884 	ld	h, d
     00000629 4E               [ 7] 1885 	ld	c, (hl)
@@ -1891,20 +1891,20 @@
     0000062F 3E 0B            [ 7] 1891 	ld	a, #0x0b
     00000631 CDr00r00         [17] 1892 	call	_VDP_SetPaletteEntry
     00000634 D1               [10] 1893 	pop	de
-                                   1894 ;./soccerlg.c:178: VDP_SetPaletteEntry(12, colors->Shorts);  // [C] Pantaloncini
+                                   1894 ;./soccerlg.c:178: VDP_SetPaletteEntry(13, colors->Shorts);  // [D] Pantaloncini Squadra 1
     00000635 EB               [ 4] 1895 	ex	de, hl
     00000636 23               [ 6] 1896 	inc	hl
     00000637 23               [ 6] 1897 	inc	hl
     00000638 5E               [ 7] 1898 	ld	e, (hl)
     00000639 23               [ 6] 1899 	inc	hl
     0000063A 56               [ 7] 1900 	ld	d, (hl)
-    0000063B 3E 0C            [ 7] 1901 	ld	a, #0x0c
+    0000063B 3E 0D            [ 7] 1901 	ld	a, #0x0d
     0000063D C3r00r00         [10] 1902 	jp	_VDP_SetPaletteEntry
     00000640                       1903 00104$:
                                    1904 ;./soccerlg.c:180: else if (team == TEAM_2)
     00000640 0D               [ 4] 1905 	dec	c
     00000641 C0               [11] 1906 	ret	NZ
-                                   1907 ;./soccerlg.c:182: VDP_SetPaletteEntry(13, colors->Stripes); // [D] Contorni / Righe
+                                   1907 ;./soccerlg.c:182: VDP_SetPaletteEntry(12, colors->Stripes); // [C] Righe Squadra 2
     00000642 D5               [11] 1908 	push	de
     00000643 FD E1            [14] 1909 	pop	iy
     00000645 FD 6E 04         [19] 1910 	ld	l, 4 (iy)
@@ -1913,10 +1913,10 @@
                                    1913 ;	spillPairReg hl
     0000064B EB               [ 4] 1914 	ex	de, hl
     0000064C E5               [11] 1915 	push	hl
-    0000064D 3E 0D            [ 7] 1916 	ld	a, #0x0d
+    0000064D 3E 0C            [ 7] 1916 	ld	a, #0x0c
     0000064F CDr00r00         [17] 1917 	call	_VDP_SetPaletteEntry
     00000652 D1               [10] 1918 	pop	de
-                                   1919 ;./soccerlg.c:183: VDP_SetPaletteEntry(14, colors->Shirt);   // [E] Maglietta
+                                   1919 ;./soccerlg.c:183: VDP_SetPaletteEntry(5,  colors->Shirt);   // [5] Maglietta Squadra 2
     00000653 6B               [ 4] 1920 	ld	l, e
     00000654 62               [ 4] 1921 	ld	h, d
     00000655 4E               [ 7] 1922 	ld	c, (hl)
@@ -1925,17 +1925,17 @@
     00000658 D5               [11] 1925 	push	de
     00000659 59               [ 4] 1926 	ld	e, c
     0000065A 50               [ 4] 1927 	ld	d, b
-    0000065B 3E 0E            [ 7] 1928 	ld	a, #0x0e
+    0000065B 3E 05            [ 7] 1928 	ld	a, #0x05
     0000065D CDr00r00         [17] 1929 	call	_VDP_SetPaletteEntry
     00000660 D1               [10] 1930 	pop	de
-                                   1931 ;./soccerlg.c:184: VDP_SetPaletteEntry(15, colors->Shorts);  // [F] Pantaloncini
+                                   1931 ;./soccerlg.c:184: VDP_SetPaletteEntry(9,  colors->Shorts);  // [9] Pantaloncini Squadra 2
     00000661 EB               [ 4] 1932 	ex	de, hl
     00000662 23               [ 6] 1933 	inc	hl
     00000663 23               [ 6] 1934 	inc	hl
     00000664 5E               [ 7] 1935 	ld	e, (hl)
     00000665 23               [ 6] 1936 	inc	hl
     00000666 56               [ 7] 1937 	ld	d, (hl)
-    00000667 3E 0F            [ 7] 1938 	ld	a, #0x0f
+    00000667 3E 09            [ 7] 1938 	ld	a, #0x09
                                    1939 ;./soccerlg.c:186: }
     00000669 C3r00r00         [10] 1940 	jp	_VDP_SetPaletteEntry
                                    1941 ;./soccerlg.c:188: void AddLines(struct ObjectInfo* Field) 
@@ -1952,7 +1952,7 @@
                                    1952 ;./soccerlg.c:192: if (Field->dy==0) return;
     00000677 DD 75 FE         [19] 1953 	ld	-2 (ix), l
     0000067A DD 74 FF         [19] 1954 	ld	-1 (ix), h
-    0000067D 01 0F 00         [10] 1955 	ld	bc,#15
+    0000067D 01 12 00         [10] 1955 	ld	bc,#18
     00000680 09               [11] 1956 	add	hl,bc
     00000681 5E               [ 7] 1957 	ld	e, (hl)
     00000682 7B               [ 4] 1958 	ld	a, e
@@ -2759,23 +2759,23 @@
     00000ADC F1               [10] 2759 	pop	af
     00000ADD F1               [10] 2760 	pop	af
                                    2761 ;./soccerlg.c:404: Field.dy = 1;
-    00000ADE 21rEFr01         [10] 2762 	ld	hl, #(_Field + 15)
+    00000ADE 21r3Ar02         [10] 2762 	ld	hl, #(_Field + 18)
     00000AE1 36 01            [10] 2763 	ld	(hl), #0x01
                                    2764 ;./soccerlg.c:405: Field.ly = 0;
     00000AE3 21 00 00         [10] 2765 	ld	hl, #0x0000
-    00000AE6 22rE4r01         [16] 2766 	ld	((_Field + 4)), hl
+    00000AE6 22r2Cr02         [16] 2766 	ld	((_Field + 4)), hl
                                    2767 ;./soccerlg.c:407: ScoreBoardLeft.lx = 0;
-    00000AE9 21rF4r01         [10] 2768 	ld	hl, #_ScoreBoardLeft
+    00000AE9 21r3Fr02         [10] 2768 	ld	hl, #_ScoreBoardLeft
     00000AEC 36 00            [10] 2769 	ld	(hl), #0x00
                                    2770 ;./soccerlg.c:408: ScoreBoardLeft.ly = Field.ly;
-    00000AEE ED 4BrE4r01      [20] 2771 	ld	bc, (#(_Field + 4) + 0)
-    00000AF2 ED 43rF8r01      [20] 2772 	ld	((_ScoreBoardLeft + 4)), bc
+    00000AEE ED 4Br2Cr02      [20] 2771 	ld	bc, (#(_Field + 4) + 0)
+    00000AF2 ED 43r43r02      [20] 2772 	ld	((_ScoreBoardLeft + 4)), bc
                                    2773 ;./soccerlg.c:410: ScoreBoardRight.lx = 248;
-    00000AF6 21r08r02         [10] 2774 	ld	hl, #_ScoreBoardRight
+    00000AF6 21r56r02         [10] 2774 	ld	hl, #_ScoreBoardRight
     00000AF9 36 F8            [10] 2775 	ld	(hl), #0xf8
                                    2776 ;./soccerlg.c:411: ScoreBoardRight.ly = Field.ly;
-    00000AFB ED 4BrE4r01      [20] 2777 	ld	bc, (#(_Field + 4) + 0)
-    00000AFF ED 43r0Cr02      [20] 2778 	ld	((_ScoreBoardRight + 4)), bc
+    00000AFB ED 4Br2Cr02      [20] 2777 	ld	bc, (#(_Field + 4) + 0)
+    00000AFF ED 43r5Ar02      [20] 2778 	ld	((_ScoreBoardRight + 4)), bc
                                    2779 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     00000B03 AF               [ 4] 2780 	xor	a, a
     00000B04 F5               [11] 2781 	push	af
@@ -2786,7 +2786,7 @@
     00000B08 3E 01            [ 7] 2786 	ld	a, #0x01
     00000B0A CDr00r00         [17] 2787 	call	_VDP_RegWriteBakMask
                                    2788 ;./soccerlg.c:414: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-    00000B0D 2ArE4r01         [16] 2789 	ld	hl, (#(_Field + 4) + 0)
+    00000B0D 2Ar2Cr02         [16] 2789 	ld	hl, (#(_Field + 4) + 0)
     00000B10 11 00 00         [10] 2790 	ld	de, #0x0000
     00000B13 D5               [11] 2791 	push	de
     00000B14 E5               [11] 2792 	push	hl
@@ -2794,7 +2794,7 @@
     00000B18 3E 05            [ 7] 2794 	ld	a, #0x05
     00000B1A CDrACr03         [17] 2795 	call	_CallFnc_VOID_16_P2
                                    2796 ;./soccerlg.c:415: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-    00000B1D 2ArE4r01         [16] 2797 	ld	hl, (#(_Field + 4) + 0)
+    00000B1D 2Ar2Cr02         [16] 2797 	ld	hl, (#(_Field + 4) + 0)
     00000B20 11 00 01         [10] 2798 	ld	de, #0x0100
     00000B23 D5               [11] 2799 	push	de
     00000B24 E5               [11] 2800 	push	hl
@@ -2802,7 +2802,7 @@
     00000B28 3E 05            [ 7] 2802 	ld	a, #0x05
     00000B2A CDrACr03         [17] 2803 	call	_CallFnc_VOID_16_P2
                                    2804 ;./soccerlg.c:416: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
-    00000B2D 2ArE4r01         [16] 2805 	ld	hl, (#(_Field + 4) + 0)
+    00000B2D 2Ar2Cr02         [16] 2805 	ld	hl, (#(_Field + 4) + 0)
     00000B30 11 00 02         [10] 2806 	ld	de, #0x0200
     00000B33 D5               [11] 2807 	push	de
     00000B34 E5               [11] 2808 	push	hl
@@ -2814,28 +2814,28 @@
     00000B40 21 9F FD         [10] 2814 	ld	hl, #0xfd9f
     00000B43 CDr00r00         [17] 2815 	call	_Bios_SetHookCallback
                                    2816 ;./soccerlg.c:428: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
-    00000B46 01rF5r01         [10] 2817 	ld	bc, #_ScoreBoardLeft + 1
-    00000B49 3ArF4r01         [13] 2818 	ld	a, (#_ScoreBoardLeft + 0)
+    00000B46 01r40r02         [10] 2817 	ld	bc, #_ScoreBoardLeft + 1
+    00000B49 3Ar3Fr02         [13] 2818 	ld	a, (#_ScoreBoardLeft + 0)
     00000B4C 02               [ 7] 2819 	ld	(bc), a
                                    2820 ;./soccerlg.c:429: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
-    00000B4D 01rF6r01         [10] 2821 	ld	bc, #_ScoreBoardLeft + 2
-    00000B50 3ArF4r01         [13] 2822 	ld	a, (#_ScoreBoardLeft + 0)
+    00000B4D 01r41r02         [10] 2821 	ld	bc, #_ScoreBoardLeft + 2
+    00000B50 3Ar3Fr02         [13] 2822 	ld	a, (#_ScoreBoardLeft + 0)
     00000B53 02               [ 7] 2823 	ld	(bc), a
                                    2824 ;./soccerlg.c:430: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
-    00000B54 01rF7r01         [10] 2825 	ld	bc, #_ScoreBoardLeft + 3
-    00000B57 3ArF4r01         [13] 2826 	ld	a, (#_ScoreBoardLeft + 0)
+    00000B54 01r42r02         [10] 2825 	ld	bc, #_ScoreBoardLeft + 3
+    00000B57 3Ar3Fr02         [13] 2826 	ld	a, (#_ScoreBoardLeft + 0)
     00000B5A 02               [ 7] 2827 	ld	(bc), a
                                    2828 ;./soccerlg.c:432: ScoreBoardRight.x0 = ScoreBoardRight.lx;
-    00000B5B 01r09r02         [10] 2829 	ld	bc, #_ScoreBoardRight + 1
-    00000B5E 3Ar08r02         [13] 2830 	ld	a, (#_ScoreBoardRight + 0)
+    00000B5B 01r57r02         [10] 2829 	ld	bc, #_ScoreBoardRight + 1
+    00000B5E 3Ar56r02         [13] 2830 	ld	a, (#_ScoreBoardRight + 0)
     00000B61 02               [ 7] 2831 	ld	(bc), a
                                    2832 ;./soccerlg.c:433: ScoreBoardRight.x1 = ScoreBoardRight.lx;
-    00000B62 01r0Ar02         [10] 2833 	ld	bc, #_ScoreBoardRight + 2
-    00000B65 3Ar08r02         [13] 2834 	ld	a, (#_ScoreBoardRight + 0)
+    00000B62 01r58r02         [10] 2833 	ld	bc, #_ScoreBoardRight + 2
+    00000B65 3Ar56r02         [13] 2834 	ld	a, (#_ScoreBoardRight + 0)
     00000B68 02               [ 7] 2835 	ld	(bc), a
                                    2836 ;./soccerlg.c:434: ScoreBoardRight.x2 = ScoreBoardRight.lx;
-    00000B69 01r0Br02         [10] 2837 	ld	bc, #_ScoreBoardRight + 3
-    00000B6C 3Ar08r02         [13] 2838 	ld	a, (#_ScoreBoardRight + 0)
+    00000B69 01r59r02         [10] 2837 	ld	bc, #_ScoreBoardRight + 3
+    00000B6C 3Ar56r02         [13] 2838 	ld	a, (#_ScoreBoardRight + 0)
     00000B6F 02               [ 7] 2839 	ld	(bc), a
                                    2840 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     00000B70 3E 40            [ 7] 2841 	ld	a, #0x40
@@ -2905,9 +2905,9 @@
     00000005                       2902 __xinit__ScoreB:
     00000005 03                    2903 	.db #0x03	; 3
     00000006                       2904 __xinit__Team1Code:
-    00000006 04                    2905 	.db #0x04	; 4
+    00000006 00                    2905 	.db #0x00	; 0
     00000007                       2906 __xinit__Team2Code:
-    00000007 01                    2907 	.db #0x01	; 1
+    00000007 04                    2907 	.db #0x04	; 4
     00000008                       2908 __xinit__g_VSynch:
     00000008 00                    2909 	.db #0x00	; 0
                                    2910 	.area _CABS (ABS)

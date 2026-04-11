@@ -35,22 +35,22 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000002D  _g_MSXVER                          system
      0000002E  _g_MSXMID                          system
      00000034  _g_CHAR_16                         system
-     0000006D  l__SEG6                         
-     0000029C  l__DATA                         
+     0000006F  l__SEG6                         
+     000002ED  l__DATA                         
      00000982  l__SEG5                         
-     00000AD7  l__SEG4                         
-     0000256A  l__CODE                         
+     00001263  l__SEG4                         
+     00002576  l__CODE                         
      00004000  s__CODE                         
-     0000656A  s__HOME                         
-     0000656A  s__INITIALIZER                  
-     0000656A  s__RODATA                       
-     00006574  s__GSFINAL                      
-     00006574  s__GSINIT                       
+     00006576  s__HOME                         
+     00006576  s__INITIALIZER                  
+     00006576  s__RODATA                       
+     00006580  s__GSFINAL                      
+     00006580  s__GSINIT                       
      0000C000  s__DATA                         
-     0000C29C  s__INITIALIZED                  
-     0000C2A6  s__BSEG                         
-     0000C2A6  s__BSS                          
-     0000C2A6  s__HEAP                         
+     0000C2ED  s__INITIALIZED                  
+     0000C2F7  s__BSEG                         
+     0000C2F7  s__BSS                          
+     0000C2F7  s__HEAP                         
      0000F30F  _g_KANJTABLE                       bios
      0000F323  _g_DISKVE                          bios
      0000F325  _g_BREAKV                          bios
@@ -288,7 +288,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -347,7 +347,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -407,7 +407,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -451,43 +451,53 @@ _CODE                               00004000    0000256A =        9578. bytes (R
      0000648A  _Sys_CheckSlot                     system
      000064EE  __modschar                         
      000064F6  __modsint                          
-     000064FC  __divschar                         
-     000064FE  __div8                             
-     00006502  __div_signexte                     
-     00006506  __div16                            
-     00006506  __divsint                          
-     0000652C  __get_remainder                    
-     00006536  __divuchar                         
-     00006538  __divu8                            
-     0000653B  __divu16                           
-     0000653B  __divuint                          
-
+     000064FC  __moduchar                         
+     00006503  __moduint                          
+     00006508  __divschar                         
+     0000650A  __div8                             
+     0000650E  __div_signexte                     
+     00006512  __div16                            
+     00006512  __divsint                          
+     00006538  __get_remainder                    
+     00006542  __divuchar                         
+     00006544  __divu8                            
+     00006547  __divu16                           
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        0000656A    0000000A =          10. bytes (REL,CON)
+_CODE                               00004000    00002576 =        9590. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     00006547  __divuint                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00006574    00000000 =           0. bytes (REL,CON)
+_INITIALIZER                        00006576    0000000A =          10. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006574  _g_LastAddr                        crt0
-
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               0000C000    0000029C =         668. bytes (REL,CON)
+_GSFINAL                            00006580    00000000 =           0. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00006580  _g_LastAddr                        crt0
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               0000C000    000002ED =         749. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -499,60 +509,60 @@ _DATA                               0000C000    0000029C =         668. bytes (R
      0000C007  _g_CurrentSegment                  crt0
      0000C009  _g_Bank3Segment                    crt0
      0000C00B  _SwSprite                          soccerlg
-     0000C1EB  _Field                             soccerlg
-     0000C1FF  _ScoreBoardLeft                    soccerlg
-     0000C213  _ScoreBoardRight                   soccerlg
-     0000C227  _g_PrintData                       print
-     0000C259  _g_VDP_REGSAV                      vdp
-     0000C275  _g_VDP_Data                        vdp
-     0000C277  _g_VDP_Command                     vdp
-     0000C286  _g_VDP_Sprite                      vdp
-     0000C28A  _g_ScreenLayoutLow                 vdp
-     0000C28C  _g_ScreenColorLow                  vdp
-     0000C28E  _g_ScreenPatternLow                vdp
-     0000C290  _g_SpriteAttributeLow              vdp
-     0000C292  _g_SpritePatternLow                vdp
-     0000C294  _g_SpriteColorLow                  vdp
-     0000C296  _g_ScreenLayoutHigh                vdp
-     0000C297  _g_ScreenColorHigh                 vdp
-     0000C298  _g_ScreenPatternHigh               vdp
-     0000C299  _g_SpriteAttributeHigh             vdp
-     0000C29A  _g_SpritePatternHigh               vdp
-     0000C29B  _g_SpriteColorHigh                 vdp
-
-ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        0000C29C    0000000A =          10. bytes (REL,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-     0000C29C  _Frms                              soccerlg
-     0000C29D  _Secs                              soccerlg
-     0000C29E  _Mins                              soccerlg
-     0000C29F  _LastSecs                          soccerlg
-     0000C2A0  _ScoreA                            soccerlg
-     0000C2A1  _ScoreB                            soccerlg
-     0000C2A2  _Team1Code                         soccerlg
-     0000C2A3  _Team2Code                         soccerlg
-     0000C2A4  _g_VSynch                          soccerlg
-     0000C2A5  _g_VDPInitilized                   vdp
+     0000C233  _Field                             soccerlg
+     0000C24A  _ScoreBoardLeft                    soccerlg
+     0000C261  _ScoreBoardRight                   soccerlg
+     0000C278  _g_PrintData                       print
+     0000C2AA  _g_VDP_REGSAV                      vdp
+     0000C2C6  _g_VDP_Data                        vdp
+     0000C2C8  _g_VDP_Command                     vdp
+     0000C2D7  _g_VDP_Sprite                      vdp
+     0000C2DB  _g_ScreenLayoutLow                 vdp
+     0000C2DD  _g_ScreenColorLow                  vdp
+     0000C2DF  _g_ScreenPatternLow                vdp
+     0000C2E1  _g_SpriteAttributeLow              vdp
+     0000C2E3  _g_SpritePatternLow                vdp
+     0000C2E5  _g_SpriteColorLow                  vdp
+     0000C2E7  _g_ScreenLayoutHigh                vdp
+     0000C2E8  _g_ScreenColorHigh                 vdp
+     0000C2E9  _g_ScreenPatternHigh               vdp
+     0000C2EA  _g_SpriteAttributeHigh             vdp
+     0000C2EB  _g_SpritePatternHigh               vdp
+     0000C2EC  _g_SpriteColorHigh                 vdp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    00000AD7 =        2775. bytes (REL,CON)
+_INITIALIZED                        0000C2ED    0000000A =          10. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0004A000  _MainLoop                          soccerlg_s4_b3
-     0004A7DE  _g_Fonts                           soccerlg_s4_b3
+     0000C2ED  _Frms                              soccerlg
+     0000C2EE  _Secs                              soccerlg
+     0000C2EF  _Mins                              soccerlg
+     0000C2F0  _LastSecs                          soccerlg
+     0000C2F1  _ScoreA                            soccerlg
+     0000C2F2  _ScoreB                            soccerlg
+     0000C2F3  _Team1Code                         soccerlg
+     0000C2F4  _Team2Code                         soccerlg
+     0000C2F5  _g_VSynch                          soccerlg
+     0000C2F6  _g_VDPInitilized                   vdp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_SEG4                               0004A000    00001263 =        4707. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0004A000  _GetPlayerAnimFrame                soccerlg_s4_b3
+     0004A459  _g_Fonts                           soccerlg_s4_b3
+     0004A74D  _MainLoop                          soccerlg_s4_b3
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -569,18 +579,18 @@ _SEG5                               0005A000    00000982 =        2434. bytes (R
      0005A849  _PrintScoreBoardRight              soccerlg_s5_b3
      0005A96E  _SetBallSprite                     soccerlg_s5_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    0000006D =         109. bytes (REL,CON)
+_SEG6                               0006A000    0000006F =         111. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0006A000  _PlayerAI                          soccerlg_s6_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 
 Files Linked                              [ module(s) ]
 
@@ -615,11 +625,13 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ modsigned.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
+                                          [ modunsigned.rel ]
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ divsigned.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ divunsigned.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 
 User Base Address Definitions
 

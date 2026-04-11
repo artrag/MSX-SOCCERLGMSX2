@@ -2138,7 +2138,7 @@ _SetBallSprite::
 	ld	hl, #0x0060
 	add	hl, bc
 	ex	de, hl
-	ld	((_SwSprite + 292)), de
+	ld	((_SwSprite + 337)), de
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:86: }
 	ret
 	.area _SEG5

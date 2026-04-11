@@ -335,13 +335,13 @@ _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
 _SwSprite::
-	.ds 480
+	.ds 552
 _Field::
-	.ds 20
+	.ds 23
 _ScoreBoardLeft::
-	.ds 20
+	.ds 23
 _ScoreBoardRight::
-	.ds 20
+	.ds 23
 ;--------------------------------------------------------
 ; ram data
 ;--------------------------------------------------------
@@ -1167,9 +1167,9 @@ _g_TeamColorsArray:
 	.dw #0x0777
 	.dw #0x0111
 	.dw #0x0111
-	.dw #0x0526
-	.dw #0x0777
-	.dw #0x0777
+	.dw #0x0470
+	.dw #0x0111
+	.dw #0x0111
 	.dw #0x0071
 	.dw #0x0071
 	.dw #0x0777
@@ -1865,7 +1865,7 @@ _SetTeamColors::
 	ld	c, a
 	or	a, a
 	jr	NZ, 00104$
-;./soccerlg.c:176: VDP_SetPaletteEntry(10, colors->Stripes); // [A] Contorni / Righe
+;./soccerlg.c:176: VDP_SetPaletteEntry(10, colors->Stripes); // [A] Righe Squadra 1
 	ld	c, e
 	ld	b, d
 	ld	hl, #4
@@ -1879,7 +1879,7 @@ _SetTeamColors::
 	ld	a, #0x0a
 	call	_VDP_SetPaletteEntry
 	pop	de
-;./soccerlg.c:177: VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta
+;./soccerlg.c:177: VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta Squadra 1
 	ld	l, e
 	ld	h, d
 	ld	c, (hl)
@@ -1891,20 +1891,20 @@ _SetTeamColors::
 	ld	a, #0x0b
 	call	_VDP_SetPaletteEntry
 	pop	de
-;./soccerlg.c:178: VDP_SetPaletteEntry(12, colors->Shorts);  // [C] Pantaloncini
+;./soccerlg.c:178: VDP_SetPaletteEntry(13, colors->Shorts);  // [D] Pantaloncini Squadra 1
 	ex	de, hl
 	inc	hl
 	inc	hl
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-	ld	a, #0x0c
+	ld	a, #0x0d
 	jp	_VDP_SetPaletteEntry
 00104$:
 ;./soccerlg.c:180: else if (team == TEAM_2)
 	dec	c
 	ret	NZ
-;./soccerlg.c:182: VDP_SetPaletteEntry(13, colors->Stripes); // [D] Contorni / Righe
+;./soccerlg.c:182: VDP_SetPaletteEntry(12, colors->Stripes); // [C] Righe Squadra 2
 	push	de
 	pop	iy
 	ld	l, 4 (iy)
@@ -1913,10 +1913,10 @@ _SetTeamColors::
 ;	spillPairReg hl
 	ex	de, hl
 	push	hl
-	ld	a, #0x0d
+	ld	a, #0x0c
 	call	_VDP_SetPaletteEntry
 	pop	de
-;./soccerlg.c:183: VDP_SetPaletteEntry(14, colors->Shirt);   // [E] Maglietta
+;./soccerlg.c:183: VDP_SetPaletteEntry(5,  colors->Shirt);   // [5] Maglietta Squadra 2
 	ld	l, e
 	ld	h, d
 	ld	c, (hl)
@@ -1925,17 +1925,17 @@ _SetTeamColors::
 	push	de
 	ld	e, c
 	ld	d, b
-	ld	a, #0x0e
+	ld	a, #0x05
 	call	_VDP_SetPaletteEntry
 	pop	de
-;./soccerlg.c:184: VDP_SetPaletteEntry(15, colors->Shorts);  // [F] Pantaloncini
+;./soccerlg.c:184: VDP_SetPaletteEntry(9,  colors->Shorts);  // [9] Pantaloncini Squadra 2
 	ex	de, hl
 	inc	hl
 	inc	hl
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-	ld	a, #0x0f
+	ld	a, #0x09
 ;./soccerlg.c:186: }
 	jp	_VDP_SetPaletteEntry
 ;./soccerlg.c:188: void AddLines(struct ObjectInfo* Field) 
@@ -1952,7 +1952,7 @@ _AddLines::
 ;./soccerlg.c:192: if (Field->dy==0) return;
 	ld	-2 (ix), l
 	ld	-1 (ix), h
-	ld	bc,#15
+	ld	bc,#18
 	add	hl,bc
 	ld	e, (hl)
 	ld	a, e
@@ -2759,7 +2759,7 @@ _main::
 	pop	af
 	pop	af
 ;./soccerlg.c:404: Field.dy = 1;
-	ld	hl, #(_Field + 15)
+	ld	hl, #(_Field + 18)
 	ld	(hl), #0x01
 ;./soccerlg.c:405: Field.ly = 0;
 	ld	hl, #0x0000
@@ -2902,9 +2902,9 @@ __xinit__ScoreA:
 __xinit__ScoreB:
 	.db #0x03	; 3
 __xinit__Team1Code:
-	.db #0x04	; 4
+	.db #0x00	; 0
 __xinit__Team2Code:
-	.db #0x01	; 1
+	.db #0x04	; 4
 __xinit__g_VSynch:
 	.db #0x00	; 0
 	.area _CABS (ABS)

@@ -2138,7 +2138,7 @@
     00000978 21 60 00         [10] 2138 	ld	hl, #0x0060
     0000097B 09               [11] 2139 	add	hl, bc
     0000097C EB               [ 4] 2140 	ex	de, hl
-    0000097D ED 53r24r01      [20] 2141 	ld	((_SwSprite + 292)), de
+    0000097D ED 53r51r01      [20] 2141 	ld	((_SwSprite + 337)), de
                                    2142 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:86: }
     00000981 C9               [10] 2143 	ret
                                    2144 	.area _SEG5
