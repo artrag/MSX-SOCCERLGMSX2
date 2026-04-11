@@ -1026,6 +1026,74 @@ u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step)
 	}
 }
 
+void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
+{
+	if (*game_state == 0) {
+		if (Field.ly >= target_ly) {
+			Field.dy = 0; // Ferma lo scorrimento
+			*game_state = 1;
+			*wait_secs = 2; 
+			*start_sec = Secs;
+		} else {
+			Field.ly += Field.dy;
+			// Nello scorrimento iniziale non serve il rimbalzo
+			// se si volesse usare: if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
+		}
+	} else if (*game_state == 1) {
+		if (Secs != *start_sec) {
+			*start_sec = Secs;
+			(*wait_secs)--;
+		}
+		if (*wait_secs == 0) {
+			*game_state = 2; // Passa al posizionamento
+			
+			// Imposta le destinazioni tattiche finali
+			SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
+			SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
+			SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
+			SwSprite[3].tx = 104; SwSprite[3].ty = 240;  
+			SwSprite[4].tx = 136; SwSprite[4].ty = 240;  
+			SwSprite[5].tx = 40;  SwSprite[5].ty = 180;  
+			SwSprite[6].tx = 200; SwSprite[6].ty = 180;  
+
+			SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
+			SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
+			SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
+			SwSprite[10].tx= 104; SwSprite[10].ty= 272;  
+			SwSprite[11].tx= 136; SwSprite[11].ty= 272;  
+			SwSprite[12].tx= 40;  SwSprite[12].ty= 332;  
+			SwSprite[13].tx= 200; SwSprite[13].ty= 332;  
+		}
+	} else if (*game_state == 2) {
+		bool all_in_position = TRUE;
+		for (u8 i = 0; i < 14; i++) {
+			struct ObjectInfo* p = &SwSprite[i];
+			if (p->lx != p->tx || p->ly != p->ty) {
+				all_in_position = FALSE;
+				
+				if (p->tx > p->lx) p->dx = (p->tx - p->lx >= 2) ? 2 : (p->tx - p->lx);
+				else if (p->tx < p->lx) p->dx = (p->lx - p->tx >= 2) ? -2 : -(p->lx - p->tx);
+				else p->dx = 0;
+				
+				if (p->ty > p->ly) p->dy = (p->ty - p->ly >= 2) ? 2 : (p->ty - p->ly);
+				else if (p->ty < p->ly) p->dy = (p->ly - p->ty >= 2) ? -2 : -(p->ly - p->ty);
+				else p->dy = 0;
+				
+				p->lx += p->dx;
+				p->ly += p->dy;
+				p->anim++;
+				p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, (p->anim / 3) % 3); 
+			} else {
+				p->dx = 0; p->dy = 0;
+				p->frame = (i < 7) ? ((i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH) : ((i == 7) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH);
+			}
+		}
+		if (all_in_position) *game_state = 3;
+	} else if (*game_state == 3) {
+		// Ciclo infinito attivo, pronti per giocare
+	}
+}
+
 void MainLoop(){
 	
 	SetTeamColors(TEAM_1, &g_TeamColorsArray[Team1Code]);
@@ -1033,7 +1101,8 @@ void MainLoop(){
 
 	// Variabili di stato
 	u8 game_state = 0; // 0: Scorrimento, 1: Pausa, 2: Posizionamento, 3: Partita
-	u16 wait_timer = 0;
+	u8 wait_secs = 0;
+	u8 start_sec = 0;
 
 	// --- INIZIALIZZAZIONE PRESENTAZIONE ---
 	Field.ly = 0; // Parte da estremo Nord
@@ -1086,8 +1155,8 @@ void MainLoop(){
 
 	// Sincronizzazione tabelloni per l'inizio del Triplo Buffer
 	ScoreBoardLeft.y0 = ScoreBoardRight.y0 = Field.ly;
-	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly + Field.dy;
-	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly + Field.dy * 2;
+	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly;
+	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly;
 
     for (;;)
 	{
@@ -1109,9 +1178,9 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
+		
+		// LOGICA DI AGGIORNAMENTO
+		UpdateGameState(&game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1119,8 +1188,8 @@ void MainLoop(){
 			SwSprite[i].y2 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y2 = Field.ly + Field.dy;	
-		ScoreBoardRight.y2 = Field.ly + Field.dy;	
+		ScoreBoardLeft.y2 = Field.ly;	
+		ScoreBoardRight.y2 = Field.ly;	
 	
 		// vedo 	1
 		VDP_SetPage(1);		
@@ -1140,9 +1209,9 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
+		
+		// LOGICA DI AGGIORNAMENTO
+		UpdateGameState(&game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1150,8 +1219,8 @@ void MainLoop(){
 			SwSprite[i].y0 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y0 = Field.ly + Field.dy;
-		ScoreBoardRight.y0 = Field.ly + Field.dy;
+		ScoreBoardLeft.y0 = Field.ly;
+		ScoreBoardRight.y0 = Field.ly;
 		
 		// vedo 	2	
 		
@@ -1172,9 +1241,9 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
-		//
-		Field.ly += Field.dy;
-		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
+		
+		// LOGICA DI AGGIORNAMENTO
+		UpdateGameState(&game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1182,8 +1251,8 @@ void MainLoop(){
 			SwSprite[i].y1 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y1 = Field.ly + Field.dy;
-		ScoreBoardRight.y1 = Field.ly + Field.dy;
+		ScoreBoardLeft.y1 = Field.ly;
+		ScoreBoardRight.y1 = Field.ly;
 
 		// update scoreboard
 		Print_SetPosition(1, 24+768);
@@ -1204,59 +1273,5 @@ void MainLoop(){
             }
 	        	
         }
-
-		// --- MACCHINA A STATI DELLA PRESENTAZIONE ---
-		if (game_state == 0) {
-			// Se abbiamo raggiunto il centrocampo
-			if (Field.ly >= target_ly) {
-				Field.dy = 0; // Ferma lo scorrimento
-				game_state = 1;
-				wait_timer = PRESENTATION_WAIT_TIME;
-			}
-		} else if (game_state == 1) {
-			wait_timer--;
-			if (wait_timer == 0) {
-				game_state = 2; // Passa al posizionamento
-				
-				// Imposta le destinazioni tattiche finali (Modulo tipo 2-2-2 su 7vs7)
-				// Squadra 1 (Nord - batte)
-				SwSprite[0].tx = 120; SwSprite[0].ty = 32;   // Portiere davanti alla porta Nord
-				SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   // Difensore Sx fuori area
-				SwSprite[2].tx = 176; SwSprite[2].ty = 96;   // Difensore Dx fuori area
-				SwSprite[3].tx = 104; SwSprite[3].ty = 240;  // Centrocampista Sx nel cerchio (batte)
-				SwSprite[4].tx = 136; SwSprite[4].ty = 240;  // Centrocampista Dx nel cerchio
-				SwSprite[5].tx = 40;  SwSprite[5].ty = 180;  // Attaccante Sx
-				SwSprite[6].tx = 200; SwSprite[6].ty = 180;  // Attaccante Dx
-
-				// Squadra 2 (Sud - difende la battuta)
-				SwSprite[7].tx = 120; SwSprite[7].ty = 480;  // Portiere davanti alla porta Sud
-				SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  // Difensore Sx fuori area
-				SwSprite[9].tx = 176; SwSprite[9].ty = 416;  // Difensore Dx fuori area
-				SwSprite[10].tx= 104; SwSprite[10].ty= 272;  // Centrocampista Sx fuori dal cerchio
-				SwSprite[11].tx= 136; SwSprite[11].ty= 272;  // Centrocampista Dx fuori dal cerchio
-				SwSprite[12].tx= 40;  SwSprite[12].ty= 332;  // Attaccante Sx
-				SwSprite[13].tx= 200; SwSprite[13].ty= 332;  // Attaccante Dx
-			}
-		} else if (game_state == 2) {
-			bool all_in_position = TRUE;
-			for (u8 i = 0; i < 14; i++) {
-				struct ObjectInfo* p = &SwSprite[i];
-				if (p->lx != p->tx || p->ly != p->ty) {
-					all_in_position = FALSE;
-					p->dx = (p->tx > p->lx) ? 1 : ((p->tx < p->lx) ? -1 : 0);
-					p->dy = (p->ty > p->ly) ? 1 : ((p->ty < p->ly) ? -1 : 0);
-					p->lx += p->dx;
-					p->ly += p->dy;
-					p->anim++;
-					p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, (p->anim / 8) % 3);
-				} else {
-					p->dx = 0; p->dy = 0;
-					p->frame = (i < 7) ? ((i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH) : ((i == 7) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH);
-				}
-			}
-			if (all_in_position) game_state = 3;
-		} else if (game_state == 3) {
-			// Ciclo infinito attivo, i giocatori sono in attesa
-		}
 	}
 }

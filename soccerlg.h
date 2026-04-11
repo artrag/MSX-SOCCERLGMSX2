@@ -245,7 +245,7 @@ struct TeamColors {
 #define SEG_DRAW 5
 #define SEG_LOGIC 6
 
-#define OnScreen(y)  	(((y)+15)>=Field.ly && (y)<Field.ly+192)
+#define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
 #define NumSprite	(24)
 

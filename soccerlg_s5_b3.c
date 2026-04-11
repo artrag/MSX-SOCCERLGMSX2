@@ -17,7 +17,8 @@ void PlotField(u16 y,u16 page)
 
 void RemoveSwSprite(u8 px,u16 py,u16 page) 
 {
-	if OnScreen(py) 
+	u16 diff = (py + 512 - Field.ly) & 511;
+	if (diff < 224 || diff > 480) 
 	{
 		if SplitSprite(py) {
 			u8 t = 256 - (py & 255) ;

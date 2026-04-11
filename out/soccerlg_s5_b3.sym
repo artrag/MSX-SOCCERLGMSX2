@@ -10,12 +10,12 @@ Symbol Table
     _Field                                                          ******** GX
   7 _FieldMap                                                       0000007D R
   7 _PlotField                                                      00000000 GR
-  7 _PrintScoreBoardLeft                                            000005AA GR
-  7 _PrintScoreBoardRight                                           00000849 GR
-  7 _RemoveScoreBoardLeft                                           00000426 GR
-  7 _RemoveScoreBoardRight                                          000006C5 GR
+  7 _PrintScoreBoardLeft                                            000005B8 GR
+  7 _PrintScoreBoardRight                                           00000857 GR
+  7 _RemoveScoreBoardLeft                                           00000434 GR
+  7 _RemoveScoreBoardRight                                          000006D3 GR
   7 _RemoveSwSprite                                                 0000027D GR
-  7 _SetBallSprite                                                  0000096E GR
+  7 _SetBallSprite                                                  0000097C GR
     _SwSprite                                                       ******** GX
     _VPD_CommandSetupR32                                            ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -279,7 +279,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size      982   flags    0
+   7 _SEG5                                      size      990   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
