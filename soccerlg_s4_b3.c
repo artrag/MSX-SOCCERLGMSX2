@@ -997,24 +997,24 @@ void MainLoop(){
 	// Posizionamento delle due squadre a centrocampo (Y = 252)
 	for (u8 i = 0; i < 7; i++) {
 		// Squadra 1 (Nord - Difende l'area in alto)
-		SwSprite[i].lx = 24 + i * 32;
+		SwSprite[i].lx = 36 + i * 28;
 		SwSprite[i].ly = 252 - 24; // Schierata sopra la riga di centrocampo
-		SwSprite[i].frame = 32;    // Frame rivolto verso il basso
+		SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH;
 		SwSprite[i].dx = 0;
 		SwSprite[i].dy = 0;
 
 		// Squadra 2 (Sud - Difende l'area in basso)
-		SwSprite[i+7].lx = 24 + i * 32;
-		SwSprite[i+7].ly = 252 + 8; // Schierata sotto la riga di centrocampo
-		SwSprite[i+7].frame = 14*16; // Frame rivolto verso l'alto
+		SwSprite[i+7].lx = 36 + i * 28;
+		SwSprite[i+7].ly = 252 + 24; // Schierata sotto la riga di centrocampo
+		SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH;
 		SwSprite[i+7].dx = 0;
 		SwSprite[i+7].dy = 0;
 	}
 	
 	// Pallone (singolo)
-	SwSprite[14].lx = 120;
-	SwSprite[14].ly = 252 - 8;
-	SwSprite[14].frame = 0;
+	SwSprite[14].lx = BALL_START_X;
+	SwSprite[14].ly = BALL_START_Y;
+	SwSprite[14].frame = SPR_BALL_SIZE_1; // Sprite base della palla
 	SwSprite[14].dx = 0;
 	SwSprite[14].dy = 0;
 
@@ -1028,24 +1028,27 @@ void MainLoop(){
 	}
 
 	// Allineamento coordinate fisiche per i tre buffer (sprite immobili)
-	for (u8 i = 0; i < NumSprite; i++) {
-		SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
-		SwSprite[i].y0 = SwSprite[i].y1 = SwSprite[i].y2 = SwSprite[i].ly;
+	for (u8 i=0; i<NumSprite;i++) 
+	{
+		SwSprite[i].x0 = SwSprite[i].lx;
+		SwSprite[i].y0 = SwSprite[i].ly;
+		SwSprite[i].x1 = SwSprite[i].lx;
+		SwSprite[i].y1 = SwSprite[i].ly;
+		SwSprite[i].x2 = 0;
+		SwSprite[i].y2 = 0;
 	}
 
 	// Sincronizzazione tabelloni per l'inizio del Triplo Buffer
-	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly;
 	ScoreBoardLeft.y0 = ScoreBoardRight.y0 = Field.ly;
 	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly + Field.dy;
+	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly + Field.dy * 2;
 
     for (;;)
 	{
-        u8 move = (Field.ly < target_ly) ? Field.dy : 0;
-
 		// vedo 	0
 		VDP_SetPage(0);		
 		VDP_SetVerticalOffset(Field.ly & 255);
-		CallFnc_VOID(SEG_DRAW, AddLines);
+		AddLines(&Field);
   
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1061,16 +1064,22 @@ void MainLoop(){
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		//
-		Field.ly += move;
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
 
-		ScoreBoardLeft.y2 = Field.ly + move;	
-		ScoreBoardRight.y2 = Field.ly + move;	
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x2 = SwSprite[i].lx;
+			SwSprite[i].y2 = SwSprite[i].ly;
+		}
+
+		ScoreBoardLeft.y2 = Field.ly + Field.dy;	
+		ScoreBoardRight.y2 = Field.ly + Field.dy;	
 	
 		// vedo 	1
-		move = (Field.ly < target_ly) ? Field.dy : 0;
 		VDP_SetPage(1);		
 		VDP_SetVerticalOffset(Field.ly & 255);
-		CallFnc_VOID(SEG_DRAW, AddLines);
+		AddLines(&Field);
 		
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1086,16 +1095,23 @@ void MainLoop(){
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		//
-		Field.ly += move;
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
 
-		ScoreBoardLeft.y0 = Field.ly + move;
-		ScoreBoardRight.y0 = Field.ly + move;
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x0 = SwSprite[i].lx;
+			SwSprite[i].y0 = SwSprite[i].ly;
+		}
+
+		ScoreBoardLeft.y0 = Field.ly + Field.dy;
+		ScoreBoardRight.y0 = Field.ly + Field.dy;
 		
 		// vedo 	2	
-		move = (Field.ly < target_ly) ? Field.dy : 0;
+		
 		VDP_SetPage(2);		
 		VDP_SetVerticalOffset(Field.ly & 255);
-		CallFnc_VOID(SEG_DRAW, AddLines);
+		AddLines(&Field);
 		
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1111,10 +1127,17 @@ void MainLoop(){
         CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		//
-		Field.ly += move;
+		Field.ly += Field.dy;
+		if ((Field.ly+192>=PlayFieldHeight)||(Field.ly<=0)) Field.dy =- Field.dy;
 
-		ScoreBoardLeft.y1 = Field.ly + move;
-		ScoreBoardRight.y1 = Field.ly + move;
+		for (u8 i=0; i<NumSprite;i++) 
+		{
+			SwSprite[i].x1 = SwSprite[i].lx;
+			SwSprite[i].y1 = SwSprite[i].ly;
+		}
+
+		ScoreBoardLeft.y1 = Field.ly + Field.dy;
+		ScoreBoardRight.y1 = Field.ly + Field.dy;
 
 		// update scoreboard
 		Print_SetPosition(1, 24+768);

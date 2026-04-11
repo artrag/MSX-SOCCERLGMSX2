@@ -1,0 +1,2 @@
+python SpriteEncoder.py E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2\media\aseprite\sprites.png --N 16 --M 16 --FN 4 --transparent 6
+python FieldEncoder.py E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2\media\aseprite\field.png

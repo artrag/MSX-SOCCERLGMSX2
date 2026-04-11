@@ -46,6 +46,10 @@
             "approve": true,
             "matchCommandLine": true
         },
-        "build.bat": true
+        "build.bat": true,
+        "/^cmd /c \"build\\.bat\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }

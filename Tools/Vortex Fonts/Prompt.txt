@@ -1,0 +1,10 @@
+Scrivi uno script Python che fa le seguenti elaborazioni: 
+legge i nomi di tutti i file con estensione .bin della directory corrente
+per ciascun file:
+- legge il contenuto binario
+- raggruppa i dati in gruppi di 8 bytes consecutivi, ciascun gruppo rappresenta un carattere in binario della dimensione 8x8 pixels, il bit più significativo è il primo pixel a sinistra
+- genera l'immagine del carattere come rettangolo 8x8 in bianco e nero
+- dispone i caratteri in righe da 32 in una immagine bitmap 
+
+Salva l'immagine ottenuta con il nome del file processato, con formato ed estensione BMP
+Ripete fino all'ultimo file .BIN

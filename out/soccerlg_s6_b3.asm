@@ -212,6 +212,7 @@
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
 	.globl _PlayerAI
+	.globl _SetBallSprite
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -314,14 +315,12 @@ _PlayerAI::
 	ld	e, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:11: struct ObjectInfo* Player = &SwSprite[i];
 	ld	bc, #_SwSprite+0
+	ld	d, #0x00
 	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
+	ld	h, d
 	add	hl, hl
 	add	hl, hl
+	add	hl, de
 	add	hl, hl
 	add	hl, hl
 	add	hl, bc
@@ -583,6 +582,26 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:22: void SetBallSprite(u8 height) 
+;	---------------------------------
+; Function SetBallSprite
+; ---------------------------------
+_SetBallSprite::
+	ld	c, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:24: if (height > 7) height = 7;
+	ld	a, #0x07
+	sub	a, c
+	jr	NC, 00102$
+	ld	c, #0x07
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:25: SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
+	ld	b, #0x00
+	ld	hl, #0x0060
+	add	hl, bc
+	ex	de, hl
+	ld	((_SwSprite + 292)), de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:26: }
+	ret
 	.area _SEG6
 	.area _INITIALIZER
 	.area _CABS (ABS)

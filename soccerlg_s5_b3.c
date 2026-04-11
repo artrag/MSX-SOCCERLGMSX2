@@ -5,7 +5,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
-#include "Tools/OutField/FieldMap.h"
+#include "bin/FieldMap.h"
 
 void PlotField(u16 y,u16 page)
 {
@@ -13,22 +13,7 @@ void PlotField(u16 y,u16 page)
 		VDP_CommandYMMM(FieldMap[i]+768,0,i+page,16, 0);		
 }
 
-void AddLines(void) 
-{
-	u16 v;
-	
-	if (Field.dy==0) return;
-	
-	if (Field.dy>0) {
-		v = (Field.ly + 192) & 511;
-	}
-	else	{
-		v = (Field.ly -   1) & 511;
-	}
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);
-}
+
 
 void RemoveSwSprite(u8 px,u16 py,u16 page) 
 {

@@ -3,7 +3,7 @@ Scrivi uno script python, senza usare Image.Image.getdata (deprecato in Pillow) 
 - l'immagine contiene frame 16x16 pixels, 16 frames per linea
 - assumi che un colore assegnato sia da considerarsi trasparente
 
-Se l'immagine ha una palette a 16 colori assumi che il colore n. 5 è trasparente(default).
+Se l'immagine ha una palette a 16 colori assumi che il colore n. 6 è trasparente(default).
 Non cambiare la palette in ingresso
 
 Se invece l'immagine in ingresso è RGB a 24 bit, quantizza i colori usando la palette che segue per ottenere gli indici tra 0-15.
@@ -53,31 +53,39 @@ Per ciascuna frame genera un sorgente ASM z80 in formato ASxxxx con le seguenti 
 
 Prima del primo run della prima riga non nulla inserisci
 		ld c,0x98
-		ex de,hl				; save in Hl  (x/2 + y*128) & 0xFFFF
-		ld de,#128*Numero_Di_Riga + offset
-		add hl,de				; could set CF	(!!)
-		ld a,h
-		rlca					; to do: use CF from above
-		rlca
-		and #3
-		or 	a,iyl
+		ld a,d
+		or #0xC0
+		ld  d,a
+		ld a,e
+		add a,#(128*Numero_Di_Riga + offset)
+		ld e,a
+		jp nc,r14KKKK
+		ld a,d
+		adc a,#(128*Numero_Di_Riga + offset) / 256
+		ld  d,a
+		jp nc,r14KKKK
+		ld a,d
+		or #0xC0
+		ld  d,a
+		ld 	a,iyl	
+		xor #1
+		ld 	iyl,a	
+r14KKKK:
+		ld 	a,iyl	
 		or 	a,iyh	
 		di
-		out (#0x99),a			; set R14
+		out (#0x99),a
 		ld a,#0x8E
 		ei
-		out (#0x99),a
-		ld a,h
-		or #0xC0
-		ld d,a
-		ld e,l
+		out (#0x99),a	
 		ld  hl,#dataFrameKKKK
 
 con Numero_Di_Riga numero della riga non nulla
 offset è la posizione orizzontale in byte della prima RUN da codificare
 dataFrameKKKK è la label che precede i dati di tutte le RUN che appartengono alla frame
 
-Per ciascun run nella frame genera questo codice, dove NNNN è il numero del RUN e lendatarunNNNN è il numero di byte contenuti nel RUN NNNN
+Per ciascun run nella frame genera il codice che segue,
+dove NNNN è il numero del RUN e lendatarunNNNN è il numero di byte contenuti nel RUN NNNN
 	
 		ld a,e	   
 		di
@@ -96,12 +104,9 @@ Per ciascun run nella frame genera questo codice, dove NNNN è il numero del RUN
 		jp nc,TestrunKKKK_NNNN
 		inc d
 		jp  nz,TestrunKKKK_NNNN
-		ld  a,d
-		or #0xC0
-		ld  d,a
-		inc iyl		
+		ld  d,#0xC0
 		ld 	a,iyl	
-		and #1
+		xor #1
 		ld 	iyl,a	
 		or 	a,iyh	
 		di
@@ -118,7 +123,7 @@ e questo set di dati:
 dove:
 	- byte,byte, ecc è il valore dei pixel che compongono il run (due pixel per byte)
 
-Offset è la posizione in byte del primo pixel del RUN successivo rispetto alla posizione iniziale del RUN precedente immagazzinata in DE
+offset è la posizione in byte del primo pixel del RUN successivo rispetto alla posizione iniziale del RUN precedente immagazzinata in DE
 
 Assumi che la larghezza dello schermo sia 128 byte (256 pixels) quindi:
  se il run successivo appartiene alla linea seguente aggiungi 128 alla differenza tra le ascisse dei du eRUN in byte
@@ -133,6 +138,7 @@ Se il valore offset supera 255 sostituisci il blocco
 		jp nc,TestrunKKKK_NNNN
 		inc d
 		jp  nz,TestrunKKKK_NNNN
+		ld  d,#0xC0		
 		[...]
 
 con il seguente
@@ -145,23 +151,23 @@ con il seguente
 		adc a,#offset / 256
 		ld  d,a
 		jp nc,TestrunKKKK_NNNN
+		ld a,d
+		or #0xC0
+		ld  d,a
 		[...]
 
 Metti di seguito tutti i segmenti di codice RUN di una frame
 
-Nella codifica dell'utimo RUN della FRAME ometti completamente il blocco:
+Nella codifica dell'utimo RUN della FRAME ometti il blocco finale:
 		ld a,e
 		add a,#offset 
 		ld e,a
 		jp nc,TestrunKKKK_NNNN
 		inc d
 		jp  nz,TestrunKKKK_NNNN
-		ld  a,d
-		or #0xC0
-		ld  d,a
-		inc iyl		
+		ld  d,#0xC0
 		ld 	a,iyl	
-		and #1
+		xor #1
 		ld 	iyl,a	
 		or 	a,iyh	
 		di
@@ -223,7 +229,7 @@ Per l'MSX contano i cicli nella colonna "Timing Z80+M1"
 Usa come riferimento per il formato del codice ASM il manuale dell'assemblatore SDCC ASxxxx
 
 ATTENZIONE: ASxxxx non conosce le istruzioni non ufficiali.
-quando genri il sorgnete:
+Quando generi il sorgnete:
 
 rimpiazza 
 		or 	a,iyl	
@@ -240,7 +246,6 @@ rimpiazza
 con le due linee:
 	   .db #0xFD	
        ld l,a		; ld 	iyl,a
-
 rimpiazza 
 		or 	a,iyh	
 con le due linee:
@@ -256,11 +261,6 @@ rimpiazza
 con le due linee:
 	   .db #0xFD	
        ld h,a		; ld 	iyh,a
-rimpiazza
-		inc 	iyl		
-con le due linee
-		.db #0xFD
-		inc l 		; inc 	iyl		
 
 Genera anche un singolo file binario che possa essere incluso direttamente in un progetto msxGL ed SDCC.
 Ciascun blocco _SEG100 _SEG101 ecc ecc deve essere esattamente 8KB (una pagina del mapper rom).

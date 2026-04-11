@@ -105,8 +105,8 @@ BankedCall = false;
 
 //-- List of raw data files to be added to final binary (array). Each entry must be in the following format: { offset:0x0000, file:"myfile.bin" }
 RawFiles = [
-    { segment:100, file:"Tools/OutSprites/sprites.bin" },
-    { segment:230, file:"Tools/OutField/Field_out.bin" }
+    { segment:768, file:"bin/sprites.bin" },
+    { segment:252, file:"bin/field.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)

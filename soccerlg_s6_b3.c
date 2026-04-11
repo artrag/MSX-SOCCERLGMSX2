@@ -17,3 +17,10 @@ void PlayerAI(u8 i)
 	if  (Player->ly>504-16 || Player->ly<=16) 
 		Player->dy = -Player->dy;
 }
+
+// Imposta il frame della palla in base all'altezza (0-7)
+void SetBallSprite(u8 height) 
+{
+	if (height > 7) height = 7;
+	SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
+}
