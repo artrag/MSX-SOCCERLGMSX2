@@ -23,11 +23,14 @@ Symbol Table
     _ScoreBoardLeft                                                 ******** GX
     _ScoreBoardRight                                                ******** GX
     _Secs                                                           ******** GX
+    _SetTeamColors                                                  ******** GX
     _SwSprite                                                       ******** GX
+    _Team1Code                                                      ******** GX
+    _Team2Code                                                      ******** GX
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
-  7 ___str_0                                                        00000AAA R
-  7 ___str_1                                                        00000AAD R
+  7 ___str_0                                                        00000AD2 R
+  7 ___str_1                                                        00000AD5 R
     __divsint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -55,14 +58,14 @@ Symbol Table
     _g_CMASK                                                    =   0000F92C G
     _g_CNSDFG                                                   =   0000F3DE G
     _g_CODSAV                                                   =   0000FBCC G
-    _g_COMMSK                                                   =   0000FB1D G
-    _g_CRTCNT                                                   =   0000F3B1 G
-    _g_CS120                                                    =   0000F3FC G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_COMMSK                                                   =   0000FB1D G
+    _g_CRTCNT                                                   =   0000F3B1 G
+    _g_CS120                                                    =   0000F3FC G
     _g_CS240                                                    =   0000F401 G
     _g_CSRSW                                                    =   0000FCA9 G
     _g_CSRX                                                     =   0000F3DD G
@@ -89,7 +92,7 @@ Symbol Table
     _g_FORCLR                                                   =   0000F3E9 G
     _g_FRCNEW                                                   =   0000F3F5 G
     _g_FSTPOS                                                   =   0000FBCA G
-  7 _g_Fonts                                                        000007B6 GR
+  7 _g_Fonts                                                        000007DE GR
     _g_GETPNT                                                   =   0000F3FA G
     _g_GRPACX                                                   =   0000FCB7 G
     _g_GRPACY                                                   =   0000FCB9 G
@@ -115,14 +118,14 @@ Symbol Table
     _g_KEYBUF                                                   =   0000FBF0 G
     _g_LINL32                                                   =   0000F3AF G
     _g_LINL40                                                   =   0000F3AE G
-    _g_LINLEN                                                   =   0000F3B0 G
-    _g_LINTTB                                                   =   0000FBB2 G
-    _g_LINWRK                                                   =   0000FC18 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_LINLEN                                                   =   0000F3B0 G
+    _g_LINTTB                                                   =   0000FBB2 G
+    _g_LINWRK                                                   =   0000FC18 G
     _g_LOGOPR                                                   =   0000FB02 G
     _g_LOW                                                      =   0000F406 G
     _g_LOWLIM                                                   =   0000FCA4 G
@@ -175,14 +178,14 @@ Symbol Table
     _g_PortControl                                              =   000000AB 
     _g_PortPrimarySlot                                          =   000000A8 
     _g_PortReadKeyboard                                         =   000000A9 
-    _g_PrintData                                                    ******** GX
-    _g_QUEBAK                                                   =   0000F971 G
-    _g_QUETAB                                                   =   0000F959 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_PrintData                                                    ******** GX
+    _g_QUEBAK                                                   =   0000F971 G
+    _g_QUETAB                                                   =   0000F959 G
     _g_QUEUEN                                                   =   0000FB3E G
     _g_QUEUES                                                   =   0000F3F3 G
     _g_RAMAD0                                                   =   0000F341 G
@@ -235,14 +238,14 @@ Symbol Table
     _g_SLTSL                                                    =   0000FFFF G
     _g_SLTTBL                                                   =   0000FCC5 G
     _g_SLTWRK                                                   =   0000FD09 G
-    _g_STATFL                                                   =   0000F3E7 G
-    _g_STRSRC                                                   =   00000002 G
-    _g_SUBRID                                                   =   00000000 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_STATFL                                                   =   0000F3E7 G
+    _g_STRSRC                                                   =   00000002 G
+    _g_SUBRID                                                   =   00000000 G
     _g_SVFFF8                                                   =   0000FFF8 G
     _g_SVFFFD                                                   =   0000FFFD G
     _g_T32ATR                                                   =   0000F3C3 G
@@ -258,6 +261,7 @@ Symbol Table
     _g_TXTCOL                                                   =   0000F3B5 G
     _g_TXTNAM                                                   =   0000F3B3 G
     _g_TXTPAT                                                   =   0000F3BB G
+    _g_TeamColorsArray                                              ******** GX
     _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
     _g_VCBB                                                     =   0000FB66 G
@@ -279,6 +283,7 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
 
+
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
@@ -291,7 +296,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size      AAF   flags    0
+   7 _SEG4                                      size      AD7   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

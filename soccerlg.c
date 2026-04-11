@@ -16,6 +16,8 @@
 // -----------------
 // *** CONSTANTS ***
 // -----------------
+
+// Palette
 const c8 g_Palette[] = {
     0x00, 0x00, // [0]  #000000  TRASPARENTE 
     0x00, 0x00, // [1]  #010101  Nero (Campo - Capelli - Scarpe Arbitro)
@@ -25,14 +27,24 @@ const c8 g_Palette[] = {
     0x03, 0x00, // [5]  #000C7B  Blu scuro (Maglietta squadra 2)
     0x00, 0x05, // [6]  #00B800  Verde (Campo)
     0x33, 0x03, // [7]  #7F7F7F  Grigio  (Campo)
-    0x62, 0x04, // [8]  #DD9C48  Arancione (Non usato)
+    0x62, 0x04, // [8]  #DD9C48  Arancione (Maglietta portieri)
     0x45, 0x06, // [9]  #E18AC4  Rosa (Pantaloncini squadra 2)
     0x40, 0x00, // [A]  #880015  Marrone (Righe squadra 1)
     0x26, 0x05, // [B]  #4CB7DA  Celeste (Maglietta squadra 1)
     0x55, 0x02, // [C]  #A9A84C  Verde Oliva (Pantaloncini squadra 2)
     0x06, 0x06, // [D]  #C70CB3  Fucsia (Pantalancini squadra 1)
-    0x16, 0x02, // [E]  #3F48CC  Blu chiaro (Campo - Maglietta portieri)
+    0x16, 0x02, // [E]  #3F48CC  Blu chiaro (Campo)
     0x66, 0x06, // [F]  #D3CACA  Verde oliva acceso (Non usato)
+};
+
+// Teams colours array (Formato MSX2: 0x0GRB)
+const struct TeamColors g_TeamColorsArray[] = {
+    { 0x0526, 0x0777, 0x0777 }, // 0: ITA (Shirt: Azzurra, Shorts: Bianchi, Righe: Bianche)
+    { 0x0215, 0x0777, 0x0777 }, // 1: FRA (Shirt: Blu, Shorts: Bianchi, Righe: Bianche)
+    { 0x0511, 0x0671, 0x0671 }, // 2: BRA (Shirt: Verde, Shorts: Oro, Righe: Oro)
+    { 0x0777, 0x0111, 0x0111 }, // 3: GER (Shirt: Bianca, Shorts: Neri, Righe: Nere)
+    { 0x0526, 0x0777, 0x0777 }, // 4: ITA (Shirt: Azzurra, Shorts: Bianchi, Righe: Bianche)
+    { 0x0071, 0x0071, 0x0777 }  // 5: ESP (Shirt: Rossa, Shorts: Rosse, Righe: Bianche)
 };
 
 // -----------------
@@ -45,6 +57,8 @@ const c8 g_Palette[] = {
     u8  LastSecs=5;
 	u8  ScoreA = 1;
 	u8  ScoreB = 3;
+	u8  Team1Code=TEAM_ITA_COLORS;
+	u8  Team2Code=TEAM_FRA_COLORS;
 
 
 struct ObjectInfo SwSprite[NumSprite];
@@ -154,6 +168,23 @@ bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
 // -----------------
 // *** FUNCTIONS ***
 // -----------------
+// +++ Set team colors +++
+void SetTeamColors(u8 team, const struct TeamColors* colors)
+{
+	if (team == TEAM_1)
+	{
+		VDP_SetPaletteEntry(10, colors->Stripes); // [A] Contorni / Righe
+		VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta
+		VDP_SetPaletteEntry(12, colors->Shorts);  // [C] Pantaloncini
+	}
+	else if (team == TEAM_2)
+	{
+		VDP_SetPaletteEntry(13, colors->Stripes); // [D] Contorni / Righe
+		VDP_SetPaletteEntry(14, colors->Shirt);   // [E] Maglietta
+		VDP_SetPaletteEntry(15, colors->Shorts);  // [F] Pantaloncini
+	}
+}
+// +++ Add field lines +++
 void AddLines(struct ObjectInfo* Field) 
 {
 	u16 v;

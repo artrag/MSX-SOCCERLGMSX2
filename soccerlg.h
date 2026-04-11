@@ -18,6 +18,11 @@ struct ObjectInfo {
 	u16 count;
 };
 
+struct TeamColors {
+    u16 Shirt;
+    u16 Shorts;
+    u16 Stripes;
+};
 
 // ---------------
 // *** DEFINES ***
@@ -215,6 +220,16 @@ struct ObjectInfo {
 
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
 
+#define TEAM_1                                      0
+#define TEAM_2                                      1
+
+#define TEAM_ITA_COLORS                             0
+#define TEAM_FRA_COLORS                             1
+#define TEAM_BRA_COLORS                             2
+#define TEAM_GER_COLORS                             3
+#define TEAM_ITA_COLORS                             4
+#define TEAM_ESP_COLORS                             5
+
 #define BALL_START_X                                120
 #define BALL_START_Y                                256
 
@@ -241,6 +256,7 @@ extern struct ObjectInfo Field;
 extern struct ObjectInfo ScoreBoardLeft;
 extern struct ObjectInfo ScoreBoardRight;
 extern const unsigned char g_Fonts[];
+extern const struct TeamColors g_TeamColorsArray[];
 
 // -----------------
 // *** VARIABLES ***
@@ -254,7 +270,8 @@ extern  struct ObjectInfo Field;
 extern  struct ObjectInfo ScoreBoardLeft;
 extern  struct ObjectInfo ScoreBoardRight;
 
-
+extern	u8  Team1Code;
+extern	u8  Team2Code;
 
 
 
@@ -269,6 +286,7 @@ void CallSpriteFrame(u8 frame, u16 x, u16 y);
 void LoadField(u8);
 void CallFnc_VOID(u8 bank, void (*func)());
 void CallFnc_VOID_P1(u8 bank, void (*func)(u8), u8 p1);
+void CallFnc_VOID_U8_PTR(u8 bank, void (*func)(u8, const struct TeamColors*), u8 p1, const struct TeamColors* p2);
 void CallFnc_VOID_U8U16U16(u8 bank, void (*func)(u8, u16, u16), u8 p1, u16 p2, u16 p3);
 bool CallFnc_BOOL(u8 bank, u8 (*func)()) ;
 u8 CallFnc_U8(u8 bank, u8 (*func)());
@@ -278,6 +296,7 @@ u8 CallFnc_U8_P2(u8 bank, u8 (*func)(u8, u8), u8 p1, u8 p2);
 u8 CallFnc_U8_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1);
 void AddLines(struct ObjectInfo* Field);
+void SetTeamColors(u8 team, const struct TeamColors* colors);
 
 // +++ SEGMENT SEG_DRAW (4) +++
 void MainLoop();
@@ -289,6 +308,7 @@ void RemoveScoreBoardLeft(u8 px,u16 py,u16 page);
 void PrintScoreBoardLeft(u8 px,u16 py,u16 page);
 void RemoveScoreBoardRight(u8 px,u16 py,u16 page);
 void PrintScoreBoardRight(u8 px,u16 py,u16 page);
+
 
 
 // +++ SEGMENT SEG_LOGIC (6) +++

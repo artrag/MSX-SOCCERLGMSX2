@@ -989,6 +989,9 @@ const unsigned char g_Fonts[] =
 
 void MainLoop(){
 	
+	SetTeamColors(TEAM_1, &g_TeamColorsArray[Team1Code]);
+	SetTeamColors(TEAM_2, &g_TeamColorsArray[Team2Code]);
+
 	// --- INIZIALIZZAZIONE PRESENTAZIONE ---
 	Field.ly = 0; // Parte da estremo Nord
 	Field.dy = 1; // Avanzamento scorrimento per fase (3 px a frame)

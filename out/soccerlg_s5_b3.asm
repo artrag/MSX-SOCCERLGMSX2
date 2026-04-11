@@ -218,6 +218,7 @@
 	.globl _PrintScoreBoardLeft
 	.globl _RemoveScoreBoardRight
 	.globl _PrintScoreBoardRight
+	.globl _SetBallSprite
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -2120,6 +2121,26 @@ _PrintScoreBoardRight::
 	pop	hl
 	pop	af
 	jp	(hl)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:82: void SetBallSprite(u8 height) 
+;	---------------------------------
+; Function SetBallSprite
+; ---------------------------------
+_SetBallSprite::
+	ld	c, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:84: if (height > 7) height = 7;
+	ld	a, #0x07
+	sub	a, c
+	jr	NC, 00102$
+	ld	c, #0x07
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:85: SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
+	ld	b, #0x00
+	ld	hl, #0x0060
+	add	hl, bc
+	ex	de, hl
+	ld	((_SwSprite + 292)), de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:86: }
+	ret
 	.area _SEG5
 	.area _INITIALIZER
 	.area _CABS (ABS)

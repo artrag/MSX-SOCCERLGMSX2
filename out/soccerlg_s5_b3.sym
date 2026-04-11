@@ -15,6 +15,8 @@ Symbol Table
   7 _RemoveScoreBoardLeft                                           00000426 GR
   7 _RemoveScoreBoardRight                                          000006C5 GR
   7 _RemoveSwSprite                                                 0000027D GR
+  7 _SetBallSprite                                                  0000096E GR
+    _SwSprite                                                       ******** GX
     _VPD_CommandSetupR32                                            ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -56,13 +58,13 @@ Symbol Table
     _g_DPPAGE                                                   =   0000FAF5 G
     _g_DRWANG                                                   =   0000FCBD G
     _g_DRWFLG                                                   =   0000FCBB G
-    _g_DRWSCL                                                   =   0000FCBC G
-    _g_ENSTOP                                                   =   0000FBB0 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_DRWSCL                                                   =   0000FCBC G
+    _g_ENSTOP                                                   =   0000FBB0 G
     _g_ERRORS                                                   =   0000FB1A G
     _g_ESCCNT                                                   =   0000FCA7 G
     _g_ESTBLS                                                   =   0000FB1C G
@@ -116,13 +118,13 @@ Symbol Table
     _g_MEXBIh                                                   =   0000FB07 G
     _g_MINROM                                                   =   0000FFF7 G
     _g_MINUPD                                                   =   0000F3EF G
-    _g_MLTATR                                                   =   0000F3D7 G
-    _g_MLTCGP                                                   =   0000F3D5 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_MLTATR                                                   =   0000F3D7 G
+    _g_MLTCGP                                                   =   0000F3D5 G
     _g_MLTCOL                                                   =   0000F3D3 G
     _g_MLTNAM                                                   =   0000F3D1 G
     _g_MLTPAT                                                   =   0000F3D9 G
@@ -176,13 +178,13 @@ Symbol Table
     _g_RG0SAV                                                   =   0000F3DF G
     _g_RG10SAV                                                  =   0000FFE9 G
     _g_RG11SAV                                                  =   0000FFEA G
-    _g_RG12SAV                                                  =   0000FFEB G
-    _g_RG13SAV                                                  =   0000FFEC G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RG12SAV                                                  =   0000FFEB G
+    _g_RG13SAV                                                  =   0000FFEC G
     _g_RG14SAV                                                  =   0000FFED G
     _g_RG15SAV                                                  =   0000FFEE G
     _g_RG16SAV                                                  =   0000FFEF G
@@ -236,13 +238,13 @@ Symbol Table
     _g_TXTATR                                                   =   0000F3B9 G
     _g_TXTCGP                                                   =   0000F3B7 G
     _g_TXTCOL                                                   =   0000F3B5 G
-    _g_TXTNAM                                                   =   0000F3B3 G
-    _g_TXTPAT                                                   =   0000F3BB G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_TXTNAM                                                   =   0000F3B3 G
+    _g_TXTPAT                                                   =   0000F3BB G
     _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
     _g_VCBB                                                     =   0000FB66 G
@@ -265,7 +267,6 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
 
-
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
@@ -278,7 +279,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size      96E   flags    0
+   7 _SEG5                                      size      982   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

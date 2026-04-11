@@ -77,3 +77,10 @@ void PrintScoreBoardRight(u8 px,u16 py,u16 page)
 		VDP_CommandHMMM(px, 768, px, ((py)&255)+page, ScoreBoardNX_Right, ScoreBoardNY_Right);
 }
 
+
+// +++ Set ball frame +++
+void SetBallSprite(u8 height) 
+{
+	if (height > 7) height = 7;
+	SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
+}

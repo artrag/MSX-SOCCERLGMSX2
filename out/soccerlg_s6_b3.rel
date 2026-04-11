@@ -1,5 +1,5 @@
 XL4
-H A areas CF global symbols
+H A areas CE global symbols
 M soccerlg_s6_b3
 O -mz80
 S _g_SAVVOL Def0000FB39
@@ -214,9 +214,8 @@ A _DABS size 0 flags 8 addr 0
 A _HOME size 0 flags 0 addr 0
 A _GSINIT size 0 flags 0 addr 0
 A _GSFINAL size 0 flags 0 addr 0
-A _SEG6 size 81 flags 0 addr 0
+A _SEG6 size 6D flags 0 addr 0
 S _PlayerAI Def00000000
-S _SetBallSprite Def0000006D
 A _INITIALIZER size 0 flags 0 addr 0
 A _CABS size 0 flags 8 addr 0
 T 00 00 00 00
@@ -253,11 +252,3 @@ T 68 00 00 00
 R 00 00 07 00
 T 68 00 00 00 1A ED 44 12 C9
 R 00 00 07 00
-T 6D 00 00 00
-R 00 00 07 00
-T 6D 00 00 00 4F 3E 07 91 30 02 0E 07
-R 00 00 07 00
-T 75 00 00 00
-R 00 00 07 00
-T 75 00 00 00 06 00 21 60 00 09 EB ED 53 24 01 C9
-R 00 00 07 00 02 0D 53 00
