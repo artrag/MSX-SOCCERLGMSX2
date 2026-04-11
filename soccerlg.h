@@ -31,6 +31,16 @@ struct TeamColors {
 // *** DEFINES ***
 // ---------------
 
+#define DIRECTION_NONE  			        0
+#define DIRECTION_UP    			        1
+#define DIRECTION_UP_RIGHT  		        2
+#define DIRECTION_RIGHT  		            3
+#define DIRECTION_DOWN_RIGHT  	            4
+#define DIRECTION_DOWN         	            5
+#define DIRECTION_DOWN_LEFT  	            6
+#define DIRECTION_LEFT  			        7
+#define DIRECTION_UP_LEFT  		            8
+
 #define SPR_T1_PLAYER_EAST_DIRECTION_1				29
 #define SPR_T1_PLAYER_EAST_DIRECTION_2				28
 #define SPR_T1_PLAYER_EAST_DIRECTION_3				27
@@ -246,6 +256,9 @@ struct TeamColors {
 #define TEAM_NLD_COLORS                             4
 #define TEAM_ESP_COLORS                             5
 
+#define GAMEMODE_P1_VS_CPU                          0
+#define GAMEMODE_P1_VS_P2                           1
+
 #define PRESENTATION_WAIT_TIME                      (2 * 60) // 2 secondi a 60 fps
 
 #define BALL_START_X                                120
@@ -258,6 +271,7 @@ struct TeamColors {
 #define SEG_LOOP 	4
 #define SEG_DRAW 	5
 #define SEG_LOGIC 	6
+#define SEG_INPUT 	7
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -297,6 +311,11 @@ extern  struct ObjectInfo ScoreBoardRight;
 extern	u8  Team1Code;
 extern	u8  Team2Code;
 extern  u8  KickOffTeam;
+extern  u8  GameMode;
+extern  u8  T1_Carrier;
+extern  u8  T1_Receiver;
+extern  u8  T2_Carrier;
+extern  u8  T2_Receiver;
 
 
 
@@ -330,6 +349,8 @@ void MainLoop();
 void EventStartPresentationScrollig();
 void EventPlayerFirstPresentationStarted();
 void EventKickOffReady();
+void EventBallKicked();
+u16 GetDrawFrame(u8 i);
 
 // +++ SEGMENT SEG_DRAW (5) +++
 void PlotField(u16 y,u16 page);
@@ -347,3 +368,8 @@ void HideSpriteMessage();
 // +++ SEGMENT SEG_LOGIC (6) +++
 void PlayerAI(u8 i);
 void SetBallSprite(u8 height);
+u8 FindReceiver(u8 carrier, u8 ignore_player);
+
+// +++ SEGMENT SEG_INPUT (7) +++
+bool IsTeamJoystickTriggerPressed(u8 player);
+u8 GetJoystickDirection(u8 player);

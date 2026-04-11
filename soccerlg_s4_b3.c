@@ -993,6 +993,10 @@ const unsigned char g_Fonts[] =
 // --------------
 // *** EVENTS ***
 // --------------
+void EventBallKicked()
+{
+	// Trigger sonoro per il tocco della palla durante il dribbling
+}
 void EventStartPresentationScrollig()
 {
 	// Trigger sonoro per l'inizio dello scrolling di presentazione
@@ -1133,6 +1137,18 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		}
 		if (all_in_position) {
 			*game_state = 3;
+			
+			// Assegna Carrier e Receiver per il Kickoff
+			if (KickOffTeam == TEAM_1) {
+				T1_Carrier = 3; // Giocatore a sinistra della palla
+				T1_Receiver = CallFnc_U8_P2(SEG_LOGIC, FindReceiver, T1_Carrier, 4); // Ignora il compagno (4)
+				T2_Carrier = T2_Receiver = 0xFF; // Difesa senza palla
+			} else {
+				T2_Carrier = 11; // Giocatore a destra della palla
+				T2_Receiver = CallFnc_U8_P2(SEG_LOGIC, FindReceiver, T2_Carrier, 10); // Ignora il compagno (10)
+				T1_Carrier = T1_Receiver = 0xFF; // Difesa senza palla
+			}
+			
 			*wait_secs = 2;
 			*start_sec = Secs;
 			EventKickOffReady();
@@ -1148,9 +1164,82 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				}
 			}
 		}
+
+		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
+		struct ObjectInfo* Ball = &SwSprite[14];
+		
+		// 1. Fisica della palla
+		if (Ball->anim > 0) {
+			// Velocità decrescente del tocco: 3, 2, 1, 1 (totale 7 pixel)
+			u8 speed = (Ball->anim == 4) ? 3 : (Ball->anim == 3) ? 2 : 1;
+			Ball->lx += Ball->dx * speed;
+			Ball->ly += Ball->dy * speed;
+			Ball->anim--;
+		}
+
+		// 2. Gestione portatori (Player 1 e Player 2)
+		u8 carriers[2] = {T1_Carrier, T2_Carrier};
+		u8 dirs[2] = { DIRECTION_NONE, DIRECTION_NONE };
+		
+		if (T1_Carrier != 0xFF) dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0);
+		if (T2_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1);
+
+		for (u8 i = 0; i < 2; i++) {
+			u8 carrier = carriers[i];
+			if (carrier == 0xFF) continue;
+			
+			struct ObjectInfo* Carrier = &SwSprite[carrier];
+			
+			Carrier->dx = 0; Carrier->dy = 0;
+			switch(dirs[i]) {
+				case DIRECTION_UP: Carrier->dy = -2; break;
+				case DIRECTION_UP_RIGHT: Carrier->dy = -2; Carrier->dx = 2; break;
+				case DIRECTION_RIGHT: Carrier->dx = 2; break;
+				case DIRECTION_DOWN_RIGHT: Carrier->dy = 2; Carrier->dx = 2; break;
+				case DIRECTION_DOWN: Carrier->dy = 2; break;
+				case DIRECTION_DOWN_LEFT: Carrier->dy = 2; Carrier->dx = -2; break;
+				case DIRECTION_LEFT: Carrier->dx = -2; break;
+				case DIRECTION_UP_LEFT: Carrier->dy = -2; Carrier->dx = -2; break;
+			}
+			
+			// Se il giocatore si muove
+			if (Carrier->dx != 0 || Carrier->dy != 0) {
+				Carrier->lx += Carrier->dx;
+				Carrier->ly += Carrier->dy;
+				
+				Carrier->anim++;
+				const u8 walk_seq[4] = {0, 1, 2, 1}; 
+				Carrier->frame = GetPlayerAnimFrame(carrier, Carrier->dx, Carrier->dy, walk_seq[(Carrier->anim / 3) % 4]);
+				
+				u16 dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
+				u16 dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
+				
+				// Se il portatore tocca la palla e la palla è ferma, la spinge in avanti
+				if (dist_x <= 6 && dist_y <= 6 && Ball->anim == 0) {
+					Ball->dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
+					Ball->dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					Ball->anim = 4; // Innesca 4 frame di allungo in avanti della palla
+					EventBallKicked();
+				}
+			} else {
+				// Se è fermo, guarda la palla orientandosi verso di essa
+				i8 dir_x = (Ball->lx > Carrier->lx) ? 1 : ((Ball->lx < Carrier->lx) ? -1 : 0);
+				i8 dir_y = (carrier < 7) ? 1 : -1; // Rispetta il fronte di attacco
+				Carrier->frame = GetPlayerAnimFrame(carrier, dir_x, dir_y, 0);
+			}
+		}
 	}
 }
-
+// Helper per ottenere il frame con l'eventuale offset di focus per il giocatore attivo
+u16 GetDrawFrame(u8 i) {
+	u16 f = SwSprite[i].frame;
+	if (i < 7) {
+		if (i == T1_Carrier || i == T1_Receiver) return f + SPRITE_FOCUSED_PLAYER_OFFSET;
+	} else if (GameMode == GAMEMODE_P1_VS_P2) {
+		if (i == T2_Carrier || i == T2_Receiver) return f + SPRITE_FOCUSED_PLAYER_OFFSET;
+	}
+	return f;
+}
 void MainLoop(){
 	
 	SetTeamColors(TEAM_1, &g_TeamColorsArray[Team1Code]);
@@ -1240,7 +1329,7 @@ void MainLoop(){
 		{
 			// scrivo 	1
 			if OnScreen(SwSprite[i].y1) 
-				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
+				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,GetDrawFrame(i));
 		}
 
 		if (ball_fg && OnScreen(SwSprite[14].y1)) 
@@ -1291,7 +1380,7 @@ void MainLoop(){
 		{
 			// scrivo 	2 
 			if OnScreen(SwSprite[i].y2) 
-				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
+				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,GetDrawFrame(i));
 		}
 
 		if (ball_fg && OnScreen(SwSprite[14].y2)) 
@@ -1343,7 +1432,7 @@ void MainLoop(){
 		{
 			// scrivo 	0	
 			if OnScreen(SwSprite[i].y0) 
-				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
+				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),GetDrawFrame(i));	
 		}
 
 		if (ball_fg && OnScreen(SwSprite[14].y0)) 

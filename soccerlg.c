@@ -59,7 +59,12 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8  ScoreB = 3;
 	u8  Team1Code=TEAM_ITA_COLORS;
 	u8  Team2Code=TEAM_NLD_COLORS;
-	u8  KickOffTeam=TEAM_2;
+	u8  KickOffTeam=TEAM_1;
+	u8  GameMode = GAMEMODE_P1_VS_CPU;
+	u8  T1_Carrier = 0xFF;
+	u8  T1_Receiver = 0xFF;
+	u8  T2_Carrier = 0xFF;
+	u8  T2_Receiver = 0xFF;
 
 
 struct ObjectInfo SwSprite[NumSprite];
