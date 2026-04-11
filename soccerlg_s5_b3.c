@@ -6,6 +6,7 @@
 #include "msxgl.h"
 #include "soccerlg.h"
 #include "bin/FieldMap.h"
+#include "debug.h"
 
 void PlotField(u16 y,u16 page)
 {
@@ -113,4 +114,54 @@ bool IsBallForeground()
 	}
 	
 	return FALSE;
+}
+
+// +++ Show message sprites +++
+void ShowSpriteMessage(u16 messageId)
+{
+	DEBUG_LOG("1-1");
+	u8 len = 0;
+	u16 logical_y = 0;
+
+	if (messageId == SPR_MSG_KICKOFF) {
+		len = SPRITE_MSG_KICKOFF_LENGTH;
+		logical_y = (KickOffTeam == TEAM_1) ? (Field.ly + 48) : (Field.ly + 144); // Centro della rispettiva metà inquadratura
+	} else if (messageId == SPR_MSG_GOALKICK) {
+		len = SPRITE_MSG_GOALKICK_LENGTH;
+		logical_y = Field.ly + 96; // Metà dello schermo (192 / 2)
+	} else if (messageId == SPR_MSG_THROWIN) {
+		len = SPRITE_MSG_THROWIN_LENGTH;
+		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_CORNERKICK) {
+		len = SPRITE_MSG_CORNERKICK_LENGTH;
+		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_INGOAL) {
+		len = SPRITE_MSG_INGOAL_LENGTH;
+		logical_y = Field.ly + 96;
+	} else {
+		return;
+	}
+
+	u8 start_x = 128 - (len * 8); // Centrato orizzontalmente: 128 - (lunghezza * 16 / 2)
+
+	for (u8 i = 0; i < len; i++) {
+		SwSprite[15 + i].lx = start_x + (i * 16);
+		SwSprite[15 + i].ly = logical_y;
+		SwSprite[15 + i].frame = messageId + i;
+		SwSprite[15 + i].dx = 0;
+		SwSprite[15 + i].dy = 0;
+	}
+	
+	// Nasconde eventuali sprite precedenti in eccesso non usati
+	for (u8 i = 15 + len; i < NumSprite; i++) {
+		SwSprite[i].ly = 1000;
+	}
+}
+
+// +++ Hide message sprites +++
+void HideSpriteMessage()
+{
+	for (u8 i = 15; i < NumSprite; i++) {
+		SwSprite[i].ly = 1000;
+	}
 }

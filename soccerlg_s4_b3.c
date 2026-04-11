@@ -993,6 +993,11 @@ const unsigned char g_Fonts[] =
 // --------------
 // *** EVENTS ***
 // --------------
+void EventStartPresentationScrollig()
+{
+	// Trigger sonoro per l'inizio dello scrolling di presentazione
+}
+
 void EventPlayerFirstPresentationStarted()
 {
 	// Trigger sonoro per l'inizio del movimento dei giocatori
@@ -1000,7 +1005,9 @@ void EventPlayerFirstPresentationStarted()
 
 void EventKickOffReady()
 {
+	
 	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
+	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 }
 
 // -----------------
@@ -1126,10 +1133,21 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		}
 		if (all_in_position) {
 			*game_state = 3;
+			*wait_secs = 2;
+			*start_sec = Secs;
 			EventKickOffReady();
 		}
 	} else if (*game_state == 3) {
 		// Ciclo infinito attivo, pronti per giocare
+		if (*wait_secs > 0) {
+			if (Secs != *start_sec) {
+				*start_sec = Secs;
+				(*wait_secs)--;
+				if (*wait_secs == 0) {
+					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
+				}
+			}
+		}
 	}
 }
 
@@ -1197,6 +1215,8 @@ void MainLoop(){
 	ScoreBoardLeft.y0 = ScoreBoardRight.y0 = Field.ly;
 	ScoreBoardLeft.y1 = ScoreBoardRight.y1 = Field.ly;
 	ScoreBoardLeft.y2 = ScoreBoardRight.y2 = Field.ly;
+
+	EventStartPresentationScrollig();
 
     for (;;)
 	{

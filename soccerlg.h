@@ -221,7 +221,20 @@ struct TeamColors {
 #define SPR_BIG_ARROW_TOP						    307
 #define SPR_BIG_ARROW_BOTTOM						308
 
+#define SPR_MSG_KICKOFF								288
+#define SPR_MSG_GOALKICK							292
+#define SPR_MSG_THROWIN								297
+#define SPR_MSG_CORNERKICK							304
+#define SPR_MSG_INGOAL								313
+
+
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
+
+#define SPRITE_MSG_KICKOFF_LENGTH					4
+#define SPRITE_MSG_GOALKICK_LENGTH					5
+#define SPRITE_MSG_THROWIN_LENGTH					4
+#define SPRITE_MSG_CORNERKICK_LENGTH				6
+#define SPRITE_MSG_INGOAL_LENGTH					4
 
 #define TEAM_1                                      0
 #define TEAM_2                                      1
@@ -294,12 +307,13 @@ extern  u8  KickOffTeam;
 // +++ SEGMENT 0 +++
 void main();
 void VSyncCallback();
-void CallSpriteFrame(u8 frame, u16 x, u16 y);
+void CallSpriteFrame(u8 x, u16 y, u16 frame);
 void LoadField(u8);
 void CallFnc_VOID(u8 bank, void (*func)());
 void CallFnc_VOID_P1(u8 bank, void (*func)(u8), u8 p1);
 void CallFnc_VOID_U8_PTR(u8 bank, void (*func)(u8, const struct TeamColors*), u8 p1, const struct TeamColors* p2);
 void CallFnc_VOID_U8U16U16(u8 bank, void (*func)(u8, u16, u16), u8 p1, u16 p2, u16 p3);
+void CallFnc_VOID_16_P1(u8 segment, void (*func)(u16), u16 p1);
 bool CallFnc_BOOL(u8 bank, u8 (*func)()) ;
 u8 CallFnc_U8(u8 bank, u8 (*func)());
 void CallFnc_VOID_16_P2(u8 bank, void (*func)(u16,u16), u16 p1, u16 p2);
@@ -313,6 +327,7 @@ void SetTeamColors(u8 team, const struct TeamColors* colors);
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
+void EventStartPresentationScrollig();
 void EventPlayerFirstPresentationStarted();
 void EventKickOffReady();
 
@@ -324,6 +339,8 @@ void PrintScoreBoardLeft(u8 px,u16 py,u16 page);
 void RemoveScoreBoardRight(u8 px,u16 py,u16 page);
 void PrintScoreBoardRight(u8 px,u16 py,u16 page);
 bool IsBallForeground();
+void ShowSpriteMessage(u16 messageId);
+void HideSpriteMessage();
 
 
 

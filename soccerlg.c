@@ -104,6 +104,15 @@ void CallFnc_VOID_P2(u8 segment, void (*func)(u8, bool), u8 p1, bool p2) {
     func(p1,p2);
 	SET_BANK_SEGMENT(3, _old);
 }
+
+// +++ Call void function with 1 u16 parameter +++
+void CallFnc_VOID_16_P1(u8 segment, void (*func)(u16), u16 p1) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1);
+	SET_BANK_SEGMENT(3, _old);
+}
+
 // +++ Call void function with 2 u16 parameters +++
 void CallFnc_VOID_16_P2(u8 segment, void (*func)(u16,u16), u16 p1, u16 p2) {
 	u8 _old = GET_BANK_SEGMENT(3);

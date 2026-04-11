@@ -37,15 +37,15 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000034  _g_CHAR_16                         system
      0000006F  l__SEG6                         
      000002ED  l__DATA                         
-     00000AC5  l__SEG5                         
-     00001513  l__SEG4                         
-     0000256A  l__CODE                         
+     00000C6F  l__SEG5                         
+     0000157F  l__SEG4                         
+     000025C3  l__CODE                         
      00004000  s__CODE                         
-     0000656A  s__HOME                         
-     0000656A  s__INITIALIZER                  
-     0000656A  s__RODATA                       
-     00006575  s__GSFINAL                      
-     00006575  s__GSINIT                       
+     000065C3  s__HOME                         
+     000065C3  s__INITIALIZER                  
+     000065C3  s__RODATA                       
+     000065CE  s__GSFINAL                      
+     000065CE  s__GSINIT                       
      0000C000  s__DATA                         
      0000C2ED  s__INITIALIZED                  
      0000C2F8  s__BSEG                         
@@ -288,7 +288,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    000025C3 =        9667. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -303,171 +303,172 @@ _CODE                               00004000    0000256A =        9578. bytes (R
      0000431E  _CallFnc_VOID_P1                   soccerlg
      00004372  _CallFnc_VOID_U8U16U16             soccerlg
      000043DE  _CallFnc_VOID_P2                   soccerlg
-     00004437  _CallFnc_VOID_16_P2                soccerlg
-     0000449F  _CallFnc_U8                        soccerlg
-     000044F0  _CallFnc_U8_P1                     soccerlg
-     00004546  _CallFnc_U16_P1                    soccerlg
-     0000459A  _CallFnc_U8_P2                     soccerlg
-     000045F5  _CallFnc_BOOL                      soccerlg
-     00004646  _CallFnc_BOOL_P1                   soccerlg
-     0000469C  _SetTeamColors                     soccerlg
-     000046F7  _AddLines                          soccerlg
-     000047E4  _CallSpriteFrame                   soccerlg
-     00004800  SpriteFrame                        soccerlg
-     00004834  _VSyncCallback                     soccerlg
-     00004870  _dummy                             soccerlg
-     00004878  _WaitForVBlank                     soccerlg
-     00004884  _LoadField                         soccerlg
-     0000493C  _main                              soccerlg
-     00004C42  __divuchar                         
-     00004C44  __divu8                            
-     00004C47  __divu16                           
-     00004C47  __divuint                          
-     00004C76  _Print_MergeColor                  print
-     00004C8D  _g_HexChar                         print
-     00004C9D  _Print_Initialize                  print
-     00004D05  _Print_SetMode                     print
-     00004D2F  _Print_SetFont                     print
-     00004E09  _Print_InitColorBuffer             print
-     00004E33  _Print_SetColor                    print
-     00004E70  _Print_SetColorShade               print
-     00004E95  _Print_SetBitmapFont               print
-     00004E9F  _DrawChar_4B                       print
-     00004FAB  _DrawChar_Trans                    print
-     000050AE  _Print_Clear                       print
-     000050EA  _Print_Backspace                   print
-     0000519B  _Print_DrawChar                    print
-     000051AC  _Print_DrawCharX                   print
-     000051BE  _Print_DrawText                    print
-     00005222  _Print_DrawBin8                    print
-     00005245  _Print_DrawHex8                    print
-     0000526B  _Print_DrawHex16                   print
+     00004437  _CallFnc_VOID_16_P1                soccerlg
+     00004490  _CallFnc_VOID_16_P2                soccerlg
+     000044F8  _CallFnc_U8                        soccerlg
+     00004549  _CallFnc_U8_P1                     soccerlg
+     0000459F  _CallFnc_U16_P1                    soccerlg
+     000045F3  _CallFnc_U8_P2                     soccerlg
+     0000464E  _CallFnc_BOOL                      soccerlg
+     0000469F  _CallFnc_BOOL_P1                   soccerlg
+     000046F5  _SetTeamColors                     soccerlg
+     00004750  _AddLines                          soccerlg
+     0000483D  _CallSpriteFrame                   soccerlg
+     00004859  SpriteFrame                        soccerlg
+     0000488D  _VSyncCallback                     soccerlg
+     000048C9  _dummy                             soccerlg
+     000048D1  _WaitForVBlank                     soccerlg
+     000048DD  _LoadField                         soccerlg
+     00004995  _main                              soccerlg
+     00004C9B  __divuchar                         
+     00004C9D  __divu8                            
+     00004CA0  __divu16                           
+     00004CA0  __divuint                          
+     00004CCF  _Print_MergeColor                  print
+     00004CE6  _g_HexChar                         print
+     00004CF6  _Print_Initialize                  print
+     00004D5E  _Print_SetMode                     print
+     00004D88  _Print_SetFont                     print
+     00004E62  _Print_InitColorBuffer             print
+     00004E8C  _Print_SetColor                    print
+     00004EC9  _Print_SetColorShade               print
+     00004EEE  _Print_SetBitmapFont               print
+     00004EF8  _DrawChar_4B                       print
+     00005004  _DrawChar_Trans                    print
+     00005107  _Print_Clear                       print
+     00005143  _Print_Backspace                   print
+     000051F4  _Print_DrawChar                    print
+     00005205  _Print_DrawCharX                   print
+     00005217  _Print_DrawText                    print
+     0000527B  _Print_DrawBin8                    print
+     0000529E  _Print_DrawHex8                    print
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    000025C3 =        9667. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005276  _Print_DrawInt                     print
-     00005302  _Print_DrawFormat                  print
-     00005641  _VDP_SetModeFlag                   vdp
-     0000566A  _VDP_SetModeText1                  vdp
-     00005681  _VDP_SetModeMultiColor             vdp
-     000056AA  _VDP_SetModeGraphic1               vdp
-     000056DB  _VDP_SetModeGraphic2               vdp
-     0000570D  _VDP_ClearVRAM                     vdp
-     00005748  _VDP_WriteVRAM_16K                 vdp
-     0000577F  _VDP_FillVRAM_16K                  vdp
-     000057A4  _VDP_ReadVRAM_16K                  vdp
-     000057DA  _VDP_Peek_16K                      vdp
-     000057EF  _VDP_Poke_16K                      vdp
-     00005807  _VDP_SetModeGraphic4               vdp
-     00005827  _VDP_ReadStatus                    vdp
-     0000583B  _VDP_SetAdjustOffset               vdp
-     00005845  _VDP_SetPalette                    vdp
-     00005854  _VDP_SetPaletteEntry               vdp
-     00005863  _VDP_WriteVRAM_128K                vdp
-     000058A6  _VDP_FillVRAM_128K                 vdp
-     000058E1  _VDP_ReadVRAM_128K                 vdp
-     00005929  _VDP_Poke_128K                     vdp
-     00005954  _VDP_Peek_128K                     vdp
-     00005977  _VDP_CommandWait                   vdp
-     00005990  _VPD_CommandSetupR32               vdp
-     000059C3  _VPD_CommandSetupR36               vdp
-     000059EE  _VPD_CommandWriteLoop              vdp
-     00005A16  _VDP_Initialize                    vdp
-     00005A32  _VDP_SetMode                       vdp
-     00005ADC  _VDP_GetVersion                    vdp
-     00005B2B  _VDP_RegWrite                      vdp
-     00005B37  _VDP_RegWriteBak                   vdp
-     00005B4A  _VDP_RegWriteBakMask               vdp
-     00005B69  _VDP_ReadDefaultStatus             vdp
-     00005B6C  _VDP_SetPage                       vdp
-     00005B7A  _VDP_SetLayoutTable                vdp
-     00005BDD  _VDP_SetColorTable                 vdp
-     00005C76  _VDP_SetPatternTable               vdp
-     00005CD6  _VDP_SetSpriteAttributeTable       vdp
-     00005D79  _VDP_SetSpritePatternTable         vdp
-     00005D98  _VDP_LoadSpritePattern             vdp
-     00005DC8  _VDP_SetSpriteSM1                  vdp
-     00005E0B  _VDP_SetSprite                     vdp
-     00005E46  _VDP_SetSpriteExMultiColor         vdp
-     00005EAA  _VDP_SetSpriteExUniColor           vdp
-     00005F0B  _VDP_SetSpritePosition             vdp
-     00005F3F  _VDP_SetSpritePositionX            vdp
-     00005F57  _VDP_SetSpritePositionY            vdp
-     00005F6E  _VDP_SetSpritePattern              vdp
-     00005F87  _VDP_SetSpriteColorSM1             vdp
-     00005FA1  _VDP_SetSpriteUniColor             vdp
+     000052C4  _Print_DrawHex16                   print
+     000052CF  _Print_DrawInt                     print
+     0000535B  _Print_DrawFormat                  print
+     0000569A  _VDP_SetModeFlag                   vdp
+     000056C3  _VDP_SetModeText1                  vdp
+     000056DA  _VDP_SetModeMultiColor             vdp
+     00005703  _VDP_SetModeGraphic1               vdp
+     00005734  _VDP_SetModeGraphic2               vdp
+     00005766  _VDP_ClearVRAM                     vdp
+     000057A1  _VDP_WriteVRAM_16K                 vdp
+     000057D8  _VDP_FillVRAM_16K                  vdp
+     000057FD  _VDP_ReadVRAM_16K                  vdp
+     00005833  _VDP_Peek_16K                      vdp
+     00005848  _VDP_Poke_16K                      vdp
+     00005860  _VDP_SetModeGraphic4               vdp
+     00005880  _VDP_ReadStatus                    vdp
+     00005894  _VDP_SetAdjustOffset               vdp
+     0000589E  _VDP_SetPalette                    vdp
+     000058AD  _VDP_SetPaletteEntry               vdp
+     000058BC  _VDP_WriteVRAM_128K                vdp
+     000058FF  _VDP_FillVRAM_128K                 vdp
+     0000593A  _VDP_ReadVRAM_128K                 vdp
+     00005982  _VDP_Poke_128K                     vdp
+     000059AD  _VDP_Peek_128K                     vdp
+     000059D0  _VDP_CommandWait                   vdp
+     000059E9  _VPD_CommandSetupR32               vdp
+     00005A1C  _VPD_CommandSetupR36               vdp
+     00005A47  _VPD_CommandWriteLoop              vdp
+     00005A6F  _VDP_Initialize                    vdp
+     00005A8B  _VDP_SetMode                       vdp
+     00005B35  _VDP_GetVersion                    vdp
+     00005B84  _VDP_RegWrite                      vdp
+     00005B90  _VDP_RegWriteBak                   vdp
+     00005BA3  _VDP_RegWriteBakMask               vdp
+     00005BC2  _VDP_ReadDefaultStatus             vdp
+     00005BC5  _VDP_SetPage                       vdp
+     00005BD3  _VDP_SetLayoutTable                vdp
+     00005C36  _VDP_SetColorTable                 vdp
+     00005CCF  _VDP_SetPatternTable               vdp
+     00005D2F  _VDP_SetSpriteAttributeTable       vdp
+     00005DD2  _VDP_SetSpritePatternTable         vdp
+     00005DF1  _VDP_LoadSpritePattern             vdp
+     00005E21  _VDP_SetSpriteSM1                  vdp
+     00005E64  _VDP_SetSprite                     vdp
+     00005E9F  _VDP_SetSpriteExMultiColor         vdp
+     00005F03  _VDP_SetSpriteExUniColor           vdp
+     00005F64  _VDP_SetSpritePosition             vdp
+     00005F98  _VDP_SetSpritePositionX            vdp
+     00005FB0  _VDP_SetSpritePositionY            vdp
+     00005FC7  _VDP_SetSpritePattern              vdp
+     00005FE0  _VDP_SetSpriteColorSM1             vdp
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000256A =        9578. bytes (REL,CON)
+_CODE                               00004000    000025C3 =        9667. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005FBE  _VDP_SetSpriteMultiColor           vdp
-     00005FDC  _VDP_SetSpriteData                 vdp
-     00005FF8  _VDP_DisableSpritesFrom            vdp
-     00006009  _VDP_LoadPattern_GM2               vdp
-     0000607F  _VDP_LoadColor_GM2                 vdp
-     000060F5  _VDP_WriteLayout_GM2               vdp
-     00006160  _VDP_FillLayout_GM2                vdp
-     000061B6  _Bios_Exit                         bios
-     000061BE  _Bios_SetHookCallback              bios
-     000061DD  _Bios_InterSlotRead                bios
-     000061E2  _Bios_InterSlotWrite               bios
-     000061F7  _Bios_InterSlotCall                bios
-     00006209  _Bios_SwitchSlot                   bios
-     00006214  _Bios_WriteVDP                     bios
-     0000621A  _Bios_WriteVRAM                    bios
-     00006229  _Bios_FillVRAM                     bios
-     0000623A  _Bios_TransfertVRAMtoRAM           bios
-     0000624C  _Bios_TransfertRAMtoVRAM           bios
-     0000625E  _Bios_ChangeColor                  bios
-     00006277  _Bios_InitScreen0Ex                bios
-     000062A7  _Bios_InitScreen1Ex                bios
-     000062F2  _Bios_InitScreen2Ex                bios
-     0000633D  _Bios_InitScreen3Ex                bios
-     00006388  _Bios_GetPatternTableAddress       bios
-     0000638D  _Bios_GetAttributeTableAddress     bios
-     00006392  _Bios_GraphPrintCharEx             bios
-     000063B9  _Bios_WritePSG                     bios
-     000063BE  _Bios_HasCharacter                 bios
-     000063C9  _Bios_ClearScreen                  bios
-     000063CE  _Bios_SetCursorPosition            bios
-     000063D3  _DEBUG_INIT                        debug
-     000063D4  _DEBUG_BREAK                       debug
-     000063D9  _DEBUG_ASSERT                      debug
-     000063DF  _DEBUG_LOG                         debug
-     000063ED  _DEBUG_LOGNUM                      debug
-     00006413  _DEBUG_PRINT                       debug
-     00006422  ___sdcc_call_hl                    
-     00006423  ___sdcc_call_iy                    
-     00006425  _Sys_GetPageSlot                   system
-     00006478  _Sys_SetPageSlot                   system
-     00006479  _Sys_SetPage0Slot                  system
-     000064BE  _Sys_CheckSlot                     system
-     00006522  __modschar                         
-     0000652A  __modsint                          
-     00006530  __divschar                         
-     00006532  __div8                             
-     00006536  __div_signexte                     
-     0000653A  __div16                            
-     0000653A  __divsint                          
-     00006560  __get_remainder                    
+     00005FFA  _VDP_SetSpriteUniColor             vdp
+     00006017  _VDP_SetSpriteMultiColor           vdp
+     00006035  _VDP_SetSpriteData                 vdp
+     00006051  _VDP_DisableSpritesFrom            vdp
+     00006062  _VDP_LoadPattern_GM2               vdp
+     000060D8  _VDP_LoadColor_GM2                 vdp
+     0000614E  _VDP_WriteLayout_GM2               vdp
+     000061B9  _VDP_FillLayout_GM2                vdp
+     0000620F  _DEBUG_INIT                        debug
+     00006210  _DEBUG_BREAK                       debug
+     00006215  _DEBUG_ASSERT                      debug
+     0000621B  _DEBUG_LOG                         debug
+     00006229  _DEBUG_LOGNUM                      debug
+     0000624F  _DEBUG_PRINT                       debug
+     0000625E  _Bios_Exit                         bios
+     00006266  _Bios_SetHookCallback              bios
+     00006285  _Bios_InterSlotRead                bios
+     0000628A  _Bios_InterSlotWrite               bios
+     0000629F  _Bios_InterSlotCall                bios
+     000062B1  _Bios_SwitchSlot                   bios
+     000062BC  _Bios_WriteVDP                     bios
+     000062C2  _Bios_WriteVRAM                    bios
+     000062D1  _Bios_FillVRAM                     bios
+     000062E2  _Bios_TransfertVRAMtoRAM           bios
+     000062F4  _Bios_TransfertRAMtoVRAM           bios
+     00006306  _Bios_ChangeColor                  bios
+     0000631F  _Bios_InitScreen0Ex                bios
+     0000634F  _Bios_InitScreen1Ex                bios
+     0000639A  _Bios_InitScreen2Ex                bios
+     000063E5  _Bios_InitScreen3Ex                bios
+     00006430  _Bios_GetPatternTableAddress       bios
+     00006435  _Bios_GetAttributeTableAddress     bios
+     0000643A  _Bios_GraphPrintCharEx             bios
+     00006461  _Bios_WritePSG                     bios
+     00006466  _Bios_HasCharacter                 bios
+     00006471  _Bios_ClearScreen                  bios
+     00006476  _Bios_SetCursorPosition            bios
+     0000647B  ___sdcc_call_hl                    
+     0000647C  ___sdcc_call_iy                    
+     0000647E  _Sys_GetPageSlot                   system
+     000064D1  _Sys_SetPageSlot                   system
+     000064D2  _Sys_SetPage0Slot                  system
+     00006517  _Sys_CheckSlot                     system
+     0000657B  __modschar                         
+     00006583  __modsint                          
+     00006589  __divschar                         
+     0000658B  __div8                             
+     0000658F  __div_signexte                     
+     00006593  __div16                            
+     00006593  __divsint                          
+     000065B9  __get_remainder                    
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        0000656A    0000000B =          11. bytes (REL,CON)
+_INITIALIZER                        000065C3    0000000B =          11. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -476,11 +477,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00006575    00000000 =           0. bytes (REL,CON)
+_GSFINAL                            000065CE    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006575  _g_LastAddr                        crt0
+     000065CE  _g_LastAddr                        crt0
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
@@ -546,22 +547,24 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    00001513 =        5395. bytes (REL,CON)
+_SEG4                               0004A000    0000157F =        5503. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0004A000  _EventPlayerFirstPresentationSta   soccerlg_s4_b3
+     0004A000  _EventStartPresentationScrollig    soccerlg_s4_b3
      0004A001  _g_Fonts                           soccerlg_s4_b3
-     0004A2F5  _EventKickOffReady                 soccerlg_s4_b3
-     0004A2F6  _GetPlayerAnimFrame                soccerlg_s4_b3
-     0004A74F  _UpdateGameState                   soccerlg_s4_b3
-     0004AB84  _MainLoop                          soccerlg_s4_b3
+     0004A2F5  _EventPlayerFirstPresentationSta   soccerlg_s4_b3
+     0004A2F6  _EventKickOffReady                 soccerlg_s4_b3
+     0004A303  _GetPlayerAnimFrame                soccerlg_s4_b3
+     0004A75C  _UpdateGameState                   soccerlg_s4_b3
+     0004ABED  _MainLoop                          soccerlg_s4_b3
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00000AC5 =        2757. bytes (REL,CON)
+_SEG5                               0005A000    00000C6F =        3183. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -573,6 +576,8 @@ _SEG5                               0005A000    00000AC5 =        2757. bytes (R
      0005A857  _PrintScoreBoardRight              soccerlg_s5_b3
      0005A97C  _SetBallSprite                     soccerlg_s5_b3
      0005A990  _IsBallForeground                  soccerlg_s5_b3
+     0005AAC5  _ShowSpriteMessage                 soccerlg_s5_b3
+     0005AC4D  _HideSpriteMessage                 soccerlg_s5_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
@@ -610,9 +615,9 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
                                           [ vdp.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
-                                          [ bios.rel ]
-E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
                                           [ debug.rel ]
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
+                                          [ bios.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ __sdcc_call_hl.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
