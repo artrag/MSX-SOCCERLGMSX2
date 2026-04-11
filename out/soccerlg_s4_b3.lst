@@ -483,7 +483,7 @@
     00000107 21r18r01         [10]  483 	ld	hl, #(_SwSprite + 280)
     0000010A 36 78            [10]  484 	ld	(hl), #0x78
                                     485 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1016: SwSprite[14].ly = BALL_START_Y;
-    0000010C 21 02 01         [10]  486 	ld	hl, #0x0102
+    0000010C 21 00 01         [10]  486 	ld	hl, #0x0100
     0000010F 22r1Cr01         [16]  487 	ld	((_SwSprite + 284)), hl
                                     488 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1017: SwSprite[14].frame = SPR_BALL_SIZE_1; // Sprite base della palla
     00000112 21 60 00         [10]  489 	ld	hl, #0x0060

@@ -483,7 +483,7 @@ _MainLoop::
 	ld	hl, #(_SwSprite + 280)
 	ld	(hl), #0x78
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1016: SwSprite[14].ly = BALL_START_Y;
-	ld	hl, #0x0102
+	ld	hl, #0x0100
 	ld	((_SwSprite + 284)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1017: SwSprite[14].frame = SPR_BALL_SIZE_1; // Sprite base della palla
 	ld	hl, #0x0060

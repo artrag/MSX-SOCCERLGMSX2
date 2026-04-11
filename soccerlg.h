@@ -216,7 +216,7 @@ struct ObjectInfo {
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
 
 #define BALL_START_X                                120
-#define BALL_START_Y                                258
+#define BALL_START_Y                                256
 
 #define SCREEN_LINES            212     // righe visibili Screen 5
 #define BANK3_BASE              0xA000
