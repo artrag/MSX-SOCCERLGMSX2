@@ -41,8 +41,8 @@ Symbol Table
   7 _UpdateGameState                                                0000075C GR
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
-  7 ___str_0                                                        0000157A R
-  7 ___str_1                                                        0000157D R
+  7 ___str_0                                                        000016D2 R
+  7 ___str_1                                                        000016D5 R
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -309,7 +309,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size     157F   flags    0
+   7 _SEG4                                      size     16D7   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

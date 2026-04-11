@@ -38,7 +38,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000006F  l__SEG6                         
      000002ED  l__DATA                         
      00000C6F  l__SEG5                         
-     0000157F  l__SEG4                         
+     000016D7  l__SEG4                         
      000025C3  l__CODE                         
      00004000  s__CODE                         
      000065C3  s__HOME                         
@@ -547,7 +547,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    0000157F =        5503. bytes (REL,CON)
+_SEG4                               0004A000    000016D7 =        5847. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

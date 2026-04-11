@@ -1236,9 +1236,8 @@ void MainLoop(){
 		if (!ball_fg && OnScreen(SwSprite[14].y1)) 
 			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
 
-		for (u8 i=0; i<NumSprite;i++) 
+		for (u8 i=0; i<14;i++) 
 		{
-			if (i == 14) continue;
 			// scrivo 	1
 			if OnScreen(SwSprite[i].y1) 
 				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
@@ -1246,6 +1245,13 @@ void MainLoop(){
 
 		if (ball_fg && OnScreen(SwSprite[14].y1)) 
 			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
+
+		for (u8 i=15; i<NumSprite;i++) 
+		{
+			// scrivo 	1 (messaggi)
+			if OnScreen(SwSprite[i].y1) 
+				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
+		}
 
 		// cancello 2	 scrivo 	1
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
@@ -1281,9 +1287,8 @@ void MainLoop(){
 		if (!ball_fg && OnScreen(SwSprite[14].y2)) 
 			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
 
-		for (u8 i=0; i<NumSprite;i++) 
+		for (u8 i=0; i<14;i++) 
 		{
-			if (i == 14) continue;
 			// scrivo 	2 
 			if OnScreen(SwSprite[i].y2) 
 				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
@@ -1291,6 +1296,13 @@ void MainLoop(){
 
 		if (ball_fg && OnScreen(SwSprite[14].y2)) 
 			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
+
+		for (u8 i=15; i<NumSprite;i++) 
+		{
+			// scrivo 	2 (messaggi)
+			if OnScreen(SwSprite[i].y2) 
+				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
+		}
 
 		// cancello 0	 scrivo 	2
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
@@ -1327,9 +1339,8 @@ void MainLoop(){
 		if (!ball_fg && OnScreen(SwSprite[14].y0)) 
 			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
 
-		for (u8 i=0; i<NumSprite;i++) 
+		for (u8 i=0; i<14;i++) 
 		{
-			if (i == 14) continue;
 			// scrivo 	0	
 			if OnScreen(SwSprite[i].y0) 
 				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
@@ -1337,6 +1348,13 @@ void MainLoop(){
 
 		if (ball_fg && OnScreen(SwSprite[14].y0)) 
 			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
+
+		for (u8 i=15; i<NumSprite;i++) 
+		{
+			// scrivo 	0 (messaggi)
+			if OnScreen(SwSprite[i].y0) 
+				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
+		}
 
 		// cancello 1	scrivo 	0
 		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
