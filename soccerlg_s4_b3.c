@@ -1051,18 +1051,28 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
 			SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
 			SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
-			SwSprite[3].tx = 104; SwSprite[3].ty = 240;  
-			SwSprite[4].tx = 136; SwSprite[4].ty = 240;  
 			SwSprite[5].tx = 40;  SwSprite[5].ty = 180;  
 			SwSprite[6].tx = 200; SwSprite[6].ty = 180;  
 
 			SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
 			SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
 			SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
-			SwSprite[10].tx= 104; SwSprite[10].ty= 272;  
-			SwSprite[11].tx= 136; SwSprite[11].ty= 272;  
 			SwSprite[12].tx= 40;  SwSprite[12].ty= 332;  
 			SwSprite[13].tx= 200; SwSprite[13].ty= 332;  
+
+			if (KickOffTeam == TEAM_1) {
+				// Team 1 batte nel cerchio, Team 2 attende fuori
+				SwSprite[3].tx = 112; SwSprite[3].ty = 244;
+				SwSprite[4].tx = 128; SwSprite[4].ty = 244;
+				SwSprite[10].tx= 100; SwSprite[10].ty= 300;
+				SwSprite[11].tx= 140; SwSprite[11].ty= 300;
+			} else {
+				// Team 2 batte nel cerchio, Team 1 attende fuori
+				SwSprite[3].tx = 100; SwSprite[3].ty = 228;
+				SwSprite[4].tx = 140; SwSprite[4].ty = 228;
+				SwSprite[10].tx= 112; SwSprite[10].ty= 268;
+				SwSprite[11].tx= 128; SwSprite[11].ty= 268;
+			}
 		}
 	} else if (*game_state == 2) {
 		bool all_in_position = TRUE;
@@ -1086,8 +1096,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				const u8 walk_seq[4] = {0, 1, 2, 1}; // 1->2->3->2->1...
 				p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 			} else {
+				i8 dir_x = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
+				i8 dir_y = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
 				p->dx = 0; p->dy = 0;
-				p->frame = (i < 7) ? ((i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH) : ((i == 7) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH);
+				p->frame = GetPlayerAnimFrame(i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
 			}
 		}
 		if (all_in_position) *game_state = 3;
