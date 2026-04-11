@@ -27,7 +27,7 @@ const c8 g_Palette[] = {
     0x03, 0x00, // [5]  #000C7B  Blu scuro (Maglietta squadra 2)
     0x00, 0x05, // [6]  #00B800  Verde (Campo)
     0x33, 0x03, // [7]  #7F7F7F  Grigio  (Campo)
-    0x62, 0x04, // [8]  #DD9C48  Arancione (Maglietta portieri)
+    0x55, 0x02, // [8]  #A349A4  Viola (Maglietta portieri)
     0x45, 0x06, // [9]  #E18AC4  Rosa (Pantaloncini squadra 2)
     0x40, 0x00, // [A]  #880015  Marrone (Righe squadra 1)
     0x26, 0x05, // [B]  #4CB7DA  Celeste (Maglietta squadra 1)
