@@ -411,15 +411,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					receivers[i] = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
 					
 					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
-					if (triggers[i] && Ball->anim == 0) {
-						// Il giocatore ha premuto il trigger -> tenta il passaggio
-					// Ricalcola il ricevitore al momento del trigger (caso: trigger da lontano)
-					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
-					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
-					u8 receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
-					
+					if (triggers[i]) {
+						// Il giocatore ha premuto il trigger -> SEMPRE tenta il passaggio se c'è un ricevitore
+						u8 receiver = receivers[i];
+						
 						if (receiver != 0xFF) {
-							// === PASSAGGIO DIRETTO AL DESTINATARIO CON INTERPOLAZIONE ===
+							// === PASSAGGIO DIRETTO AL DESTINATARIO - FORZA PASSAGGIO ===
+							// Resetta lo stato della palla prima di lanciare il passaggio
+							Ball->anim = 0;
+							Ball->count = 0;
+							
 							g_pass_start_x = Carrier->lx;
 							g_pass_start_y = Carrier->ly;
 							g_pass_target_x = SwSprite[receiver].lx;
@@ -433,8 +434,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							Ball->dx = Ball->dy = 0; // Non usato nel passaggio, ma azzera lo stato
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
-					} else if (Ball->dx != c_dx || Ball->dy != c_dy) {
-						// Cambio direzione: riposiziona la palla davanti ruotandola, mantieni l'animazione
+					} else if (Ball->anim == 0 && (Ball->dx != c_dx || Ball->dy != c_dy)) {
+						// Cambio direzione: riposiziona la palla davanti ruotandola
 						u8 cur_dist = (u8)((dist_x > dist_y) ? dist_x : dist_y);
 						if (cur_dist > 12) cur_dist = 12; // Evita di "spararla" troppo lontano
 						
@@ -446,18 +447,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						Ball->dy = c_dy;
 						Ball->lx = (u8)(Carrier->lx + off_x);
 						Ball->ly = (Carrier->ly + off_y) & 511;
-					} else {
+					} else if (Ball->anim == 0) {
 						// Stessa direzione: se la palla è ai piedi, dalle un calcetto
-						if (Ball->anim == 0) {
-							i8 off_x = 0; i8 off_y = 4;
-							if (c_dx > 0) off_x = 6; else if (c_dx < 0) off_x = -6;
-							if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
-							
-							Ball->lx = (u8)(Carrier->lx + off_x);
-							Ball->ly = (Carrier->ly + off_y) & 511;
-							Ball->anim = 4; 
-							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
-						}
+						i8 off_x = 0; i8 off_y = 4;
+						if (c_dx > 0) off_x = 6; else if (c_dx < 0) off_x = -6;
+						if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
+						
+						Ball->lx = (u8)(Carrier->lx + off_x);
+						Ball->ly = (Carrier->ly + off_y) & 511;
+						Ball->anim = 4; 
+						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 					}
 				}
 		}

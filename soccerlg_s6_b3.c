@@ -248,19 +248,33 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 		if (dist > max_dist) continue;
 
 		// Filtro cono visivo direzionale:
-		// Per movimenti diagonali (c_dx != 0 && c_dy != 0), la Y è primaria
-		// Non filtrare sulla X se è una diagonale - permetti più libertà
+		// Permetti deviazioni piccole dalla direzione principale (~32 pixel)
+		bool is_south = (dy_diff_16 < 256);
+		u16 deviation_y = dy_diff_16 < 256 ? dy_diff_16 : (512 - dy_diff_16);
+		u8 deviation_x_u8 = dx_diff < 128 ? dx_diff : (256 - dx_diff);
+		u16 deviation_x = deviation_x_u8;
+		
 		if (c_dy != 0) {
-			// Controlla sempre la direzione Y (primaria per diagonali e movimenti verticali)
-			bool is_south = (dy_diff_16 < 256);
-			if (c_dy > 0 && !is_south) continue; // Cerca a SUD, ma 'i' è a NORD
-			if (c_dy < 0 && is_south) continue; // Cerca a NORD, ma 'i' è a SUD
+			// Movimento verticale: controlla Y primaria, tollerante su X se deviazione piccola
+			if (c_dy > 0 && !is_south) {
+				// Cerchi a SUD ma è a NORD: scarta solo se lontano lateralmente
+				if (deviation_x > 40) continue;
+			}
+			if (c_dy < 0 && is_south) {
+				// Cerchi a NORD ma è a SUD: scarta solo se lontano lateralmente
+				if (deviation_x > 40) continue;
+			}
 		} else if (c_dx != 0) {
-			// Solo movimento orizzontale: filtra per X
-			if (c_dx > 0 && dx_diff > 128) continue; // Cerca a DX, ma 'i' è a SX
-			if (c_dx < 0 && dx_diff < 128 && dx_diff != 0) continue; // Cerca a SX, ma 'i' è a DX
-		} else {
-			// Fermo (c_dx == 0 && c_dy == 0): cerca il più vicino assoluto
+			// Movimento orizzontale: controlla X primaria, tollerante su Y se deviazione piccola
+			bool is_right = (dx_diff < 128);
+			if (c_dx > 0 && !is_right) {
+				// Cerchi a DX ma è a SX: scarta solo se lontano verticalmente
+				if (deviation_y > 40) continue;
+			}
+			if (c_dx < 0 && is_right) {
+				// Cerchi a SX ma è a DX: scarta solo se lontano verticalmente
+				if (deviation_y > 40) continue;
+			}
 		}
 
 		if (dist < min_dist) {
