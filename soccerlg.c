@@ -282,7 +282,7 @@ SpriteFrame::
 
 	srl d
 	rr  e
-	srl b 
+	rr  b 
 	ld  d,e
 	ld  e,b			; DE = (x + y*256)/2 & 0xFFFF
 

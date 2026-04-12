@@ -2233,7 +2233,7 @@
     000007F1 67               [ 4] 2233 	ld	h,a ;ld iyh,a ; save vram page in iyh
     000007F2 CB 3A            [ 8] 2234 	srl	d
     000007F4 CB 1B            [ 8] 2235 	rr	e
-    000007F6 CB 38            [ 8] 2236 	srl	b
+    000007F6 CB 18            [ 8] 2236 	rr	b
     000007F8 53               [ 4] 2237 	ld	d,e
     000007F9 58               [ 4] 2238 	ld	e,b ; DE = (x + y*256)/2 & 0xFFFF
     000007FA 69               [ 4] 2239 	ld	l,c

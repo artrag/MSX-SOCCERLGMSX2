@@ -1168,10 +1168,14 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		
 		// 1. Fisica della palla
 		if (Ball->anim > 0) {
-			// Velocità decrescente del tocco: 3, 2, 1, 1 (totale 7 pixel)
-			u8 speed = (Ball->anim == 4) ? 3 : (Ball->anim == 3) ? 2 : 1;
-			Ball->lx += Ball->dx * speed;
-			Ball->ly += Ball->dy * speed;
+			// Velocità decrescente: 5, 4, 3, 2 (totale 14 pixel). Supera i 2 px del portatore per staccarsi visibilmente!
+			u8 speed = Ball->anim + 1;
+			if (Ball->dx > 0) Ball->lx += speed;
+			else if (Ball->dx < 0) Ball->lx -= speed;
+			
+			if (Ball->dy > 0) Ball->ly += speed;
+			else if (Ball->dy < 0) Ball->ly -= speed;
+			
 			Ball->anim--;
 		}
 
@@ -1209,28 +1213,43 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				const u8 walk_seq[4] = {0, 1, 2, 1}; 
 				Carrier->frame = GetPlayerAnimFrame(carrier, Carrier->dx, Carrier->dy, walk_seq[(Carrier->anim / 3) % 4]);
 				
-				u16 dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
-				u16 dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
+				// Calcolo della distanza assoluta con supporto al wrapping circolare (256 per X, 512 per Y)
+				u8 dx_diff = (u8)(Carrier->lx - Ball->lx);
+				u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+				u16 dy_diff = (u16)(Carrier->ly - Ball->ly) & 511;
+				u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
 				
-				// Se il portatore tocca la palla e la palla è ferma, la spinge in avanti
-				if (dist_x <= 6 && dist_y <= 6 && Ball->anim == 0) {
-					Ball->dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
-					Ball->dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+				// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
+				if (dist_x <= 24 && dist_y <= 24) {
+					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
+					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
 					
-					// Allinea dinamicamente la palla al corpo/piedi del giocatore
-					i8 off_x = 0;
-					i8 off_y = 4;
-					if (Ball->dx > 0) off_x = 6;
-					else if (Ball->dx < 0) off_x = -6;
-					
-					if (Ball->dy > 0) off_y = 6;
-					else if (Ball->dy < 0) off_y = 2;
-					
-					Ball->lx = Carrier->lx + off_x;
-					Ball->ly = Carrier->ly + off_y;
-
-					Ball->anim = 4; // Innesca 4 frame di allungo in avanti della palla
-					CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+					if (Ball->dx != c_dx || Ball->dy != c_dy) {
+						// Cambio direzione: riposiziona la palla davanti ruotandola, mantieni l'animazione
+						u8 cur_dist = (u8)((dist_x > dist_y) ? dist_x : dist_y);
+						if (cur_dist > 12) cur_dist = 12; // Evita di "spararla" troppo lontano
+						
+						i8 off_x = 0; i8 off_y = 4;
+						if (c_dx > 0) off_x = 6 + cur_dist; else if (c_dx < 0) off_x = -6 - cur_dist;
+						if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = 2 - cur_dist;
+						
+						Ball->dx = c_dx;
+						Ball->dy = c_dy;
+						Ball->lx = (u8)(Carrier->lx + off_x);
+						Ball->ly = (Carrier->ly + off_y) & 511;
+					} else {
+						// Stessa direzione: se la palla è ai piedi, dalle un calcetto
+						if (Ball->anim == 0) {
+							i8 off_x = 0; i8 off_y = 4;
+							if (c_dx > 0) off_x = 6; else if (c_dx < 0) off_x = -6;
+							if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
+							
+							Ball->lx = (u8)(Carrier->lx + off_x);
+							Ball->ly = (Carrier->ly + off_y) & 511;
+							Ball->anim = 4; 
+							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						}
+					}
 				}
 			} else {
 				// Se è fermo, guarda la palla orientandosi verso di essa
