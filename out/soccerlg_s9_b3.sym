@@ -31,12 +31,14 @@ Symbol Table
   7 _GetPlayerIdleFrame                                             0000051F GR
     _Half                                                           ******** GX
     _HideSpriteMessage                                              ******** GX
+    _IsTeamJoystickTriggerPressed                                   ******** GX
     _KickOffTeam                                                    ******** GX
     _LastTouchTeam                                                  ******** GX
     _Mins                                                           ******** GX
     _PlayerAI                                                       ******** GX
     _PlotField                                                      ******** GX
     _Secs                                                           ******** GX
+    _SetBallSprite                                                  ******** GX
     _ShowSpriteMessage                                              ******** GX
     _SwSprite                                                       ******** GX
     _T1_Carrier                                                     ******** GX
@@ -46,9 +48,22 @@ Symbol Table
     _TimerEnabled                                                   ******** GX
     _UpdateFieldCamera                                              ******** GX
   7 _UpdateGameState                                                00000718 GR
+    __divsint                                                       ******** GX
     __divuint                                                       ******** GX
+    __mulint                                                        ******** GX
   8 __xinit__g_last_dx                                              00000000 R
   8 __xinit__g_last_dy                                              00000002 R
+  8 __xinit__g_pass_max_frames                                      0000000E R
+  8 __xinit__g_pass_start_x                                         00000006 R
+  8 __xinit__g_pass_start_y                                         00000008 R
+  8 __xinit__g_pass_target_x                                        0000000A R
+  8 __xinit__g_pass_target_y                                        0000000C R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+  8 __xinit__g_prev_trigger                                         00000004 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -58,11 +73,6 @@ Symbol Table
     _g_BASROM                                                   =   0000FBB1 G
     _g_BASRVN                                                   =   0000002B G
     _g_BDOS                                                     =   0000F37D G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_BDRCLR                                                   =   0000F3EB G
     _g_BOTTOM                                                   =   0000FC48 G
     _g_BRDATR                                                   =   0000FCB2 G
@@ -108,6 +118,11 @@ Symbol Table
     _g_FNKSWI                                                   =   0000FBCD G
     _g_FORCLR                                                   =   0000F3E9 G
     _g_FRCNEW                                                   =   0000F3F5 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_FSTPOS                                                   =   0000FBCA G
     _g_GETPNT                                                   =   0000F3FA G
     _g_GRPACX                                                   =   0000FCB7 G
@@ -118,11 +133,6 @@ Symbol Table
     _g_GRPHED                                                   =   0000FCA6 G
     _g_GRPNAM                                                   =   0000F3C7 G
     _g_GRPPAT                                                   =   0000F3CF G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_GXPOS                                                    =   0000FCB3 G
     _g_GYPOS                                                    =   0000FCB5 G
     _g_HEADER                                                   =   0000F40A G
@@ -168,6 +178,11 @@ Symbol Table
     _g_MSXMID                                                   =   0000002E G
     _g_MSXMusic_DataPort                                        =   0000007D 
     _g_MSXMusic_IndexPort                                       =   0000007C 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_MSXVER                                                   =   0000002D G
     _g_MUSICF                                                   =   0000FB3F G
     _g_NEWKEY                                                   =   0000FBE5 G
@@ -178,11 +193,6 @@ Symbol Table
     _g_OLDSTT                                                   =   0000FB0C G
     _g_ONGSBF                                                   =   0000FBD8 G
     _g_PADX                                                     =   0000FC9D G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_PADY                                                     =   0000FC9C G
     _g_PATWRK                                                   =   0000FC40 G
     _g_PLYCNT                                                   =   0000FB40 G
@@ -228,6 +238,11 @@ Symbol Table
     _g_RG22SAV                                                  =   0000FFF5 G
     _g_RG23SAV                                                  =   0000FFF6 G
     _g_RG25SAV                                                  =   0000FFFA G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_RG26SAV                                                  =   0000FFFB G
     _g_RG27SAV                                                  =   0000FFFC G
     _g_RG2SAV                                                   =   0000F3E1 G
@@ -238,11 +253,6 @@ Symbol Table
     _g_RG7SAV                                                   =   0000F3E6 G
     _g_ROMA                                                     =   0000FAFA G
     _g_ROMVersion                                               =   0000002B G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_RS2IQ                                                    =   0000FAF5 G
     _g_RSFCB                                                    =   0000FB04 G
     _g_RSIQLN                                                   =   0000FB06 G
@@ -288,6 +298,11 @@ Symbol Table
     _g_VDP_PalPort                                              =   0000009A 
     _g_VDP_RegPort                                              =   00000099 
     _g_VDP_StatPort                                             =   00000099 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_VOICAQ                                                   =   0000F975 G
     _g_VOICBQ                                                   =   0000F9F5 G
     _g_VOICCQ                                                   =   0000FA75 G
@@ -298,12 +313,12 @@ Symbol Table
     _g_YSAVE                                                    =   0000FB00 G
   2 _g_last_dx                                                      00000000 R
   2 _g_last_dy                                                      00000002 R
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
-Hexadecimal [32-Bits]
-
-Symbol Table
-
-
+  2 _g_pass_max_frames                                              0000000E R
+  2 _g_pass_start_x                                                 00000006 R
+  2 _g_pass_start_y                                                 00000008 R
+  2 _g_pass_target_x                                                0000000A R
+  2 _g_pass_target_y                                                0000000C R
+  2 _g_prev_trigger                                                 00000004 R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
@@ -312,12 +327,12 @@ Area Table
 
    0 _CODE                                      size        0   flags    0
    1 _DATA                                      size        0   flags    0
-   2 _INITIALIZED                               size        4   flags    0
+   2 _INITIALIZED                               size        F   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG9                                      size     1784   flags    0
-   8 _INITIALIZER                               size        4   flags    0
+   7 _SEG9                                      size     1BF0   flags    0
+   8 _INITIALIZER                               size        F   flags    0
    9 _CABS                                      size        0   flags    8
 

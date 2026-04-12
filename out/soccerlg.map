@@ -32,29 +32,29 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000002B  _g_ROMVersion                      system
      0000002D  _g_MSXVER                          system
      0000002E  _g_MSXMID                          system
-     00000033  l__INITIALIZED                  
-     00000033  l__INITIALIZER                  
      00000034  _g_CHAR_16                         system
      0000003C  l__SEG8                         
+     0000003E  l__INITIALIZED                  
+     0000003E  l__INITIALIZER                  
      00000135  l__SEG7                         
      000001DC  l__SEG10                        
      000002ED  l__DATA                         
      00000C7A  l__SEG5                         
      00000D9B  l__SEG4                         
-     00000FEB  l__SEG6                         
-     00001784  l__SEG9                         
-     00002963  l__CODE                         
+     000010E7  l__SEG6                         
+     00001BF0  l__SEG9                         
+     0000297A  l__CODE                         
      00004000  s__CODE                         
-     00006963  s__HOME                         
-     00006963  s__INITIALIZER                  
-     00006963  s__RODATA                       
-     00006996  s__GSFINAL                      
-     00006996  s__GSINIT                       
+     0000697A  s__HOME                         
+     0000697A  s__INITIALIZER                  
+     0000697A  s__RODATA                       
+     000069B8  s__GSFINAL                      
+     000069B8  s__GSINIT                       
      0000C000  s__DATA                         
      0000C2ED  s__INITIALIZED                  
-     0000C320  s__BSEG                         
-     0000C320  s__BSS                          
-     0000C320  s__HEAP                         
+     0000C32B  s__BSEG                         
+     0000C32B  s__BSS                          
+     0000C32B  s__HEAP                         
      0000F30F  _g_KANJTABLE                       bios
      0000F323  _g_DISKVE                          bios
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -297,7 +297,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002963 =       10595. bytes (REL,CON)
+_CODE                               00004000    0000297A =       10618. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -356,7 +356,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002963 =       10595. bytes (REL,CON)
+_CODE                               00004000    0000297A =       10618. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -416,7 +416,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002963 =       10595. bytes (REL,CON)
+_CODE                               00004000    0000297A =       10618. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -466,36 +466,38 @@ _CODE                               00004000    00002963 =       10595. bytes (R
      00006806  _Bios_HasCharacter                 bios
      00006811  _Bios_ClearScreen                  bios
      00006816  _Bios_SetCursorPosition            bios
-     0000681B  ___sdcc_call_hl                    
-     0000681C  ___sdcc_call_iy                    
-     0000681E  _Sys_GetPageSlot                   system
-     00006871  _Sys_SetPageSlot                   system
-     00006872  _Sys_SetPage0Slot                  system
+     0000681B  __mulint                           
+     0000681D  __mul16                            
+     00006832  ___sdcc_call_hl                    
+     00006833  ___sdcc_call_iy                    
+     00006835  _Sys_GetPageSlot                   system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002963 =       10595. bytes (REL,CON)
+_CODE                               00004000    0000297A =       10618. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000068B7  _Sys_CheckSlot                     system
-     0000691B  __modschar                         
-     00006923  __modsint                          
-     00006929  __divschar                         
-     0000692B  __div8                             
-     0000692F  __div_signexte                     
-     00006933  __div16                            
-     00006933  __divsint                          
-     00006959  __get_remainder                    
+     00006888  _Sys_SetPageSlot                   system
+     00006889  _Sys_SetPage0Slot                  system
+     000068CE  _Sys_CheckSlot                     system
+     00006932  __modschar                         
+     0000693A  __modsint                          
+     00006940  __divschar                         
+     00006942  __div8                             
+     00006946  __div_signexte                     
+     0000694A  __div16                            
+     0000694A  __divsint                          
+     00006970  __get_remainder                    
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        00006963    00000033 =          51. bytes (REL,CON)
+_INITIALIZER                        0000697A    0000003E =          62. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -504,11 +506,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00006996    00000000 =           0. bytes (REL,CON)
+_GSFINAL                            000069B8    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006996  _g_LastAddr                        crt0
+     000069B8  _g_LastAddr                        crt0
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
@@ -553,7 +555,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        0000C2ED    00000033 =          51. bytes (REL,CON)
+_INITIALIZED                        0000C2ED    0000003E =          62. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -575,7 +577,7 @@ _INITIALIZED                        0000C2ED    00000033 =          51. bytes (R
      0000C2FC  _TimerEnabled                      soccerlg
      0000C2FD  _LastTouchTeam                     soccerlg
      0000C2FE  _g_VSynch                          soccerlg
-     0000C31F  _g_VDPInitilized                   vdp
+     0000C32A  _g_VDPInitilized                   vdp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
@@ -614,7 +616,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    00000FEB =        4075. bytes (REL,CON)
+_SEG6                               0006A000    000010E7 =        4327. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -658,7 +660,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001784 =        6020. bytes (REL,CON)
+_SEG9                               0009A000    00001BF0 =        7152. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -717,6 +719,8 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
                                           [ input.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
                                           [ bios.rel ]
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
+                                          [ mul.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ __sdcc_call_hl.rel ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib

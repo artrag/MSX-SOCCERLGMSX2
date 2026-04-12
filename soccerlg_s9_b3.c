@@ -116,6 +116,14 @@ u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy)
 
 static i8 g_last_dx[2] = {0, 0};
 static i8 g_last_dy[2] = {1, -1};
+static u8 g_prev_trigger[2] = {0, 0}; // Traccia stato precedente del trigger
+
+// Pass flight waypoint storage for interpolation and scaling
+static u16 g_pass_start_x = 0;
+static u16 g_pass_start_y = 0;
+static u16 g_pass_target_x = 0;
+static u16 g_pass_target_y = 0;
+static u8 g_pass_max_frames = 10; // Pass flight duration
 
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
 {
@@ -262,23 +270,77 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		
 		// 1. Fisica della palla
 		if (Ball->anim > 0) {
-			// Velocità decrescente: 5, 4, 3, 2 (totale 14 pixel). Supera i 2 px del portatore per staccarsi visibilmente!
-			u8 speed = Ball->anim + 1;
-			if (Ball->dx > 0) Ball->lx += speed;
-			else if (Ball->dx < 0) Ball->lx -= speed;
-			
-			if (Ball->dy > 0) Ball->ly += speed;
-			else if (Ball->dy < 0) Ball->ly -= speed;
-			
-			Ball->anim--;
+			if (Ball->anim == 5) {
+				// === PASSAGGIO CON TRAIETTORIA INTERPOLATA E EFFETTO DI VOLO ===
+				u8 progress = Ball->count; // 0 = inizio da tiratore, max = fine verso ricevitore
+				u8 half_frame = g_pass_max_frames >> 1; // metà del percorso
+				
+				// Interpolazione lineare della posizione XY verso il destinatario
+				if (progress == 0) {
+					Ball->lx = g_pass_start_x;
+					Ball->ly = g_pass_start_y;
+				} else if (progress >= g_pass_max_frames) {
+					Ball->lx = g_pass_target_x;
+					Ball->ly = g_pass_target_y;
+				} else {
+					// Calcola la posizione interpolata: start + (target - start) * progress / max
+					i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
+					i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
+					Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
+					Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
+				}
+				
+				// Effetto di volo: scala da 1 a 8 (andata) e 8 a 1 (ritorno)
+				u8 scale;
+				if (progress <= half_frame) {
+					// Prima metà: scale da 1 a 8
+					scale = 1 + (progress * 7) / half_frame;
+				} else {
+					// Seconda metà: scale da 8 a 1
+					u8 progress_down = progress - half_frame;
+					scale = 8 - (progress_down * 7) / (g_pass_max_frames - half_frame);
+				}
+				if (scale > 7) scale = 7; // Clamp a 7 (SPR_BALL_SIZE_8 = SPR_BALL_SIZE_1 + 7)
+				CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
+				
+				Ball->count++;
+				if (Ball->count >= g_pass_max_frames) {
+					Ball->anim = 0; // Passaggio completato
+					Ball->count = 0;
+					Ball->dx = Ball->dy = 0;
+					CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); // Torna a scale 1
+				}
+			} else {
+				// Dribbling velocità decrescente: 5, 4, 3, 2 (totale 14 pixel). Supera i 2 px del portatore per staccarsi visibilmente!
+				u8 speed = Ball->anim + 1;
+				if (Ball->dx > 0) Ball->lx += speed;
+				else if (Ball->dx < 0) Ball->lx -= speed;
+				
+				if (Ball->dy > 0) Ball->ly += speed;
+				else if (Ball->dy < 0) Ball->ly -= speed;
+				
+				Ball->anim--;
+			}
 		}
 
 		// 2. Gestione portatori (Player 1 e Player 2)
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
+		u8 receivers[2] = {T1_Receiver, T2_Receiver};
 		u8 dirs[2] = { DIRECTION_NONE, DIRECTION_NONE };
+		bool triggers[2] = { FALSE, FALSE };
 		
-		if (T2_Carrier != 0xFF) dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0); // P1 controlla Team 2
-		if (T1_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1); // P2 controlla Team 1
+		if (T2_Carrier != 0xFF) {
+			dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0); // P1 controlla Team 2
+			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, 0);
+			if (cur_trig != 0 && g_prev_trigger[1] == 0) triggers[1] = TRUE;
+			g_prev_trigger[1] = cur_trig;
+		}
+		if (T1_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) {
+			dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1); // P2 controlla Team 1
+			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, 1);
+			if (cur_trig != 0 && g_prev_trigger[0] == 0) triggers[0] = TRUE;
+			g_prev_trigger[0] = cur_trig;
+		}
 
 		for (u8 i = 0; i < 2; i++) {
 			u8 carrier = carriers[i];
@@ -309,15 +371,19 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				Carrier->anim++;
 				const u8 walk_seq[4] = {0, 1, 2, 1}; 
 				Carrier->frame = GetPlayerAnimFrame(carrier, Carrier->dx, Carrier->dy, walk_seq[(Carrier->anim / 3) % 4]);
-				
-				// Calcolo della distanza assoluta con supporto al wrapping circolare (256 per X, 512 per Y)
-				u8 dx_diff = (u8)(Carrier->lx - Ball->lx);
-				u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-				u16 dy_diff = (u16)(Carrier->ly - Ball->ly) & 511;
-				u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
-				
-				// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
-				if (dist_x <= 24 && dist_y <= 24) {
+			} else {
+				// Se è fermo, usa l'ultima direzione di movimento per la posa di attesa
+				Carrier->frame = GetPlayerIdleFrame(carrier, g_last_dx[i], g_last_dy[i]);
+			}
+			
+			// Calcolo della distanza dalla palla (SEMPRE, sia che si muova che fermo)
+			u8 dx_diff = (u8)(Carrier->lx - Ball->lx);
+			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+			u16 dy_diff = (u16)(Carrier->ly - Ball->ly) & 511;
+			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+			
+			// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
+			if (dist_x <= 24 && dist_y <= 24) {
 					// Controllo Fuorigioco al momento della ricezione
 					bool offside = FALSE;
 					if (carrier < 7 && LastTouchTeam == TEAM_1) {
@@ -339,10 +405,35 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					
+					// Ricalcola il ricevitore adesso che il portatore ha la palla
 					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
 					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					receivers[i] = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
 					
-					if (Ball->dx != c_dx || Ball->dy != c_dy) {
+					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
+					if (triggers[i] && Ball->anim == 0) {
+						// Il giocatore ha premuto il trigger -> tenta il passaggio
+					// Ricalcola il ricevitore al momento del trigger (caso: trigger da lontano)
+					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
+					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					u8 receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
+					
+						if (receiver != 0xFF) {
+							// === PASSAGGIO DIRETTO AL DESTINATARIO CON INTERPOLAZIONE ===
+							g_pass_start_x = Carrier->lx;
+							g_pass_start_y = Carrier->ly;
+							g_pass_target_x = SwSprite[receiver].lx;
+							g_pass_target_y = SwSprite[receiver].ly;
+							g_pass_max_frames = 10; // Durata del passaggio in frame
+							
+							Ball->lx = g_pass_start_x;
+							Ball->ly = g_pass_start_y;
+							Ball->anim = 5; // Flag per passaggio
+							Ball->count = 0; // Inizio dell'interpolazione
+							Ball->dx = Ball->dy = 0; // Non usato nel passaggio, ma azzera lo stato
+							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						}
+					} else if (Ball->dx != c_dx || Ball->dy != c_dy) {
 						// Cambio direzione: riposiziona la palla davanti ruotandola, mantieni l'animazione
 						u8 cur_dist = (u8)((dist_x > dist_y) ? dist_x : dist_y);
 						if (cur_dist > 12) cur_dist = 12; // Evita di "spararla" troppo lontano
@@ -369,10 +460,6 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						}
 					}
 				}
-			} else {
-				// Se è fermo, usa l'ultima direzione di movimento per la posa di attesa
-				Carrier->frame = GetPlayerIdleFrame(carrier, g_last_dx[i], g_last_dy[i]);
-			}
 		}
 
 		// 3. Esegui AI per tutti gli altri giocatori (movimento e tattica senza palla)

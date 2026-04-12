@@ -232,7 +232,9 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 	u8 end_idx = start_idx + 6;
 	u8 best_match = 0xFF;
 	u16 min_dist = 0xFFFF;
+	u16 max_dist = 130; // Massima distanza per passaggi
 
+	// Ricerca 1: Cerca nel cono visivo direzionale
 	for (u8 i = start_idx; i < end_idx; i++) {
 		if (i == carrier || i == ignore_player) continue; 
 
@@ -242,13 +244,24 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 		u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
 		u16 dist = dx + dy; 
 
+		// Limite massimo distanza
+		if (dist > max_dist) continue;
+
 		// Filtro cono visivo direzionale:
-		if (c_dx > 0 && dx_diff > 128) continue; // Cerca a DX, ma 'i' è a SX
-		if (c_dx < 0 && dx_diff < 128 && dx_diff > 0) continue; // Cerca a SX, ma 'i' è a DX
-		
-		bool is_south = (dy_diff_16 < 256);
-		if (c_dy > 0 && !is_south) continue; // Cerca a SUD, ma 'i' è a NORD
-		if (c_dy < 0 && is_south) continue; // Cerca a NORD, ma 'i' è a SUD
+		// Per movimenti diagonali (c_dx != 0 && c_dy != 0), la Y è primaria
+		// Non filtrare sulla X se è una diagonale - permetti più libertà
+		if (c_dy != 0) {
+			// Controlla sempre la direzione Y (primaria per diagonali e movimenti verticali)
+			bool is_south = (dy_diff_16 < 256);
+			if (c_dy > 0 && !is_south) continue; // Cerca a SUD, ma 'i' è a NORD
+			if (c_dy < 0 && is_south) continue; // Cerca a NORD, ma 'i' è a SUD
+		} else if (c_dx != 0) {
+			// Solo movimento orizzontale: filtra per X
+			if (c_dx > 0 && dx_diff > 128) continue; // Cerca a DX, ma 'i' è a SX
+			if (c_dx < 0 && dx_diff < 128 && dx_diff != 0) continue; // Cerca a SX, ma 'i' è a DX
+		} else {
+			// Fermo (c_dx == 0 && c_dy == 0): cerca il più vicino assoluto
+		}
 
 		if (dist < min_dist) {
 			min_dist = dist;
@@ -256,6 +269,23 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 		}
 	}
 
+	// Fallback 1: Se nessuno trovato nel cono, prendi il più vicino assoluto entro max_dist
+	if (best_match == 0xFF) {
+		for (u8 i = start_idx; i < end_idx; i++) {
+			if (i == carrier || i == ignore_player) continue;
+			u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
+			u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+			u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
+			u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
+			u16 dist = dx + dy;
+			if (dist <= max_dist && dist < min_dist) {
+				min_dist = dist;
+				best_match = i;
+			}
+		}
+	}
+
+	// Fallback 2: Se ancora nessuno, prendi il più vicino senza limite (escluso il portiere)
 	if (best_match == 0xFF) {
 		for (u8 i = start_idx; i < end_idx; i++) {
 			if (i == carrier || i == ignore_player) continue;
@@ -270,5 +300,6 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 			}
 		}
 	}
+
 	return best_match;
 }
