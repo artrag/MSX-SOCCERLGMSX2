@@ -73,8 +73,8 @@ struct TeamColors {
 #define SPR_T1_PLAYER_THROWIN_FROM_WEST_1			32
 #define SPR_T1_PLAYER_THROWIN_FROM_WEST_2			33
 #define SPR_T1_PLAYER_THROWIN_FROM_WEST_3			34
-#define SPR_T1_PLAYER_FACE_TO_NORTH 				6
-#define SPR_T1_PLAYER_FACE_TO_SOUTH 				5
+#define SPR_T1_PLAYER_FACE_TO_NORTH 				20
+#define SPR_T1_PLAYER_FACE_TO_SOUTH 				1
 #define SPR_T1_PLAYER_FACE_TO_EAST 					26
 #define SPR_T1_PLAYER_FACE_TO_WEST 					27
 #define SPR_T1_PLAYER_FACE_TO_NORTH_EAST 			15
@@ -121,8 +121,8 @@ struct TeamColors {
 #define SPR_T2_PLAYER_THROWIN_FROM_WEST_1       	144
 #define SPR_T2_PLAYER_THROWIN_FROM_WEST_2       	145
 #define SPR_T2_PLAYER_THROWIN_FROM_WEST_3       	146
-#define SPR_T2_PLAYER_FACE_TO_NORTH             	118
-#define SPR_T2_PLAYER_FACE_TO_SOUTH             	117
+#define SPR_T2_PLAYER_FACE_TO_NORTH             	131
+#define SPR_T2_PLAYER_FACE_TO_SOUTH             	112
 #define SPR_T2_PLAYER_FACE_TO_EAST              	138
 #define SPR_T2_PLAYER_FACE_TO_WEST              	139
 #define SPR_T2_PLAYER_FACE_TO_NORTH_EAST        	127
@@ -281,6 +281,7 @@ struct TeamColors {
 #define SEG_LOGIC 	6
 #define SEG_INPUT 	7
 #define SEG_EVENTS  8
+#define SEG_GAMESTATE 9
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -343,6 +344,7 @@ void CallFnc_VOID(u8 bank, void (*func)());
 void CallFnc_VOID_P1(u8 bank, void (*func)(u8), u8 p1);
 void CallFnc_VOID_U8_PTR(u8 bank, void (*func)(u8, const struct TeamColors*), u8 p1, const struct TeamColors* p2);
 void CallFnc_VOID_U8U16U16(u8 bank, void (*func)(u8, u16, u16), u8 p1, u16 p2, u16 p3);
+void CallFnc_VOID_3PTR_U16(u8 bank, void (*func)(u8*, u8*, u8*, u16), u8* p1, u8* p2, u8* p3, u16 p4);
 void CallFnc_VOID_16_P1(u8 segment, void (*func)(u16), u16 p1);
 bool CallFnc_BOOL(u8 bank, u8 (*func)()) ;
 u8 CallFnc_U8(u8 bank, u8 (*func)());
@@ -388,3 +390,6 @@ void EventKickOffReady();
 void EventBallKicked();
 void EventHalfTime();
 void EventTimeUp();
+
+// +++ SEGMENT SEG_GAMESTATE (9) +++
+void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);

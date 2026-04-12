@@ -98,8 +98,12 @@ bool IsBallForeground()
 	
 	// Trova il giocatore più vicino (possessore o contendente)
 	for (u8 i = 0; i < 14; i++) {
-		u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
-		u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
+		u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[14].lx);
+		u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+		
+		u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[14].ly) & 511;
+		u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
+		
 		u16 dist = dx + dy;
 		
 		if (dist < min_dist) {
@@ -108,8 +112,20 @@ bool IsBallForeground()
 		}
 	}
 	
-	// Se il giocatore è a Nord della palla (ly minore o uguale), la palla è in primo piano (disegnata dopo)
-	if (SwSprite[closest_player].ly <= SwSprite[14].ly) {
+	u16 dy_diff = (SwSprite[14].ly - SwSprite[closest_player].ly) & 511;
+	
+	// Se il giocatore è a Nord della palla (dy_diff < 256), la palla è più a Sud (più vicina alla telecamera)
+	// quindi deve essere disegnata in primo piano (TRUE).
+	if (dy_diff < 256) {
+		u8 dx_diff = (u8)(SwSprite[14].lx - SwSprite[closest_player].lx);
+		u8 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+
+		// Eccezione Z-Order: se il giocatore va verso PURO NORD (dist_x molto piccola) e la palla è 
+		// appena sotto la sua origine (dy_diff <= 4), il corpo del giocatore deve coprirla (Background).
+		if (dist_x <= 4 && dy_diff <= 4) {
+			return FALSE;
+		}
+		
 		return TRUE;
 	}
 	
