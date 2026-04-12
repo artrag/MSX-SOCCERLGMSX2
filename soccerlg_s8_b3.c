@@ -48,3 +48,21 @@ void EventTimeUp()
 	// Trigger sonoro per la fine della partita
     for(;;);
 }
+
+void EventThrowIn()
+{
+	// Trigger sonoro per rimessa laterale
+	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
+}
+
+void EventCornerKick()
+{
+	// Trigger sonoro per calcio d'angolo
+	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
+}
+
+void EventGoalKick()
+{
+	// Trigger sonoro per rinvio dal fondo
+	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
+}

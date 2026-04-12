@@ -9,10 +9,13 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _CallFnc_VOID_16_P1                                             ******** GX
   7 _EventBallKicked                                                00000000 GR
+  7 _EventCornerKick                                                00000021 GR
+  7 _EventGoalKick                                                  0000002E GR
   7 _EventHalfTime                                                  00000010 GR
   7 _EventKickOffReady                                              00000003 GR
   7 _EventPlayerFirstPresentationStarted                            00000002 GR
   7 _EventStartPresentationScrollig                                 00000001 GR
+  7 _EventThrowIn                                                   00000014 GR
   7 _EventTimeUp                                                    00000011 GR
     _ShowSpriteMessage                                              ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -55,14 +58,14 @@ Symbol Table
     _g_DPPAGE                                                   =   0000FAF5 G
     _g_DRWANG                                                   =   0000FCBD G
     _g_DRWFLG                                                   =   0000FCBB G
-    _g_DRWSCL                                                   =   0000FCBC G
-    _g_ENSTOP                                                   =   0000FBB0 G
-    _g_ERRORS                                                   =   0000FB1A G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_DRWSCL                                                   =   0000FCBC G
+    _g_ENSTOP                                                   =   0000FBB0 G
+    _g_ERRORS                                                   =   0000FB1A G
     _g_ESCCNT                                                   =   0000FCA7 G
     _g_ESTBLS                                                   =   0000FB1C G
     _g_EXBRSA                                                   =   0000FAF8 G
@@ -115,14 +118,14 @@ Symbol Table
     _g_MEXBIh                                                   =   0000FB07 G
     _g_MINROM                                                   =   0000FFF7 G
     _g_MINUPD                                                   =   0000F3EF G
-    _g_MLTATR                                                   =   0000F3D7 G
-    _g_MLTCGP                                                   =   0000F3D5 G
-    _g_MLTCOL                                                   =   0000F3D3 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_MLTATR                                                   =   0000F3D7 G
+    _g_MLTCGP                                                   =   0000F3D5 G
+    _g_MLTCOL                                                   =   0000F3D3 G
     _g_MLTNAM                                                   =   0000F3D1 G
     _g_MLTPAT                                                   =   0000F3D9 G
     _g_MNROM                                                    =   0000FCC1 G
@@ -175,14 +178,14 @@ Symbol Table
     _g_RG0SAV                                                   =   0000F3DF G
     _g_RG10SAV                                                  =   0000FFE9 G
     _g_RG11SAV                                                  =   0000FFEA G
-    _g_RG12SAV                                                  =   0000FFEB G
-    _g_RG13SAV                                                  =   0000FFEC G
-    _g_RG14SAV                                                  =   0000FFED G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RG12SAV                                                  =   0000FFEB G
+    _g_RG13SAV                                                  =   0000FFEC G
+    _g_RG14SAV                                                  =   0000FFED G
     _g_RG15SAV                                                  =   0000FFEE G
     _g_RG16SAV                                                  =   0000FFEF G
     _g_RG17SAV                                                  =   0000FFF0 G
@@ -235,14 +238,14 @@ Symbol Table
     _g_TXTATR                                                   =   0000F3B9 G
     _g_TXTCGP                                                   =   0000F3B7 G
     _g_TXTCOL                                                   =   0000F3B5 G
-    _g_TXTNAM                                                   =   0000F3B3 G
-    _g_TXTPAT                                                   =   0000F3BB G
-    _g_USRTAB                                                   =   0000F39A G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_TXTNAM                                                   =   0000F3B3 G
+    _g_TXTPAT                                                   =   0000F3BB G
+    _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
     _g_VCBB                                                     =   0000FB66 G
     _g_VCBC                                                     =   0000FB8B G
@@ -276,7 +279,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG8                                      size       14   flags    0
+   7 _SEG8                                      size       3B   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

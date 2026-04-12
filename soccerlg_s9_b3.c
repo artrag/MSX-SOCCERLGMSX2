@@ -216,6 +216,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			*start_sec = Frms;
 		}
 
+		// --- TELECAMERA E LIMITI ---
+		CallFnc_VOID(SEG_FIELD, UpdateFieldCamera);
+		CallFnc_VOID_3PTR(SEG_FIELD, CheckFieldBoundaries, game_state, wait_secs, start_sec);
+
 		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
 		struct ObjectInfo* Ball = &SwSprite[14];
 		
@@ -277,6 +281,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				
 				// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
 				if (dist_x <= 24 && dist_y <= 24) {
+					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
+					
 					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
 					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
 					
@@ -332,6 +338,12 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
 					
 					Field.ly = target_ly; // Centra campo immediatamente per 2T
+					Field.dy = 0; // Impedisce ad AddLines di far scorrere lo sfondo non esistente
+					
+					// Ridisegno di background pesante per il salto temporale
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
 					
 					AssignKickOffTargets();
 					for (u8 i = 0; i < 14; i++) {
@@ -353,6 +365,31 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
 					CallFnc_VOID(SEG_EVENTS, EventTimeUp);
+				}
+			}
+			*start_sec = Frms;
+		}
+	} else if (*game_state == 6) {
+		// Pausa per palla fuori campo
+		if (*wait_secs > 0) {
+			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
+				(*wait_secs)--;
+				if (*wait_secs == 0) {
+					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
+					
+					// Ritorno provvisorio a centrocampo per poter continuare a testare
+					SwSprite[14].lx = BALL_START_X;
+					SwSprite[14].ly = BALL_START_Y;
+					SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
+					
+					Field.ly = target_ly; // Teletrasporta telecamera al centro
+					Field.dy = 0;
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
+					
+					AssignKickOffTargets();
+					*game_state = 2; // Riparte la coreografia di schieramento
 				}
 			}
 			*start_sec = Frms;

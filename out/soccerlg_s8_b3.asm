@@ -219,6 +219,9 @@
 	.globl _EventKickOffReady
 	.globl _EventHalfTime
 	.globl _EventTimeUp
+	.globl _EventThrowIn
+	.globl _EventCornerKick
+	.globl _EventGoalKick
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -526,6 +529,45 @@ _EventTimeUp::
 00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:50: }
 	jp	00103$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:52: void EventThrowIn()
+;	---------------------------------
+; Function EventThrowIn
+; ---------------------------------
+_EventThrowIn::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:55: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
+	ld	hl, #0x0129
+	push	hl
+	ld	de, #_ShowSpriteMessage
+	ld	a, #0x05
+	call	_CallFnc_VOID_16_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:56: }
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:58: void EventCornerKick()
+;	---------------------------------
+; Function EventCornerKick
+; ---------------------------------
+_EventCornerKick::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:61: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
+	ld	hl, #0x0130
+	push	hl
+	ld	de, #_ShowSpriteMessage
+	ld	a, #0x05
+	call	_CallFnc_VOID_16_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:62: }
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:64: void EventGoalKick()
+;	---------------------------------
+; Function EventGoalKick
+; ---------------------------------
+_EventGoalKick::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:67: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
+	ld	hl, #0x0124
+	push	hl
+	ld	de, #_ShowSpriteMessage
+	ld	a, #0x05
+	call	_CallFnc_VOID_16_P1
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:68: }
+	ret
 	.area _SEG8
 	.area _INITIALIZER
 	.area _CABS (ABS)

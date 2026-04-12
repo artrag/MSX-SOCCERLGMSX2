@@ -67,6 +67,7 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8  T2_Carrier = 0xFF;
 	u8  T2_Receiver = 0xFF;
 	bool TimerEnabled = FALSE;
+	u8  LastTouchTeam = 0xFF;
 
 
 struct ObjectInfo SwSprite[NumSprite];
@@ -93,6 +94,13 @@ void CallFnc_VOID_P1(u8 segment, void (*func)(u8), u8 p1) {
 	u8 _old = GET_BANK_SEGMENT(3);
 	SET_BANK_SEGMENT(3, segment);
     func(p1);
+	SET_BANK_SEGMENT(3, _old);
+}
+// +++ Call void function with 3 pointers +++
+void CallFnc_VOID_3PTR(u8 segment, void (*func)(u8*, u8*, u8*), u8* p1, u8* p2, u8* p3) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1, p2, p3);
 	SET_BANK_SEGMENT(3, _old);
 }
 // +++ Call void function with 3 pointers and 1 u16 parameter +++
@@ -216,14 +224,21 @@ void AddLines(struct ObjectInfo* Field)
 	if (Field->dy==0) return;
 	
 	if (Field->dy>0) {
-		v = (Field->ly + 192) & 511;
+		for(i8 i=Field->dy; i>0; i--) {
+			v = (Field->ly + 192 - i) & 511;
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);	
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);	
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);	
+		}
 	}
-	else	{
-		v = (Field->ly -   1) & 511;
+	else {
+		for(i8 i=-Field->dy; i>0; i--) {
+			v = (Field->ly + i - 1) & 511;
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);	
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);	
+			VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);	
+		}
 	}
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);	
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);	
-	VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);	
 }
 
 void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
