@@ -1078,8 +1078,9 @@ void MainLoop(){
     for (;;)
 	{
 		// vedo 	0
+		WaitForVBlank();
 		VDP_SetPage(0);		
-		VDP_SetVerticalOffset(Field.ly & 255);
+		VDP_SetVerticalOffset(ScoreBoardLeft.y0 & 255);
 		AddLines(&Field);
   
 		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
@@ -1111,9 +1112,9 @@ void MainLoop(){
 		}
 
 		// cancello 2	 scrivo 	1
-		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
+		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
-        CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
+        // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		
 		// LOGICA DI AGGIORNAMENTO
@@ -1129,8 +1130,9 @@ void MainLoop(){
 		ScoreBoardRight.y2 = Field.ly;	
 	
 		// vedo 	1
+		WaitForVBlank();
 		VDP_SetPage(1);		
-		VDP_SetVerticalOffset(Field.ly & 255);
+		VDP_SetVerticalOffset(ScoreBoardLeft.y1 & 255);
 		AddLines(&Field);
 		
 		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
@@ -1162,9 +1164,9 @@ void MainLoop(){
 		}
 
 		// cancello 0	 scrivo 	2
-		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
+		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
-        CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
+        // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		
 		// LOGICA DI AGGIORNAMENTO
@@ -1181,8 +1183,9 @@ void MainLoop(){
 		
 		// vedo 	2	
 		
+		WaitForVBlank();
 		VDP_SetPage(2);		
-		VDP_SetVerticalOffset(Field.ly & 255);
+		VDP_SetVerticalOffset(ScoreBoardLeft.y2 & 255);
 		AddLines(&Field);
 		
 		ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
@@ -1214,9 +1217,9 @@ void MainLoop(){
 		}
 
 		// cancello 1	scrivo 	0
-		CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
+		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
-        CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
+        // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		
 		// LOGICA DI AGGIORNAMENTO

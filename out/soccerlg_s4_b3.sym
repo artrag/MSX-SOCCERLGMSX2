@@ -24,8 +24,6 @@ Symbol Table
     _PrintScoreBoardLeft                                            ******** GX
     _PrintScoreBoardRight                                           ******** GX
     _Print_DrawFormat                                               ******** GX
-    _RemoveScoreBoardLeft                                           ******** GX
-    _RemoveScoreBoardRight                                          ******** GX
     _RemoveSwSprite                                                 ******** GX
     _ScoreBoardLeft                                                 ******** GX
     _ScoreBoardRight                                                ******** GX
@@ -41,7 +39,8 @@ Symbol Table
     _UpdateGameState                                                ******** GX
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
-  7 ___str_0                                                        00000E13 R
+    _WaitForVBlank                                                  ******** GX
+  7 ___str_0                                                        00000D98 R
     __divsint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -58,12 +57,12 @@ Symbol Table
     _g_BREAKV                                                   =   0000F325 G
     _g_CAPST                                                    =   0000FCAB G
     _g_CASPRV                                                   =   0000FCB1 G
+    _g_CGTABL                                                   =   00000004 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_CGTABL                                                   =   00000004 G
     _g_CHAR_16                                                  =   00000034 G
     _g_CHRCNT                                                   =   0000FAF9 G
     _g_CLIKFL                                                   =   0000FBD9 G
@@ -118,12 +117,12 @@ Symbol Table
     _g_HEADER                                                   =   0000F40A G
     _g_HIGH                                                     =   0000F408 G
     _g_HIMEM                                                    =   0000FC4A G
+    _g_INSFLG                                                   =   0000FCA8 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_INSFLG                                                   =   0000FCA8 G
     _g_INTCNT                                                   =   0000FCA2 G
     _g_INTFLG                                                   =   0000FC9B G
     _g_INTVAL                                                   =   0000FCA0 G
@@ -178,12 +177,12 @@ Symbol Table
     _g_PLYCNT                                                   =   0000FB40 G
     _g_PROCNM                                                   =   0000FD89 G
     _g_PRSCNT                                                   =   0000FB35 G
+    _g_PSG_DataPort                                             =   000000A1 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_PSG_DataPort                                             =   000000A1 
     _g_PSG_Ext_DataPort                                         =   00000011 
     _g_PSG_Ext_RegPort                                          =   00000010 
     _g_PSG_Ext_StatPort                                         =   00000012 
@@ -238,12 +237,12 @@ Symbol Table
     _g_RSFCB                                                    =   0000FB04 G
     _g_RSIQLN                                                   =   0000FB06 G
     _g_RSTMP                                                    =   0000FB03 G
+    _g_RTC_AddrPort                                             =   000000B4 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_RTC_AddrPort                                             =   000000B4 
     _g_RTC_DataPort                                             =   000000B5 
     _g_RTYCNT                                                   =   0000FC9A G
     _g_SAVSP                                                    =   0000FB36 G
@@ -294,6 +293,7 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
 
+
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
@@ -306,7 +306,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size      E16   flags    0
+   7 _SEG4                                      size      D9B   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

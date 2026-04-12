@@ -340,6 +340,7 @@ extern  u8  LastTouchTeam;
 // +++ SEGMENT 0 +++
 void main();
 void VSyncCallback();
+void WaitForVBlank();
 void CallSpriteFrame(u8 x, u16 y, u16 frame);
 void LoadField(u8);
 void CallFnc_VOID(u8 bank, void (*func)());

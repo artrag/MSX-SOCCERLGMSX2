@@ -8,7 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _WaitForVBlank
 	.globl _CallFnc_VOID_P2
 	.globl _DEBUG_INIT
 	.globl _PlotField
@@ -274,6 +273,7 @@
 	.globl _AddLines
 	.globl _CallSpriteFrame
 	.globl _VSyncCallback
+	.globl _WaitForVBlank
 	.globl _LoadField
 	.globl _main
 ;--------------------------------------------------------
