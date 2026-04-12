@@ -66,3 +66,8 @@ void EventGoalKick()
 	// Trigger sonoro per rinvio dal fondo
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 }
+
+void EventOffside()
+{
+	// Trigger sonoro per fischio fuorigioco
+}

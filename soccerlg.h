@@ -357,6 +357,9 @@ bool CallFnc_BOOL_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u8 CallFnc_U8_P2(u8 bank, u8 (*func)(u8, u8), u8 p1, u8 p2);
 u8 CallFnc_U8_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1);
+u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3);
+u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3, u8 p4);
+u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3, i8 p4);
 void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
 
@@ -381,7 +384,7 @@ void HideSpriteMessage();
 // +++ SEGMENT SEG_LOGIC (6) +++
 void PlayerAI(u8 i);
 void SetBallSprite(u8 height);
-u8 FindReceiver(u8 carrier, u8 ignore_player);
+u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
 
 // +++ SEGMENT SEG_INPUT (7) +++
 bool IsTeamJoystickTriggerPressed(u8 player);
@@ -397,9 +400,12 @@ void EventTimeUp();
 void EventThrowIn();
 void EventCornerKick();
 void EventGoalKick();
+void EventOffside();
 
 // +++ SEGMENT SEG_GAMESTATE (9) +++
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
+u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

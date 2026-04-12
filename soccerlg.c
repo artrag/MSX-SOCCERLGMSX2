@@ -169,6 +169,33 @@ u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
 	SET_BANK_SEGMENT(3, _old);
     return _res;
 }
+// +++ Call function with 3 parameters with u16 returned value +++
+u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) {
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1, p2, p3);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 4 parameters with u16 returned value +++
+u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3, u8 p4) {
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1, p2, p3, p4);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
+// +++ Call function with 4 parameters with u16 returned value +++
+u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3, i8 p4) {
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1, p2, p3, p4);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
+}
 // +++ Call function with 2 parameters with u8 returned value +++
 u8 CallFnc_U8_P2(u8 segment, u8 (*func)(u8, u8), u8 p1, u8 p2) {
     u8 _res;

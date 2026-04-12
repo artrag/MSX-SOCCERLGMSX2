@@ -222,6 +222,7 @@
 	.globl _EventThrowIn
 	.globl _EventCornerKick
 	.globl _EventGoalKick
+	.globl _EventOffside
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -567,6 +568,13 @@ _EventGoalKick::
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:68: }
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:70: void EventOffside()
+;	---------------------------------
+; Function EventOffside
+; ---------------------------------
+_EventOffside::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:73: }
 	ret
 	.area _SEG8
 	.area _INITIALIZER

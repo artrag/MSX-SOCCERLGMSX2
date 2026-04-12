@@ -174,13 +174,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			// Assegna Carrier e Receiver per il Kickoff
 			if (KickOffTeam == TEAM_1) {
 				T1_Carrier = 3; // Giocatore a sinistra della palla
-				T1_Receiver = CallFnc_U8_P2(SEG_LOGIC, FindReceiver, T1_Carrier, 4); // Ignora il compagno (4)
+				T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
 				T2_Carrier = T2_Receiver = 0xFF; // Difesa senza palla
 			} else {
 				T2_Carrier = 11; // Giocatore a destra della palla
-				T2_Receiver = CallFnc_U8_P2(SEG_LOGIC, FindReceiver, T2_Carrier, 10); // Ignora il compagno (10)
+				T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
 				T1_Carrier = T1_Receiver = 0xFF; // Difesa senza palla
 			}
+			
+			LastTouchTeam = KickOffTeam; // Assegna possesso fittizio al team che batte per far allargare i compagni
 			
 			*wait_secs = 2;
 			*start_sec = Frms;
@@ -214,14 +216,49 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				}
 			}
 			*start_sec = Frms;
+			return; // Ferma l'IA e il gioco finché la scritta non sparisce
 		}
 
 		// --- TELECAMERA E LIMITI ---
 		CallFnc_VOID(SEG_FIELD, UpdateFieldCamera);
 		CallFnc_VOID_3PTR(SEG_FIELD, CheckFieldBoundaries, game_state, wait_secs, start_sec);
 
-		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
+		// --- AGGIORNAMENTO POSSESSO E FOCUS UMANO ---
 		struct ObjectInfo* Ball = &SwSprite[14];
+		
+		u8 closest_t1 = 1; u16 min_dist_t1 = 0xFFFF;
+		u8 closest_t2 = 8; u16 min_dist_t2 = 0xFFFF;
+		
+		for (u8 i = 1; i < 7; i++) { 
+			u8 dx_diff = (u8)(SwSprite[i].lx - Ball->lx);
+			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
+			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+			if (dist_x + dist_y < min_dist_t1) { min_dist_t1 = dist_x + dist_y; closest_t1 = i; }
+		}
+		for (u8 i = 8; i < 14; i++) {
+			u8 dx_diff = (u8)(SwSprite[i].lx - Ball->lx);
+			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
+			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
+			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+			if (dist_x + dist_y < min_dist_t2) { min_dist_t2 = dist_x + dist_y; closest_t2 = i; }
+		}
+
+		// Assegna il cursore di controllo al giocatore più vicino
+		T2_Carrier = closest_t2;
+		if (GameMode == GAMEMODE_P1_VS_P2) T1_Carrier = closest_t1;
+		else T1_Carrier = 0xFF;
+
+		// Aggiorna il bersaglio del passaggio in base alla direzione dello sguardo
+		if (min_dist_t2 <= 24) T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 0xFF, g_last_dx[1], g_last_dy[1]);
+		else T2_Receiver = 0xFF;
+		
+		if (GameMode == GAMEMODE_P1_VS_P2) {
+			if (min_dist_t1 <= 24) T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 0xFF, g_last_dx[0], g_last_dy[0]);
+			else T1_Receiver = 0xFF;
+		}
+
+		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
 		
 		// 1. Fisica della palla
 		if (Ball->anim > 0) {
@@ -281,6 +318,25 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				
 				// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
 				if (dist_x <= 24 && dist_y <= 24) {
+					// Controllo Fuorigioco al momento della ricezione
+					bool offside = FALSE;
+					if (carrier < 7 && LastTouchTeam == TEAM_1) {
+						u16 offside_line = (SwSprite[8].ly < SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
+						if (Carrier->ly > offside_line + 8 && Carrier->ly > 256) offside = TRUE;
+					} else if (carrier >= 7 && LastTouchTeam == TEAM_2) {
+						u16 offside_line = (SwSprite[1].ly > SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
+						if (Carrier->ly < offside_line - 8 && Carrier->ly < 256) offside = TRUE;
+					}
+					if (offside) {
+						*game_state = 6; // Ferma il gioco
+						CallFnc_VOID(SEG_EVENTS, EventOffside);
+						Ball->anim = Ball->dx = Ball->dy = 0;
+						T1_Carrier = T2_Carrier = 0xFF;
+						TimerEnabled = FALSE;
+						*wait_secs = 2; *start_sec = Frms;
+						continue; // Salta il controllo palla
+					}
+
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					
 					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
@@ -317,6 +373,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				// Se è fermo, usa l'ultima direzione di movimento per la posa di attesa
 				Carrier->frame = GetPlayerIdleFrame(carrier, g_last_dx[i], g_last_dy[i]);
 			}
+		}
+
+		// 3. Esegui AI per tutti gli altri giocatori (movimento e tattica senza palla)
+		for (u8 i = 0; i < 14; i++) {
+			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 	} else if (*game_state == 4) {
 		// Pausa di fine primo tempo

@@ -10,28 +10,32 @@ void UpdateFieldCamera()
 {
 	struct ObjectInfo* Ball = &SwSprite[14];
 	
-	u16 screen_top = Field.ly;
-	u16 screen_bottom = Field.ly + 192;
+	i16 camera_dy = 0;
 	
-	// Margini di scorrimento (la telecamera si aggancia solo quando superi i 64 pixel dal bordo)
-	u16 margin_top = screen_top + 64;
-	u16 margin_bottom = screen_bottom - 64;
-	
-	i8 camera_dy = 0;
-	
-	if (Ball->ly < margin_top && Field.ly > 0) {
-		u16 diff = margin_top - Ball->ly;
-		camera_dy = (diff > 5) ? -5 : -diff;
-		if (Field.ly < -camera_dy) camera_dy = -Field.ly;
+	// Margini di scorrimento: la telecamera si aggancia se la palla supera i 64 pixel dal bordo
+	if (Ball->ly < Field.ly + 64 && Field.ly > 0) {
+		i16 diff = (i16)(Field.ly + 64) - (i16)Ball->ly;
+		if (diff > 5) camera_dy = -5;
+		else camera_dy = -diff;
+		
+		// Evita l'underflow della Y del campo
+		if ((i16)Field.ly + camera_dy < 0) {
+			camera_dy = -(i16)Field.ly;
+		}
 	}
-	else if (Ball->ly > margin_bottom && Field.ly < (FIELD_HEIGHT - 192)) {
-		u16 diff = Ball->ly - margin_bottom;
-		camera_dy = (diff > 5) ? 5 : diff;
-		if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
+	else if (Ball->ly > Field.ly + 192 - 64 && Field.ly < (FIELD_HEIGHT - 192)) {
+		i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - 64);
+		if (diff > 5) camera_dy = 5;
+		else camera_dy = diff;
+		
+		// Evita l'overflow oltre il fondo del campo
+		if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
+			camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
+		}
 	}
 	
 	Field.ly += camera_dy;
-	Field.dy = camera_dy;
+	Field.dy = (i8)camera_dy;
 }
 
 void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
