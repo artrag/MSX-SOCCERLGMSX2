@@ -3329,7 +3329,7 @@ _UpdateGameState::
 	ld	(hl), #0x02
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1252: Mins = HALF_TIME_DURATION; Secs = 0;
 	ld	hl, #_Mins
-	ld	(hl), #0x03
+	ld	(hl), #0x01
 	ld	hl, #_Secs
 	ld	(hl), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1253: KickOffTeam = TEAM_1; // Secondo tempo batte il Team 1

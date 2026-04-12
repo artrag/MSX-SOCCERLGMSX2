@@ -265,7 +265,7 @@ struct TeamColors {
 #define GAMEMODE_P1_VS_CPU                          0
 #define GAMEMODE_P1_VS_P2                           1
 
-#define HALF_TIME_DURATION                          3
+#define HALF_TIME_DURATION                          1
 
 #define PRESENTATION_WAIT_TIME                      (2 * 60) // 2 secondi a 60 fps
 

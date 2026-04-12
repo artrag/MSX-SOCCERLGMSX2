@@ -3329,7 +3329,7 @@
     00001192 36 02            [10] 3329 	ld	(hl), #0x02
                                    3330 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1252: Mins = HALF_TIME_DURATION; Secs = 0;
     00001194 21r00r00         [10] 3331 	ld	hl, #_Mins
-    00001197 36 03            [10] 3332 	ld	(hl), #0x03
+    00001197 36 01            [10] 3332 	ld	(hl), #0x01
     00001199 21r00r00         [10] 3333 	ld	hl, #_Secs
     0000119C 36 00            [10] 3334 	ld	(hl), #0x00
                                    3335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1253: KickOffTeam = TEAM_1; // Secondo tempo batte il Team 1

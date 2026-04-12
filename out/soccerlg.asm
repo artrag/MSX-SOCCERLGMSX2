@@ -2995,7 +2995,7 @@ __xinit__Frms:
 __xinit__Secs:
 	.db #0x00	; 0
 __xinit__Mins:
-	.db #0x03	; 3
+	.db #0x01	; 1
 __xinit__LastSecs:
 	.db #0xff	; 255
 __xinit__Half:
