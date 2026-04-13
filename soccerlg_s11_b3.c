@@ -35,8 +35,7 @@ void AssignKickOffTargets() {
 }
 
 void AssignThrowInTargets() {
-	// INVERSIONE TEMPORANEA PER TEST (Batte la squadra che ha toccato per ultimo)
-	u8 team_to_throw = (LastTouchTeam == TEAM_1) ? TEAM_1 : TEAM_2;
+	u8 team_to_throw = (LastTouchTeam == TEAM_1) ? TEAM_2 : TEAM_1;
 	if (LastTouchTeam == 0xFF) team_to_throw = TEAM_1;
 
 	u8 thrower = (team_to_throw == TEAM_1) ? 5 : 12;
