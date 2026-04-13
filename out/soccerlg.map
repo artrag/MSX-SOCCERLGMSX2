@@ -40,7 +40,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      000002EE  l__DATA                         
      00000362  l__SEG10                        
      00000C0C  l__SEG11                        
-     00000C7A  l__SEG5                         
+     00000C7B  l__SEG5                         
      00000D9B  l__SEG4                         
      00000EC1  l__SEG6                         
      000018AD  l__SEG9                         
@@ -620,20 +620,20 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00000C7A =        3194. bytes (REL,CON)
+_SEG5                               0005A000    00000C7B =        3195. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0005A000  _PlotField                         soccerlg_s5_b3
-     0005A27D  _RemoveSwSprite                    soccerlg_s5_b3
-     0005A434  _RemoveScoreBoardLeft              soccerlg_s5_b3
-     0005A5B8  _PrintScoreBoardLeft               soccerlg_s5_b3
-     0005A6D3  _RemoveScoreBoardRight             soccerlg_s5_b3
-     0005A857  _PrintScoreBoardRight              soccerlg_s5_b3
-     0005A97C  _SetBallSprite                     soccerlg_s5_b3
-     0005A990  _IsBallForeground                  soccerlg_s5_b3
-     0005AA88  _ShowSpriteMessage                 soccerlg_s5_b3
-     0005AC58  _HideSpriteMessage                 soccerlg_s5_b3
+     0005A27E  _RemoveSwSprite                    soccerlg_s5_b3
+     0005A435  _RemoveScoreBoardLeft              soccerlg_s5_b3
+     0005A5B9  _PrintScoreBoardLeft               soccerlg_s5_b3
+     0005A6D4  _RemoveScoreBoardRight             soccerlg_s5_b3
+     0005A858  _PrintScoreBoardRight              soccerlg_s5_b3
+     0005A97D  _SetBallSprite                     soccerlg_s5_b3
+     0005A991  _IsBallForeground                  soccerlg_s5_b3
+     0005AA89  _ShowSpriteMessage                 soccerlg_s5_b3
+     0005AC59  _HideSpriteMessage                 soccerlg_s5_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]

@@ -10,8 +10,9 @@
 
 void PlotField(u16 y,u16 page)
 {
-	for (u16 i=y;i<y+192;i+=16)
-		VDP_CommandYMMM(FieldMap[i]+768,0,i+page,16, 0);		
+	for (u16 i=y; i<y+192; i++) {
+		VDP_CommandYMMM(FieldMap[i&511]+768, 0, (i&255)+page, 1, 0);		
+	}
 }
 
 

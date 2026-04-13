@@ -9,21 +9,21 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _DEBUG_LOG                                                      ******** GX
     _Field                                                          ******** GX
-  7 _FieldMap                                                       0000007D R
-  7 _HideSpriteMessage                                              00000C58 GR
-  7 _IsBallForeground                                               00000990 GR
+  7 _FieldMap                                                       0000007E R
+  7 _HideSpriteMessage                                              00000C59 GR
+  7 _IsBallForeground                                               00000991 GR
     _KickOffTeam                                                    ******** GX
   7 _PlotField                                                      00000000 GR
-  7 _PrintScoreBoardLeft                                            000005B8 GR
-  7 _PrintScoreBoardRight                                           00000857 GR
-  7 _RemoveScoreBoardLeft                                           00000434 GR
-  7 _RemoveScoreBoardRight                                          000006D3 GR
-  7 _RemoveSwSprite                                                 0000027D GR
-  7 _SetBallSprite                                                  0000097C GR
-  7 _ShowSpriteMessage                                              00000A88 GR
+  7 _PrintScoreBoardLeft                                            000005B9 GR
+  7 _PrintScoreBoardRight                                           00000858 GR
+  7 _RemoveScoreBoardLeft                                           00000435 GR
+  7 _RemoveScoreBoardRight                                          000006D4 GR
+  7 _RemoveSwSprite                                                 0000027E GR
+  7 _SetBallSprite                                                  0000097D GR
+  7 _ShowSpriteMessage                                              00000A89 GR
     _SwSprite                                                       ******** GX
     _VPD_CommandSetupR32                                            ******** GX
-  7 ___str_0                                                        00000C54 R
+  7 ___str_0                                                        00000C55 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -285,7 +285,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size      C7A   flags    0
+   7 _SEG5                                      size      C7B   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
