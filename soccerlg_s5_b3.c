@@ -94,6 +94,28 @@ bool IsBallForeground()
 	// Se la palla è in volo (dimensione > 1), è sempre in primo piano
 	if (SwSprite[14].frame > SPR_BALL_SIZE_1) return TRUE;
 
+	u8 closest_player = 0;
+	u16 min_dist = 0xFFFF;
+	
+	// Trova il giocatore più vicino
+	for (u8 i = 0; i < 14; i++) {
+		u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
+		u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
+		u16 dist = dx + dy;
+		
+		if (dist < min_dist) {
+			min_dist = dist;
+			closest_player = i;
+		}
+	}
+	
+	// Z-Order Top-Down: se la palla è ad un'altezza visiva (Y) inferiore al petto del giocatore (Y+4),
+	// va in Background, venendo coperta dai pixel della maglietta/schiena in modo naturale.
+	// Altrimenti (Sud, Est, Ovest), viene disegnata in Foreground (davanti ai piedi).
+	if (SwSprite[14].ly <= SwSprite[closest_player].ly + 4) {
+		return FALSE;
+	}
+
 	return TRUE;
 }
 

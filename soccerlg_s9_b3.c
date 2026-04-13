@@ -315,8 +315,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					LastTouchPlayer = carrier;
 					
 					// Ricalcola il ricevitore adesso che il portatore ha la palla
-					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
-					i8 c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					i8 c_dx, c_dy;
+					if (Carrier->dx != 0 || Carrier->dy != 0) {
+						c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);
+						c_dy = (Carrier->dy > 0) ? 1 : ((Carrier->dy < 0) ? -1 : 0);
+					} else {
+						// Se fermo, usa l'ultima direzione conosciuta per orientare la palla
+						c_dx = (g_last_dx[i] > 0) ? 1 : ((g_last_dx[i] < 0) ? -1 : 0);
+						c_dy = (g_last_dy[i] > 0) ? 1 : ((g_last_dy[i] < 0) ? -1 : 0);
+					}
 					receivers[i] = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
 					
 					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
@@ -350,28 +357,28 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
 					} else if (Ball->anim == 0 && (Ball->dx != c_dx || Ball->dy != c_dy)) {
-						// Cambio direzione: riposiziona la palla davanti ruotandola
-						u8 cur_dist = (u8)((dist_x > dist_y) ? dist_x : dist_y);
-						if (cur_dist > 12) cur_dist = 12; // Evita di "spararla" troppo lontano
-						
-						i8 off_x = 0; i8 off_y = 4;
-						if (c_dx > 0) off_x = 6 + cur_dist; else if (c_dx < 0) off_x = -6 - cur_dist;
-						if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = -4 - cur_dist;
+						// Cambio direzione istantaneo e sicuro (senza perdere mai il controllo)
+						i8 off_x = 0; i8 off_y = 6;
+						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
+						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -3;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
 						Ball->lx = (u8)(Carrier->lx + off_x);
 						Ball->ly = (Carrier->ly + off_y) & 511;
 					} else if (Ball->anim == 0) {
-						// Stessa direzione: se la palla è ai piedi, dalle un calcetto
-						i8 off_x = 0; i8 off_y = 4;
-						if (c_dx > 0) off_x = 6; else if (c_dx < 0) off_x = -6;
-						if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = -4;
+						// Stessa direzione: ricalibra la palla e dai un calcetto in avanti
+						i8 off_x = 0; i8 off_y = 6;
+						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
+						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -3;
 						
 						Ball->lx = (u8)(Carrier->lx + off_x);
 						Ball->ly = (Carrier->ly + off_y) & 511;
-						Ball->anim = 4; 
-						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						
+						if (Carrier->dx != 0 || Carrier->dy != 0) {
+							Ball->anim = 3; // Colpetto in avanti medio-corto
+							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						}
 					}
 				}
 		}

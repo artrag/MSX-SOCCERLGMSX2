@@ -181,9 +181,13 @@ void PlayerAI(u8 i)
 							Ball->dy = (Player->dy > 0) ? 1 : ((Player->dy < 0) ? -1 : 0);
 							if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
 							
-							Ball->lx = Player->lx + (Ball->dx * 6);
-							Ball->ly = (Player->ly + (Ball->dy * 6)) & 511;
-							Ball->anim = 4;
+							i8 off_x = 0; i8 off_y = 6;
+							if (Ball->dx > 0) off_x = 9; else if (Ball->dx < 0) off_x = -9;
+							if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -3; 
+							
+							Ball->lx = (u8)(Player->lx + off_x);
+							Ball->ly = (Player->ly + off_y) & 511;
+							Ball->anim = 3; // Dribbling medio-corto
 							Ball->count = 0; // Azzera volo per dribbling a terra
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
@@ -193,8 +197,13 @@ void PlayerAI(u8 i)
 					if (Player->ly > 380 && Ball->anim == 0) {
 						Ball->dx = (Player->lx < 110) ? 1 : ((Player->lx > 146) ? -1 : 0);
 						Ball->dy = 1;
-						Ball->lx = Player->lx + (Ball->dx * 6);
-						Ball->ly = (Player->ly + (Ball->dy * 6)) & 511;
+						
+						i8 off_x = 0; i8 off_y = 6;
+						if (Ball->dx > 0) off_x = 9; else if (Ball->dx < 0) off_x = -9;
+						if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -3; 
+						
+						Ball->lx = (u8)(Player->lx + off_x);
+						Ball->ly = (Player->ly + off_y) & 511;
 						Ball->anim = 8; // Tiro potente
 						Ball->count = 0; // Azzera volo per tiro a terra
 						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
@@ -224,7 +233,8 @@ void PlayerAI(u8 i)
 			if (Ball->anim >= 6) steal_dist = 8; // I tiri potenti sfuggono più facilmente al tackle
 			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0) {
 				LastTouchTeam = team;
-				if (Ball->anim > 4) Ball->anim = 4; // L'AI stoppa la palla se intercetta un tiro
+				LastTouchPlayer = i; // Protezione dal fischio di fuorigioco
+				if (Ball->anim > 3) Ball->anim = 3; // L'AI stoppa la palla
 			}
 		}
 	}

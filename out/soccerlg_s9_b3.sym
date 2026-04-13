@@ -66,7 +66,7 @@ Symbol Table
     _TimerEnabled                                                   ******** GX
     _UpdateFieldCamera                                              ******** GX
   7 _UpdateGameState                                                00000000 GR
-  1 _UpdateGameState_last_throw_dir_196609_858                      00000000 R
+  1 _UpdateGameState_last_throw_dir_196609_860                      00000000 R
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     __mulint                                                        ******** GX
@@ -347,7 +347,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        8   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG9                                      size     19B9   flags    0
+   7 _SEG9                                      size     1966   flags    0
    8 _INITIALIZER                               size        6   flags    0
    9 _CABS                                      size        0   flags    8
 
