@@ -2814,7 +2814,7 @@ _UpdateGameState::
 	sub	a, d
 	ld	-9 (ix), a
 00259$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:359: if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = 2 - cur_dist;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:359: if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = -4 - cur_dist;
 	xor	a, a
 	sub	a, -7 (ix)
 	jp	PO, 01301$
@@ -2828,7 +2828,7 @@ _UpdateGameState::
 00263$:
 	bit	7, -7 (ix)
 	jr	Z, 00264$
-	ld	a, #0x02
+	ld	a, #0xfc
 	sub	a, e
 	ld	-8 (ix), a
 00264$:
@@ -2903,7 +2903,7 @@ _UpdateGameState::
 	jr	Z, 00269$
 	ld	-9 (ix), #0xfa
 00269$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:369: if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:369: if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = -4;
 	xor	a, a
 	sub	a, -7 (ix)
 	jp	PO, 01303$
@@ -2915,7 +2915,7 @@ _UpdateGameState::
 00273$:
 	bit	7, -7 (ix)
 	jr	Z, 00274$
-	ld	-8 (ix), #0x02
+	ld	-8 (ix), #0xfc
 00274$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:371: Ball->lx = (u8)(Carrier->lx + off_x);
 	ld	l, -22 (ix)

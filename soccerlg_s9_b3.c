@@ -356,7 +356,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						
 						i8 off_x = 0; i8 off_y = 4;
 						if (c_dx > 0) off_x = 6 + cur_dist; else if (c_dx < 0) off_x = -6 - cur_dist;
-						if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = 2 - cur_dist;
+						if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = -4 - cur_dist;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
@@ -366,7 +366,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						// Stessa direzione: se la palla è ai piedi, dalle un calcetto
 						i8 off_x = 0; i8 off_y = 4;
 						if (c_dx > 0) off_x = 6; else if (c_dx < 0) off_x = -6;
-						if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
+						if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = -4;
 						
 						Ball->lx = (u8)(Carrier->lx + off_x);
 						Ball->ly = (Carrier->ly + off_y) & 511;

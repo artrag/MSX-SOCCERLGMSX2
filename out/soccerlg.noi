@@ -30,7 +30,7 @@ DEF l__SEG8 0x49
 DEF l__SEG7 0x135
 DEF l__DATA 0x2EE
 DEF l__SEG10 0x362
-DEF l__SEG5 0xC7B
+DEF l__SEG5 0xB94
 DEF l__SEG4 0xD9B
 DEF l__SEG11 0x103C
 DEF l__SEG6 0x1250
@@ -487,8 +487,8 @@ DEF _RemoveScoreBoardRight 0x5A6D4
 DEF _PrintScoreBoardRight 0x5A858
 DEF _SetBallSprite 0x5A97D
 DEF _IsBallForeground 0x5A991
-DEF _ShowSpriteMessage 0x5AA89
-DEF _HideSpriteMessage 0x5AC59
+DEF _ShowSpriteMessage 0x5A9A2
+DEF _HideSpriteMessage 0x5AB72
 DEF _PlayerAI 0x6A000
 DEF _FindReceiver 0x6AFEA
 DEF _IsTeamJoystickTriggerPressed 0x7A000

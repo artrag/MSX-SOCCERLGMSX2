@@ -2814,7 +2814,7 @@
     00001224 92               [ 4] 2814 	sub	a, d
     00001225 DD 77 F7         [19] 2815 	ld	-9 (ix), a
     00001228                       2816 00259$:
-                                   2817 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:359: if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = 2 - cur_dist;
+                                   2817 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:359: if (c_dy > 0) off_y = 6 + cur_dist; else if (c_dy < 0) off_y = -4 - cur_dist;
     00001228 AF               [ 4] 2818 	xor	a, a
     00001229 DD 96 F9         [19] 2819 	sub	a, -7 (ix)
     0000122C E2r31r12         [10] 2820 	jp	PO, 01301$
@@ -2828,7 +2828,7 @@
     0000123D                       2828 00263$:
     0000123D DD CB F9 7E      [20] 2829 	bit	7, -7 (ix)
     00001241 28 06            [12] 2830 	jr	Z, 00264$
-    00001243 3E 02            [ 7] 2831 	ld	a, #0x02
+    00001243 3E FC            [ 7] 2831 	ld	a, #0xfc
     00001245 93               [ 4] 2832 	sub	a, e
     00001246 DD 77 F8         [19] 2833 	ld	-8 (ix), a
     00001249                       2834 00264$:
@@ -2903,7 +2903,7 @@
     000012DF 28 04            [12] 2903 	jr	Z, 00269$
     000012E1 DD 36 F7 FA      [19] 2904 	ld	-9 (ix), #0xfa
     000012E5                       2905 00269$:
-                                   2906 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:369: if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = 2;
+                                   2906 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:369: if (c_dy > 0) off_y = 6; else if (c_dy < 0) off_y = -4;
     000012E5 AF               [ 4] 2907 	xor	a, a
     000012E6 DD 96 F9         [19] 2908 	sub	a, -7 (ix)
     000012E9 E2rEEr12         [10] 2909 	jp	PO, 01303$
@@ -2915,7 +2915,7 @@
     000012F8                       2915 00273$:
     000012F8 DD CB F9 7E      [20] 2916 	bit	7, -7 (ix)
     000012FC 28 04            [12] 2917 	jr	Z, 00274$
-    000012FE DD 36 F8 02      [19] 2918 	ld	-8 (ix), #0x02
+    000012FE DD 36 F8 FC      [19] 2918 	ld	-8 (ix), #0xfc
     00001302                       2919 00274$:
                                    2920 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:371: Ball->lx = (u8)(Carrier->lx + off_x);
     00001302 DD 6E EA         [19] 2921 	ld	l, -22 (ix)
