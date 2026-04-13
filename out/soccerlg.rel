@@ -1,5 +1,5 @@
 XL4
-H 9 areas 127 global symbols
+H 9 areas 12A global symbols
 M soccerlg
 O -mz80
 S _g_SAVVOL Def0000FB39
@@ -267,9 +267,9 @@ S _ScoreBoardRight Def00000256
 S _Field Def00000228
 S _ScoreBoardLeft Def0000023F
 S _SwSprite Def00000000
-A _INITIALIZED size 25 flags 0 addr 0
+A _INITIALIZED size 2B flags 0 addr 0
 S _g_pass_start_x Def0000001A
-S _g_VSynch Def00000024
+S _g_VSynch Def0000002A
 S _LastSecs Def00000003
 S _g_pass_start_y Def0000001C
 S _g_throw_rec_1 Def00000016
@@ -281,6 +281,8 @@ S _TimerEnabled Def0000000F
 S _T2_Carrier Def0000000D
 S _Team1Code Def00000007
 S _Team2Code Def00000008
+S _g_last_dx Def00000024
+S _g_last_dy Def00000026
 S _g_pass_target_x Def0000001E
 S _g_pass_max_height Def00000023
 S _Half Def00000004
@@ -295,6 +297,7 @@ S _RestartSideY Def00000014
 S _LastTouchPlayer Def00000011
 S _RestartType Def00000012
 S _Secs Def00000001
+S _g_prev_trigger Def00000028
 S _Mins Def00000002
 S _Frms Def00000000
 S _T1_Receiver Def0000000C
@@ -304,7 +307,7 @@ A _DABS size 0 flags 8 addr 0
 A _HOME size 0 flags 0 addr 0
 A _GSINIT size 0 flags 0 addr 0
 A _GSFINAL size 0 flags 0 addr 0
-A _INITIALIZER size 25 flags 0 addr 0
+A _INITIALIZER size 2B flags 0 addr 0
 A _CABS size 0 flags 8 addr 0
 T 00 00 00 00
 R 00 00 01 00
@@ -449,6 +452,18 @@ R 00 00 02 00
 T 24 00 00 00
 R 00 00 02 00
 T 24 00 00 00
+R 00 00 02 00
+T 26 00 00 00
+R 00 00 02 00
+T 26 00 00 00
+R 00 00 02 00
+T 28 00 00 00
+R 00 00 02 00
+T 28 00 00 00
+R 00 00 02 00
+T 2A 00 00 00
+R 00 00 02 00
+T 2A 00 00 00
 R 00 00 02 00
 T 00 00 00 00
 R 00 00 00 00
@@ -1048,7 +1063,7 @@ T 91 0B 00 00 F6 C0 57 E9
 R 00 00 00 00
 T 95 0B 00 00
 R 00 00 00 00
-T 95 0B 00 00 21 24 00 36 01 FD 21 00 00 FD 35 00
+T 95 0B 00 00 21 2A 00 36 01 FD 21 00 00 FD 35 00
 R 00 00 00 00 00 05 02 00 00 0B 02 00
 T A1 0B 00 00 3A 00 00 B7 C0 FD 36 00 3C 3A 0F 00
 R 00 00 00 00 00 05 02 00 00 0E 02 00
@@ -1074,7 +1089,7 @@ T D7 0B 00 00
 R 00 00 00 00
 T D7 0B 00 00
 R 00 00 00 00
-T D7 0B 00 00 3A 24 00 B7 28 FA 21 24 00 36 00 C9
+T D7 0B 00 00 3A 2A 00 B7 28 FA 21 2A 00 36 00 C9
 R 00 00 00 00 00 05 02 00 00 0B 02 00
 T E3 0B 00 00
 R 00 00 00 00
@@ -1436,5 +1451,17 @@ T 23 00 00 00 07
 R 00 00 07 00
 T 24 00 00 00
 R 00 00 07 00
-T 24 00 00 00 00
+T 24 00 00 00 00 00
+R 00 00 07 00
+T 26 00 00 00
+R 00 00 07 00
+T 26 00 00 00 01 FF
+R 00 00 07 00
+T 28 00 00 00
+R 00 00 07 00
+T 28 00 00 00 00 00
+R 00 00 07 00
+T 2A 00 00 00
+R 00 00 07 00
+T 2A 00 00 00 00
 R 00 00 07 00

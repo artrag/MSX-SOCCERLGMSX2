@@ -156,6 +156,76 @@ void AssignThrowInTargets() {
 	}
 }
 
+void AssignGoalKickTargets() {
+	u8 team_to_kick = (RestartSideY < 256) ? TEAM_1 : TEAM_2;
+	u8 gk = (team_to_kick == TEAM_1) ? 0 : 7;
+	i8 dir_y = (team_to_kick == TEAM_1) ? 1 : -1;
+	
+	u16 kick_y = (team_to_kick == TEAM_1) ? 48 : 464;
+	u16 gk_start_x = (RestartSideX < 128) ? 75 : 181; // Partenza del portiere
+	u16 ball_x = (RestartSideX < 128) ? 95 : 161; // Palla spostata di 20 pixel verso lo specchio della porta
+	
+	SwSprite[14].lx = ball_x;
+	SwSprite[14].ly = kick_y;
+	SwSprite[14].frame = SPR_BALL_SIZE_1; 
+	SwSprite[14].dx = SwSprite[14].dy = SwSprite[14].anim = SwSprite[14].count = 0;
+	
+	// Posiziona i Portieri con una rincorsa più lunga
+	SwSprite[gk].tx = gk_start_x; 
+	SwSprite[gk].ty = kick_y - (dir_y * 20);
+	
+	u8 other_gk = (gk == 0) ? 7 : 0;
+	SwSprite[other_gk].tx = 128;
+	SwSprite[other_gk].ty = (other_gk == 0) ? 32 : 480;
+
+	// Schieramento per il rinvio: si riposizionano verso centrocampo e oltre in base ai ruoli
+	for(u8 i=1; i<14; i++) {
+		if (i == 7) continue;
+		
+		u8 team = (i < 7) ? TEAM_1 : TEAM_2;
+		u8 role = (team == TEAM_1) ? i : (i - 7);
+		u16 base_x = 128;
+
+		if (role == 1) { base_x = 64; }
+		else if (role == 2) { base_x = 192; }
+		else if (role == 3) { base_x = 64; }
+		else if (role == 4) { base_x = 192; }
+		else if (role == 5) { base_x = 80; }
+		else if (role == 6) { base_x = 176; }
+		
+		u16 base_y;
+		if (team == team_to_kick) {
+			if (role == 1 || role == 2) base_y = 120;
+			else if (role == 3 || role == 4) base_y = 180;
+			else base_y = 260;
+		} else {
+			if (role == 1 || role == 2) base_y = 280; // Difesa avversaria resta dietro
+			else if (role == 3 || role == 4) base_y = 200; // Centrocampo avversario pressa
+			else base_y = 140; // Attaccanti avversari a metà tra fondo (32) e centrocampo (256)
+		}
+		
+		// Specchia per il lato del campo
+		if (team_to_kick == TEAM_2) {
+			base_y = 512 - base_y;
+		}
+		
+		// Aggiunge variabilità pseudo-casuale per rompere la schematicità
+		i8 rand_x = ((Frms + i * 11) % 40) - 20;
+		i8 rand_y = ((Frms + i * 17) % 40) - 20;
+		
+		i16 final_x = base_x + rand_x;
+		i16 final_y = base_y + rand_y;
+		
+		if (final_x < 16) final_x = 16;
+		if (final_x > 240) final_x = 240;
+		if (final_y < 48) final_y = 48;
+		if (final_y > 464) final_y = 464;
+		
+		SwSprite[i].tx = (u8)final_x;
+		SwSprite[i].ty = (u16)final_y;
+	}
+}
+
 void ExecuteThrowIn(u8 thrower, u8 receiver) {
 	g_pass_start_x = SwSprite[thrower].lx;
 	g_pass_start_y = SwSprite[thrower].ly - 6; 

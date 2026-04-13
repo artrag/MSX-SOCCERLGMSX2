@@ -252,6 +252,10 @@ struct TeamColors {
 #define SPRITE_MSG_HALFTIME_LENGTH					5
 #define SPRITE_MSG_PENALTIES_LENGTH					5
 
+#define RESTART_THROWIN                             1
+#define RESTART_GOALKICK                            2
+#define RESTART_CORNERKICK                          3
+
 #define TEAM_1                                      0
 #define TEAM_2                                      1
 
@@ -284,6 +288,7 @@ struct TeamColors {
 #define SEG_GAMESTATE_1 9
 #define SEG_FIELD		10
 #define SEG_GAMESTATE_2 11
+#define SEG_GAMESTATE_3 12
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -345,6 +350,9 @@ extern  u16 g_pass_target_x;
 extern  u16 g_pass_target_y;
 extern  u8  g_pass_max_frames;
 extern  u8  g_pass_max_height;
+extern  i8  g_last_dx[2];
+extern  i8  g_last_dy[2];
+extern  u8  g_prev_trigger[2];
 
 
 
@@ -425,9 +433,13 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 // +++ SEGMENT SEG_GAMESTATE_2 (11) +++
 void AssignKickOffTargets();
 void AssignThrowInTargets();
+void AssignGoalKickTargets();
 void ExecuteThrowIn(u8 thrower, u8 receiver);
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
 u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
+
+// +++ SEGMENT SEG_GAMESTATE_3 (12) +++
+void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

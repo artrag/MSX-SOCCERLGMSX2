@@ -55,7 +55,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	
 	// Specchio porta: 100 pixel da sinistra per ... (area di gol)
 	u8 goal_left = 100;
-	u8 goal_right = 200;  // 100 + 100 pixels di larghezza
+	u8 goal_right = 156;  // 256 - 100 pixels da destra
 	
 	// ========== CONTROLLO GOAL ==========
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
@@ -87,12 +87,12 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	// ========== CONTROLLO FALLO LATERALE (Throw-In) ==========
 	if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
 		// Se stiamo battendo una rimessa e la palla è in volo verso il campo, ignora il controllo
-		if (RestartType == 1 && Ball->anim == 5) {
+		if (RestartType == RESTART_THROWIN && Ball->anim == 5) {
 			// Attendi che la palla rientri in campo
 		} else {
 			*game_state = 6;
 			Field.dy = 0;
-			RestartType = 1;
+			RestartType = RESTART_THROWIN;
 			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary;
 			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
@@ -117,8 +117,14 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		
 		if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
 		    (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+			RestartType = RESTART_CORNERKICK;
+			RestartSideX = Ball->lx;
+			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventCornerKick);
 		} else {
+			RestartType = RESTART_GOALKICK;
+			RestartSideX = Ball->lx;
+			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventGoalKick);
 		}
 		

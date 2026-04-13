@@ -29,12 +29,13 @@ DEF l__INITIALIZER 0x48
 DEF l__SEG8 0x49
 DEF l__SEG7 0x135
 DEF l__DATA 0x2EE
-DEF l__SEG10 0x362
+DEF l__SEG10 0x391
+DEF l__SEG12 0xB44
 DEF l__SEG5 0xCBD
 DEF l__SEG4 0xD9B
-DEF l__SEG11 0x103C
 DEF l__SEG6 0x12C9
-DEF l__SEG9 0x1966
+DEF l__SEG9 0x138A
+DEF l__SEG11 0x14A2
 DEF l__CODE 0x29DF
 DEF s__CODE 0x4000
 DEF s__HOME 0x69DF
@@ -248,6 +249,7 @@ DEF s__SEG8 0x8A000
 DEF s__SEG9 0x9A000
 DEF s__SEG10 0xAA000
 DEF s__SEG11 0xBA000
+DEF s__SEG12 0xCA000
 DEF _g_FirstAddr 0x4000
 DEF _g_HeaderAddr 0x4000
 DEF crt0_rom_header 0x4000
@@ -474,7 +476,10 @@ DEF _g_pass_target_x 0xC30C
 DEF _g_pass_target_y 0xC30E
 DEF _g_pass_max_frames 0xC310
 DEF _g_pass_max_height 0xC311
-DEF _g_VSynch 0xC312
+DEF _g_last_dx 0xC312
+DEF _g_last_dy 0xC314
+DEF _g_prev_trigger 0xC316
+DEF _g_VSynch 0xC318
 DEF _g_VDPInitilized 0xC335
 DEF _GetDrawFrame 0x4A000
 DEF _g_Fonts 0x4A043
@@ -509,7 +514,9 @@ DEF _UpdateFieldCamera 0xAA000
 DEF _CheckFieldBoundaries 0xAA127
 DEF _AssignKickOffTargets 0xBA000
 DEF _AssignThrowInTargets 0xBA0C6
-DEF _ExecuteThrowIn 0xBA8C2
-DEF _GetPlayerAnimFrame 0xBA9EA
-DEF _GetPlayerIdleFrame 0xBAE43
+DEF _AssignGoalKickTargets 0xBA8C2
+DEF _ExecuteThrowIn 0xBAD28
+DEF _GetPlayerAnimFrame 0xBAE50
+DEF _GetPlayerIdleFrame 0xBB2A9
+DEF _UpdateGameState_Restarts 0xCA000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx
