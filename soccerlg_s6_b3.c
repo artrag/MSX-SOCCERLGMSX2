@@ -226,6 +226,11 @@ void PlayerAI(u8 i)
 }
 
 // Trova il compagno più vicino nella direzione di attacco
+// Regole direzionali rigorose:
+// - OVEST: ricevente deve essere a OVEST (lx < carrier_lx)
+// - EST: ricevente deve essere a EST (lx > carrier_lx)
+// - NORD: ricevente deve essere a NORD (ly < carrier_ly)
+// - SUD: ricevente deve essere a SUD (ly > carrier_ly)
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy) 
 {
 	u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
@@ -234,7 +239,10 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 	u16 min_dist = 0xFFFF;
 	u16 max_dist = 130; // Massima distanza per passaggi
 
-	// Ricerca 1: Cerca nel cono visivo direzionale
+	// Se nessuna direzione specificata, non passare
+	if (c_dx == 0 && c_dy == 0) return 0xFF;
+
+	// Ricerca: Cerca nel cono visivo direzionale con regole rigorose
 	for (u8 i = start_idx; i < end_idx; i++) {
 		if (i == carrier || i == ignore_player) continue; 
 
@@ -247,73 +255,42 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 		// Limite massimo distanza
 		if (dist > max_dist) continue;
 
-		// Filtro cono visivo direzionale:
-		// Permetti deviazioni piccole dalla direzione principale (~32 pixel)
-		bool is_south = (dy_diff_16 < 256);
-		u16 deviation_y = dy_diff_16 < 256 ? dy_diff_16 : (512 - dy_diff_16);
-		u8 deviation_x_u8 = dx_diff < 128 ? dx_diff : (256 - dx_diff);
-		u16 deviation_x = deviation_x_u8;
+		// Applica regole direzionali rigorose
+		bool is_east = (dx_diff < 128);   // Ricevente a DESTRA del portatore
+		bool is_south = (dy_diff_16 < 256); // Ricevente a SUD del portatore
 		
-		if (c_dy != 0) {
-			// Movimento verticale: controlla Y primaria, tollerante su X se deviazione piccola
-			if (c_dy > 0 && !is_south) {
-				// Cerchi a SUD ma è a NORD: scarta solo se lontano lateralmente
-				if (deviation_x > 40) continue;
-			}
-			if (c_dy < 0 && is_south) {
-				// Cerchi a NORD ma è a SUD: scarta solo se lontano lateralmente
-				if (deviation_x > 40) continue;
-			}
-		} else if (c_dx != 0) {
-			// Movimento orizzontale: controlla X primaria, tollerante su Y se deviazione piccola
-			bool is_right = (dx_diff < 128);
-			if (c_dx > 0 && !is_right) {
-				// Cerchi a DX ma è a SX: scarta solo se lontano verticalmente
-				if (deviation_y > 40) continue;
-			}
-			if (c_dx < 0 && is_right) {
-				// Cerchi a SX ma è a DX: scarta solo se lontano verticalmente
-				if (deviation_y > 40) continue;
-			}
+		// Controlli per OVEST
+		if (c_dx < 0) {
+			// Portatore va a OVEST: ricevente DEVE essere a OVEST
+			if (is_east) continue; // Scarta se ricevente è a EST
+		}
+		
+		// Controlli per EST
+		if (c_dx > 0) {
+			// Portatore va a EST: ricevente DEVE essere a EST
+			if (!is_east) continue; // Scarta se ricevente è a OVEST
+		}
+		
+		// Controlli per NORD
+		if (c_dy < 0) {
+			// Portatore va a NORD: ricevente DEVE essere a NORD
+			if (is_south) continue; // Scarta se ricevente è a SUD
+		}
+		
+		// Controlli per SUD
+		if (c_dy > 0) {
+			// Portatore va a SUD: ricevente DEVE essere a SUD
+			if (!is_south) continue; // Scarta se ricevente è a NORD
 		}
 
+		// Questo ricevente soddisfa le regole direzionali
 		if (dist < min_dist) {
 			min_dist = dist;
 			best_match = i;
 		}
 	}
 
-	// Fallback 1: Se nessuno trovato nel cono, prendi il più vicino assoluto entro max_dist
-	if (best_match == 0xFF) {
-		for (u8 i = start_idx; i < end_idx; i++) {
-			if (i == carrier || i == ignore_player) continue;
-			u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
-			u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-			u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
-			u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
-			u16 dist = dx + dy;
-			if (dist <= max_dist && dist < min_dist) {
-				min_dist = dist;
-				best_match = i;
-			}
-		}
-	}
-
-	// Fallback 2: Se ancora nessuno, prendi il più vicino senza limite (escluso il portiere)
-	if (best_match == 0xFF) {
-		for (u8 i = start_idx; i < end_idx; i++) {
-			if (i == carrier || i == ignore_player) continue;
-			u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
-			u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-			u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
-			u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
-			u16 dist = dx + dy;
-			if (dist < min_dist) {
-				min_dist = dist;
-				best_match = i;
-			}
-		}
-	}
-
+	// Se nessun ricevente trovato con regole rigorose, niente fallback
+	// Questo garantisce passaggi coerenti con la direzione di movimento
 	return best_match;
 }

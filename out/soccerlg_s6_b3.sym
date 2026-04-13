@@ -287,7 +287,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     11CB   flags    0
+   7 _SEG6                                      size      EC1   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

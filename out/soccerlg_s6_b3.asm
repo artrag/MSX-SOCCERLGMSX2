@@ -2200,7 +2200,7 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:229: u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy) 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:234: u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy) 
 ;	---------------------------------
 ; Function FindReceiver
 ; ---------------------------------
@@ -2208,92 +2208,94 @@ _FindReceiver::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	iy, #-28
+	ld	iy, #-21
 	add	iy, sp
 	ld	sp, iy
 	ld	-2 (ix), a
 	ld	-3 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:231: u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:236: u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
 	ld	a, -2 (ix)
 	sub	a, #0x07
-	jr	NC, 00162$
+	jr	NC, 00133$
 	ld	bc, #0x0001
-	jp	00163$
-00162$:
+	jp	00134$
+00133$:
 	ld	bc, #0x0008
-00163$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:232: u8 end_idx = start_idx + 6;
-	ld	-24 (ix), c
+00134$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:237: u8 end_idx = start_idx + 6;
 	ld	a, c
 	add	a, #0x06
-	ld	-23 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:233: u8 best_match = 0xFF;
-	ld	-22 (ix), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:234: u16 min_dist = 0xFFFF;
-	ld	-21 (ix), #0xff
+	ld	-21 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:238: u8 best_match = 0xFF;
 	ld	-20 (ix), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:238: for (u8 i = start_idx; i < end_idx; i++) {
-	ld	c, -2 (ix)
-	ld	b, #0x00
-	ld	l, c
-	ld	h, b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:239: u16 min_dist = 0xFFFF;
+	ld	-19 (ix), #0xff
+	ld	-18 (ix), #0xff
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:243: if (c_dx == 0 && c_dy == 0) return 0xFF;
+	ld	a, 4 (ix)
+	or	a, a
+	jr	NZ, 00153$
+	ld	a, 5 (ix)
+	or	a, a
+	jr	NZ, 00153$
+	ld	de, #0x00ff
+	jp	00131$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:246: for (u8 i = start_idx; i < end_idx; i++) {
+00153$:
+	ld	e, -2 (ix)
+	ld	d, #0x00
+	ld	l, e
+	ld	h, d
 	add	hl, hl
 	add	hl, hl
-	add	hl, bc
+	add	hl, de
 	add	hl, hl
-	add	hl, bc
+	add	hl, de
 	add	hl, hl
-	add	hl, bc
-	ld	-19 (ix), l
-	ld	-18 (ix), h
-	ld	a, #<(_SwSprite)
-	add	a, -19 (ix)
-	ld	c, a
-	ld	a, #>(_SwSprite)
-	adc	a, -18 (ix)
-	ld	b, a
-	ld	a, (bc)
+	add	hl, de
+	ld	de, #_SwSprite
+	add	hl, de
+	ld	a, (hl)
 	ld	-17 (ix), a
-	ld	-16 (ix), c
-	ld	-15 (ix), b
-	xor	a, a
-	sub	a, 5 (ix)
-	jp	PO, 00378$
-	xor	a, #0x80
-00378$:
+	ld	-16 (ix), l
+	ld	-15 (ix), h
+	ld	a, 4 (ix)
 	rlca
 	and	a,#0x01
 	ld	-14 (ix), a
 	xor	a, a
 	sub	a, 4 (ix)
-	jp	PO, 00379$
+	jp	PO, 00215$
 	xor	a, #0x80
-00379$:
+00215$:
 	rlca
 	and	a,#0x01
 	ld	-13 (ix), a
-	ld	a, 4 (ix)
+	ld	a, 5 (ix)
 	rlca
 	and	a,#0x01
 	ld	-12 (ix), a
-	ld	a, 5 (ix)
+	xor	a, a
+	sub	a, 5 (ix)
+	jp	PO, 00216$
+	xor	a, #0x80
+00216$:
 	rlca
 	and	a,#0x01
 	ld	-11 (ix), a
-	ld	a, -24 (ix)
-	ld	-1 (ix), a
-00155$:
+	ld	-1 (ix), c
+00130$:
 	ld	a, -1 (ix)
-	sub	a, -23 (ix)
-	jp	NC, 00134$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:239: if (i == carrier || i == ignore_player) continue; 
+	sub	a, -21 (ix)
+	jp	NC, 00128$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:247: if (i == carrier || i == ignore_player) continue; 
 	ld	a, -2 (ix)
 	sub	a, -1 (ix)
-	jp	Z,00133$
+	jp	Z,00127$
 	ld	a, -3 (ix)
 	sub	a, -1 (ix)
-	jp	Z,00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:241: u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
+	jp	Z,00127$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:249: u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -2307,512 +2309,155 @@ _FindReceiver::
 	add	hl, bc
 	ld	de, #_SwSprite
 	add	hl, de
-	ld	-6 (ix), l
-	ld	-5 (ix), h
+	ld	-10 (ix), l
+	ld	-9 (ix), h
 	ld	a, (hl)
 	sub	a, -17 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:242: u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-	ld	-4 (ix), a
-	sub	a, #0x80
-	ld	a, #0x00
-	rla
-	ld	-10 (ix), a
-	ld	a, -4 (ix)
-	ld	-26 (ix), a
-	ld	-25 (ix), #0x00
-	ld	a, -10 (ix)
-	or	a, a
-	jr	Z, 00164$
-	ld	a, -26 (ix)
-	ld	-8 (ix), a
-	ld	a, -25 (ix)
-	ld	-7 (ix), a
-	jp	00165$
-00164$:
-	xor	a, a
-	sub	a, -26 (ix)
-	ld	-8 (ix), a
-	ld	a, #0x01
-	sbc	a, -25 (ix)
-	ld	-7 (ix), a
-00165$:
-	ld	a, -8 (ix)
-	ld	-28 (ix), a
-	ld	a, -7 (ix)
-	ld	-27 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:243: u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
-	ld	l, -6 (ix)
-	ld	h, -5 (ix)
-	ld	de, #0x0004
-	add	hl, de
-	ld	a, (hl)
-	ld	-26 (ix), a
-	inc	hl
-	ld	a, (hl)
-	ld	-25 (ix), a
-	ld	l, -16 (ix)
-	ld	h, -15 (ix)
-	ld	de, #0x0004
-	add	hl, de
-	ld	a, (hl)
-	ld	-8 (ix), a
-	inc	hl
-	ld	a, (hl)
-	ld	-7 (ix), a
-	ld	a, -26 (ix)
-	sub	a, -8 (ix)
-	ld	-6 (ix), a
-	ld	a, -25 (ix)
-	sbc	a, -7 (ix)
-	ld	-5 (ix), a
-	ld	a, -6 (ix)
-	ld	-8 (ix), a
-	ld	a, -5 (ix)
-	ld	-7 (ix), a
-	ld	a, -8 (ix)
-	ld	-6 (ix), a
-	ld	a, -7 (ix)
-	and	a, #0x01
-	ld	-5 (ix), a
-	ld	a, -6 (ix)
-	ld	-26 (ix), a
-	ld	a, -5 (ix)
-	ld	-25 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:244: u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
-	ld	c, -26 (ix)
-	ld	b, -25 (ix)
-	ld	a, b
-	sub	a, #0x01
-	ld	a, #0x00
-	rla
-	ld	-5 (ix), a
-	or	a, a
-	jr	Z, 00166$
-	ld	a, -26 (ix)
-	ld	-7 (ix), a
-	ld	a, -25 (ix)
-	ld	-6 (ix), a
-	jp	00167$
-00166$:
-	xor	a, a
-	sub	a, -26 (ix)
-	ld	-7 (ix), a
-	ld	a, #0x02
-	sbc	a, -25 (ix)
-	ld	-6 (ix), a
-00167$:
-	ld	a, -7 (ix)
-	ld	-9 (ix), a
-	ld	a, -6 (ix)
-	ld	-8 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:245: u16 dist = dx + dy; 
-	ld	a, -9 (ix)
-	add	a, -28 (ix)
-	ld	-7 (ix), a
-	ld	a, -8 (ix)
-	adc	a, -27 (ix)
-	ld	-6 (ix), a
-	ld	a, -7 (ix)
-	ld	-9 (ix), a
-	ld	a, -6 (ix)
-	ld	-8 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:248: if (dist > max_dist) continue;
-	ld	a, #0x82
-	cp	a, -9 (ix)
-	ld	a, #0x00
-	sbc	a, -8 (ix)
-	jp	C, 00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:252: bool is_south = (dy_diff_16 < 256);
-	ld	a, -5 (ix)
-	ld	-7 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:253: u16 deviation_y = dy_diff_16 < 256 ? dy_diff_16 : (512 - dy_diff_16);
-	ld	a, -5 (ix)
-	or	a, a
-	jr	Z, 00168$
-	ld	a, -26 (ix)
-	ld	-6 (ix), a
-	ld	a, -25 (ix)
-	ld	-5 (ix), a
-	jp	00169$
-00168$:
-	xor	a, a
-	sub	a, -26 (ix)
-	ld	-6 (ix), a
-	ld	a, #0x02
-	sbc	a, -25 (ix)
-	ld	-5 (ix), a
-00169$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:254: u8 deviation_x_u8 = dx_diff < 128 ? dx_diff : (256 - dx_diff);
-	ld	a, -10 (ix)
-	or	a,a
-	jr	NZ, 00171$
-	sub	a, -4 (ix)
-	ld	-4 (ix), a
-00171$:
-	ld	a, -4 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:255: u16 deviation_x = deviation_x_u8;
-	ld	-26 (ix), a
-	ld	-25 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:257: if (c_dy != 0) {
-	ld	a, 5 (ix)
-	or	a, a
-	jr	Z, 00129$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:259: if (c_dy > 0 && !is_south) {
-	ld	a, -14 (ix)
-	or	a, a
-	jr	Z, 00109$
-	ld	a, -7 (ix)
-	or	a, a
-	jr	NZ, 00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:261: if (deviation_x > 40) continue;
-	ld	a, -26 (ix)
-	ld	-5 (ix), a
-	ld	a, -25 (ix)
-	ld	-4 (ix), a
-	ld	a, #0x28
-	cp	a, -5 (ix)
-	ld	a, #0x00
-	sbc	a, -4 (ix)
-	jp	C, 00133$
-00109$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:263: if (c_dy < 0 && is_south) {
-	ld	a, -11 (ix)
-	or	a, a
-	jr	Z, 00130$
-	ld	a, -7 (ix)
-	or	a, a
-	jr	Z, 00130$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:265: if (deviation_x > 40) continue;
-	ld	a, -26 (ix)
-	ld	-5 (ix), a
-	ld	a, -25 (ix)
-	ld	-4 (ix), a
-	ld	a, #0x28
-	cp	a, -5 (ix)
-	ld	a, #0x00
-	sbc	a, -4 (ix)
-	jr	C, 00133$
-	jp	00130$
-00129$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:267: } else if (c_dx != 0) {
-	ld	a, 4 (ix)
-	or	a, a
-	jr	Z, 00130$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:269: bool is_right = (dx_diff < 128);
-	ld	a, -10 (ix)
-	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:270: if (c_dx > 0 && !is_right) {
-	ld	a, -13 (ix)
-	or	a, a
-	jr	Z, 00119$
-	ld	a, -4 (ix)
-	or	a, a
-	jr	NZ, 00119$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:272: if (deviation_y > 40) continue;
-	ld	a, -6 (ix)
-	ld	-26 (ix), a
-	ld	a, -5 (ix)
-	ld	-25 (ix), a
-	ld	a, #0x28
-	cp	a, -26 (ix)
-	ld	a, #0x00
-	sbc	a, -25 (ix)
-	jr	C, 00133$
-00119$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:274: if (c_dx < 0 && is_right) {
-	ld	a, -12 (ix)
-	or	a, a
-	jr	Z, 00130$
-	ld	a, -4 (ix)
-	or	a, a
-	jr	Z, 00130$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:276: if (deviation_y > 40) continue;
-	ld	a, -6 (ix)
-	ld	-26 (ix), a
-	ld	a, -5 (ix)
-	ld	-25 (ix), a
-	ld	a, #0x28
-	cp	a, -26 (ix)
-	ld	a, #0x00
-	sbc	a, -25 (ix)
-	jr	C, 00133$
-00130$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:280: if (dist < min_dist) {
-	ld	a, -9 (ix)
-	sub	a, -21 (ix)
-	ld	a, -8 (ix)
-	sbc	a, -20 (ix)
-	jr	NC, 00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:281: min_dist = dist;
-	ld	a, -9 (ix)
-	ld	-21 (ix), a
-	ld	a, -8 (ix)
-	ld	-20 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:282: best_match = i;
-	ld	a, -1 (ix)
-	ld	-22 (ix), a
-00133$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:238: for (u8 i = start_idx; i < end_idx; i++) {
-	inc	-1 (ix)
-	jp	00155$
-00134$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:287: if (best_match == 0xFF) {
-	ld	a, -22 (ix)
-	inc	a
-	jp	NZ,00144$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:288: for (u8 i = start_idx; i < end_idx; i++) {
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:238: for (u8 i = start_idx; i < end_idx; i++) {
-	ld	a, #<(_SwSprite)
-	add	a, -19 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:250: u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
 	ld	c, a
-	ld	a, #>(_SwSprite)
-	adc	a, -18 (ix)
-	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:288: for (u8 i = start_idx; i < end_idx; i++) {
-	ld	a, (bc)
-	ld	-12 (ix), a
-	ld	-11 (ix), c
-	ld	-10 (ix), b
-	ld	a, -24 (ix)
-	ld	-1 (ix), a
-00157$:
-	ld	a, -1 (ix)
-	sub	a, -23 (ix)
-	jp	NC, 00144$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:289: if (i == carrier || i == ignore_player) continue;
-	ld	a, -1 (ix)
-	sub	a, -2 (ix)
-	jp	Z,00141$
-	ld	a, -3 (ix)
-	sub	a, -1 (ix)
-	jp	Z,00141$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:290: u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
-	ld	c, -1 (ix)
-	ld	b, #0x00
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, bc
-	add	hl, hl
-	add	hl, bc
-	add	hl, hl
-	add	hl, bc
-	ld	de, #_SwSprite
-	add	hl, de
-	ld	c, l
-	ld	b, h
-	ld	a, (bc)
-	sub	a, -12 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:291: u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-	ld	e, a
-	ld	d, #0x00
 	sub	a, #0x80
-	jr	NC, 00172$
-	ld	a, d
-	jp	00173$
-00172$:
-	xor	a, a
-	sub	a, e
-	ld	e, a
-	ld	a, #0x01
-	sbc	a, d
-00173$:
-	ld	-9 (ix), e
+	ld	a, #0x00
+	rla
 	ld	-8 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:292: u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
+	ld	-7 (ix), c
+	ld	-6 (ix), #0x00
+	ld	a, -8 (ix)
+	or	a, a
+	jr	Z, 00135$
+	ld	a, -7 (ix)
+	ld	-5 (ix), a
+	ld	a, -6 (ix)
+	ld	-4 (ix), a
+	jp	00136$
+00135$:
+	xor	a, a
+	sub	a, -7 (ix)
+	ld	-5 (ix), a
+	ld	a, #0x01
+	sbc	a, -6 (ix)
+	ld	-4 (ix), a
+00136$:
+	ld	c, -5 (ix)
+	ld	b, -4 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:251: u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
+	ld	e, -10 (ix)
+	ld	d, -9 (ix)
 	ld	hl, #4
-	add	hl, bc
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
-	ld	l, -11 (ix)
-	ld	h, -10 (ix)
-	ld	de, #0x0004
 	add	hl, de
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-	ld	a, c
-	sub	a, e
-	ld	c, a
-	ld	a, b
-	sbc	a, d
+	ld	l, -16 (ix)
+	ld	h, -15 (ix)
+	inc	hl
+	inc	hl
+	inc	hl
+	inc	hl
+	ld	a, (hl)
+	inc	hl
+	ld	h, (hl)
+;	spillPairReg hl
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, e
+	sub	a, l
+	ld	e, a
+	ld	a, d
+	sbc	a, h
 	and	a, #0x01
-	ld	-7 (ix), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:293: u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
-	ld	-6 (ix), a
+	ld	d, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:252: u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
+	ld	l, e
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, d
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, h
 	sub	a, #0x01
-	jr	NC, 00174$
-	ld	a, -7 (ix)
-	ld	-5 (ix), a
-	ld	a, -6 (ix)
+	ld	a, #0x00
+	rla
 	ld	-4 (ix), a
-	jp	00175$
-00174$:
-	xor	a, a
-	sub	a, -7 (ix)
-	ld	-5 (ix), a
-	ld	a, #0x02
-	sbc	a, -6 (ix)
-	ld	-4 (ix), a
-00175$:
-	ld	c, -5 (ix)
-	ld	b, -4 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:294: u16 dist = dx + dy;
-	ld	l, -9 (ix)
-	ld	h, -8 (ix)
+	or	a, a
+	jr	Z, 00137$
+	ex	de, hl
+	jp	00138$
+00137$:
+	ld	hl, #0x0200
+	cp	a, a
+	sbc	hl, de
+00138$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:253: u16 dist = dx + dy; 
 	add	hl, bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:295: if (dist <= max_dist && dist < min_dist) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:256: if (dist > max_dist) continue;
 	ld	a, #0x82
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h
-	jr	C, 00141$
-	ld	a, l
-	sub	a, -21 (ix)
-	ld	a, h
-	sbc	a, -20 (ix)
-	jr	NC, 00141$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:296: min_dist = dist;
-	ld	-21 (ix), l
-	ld	-20 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:297: best_match = i;
-	ld	a, -1 (ix)
-	ld	-22 (ix), a
-00141$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:288: for (u8 i = start_idx; i < end_idx; i++) {
-	inc	-1 (ix)
-	jp	00157$
-00144$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:303: if (best_match == 0xFF) {
-	ld	a, -22 (ix)
-	inc	a
-	jp	NZ,00153$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:304: for (u8 i = start_idx; i < end_idx; i++) {
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:238: for (u8 i = start_idx; i < end_idx; i++) {
-	ld	a, #<(_SwSprite)
-	add	a, -19 (ix)
-	ld	c, a
-	ld	a, #>(_SwSprite)
-	adc	a, -18 (ix)
-	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:304: for (u8 i = start_idx; i < end_idx; i++) {
-	ld	a, (bc)
-	ld	-6 (ix), a
-	ld	-5 (ix), c
-	ld	-4 (ix), b
-	ld	a, -24 (ix)
-	ld	-1 (ix), a
-00159$:
-	ld	a, -1 (ix)
-	sub	a, -23 (ix)
-	jp	NC, 00153$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:305: if (i == carrier || i == ignore_player) continue;
-	ld	a, -1 (ix)
-	sub	a, -2 (ix)
-	jp	Z,00150$
-	ld	a, -3 (ix)
-	sub	a, -1 (ix)
-	jp	Z,00150$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:306: u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
-	ld	c, -1 (ix)
-	ld	b, #0x00
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, bc
-	add	hl, hl
-	add	hl, bc
-	add	hl, hl
-	add	hl, bc
-	ld	de, #_SwSprite
-	add	hl, de
-	ld	c, l
-	ld	b, h
-	ld	a, (bc)
-	sub	a, -6 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:307: u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-	ld	e, a
-	ld	d, #0x00
-	sub	a, #0x80
-	jr	NC, 00176$
-	ld	a, d
-	jp	00177$
-00176$:
-	xor	a, a
-	sub	a, e
-	ld	e, a
-	ld	a, #0x01
-	sbc	a, d
-00177$:
-	ld	-12 (ix), e
-	ld	-11 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:308: u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
-	ld	hl, #4
-	add	hl, bc
-	ld	c, (hl)
-	inc	hl
-	ld	b, (hl)
-	ld	l, -5 (ix)
-	ld	h, -4 (ix)
-	ld	de, #0x0004
-	add	hl, de
-	ld	e, (hl)
-	inc	hl
-	ld	d, (hl)
-	ld	a, c
-	sub	a, e
-	ld	c, a
-	ld	a, b
-	sbc	a, d
-	and	a, #0x01
-	ld	-10 (ix), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:309: u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
-	ld	-9 (ix), a
-	sub	a, #0x01
-	jr	NC, 00178$
-	ld	a, -10 (ix)
-	ld	-8 (ix), a
-	ld	a, -9 (ix)
-	ld	-7 (ix), a
-	jp	00179$
-00178$:
-	xor	a, a
-	sub	a, -10 (ix)
-	ld	-8 (ix), a
-	ld	a, #0x02
-	sbc	a, -9 (ix)
-	ld	-7 (ix), a
-00179$:
+	jr	C, 00127$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:259: bool is_east = (dx_diff < 128);   // Ricevente a DESTRA del portatore
 	ld	c, -8 (ix)
-	ld	b, -7 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:310: u16 dist = dx + dy;
-	ld	l, -12 (ix)
-	ld	h, -11 (ix)
-	add	hl, bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:311: if (dist < min_dist) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:260: bool is_south = (dy_diff_16 < 256); // Ricevente a SUD del portatore
+	ld	b, -4 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:263: if (c_dx < 0) {
+	ld	a, -14 (ix)
+	or	a, a
+	jr	Z, 00112$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:265: if (is_east) continue; // Scarta se ricevente è a EST
+	ld	a, c
+	or	a, a
+	jr	NZ, 00127$
+00112$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:269: if (c_dx > 0) {
+	ld	a, -13 (ix)
+	or	a, a
+	jr	Z, 00116$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:271: if (!is_east) continue; // Scarta se ricevente è a OVEST
+	ld	a, c
+	or	a, a
+	jr	Z, 00127$
+00116$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:275: if (c_dy < 0) {
+	ld	a, -12 (ix)
+	or	a, a
+	jr	Z, 00120$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:277: if (is_south) continue; // Scarta se ricevente è a SUD
+	ld	a, b
+	or	a, a
+	jr	NZ, 00127$
+00120$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:281: if (c_dy > 0) {
+	ld	a, -11 (ix)
+	or	a, a
+	jr	Z, 00124$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:283: if (!is_south) continue; // Scarta se ricevente è a NORD
+	ld	a, b
+	or	a, a
+	jr	Z, 00127$
+00124$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:287: if (dist < min_dist) {
 	ld	a, l
-	sub	a, -21 (ix)
+	sub	a, -19 (ix)
 	ld	a, h
-	sbc	a, -20 (ix)
-	jr	NC, 00150$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:312: min_dist = dist;
-	ld	-21 (ix), l
-	ld	-20 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:313: best_match = i;
+	sbc	a, -18 (ix)
+	jr	NC, 00127$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:288: min_dist = dist;
+	ld	-19 (ix), l
+	ld	-18 (ix), h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:289: best_match = i;
 	ld	a, -1 (ix)
-	ld	-22 (ix), a
-00150$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:304: for (u8 i = start_idx; i < end_idx; i++) {
+	ld	-20 (ix), a
+00127$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:246: for (u8 i = start_idx; i < end_idx; i++) {
 	inc	-1 (ix)
-	jp	00159$
-00153$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:318: return best_match;
-	ld	e, -22 (ix)
+	jp	00130$
+00128$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:295: return best_match;
+	ld	e, -20 (ix)
 	ld	d, #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:319: }
+00131$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:296: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
