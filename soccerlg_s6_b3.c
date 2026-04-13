@@ -38,7 +38,7 @@ void PlayerAI(u8 i)
 		if (target_x < 104) target_x = 104;
 		if (target_x > 152) target_x = 152;
 		
-		target_y = (team == TEAM_1) ? 32 : 480;
+		target_y = (team == TEAM_1) ? 32 : 444;
 		
 		Player->dx = (target_x > Player->lx) ? 1 : ((target_x < Player->lx) ? -1 : 0);
 		Player->dy = 0;

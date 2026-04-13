@@ -32,6 +32,11 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					Field.ly = target_ly; // Centra campo immediatamente per 2T
 					Field.dy = 0; // Impedisce ad AddLines di far scorrere lo sfondo non esistente
 					
+					// Allinea istantaneamente l'hardware VDP ed evita lo schermo nero
+					ScoreBoardLeft.y0 = ScoreBoardLeft.y1 = ScoreBoardLeft.y2 = Field.ly;
+					ScoreBoardRight.y0 = ScoreBoardRight.y1 = ScoreBoardRight.y2 = Field.ly;
+					VDP_SetVerticalOffset(Field.ly & 255);
+					
 					// Ridisegno di background pesante per il salto temporale
 					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
 					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
@@ -237,7 +242,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				LastTouchTeam = (gk == 0) ? TEAM_1 : TEAM_2;
 				LastTouchPlayer = gk;
 				
-				GK->frame = (gk == 0) ? SPR_GK_PLAYER_SHOT_TO_SOUTH : SPR_GK_PLAYER_SHOT_TO_NORTH;
+				GK->ly = (gk == 0) ? 32 : 444; // Scatta sulla sua riga, ma conserva la X esterna
+				GK->frame = (gk == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_GK_PLAYER_FACE_TO_NORTH;
 				
 				*game_state = 3; // Riparte il gioco istantaneamente
 				TimerEnabled = TRUE;

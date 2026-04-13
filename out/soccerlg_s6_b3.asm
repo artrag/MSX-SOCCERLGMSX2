@@ -470,14 +470,14 @@ _PlayerAI::
 	jr	NC, 00118$
 	ld	bc, #0x0098
 00118$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:41: target_y = (team == TEAM_1) ? 32 : 480;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:41: target_y = (team == TEAM_1) ? 32 : 444;
 	ld	a, -20 (ix)
 	or	a, a
 	jr	NZ, 00263$
 	ld	de, #0x0020
 	jp	00264$
 00263$:
-	ld	de, #0x01e0
+	ld	de, #0x01bc
 00264$:
 	ld	-6 (ix), e
 	ld	-5 (ix), d
@@ -588,10 +588,10 @@ _PlayerAI::
 	ld	a, d
 	or	a, e
 	jr	NZ, 00269$
-	ld	de, #0x00f2
+	ld	de, #0x00f3
 	jp	00270$
 00269$:
-	ld	de, #0x00f5
+	ld	de, #0x00f4
 00270$:
 	ld	a, e
 	ld	(bc), a
@@ -604,10 +604,10 @@ _PlayerAI::
 	ld	a, d
 	or	a, e
 	jr	NZ, 00271$
-	ld	de, #0x00f3
+	ld	de, #0x00f2
 	jp	00272$
 00271$:
-	ld	de, #0x00f4
+	ld	de, #0x00f5
 00272$:
 	ld	a, e
 	ld	(bc), a

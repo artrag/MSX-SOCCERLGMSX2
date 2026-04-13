@@ -179,11 +179,11 @@ struct TeamColors {
 #define SPR_GK_PLAYER_SHOT_TO_SOUTH_WEST        	249
 #define SPR_GK_PLAYER_SOUTH_WITH_BALL           	240
 #define SPR_GK_PLAYER_NORTH_WITH_BALL        		241
-#define SPR_GK_PLAYER_SOUTH_1			        	242
-#define SPR_GK_PLAYER_SOUTH_2			        	245
+#define SPR_GK_PLAYER_SOUTH_1			        	243
+#define SPR_GK_PLAYER_SOUTH_2			        	244
 #define SPR_GK_PLAYER_SOUTH_SHOT			    	246
-#define SPR_GK_PLAYER_NORTH_1			        	243
-#define SPR_GK_PLAYER_NORTH_2			        	244
+#define SPR_GK_PLAYER_NORTH_1			        	242
+#define SPR_GK_PLAYER_NORTH_2			        	245
 #define SPR_GK_PLAYER_NORTH_SHOT			    	247
 #define SPR_REFEREE_PLAYER_SOUTH_DIRECTION_1        256
 #define SPR_REFEREE_PLAYER_SOUTH_DIRECTION_2        257

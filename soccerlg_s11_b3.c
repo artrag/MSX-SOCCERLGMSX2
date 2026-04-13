@@ -14,7 +14,7 @@ void AssignKickOffTargets() {
 	SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
 	SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
 
-	SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
+	SwSprite[7].tx = 120; SwSprite[7].ty = 444;  
 	SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
 	SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
 	SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
@@ -108,7 +108,7 @@ void AssignThrowInTargets() {
 
 	// 5. Posiziona i Portieri
 	SwSprite[0].tx = 128; SwSprite[0].ty = 32;
-	SwSprite[7].tx = 128; SwSprite[7].ty = 480;
+	SwSprite[7].tx = 128; SwSprite[7].ty = 444;
 
 	// 6. Sposta tutta la squadra in posizioni tattiche relative alla palla
 	for(u8 i=1; i<14; i++) {
@@ -176,7 +176,7 @@ void AssignGoalKickTargets() {
 	
 	u8 other_gk = (gk == 0) ? 7 : 0;
 	SwSprite[other_gk].tx = 128;
-	SwSprite[other_gk].ty = (other_gk == 0) ? 32 : 480;
+	SwSprite[other_gk].ty = (other_gk == 0) ? 32 : 444;
 
 	// Schieramento per il rinvio: si riposizionano verso centrocampo e oltre in base ai ruoli
 	for(u8 i=1; i<14; i++) {
