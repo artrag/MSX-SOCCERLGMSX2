@@ -61,6 +61,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
 	if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 		*game_state = 6;
+		Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
 		RestartType = 0;
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
@@ -73,6 +74,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	// Goal alla squadra 1 se la palla è oltre la linea inferiore ma nello specchio della porta
 	if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 		*game_state = 6;
+		Field.dy = 0;
 		RestartType = 0;
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
@@ -89,6 +91,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			// Attendi che la palla rientri in campo
 		} else {
 			*game_state = 6;
+			Field.dy = 0;
 			RestartType = 1;
 			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary;
 			RestartSideY = Ball->ly;
@@ -104,6 +107,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	// ========== CONTROLLO FALLO DI FONDO (Corner o Goal Kick) ==========
 	if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
 		*game_state = 6;
+		Field.dy = 0;
 		RestartType = 0;
 		
 		// Determina Corner o Goal Kick secondo il team che ha toccato per ultimo
