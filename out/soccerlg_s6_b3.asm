@@ -1862,7 +1862,7 @@ _PlayerAI::
 	ld	-25 (ix), #0x01
 	ld	-24 (ix), #0x02
 	ld	-23 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:216: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:216: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
 	push	bc
 	ex	de, hl
 	ld	de, #0x0003
@@ -1894,7 +1894,7 @@ _PlayerAI::
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerAnimFrame
-	ld	a, #0x09
+	ld	a, #0x0b
 	call	_CallFnc_U16_P4
 	pop	bc
 	ld	a, e
@@ -2014,7 +2014,7 @@ _PlayerAI::
 	ld	de, #0xffff
 00292$:
 00205$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:224: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE, GetPlayerIdleFrame, i, dir_x, dir_y);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:224: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, dir_x, dir_y);
 	push	bc
 	ld	h, e
 	ld	l, -2 (ix)
@@ -2023,7 +2023,7 @@ _PlayerAI::
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerIdleFrame
-	ld	a, #0x09
+	ld	a, #0x0b
 	call	_CallFnc_U16_P3
 	pop	bc
 	ld	a, e

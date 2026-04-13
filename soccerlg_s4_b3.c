@@ -1118,7 +1118,7 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		
 		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1170,7 +1170,7 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		
 		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{
@@ -1223,7 +1223,7 @@ void MainLoop(){
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		
 		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 
 		for (u8 i=0; i<NumSprite;i++) 
 		{

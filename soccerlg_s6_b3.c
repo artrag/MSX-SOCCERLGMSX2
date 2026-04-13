@@ -213,7 +213,7 @@ void PlayerAI(u8 i)
 		
 		Player->anim++;
 		const u8 walk_seq[4] = {0, 1, 2, 1};
-		Player->frame = CallFnc_U16_P4(SEG_GAMESTATE, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+		Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
 	} else {
 		// Posa ferma orientata verso la palla
 		i8 dir_x = (Ball->lx > Player->lx + 4) ? 1 : ((Ball->lx < Player->lx - 4) ? -1 : 0);
@@ -221,7 +221,7 @@ void PlayerAI(u8 i)
 		if (dir_x == 0 && dir_y == 0) {
 			dir_y = (team == TEAM_1) ? 1 : -1;
 		}
-		Player->frame = CallFnc_U16_P3(SEG_GAMESTATE, GetPlayerIdleFrame, i, dir_x, dir_y);
+		Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, dir_x, dir_y);
 	}
 }
 

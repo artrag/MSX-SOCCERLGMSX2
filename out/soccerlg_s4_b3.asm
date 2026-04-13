@@ -2059,7 +2059,7 @@ _MainLoop::
 	ld	de, #_PrintScoreBoardRight
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U16U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1121: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1121: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 	ld	hl, #0x009c
 	push	hl
 	ld	hl, #4
@@ -2491,7 +2491,7 @@ _MainLoop::
 	ld	de, #_PrintScoreBoardRight
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U16U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1173: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1173: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 	ld	hl, #0x009c
 	push	hl
 	ld	hl, #4
@@ -2906,7 +2906,7 @@ _MainLoop::
 	ld	de, #_PrintScoreBoardRight
 	ld	a, #0x05
 	call	_CallFnc_VOID_U8U16U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1226: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1226: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
 	ld	hl, #0x009c
 	push	hl
 	ld	hl, #4

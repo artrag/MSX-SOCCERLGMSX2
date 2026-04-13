@@ -71,3 +71,9 @@ void EventOffside()
 {
 	// Trigger sonoro per fischio fuorigioco
 }
+
+void EventGoal()
+{
+	// Trigger sonoro per gol
+	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_INGOAL);
+}

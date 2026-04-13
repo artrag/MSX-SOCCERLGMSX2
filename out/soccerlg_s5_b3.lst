@@ -2405,7 +2405,7 @@
     00000AE6 3D               [ 4] 2405 	dec	a
     00000AE7 20 0F            [12] 2406 	jr	NZ, 00117$
                                    2407 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:149: len = SPRITE_MSG_THROWIN_LENGTH;
-    00000AE9 DD 36 F7 04      [19] 2408 	ld	-9 (ix), #0x04
+    00000AE9 DD 36 F7 05      [19] 2408 	ld	-9 (ix), #0x05
                                    2409 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:150: logical_y = Field.ly + 96;
     00000AED 2Ar04r00         [16] 2410 	ld	hl, (#(_Field + 4) + 0)
     00000AF0 11 60 00         [10] 2411 	ld	de, #0x0060

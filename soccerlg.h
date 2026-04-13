@@ -67,12 +67,12 @@ struct TeamColors {
 #define SPR_T1_PLAYER_NORTH_WEST_DIRECTION_3		18
 #define SPR_T1_PLAYER_TACKLE_FROM_EAST				31
 #define SPR_T1_PLAYER_TACKLE_FROM_WEST				30
-#define SPR_T1_PLAYER_THROWIN_FROM_EAST_1			37
-#define SPR_T1_PLAYER_THROWIN_FROM_EAST_2			36
-#define SPR_T1_PLAYER_THROWIN_FROM_EAST_3			35
-#define SPR_T1_PLAYER_THROWIN_FROM_WEST_1			32
-#define SPR_T1_PLAYER_THROWIN_FROM_WEST_2			33
-#define SPR_T1_PLAYER_THROWIN_FROM_WEST_3			34
+#define SPR_T1_PLAYER_THROWIN_FROM_WEST_1			37
+#define SPR_T1_PLAYER_THROWIN_FROM_WEST_2			36
+#define SPR_T1_PLAYER_THROWIN_FROM_WEST_3			35
+#define SPR_T1_PLAYER_THROWIN_FROM_EAST_1			34
+#define SPR_T1_PLAYER_THROWIN_FROM_EAST_2			33
+#define SPR_T1_PLAYER_THROWIN_FROM_EAST_3			32
 #define SPR_T1_PLAYER_FACE_TO_NORTH 				20
 #define SPR_T1_PLAYER_FACE_TO_SOUTH 				1
 #define SPR_T1_PLAYER_FACE_TO_EAST 					26
@@ -115,12 +115,12 @@ struct TeamColors {
 #define SPR_T2_PLAYER_NORTH_WEST_DIRECTION_3    	130
 #define SPR_T2_PLAYER_TACKLE_FROM_EAST          	143
 #define SPR_T2_PLAYER_TACKLE_FROM_WEST          	142
-#define SPR_T2_PLAYER_THROWIN_FROM_EAST_1       	149
-#define SPR_T2_PLAYER_THROWIN_FROM_EAST_2       	148
-#define SPR_T2_PLAYER_THROWIN_FROM_EAST_3       	147
-#define SPR_T2_PLAYER_THROWIN_FROM_WEST_1       	144
-#define SPR_T2_PLAYER_THROWIN_FROM_WEST_2       	145
-#define SPR_T2_PLAYER_THROWIN_FROM_WEST_3       	146
+#define SPR_T2_PLAYER_THROWIN_FROM_WEST_1       	149
+#define SPR_T2_PLAYER_THROWIN_FROM_WEST_2       	148
+#define SPR_T2_PLAYER_THROWIN_FROM_WEST_3       	147
+#define SPR_T2_PLAYER_THROWIN_FROM_EAST_1       	146
+#define SPR_T2_PLAYER_THROWIN_FROM_EAST_2       	145
+#define SPR_T2_PLAYER_THROWIN_FROM_EAST_3       	144
 #define SPR_T2_PLAYER_FACE_TO_NORTH             	131
 #define SPR_T2_PLAYER_FACE_TO_SOUTH             	112
 #define SPR_T2_PLAYER_FACE_TO_EAST              	139
@@ -244,7 +244,7 @@ struct TeamColors {
 
 #define SPRITE_MSG_KICKOFF_LENGTH					4
 #define SPRITE_MSG_GOALKICK_LENGTH					5
-#define SPRITE_MSG_THROWIN_LENGTH					4
+#define SPRITE_MSG_THROWIN_LENGTH					5
 #define SPRITE_MSG_CORNERKICK_LENGTH				6
 #define SPRITE_MSG_INGOAL_LENGTH					4
 
@@ -281,8 +281,9 @@ struct TeamColors {
 #define SEG_LOGIC 		6
 #define SEG_INPUT 		7
 #define SEG_EVENTS  	8
-#define SEG_GAMESTATE 	9
+#define SEG_GAMESTATE_1 9
 #define SEG_FIELD		10
+#define SEG_GAMESTATE_2 11
 
 #define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -330,6 +331,18 @@ extern  u8  T2_Carrier;
 extern  u8  T2_Receiver;
 extern  bool TimerEnabled;
 extern  u8  LastTouchTeam;
+extern  u8  RestartType;
+extern  u8  RestartSideX;
+extern  u16 RestartSideY;
+extern  u8  g_throw_rec_1;
+extern  u8  g_throw_rec_2;
+extern  u8  g_selected_rec;
+extern  u8  g_thrower_id;
+extern  u16 g_pass_start_x;
+extern  u16 g_pass_start_y;
+extern  u16 g_pass_target_x;
+extern  u16 g_pass_target_y;
+extern  u8  g_pass_max_frames;
 
 
 
@@ -354,6 +367,7 @@ bool CallFnc_BOOL(u8 bank, u8 (*func)()) ;
 u8 CallFnc_U8(u8 bank, u8 (*func)());
 void CallFnc_VOID_16_P2(u8 bank, void (*func)(u16,u16), u16 p1, u16 p2);
 bool CallFnc_BOOL_P1(u8 bank, u8 (*func)(u8), u8 p1);
+void CallFnc_VOID_U8U8(u8 bank, void (*func)(u8, u8), u8 p1, u8 p2);
 u8 CallFnc_U8_P2(u8 bank, u8 (*func)(u8, u8), u8 p1, u8 p2);
 u8 CallFnc_U8_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1);
@@ -401,9 +415,15 @@ void EventThrowIn();
 void EventCornerKick();
 void EventGoalKick();
 void EventOffside();
+void EventGoal();
 
-// +++ SEGMENT SEG_GAMESTATE (9) +++
+// +++ SEGMENT SEG_GAMESTATE_1 (9) +++
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+
+// +++ SEGMENT SEG_GAMESTATE_2 (11) +++
+void AssignKickOffTargets();
+void AssignThrowInTargets();
+void ExecuteThrowIn(u8 thrower, u8 receiver);
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
 u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 

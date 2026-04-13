@@ -2059,7 +2059,7 @@
     000007E2 11r00r00         [10] 2059 	ld	de, #_PrintScoreBoardRight
     000007E5 3E 05            [ 7] 2060 	ld	a, #0x05
     000007E7 CDr00r00         [17] 2061 	call	_CallFnc_VOID_U8U16U16
-                                   2062 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1121: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+                                   2062 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1121: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
     000007EA 21 9C 00         [10] 2063 	ld	hl, #0x009c
     000007ED E5               [11] 2064 	push	hl
     000007EE 21 04 00         [10] 2065 	ld	hl, #4
@@ -2491,7 +2491,7 @@
     00000A4B 11r00r00         [10] 2491 	ld	de, #_PrintScoreBoardRight
     00000A4E 3E 05            [ 7] 2492 	ld	a, #0x05
     00000A50 CDr00r00         [17] 2493 	call	_CallFnc_VOID_U8U16U16
-                                   2494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1173: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+                                   2494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1173: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
     00000A53 21 9C 00         [10] 2495 	ld	hl, #0x009c
     00000A56 E5               [11] 2496 	push	hl
     00000A57 21 04 00         [10] 2497 	ld	hl, #4
@@ -2906,7 +2906,7 @@
     00000C96 11r00r00         [10] 2906 	ld	de, #_PrintScoreBoardRight
     00000C99 3E 05            [ 7] 2907 	ld	a, #0x05
     00000C9B CDr00r00         [17] 2908 	call	_CallFnc_VOID_U8U16U16
-                                   2909 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1226: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+                                   2909 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1226: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
     00000C9E 21 9C 00         [10] 2910 	ld	hl, #0x009c
     00000CA1 E5               [11] 2911 	push	hl
     00000CA2 21 04 00         [10] 2912 	ld	hl, #4

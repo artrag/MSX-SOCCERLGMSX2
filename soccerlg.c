@@ -68,6 +68,18 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8  T2_Receiver = 0xFF;
 	bool TimerEnabled = FALSE;
 	u8  LastTouchTeam = 0xFF;
+	u8  RestartType = 0;
+	u8  RestartSideX = 0;
+	u16 RestartSideY = 0;
+	u8  g_throw_rec_1 = 0xFF;
+	u8  g_throw_rec_2 = 0xFF;
+	u8  g_selected_rec = 0;
+	u8  g_thrower_id = 0xFF;
+	u16 g_pass_start_x = 0;
+	u16 g_pass_start_y = 0;
+	u16 g_pass_target_x = 0;
+	u16 g_pass_target_y = 0;
+	u8  g_pass_max_frames = 10;
 
 
 struct ObjectInfo SwSprite[NumSprite];
@@ -222,6 +234,14 @@ bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
     _res = func(p1);
 	SET_BANK_SEGMENT(3, _old);
     return _res;
+}
+
+// +++ Call void function with 2 u8 parameters +++
+void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    func(p1,p2);
+	SET_BANK_SEGMENT(3, _old);
 }
 
 // -----------------

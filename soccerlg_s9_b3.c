@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  soccerlg SCC - 2026 Fausto Pracek (fpracek@gmail.com)
-//  Segment 9 - Game State functions
+//  Segment 9 - Game State functions 1
 // ─────────────────────────────────────────────────────────────────────────────
 
 #include "msxgl.h"
@@ -8,122 +8,9 @@
 #include "debug.h"
 #include "input.h"
 
-void AssignKickOffTargets() {
-	SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
-	SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
-	SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
-	SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
-	SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
-
-	SwSprite[7].tx = 120; SwSprite[7].ty = 480;  
-	SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
-	SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
-	SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
-	SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
-
-	if (KickOffTeam == TEAM_1) {
-		SwSprite[3].tx = 112; SwSprite[3].ty = 236;
-		SwSprite[4].tx = 128; SwSprite[4].ty = 236;
-		SwSprite[10].tx= 100; SwSprite[10].ty= 296;
-		SwSprite[11].tx= 140; SwSprite[11].ty= 296;
-	} else {
-		SwSprite[3].tx = 100; SwSprite[3].ty = 200;
-		SwSprite[4].tx = 140; SwSprite[4].ty = 200;
-		SwSprite[10].tx= 112; SwSprite[10].ty= 254;
-		SwSprite[11].tx= 128; SwSprite[11].ty= 254;
-	}
-}
-
-u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 
-{
-	bool is_gk = (i == 0 || i == 7);
-	u8 team = (i < 7) ? 1 : 2;
-	
-	if (is_gk) {
-		if (dy < 0 && dx == 0) return (step==0) ? SPR_GK_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_DIRECTION_2 : SPR_GK_PLAYER_NORTH_DIRECTION_3;
-		if (dy > 0 && dx == 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_DIRECTION_3;
-		if (dy == 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_EAST_DIRECTION_2 : SPR_GK_PLAYER_EAST_DIRECTION_3;
-		if (dy == 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_WEST_DIRECTION_2 : SPR_GK_PLAYER_WEST_DIRECTION_3;
-		if (dy < 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_GK_PLAYER_NORTH_EAST_DIRECTION_3;
-		if (dy < 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_GK_PLAYER_NORTH_WEST_DIRECTION_3;
-		if (dy > 0 && dx > 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_EAST_DIRECTION_3;
-		if (dy > 0 && dx < 0) return (step==0) ? SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_GK_PLAYER_SOUTH_WEST_DIRECTION_3;
-		return SPR_GK_PLAYER_FACE_TO_SOUTH;
-	} 
-	else if (team == 1) {
-		if (dy < 0 && dx == 0) return (step==0) ? SPR_T1_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_DIRECTION_2 : SPR_T1_PLAYER_NORTH_DIRECTION_3;
-		if (dy > 0 && dx == 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_DIRECTION_3;
-		if (dy == 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_EAST_DIRECTION_2 : SPR_T1_PLAYER_EAST_DIRECTION_3;
-		if (dy == 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_WEST_DIRECTION_2 : SPR_T1_PLAYER_WEST_DIRECTION_3;
-		if (dy < 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_T1_PLAYER_NORTH_EAST_DIRECTION_3;
-		if (dy < 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_T1_PLAYER_NORTH_WEST_DIRECTION_3;
-		if (dy > 0 && dx > 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_EAST_DIRECTION_3;
-		if (dy > 0 && dx < 0) return (step==0) ? SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_T1_PLAYER_SOUTH_WEST_DIRECTION_3;
-		return SPR_T1_PLAYER_FACE_TO_SOUTH;
-	} 
-	else {
-		if (dy < 0 && dx == 0) return (step==0) ? SPR_T2_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_DIRECTION_2 : SPR_T2_PLAYER_NORTH_DIRECTION_3;
-		if (dy > 0 && dx == 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_DIRECTION_3;
-		if (dy == 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_EAST_DIRECTION_2 : SPR_T2_PLAYER_EAST_DIRECTION_3;
-		if (dy == 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_WEST_DIRECTION_2 : SPR_T2_PLAYER_WEST_DIRECTION_3;
-		if (dy < 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_T2_PLAYER_NORTH_EAST_DIRECTION_3;
-		if (dy < 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_T2_PLAYER_NORTH_WEST_DIRECTION_3;
-		if (dy > 0 && dx > 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_EAST_DIRECTION_3;
-		if (dy > 0 && dx < 0) return (step==0) ? SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_T2_PLAYER_SOUTH_WEST_DIRECTION_3;
-		return SPR_T2_PLAYER_FACE_TO_NORTH;
-	}
-}
-
-u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy) 
-{
-	bool is_gk = (i == 0 || i == 7);
-	u8 team = (i < 7) ? 1 : 2;
-	
-	if (is_gk) {
-		if (dy < 0 && dx == 0) return SPR_GK_PLAYER_FACE_TO_NORTH;
-		if (dy > 0 && dx == 0) return SPR_GK_PLAYER_FACE_TO_SOUTH;
-		if (dy == 0 && dx > 0) return SPR_GK_PLAYER_FACE_TO_EAST;
-		if (dy == 0 && dx < 0) return SPR_GK_PLAYER_FACE_TO_WEST;
-		if (dy < 0 && dx > 0) return SPR_GK_PLAYER_FACE_TO_NORTH_EAST;
-		if (dy < 0 && dx < 0) return SPR_GK_PLAYER_FACE_TO_NORTH_WEST;
-		if (dy > 0 && dx > 0) return SPR_GK_PLAYER_FACE_TO_SOUTH_EAST;
-		if (dy > 0 && dx < 0) return SPR_GK_PLAYER_FACE_TO_SOUTH_WEST;
-		return SPR_GK_PLAYER_FACE_TO_SOUTH;
-	} 
-	else if (team == 1) {
-		if (dy < 0 && dx == 0) return SPR_T1_PLAYER_FACE_TO_NORTH;
-		if (dy > 0 && dx == 0) return SPR_T1_PLAYER_FACE_TO_SOUTH;
-		if (dy == 0 && dx > 0) return SPR_T1_PLAYER_FACE_TO_EAST;
-		if (dy == 0 && dx < 0) return SPR_T1_PLAYER_FACE_TO_WEST;
-		if (dy < 0 && dx > 0) return SPR_T1_PLAYER_FACE_TO_NORTH_EAST;
-		if (dy < 0 && dx < 0) return SPR_T1_PLAYER_FACE_TO_NORTH_WEST;
-		if (dy > 0 && dx > 0) return SPR_T1_PLAYER_FACE_TO_SOUTH_EAST;
-		if (dy > 0 && dx < 0) return SPR_T1_PLAYER_FACE_TO_SOUTH_WEST;
-		return SPR_T1_PLAYER_FACE_TO_SOUTH;
-	} 
-	else {
-		if (dy < 0 && dx == 0) return SPR_T2_PLAYER_FACE_TO_NORTH;
-		if (dy > 0 && dx == 0) return SPR_T2_PLAYER_FACE_TO_SOUTH;
-		if (dy == 0 && dx > 0) return SPR_T2_PLAYER_FACE_TO_EAST;
-		if (dy == 0 && dx < 0) return SPR_T2_PLAYER_FACE_TO_WEST;
-		if (dy < 0 && dx > 0) return SPR_T2_PLAYER_FACE_TO_NORTH_EAST;
-		if (dy < 0 && dx < 0) return SPR_T2_PLAYER_FACE_TO_NORTH_WEST;
-		if (dy > 0 && dx > 0) return SPR_T2_PLAYER_FACE_TO_SOUTH_EAST;
-		if (dy > 0 && dx < 0) return SPR_T2_PLAYER_FACE_TO_SOUTH_WEST;
-		return SPR_T2_PLAYER_FACE_TO_NORTH;
-	}
-}
-
 static i8 g_last_dx[2] = {0, 0};
 static i8 g_last_dy[2] = {1, -1};
 static u8 g_prev_trigger[2] = {0, 0}; // Traccia stato precedente del trigger
-
-// Pass flight waypoint storage for interpolation and scaling
-static u16 g_pass_start_x = 0;
-static u16 g_pass_start_y = 0;
-static u16 g_pass_target_x = 0;
-static u16 g_pass_target_y = 0;
-static u8 g_pass_max_frames = 10; // Pass flight duration
 
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
 {
@@ -144,7 +31,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			if (*wait_secs == 0) {
 				*game_state = 2; // Passa al posizionamento
 				CallFnc_VOID(SEG_EVENTS, EventPlayerFirstPresentationStarted);
-				AssignKickOffTargets();
+					CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
 			}
 		}
 		*start_sec = Frms;
@@ -168,15 +55,35 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				p->anim++;
 				
 				const u8 walk_seq[4] = {0, 1, 2, 1}; // 1->2->3->2->1...
-				p->frame = GetPlayerAnimFrame(i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+				p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 			} else {
 				i8 dir_x = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
 				i8 dir_y = (i < 7) ? 1 : -1; // Team 1 guarda sempre a Sud, Team 2 sempre a Nord
 				p->dx = 0; p->dy = 0;
-				p->frame = GetPlayerAnimFrame(i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
+				
+				if (RestartType == 1 && i == g_thrower_id) {
+					if (i < 7) {
+						p->frame = (RestartSideX < 128) ? SPR_T1_PLAYER_THROWIN_FROM_WEST_1 : SPR_T1_PLAYER_THROWIN_FROM_EAST_1;
+					} else {
+						p->frame = (RestartSideX < 128) ? SPR_T2_PLAYER_THROWIN_FROM_WEST_1 : SPR_T2_PLAYER_THROWIN_FROM_EAST_1;
+					}
+				} else {
+					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
+				}
 			}
 		}
 		if (all_in_position) {
+			if (RestartType == 1) {
+				*game_state = 7;
+				u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
+				bool is_human = FALSE;
+				if (throw_team == TEAM_2) is_human = TRUE;
+				else if (throw_team == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2) is_human = TRUE;
+				
+				*wait_secs = is_human ? 5 : 1; // 5 secondi per il giocatore, 1 per la CPU
+				*start_sec = Frms;
+				return;
+			}
 			*game_state = 3;
 			
 			// Assegna Carrier e Receiver per il Kickoff
@@ -370,10 +277,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				
 				Carrier->anim++;
 				const u8 walk_seq[4] = {0, 1, 2, 1}; 
-				Carrier->frame = GetPlayerAnimFrame(carrier, Carrier->dx, Carrier->dy, walk_seq[(Carrier->anim / 3) % 4]);
+				Carrier->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, carrier, Carrier->dx, Carrier->dy, walk_seq[(Carrier->anim / 3) % 4]);
 			} else {
 				// Se è fermo, usa l'ultima direzione di movimento per la posa di attesa
-				Carrier->frame = GetPlayerIdleFrame(carrier, g_last_dx[i], g_last_dy[i]);
+				Carrier->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, carrier, g_last_dx[i], g_last_dy[i]);
 			}
 			
 			// Calcolo della distanza dalla palla (SEMPRE, sia che si muova che fermo)
@@ -492,7 +399,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
 					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
 					
-					AssignKickOffTargets();
+					CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
 					for (u8 i = 0; i < 14; i++) {
 						SwSprite[i].lx = SwSprite[i].tx;
 						SwSprite[i].ly = SwSprite[i].ty;
@@ -524,22 +431,83 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
 					
-					// Ritorno provvisorio a centrocampo per poter continuare a testare
-					SwSprite[14].lx = BALL_START_X;
-					SwSprite[14].ly = BALL_START_Y;
-					SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
-					
-					Field.ly = target_ly; // Teletrasporta telecamera al centro
-					Field.dy = 0;
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
-					
-					AssignKickOffTargets();
+					if (RestartType == 1) {
+						CallFnc_VOID(SEG_GAMESTATE_2, AssignThrowInTargets);
+						
+						if (SwSprite[14].ly < 96) Field.ly = 0;
+						else if (SwSprite[14].ly > 512 - 192) Field.ly = 512 - 192;
+						else Field.ly = SwSprite[14].ly - 96;
+						
+						Field.dy = 0;
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
+						
+						T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Disabilita Focus visivo camminata
+					} else {
+						// Ritorno provvisorio a centrocampo per poter continuare a testare
+						SwSprite[14].lx = BALL_START_X;
+						SwSprite[14].ly = BALL_START_Y;
+						SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
+						
+						Field.ly = target_ly; // Teletrasporta telecamera al centro
+						Field.dy = 0;
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
+						
+						CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
+					}
 					*game_state = 2; // Riparte la coreografia di schieramento
 				}
 			}
 			*start_sec = Frms;
 		}
+	} else if (*game_state == 7) {
+		// --- ATTESA BATTUTA RIMESSA LATERALE ---
+		u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
+		bool is_human = FALSE;
+		u8 joy_port = 0;
+		
+		if (throw_team == TEAM_2) { is_human = TRUE; joy_port = 0; }
+		else if (throw_team == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2) { is_human = TRUE; joy_port = 1; }
+
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Forza pulizia focus
+
+		if (*start_sec < Frms) { // Se Frms scala ciclicamente o wrap down
+			if (*wait_secs > 0) (*wait_secs)--; 
+		}
+		*start_sec = Frms;
+
+		if (is_human) {
+			// Focus lampeggiante unicamente sul destinatario
+			if (throw_team == TEAM_1) T1_Receiver = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
+			else T2_Receiver = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
+
+			// Ciclare tra i due destinatari
+			u8 dir = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, joy_port);
+			static u8 last_throw_dir = DIRECTION_NONE;
+			if (dir != DIRECTION_NONE && last_throw_dir == DIRECTION_NONE) g_selected_rec = 1 - g_selected_rec;
+			last_throw_dir = dir;
+
+			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, joy_port);
+			bool do_throw = FALSE;
+			if (cur_trig != 0 && g_prev_trigger[joy_port] == 0) do_throw = TRUE;
+			g_prev_trigger[joy_port] = cur_trig;
+
+			if (*wait_secs == 0) do_throw = TRUE; // Lancio automatico scaduto il tempo
+
+			if (do_throw) {
+				CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+				*game_state = 3; TimerEnabled = TRUE;
+			}
+		} else {
+			if (*wait_secs == 0) {
+				u8 target = ((Frms % 2) == 0) ? g_throw_rec_1 : g_throw_rec_2;
+				CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
+				*game_state = 3; TimerEnabled = TRUE;
+			}
+		}
+		return;
 	}
 }

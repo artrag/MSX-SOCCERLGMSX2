@@ -2405,7 +2405,7 @@ _ShowSpriteMessage::
 	dec	a
 	jr	NZ, 00117$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:149: len = SPRITE_MSG_THROWIN_LENGTH;
-	ld	-9 (ix), #0x04
+	ld	-9 (ix), #0x05
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:150: logical_y = Field.ly + 96;
 	ld	hl, (#(_Field + 4) + 0)
 	ld	de, #0x0060

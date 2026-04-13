@@ -42,30 +42,86 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 {
 	struct ObjectInfo* Ball = &SwSprite[14];
 	
-	// Limiti del campo (da calibrare in base al tuo disegno .PNG)
-	u8 left_line = 16;
-	u8 right_line = 240;
-	u16 top_line = 24;
-	u16 bottom_line = 488;
+	// Limiti del campo: oltre 35 pixel dai bordi viene considerato fuori gioco
+	u8 left_boundary = 35;      // Fallo laterale a sinistra
+	u8 right_boundary = 221;    // Fallo laterale a destra (256 - 35)
+	u16 top_boundary = 30;      // Fallo di fondo sopra (Team 2 goal)
+	u16 bottom_boundary = 482;  // Fallo di fondo sotto (Team 1 goal) = 512 - 30
 	
-	if (Ball->lx < left_line || Ball->lx > right_line) {
-		*game_state = 6; // Rimessa laterale
-		CallFnc_VOID(SEG_EVENTS, EventThrowIn);
+	// Se la palla è fisicamente rientrata nei limiti di gioco, ripuliamo il flag di Restart
+	if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+		RestartType = 0;
 	}
-	else if (Ball->ly < top_line || Ball->ly > bottom_line) {
+	
+	// Specchio porta: 100 pixel da sinistra per ... (area di gol)
+	u8 goal_left = 100;
+	u8 goal_right = 200;  // 100 + 100 pixels di larghezza
+	
+	// ========== CONTROLLO GOAL ==========
+	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
+	if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 		*game_state = 6;
-		// Calcola Corner o Goal Kick valutando incrociatamente lato bucato e ultimo tocco
-		if ((Ball->ly < top_line && LastTouchTeam == TEAM_1) || (Ball->ly > bottom_line && LastTouchTeam == TEAM_2)) {
+		RestartType = 0;
+		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+		Ball->anim = Ball->dx = Ball->dy = 0;
+		T1_Carrier = T2_Carrier = 0xFF;
+		TimerEnabled = FALSE;
+		*wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+		return;
+	}
+	
+	// Goal alla squadra 1 se la palla è oltre la linea inferiore ma nello specchio della porta
+	if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+		*game_state = 6;
+		RestartType = 0;
+		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+		Ball->anim = Ball->dx = Ball->dy = 0;
+		T1_Carrier = T2_Carrier = 0xFF;
+		TimerEnabled = FALSE;
+		*wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+		return;
+	}
+	
+	// ========== CONTROLLO FALLO LATERALE (Throw-In) ==========
+	if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
+		// Se stiamo battendo una rimessa e la palla è in volo verso il campo, ignora il controllo
+		if (RestartType == 1 && Ball->anim == 5) {
+			// Attendi che la palla rientri in campo
+		} else {
+			*game_state = 6;
+			RestartType = 1;
+			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary;
+			RestartSideY = Ball->ly;
+			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
+			Ball->anim = Ball->dx = Ball->dy = 0;
+			T1_Carrier = T2_Carrier = 0xFF;
+			TimerEnabled = FALSE;
+			*wait_secs = 2; *start_sec = Frms;
+			return;
+		}
+	}
+	
+	// ========== CONTROLLO FALLO DI FONDO (Corner o Goal Kick) ==========
+	if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
+		*game_state = 6;
+		RestartType = 0;
+		
+		// Determina Corner o Goal Kick secondo il team che ha toccato per ultimo
+		// Se Team 1 ha toccato per ultimo e la palla esce dal fondo superiore → CORNER (attacco riuscito)
+		// Se Team 2 ha toccato per ultimo e la palla esce dal fondo inferiore → CORNER (attacco riuscito)
+		// Altrimenti → GOAL KICK (difesa fallita nel respingere)
+		
+		if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
+		    (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
 			CallFnc_VOID(SEG_EVENTS, EventCornerKick);
 		} else {
 			CallFnc_VOID(SEG_EVENTS, EventGoalKick);
 		}
-	}
-	
-	if (*game_state == 6) {
+		
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		T1_Carrier = T2_Carrier = 0xFF;
 		TimerEnabled = FALSE;
 		*wait_secs = 2; *start_sec = Frms;
+		return;
 	}
 }

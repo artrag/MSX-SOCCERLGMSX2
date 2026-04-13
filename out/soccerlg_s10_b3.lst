@@ -8,770 +8,963 @@
                                       8 ;--------------------------------------------------------
                                       9 ; Public variables in this module
                                      10 ;--------------------------------------------------------
-                                     11 	.globl _EventGoalKick
-                                     12 	.globl _EventCornerKick
-                                     13 	.globl _EventThrowIn
-                                     14 	.globl _CallFnc_VOID
-                                     15 	.globl _g_SLTSL
-                                     16 	.globl _g_GRPACY
-                                     17 	.globl _g_GRPACX
-                                     18 	.globl _g_LOGOPR
-                                     19 	.globl _g_CMASK
-                                     20 	.globl _g_CLOC
-                                     21 	.globl _g_FNKSTR
-                                     22 	.globl _g_ATRBYT
-                                     23 	.globl _g_BDRCLR
-                                     24 	.globl _g_BAKCLR
-                                     25 	.globl _g_FORCLR
-                                     26 	.globl _g_CSRX
-                                     27 	.globl _g_CSRY
-                                     28 	.globl _g_CLIKSW
-                                     29 	.globl _g_MLTPAT
-                                     30 	.globl _g_MLTATR
-                                     31 	.globl _g_MLTCGP
-                                     32 	.globl _g_MLTCOL
-                                     33 	.globl _g_MLTNAM
-                                     34 	.globl _g_GRPPAT
-                                     35 	.globl _g_GRPATR
-                                     36 	.globl _g_GRPCGP
-                                     37 	.globl _g_GRPCOL
-                                     38 	.globl _g_GRPNAM
-                                     39 	.globl _g_T32PAT
-                                     40 	.globl _g_T32ATR
-                                     41 	.globl _g_T32CGP
-                                     42 	.globl _g_T32COL
-                                     43 	.globl _g_T32NAM
-                                     44 	.globl _g_TXTPAT
-                                     45 	.globl _g_TXTATR
-                                     46 	.globl _g_TXTCGP
-                                     47 	.globl _g_TXTCOL
-                                     48 	.globl _g_TXTNAM
-                                     49 	.globl _g_CLMLST
-                                     50 	.globl _g_CRTCNT
-                                     51 	.globl _g_LINLEN
-                                     52 	.globl _g_LINL32
-                                     53 	.globl _g_LINL40
-                                     54 	.globl _g_BDOS
-                                     55 	.globl _g_MASTER
-                                     56 	.globl _g_RAMAD3
-                                     57 	.globl _g_RAMAD2
-                                     58 	.globl _g_RAMAD1
-                                     59 	.globl _g_RAMAD0
-                                     60 	.globl _g_BREAKV
-                                     61 	.globl _g_DISKVE
-                                     62 	.globl _g_KANJTABLE
-                                     63 	.globl _g_STRSRC
-                                     64 	.globl _g_SUBRID
-                                     65 	.globl _g_CHAR_16
-                                     66 	.globl _g_MSXMID
-                                     67 	.globl _g_MSXVER
-                                     68 	.globl _g_ROMVersion
-                                     69 	.globl _g_BASRVN
-                                     70 	.globl _g_VDP_DW
-                                     71 	.globl _g_VDP_DR
-                                     72 	.globl _g_CGTABL
-                                     73 	.globl _g_SVFFFD
-                                     74 	.globl _g_RG27SAV
-                                     75 	.globl _g_RG26SAV
-                                     76 	.globl _g_RG25SAV
-                                     77 	.globl _g_SVFFF8
-                                     78 	.globl _g_MINROM
-                                     79 	.globl _g_RG23SAV
-                                     80 	.globl _g_RG22SAV
-                                     81 	.globl _g_RG21SAV
-                                     82 	.globl _g_RG20SAV
-                                     83 	.globl _g_RG19SAV
-                                     84 	.globl _g_RG18SAV
-                                     85 	.globl _g_RG17SAV
-                                     86 	.globl _g_RG16SAV
-                                     87 	.globl _g_RG15SAV
-                                     88 	.globl _g_RG14SAV
-                                     89 	.globl _g_RG13SAV
-                                     90 	.globl _g_RG12SAV
-                                     91 	.globl _g_RG11SAV
-                                     92 	.globl _g_RG10SAV
-                                     93 	.globl _g_RG09SAV
-                                     94 	.globl _g_RG08SAV
-                                     95 	.globl _g_PROCNM
-                                     96 	.globl _g_SLTWRK
-                                     97 	.globl _g_SLTATR
-                                     98 	.globl _g_SLTTBL
-                                     99 	.globl _g_EXPTBL
-                                    100 	.globl _g_MNROM
-                                    101 	.globl _g_DRWANG
-                                    102 	.globl _g_DRWSCL
-                                    103 	.globl _g_DRWFLG
-                                    104 	.globl _g_GYPOS
-                                    105 	.globl _g_GXPOS
-                                    106 	.globl _g_BRDATR
-                                    107 	.globl _g_CASPRV
-                                    108 	.globl _g_OLDSCR
-                                    109 	.globl _g_SCRMOD
-                                    110 	.globl _g_FLBMEM
-                                    111 	.globl _g_KANAMD
-                                    112 	.globl _g_KANAST
-                                    113 	.globl _g_CAPST
-                                    114 	.globl _g_CSTYLE
-                                    115 	.globl _g_CSRSW
-                                    116 	.globl _g_INSFLG
-                                    117 	.globl _g_ESCCNT
-                                    118 	.globl _g_GRPHED
-                                    119 	.globl _g_WINWID
-                                    120 	.globl _g_LOWLIM
-                                    121 	.globl _g_INTCNT
-                                    122 	.globl _g_INTVAL
-                                    123 	.globl _g_JIFFY
-                                    124 	.globl _g_PADX
-                                    125 	.globl _g_PADY
-                                    126 	.globl _g_INTFLG
-                                    127 	.globl _g_RTYCNT
-                                    128 	.globl _g_TRPTBL
-                                    129 	.globl _g_HIMEM
-                                    130 	.globl _g_BOTTOM
-                                    131 	.globl _g_PATWRK
-                                    132 	.globl _g_LINWRK
-                                    133 	.globl _g_KEYBUF
-                                    134 	.globl _g_NEWKEY
-                                    135 	.globl _g_OLDKEY
-                                    136 	.globl _g_CLIKFL
-                                    137 	.globl _g_ONGSBF
-                                    138 	.globl _g_FNKFLG
-                                    139 	.globl _g_FNKSWI
-                                    140 	.globl _g_CODSAV
-                                    141 	.globl _g_FSTPOS
-                                    142 	.globl _g_LINTTB
-                                    143 	.globl _g_BASROM
-                                    144 	.globl _g_ENSTOP
-                                    145 	.globl _g_VCBC
-                                    146 	.globl _g_VCBB
-                                    147 	.globl _g_VCBA
-                                    148 	.globl _g_PLYCNT
-                                    149 	.globl _g_MUSICF
-                                    150 	.globl _g_QUEUEN
-                                    151 	.globl _g_MCLPTR
-                                    152 	.globl _g_MCLLEN
-                                    153 	.globl _g_SAVVOL
-                                    154 	.globl _g_VOICEN
-                                    155 	.globl _g_SAVSP
-                                    156 	.globl _g_PRSCNT
-                                    157 	.globl _g_LSTMOD
-                                    158 	.globl _g_LSTCOM
-                                    159 	.globl _g_COMMSK
-                                    160 	.globl _g_ESTBLS
-                                    161 	.globl _g_FLAGS
-                                    162 	.globl _g_ERRORS
-                                    163 	.globl _g_DATCNT
-                                    164 	.globl _g_DEVNUM
-                                    165 	.globl _g_OLDINT
-                                    166 	.globl _g_OLDSTT
-                                    167 	.globl _g_MEXBIh
-                                    168 	.globl _g_RSIQLN
-                                    169 	.globl _g_RSFCB
-                                    170 	.globl _g_TOCNT
-                                    171 	.globl _g_RSTMP
-                                    172 	.globl _g_YSAVE
-                                    173 	.globl _g_XSAVE
-                                    174 	.globl _g_NORUSE
-                                    175 	.globl _g_MODE
-                                    176 	.globl _g_ROMA
-                                    177 	.globl _g_CHRCNT
-                                    178 	.globl _g_EXBRSA
-                                    179 	.globl _g_AVCSAV
-                                    180 	.globl _g_ACPAGE
-                                    181 	.globl _g_DPPAGE
-                                    182 	.globl _g_RS2IQ
-                                    183 	.globl _g_VOICCQ
-                                    184 	.globl _g_VOICBQ
-                                    185 	.globl _g_VOICAQ
-                                    186 	.globl _g_QUEBAK
-                                    187 	.globl _g_QUETAB
-                                    188 	.globl _g_ASPCT2
-                                    189 	.globl _g_ASPCT1
-                                    190 	.globl _g_HEADER
-                                    191 	.globl _g_HIGH
-                                    192 	.globl _g_LOW
-                                    193 	.globl _g_CS240
-                                    194 	.globl _g_CS120
-                                    195 	.globl _g_GETPNT
-                                    196 	.globl _g_PUTPNT
-                                    197 	.globl _g_REPCNT
-                                    198 	.globl _g_SCNCNT
-                                    199 	.globl _g_FRCNEW
-                                    200 	.globl _g_QUEUES
-                                    201 	.globl _g_MINUPD
-                                    202 	.globl _g_MAXUPD
-                                    203 	.globl _g_TRGFLG
-                                    204 	.globl _g_STATFL
-                                    205 	.globl _g_RG7SAV
-                                    206 	.globl _g_RG6SAV
-                                    207 	.globl _g_RG5SAV
-                                    208 	.globl _g_RG4SAV
-                                    209 	.globl _g_RG3SAV
-                                    210 	.globl _g_RG2SAV
-                                    211 	.globl _g_RG1SAV
-                                    212 	.globl _g_RG0SAV
-                                    213 	.globl _g_CNSDFG
-                                    214 	.globl _g_USRTAB
-                                    215 	.globl _g_CLPRIM
-                                    216 	.globl _g_WRPRIM
-                                    217 	.globl _g_RDPRIM
-                                    218 	.globl _UpdateFieldCamera
-                                    219 	.globl _CheckFieldBoundaries
-                                    220 ;--------------------------------------------------------
-                                    221 ; special function registers
-                                    222 ;--------------------------------------------------------
-                         000000A8   223 _g_PortPrimarySlot	=	0x00a8
-                         000000A9   224 _g_PortReadKeyboard	=	0x00a9
-                         000000AA   225 _g_PortAccessKeyboard	=	0x00aa
-                         000000AB   226 _g_PortControl	=	0x00ab
-                         00000098   227 _g_VDP_DataPort	=	0x0098
-                         00000099   228 _g_VDP_RegPort	=	0x0099
-                         00000099   229 _g_VDP_AddrPort	=	0x0099
-                         00000099   230 _g_VDP_StatPort	=	0x0099
-                         0000009A   231 _g_VDP_PalPort	=	0x009a
-                         0000009B   232 _g_VDP_IRegPort	=	0x009b
-                         000000A0   233 _g_PSG_RegPort	=	0x00a0
-                         000000A1   234 _g_PSG_DataPort	=	0x00a1
-                         000000A2   235 _g_PSG_StatPort	=	0x00a2
-                         00000010   236 _g_PSG_Ext_RegPort	=	0x0010
-                         00000011   237 _g_PSG_Ext_DataPort	=	0x0011
-                         00000012   238 _g_PSG_Ext_StatPort	=	0x0012
-                         0000007C   239 _g_MSXMusic_IndexPort	=	0x007c
-                         0000007D   240 _g_MSXMusic_DataPort	=	0x007d
-                         000000C0   241 _g_MSXAudio_IndexPort	=	0x00c0
-                         000000C1   242 _g_MSXAudio_DataPort	=	0x00c1
-                         000000C2   243 _g_MSXAudio_IndexPort2	=	0x00c2
-                         000000C3   244 _g_MSXAudio_DataPort2	=	0x00c3
-                         000000B4   245 _g_RTC_AddrPort	=	0x00b4
-                         000000B5   246 _g_RTC_DataPort	=	0x00b5
-                                    247 ;--------------------------------------------------------
-                                    248 ; ram data
-                                    249 ;--------------------------------------------------------
-                                    250 	.area _DATA
-                         0000F3AE   251 _g_LINL40	=	0xf3ae
-                         0000F3AF   252 _g_LINL32	=	0xf3af
-                         0000F3B0   253 _g_LINLEN	=	0xf3b0
-                         0000F3B1   254 _g_CRTCNT	=	0xf3b1
-                         0000F3B2   255 _g_CLMLST	=	0xf3b2
-                         0000F3B3   256 _g_TXTNAM	=	0xf3b3
-                         0000F3B5   257 _g_TXTCOL	=	0xf3b5
-                         0000F3B7   258 _g_TXTCGP	=	0xf3b7
-                         0000F3B9   259 _g_TXTATR	=	0xf3b9
-                         0000F3BB   260 _g_TXTPAT	=	0xf3bb
-                         0000F3BD   261 _g_T32NAM	=	0xf3bd
-                         0000F3BF   262 _g_T32COL	=	0xf3bf
-                         0000F3C1   263 _g_T32CGP	=	0xf3c1
-                         0000F3C3   264 _g_T32ATR	=	0xf3c3
-                         0000F3C5   265 _g_T32PAT	=	0xf3c5
-                         0000F3C7   266 _g_GRPNAM	=	0xf3c7
-                         0000F3C9   267 _g_GRPCOL	=	0xf3c9
-                         0000F3CB   268 _g_GRPCGP	=	0xf3cb
-                         0000F3CD   269 _g_GRPATR	=	0xf3cd
-                         0000F3CF   270 _g_GRPPAT	=	0xf3cf
-                         0000F3D1   271 _g_MLTNAM	=	0xf3d1
-                         0000F3D3   272 _g_MLTCOL	=	0xf3d3
-                         0000F3D5   273 _g_MLTCGP	=	0xf3d5
-                         0000F3D7   274 _g_MLTATR	=	0xf3d7
-                         0000F3D9   275 _g_MLTPAT	=	0xf3d9
-                         0000F3DB   276 _g_CLIKSW	=	0xf3db
-                         0000F3DC   277 _g_CSRY	=	0xf3dc
-                         0000F3DD   278 _g_CSRX	=	0xf3dd
-                         0000F3E9   279 _g_FORCLR	=	0xf3e9
-                         0000F3EA   280 _g_BAKCLR	=	0xf3ea
-                         0000F3EB   281 _g_BDRCLR	=	0xf3eb
-                         0000F3F2   282 _g_ATRBYT	=	0xf3f2
-                         0000F87F   283 _g_FNKSTR	=	0xf87f
-                         0000F92A   284 _g_CLOC	=	0xf92a
-                         0000F92C   285 _g_CMASK	=	0xf92c
-                         0000FB02   286 _g_LOGOPR	=	0xfb02
-                         0000FCB7   287 _g_GRPACX	=	0xfcb7
-                         0000FCB9   288 _g_GRPACY	=	0xfcb9
-                         0000FFFF   289 _g_SLTSL	=	0xffff
-                                    290 ;--------------------------------------------------------
-                                    291 ; ram data
-                                    292 ;--------------------------------------------------------
-                                    293 	.area _INITIALIZED
-                                    294 ;--------------------------------------------------------
-                                    295 ; absolute external ram data
-                                    296 ;--------------------------------------------------------
-                                    297 	.area _DABS (ABS)
-                                    298 ;--------------------------------------------------------
-                                    299 ; global & static initialisations
-                                    300 ;--------------------------------------------------------
-                                    301 	.area _HOME
-                                    302 	.area _GSINIT
-                                    303 	.area _GSFINAL
-                                    304 	.area _GSINIT
-                                    305 ;--------------------------------------------------------
-                                    306 ; Home
-                                    307 ;--------------------------------------------------------
-                                    308 	.area _HOME
+                                     11 	.globl _EventGoal
+                                     12 	.globl _EventGoalKick
+                                     13 	.globl _EventCornerKick
+                                     14 	.globl _EventThrowIn
+                                     15 	.globl _CallFnc_VOID
+                                     16 	.globl _g_SLTSL
+                                     17 	.globl _g_GRPACY
+                                     18 	.globl _g_GRPACX
+                                     19 	.globl _g_LOGOPR
+                                     20 	.globl _g_CMASK
+                                     21 	.globl _g_CLOC
+                                     22 	.globl _g_FNKSTR
+                                     23 	.globl _g_ATRBYT
+                                     24 	.globl _g_BDRCLR
+                                     25 	.globl _g_BAKCLR
+                                     26 	.globl _g_FORCLR
+                                     27 	.globl _g_CSRX
+                                     28 	.globl _g_CSRY
+                                     29 	.globl _g_CLIKSW
+                                     30 	.globl _g_MLTPAT
+                                     31 	.globl _g_MLTATR
+                                     32 	.globl _g_MLTCGP
+                                     33 	.globl _g_MLTCOL
+                                     34 	.globl _g_MLTNAM
+                                     35 	.globl _g_GRPPAT
+                                     36 	.globl _g_GRPATR
+                                     37 	.globl _g_GRPCGP
+                                     38 	.globl _g_GRPCOL
+                                     39 	.globl _g_GRPNAM
+                                     40 	.globl _g_T32PAT
+                                     41 	.globl _g_T32ATR
+                                     42 	.globl _g_T32CGP
+                                     43 	.globl _g_T32COL
+                                     44 	.globl _g_T32NAM
+                                     45 	.globl _g_TXTPAT
+                                     46 	.globl _g_TXTATR
+                                     47 	.globl _g_TXTCGP
+                                     48 	.globl _g_TXTCOL
+                                     49 	.globl _g_TXTNAM
+                                     50 	.globl _g_CLMLST
+                                     51 	.globl _g_CRTCNT
+                                     52 	.globl _g_LINLEN
+                                     53 	.globl _g_LINL32
+                                     54 	.globl _g_LINL40
+                                     55 	.globl _g_BDOS
+                                     56 	.globl _g_MASTER
+                                     57 	.globl _g_RAMAD3
+                                     58 	.globl _g_RAMAD2
+                                     59 	.globl _g_RAMAD1
+                                     60 	.globl _g_RAMAD0
+                                     61 	.globl _g_BREAKV
+                                     62 	.globl _g_DISKVE
+                                     63 	.globl _g_KANJTABLE
+                                     64 	.globl _g_STRSRC
+                                     65 	.globl _g_SUBRID
+                                     66 	.globl _g_CHAR_16
+                                     67 	.globl _g_MSXMID
+                                     68 	.globl _g_MSXVER
+                                     69 	.globl _g_ROMVersion
+                                     70 	.globl _g_BASRVN
+                                     71 	.globl _g_VDP_DW
+                                     72 	.globl _g_VDP_DR
+                                     73 	.globl _g_CGTABL
+                                     74 	.globl _g_SVFFFD
+                                     75 	.globl _g_RG27SAV
+                                     76 	.globl _g_RG26SAV
+                                     77 	.globl _g_RG25SAV
+                                     78 	.globl _g_SVFFF8
+                                     79 	.globl _g_MINROM
+                                     80 	.globl _g_RG23SAV
+                                     81 	.globl _g_RG22SAV
+                                     82 	.globl _g_RG21SAV
+                                     83 	.globl _g_RG20SAV
+                                     84 	.globl _g_RG19SAV
+                                     85 	.globl _g_RG18SAV
+                                     86 	.globl _g_RG17SAV
+                                     87 	.globl _g_RG16SAV
+                                     88 	.globl _g_RG15SAV
+                                     89 	.globl _g_RG14SAV
+                                     90 	.globl _g_RG13SAV
+                                     91 	.globl _g_RG12SAV
+                                     92 	.globl _g_RG11SAV
+                                     93 	.globl _g_RG10SAV
+                                     94 	.globl _g_RG09SAV
+                                     95 	.globl _g_RG08SAV
+                                     96 	.globl _g_PROCNM
+                                     97 	.globl _g_SLTWRK
+                                     98 	.globl _g_SLTATR
+                                     99 	.globl _g_SLTTBL
+                                    100 	.globl _g_EXPTBL
+                                    101 	.globl _g_MNROM
+                                    102 	.globl _g_DRWANG
+                                    103 	.globl _g_DRWSCL
+                                    104 	.globl _g_DRWFLG
+                                    105 	.globl _g_GYPOS
+                                    106 	.globl _g_GXPOS
+                                    107 	.globl _g_BRDATR
+                                    108 	.globl _g_CASPRV
+                                    109 	.globl _g_OLDSCR
+                                    110 	.globl _g_SCRMOD
+                                    111 	.globl _g_FLBMEM
+                                    112 	.globl _g_KANAMD
+                                    113 	.globl _g_KANAST
+                                    114 	.globl _g_CAPST
+                                    115 	.globl _g_CSTYLE
+                                    116 	.globl _g_CSRSW
+                                    117 	.globl _g_INSFLG
+                                    118 	.globl _g_ESCCNT
+                                    119 	.globl _g_GRPHED
+                                    120 	.globl _g_WINWID
+                                    121 	.globl _g_LOWLIM
+                                    122 	.globl _g_INTCNT
+                                    123 	.globl _g_INTVAL
+                                    124 	.globl _g_JIFFY
+                                    125 	.globl _g_PADX
+                                    126 	.globl _g_PADY
+                                    127 	.globl _g_INTFLG
+                                    128 	.globl _g_RTYCNT
+                                    129 	.globl _g_TRPTBL
+                                    130 	.globl _g_HIMEM
+                                    131 	.globl _g_BOTTOM
+                                    132 	.globl _g_PATWRK
+                                    133 	.globl _g_LINWRK
+                                    134 	.globl _g_KEYBUF
+                                    135 	.globl _g_NEWKEY
+                                    136 	.globl _g_OLDKEY
+                                    137 	.globl _g_CLIKFL
+                                    138 	.globl _g_ONGSBF
+                                    139 	.globl _g_FNKFLG
+                                    140 	.globl _g_FNKSWI
+                                    141 	.globl _g_CODSAV
+                                    142 	.globl _g_FSTPOS
+                                    143 	.globl _g_LINTTB
+                                    144 	.globl _g_BASROM
+                                    145 	.globl _g_ENSTOP
+                                    146 	.globl _g_VCBC
+                                    147 	.globl _g_VCBB
+                                    148 	.globl _g_VCBA
+                                    149 	.globl _g_PLYCNT
+                                    150 	.globl _g_MUSICF
+                                    151 	.globl _g_QUEUEN
+                                    152 	.globl _g_MCLPTR
+                                    153 	.globl _g_MCLLEN
+                                    154 	.globl _g_SAVVOL
+                                    155 	.globl _g_VOICEN
+                                    156 	.globl _g_SAVSP
+                                    157 	.globl _g_PRSCNT
+                                    158 	.globl _g_LSTMOD
+                                    159 	.globl _g_LSTCOM
+                                    160 	.globl _g_COMMSK
+                                    161 	.globl _g_ESTBLS
+                                    162 	.globl _g_FLAGS
+                                    163 	.globl _g_ERRORS
+                                    164 	.globl _g_DATCNT
+                                    165 	.globl _g_DEVNUM
+                                    166 	.globl _g_OLDINT
+                                    167 	.globl _g_OLDSTT
+                                    168 	.globl _g_MEXBIh
+                                    169 	.globl _g_RSIQLN
+                                    170 	.globl _g_RSFCB
+                                    171 	.globl _g_TOCNT
+                                    172 	.globl _g_RSTMP
+                                    173 	.globl _g_YSAVE
+                                    174 	.globl _g_XSAVE
+                                    175 	.globl _g_NORUSE
+                                    176 	.globl _g_MODE
+                                    177 	.globl _g_ROMA
+                                    178 	.globl _g_CHRCNT
+                                    179 	.globl _g_EXBRSA
+                                    180 	.globl _g_AVCSAV
+                                    181 	.globl _g_ACPAGE
+                                    182 	.globl _g_DPPAGE
+                                    183 	.globl _g_RS2IQ
+                                    184 	.globl _g_VOICCQ
+                                    185 	.globl _g_VOICBQ
+                                    186 	.globl _g_VOICAQ
+                                    187 	.globl _g_QUEBAK
+                                    188 	.globl _g_QUETAB
+                                    189 	.globl _g_ASPCT2
+                                    190 	.globl _g_ASPCT1
+                                    191 	.globl _g_HEADER
+                                    192 	.globl _g_HIGH
+                                    193 	.globl _g_LOW
+                                    194 	.globl _g_CS240
+                                    195 	.globl _g_CS120
+                                    196 	.globl _g_GETPNT
+                                    197 	.globl _g_PUTPNT
+                                    198 	.globl _g_REPCNT
+                                    199 	.globl _g_SCNCNT
+                                    200 	.globl _g_FRCNEW
+                                    201 	.globl _g_QUEUES
+                                    202 	.globl _g_MINUPD
+                                    203 	.globl _g_MAXUPD
+                                    204 	.globl _g_TRGFLG
+                                    205 	.globl _g_STATFL
+                                    206 	.globl _g_RG7SAV
+                                    207 	.globl _g_RG6SAV
+                                    208 	.globl _g_RG5SAV
+                                    209 	.globl _g_RG4SAV
+                                    210 	.globl _g_RG3SAV
+                                    211 	.globl _g_RG2SAV
+                                    212 	.globl _g_RG1SAV
+                                    213 	.globl _g_RG0SAV
+                                    214 	.globl _g_CNSDFG
+                                    215 	.globl _g_USRTAB
+                                    216 	.globl _g_CLPRIM
+                                    217 	.globl _g_WRPRIM
+                                    218 	.globl _g_RDPRIM
+                                    219 	.globl _UpdateFieldCamera
+                                    220 	.globl _CheckFieldBoundaries
+                                    221 ;--------------------------------------------------------
+                                    222 ; special function registers
+                                    223 ;--------------------------------------------------------
+                         000000A8   224 _g_PortPrimarySlot	=	0x00a8
+                         000000A9   225 _g_PortReadKeyboard	=	0x00a9
+                         000000AA   226 _g_PortAccessKeyboard	=	0x00aa
+                         000000AB   227 _g_PortControl	=	0x00ab
+                         00000098   228 _g_VDP_DataPort	=	0x0098
+                         00000099   229 _g_VDP_RegPort	=	0x0099
+                         00000099   230 _g_VDP_AddrPort	=	0x0099
+                         00000099   231 _g_VDP_StatPort	=	0x0099
+                         0000009A   232 _g_VDP_PalPort	=	0x009a
+                         0000009B   233 _g_VDP_IRegPort	=	0x009b
+                         000000A0   234 _g_PSG_RegPort	=	0x00a0
+                         000000A1   235 _g_PSG_DataPort	=	0x00a1
+                         000000A2   236 _g_PSG_StatPort	=	0x00a2
+                         00000010   237 _g_PSG_Ext_RegPort	=	0x0010
+                         00000011   238 _g_PSG_Ext_DataPort	=	0x0011
+                         00000012   239 _g_PSG_Ext_StatPort	=	0x0012
+                         0000007C   240 _g_MSXMusic_IndexPort	=	0x007c
+                         0000007D   241 _g_MSXMusic_DataPort	=	0x007d
+                         000000C0   242 _g_MSXAudio_IndexPort	=	0x00c0
+                         000000C1   243 _g_MSXAudio_DataPort	=	0x00c1
+                         000000C2   244 _g_MSXAudio_IndexPort2	=	0x00c2
+                         000000C3   245 _g_MSXAudio_DataPort2	=	0x00c3
+                         000000B4   246 _g_RTC_AddrPort	=	0x00b4
+                         000000B5   247 _g_RTC_DataPort	=	0x00b5
+                                    248 ;--------------------------------------------------------
+                                    249 ; ram data
+                                    250 ;--------------------------------------------------------
+                                    251 	.area _DATA
+                         0000F3AE   252 _g_LINL40	=	0xf3ae
+                         0000F3AF   253 _g_LINL32	=	0xf3af
+                         0000F3B0   254 _g_LINLEN	=	0xf3b0
+                         0000F3B1   255 _g_CRTCNT	=	0xf3b1
+                         0000F3B2   256 _g_CLMLST	=	0xf3b2
+                         0000F3B3   257 _g_TXTNAM	=	0xf3b3
+                         0000F3B5   258 _g_TXTCOL	=	0xf3b5
+                         0000F3B7   259 _g_TXTCGP	=	0xf3b7
+                         0000F3B9   260 _g_TXTATR	=	0xf3b9
+                         0000F3BB   261 _g_TXTPAT	=	0xf3bb
+                         0000F3BD   262 _g_T32NAM	=	0xf3bd
+                         0000F3BF   263 _g_T32COL	=	0xf3bf
+                         0000F3C1   264 _g_T32CGP	=	0xf3c1
+                         0000F3C3   265 _g_T32ATR	=	0xf3c3
+                         0000F3C5   266 _g_T32PAT	=	0xf3c5
+                         0000F3C7   267 _g_GRPNAM	=	0xf3c7
+                         0000F3C9   268 _g_GRPCOL	=	0xf3c9
+                         0000F3CB   269 _g_GRPCGP	=	0xf3cb
+                         0000F3CD   270 _g_GRPATR	=	0xf3cd
+                         0000F3CF   271 _g_GRPPAT	=	0xf3cf
+                         0000F3D1   272 _g_MLTNAM	=	0xf3d1
+                         0000F3D3   273 _g_MLTCOL	=	0xf3d3
+                         0000F3D5   274 _g_MLTCGP	=	0xf3d5
+                         0000F3D7   275 _g_MLTATR	=	0xf3d7
+                         0000F3D9   276 _g_MLTPAT	=	0xf3d9
+                         0000F3DB   277 _g_CLIKSW	=	0xf3db
+                         0000F3DC   278 _g_CSRY	=	0xf3dc
+                         0000F3DD   279 _g_CSRX	=	0xf3dd
+                         0000F3E9   280 _g_FORCLR	=	0xf3e9
+                         0000F3EA   281 _g_BAKCLR	=	0xf3ea
+                         0000F3EB   282 _g_BDRCLR	=	0xf3eb
+                         0000F3F2   283 _g_ATRBYT	=	0xf3f2
+                         0000F87F   284 _g_FNKSTR	=	0xf87f
+                         0000F92A   285 _g_CLOC	=	0xf92a
+                         0000F92C   286 _g_CMASK	=	0xf92c
+                         0000FB02   287 _g_LOGOPR	=	0xfb02
+                         0000FCB7   288 _g_GRPACX	=	0xfcb7
+                         0000FCB9   289 _g_GRPACY	=	0xfcb9
+                         0000FFFF   290 _g_SLTSL	=	0xffff
+                                    291 ;--------------------------------------------------------
+                                    292 ; ram data
+                                    293 ;--------------------------------------------------------
+                                    294 	.area _INITIALIZED
+                                    295 ;--------------------------------------------------------
+                                    296 ; absolute external ram data
+                                    297 ;--------------------------------------------------------
+                                    298 	.area _DABS (ABS)
+                                    299 ;--------------------------------------------------------
+                                    300 ; global & static initialisations
+                                    301 ;--------------------------------------------------------
+                                    302 	.area _HOME
+                                    303 	.area _GSINIT
+                                    304 	.area _GSFINAL
+                                    305 	.area _GSINIT
+                                    306 ;--------------------------------------------------------
+                                    307 ; Home
+                                    308 ;--------------------------------------------------------
                                     309 	.area _HOME
-                                    310 ;--------------------------------------------------------
-                                    311 ; code
-                                    312 ;--------------------------------------------------------
-                                    313 	.area _SEG10
-                                    314 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:9: void UpdateFieldCamera()
-                                    315 ;	---------------------------------
-                                    316 ; Function UpdateFieldCamera
-                                    317 ; ---------------------------------
-    00000000                        318 _UpdateFieldCamera::
-    00000000 DD E5            [15]  319 	push	ix
-    00000002 DD 21 00 00      [14]  320 	ld	ix,#0
-    00000006 DD 39            [15]  321 	add	ix,sp
-    00000008 21 F6 FF         [10]  322 	ld	hl, #-10
-    0000000B 39               [11]  323 	add	hl, sp
-    0000000C F9               [ 6]  324 	ld	sp, hl
-                                    325 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:11: struct ObjectInfo* Ball = &SwSprite[14];
-                                    326 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:13: i16 camera_dy = 0;
-    0000000D 01 00 00         [10]  327 	ld	bc, #0x0000
-                                    328 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:16: if (Ball->ly < Field.ly + 64 && Field.ly > 0) {
-    00000010 21r46r01         [10]  329 	ld	hl, #(_SwSprite + 322) + 4
-    00000013 7E               [ 7]  330 	ld	a, (hl)
-    00000014 DD 77 F6         [19]  331 	ld	-10 (ix), a
-    00000017 23               [ 6]  332 	inc	hl
-    00000018 7E               [ 7]  333 	ld	a, (hl)
-    00000019 DD 77 F7         [19]  334 	ld	-9 (ix), a
-    0000001C 21r04r00         [10]  335 	ld	hl, #(_Field + 4)
-    0000001F 7E               [ 7]  336 	ld	a, (hl)
-    00000020 DD 77 F8         [19]  337 	ld	-8 (ix), a
-    00000023 23               [ 6]  338 	inc	hl
-    00000024 7E               [ 7]  339 	ld	a, (hl)
-    00000025 DD 77 F9         [19]  340 	ld	-7 (ix), a
-    00000028 DD 7E F8         [19]  341 	ld	a, -8 (ix)
-    0000002B DD 77 FA         [19]  342 	ld	-6 (ix), a
-    0000002E DD 7E F9         [19]  343 	ld	a, -7 (ix)
-    00000031 DD 77 FB         [19]  344 	ld	-5 (ix), a
-    00000034 DD 7E FA         [19]  345 	ld	a, -6 (ix)
-    00000037 C6 40            [ 7]  346 	add	a, #0x40
-    00000039 DD 77 FC         [19]  347 	ld	-4 (ix), a
-    0000003C DD 7E FB         [19]  348 	ld	a, -5 (ix)
-    0000003F CE 00            [ 7]  349 	adc	a, #0x00
-    00000041 DD 77 FD         [19]  350 	ld	-3 (ix), a
-    00000044 DD 7E F6         [19]  351 	ld	a, -10 (ix)
-    00000047 DD 77 FE         [19]  352 	ld	-2 (ix), a
-    0000004A DD 7E F7         [19]  353 	ld	a, -9 (ix)
-    0000004D DD 77 FF         [19]  354 	ld	-1 (ix), a
-    00000050 DD 7E FE         [19]  355 	ld	a, -2 (ix)
-    00000053 DD 96 FC         [19]  356 	sub	a, -4 (ix)
-    00000056 DD 7E FF         [19]  357 	ld	a, -1 (ix)
-    00000059 DD 9E FD         [19]  358 	sbc	a, -3 (ix)
-    0000005C 30 59            [12]  359 	jr	NC, 00115$
-    0000005E DD 7E F9         [19]  360 	ld	a, -7 (ix)
-    00000061 DD B6 F8         [19]  361 	or	a, -8 (ix)
-    00000064 28 51            [12]  362 	jr	Z, 00115$
-                                    363 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:17: i16 diff = (i16)(Field.ly + 64) - (i16)Ball->ly;
-    00000066 DD 6E FC         [19]  364 	ld	l, -4 (ix)
-                                    365 ;	spillPairReg hl
+                                    310 	.area _HOME
+                                    311 ;--------------------------------------------------------
+                                    312 ; code
+                                    313 ;--------------------------------------------------------
+                                    314 	.area _SEG10
+                                    315 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:9: void UpdateFieldCamera()
+                                    316 ;	---------------------------------
+                                    317 ; Function UpdateFieldCamera
+                                    318 ; ---------------------------------
+    00000000                        319 _UpdateFieldCamera::
+    00000000 DD E5            [15]  320 	push	ix
+    00000002 DD 21 00 00      [14]  321 	ld	ix,#0
+    00000006 DD 39            [15]  322 	add	ix,sp
+    00000008 21 F6 FF         [10]  323 	ld	hl, #-10
+    0000000B 39               [11]  324 	add	hl, sp
+    0000000C F9               [ 6]  325 	ld	sp, hl
+                                    326 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:11: struct ObjectInfo* Ball = &SwSprite[14];
+                                    327 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:13: i16 camera_dy = 0;
+    0000000D 01 00 00         [10]  328 	ld	bc, #0x0000
+                                    329 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:16: if (Ball->ly < Field.ly + 64 && Field.ly > 0) {
+    00000010 21r46r01         [10]  330 	ld	hl, #(_SwSprite + 322) + 4
+    00000013 7E               [ 7]  331 	ld	a, (hl)
+    00000014 DD 77 F6         [19]  332 	ld	-10 (ix), a
+    00000017 23               [ 6]  333 	inc	hl
+    00000018 7E               [ 7]  334 	ld	a, (hl)
+    00000019 DD 77 F7         [19]  335 	ld	-9 (ix), a
+    0000001C 21r04r00         [10]  336 	ld	hl, #(_Field + 4)
+    0000001F 7E               [ 7]  337 	ld	a, (hl)
+    00000020 DD 77 F8         [19]  338 	ld	-8 (ix), a
+    00000023 23               [ 6]  339 	inc	hl
+    00000024 7E               [ 7]  340 	ld	a, (hl)
+    00000025 DD 77 F9         [19]  341 	ld	-7 (ix), a
+    00000028 DD 7E F8         [19]  342 	ld	a, -8 (ix)
+    0000002B DD 77 FA         [19]  343 	ld	-6 (ix), a
+    0000002E DD 7E F9         [19]  344 	ld	a, -7 (ix)
+    00000031 DD 77 FB         [19]  345 	ld	-5 (ix), a
+    00000034 DD 7E FA         [19]  346 	ld	a, -6 (ix)
+    00000037 C6 40            [ 7]  347 	add	a, #0x40
+    00000039 DD 77 FC         [19]  348 	ld	-4 (ix), a
+    0000003C DD 7E FB         [19]  349 	ld	a, -5 (ix)
+    0000003F CE 00            [ 7]  350 	adc	a, #0x00
+    00000041 DD 77 FD         [19]  351 	ld	-3 (ix), a
+    00000044 DD 7E F6         [19]  352 	ld	a, -10 (ix)
+    00000047 DD 77 FE         [19]  353 	ld	-2 (ix), a
+    0000004A DD 7E F7         [19]  354 	ld	a, -9 (ix)
+    0000004D DD 77 FF         [19]  355 	ld	-1 (ix), a
+    00000050 DD 7E FE         [19]  356 	ld	a, -2 (ix)
+    00000053 DD 96 FC         [19]  357 	sub	a, -4 (ix)
+    00000056 DD 7E FF         [19]  358 	ld	a, -1 (ix)
+    00000059 DD 9E FD         [19]  359 	sbc	a, -3 (ix)
+    0000005C 30 59            [12]  360 	jr	NC, 00115$
+    0000005E DD 7E F9         [19]  361 	ld	a, -7 (ix)
+    00000061 DD B6 F8         [19]  362 	or	a, -8 (ix)
+    00000064 28 51            [12]  363 	jr	Z, 00115$
+                                    364 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:17: i16 diff = (i16)(Field.ly + 64) - (i16)Ball->ly;
+    00000066 DD 6E FC         [19]  365 	ld	l, -4 (ix)
                                     366 ;	spillPairReg hl
-    00000069 DD 66 FD         [19]  367 	ld	h, -3 (ix)
-                                    368 ;	spillPairReg hl
+                                    367 ;	spillPairReg hl
+    00000069 DD 66 FD         [19]  368 	ld	h, -3 (ix)
                                     369 ;	spillPairReg hl
-    0000006C C1               [10]  370 	pop	bc
-    0000006D C5               [11]  371 	push	bc
-    0000006E BF               [ 4]  372 	cp	a, a
-    0000006F ED 42            [15]  373 	sbc	hl, bc
-                                    374 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:18: if (diff > 5) camera_dy = -5;
-    00000071 DD 75 FC         [19]  375 	ld	-4 (ix), l
-    00000074 DD 74 FD         [19]  376 	ld	-3 (ix), h
-    00000077 4D               [ 4]  377 	ld	c, l
-    00000078 44               [ 4]  378 	ld	b, h
-    00000079 3E 05            [ 7]  379 	ld	a, #0x05
-    0000007B B9               [ 4]  380 	cp	a, c
-    0000007C 3E 00            [ 7]  381 	ld	a, #0x00
-    0000007E 98               [ 4]  382 	sbc	a, b
-    0000007F E2r84r00         [10]  383 	jp	PO, 00160$
-    00000082 EE 80            [ 7]  384 	xor	a, #0x80
-    00000084                        385 00160$:
-    00000084 F2r8Dr00         [10]  386 	jp	P, 00102$
-    00000087 01 FB FF         [10]  387 	ld	bc, #0xfffb
-    0000008A C3rA1r00         [10]  388 	jp	00103$
-    0000008D                        389 00102$:
-                                    390 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:19: else camera_dy = -diff;
-    0000008D AF               [ 4]  391 	xor	a, a
-    0000008E DD 96 FC         [19]  392 	sub	a, -4 (ix)
-    00000091 DD 77 FE         [19]  393 	ld	-2 (ix), a
-    00000094 9F               [ 4]  394 	sbc	a, a
-    00000095 DD 96 FD         [19]  395 	sub	a, -3 (ix)
-    00000098 DD 77 FF         [19]  396 	ld	-1 (ix), a
-    0000009B DD 4E FE         [19]  397 	ld	c, -2 (ix)
-    0000009E DD 46 FF         [19]  398 	ld	b, -1 (ix)
-    000000A1                        399 00103$:
-                                    400 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:22: if ((i16)Field.ly + camera_dy < 0) {
-    000000A1 DD 5E F8         [19]  401 	ld	e, -8 (ix)
-    000000A4 DD 56 F9         [19]  402 	ld	d, -7 (ix)
-    000000A7 69               [ 4]  403 	ld	l, c
-    000000A8 60               [ 4]  404 	ld	h, b
-    000000A9 19               [11]  405 	add	hl, de
-    000000AA CB 7C            [ 8]  406 	bit	7, h
-    000000AC 28 61            [12]  407 	jr	Z, 00116$
-                                    408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:23: camera_dy = -(i16)Field.ly;
-    000000AE AF               [ 4]  409 	xor	a, a
-    000000AF 93               [ 4]  410 	sub	a, e
-    000000B0 4F               [ 4]  411 	ld	c, a
-    000000B1 9F               [ 4]  412 	sbc	a, a
-    000000B2 92               [ 4]  413 	sub	a, d
-    000000B3 47               [ 4]  414 	ld	b, a
-    000000B4 C3r0Fr01         [10]  415 	jp	00116$
-    000000B7                        416 00115$:
-                                    417 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:26: else if (Ball->ly > Field.ly + 192 - 64 && Field.ly < (FIELD_HEIGHT - 192)) {
-    000000B7 DD 6E FA         [19]  418 	ld	l, -6 (ix)
-    000000BA DD 66 FB         [19]  419 	ld	h, -5 (ix)
-    000000BD 11 80 00         [10]  420 	ld	de, #0x0080
-    000000C0 19               [11]  421 	add	hl, de
-    000000C1 7D               [ 4]  422 	ld	a, l
-    000000C2 DD 96 FE         [19]  423 	sub	a, -2 (ix)
-    000000C5 7C               [ 4]  424 	ld	a, h
-    000000C6 DD 9E FF         [19]  425 	sbc	a, -1 (ix)
-    000000C9 30 44            [12]  426 	jr	NC, 00116$
-    000000CB DD 7E FA         [19]  427 	ld	a, -6 (ix)
-    000000CE D6 40            [ 7]  428 	sub	a, #0x40
-    000000D0 DD 7E FB         [19]  429 	ld	a, -5 (ix)
-    000000D3 DE 01            [ 7]  430 	sbc	a, #0x01
-    000000D5 30 38            [12]  431 	jr	NC, 00116$
-                                    432 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:27: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - 64);
-    000000D7 C1               [10]  433 	pop	bc
-    000000D8 C5               [11]  434 	push	bc
-    000000D9 79               [ 4]  435 	ld	a, c
-    000000DA 95               [ 4]  436 	sub	a, l
-    000000DB 4F               [ 4]  437 	ld	c, a
-    000000DC 78               [ 4]  438 	ld	a, b
-    000000DD 9C               [ 4]  439 	sbc	a, h
-    000000DE 47               [ 4]  440 	ld	b, a
-                                    441 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:28: if (diff > 5) camera_dy = 5;
-    000000DF 59               [ 4]  442 	ld	e, c
-    000000E0 50               [ 4]  443 	ld	d, b
-    000000E1 3E 05            [ 7]  444 	ld	a, #0x05
-    000000E3 BB               [ 4]  445 	cp	a, e
-    000000E4 3E 00            [ 7]  446 	ld	a, #0x00
-    000000E6 9A               [ 4]  447 	sbc	a, d
-    000000E7 E2rECr00         [10]  448 	jp	PO, 00161$
-    000000EA EE 80            [ 7]  449 	xor	a, #0x80
-    000000EC                        450 00161$:
-    000000EC F2rF2r00         [10]  451 	jp	P, 00107$
-    000000EF 01 05 00         [10]  452 	ld	bc, #0x0005
-                                    453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:29: else camera_dy = diff;
-    000000F2                        454 00107$:
-                                    455 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:32: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
-    000000F2 59               [ 4]  456 	ld	e, c
-    000000F3 50               [ 4]  457 	ld	d, b
-    000000F4 DD 6E F8         [19]  458 	ld	l, -8 (ix)
-    000000F7 DD 66 F9         [19]  459 	ld	h, -7 (ix)
-    000000FA 19               [11]  460 	add	hl, de
-    000000FB 3E 40            [ 7]  461 	ld	a, #0x40
-    000000FD BD               [ 4]  462 	cp	a, l
-    000000FE 3E 01            [ 7]  463 	ld	a, #0x01
-    00000100 9C               [ 4]  464 	sbc	a, h
-    00000101 30 0C            [12]  465 	jr	NC, 00116$
-                                    466 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:33: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
-    00000103 3E 40            [ 7]  467 	ld	a, #0x40
-    00000105 DD 96 F8         [19]  468 	sub	a, -8 (ix)
-    00000108 4F               [ 4]  469 	ld	c, a
-    00000109 3E 01            [ 7]  470 	ld	a, #0x01
-    0000010B DD 9E F9         [19]  471 	sbc	a, -7 (ix)
-    0000010E 47               [ 4]  472 	ld	b, a
-    0000010F                        473 00116$:
-                                    474 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:37: Field.ly += camera_dy;
-    0000010F 79               [ 4]  475 	ld	a, c
-    00000110 50               [ 4]  476 	ld	d, b
-    00000111 DD 86 F8         [19]  477 	add	a, -8 (ix)
-    00000114 5F               [ 4]  478 	ld	e, a
-    00000115 7A               [ 4]  479 	ld	a, d
-    00000116 DD 8E F9         [19]  480 	adc	a, -7 (ix)
-    00000119 57               [ 4]  481 	ld	d, a
-    0000011A ED 53r04r00      [20]  482 	ld	((_Field + 4)), de
-                                    483 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:38: Field.dy = (i8)camera_dy;
-    0000011E 21r12r00         [10]  484 	ld	hl, #(_Field + 18)
-    00000121 71               [ 7]  485 	ld	(hl), c
-                                    486 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:39: }
-    00000122 DD F9            [10]  487 	ld	sp, ix
-    00000124 DD E1            [14]  488 	pop	ix
-    00000126 C9               [10]  489 	ret
-                         0000F380   490 _g_RDPRIM	=	0xf380
-                         0000F385   491 _g_WRPRIM	=	0xf385
-                         0000F38C   492 _g_CLPRIM	=	0xf38c
-                         0000F39A   493 _g_USRTAB	=	0xf39a
-                         0000F3DE   494 _g_CNSDFG	=	0xf3de
-                         0000F3DF   495 _g_RG0SAV	=	0xf3df
-                         0000F3E0   496 _g_RG1SAV	=	0xf3e0
-                         0000F3E1   497 _g_RG2SAV	=	0xf3e1
-                         0000F3E2   498 _g_RG3SAV	=	0xf3e2
-                         0000F3E3   499 _g_RG4SAV	=	0xf3e3
-                         0000F3E4   500 _g_RG5SAV	=	0xf3e4
-                         0000F3E5   501 _g_RG6SAV	=	0xf3e5
-                         0000F3E6   502 _g_RG7SAV	=	0xf3e6
-                         0000F3E7   503 _g_STATFL	=	0xf3e7
-                         0000F3E8   504 _g_TRGFLG	=	0xf3e8
-                         0000F3EC   505 _g_MAXUPD	=	0xf3ec
-                         0000F3EF   506 _g_MINUPD	=	0xf3ef
-                         0000F3F3   507 _g_QUEUES	=	0xf3f3
-                         0000F3F5   508 _g_FRCNEW	=	0xf3f5
-                         0000F3F6   509 _g_SCNCNT	=	0xf3f6
-                         0000F3F7   510 _g_REPCNT	=	0xf3f7
-                         0000F3F8   511 _g_PUTPNT	=	0xf3f8
-                         0000F3FA   512 _g_GETPNT	=	0xf3fa
-                         0000F3FC   513 _g_CS120	=	0xf3fc
-                         0000F401   514 _g_CS240	=	0xf401
-                         0000F406   515 _g_LOW	=	0xf406
-                         0000F408   516 _g_HIGH	=	0xf408
-                         0000F40A   517 _g_HEADER	=	0xf40a
-                         0000F40B   518 _g_ASPCT1	=	0xf40b
-                         0000F40D   519 _g_ASPCT2	=	0xf40d
-                         0000F959   520 _g_QUETAB	=	0xf959
-                         0000F971   521 _g_QUEBAK	=	0xf971
-                         0000F975   522 _g_VOICAQ	=	0xf975
-                         0000F9F5   523 _g_VOICBQ	=	0xf9f5
-                         0000FA75   524 _g_VOICCQ	=	0xfa75
-                         0000FAF5   525 _g_RS2IQ	=	0xfaf5
-                         0000FAF5   526 _g_DPPAGE	=	0xfaf5
-                         0000FAF6   527 _g_ACPAGE	=	0xfaf6
-                         0000FAF7   528 _g_AVCSAV	=	0xfaf7
-                         0000FAF8   529 _g_EXBRSA	=	0xfaf8
-                         0000FAF9   530 _g_CHRCNT	=	0xfaf9
-                         0000FAFA   531 _g_ROMA	=	0xfafa
-                         0000FAFC   532 _g_MODE	=	0xfafc
-                         0000FAFD   533 _g_NORUSE	=	0xfafd
-                         0000FAFE   534 _g_XSAVE	=	0xfafe
-                         0000FB00   535 _g_YSAVE	=	0xfb00
-                         0000FB03   536 _g_RSTMP	=	0xfb03
-                         0000FB03   537 _g_TOCNT	=	0xfb03
-                         0000FB04   538 _g_RSFCB	=	0xfb04
-                         0000FB06   539 _g_RSIQLN	=	0xfb06
-                         0000FB07   540 _g_MEXBIh	=	0xfb07
-                         0000FB0C   541 _g_OLDSTT	=	0xfb0c
-                         0000FB0C   542 _g_OLDINT	=	0xfb0c
-                         0000FB16   543 _g_DEVNUM	=	0xfb16
-                         0000FB17   544 _g_DATCNT	=	0xfb17
-                         0000FB1A   545 _g_ERRORS	=	0xfb1a
-                         0000FB1B   546 _g_FLAGS	=	0xfb1b
-                         0000FB1C   547 _g_ESTBLS	=	0xfb1c
-                         0000FB1D   548 _g_COMMSK	=	0xfb1d
-                         0000FB1E   549 _g_LSTCOM	=	0xfb1e
-                         0000FB1F   550 _g_LSTMOD	=	0xfb1f
-                         0000FB35   551 _g_PRSCNT	=	0xfb35
-                         0000FB36   552 _g_SAVSP	=	0xfb36
-                         0000FB38   553 _g_VOICEN	=	0xfb38
-                         0000FB39   554 _g_SAVVOL	=	0xfb39
-                         0000FB3B   555 _g_MCLLEN	=	0xfb3b
-                         0000FB3C   556 _g_MCLPTR	=	0xfb3c
-                         0000FB3E   557 _g_QUEUEN	=	0xfb3e
-                         0000FB3F   558 _g_MUSICF	=	0xfb3f
-                         0000FB40   559 _g_PLYCNT	=	0xfb40
-                         0000FB41   560 _g_VCBA	=	0xfb41
-                         0000FB66   561 _g_VCBB	=	0xfb66
-                         0000FB8B   562 _g_VCBC	=	0xfb8b
-                         0000FBB0   563 _g_ENSTOP	=	0xfbb0
-                         0000FBB1   564 _g_BASROM	=	0xfbb1
-                         0000FBB2   565 _g_LINTTB	=	0xfbb2
-                         0000FBCA   566 _g_FSTPOS	=	0xfbca
-                         0000FBCC   567 _g_CODSAV	=	0xfbcc
-                         0000FBCD   568 _g_FNKSWI	=	0xfbcd
-                         0000FBCE   569 _g_FNKFLG	=	0xfbce
-                         0000FBD8   570 _g_ONGSBF	=	0xfbd8
-                         0000FBD9   571 _g_CLIKFL	=	0xfbd9
-                         0000FBDA   572 _g_OLDKEY	=	0xfbda
-                         0000FBE5   573 _g_NEWKEY	=	0xfbe5
-                         0000FBF0   574 _g_KEYBUF	=	0xfbf0
-                         0000FC18   575 _g_LINWRK	=	0xfc18
-                         0000FC40   576 _g_PATWRK	=	0xfc40
-                         0000FC48   577 _g_BOTTOM	=	0xfc48
-                         0000FC4A   578 _g_HIMEM	=	0xfc4a
-                         0000FC4C   579 _g_TRPTBL	=	0xfc4c
-                         0000FC9A   580 _g_RTYCNT	=	0xfc9a
-                         0000FC9B   581 _g_INTFLG	=	0xfc9b
-                         0000FC9C   582 _g_PADY	=	0xfc9c
-                         0000FC9D   583 _g_PADX	=	0xfc9d
-                         0000FC9E   584 _g_JIFFY	=	0xfc9e
-                         0000FCA0   585 _g_INTVAL	=	0xfca0
-                         0000FCA2   586 _g_INTCNT	=	0xfca2
-                         0000FCA4   587 _g_LOWLIM	=	0xfca4
-                         0000FCA5   588 _g_WINWID	=	0xfca5
-                         0000FCA6   589 _g_GRPHED	=	0xfca6
-                         0000FCA7   590 _g_ESCCNT	=	0xfca7
-                         0000FCA8   591 _g_INSFLG	=	0xfca8
-                         0000FCA9   592 _g_CSRSW	=	0xfca9
-                         0000FCAA   593 _g_CSTYLE	=	0xfcaa
-                         0000FCAB   594 _g_CAPST	=	0xfcab
-                         0000FCAC   595 _g_KANAST	=	0xfcac
-                         0000FCAD   596 _g_KANAMD	=	0xfcad
-                         0000FCAE   597 _g_FLBMEM	=	0xfcae
-                         0000FCAF   598 _g_SCRMOD	=	0xfcaf
-                         0000FCB0   599 _g_OLDSCR	=	0xfcb0
-                         0000FCB1   600 _g_CASPRV	=	0xfcb1
-                         0000FCB2   601 _g_BRDATR	=	0xfcb2
-                         0000FCB3   602 _g_GXPOS	=	0xfcb3
-                         0000FCB5   603 _g_GYPOS	=	0xfcb5
-                         0000FCBB   604 _g_DRWFLG	=	0xfcbb
-                         0000FCBC   605 _g_DRWSCL	=	0xfcbc
-                         0000FCBD   606 _g_DRWANG	=	0xfcbd
-                         0000FCC1   607 _g_MNROM	=	0xfcc1
-                         0000FCC1   608 _g_EXPTBL	=	0xfcc1
-                         0000FCC5   609 _g_SLTTBL	=	0xfcc5
-                         0000FCC9   610 _g_SLTATR	=	0xfcc9
-                         0000FD09   611 _g_SLTWRK	=	0xfd09
-                         0000FD89   612 _g_PROCNM	=	0xfd89
-                         0000FFE7   613 _g_RG08SAV	=	0xffe7
-                         0000FFE8   614 _g_RG09SAV	=	0xffe8
-                         0000FFE9   615 _g_RG10SAV	=	0xffe9
-                         0000FFEA   616 _g_RG11SAV	=	0xffea
-                         0000FFEB   617 _g_RG12SAV	=	0xffeb
-                         0000FFEC   618 _g_RG13SAV	=	0xffec
-                         0000FFED   619 _g_RG14SAV	=	0xffed
-                         0000FFEE   620 _g_RG15SAV	=	0xffee
-                         0000FFEF   621 _g_RG16SAV	=	0xffef
-                         0000FFF0   622 _g_RG17SAV	=	0xfff0
-                         0000FFF1   623 _g_RG18SAV	=	0xfff1
-                         0000FFF2   624 _g_RG19SAV	=	0xfff2
-                         0000FFF3   625 _g_RG20SAV	=	0xfff3
-                         0000FFF4   626 _g_RG21SAV	=	0xfff4
-                         0000FFF5   627 _g_RG22SAV	=	0xfff5
-                         0000FFF6   628 _g_RG23SAV	=	0xfff6
-                         0000FFF7   629 _g_MINROM	=	0xfff7
-                         0000FFF8   630 _g_SVFFF8	=	0xfff8
-                         0000FFFA   631 _g_RG25SAV	=	0xfffa
-                         0000FFFB   632 _g_RG26SAV	=	0xfffb
-                         0000FFFC   633 _g_RG27SAV	=	0xfffc
-                         0000FFFD   634 _g_SVFFFD	=	0xfffd
-                         00000004   635 _g_CGTABL	=	0x0004
-                         00000006   636 _g_VDP_DR	=	0x0006
-                         00000007   637 _g_VDP_DW	=	0x0007
-                         0000002B   638 _g_BASRVN	=	0x002b
-                         0000002B   639 _g_ROMVersion	=	0x002b
-                         0000002D   640 _g_MSXVER	=	0x002d
-                         0000002E   641 _g_MSXMID	=	0x002e
-                         00000034   642 _g_CHAR_16	=	0x0034
-                         00000000   643 _g_SUBRID	=	0x0000
-                         00000002   644 _g_STRSRC	=	0x0002
-                         0000F30F   645 _g_KANJTABLE	=	0xf30f
-                         0000F323   646 _g_DISKVE	=	0xf323
-                         0000F325   647 _g_BREAKV	=	0xf325
-                         0000F341   648 _g_RAMAD0	=	0xf341
-                         0000F342   649 _g_RAMAD1	=	0xf342
-                         0000F343   650 _g_RAMAD2	=	0xf343
-                         0000F344   651 _g_RAMAD3	=	0xf344
-                         0000F348   652 _g_MASTER	=	0xf348
-                         0000F37D   653 _g_BDOS	=	0xf37d
-                                    654 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:41: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
-                                    655 ;	---------------------------------
-                                    656 ; Function CheckFieldBoundaries
-                                    657 ; ---------------------------------
-    00000127                        658 _CheckFieldBoundaries::
-    00000127 DD E5            [15]  659 	push	ix
-    00000129 DD 21 00 00      [14]  660 	ld	ix,#0
-    0000012D DD 39            [15]  661 	add	ix,sp
-    0000012F F5               [11]  662 	push	af
-    00000130 4D               [ 4]  663 	ld	c, l
-    00000131 44               [ 4]  664 	ld	b, h
-    00000132 33               [ 6]  665 	inc	sp
-    00000133 33               [ 6]  666 	inc	sp
-    00000134 D5               [11]  667 	push	de
+                                    370 ;	spillPairReg hl
+    0000006C C1               [10]  371 	pop	bc
+    0000006D C5               [11]  372 	push	bc
+    0000006E BF               [ 4]  373 	cp	a, a
+    0000006F ED 42            [15]  374 	sbc	hl, bc
+                                    375 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:18: if (diff > 5) camera_dy = -5;
+    00000071 DD 75 FC         [19]  376 	ld	-4 (ix), l
+    00000074 DD 74 FD         [19]  377 	ld	-3 (ix), h
+    00000077 4D               [ 4]  378 	ld	c, l
+    00000078 44               [ 4]  379 	ld	b, h
+    00000079 3E 05            [ 7]  380 	ld	a, #0x05
+    0000007B B9               [ 4]  381 	cp	a, c
+    0000007C 3E 00            [ 7]  382 	ld	a, #0x00
+    0000007E 98               [ 4]  383 	sbc	a, b
+    0000007F E2r84r00         [10]  384 	jp	PO, 00160$
+    00000082 EE 80            [ 7]  385 	xor	a, #0x80
+    00000084                        386 00160$:
+    00000084 F2r8Dr00         [10]  387 	jp	P, 00102$
+    00000087 01 FB FF         [10]  388 	ld	bc, #0xfffb
+    0000008A C3rA1r00         [10]  389 	jp	00103$
+    0000008D                        390 00102$:
+                                    391 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:19: else camera_dy = -diff;
+    0000008D AF               [ 4]  392 	xor	a, a
+    0000008E DD 96 FC         [19]  393 	sub	a, -4 (ix)
+    00000091 DD 77 FE         [19]  394 	ld	-2 (ix), a
+    00000094 9F               [ 4]  395 	sbc	a, a
+    00000095 DD 96 FD         [19]  396 	sub	a, -3 (ix)
+    00000098 DD 77 FF         [19]  397 	ld	-1 (ix), a
+    0000009B DD 4E FE         [19]  398 	ld	c, -2 (ix)
+    0000009E DD 46 FF         [19]  399 	ld	b, -1 (ix)
+    000000A1                        400 00103$:
+                                    401 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:22: if ((i16)Field.ly + camera_dy < 0) {
+    000000A1 DD 5E F8         [19]  402 	ld	e, -8 (ix)
+    000000A4 DD 56 F9         [19]  403 	ld	d, -7 (ix)
+    000000A7 69               [ 4]  404 	ld	l, c
+    000000A8 60               [ 4]  405 	ld	h, b
+    000000A9 19               [11]  406 	add	hl, de
+    000000AA CB 7C            [ 8]  407 	bit	7, h
+    000000AC 28 61            [12]  408 	jr	Z, 00116$
+                                    409 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:23: camera_dy = -(i16)Field.ly;
+    000000AE AF               [ 4]  410 	xor	a, a
+    000000AF 93               [ 4]  411 	sub	a, e
+    000000B0 4F               [ 4]  412 	ld	c, a
+    000000B1 9F               [ 4]  413 	sbc	a, a
+    000000B2 92               [ 4]  414 	sub	a, d
+    000000B3 47               [ 4]  415 	ld	b, a
+    000000B4 C3r0Fr01         [10]  416 	jp	00116$
+    000000B7                        417 00115$:
+                                    418 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:26: else if (Ball->ly > Field.ly + 192 - 64 && Field.ly < (FIELD_HEIGHT - 192)) {
+    000000B7 DD 6E FA         [19]  419 	ld	l, -6 (ix)
+    000000BA DD 66 FB         [19]  420 	ld	h, -5 (ix)
+    000000BD 11 80 00         [10]  421 	ld	de, #0x0080
+    000000C0 19               [11]  422 	add	hl, de
+    000000C1 7D               [ 4]  423 	ld	a, l
+    000000C2 DD 96 FE         [19]  424 	sub	a, -2 (ix)
+    000000C5 7C               [ 4]  425 	ld	a, h
+    000000C6 DD 9E FF         [19]  426 	sbc	a, -1 (ix)
+    000000C9 30 44            [12]  427 	jr	NC, 00116$
+    000000CB DD 7E FA         [19]  428 	ld	a, -6 (ix)
+    000000CE D6 40            [ 7]  429 	sub	a, #0x40
+    000000D0 DD 7E FB         [19]  430 	ld	a, -5 (ix)
+    000000D3 DE 01            [ 7]  431 	sbc	a, #0x01
+    000000D5 30 38            [12]  432 	jr	NC, 00116$
+                                    433 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:27: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - 64);
+    000000D7 C1               [10]  434 	pop	bc
+    000000D8 C5               [11]  435 	push	bc
+    000000D9 79               [ 4]  436 	ld	a, c
+    000000DA 95               [ 4]  437 	sub	a, l
+    000000DB 4F               [ 4]  438 	ld	c, a
+    000000DC 78               [ 4]  439 	ld	a, b
+    000000DD 9C               [ 4]  440 	sbc	a, h
+    000000DE 47               [ 4]  441 	ld	b, a
+                                    442 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:28: if (diff > 5) camera_dy = 5;
+    000000DF 59               [ 4]  443 	ld	e, c
+    000000E0 50               [ 4]  444 	ld	d, b
+    000000E1 3E 05            [ 7]  445 	ld	a, #0x05
+    000000E3 BB               [ 4]  446 	cp	a, e
+    000000E4 3E 00            [ 7]  447 	ld	a, #0x00
+    000000E6 9A               [ 4]  448 	sbc	a, d
+    000000E7 E2rECr00         [10]  449 	jp	PO, 00161$
+    000000EA EE 80            [ 7]  450 	xor	a, #0x80
+    000000EC                        451 00161$:
+    000000EC F2rF2r00         [10]  452 	jp	P, 00107$
+    000000EF 01 05 00         [10]  453 	ld	bc, #0x0005
+                                    454 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:29: else camera_dy = diff;
+    000000F2                        455 00107$:
+                                    456 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:32: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
+    000000F2 59               [ 4]  457 	ld	e, c
+    000000F3 50               [ 4]  458 	ld	d, b
+    000000F4 DD 6E F8         [19]  459 	ld	l, -8 (ix)
+    000000F7 DD 66 F9         [19]  460 	ld	h, -7 (ix)
+    000000FA 19               [11]  461 	add	hl, de
+    000000FB 3E 40            [ 7]  462 	ld	a, #0x40
+    000000FD BD               [ 4]  463 	cp	a, l
+    000000FE 3E 01            [ 7]  464 	ld	a, #0x01
+    00000100 9C               [ 4]  465 	sbc	a, h
+    00000101 30 0C            [12]  466 	jr	NC, 00116$
+                                    467 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:33: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
+    00000103 3E 40            [ 7]  468 	ld	a, #0x40
+    00000105 DD 96 F8         [19]  469 	sub	a, -8 (ix)
+    00000108 4F               [ 4]  470 	ld	c, a
+    00000109 3E 01            [ 7]  471 	ld	a, #0x01
+    0000010B DD 9E F9         [19]  472 	sbc	a, -7 (ix)
+    0000010E 47               [ 4]  473 	ld	b, a
+    0000010F                        474 00116$:
+                                    475 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:37: Field.ly += camera_dy;
+    0000010F 79               [ 4]  476 	ld	a, c
+    00000110 50               [ 4]  477 	ld	d, b
+    00000111 DD 86 F8         [19]  478 	add	a, -8 (ix)
+    00000114 5F               [ 4]  479 	ld	e, a
+    00000115 7A               [ 4]  480 	ld	a, d
+    00000116 DD 8E F9         [19]  481 	adc	a, -7 (ix)
+    00000119 57               [ 4]  482 	ld	d, a
+    0000011A ED 53r04r00      [20]  483 	ld	((_Field + 4)), de
+                                    484 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:38: Field.dy = (i8)camera_dy;
+    0000011E 21r12r00         [10]  485 	ld	hl, #(_Field + 18)
+    00000121 71               [ 7]  486 	ld	(hl), c
+                                    487 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:39: }
+    00000122 DD F9            [10]  488 	ld	sp, ix
+    00000124 DD E1            [14]  489 	pop	ix
+    00000126 C9               [10]  490 	ret
+                         0000F380   491 _g_RDPRIM	=	0xf380
+                         0000F385   492 _g_WRPRIM	=	0xf385
+                         0000F38C   493 _g_CLPRIM	=	0xf38c
+                         0000F39A   494 _g_USRTAB	=	0xf39a
+                         0000F3DE   495 _g_CNSDFG	=	0xf3de
+                         0000F3DF   496 _g_RG0SAV	=	0xf3df
+                         0000F3E0   497 _g_RG1SAV	=	0xf3e0
+                         0000F3E1   498 _g_RG2SAV	=	0xf3e1
+                         0000F3E2   499 _g_RG3SAV	=	0xf3e2
+                         0000F3E3   500 _g_RG4SAV	=	0xf3e3
+                         0000F3E4   501 _g_RG5SAV	=	0xf3e4
+                         0000F3E5   502 _g_RG6SAV	=	0xf3e5
+                         0000F3E6   503 _g_RG7SAV	=	0xf3e6
+                         0000F3E7   504 _g_STATFL	=	0xf3e7
+                         0000F3E8   505 _g_TRGFLG	=	0xf3e8
+                         0000F3EC   506 _g_MAXUPD	=	0xf3ec
+                         0000F3EF   507 _g_MINUPD	=	0xf3ef
+                         0000F3F3   508 _g_QUEUES	=	0xf3f3
+                         0000F3F5   509 _g_FRCNEW	=	0xf3f5
+                         0000F3F6   510 _g_SCNCNT	=	0xf3f6
+                         0000F3F7   511 _g_REPCNT	=	0xf3f7
+                         0000F3F8   512 _g_PUTPNT	=	0xf3f8
+                         0000F3FA   513 _g_GETPNT	=	0xf3fa
+                         0000F3FC   514 _g_CS120	=	0xf3fc
+                         0000F401   515 _g_CS240	=	0xf401
+                         0000F406   516 _g_LOW	=	0xf406
+                         0000F408   517 _g_HIGH	=	0xf408
+                         0000F40A   518 _g_HEADER	=	0xf40a
+                         0000F40B   519 _g_ASPCT1	=	0xf40b
+                         0000F40D   520 _g_ASPCT2	=	0xf40d
+                         0000F959   521 _g_QUETAB	=	0xf959
+                         0000F971   522 _g_QUEBAK	=	0xf971
+                         0000F975   523 _g_VOICAQ	=	0xf975
+                         0000F9F5   524 _g_VOICBQ	=	0xf9f5
+                         0000FA75   525 _g_VOICCQ	=	0xfa75
+                         0000FAF5   526 _g_RS2IQ	=	0xfaf5
+                         0000FAF5   527 _g_DPPAGE	=	0xfaf5
+                         0000FAF6   528 _g_ACPAGE	=	0xfaf6
+                         0000FAF7   529 _g_AVCSAV	=	0xfaf7
+                         0000FAF8   530 _g_EXBRSA	=	0xfaf8
+                         0000FAF9   531 _g_CHRCNT	=	0xfaf9
+                         0000FAFA   532 _g_ROMA	=	0xfafa
+                         0000FAFC   533 _g_MODE	=	0xfafc
+                         0000FAFD   534 _g_NORUSE	=	0xfafd
+                         0000FAFE   535 _g_XSAVE	=	0xfafe
+                         0000FB00   536 _g_YSAVE	=	0xfb00
+                         0000FB03   537 _g_RSTMP	=	0xfb03
+                         0000FB03   538 _g_TOCNT	=	0xfb03
+                         0000FB04   539 _g_RSFCB	=	0xfb04
+                         0000FB06   540 _g_RSIQLN	=	0xfb06
+                         0000FB07   541 _g_MEXBIh	=	0xfb07
+                         0000FB0C   542 _g_OLDSTT	=	0xfb0c
+                         0000FB0C   543 _g_OLDINT	=	0xfb0c
+                         0000FB16   544 _g_DEVNUM	=	0xfb16
+                         0000FB17   545 _g_DATCNT	=	0xfb17
+                         0000FB1A   546 _g_ERRORS	=	0xfb1a
+                         0000FB1B   547 _g_FLAGS	=	0xfb1b
+                         0000FB1C   548 _g_ESTBLS	=	0xfb1c
+                         0000FB1D   549 _g_COMMSK	=	0xfb1d
+                         0000FB1E   550 _g_LSTCOM	=	0xfb1e
+                         0000FB1F   551 _g_LSTMOD	=	0xfb1f
+                         0000FB35   552 _g_PRSCNT	=	0xfb35
+                         0000FB36   553 _g_SAVSP	=	0xfb36
+                         0000FB38   554 _g_VOICEN	=	0xfb38
+                         0000FB39   555 _g_SAVVOL	=	0xfb39
+                         0000FB3B   556 _g_MCLLEN	=	0xfb3b
+                         0000FB3C   557 _g_MCLPTR	=	0xfb3c
+                         0000FB3E   558 _g_QUEUEN	=	0xfb3e
+                         0000FB3F   559 _g_MUSICF	=	0xfb3f
+                         0000FB40   560 _g_PLYCNT	=	0xfb40
+                         0000FB41   561 _g_VCBA	=	0xfb41
+                         0000FB66   562 _g_VCBB	=	0xfb66
+                         0000FB8B   563 _g_VCBC	=	0xfb8b
+                         0000FBB0   564 _g_ENSTOP	=	0xfbb0
+                         0000FBB1   565 _g_BASROM	=	0xfbb1
+                         0000FBB2   566 _g_LINTTB	=	0xfbb2
+                         0000FBCA   567 _g_FSTPOS	=	0xfbca
+                         0000FBCC   568 _g_CODSAV	=	0xfbcc
+                         0000FBCD   569 _g_FNKSWI	=	0xfbcd
+                         0000FBCE   570 _g_FNKFLG	=	0xfbce
+                         0000FBD8   571 _g_ONGSBF	=	0xfbd8
+                         0000FBD9   572 _g_CLIKFL	=	0xfbd9
+                         0000FBDA   573 _g_OLDKEY	=	0xfbda
+                         0000FBE5   574 _g_NEWKEY	=	0xfbe5
+                         0000FBF0   575 _g_KEYBUF	=	0xfbf0
+                         0000FC18   576 _g_LINWRK	=	0xfc18
+                         0000FC40   577 _g_PATWRK	=	0xfc40
+                         0000FC48   578 _g_BOTTOM	=	0xfc48
+                         0000FC4A   579 _g_HIMEM	=	0xfc4a
+                         0000FC4C   580 _g_TRPTBL	=	0xfc4c
+                         0000FC9A   581 _g_RTYCNT	=	0xfc9a
+                         0000FC9B   582 _g_INTFLG	=	0xfc9b
+                         0000FC9C   583 _g_PADY	=	0xfc9c
+                         0000FC9D   584 _g_PADX	=	0xfc9d
+                         0000FC9E   585 _g_JIFFY	=	0xfc9e
+                         0000FCA0   586 _g_INTVAL	=	0xfca0
+                         0000FCA2   587 _g_INTCNT	=	0xfca2
+                         0000FCA4   588 _g_LOWLIM	=	0xfca4
+                         0000FCA5   589 _g_WINWID	=	0xfca5
+                         0000FCA6   590 _g_GRPHED	=	0xfca6
+                         0000FCA7   591 _g_ESCCNT	=	0xfca7
+                         0000FCA8   592 _g_INSFLG	=	0xfca8
+                         0000FCA9   593 _g_CSRSW	=	0xfca9
+                         0000FCAA   594 _g_CSTYLE	=	0xfcaa
+                         0000FCAB   595 _g_CAPST	=	0xfcab
+                         0000FCAC   596 _g_KANAST	=	0xfcac
+                         0000FCAD   597 _g_KANAMD	=	0xfcad
+                         0000FCAE   598 _g_FLBMEM	=	0xfcae
+                         0000FCAF   599 _g_SCRMOD	=	0xfcaf
+                         0000FCB0   600 _g_OLDSCR	=	0xfcb0
+                         0000FCB1   601 _g_CASPRV	=	0xfcb1
+                         0000FCB2   602 _g_BRDATR	=	0xfcb2
+                         0000FCB3   603 _g_GXPOS	=	0xfcb3
+                         0000FCB5   604 _g_GYPOS	=	0xfcb5
+                         0000FCBB   605 _g_DRWFLG	=	0xfcbb
+                         0000FCBC   606 _g_DRWSCL	=	0xfcbc
+                         0000FCBD   607 _g_DRWANG	=	0xfcbd
+                         0000FCC1   608 _g_MNROM	=	0xfcc1
+                         0000FCC1   609 _g_EXPTBL	=	0xfcc1
+                         0000FCC5   610 _g_SLTTBL	=	0xfcc5
+                         0000FCC9   611 _g_SLTATR	=	0xfcc9
+                         0000FD09   612 _g_SLTWRK	=	0xfd09
+                         0000FD89   613 _g_PROCNM	=	0xfd89
+                         0000FFE7   614 _g_RG08SAV	=	0xffe7
+                         0000FFE8   615 _g_RG09SAV	=	0xffe8
+                         0000FFE9   616 _g_RG10SAV	=	0xffe9
+                         0000FFEA   617 _g_RG11SAV	=	0xffea
+                         0000FFEB   618 _g_RG12SAV	=	0xffeb
+                         0000FFEC   619 _g_RG13SAV	=	0xffec
+                         0000FFED   620 _g_RG14SAV	=	0xffed
+                         0000FFEE   621 _g_RG15SAV	=	0xffee
+                         0000FFEF   622 _g_RG16SAV	=	0xffef
+                         0000FFF0   623 _g_RG17SAV	=	0xfff0
+                         0000FFF1   624 _g_RG18SAV	=	0xfff1
+                         0000FFF2   625 _g_RG19SAV	=	0xfff2
+                         0000FFF3   626 _g_RG20SAV	=	0xfff3
+                         0000FFF4   627 _g_RG21SAV	=	0xfff4
+                         0000FFF5   628 _g_RG22SAV	=	0xfff5
+                         0000FFF6   629 _g_RG23SAV	=	0xfff6
+                         0000FFF7   630 _g_MINROM	=	0xfff7
+                         0000FFF8   631 _g_SVFFF8	=	0xfff8
+                         0000FFFA   632 _g_RG25SAV	=	0xfffa
+                         0000FFFB   633 _g_RG26SAV	=	0xfffb
+                         0000FFFC   634 _g_RG27SAV	=	0xfffc
+                         0000FFFD   635 _g_SVFFFD	=	0xfffd
+                         00000004   636 _g_CGTABL	=	0x0004
+                         00000006   637 _g_VDP_DR	=	0x0006
+                         00000007   638 _g_VDP_DW	=	0x0007
+                         0000002B   639 _g_BASRVN	=	0x002b
+                         0000002B   640 _g_ROMVersion	=	0x002b
+                         0000002D   641 _g_MSXVER	=	0x002d
+                         0000002E   642 _g_MSXMID	=	0x002e
+                         00000034   643 _g_CHAR_16	=	0x0034
+                         00000000   644 _g_SUBRID	=	0x0000
+                         00000002   645 _g_STRSRC	=	0x0002
+                         0000F30F   646 _g_KANJTABLE	=	0xf30f
+                         0000F323   647 _g_DISKVE	=	0xf323
+                         0000F325   648 _g_BREAKV	=	0xf325
+                         0000F341   649 _g_RAMAD0	=	0xf341
+                         0000F342   650 _g_RAMAD1	=	0xf342
+                         0000F343   651 _g_RAMAD2	=	0xf343
+                         0000F344   652 _g_RAMAD3	=	0xf344
+                         0000F348   653 _g_MASTER	=	0xf348
+                         0000F37D   654 _g_BDOS	=	0xf37d
+                                    655 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:41: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
+                                    656 ;	---------------------------------
+                                    657 ; Function CheckFieldBoundaries
+                                    658 ; ---------------------------------
+    00000127                        659 _CheckFieldBoundaries::
+    00000127 DD E5            [15]  660 	push	ix
+    00000129 DD 21 00 00      [14]  661 	ld	ix,#0
+    0000012D DD 39            [15]  662 	add	ix,sp
+    0000012F F5               [11]  663 	push	af
+    00000130 F5               [11]  664 	push	af
+    00000131 F5               [11]  665 	push	af
+    00000132 DD 75 FE         [19]  666 	ld	-2 (ix), l
+    00000135 DD 74 FF         [19]  667 	ld	-1 (ix), h
                                     668 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:43: struct ObjectInfo* Ball = &SwSprite[14];
-                                    669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:51: if (Ball->lx < left_line || Ball->lx > right_line) {
-    00000135 21r42r01         [10]  670 	ld	hl, #(_SwSprite + 322)
-    00000138 5E               [ 7]  671 	ld	e, (hl)
-    00000139 7B               [ 4]  672 	ld	a, e
-    0000013A D6 10            [ 7]  673 	sub	a, #0x10
-    0000013C 38 05            [12]  674 	jr	C, 00110$
-    0000013E 3E F0            [ 7]  675 	ld	a, #0xf0
-    00000140 93               [ 4]  676 	sub	a, e
-    00000141 30 10            [12]  677 	jr	NC, 00111$
-    00000143                        678 00110$:
-                                    679 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:52: *game_state = 6; // Rimessa laterale
-    00000143 3E 06            [ 7]  680 	ld	a, #0x06
-    00000145 02               [ 7]  681 	ld	(bc), a
-                                    682 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:53: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
-    00000146 C5               [11]  683 	push	bc
-    00000147 11r00r00         [10]  684 	ld	de, #_EventThrowIn
-    0000014A 3E 08            [ 7]  685 	ld	a, #0x08
-    0000014C CDr00r00         [17]  686 	call	_CallFnc_VOID
-    0000014F C1               [10]  687 	pop	bc
-    00000150 C3rA0r01         [10]  688 	jp	00112$
-    00000153                        689 00111$:
-                                    690 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:55: else if (Ball->ly < top_line || Ball->ly > bottom_line) {
-    00000153 2Ar46r01         [16]  691 	ld	hl, (#(_SwSprite + 326) + 0)
-    00000156 7D               [ 4]  692 	ld	a, l
-    00000157 D6 18            [ 7]  693 	sub	a, #0x18
-    00000159 7C               [ 4]  694 	ld	a, h
-    0000015A DE 00            [ 7]  695 	sbc	a, #0x00
-    0000015C 38 08            [12]  696 	jr	C, 00107$
-    0000015E 3E E8            [ 7]  697 	ld	a, #0xe8
-    00000160 BD               [ 4]  698 	cp	a, l
-    00000161 3E 01            [ 7]  699 	ld	a, #0x01
-    00000163 9C               [ 4]  700 	sbc	a, h
-    00000164 30 3A            [12]  701 	jr	NC, 00112$
-    00000166                        702 00107$:
-                                    703 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:56: *game_state = 6;
-    00000166 3E 06            [ 7]  704 	ld	a, #0x06
-    00000168 02               [ 7]  705 	ld	(bc), a
-                                    706 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:58: if ((Ball->ly < top_line && LastTouchTeam == TEAM_1) || (Ball->ly > bottom_line && LastTouchTeam == TEAM_2)) {
-    00000169 ED 5Br46r01      [20]  707 	ld	de, (#(_SwSprite + 326) + 0)
-    0000016D 7B               [ 4]  708 	ld	a, e
-    0000016E D6 18            [ 7]  709 	sub	a, #0x18
-    00000170 7A               [ 4]  710 	ld	a, d
-    00000171 DE 00            [ 7]  711 	sbc	a, #0x00
-    00000173 30 06            [12]  712 	jr	NC, 00106$
-    00000175 3Ar00r00         [13]  713 	ld	a, (_LastTouchTeam+0)
-    00000178 B7               [ 4]  714 	or	a, a
-    00000179 28 0E            [12]  715 	jr	Z, 00101$
-    0000017B                        716 00106$:
-    0000017B 3E E8            [ 7]  717 	ld	a, #0xe8
-    0000017D BB               [ 4]  718 	cp	a, e
-    0000017E 3E 01            [ 7]  719 	ld	a, #0x01
-    00000180 9A               [ 4]  720 	sbc	a, d
-    00000181 30 13            [12]  721 	jr	NC, 00102$
-    00000183 3Ar00r00         [13]  722 	ld	a, (_LastTouchTeam+0)
-    00000186 3D               [ 4]  723 	dec	a
-    00000187 20 0D            [12]  724 	jr	NZ, 00102$
-    00000189                        725 00101$:
-                                    726 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:59: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
-    00000189 C5               [11]  727 	push	bc
-    0000018A 11r00r00         [10]  728 	ld	de, #_EventCornerKick
-    0000018D 3E 08            [ 7]  729 	ld	a, #0x08
-    0000018F CDr00r00         [17]  730 	call	_CallFnc_VOID
-    00000192 C1               [10]  731 	pop	bc
-    00000193 C3rA0r01         [10]  732 	jp	00112$
-    00000196                        733 00102$:
-                                    734 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:61: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
-    00000196 C5               [11]  735 	push	bc
-    00000197 11r00r00         [10]  736 	ld	de, #_EventGoalKick
-    0000019A 3E 08            [ 7]  737 	ld	a, #0x08
-    0000019C CDr00r00         [17]  738 	call	_CallFnc_VOID
-    0000019F C1               [10]  739 	pop	bc
-    000001A0                        740 00112$:
-                                    741 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:65: if (*game_state == 6) {
-    000001A0 0A               [ 7]  742 	ld	a, (bc)
-    000001A1 D6 06            [ 7]  743 	sub	a, #0x06
-    000001A3 20 30            [12]  744 	jr	NZ, 00116$
-                                    745 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:66: Ball->anim = Ball->dx = Ball->dy = 0;
-    000001A5 21r54r01         [10]  746 	ld	hl, #(_SwSprite + 340)
-    000001A8 36 00            [10]  747 	ld	(hl), #0x00
-    000001AA 21r53r01         [10]  748 	ld	hl, #(_SwSprite + 339)
-    000001AD 36 00            [10]  749 	ld	(hl), #0x00
-    000001AF 21 00 00         [10]  750 	ld	hl, #0x0000
-    000001B2 22r55r01         [16]  751 	ld	((_SwSprite + 341)), hl
-                                    752 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:67: T1_Carrier = T2_Carrier = 0xFF;
-    000001B5 21r00r00         [10]  753 	ld	hl, #_T2_Carrier
-    000001B8 36 FF            [10]  754 	ld	(hl), #0xff
-    000001BA 21r00r00         [10]  755 	ld	hl, #_T1_Carrier
-    000001BD 36 FF            [10]  756 	ld	(hl), #0xff
-                                    757 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:68: TimerEnabled = FALSE;
-    000001BF FD 21r00r00      [14]  758 	ld	iy, #_TimerEnabled
-    000001C3 FD 36 00 00      [19]  759 	ld	0 (iy), #0x00
-                                    760 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:69: *wait_secs = 2; *start_sec = Frms;
-    000001C7 E1               [10]  761 	pop	hl
-    000001C8 E5               [11]  762 	push	hl
-    000001C9 36 02            [10]  763 	ld	(hl), #0x02
-    000001CB DD 4E 04         [19]  764 	ld	c, 4 (ix)
-    000001CE DD 46 05         [19]  765 	ld	b, 5 (ix)
-    000001D1 3Ar00r00         [13]  766 	ld	a, (_Frms+0)
-    000001D4 02               [ 7]  767 	ld	(bc), a
-    000001D5                        768 00116$:
-                                    769 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:71: }
-    000001D5 DD F9            [10]  770 	ld	sp, ix
-    000001D7 DD E1            [14]  771 	pop	ix
-    000001D9 E1               [10]  772 	pop	hl
-    000001DA F1               [10]  773 	pop	af
-    000001DB E9               [ 4]  774 	jp	(hl)
-                                    775 	.area _SEG10
-                                    776 	.area _INITIALIZER
-                                    777 	.area _CABS (ABS)
+                                    669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:52: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+    00000138 21r42r01         [10]  670 	ld	hl, #(_SwSprite + 322)
+    0000013B 4E               [ 7]  671 	ld	c, (hl)
+    0000013C 79               [ 4]  672 	ld	a, c
+    0000013D D6 23            [ 7]  673 	sub	a, #0x23
+    0000013F 38 20            [12]  674 	jr	C, 00102$
+    00000141 3E DD            [ 7]  675 	ld	a, #0xdd
+    00000143 91               [ 4]  676 	sub	a, c
+    00000144 38 1B            [12]  677 	jr	C, 00102$
+    00000146 2Ar46r01         [16]  678 	ld	hl, (#(_SwSprite + 326) + 0)
+    00000149 7D               [ 4]  679 	ld	a, l
+    0000014A D6 1E            [ 7]  680 	sub	a, #0x1e
+    0000014C 7C               [ 4]  681 	ld	a, h
+    0000014D DE 00            [ 7]  682 	sbc	a, #0x00
+    0000014F 38 10            [12]  683 	jr	C, 00102$
+    00000151 3E E2            [ 7]  684 	ld	a, #0xe2
+    00000153 BD               [ 4]  685 	cp	a, l
+    00000154 3E 01            [ 7]  686 	ld	a, #0x01
+    00000156 9C               [ 4]  687 	sbc	a, h
+    00000157 38 08            [12]  688 	jr	C, 00102$
+                                    689 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:53: RestartType = 0;
+    00000159 FD 21r00r00      [14]  690 	ld	iy, #_RestartType
+    0000015D FD 36 00 00      [19]  691 	ld	0 (iy), #0x00
+    00000161                        692 00102$:
+                                    693 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:62: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+    00000161 21r46r01         [10]  694 	ld	hl, #(_SwSprite + 326)
+    00000164 7E               [ 7]  695 	ld	a, (hl)
+    00000165 DD 77 FA         [19]  696 	ld	-6 (ix), a
+    00000168 23               [ 6]  697 	inc	hl
+    00000169 7E               [ 7]  698 	ld	a, (hl)
+    0000016A DD 77 FB         [19]  699 	ld	-5 (ix), a
+    0000016D DD 7E FA         [19]  700 	ld	a, -6 (ix)
+    00000170 D6 1E            [ 7]  701 	sub	a, #0x1e
+    00000172 DD 7E FB         [19]  702 	ld	a, -5 (ix)
+    00000175 DE 00            [ 7]  703 	sbc	a, #0x00
+    00000177 3E 00            [ 7]  704 	ld	a, #0x00
+    00000179 17               [ 4]  705 	rla
+    0000017A 4F               [ 4]  706 	ld	c, a
+                                    707 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:52: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+    0000017B 3Ar42r01         [13]  708 	ld	a, (#(_SwSprite + 322) + 0)
+    0000017E DD 77 FC         [19]  709 	ld	-4 (ix), a
+                                    710 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:62: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+    00000181 79               [ 4]  711 	ld	a, c
+    00000182 B7               [ 4]  712 	or	a, a
+    00000183 28 57            [12]  713 	jr	Z, 00107$
+    00000185 DD 7E FC         [19]  714 	ld	a, -4 (ix)
+    00000188 D6 64            [ 7]  715 	sub	a, #0x64
+    0000018A 38 50            [12]  716 	jr	C, 00107$
+    0000018C 3E C8            [ 7]  717 	ld	a, #0xc8
+    0000018E DD 96 FC         [19]  718 	sub	a, -4 (ix)
+    00000191 38 49            [12]  719 	jr	C, 00107$
+                                    720 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:63: *game_state = 6;
+    00000193 DD 6E FE         [19]  721 	ld	l, -2 (ix)
+    00000196 DD 66 FF         [19]  722 	ld	h, -1 (ix)
+    00000199 36 06            [10]  723 	ld	(hl), #0x06
+                                    724 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:64: RestartType = 0;
+    0000019B 21r00r00         [10]  725 	ld	hl, #_RestartType
+    0000019E 36 00            [10]  726 	ld	(hl), #0x00
+                                    727 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:65: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+    000001A0 D5               [11]  728 	push	de
+    000001A1 11r00r00         [10]  729 	ld	de, #_EventGoal
+    000001A4 3E 08            [ 7]  730 	ld	a, #0x08
+    000001A6 CDr00r00         [17]  731 	call	_CallFnc_VOID
+    000001A9 D1               [10]  732 	pop	de
+                                    733 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:66: Ball->anim = Ball->dx = Ball->dy = 0;
+    000001AA 21r54r01         [10]  734 	ld	hl, #(_SwSprite + 340)
+    000001AD 36 00            [10]  735 	ld	(hl), #0x00
+    000001AF 21r53r01         [10]  736 	ld	hl, #(_SwSprite + 339)
+    000001B2 36 00            [10]  737 	ld	(hl), #0x00
+    000001B4 21 00 00         [10]  738 	ld	hl, #0x0000
+    000001B7 22r55r01         [16]  739 	ld	((_SwSprite + 341)), hl
+                                    740 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:67: T1_Carrier = T2_Carrier = 0xFF;
+    000001BA 21r00r00         [10]  741 	ld	hl, #_T2_Carrier
+    000001BD 36 FF            [10]  742 	ld	(hl), #0xff
+    000001BF 21r00r00         [10]  743 	ld	hl, #_T1_Carrier
+    000001C2 36 FF            [10]  744 	ld	(hl), #0xff
+                                    745 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:68: TimerEnabled = FALSE;
+    000001C4 FD 21r00r00      [14]  746 	ld	iy, #_TimerEnabled
+    000001C8 FD 36 00 00      [19]  747 	ld	0 (iy), #0x00
+                                    748 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:69: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+    000001CC 3E 03            [ 7]  749 	ld	a, #0x03
+    000001CE 12               [ 7]  750 	ld	(de), a
+    000001CF DD 4E 04         [19]  751 	ld	c, 4 (ix)
+    000001D2 DD 46 05         [19]  752 	ld	b, 5 (ix)
+    000001D5 3Ar00r00         [13]  753 	ld	a, (_Frms+0)
+    000001D8 02               [ 7]  754 	ld	(bc), a
+                                    755 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:70: return;
+    000001D9 C3r47r03         [10]  756 	jp	00130$
+    000001DC                        757 00107$:
+                                    758 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:74: if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+    000001DC 3E E2            [ 7]  759 	ld	a, #0xe2
+    000001DE DD BE FA         [19]  760 	cp	a, -6 (ix)
+    000001E1 3E 01            [ 7]  761 	ld	a, #0x01
+    000001E3 DD 9E FB         [19]  762 	sbc	a, -5 (ix)
+    000001E6 3E 00            [ 7]  763 	ld	a, #0x00
+    000001E8 17               [ 4]  764 	rla
+    000001E9 DD 77 FD         [19]  765 	ld	-3 (ix), a
+    000001EC B7               [ 4]  766 	or	a, a
+    000001ED 28 57            [12]  767 	jr	Z, 00111$
+    000001EF DD 7E FC         [19]  768 	ld	a, -4 (ix)
+    000001F2 D6 64            [ 7]  769 	sub	a, #0x64
+    000001F4 38 50            [12]  770 	jr	C, 00111$
+    000001F6 3E C8            [ 7]  771 	ld	a, #0xc8
+    000001F8 DD 96 FC         [19]  772 	sub	a, -4 (ix)
+    000001FB 38 49            [12]  773 	jr	C, 00111$
+                                    774 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:75: *game_state = 6;
+    000001FD DD 6E FE         [19]  775 	ld	l, -2 (ix)
+    00000200 DD 66 FF         [19]  776 	ld	h, -1 (ix)
+    00000203 36 06            [10]  777 	ld	(hl), #0x06
+                                    778 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:76: RestartType = 0;
+    00000205 21r00r00         [10]  779 	ld	hl, #_RestartType
+    00000208 36 00            [10]  780 	ld	(hl), #0x00
+                                    781 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:77: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+    0000020A D5               [11]  782 	push	de
+    0000020B 11r00r00         [10]  783 	ld	de, #_EventGoal
+    0000020E 3E 08            [ 7]  784 	ld	a, #0x08
+    00000210 CDr00r00         [17]  785 	call	_CallFnc_VOID
+    00000213 D1               [10]  786 	pop	de
+                                    787 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:78: Ball->anim = Ball->dx = Ball->dy = 0;
+    00000214 21r54r01         [10]  788 	ld	hl, #(_SwSprite + 340)
+    00000217 36 00            [10]  789 	ld	(hl), #0x00
+    00000219 21r53r01         [10]  790 	ld	hl, #(_SwSprite + 339)
+    0000021C 36 00            [10]  791 	ld	(hl), #0x00
+    0000021E 21 00 00         [10]  792 	ld	hl, #0x0000
+    00000221 22r55r01         [16]  793 	ld	((_SwSprite + 341)), hl
+                                    794 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:79: T1_Carrier = T2_Carrier = 0xFF;
+    00000224 21r00r00         [10]  795 	ld	hl, #_T2_Carrier
+    00000227 36 FF            [10]  796 	ld	(hl), #0xff
+    00000229 21r00r00         [10]  797 	ld	hl, #_T1_Carrier
+    0000022C 36 FF            [10]  798 	ld	(hl), #0xff
+                                    799 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:80: TimerEnabled = FALSE;
+    0000022E FD 21r00r00      [14]  800 	ld	iy, #_TimerEnabled
+    00000232 FD 36 00 00      [19]  801 	ld	0 (iy), #0x00
+                                    802 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:81: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+    00000236 3E 03            [ 7]  803 	ld	a, #0x03
+    00000238 12               [ 7]  804 	ld	(de), a
+    00000239 DD 4E 04         [19]  805 	ld	c, 4 (ix)
+    0000023C DD 46 05         [19]  806 	ld	b, 5 (ix)
+    0000023F 3Ar00r00         [13]  807 	ld	a, (_Frms+0)
+    00000242 02               [ 7]  808 	ld	(bc), a
+                                    809 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:82: return;
+    00000243 C3r47r03         [10]  810 	jp	00130$
+    00000246                        811 00111$:
+                                    812 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:86: if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
+    00000246 DD 7E FC         [19]  813 	ld	a, -4 (ix)
+    00000249 D6 23            [ 7]  814 	sub	a, #0x23
+    0000024B 38 07            [12]  815 	jr	C, 00118$
+    0000024D 3E DD            [ 7]  816 	ld	a, #0xdd
+    0000024F DD 96 FC         [19]  817 	sub	a, -4 (ix)
+    00000252 30 76            [12]  818 	jr	NC, 00119$
+    00000254                        819 00118$:
+                                    820 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:66: Ball->anim = Ball->dx = Ball->dy = 0;
+                                    821 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:88: if (RestartType == 1 && Ball->anim == 5) {
+    00000254 3Ar00r00         [13]  822 	ld	a, (_RestartType+0)
+    00000257 3D               [ 4]  823 	dec	a
+    00000258 20 09            [12]  824 	jr	NZ, 00115$
+    0000025A 2Ar55r01         [16]  825 	ld	hl, (#(_SwSprite + 341) + 0)
+    0000025D 7D               [ 4]  826 	ld	a, l
+    0000025E D6 05            [ 7]  827 	sub	a, #0x05
+    00000260 B4               [ 4]  828 	or	a, h
+    00000261 28 67            [12]  829 	jr	Z, 00119$
+    00000263                        830 00115$:
+                                    831 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:91: *game_state = 6;
+    00000263 DD 6E FE         [19]  832 	ld	l, -2 (ix)
+    00000266 DD 66 FF         [19]  833 	ld	h, -1 (ix)
+    00000269 36 06            [10]  834 	ld	(hl), #0x06
+                                    835 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: RestartType = 1;
+    0000026B 21r00r00         [10]  836 	ld	hl, #_RestartType
+    0000026E 36 01            [10]  837 	ld	(hl), #0x01
+                                    838 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary;
+    00000270 3Ar42r01         [13]  839 	ld	a, (#(_SwSprite + 322) + 0)
+    00000273 D6 80            [ 7]  840 	sub	a, #0x80
+    00000275 30 05            [12]  841 	jr	NC, 00132$
+    00000277 0E 23            [ 7]  842 	ld	c, #0x23
+    00000279 C3r7Er02         [10]  843 	jp	00133$
+    0000027C                        844 00132$:
+    0000027C 0E DD            [ 7]  845 	ld	c, #0xdd
+    0000027E                        846 00133$:
+    0000027E 21r00r00         [10]  847 	ld	hl, #_RestartSideX
+    00000281 71               [ 7]  848 	ld	(hl), c
+                                    849 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: RestartSideY = Ball->ly;
+    00000282 21r46r01         [10]  850 	ld	hl, #(_SwSprite + 326)
+    00000285 7E               [ 7]  851 	ld	a, (hl)
+    00000286 23               [ 6]  852 	inc	hl
+    00000287 32r00r00         [13]  853 	ld	(_RestartSideY+0), a
+    0000028A 7E               [ 7]  854 	ld	a, (hl)
+    0000028B 32r01r00         [13]  855 	ld	(_RestartSideY+1), a
+                                    856 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:95: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
+    0000028E D5               [11]  857 	push	de
+    0000028F 11r00r00         [10]  858 	ld	de, #_EventThrowIn
+    00000292 3E 08            [ 7]  859 	ld	a, #0x08
+    00000294 CDr00r00         [17]  860 	call	_CallFnc_VOID
+    00000297 D1               [10]  861 	pop	de
+                                    862 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:96: Ball->anim = Ball->dx = Ball->dy = 0;
+    00000298 21r54r01         [10]  863 	ld	hl, #(_SwSprite + 340)
+    0000029B 36 00            [10]  864 	ld	(hl), #0x00
+    0000029D 21r53r01         [10]  865 	ld	hl, #(_SwSprite + 339)
+    000002A0 36 00            [10]  866 	ld	(hl), #0x00
+    000002A2 21 00 00         [10]  867 	ld	hl, #0x0000
+    000002A5 22r55r01         [16]  868 	ld	((_SwSprite + 341)), hl
+                                    869 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: T1_Carrier = T2_Carrier = 0xFF;
+    000002A8 21r00r00         [10]  870 	ld	hl, #_T2_Carrier
+    000002AB 36 FF            [10]  871 	ld	(hl), #0xff
+    000002AD 21r00r00         [10]  872 	ld	hl, #_T1_Carrier
+    000002B0 36 FF            [10]  873 	ld	(hl), #0xff
+                                    874 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:98: TimerEnabled = FALSE;
+    000002B2 FD 21r00r00      [14]  875 	ld	iy, #_TimerEnabled
+    000002B6 FD 36 00 00      [19]  876 	ld	0 (iy), #0x00
+                                    877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:99: *wait_secs = 2; *start_sec = Frms;
+    000002BA 3E 02            [ 7]  878 	ld	a, #0x02
+    000002BC 12               [ 7]  879 	ld	(de), a
+    000002BD DD 4E 04         [19]  880 	ld	c, 4 (ix)
+    000002C0 DD 46 05         [19]  881 	ld	b, 5 (ix)
+    000002C3 3Ar00r00         [13]  882 	ld	a, (_Frms+0)
+    000002C6 02               [ 7]  883 	ld	(bc), a
+                                    884 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: return;
+    000002C7 C3r47r03         [10]  885 	jp	00130$
+    000002CA                        886 00119$:
+                                    887 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:105: if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
+    000002CA 79               [ 4]  888 	ld	a, c
+    000002CB B7               [ 4]  889 	or	a, a
+    000002CC 20 06            [12]  890 	jr	NZ, 00127$
+    000002CE DD 7E FD         [19]  891 	ld	a, -3 (ix)
+    000002D1 B7               [ 4]  892 	or	a, a
+    000002D2 28 73            [12]  893 	jr	Z, 00130$
+    000002D4                        894 00127$:
+                                    895 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: *game_state = 6;
+    000002D4 DD 6E FE         [19]  896 	ld	l, -2 (ix)
+    000002D7 DD 66 FF         [19]  897 	ld	h, -1 (ix)
+    000002DA 36 06            [10]  898 	ld	(hl), #0x06
+                                    899 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:107: RestartType = 0;
+    000002DC 21r00r00         [10]  900 	ld	hl, #_RestartType
+    000002DF 36 00            [10]  901 	ld	(hl), #0x00
+                                    902 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:114: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
+    000002E1 ED 4Br46r01      [20]  903 	ld	bc, (#(_SwSprite + 326) + 0)
+    000002E5 79               [ 4]  904 	ld	a, c
+    000002E6 D6 1E            [ 7]  905 	sub	a, #0x1e
+    000002E8 78               [ 4]  906 	ld	a, b
+    000002E9 DE 00            [ 7]  907 	sbc	a, #0x00
+    000002EB 30 06            [12]  908 	jr	NC, 00126$
+    000002ED 3Ar00r00         [13]  909 	ld	a, (_LastTouchTeam+0)
+    000002F0 B7               [ 4]  910 	or	a, a
+    000002F1 28 0E            [12]  911 	jr	Z, 00121$
+    000002F3                        912 00126$:
+                                    913 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:115: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+    000002F3 3E E2            [ 7]  914 	ld	a, #0xe2
+    000002F5 B9               [ 4]  915 	cp	a, c
+    000002F6 3E 01            [ 7]  916 	ld	a, #0x01
+    000002F8 98               [ 4]  917 	sbc	a, b
+    000002F9 30 13            [12]  918 	jr	NC, 00122$
+    000002FB 3Ar00r00         [13]  919 	ld	a, (_LastTouchTeam+0)
+    000002FE 3D               [ 4]  920 	dec	a
+    000002FF 20 0D            [12]  921 	jr	NZ, 00122$
+    00000301                        922 00121$:
+                                    923 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:116: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
+    00000301 D5               [11]  924 	push	de
+    00000302 11r00r00         [10]  925 	ld	de, #_EventCornerKick
+    00000305 3E 08            [ 7]  926 	ld	a, #0x08
+    00000307 CDr00r00         [17]  927 	call	_CallFnc_VOID
+    0000030A D1               [10]  928 	pop	de
+    0000030B C3r18r03         [10]  929 	jp	00123$
+    0000030E                        930 00122$:
+                                    931 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:118: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
+    0000030E D5               [11]  932 	push	de
+    0000030F 11r00r00         [10]  933 	ld	de, #_EventGoalKick
+    00000312 3E 08            [ 7]  934 	ld	a, #0x08
+    00000314 CDr00r00         [17]  935 	call	_CallFnc_VOID
+    00000317 D1               [10]  936 	pop	de
+    00000318                        937 00123$:
+                                    938 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:121: Ball->anim = Ball->dx = Ball->dy = 0;
+    00000318 21r54r01         [10]  939 	ld	hl, #(_SwSprite + 340)
+    0000031B 36 00            [10]  940 	ld	(hl), #0x00
+    0000031D 21r53r01         [10]  941 	ld	hl, #(_SwSprite + 339)
+    00000320 36 00            [10]  942 	ld	(hl), #0x00
+    00000322 21 00 00         [10]  943 	ld	hl, #0x0000
+    00000325 22r55r01         [16]  944 	ld	((_SwSprite + 341)), hl
+                                    945 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:122: T1_Carrier = T2_Carrier = 0xFF;
+    00000328 21r00r00         [10]  946 	ld	hl, #_T2_Carrier
+    0000032B 36 FF            [10]  947 	ld	(hl), #0xff
+    0000032D 21r00r00         [10]  948 	ld	hl, #_T1_Carrier
+    00000330 36 FF            [10]  949 	ld	(hl), #0xff
+                                    950 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:123: TimerEnabled = FALSE;
+    00000332 FD 21r00r00      [14]  951 	ld	iy, #_TimerEnabled
+    00000336 FD 36 00 00      [19]  952 	ld	0 (iy), #0x00
+                                    953 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:124: *wait_secs = 2; *start_sec = Frms;
+    0000033A 3E 02            [ 7]  954 	ld	a, #0x02
+    0000033C 12               [ 7]  955 	ld	(de), a
+    0000033D DD 4E 04         [19]  956 	ld	c, 4 (ix)
+    00000340 DD 46 05         [19]  957 	ld	b, 5 (ix)
+    00000343 3Ar00r00         [13]  958 	ld	a, (_Frms+0)
+    00000346 02               [ 7]  959 	ld	(bc), a
+                                    960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:125: return;
+    00000347                        961 00130$:
+                                    962 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:127: }
+    00000347 DD F9            [10]  963 	ld	sp, ix
+    00000349 DD E1            [14]  964 	pop	ix
+    0000034B E1               [10]  965 	pop	hl
+    0000034C F1               [10]  966 	pop	af
+    0000034D E9               [ 4]  967 	jp	(hl)
+                                    968 	.area _SEG10
+                                    969 	.area _INITIALIZER
+                                    970 	.area _CABS (ABS)

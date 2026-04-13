@@ -1862,7 +1862,7 @@
     00000BEC DD 36 E7 01      [19] 1862 	ld	-25 (ix), #0x01
     00000BF0 DD 36 E8 02      [19] 1863 	ld	-24 (ix), #0x02
     00000BF4 DD 36 E9 01      [19] 1864 	ld	-23 (ix), #0x01
-                                   1865 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:216: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+                                   1865 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:216: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
     00000BF8 C5               [11] 1866 	push	bc
     00000BF9 EB               [ 4] 1867 	ex	de, hl
     00000BFA 11 03 00         [10] 1868 	ld	de, #0x0003
@@ -1894,7 +1894,7 @@
     00000C26 F5               [11] 1894 	push	af
     00000C27 33               [ 6] 1895 	inc	sp
     00000C28 11r00r00         [10] 1896 	ld	de, #_GetPlayerAnimFrame
-    00000C2B 3E 09            [ 7] 1897 	ld	a, #0x09
+    00000C2B 3E 0B            [ 7] 1897 	ld	a, #0x0b
     00000C2D CDr00r00         [17] 1898 	call	_CallFnc_U16_P4
     00000C30 C1               [10] 1899 	pop	bc
     00000C31 7B               [ 4] 1900 	ld	a, e
@@ -2014,7 +2014,7 @@
     00000CFC 11 FF FF         [10] 2014 	ld	de, #0xffff
     00000CFF                       2015 00292$:
     00000CFF                       2016 00205$:
-                                   2017 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:224: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE, GetPlayerIdleFrame, i, dir_x, dir_y);
+                                   2017 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:224: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, dir_x, dir_y);
     00000CFF C5               [11] 2018 	push	bc
     00000D00 63               [ 4] 2019 	ld	h, e
     00000D01 DD 6E FE         [19] 2020 	ld	l, -2 (ix)
@@ -2023,7 +2023,7 @@
     00000D08 F5               [11] 2023 	push	af
     00000D09 33               [ 6] 2024 	inc	sp
     00000D0A 11r00r00         [10] 2025 	ld	de, #_GetPlayerIdleFrame
-    00000D0D 3E 09            [ 7] 2026 	ld	a, #0x09
+    00000D0D 3E 0B            [ 7] 2026 	ld	a, #0x0b
     00000D0F CDr00r00         [17] 2027 	call	_CallFnc_U16_P3
     00000D12 C1               [10] 2028 	pop	bc
     00000D13 7B               [ 4] 2029 	ld	a, e
