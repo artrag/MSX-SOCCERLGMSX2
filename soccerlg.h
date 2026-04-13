@@ -344,6 +344,7 @@ extern  u16 g_pass_start_y;
 extern  u16 g_pass_target_x;
 extern  u16 g_pass_target_y;
 extern  u8  g_pass_max_frames;
+extern  u8  g_pass_max_height;
 
 
 

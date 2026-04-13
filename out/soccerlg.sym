@@ -126,8 +126,9 @@ Symbol Table
   7 __xinit__Team1Code                                              00000007 R
   7 __xinit__Team2Code                                              00000008 R
   7 __xinit__TimerEnabled                                           0000000F R
-  7 __xinit__g_VSynch                                               00000023 R
+  7 __xinit__g_VSynch                                               00000024 R
   7 __xinit__g_pass_max_frames                                      00000022 R
+  7 __xinit__g_pass_max_height                                      00000023 R
   7 __xinit__g_pass_start_x                                         0000001A R
   7 __xinit__g_pass_start_y                                         0000001C R
   7 __xinit__g_pass_target_x                                        0000001E R
@@ -177,12 +178,12 @@ Symbol Table
     _g_DISKVE                                                   =   0000F323 G
     _g_DPPAGE                                                   =   0000FAF5 G
     _g_DRWANG                                                   =   0000FCBD G
-    _g_DRWFLG                                                   =   0000FCBB G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_DRWFLG                                                   =   0000FCBB G
     _g_DRWSCL                                                   =   0000FCBC G
     _g_ENSTOP                                                   =   0000FBB0 G
     _g_ERRORS                                                   =   0000FB1A G
@@ -237,12 +238,12 @@ Symbol Table
     _g_MCLLEN                                                   =   0000FB3B G
     _g_MCLPTR                                                   =   0000FB3C G
     _g_MEXBIh                                                   =   0000FB07 G
-    _g_MINROM                                                   =   0000FFF7 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_MINROM                                                   =   0000FFF7 G
     _g_MINUPD                                                   =   0000F3EF G
     _g_MLTATR                                                   =   0000F3D7 G
     _g_MLTCGP                                                   =   0000F3D5 G
@@ -297,12 +298,12 @@ Symbol Table
     _g_RDPRIM                                                   =   0000F380 G
     _g_REPCNT                                                   =   0000F3F7 G
     _g_RG08SAV                                                  =   0000FFE7 G
-    _g_RG09SAV                                                  =   0000FFE8 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RG09SAV                                                  =   0000FFE8 G
     _g_RG0SAV                                                   =   0000F3DF G
     _g_RG10SAV                                                  =   0000FFE9 G
     _g_RG11SAV                                                  =   0000FFEA G
@@ -357,12 +358,12 @@ Symbol Table
     _g_T32PAT                                                   =   0000F3C5 G
     _g_TOCNT                                                    =   0000FB03 G
     _g_TRGFLG                                                   =   0000F3E8 G
-    _g_TRPTBL                                                   =   0000FC4C G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_TRPTBL                                                   =   0000FC4C G
     _g_TXTATR                                                   =   0000F3B9 G
     _g_TXTCGP                                                   =   0000F3B7 G
     _g_TXTCOL                                                   =   0000F3B5 G
@@ -386,12 +387,13 @@ Symbol Table
     _g_VOICBQ                                                   =   0000F9F5 G
     _g_VOICCQ                                                   =   0000FA75 G
     _g_VOICEN                                                   =   0000FB38 G
-  2 _g_VSynch                                                       00000023 GR
+  2 _g_VSynch                                                       00000024 GR
     _g_WINWID                                                   =   0000FCA5 G
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
   2 _g_pass_max_frames                                              00000022 GR
+  2 _g_pass_max_height                                              00000023 GR
   2 _g_pass_start_x                                                 0000001A GR
   2 _g_pass_start_y                                                 0000001C GR
   2 _g_pass_target_x                                                0000001E GR
@@ -410,11 +412,11 @@ Area Table
 
    0 _CODE                                      size      FA1   flags    0
    1 _DATA                                      size      26D   flags    0
-   2 _INITIALIZED                               size       24   flags    0
+   2 _INITIALIZED                               size       25   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _INITIALIZER                               size       24   flags    0
+   7 _INITIALIZER                               size       25   flags    0
    8 _CABS                                      size        0   flags    8
 

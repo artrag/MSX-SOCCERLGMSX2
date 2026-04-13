@@ -11,10 +11,12 @@ Symbol Table
     _CallFnc_U16_P4                                                 ******** GX
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
-  7 _FindReceiver                                                   00000D1D GR
+  7 _FindReceiver                                                   00000FEA GR
+    _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
     _GetPlayerIdleFrame                                             ******** GX
+    _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
   7 _PlayerAI                                                       00000000 GR
     _SwSprite                                                       ******** GX
@@ -22,6 +24,7 @@ Symbol Table
     _T2_Carrier                                                     ******** GX
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
+    __moduint                                                       ******** GX
   8 __xinit__ai_last_dx                                             00000000 R
   8 __xinit__ai_last_dy                                             0000000E R
   2 _ai_last_dx                                                     00000000 R
@@ -55,14 +58,14 @@ Symbol Table
     _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
     _g_CS120                                                    =   0000F3FC G
-    _g_CS240                                                    =   0000F401 G
-    _g_CSRSW                                                    =   0000FCA9 G
-    _g_CSRX                                                     =   0000F3DD G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_CS240                                                    =   0000F401 G
+    _g_CSRSW                                                    =   0000FCA9 G
+    _g_CSRX                                                     =   0000F3DD G
     _g_CSRY                                                     =   0000F3DC G
     _g_CSTYLE                                                   =   0000FCAA G
     _g_DATCNT                                                   =   0000FB17 G
@@ -115,14 +118,14 @@ Symbol Table
     _g_LINTTB                                                   =   0000FBB2 G
     _g_LINWRK                                                   =   0000FC18 G
     _g_LOGOPR                                                   =   0000FB02 G
-    _g_LOW                                                      =   0000F406 G
-    _g_LOWLIM                                                   =   0000FCA4 G
-    _g_LSTCOM                                                   =   0000FB1E G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_LOW                                                      =   0000F406 G
+    _g_LOWLIM                                                   =   0000FCA4 G
+    _g_LSTCOM                                                   =   0000FB1E G
     _g_LSTMOD                                                   =   0000FB1F G
     _g_MASTER                                                   =   0000F348 G
     _g_MAXUPD                                                   =   0000F3EC G
@@ -175,14 +178,14 @@ Symbol Table
     _g_QUETAB                                                   =   0000F959 G
     _g_QUEUEN                                                   =   0000FB3E G
     _g_QUEUES                                                   =   0000F3F3 G
-    _g_RAMAD0                                                   =   0000F341 G
-    _g_RAMAD1                                                   =   0000F342 G
-    _g_RAMAD2                                                   =   0000F343 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RAMAD0                                                   =   0000F341 G
+    _g_RAMAD1                                                   =   0000F342 G
+    _g_RAMAD2                                                   =   0000F343 G
     _g_RAMAD3                                                   =   0000F344 G
     _g_RDPRIM                                                   =   0000F380 G
     _g_REPCNT                                                   =   0000F3F7 G
@@ -235,14 +238,14 @@ Symbol Table
     _g_SUBRID                                                   =   00000000 G
     _g_SVFFF8                                                   =   0000FFF8 G
     _g_SVFFFD                                                   =   0000FFFD G
-    _g_T32ATR                                                   =   0000F3C3 G
-    _g_T32CGP                                                   =   0000F3C1 G
-    _g_T32COL                                                   =   0000F3BF G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_T32ATR                                                   =   0000F3C3 G
+    _g_T32CGP                                                   =   0000F3C1 G
+    _g_T32COL                                                   =   0000F3BF G
     _g_T32NAM                                                   =   0000F3BD G
     _g_T32PAT                                                   =   0000F3C5 G
     _g_TOCNT                                                    =   0000FB03 G
@@ -273,6 +276,12 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_pass_max_frames                                              ******** GX
+    _g_pass_max_height                                              ******** GX
+    _g_pass_start_x                                                 ******** GX
+    _g_pass_start_y                                                 ******** GX
+    _g_pass_target_x                                                ******** GX
+    _g_pass_target_y                                                ******** GX
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
@@ -287,7 +296,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size      EC1   flags    0
+   7 _SEG6                                      size     1250   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

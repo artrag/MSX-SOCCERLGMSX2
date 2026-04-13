@@ -200,12 +200,12 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				// Effetto di volo: scala da 1 a 8 (andata) e 8 a 1 (ritorno)
 				u8 scale;
 				if (progress <= half_frame) {
-					// Prima metà: scale da 1 a 8
-					scale = 1 + (progress * 7) / half_frame;
+					// Prima metà: sale fino all'altezza massima stabilita
+					scale = 1 + (progress * g_pass_max_height) / half_frame;
 				} else {
-					// Seconda metà: scale da 8 a 1
+					// Seconda metà: scende dall'altezza massima a 1
 					u8 progress_down = progress - half_frame;
-					scale = 8 - (progress_down * 7) / (g_pass_max_frames - half_frame);
+					scale = 1 + g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
 				}
 				if (scale > 7) scale = 7; // Clamp a 7 (SPR_BALL_SIZE_8 = SPR_BALL_SIZE_1 + 7)
 				CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
@@ -334,7 +334,13 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							g_pass_start_y = Carrier->ly;
 							g_pass_target_x = SwSprite[receiver].lx;
 							g_pass_target_y = SwSprite[receiver].ly;
-							g_pass_max_frames = 10; // Durata del passaggio in frame
+							
+							u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
+							u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
+							g_pass_max_frames = (r_dx + r_dy) / 4; 
+							if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+							if (g_pass_max_frames > 40) g_pass_max_frames = 40;
+							g_pass_max_height = 7; // Passaggio normale alto
 							
 							Ball->lx = g_pass_start_x;
 							Ball->ly = g_pass_start_y;

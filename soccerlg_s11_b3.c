@@ -168,6 +168,7 @@ void ExecuteThrowIn(u8 thrower, u8 receiver) {
 	g_pass_max_frames = (r_dx + r_dy) / 4; 
 	if (g_pass_max_frames < 10) g_pass_max_frames = 10;
 	if (g_pass_max_frames > 40) g_pass_max_frames = 40;
+	g_pass_max_height = 3; // Altezza ridotta per il fallo laterale
 	
 	SwSprite[14].lx = g_pass_start_x;
 	SwSprite[14].ly = g_pass_start_y;

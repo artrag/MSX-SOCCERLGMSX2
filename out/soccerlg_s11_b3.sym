@@ -12,8 +12,8 @@ Symbol Table
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
   7 _ExecuteThrowIn                                                 000008C2 GR
-  7 _GetPlayerAnimFrame                                             000009E5 GR
-  7 _GetPlayerIdleFrame                                             00000E3E GR
+  7 _GetPlayerAnimFrame                                             000009EA GR
+  7 _GetPlayerIdleFrame                                             00000E43 GR
     _KickOffTeam                                                    ******** GX
     _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
@@ -268,6 +268,7 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
     _g_pass_max_frames                                              ******** GX
+    _g_pass_max_height                                              ******** GX
     _g_pass_start_x                                                 ******** GX
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
@@ -290,7 +291,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG11                                     size     1037   flags    0
+   7 _SEG11                                     size     103C   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

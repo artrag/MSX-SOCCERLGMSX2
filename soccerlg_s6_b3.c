@@ -115,10 +115,8 @@ void PlayerAI(u8 i)
 		u8 end_cpu = 7;
 		
 		for (u8 j = start_cpu; j < end_cpu; j++) {
-			u8 dx_diff = (u8)(SwSprite[j].lx - Ball->lx);
-			u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-			u16 dy_diff = (u16)(SwSprite[j].ly - Ball->ly) & 511;
-			u16 dy = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+			u16 dx = (SwSprite[j].lx > Ball->lx) ? (SwSprite[j].lx - Ball->lx) : (Ball->lx - SwSprite[j].lx);
+			u16 dy = (SwSprite[j].ly > Ball->ly) ? (SwSprite[j].ly - Ball->ly) : (Ball->ly - SwSprite[j].ly);
 			if (dx + dy < min_dist) {
 				min_dist = dx + dy;
 				closest_cpu = j;
@@ -137,16 +135,58 @@ void PlayerAI(u8 i)
 					target_x = 128; 
 					target_y = 480; 
 
-					// Dribbling automatico (se vicino)
+					// Scelta tra Passaggio e Dribbling
 					if (min_dist <= 12 && Ball->anim == 0) {
-						Ball->dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
-						Ball->dy = (Player->dy > 0) ? 1 : ((Player->dy < 0) ? -1 : 0);
-						if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
+						bool passed = FALSE;
 						
-						Ball->lx = Player->lx + (Ball->dx * 6);
-						Ball->ly = (Player->ly + (Ball->dy * 6)) & 511;
-						Ball->anim = 4;
-						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						// Passaggio intelligente verso un compagno in direzione dello sguardo
+						if (Frms % 16 == 0) {
+							u8 rand_pass = (Player->lx * 5 + Player->ly * 3 + Frms) % 100;
+							if (rand_pass < 5) { // Probabilità simulata fissa al 5% per spingerla a dribblare
+								u8 receiver = FindReceiver(i, 0xFF, Player->dx, Player->dy);
+								if (receiver != 0xFF) {
+									u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
+									u16 r_dy = (SwSprite[receiver].ly > Player->ly) ? (SwSprite[receiver].ly - Player->ly) : (Player->ly - SwSprite[receiver].ly);
+									
+									// Passa solo se il compagno è a una distanza tattica sensata (almeno 3 mattonelle)
+									if (r_dx + r_dy >= 48) {
+										g_pass_start_x = Player->lx;
+										g_pass_start_y = Player->ly;
+										g_pass_target_x = SwSprite[receiver].lx;
+										g_pass_target_y = SwSprite[receiver].ly;
+										
+										g_pass_max_frames = (r_dx + r_dy) / 4; 
+										if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+										if (g_pass_max_frames > 40) g_pass_max_frames = 40;
+										g_pass_max_height = 7;
+										
+										Ball->lx = g_pass_start_x;
+										Ball->ly = g_pass_start_y;
+										Ball->anim = 5; 
+										Ball->count = 0;
+										Ball->dx = Ball->dy = 0;
+										
+										CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+										LastTouchTeam = team;
+										LastTouchPlayer = i;
+										passed = TRUE;
+									}
+								}
+							}
+						}
+						
+						// Dribbling se non ha passato
+						if (!passed) {
+							Ball->dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
+							Ball->dy = (Player->dy > 0) ? 1 : ((Player->dy < 0) ? -1 : 0);
+							if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
+							
+							Ball->lx = Player->lx + (Ball->dx * 6);
+							Ball->ly = (Player->ly + (Ball->dy * 6)) & 511;
+							Ball->anim = 4;
+							Ball->count = 0; // Azzera volo per dribbling a terra
+							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						}
 					}
 					
 					// Tiro in porta (se abbastanza vicino)
@@ -156,6 +196,7 @@ void PlayerAI(u8 i)
 						Ball->lx = Player->lx + (Ball->dx * 6);
 						Ball->ly = (Player->ly + (Ball->dy * 6)) & 511;
 						Ball->anim = 8; // Tiro potente
+						Ball->count = 0; // Azzera volo per tiro a terra
 						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						LastTouchTeam = 0xFF;
 					}
@@ -171,14 +212,20 @@ void PlayerAI(u8 i)
 	// Intervento attivo: se un giocatore (anche non governato in quel momento dal player) 
 	// passa molto vicino alla palla in fase difensiva, abbandona il piazzamento tattico per il contrasto
 	if (LastTouchTeam != team) {
-		u8 b_dx_diff = (u8)(Player->lx - Ball->lx);
-		u16 b_dist_x = (b_dx_diff < 128) ? b_dx_diff : (256 - b_dx_diff);
-		u16 b_dy_diff = (u16)(Player->ly - Ball->ly) & 511;
-		u16 b_dist_y = (b_dy_diff < 256) ? b_dy_diff : (512 - b_dy_diff);
+		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
 		
 		if (b_dist_x < 32 && b_dist_y < 32) {
 			target_x = Ball->lx;
 			target_y = Ball->ly;
+			
+			// Furto della palla (Tackle) intercettazione fisica
+			u8 steal_dist = (LastTouchTeam == 0xFF) ? 24 : 8;
+			if (Ball->anim >= 6) steal_dist = 8; // I tiri potenti sfuggono più facilmente al tackle
+			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0) {
+				LastTouchTeam = team;
+				if (Ball->anim > 4) Ball->anim = 4; // L'AI stoppa la palla se intercetta un tiro
+			}
 		}
 	}
 
@@ -190,10 +237,8 @@ void PlayerAI(u8 i)
 
 	// --- ESECUZIONE MOVIMENTO E ANIMAZIONE ---
 	
-	u8 dx_diff = (u8)(target_x - Player->lx);
-	u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-	u16 dy_diff = (u16)(target_y - Player->ly) & 511;
-	u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+	u16 dist_x = (target_x > Player->lx) ? (target_x - Player->lx) : (Player->lx - target_x);
+	u16 dist_y = (target_y > Player->ly) ? (target_y - Player->ly) : (Player->ly - target_y);
 
 	// Regola la velocità: corsa veloce se molto distante, camminata se vicino
 	u8 speed = 1;
@@ -201,8 +246,8 @@ void PlayerAI(u8 i)
 
 	Player->dx = 0; Player->dy = 0;
 	
-	if (dist_x > speed) Player->dx = (dx_diff < 128) ? speed : -speed;
-	if (dist_y > speed) Player->dy = (dy_diff < 256) ? speed : -speed;
+	if (dist_x > speed) Player->dx = (target_x > Player->lx) ? speed : -speed;
+	if (dist_y > speed) Player->dy = (target_y > Player->ly) ? speed : -speed;
 
 	if (Player->dx != 0 || Player->dy != 0) {
 		ai_last_dx[i] = Player->dx;
@@ -226,71 +271,36 @@ void PlayerAI(u8 i)
 }
 
 // Trova il compagno più vicino nella direzione di attacco
-// Regole direzionali rigorose:
-// - OVEST: ricevente deve essere a OVEST (lx < carrier_lx)
-// - EST: ricevente deve essere a EST (lx > carrier_lx)
-// - NORD: ricevente deve essere a NORD (ly < carrier_ly)
-// - SUD: ricevente deve essere a SUD (ly > carrier_ly)
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy) 
 {
 	u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
 	u8 end_idx = start_idx + 6;
 	u8 best_match = 0xFF;
 	u16 min_dist = 0xFFFF;
-	u16 max_dist = 130; // Massima distanza per passaggi
 
-	// Se nessuna direzione specificata, non passare
-	if (c_dx == 0 && c_dy == 0) return 0xFF;
+	if (c_dx == 0 && c_dy == 0) {
+		c_dy = (carrier < 7) ? 1 : -1;
+	}
 
-	// Ricerca: Cerca nel cono visivo direzionale con regole rigorose
 	for (u8 i = start_idx; i < end_idx; i++) {
 		if (i == carrier || i == ignore_player) continue; 
 
-		u8 dx_diff = (u8)(SwSprite[i].lx - SwSprite[carrier].lx);
-		u16 dx = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-		u16 dy_diff_16 = (u16)(SwSprite[i].ly - SwSprite[carrier].ly) & 511;
-		u16 dy = (dy_diff_16 < 256) ? dy_diff_16 : (512 - dy_diff_16);
+		u16 dx = (SwSprite[i].lx > SwSprite[carrier].lx) ? (SwSprite[i].lx - SwSprite[carrier].lx) : (SwSprite[carrier].lx - SwSprite[i].lx);
+		u16 dy = (SwSprite[i].ly > SwSprite[carrier].ly) ? (SwSprite[i].ly - SwSprite[carrier].ly) : (SwSprite[carrier].ly - SwSprite[i].ly);
 		u16 dist = dx + dy; 
 
-		// Limite massimo distanza
-		if (dist > max_dist) continue;
+		// Filtro cono visivo direzionale:
+		if (c_dx > 0 && SwSprite[i].lx < SwSprite[carrier].lx) continue; 
+		if (c_dx < 0 && SwSprite[i].lx > SwSprite[carrier].lx) continue; 
+		
+		if (c_dy > 0 && SwSprite[i].ly < SwSprite[carrier].ly) continue; 
+		if (c_dy < 0 && SwSprite[i].ly > SwSprite[carrier].ly) continue; 
 
-		// Applica regole direzionali rigorose
-		bool is_east = (dx_diff < 128);   // Ricevente a DESTRA del portatore
-		bool is_south = (dy_diff_16 < 256); // Ricevente a SUD del portatore
-		
-		// Controlli per OVEST
-		if (c_dx < 0) {
-			// Portatore va a OVEST: ricevente DEVE essere a OVEST
-			if (is_east) continue; // Scarta se ricevente è a EST
-		}
-		
-		// Controlli per EST
-		if (c_dx > 0) {
-			// Portatore va a EST: ricevente DEVE essere a EST
-			if (!is_east) continue; // Scarta se ricevente è a OVEST
-		}
-		
-		// Controlli per NORD
-		if (c_dy < 0) {
-			// Portatore va a NORD: ricevente DEVE essere a NORD
-			if (is_south) continue; // Scarta se ricevente è a SUD
-		}
-		
-		// Controlli per SUD
-		if (c_dy > 0) {
-			// Portatore va a SUD: ricevente DEVE essere a SUD
-			if (!is_south) continue; // Scarta se ricevente è a NORD
-		}
-
-		// Questo ricevente soddisfa le regole direzionali
 		if (dist < min_dist) {
 			min_dist = dist;
 			best_match = i;
 		}
 	}
 
-	// Se nessun ricevente trovato con regole rigorose, niente fallback
-	// Questo garantisce passaggi coerenti con la direzione di movimento
 	return best_match;
 }

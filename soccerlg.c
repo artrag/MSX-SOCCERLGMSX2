@@ -81,6 +81,7 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u16 g_pass_target_x = 0;
 	u16 g_pass_target_y = 0;
 	u8  g_pass_max_frames = 10;
+	u8  g_pass_max_height = 7;
 
 
 struct ObjectInfo SwSprite[NumSprite];
