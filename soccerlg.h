@@ -331,6 +331,7 @@ extern  u8  T2_Carrier;
 extern  u8  T2_Receiver;
 extern  bool TimerEnabled;
 extern  u8  LastTouchTeam;
+extern  u8  LastTouchPlayer;
 extern  u8  RestartType;
 extern  u8  RestartSideX;
 extern  u16 RestartSideY;

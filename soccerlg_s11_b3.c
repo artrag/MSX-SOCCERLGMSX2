@@ -38,67 +38,121 @@ void AssignThrowInTargets() {
 	u8 team_to_throw = (LastTouchTeam == TEAM_1) ? TEAM_2 : TEAM_1;
 	if (LastTouchTeam == 0xFF) team_to_throw = TEAM_1;
 
-	u8 thrower = (team_to_throw == TEAM_1) ? 5 : 12;
-	
 	// Assicuriamoci che la Y non finisca fuori camera in basso/alto
 	if (RestartSideY < 48) RestartSideY = 48;
 	if (RestartSideY > 464) RestartSideY = 464;
 
+	// 1. Trova il battitore (il giocatore più vicino alla palla escluso il portiere)
+	u8 start_t = (team_to_throw == TEAM_1) ? 1 : 8;
+	u8 end_t = start_t + 6;
+	u8 thrower = start_t;
+	u16 min_dist = 0xFFFF;
+	
+	for (u8 i = start_t; i < end_t; i++) {
+		u16 dx = (SwSprite[i].lx > RestartSideX) ? (SwSprite[i].lx - RestartSideX) : (RestartSideX - SwSprite[i].lx);
+		u16 dy = (SwSprite[i].ly > RestartSideY) ? (SwSprite[i].ly - RestartSideY) : (RestartSideY - SwSprite[i].ly);
+		if (dx + dy < min_dist) {
+			min_dist = dx + dy;
+			thrower = i;
+		}
+	}
+	
+	// 2. Trova i due destinatari più vicini
+	u8 rec1 = (thrower == start_t) ? start_t + 1 : start_t;
+	u8 rec2 = (thrower == start_t) ? start_t + 2 : ((thrower == start_t + 1) ? start_t + 2 : start_t + 1);
+	u16 min1 = 0xFFFF, min2 = 0xFFFF;
+	
+	for (u8 i = start_t; i < end_t; i++) {
+		if (i == thrower) continue;
+		u16 dx = (SwSprite[i].lx > RestartSideX) ? (SwSprite[i].lx - RestartSideX) : (RestartSideX - SwSprite[i].lx);
+		u16 dy = (SwSprite[i].ly > RestartSideY) ? (SwSprite[i].ly - RestartSideY) : (RestartSideY - SwSprite[i].ly);
+		if (dx + dy < min1) {
+			min2 = min1; rec2 = rec1;
+			min1 = dx + dy; rec1 = i;
+		} else if (dx + dy < min2) {
+			min2 = dx + dy; rec2 = i;
+		}
+	}
+	
+	// 3. Trova i 2 difensori più vicini per la marcatura
+	u8 def_t = (team_to_throw == TEAM_1) ? 8 : 1;
+	u8 def_end = def_t + 6;
+	u8 def1 = def_t, def2 = def_t + 1;
+	min1 = 0xFFFF; min2 = 0xFFFF;
+	
+	for (u8 i = def_t; i < def_end; i++) {
+		u16 dx = (SwSprite[i].lx > RestartSideX) ? (SwSprite[i].lx - RestartSideX) : (RestartSideX - SwSprite[i].lx);
+		u16 dy = (SwSprite[i].ly > RestartSideY) ? (SwSprite[i].ly - RestartSideY) : (RestartSideY - SwSprite[i].ly);
+		if (dx + dy < min1) {
+			min2 = min1; def2 = def1;
+			min1 = dx + dy; def1 = i;
+		} else if (dx + dy < min2) {
+			min2 = dx + dy; def2 = i;
+		}
+	}
+
+	// 4. Salva stato globale per la battuta
 	u16 thrower_y = RestartSideY - 8;
 	i8 dir_x = (RestartSideX < 128) ? 1 : -1;
 	u16 thrower_x = RestartSideX - (dir_x * 10); // Arretra di 10 pixel fuori dal campo
 
 	SwSprite[14].lx = thrower_x;
 	SwSprite[14].ly = thrower_y - 6; // Palla sopra la testa del battitore
-	SwSprite[14].frame = SPR_BALL_SIZE_2; // Forza il Foreground per disegnare la palla sopra il giocatore
+	SwSprite[14].frame = SPR_BALL_SIZE_2; 
 	SwSprite[14].dx = SwSprite[14].dy = SwSprite[14].anim = SwSprite[14].count = 0;
 	g_thrower_id = thrower;
 
-	// Lasciamo gli altri giocatori sul posto senza muoverli (per maggiore realismo visivo)
+	g_throw_rec_1 = rec1;
+	g_throw_rec_2 = rec2;
+	g_selected_rec = 0;
+
+	// 5. Posiziona i Portieri
+	SwSprite[0].tx = 128; SwSprite[0].ty = 32;
+	SwSprite[7].tx = 128; SwSprite[7].ty = 480;
+
+	// 6. Sposta tutta la squadra in posizioni tattiche relative alla palla
 	for(u8 i=1; i<14; i++) {
-		if (i == 0 || i == 7) continue;
-		SwSprite[i].tx = SwSprite[i].lx;
-		SwSprite[i].ty = SwSprite[i].ly;
+		if (i == 7 || i == thrower || i == rec1 || i == rec2 || i == def1 || i == def2) continue;
+		
+		u8 team = (i < 7) ? TEAM_1 : TEAM_2;
+		u8 role = (team == TEAM_1) ? i : (i - 7);
+		u16 base_x = 128;
+		u16 base_y = 256;
+
+		if (role == 1) { base_x = 64;  base_y = (team == TEAM_1) ? 120 : 392; }
+		else if (role == 2) { base_x = 192; base_y = (team == TEAM_1) ? 120 : 392; }
+		else if (role == 3) { base_x = 64;  base_y = (team == TEAM_1) ? 200 : 312; }
+		else if (role == 4) { base_x = 192; base_y = (team == TEAM_1) ? 200 : 312; }
+		else if (role == 5) { base_x = 80;  base_y = (team == TEAM_1) ? 280 : 232; }
+		else if (role == 6) { base_x = 176; base_y = (team == TEAM_1) ? 280 : 232; }
+		
+		// Comprimi la squadra verso la palla (seguono l'azione)
+		i16 ball_offset_y = (i16)RestartSideY - 256;
+		SwSprite[i].tx = base_x;
+		SwSprite[i].ty = base_y + (ball_offset_y / 2);
+		
+		if (SwSprite[i].tx < 16) SwSprite[i].tx = 16;
+		if (SwSprite[i].tx > 240) SwSprite[i].tx = 240;
+		if (SwSprite[i].ty < 48) SwSprite[i].ty = 48;
+		if (SwSprite[i].ty > 464) SwSprite[i].ty = 464;
 	}
 
 	SwSprite[thrower].tx = thrower_x;
 	SwSprite[thrower].ty = thrower_y;
 	
-	u8 t1_p1 = (thrower == 3) ? 5 : 3; u8 t1_p2 = (thrower == 4) ? 6 : 4;
-	u8 t2_p1 = (thrower == 10) ? 12 : 10; u8 t2_p2 = (thrower == 11) ? 13 : 11;
-	
-	// Salva in memoria chi sono i 2 destinatari validi per la squadra che batte
-	if (team_to_throw == TEAM_1) {
-		g_throw_rec_1 = t1_p1; g_throw_rec_2 = t1_p2;
-	} else {
-		g_throw_rec_1 = t2_p1; g_throw_rec_2 = t2_p2;
-	}
-	g_selected_rec = 0; // Default di partenza
-	
-	// Più in profondità nel campo e fortemente spaziati in altezza per non accavallarsi mai
-	SwSprite[t1_p1].tx = RestartSideX + dir_x * 50; SwSprite[t1_p1].ty = RestartSideY - 64;
-	SwSprite[t1_p2].tx = RestartSideX + dir_x * 70; SwSprite[t1_p2].ty = RestartSideY + 32;
-	SwSprite[t2_p1].tx = RestartSideX + dir_x * 40; SwSprite[t2_p1].ty = RestartSideY - 32;
-	SwSprite[t2_p2].tx = RestartSideX + dir_x * 60; SwSprite[t2_p2].ty = RestartSideY + 64;
+	// 7. Piazzamento preciso dei ricevitori e dei marcatori
+	SwSprite[rec1].tx = RestartSideX + dir_x * 50; SwSprite[rec1].ty = RestartSideY - 48;
+	SwSprite[rec2].tx = RestartSideX + dir_x * 70; SwSprite[rec2].ty = RestartSideY + 32;
+	SwSprite[def1].tx = RestartSideX + dir_x * 40; SwSprite[def1].ty = RestartSideY - 24;
+	SwSprite[def2].tx = RestartSideX + dir_x * 60; SwSprite[def2].ty = RestartSideY + 48;
 
-	u8 players_to_check[4] = {t1_p1, t1_p2, t2_p1, t2_p2};
+	u8 players_to_check[4] = {rec1, rec2, def1, def2};
 	for(u8 p=0; p<4; p++) {
 		u8 idx = players_to_check[p];
 		if (SwSprite[idx].tx < 16) SwSprite[idx].tx = 16;
 		if (SwSprite[idx].tx > 240) SwSprite[idx].tx = 240;
 		if (SwSprite[idx].ty < 30) SwSprite[idx].ty = 30;
 		if (SwSprite[idx].ty > 482) SwSprite[idx].ty = 482;
-	}
-
-	// Allontana gli altri giocatori dalla riga laterale per fare spazio
-	for(u8 i=1; i<14; i++) {
-		if (i == 0 || i == 7 || i == thrower || i == t1_p1 || i == t1_p2 || i == t2_p1 || i == t2_p2) continue;
-		
-		if (RestartSideX < 128) {
-			if (SwSprite[i].tx < 64) SwSprite[i].tx = 64 + (i * 2);
-		} else {
-			if (SwSprite[i].tx > 192) SwSprite[i].tx = 192 - (i * 2);
-		}
 	}
 }
 
@@ -121,6 +175,7 @@ void ExecuteThrowIn(u8 thrower, u8 receiver) {
 	SwSprite[14].count = 0; 
 	CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 	LastTouchTeam = (thrower < 7) ? TEAM_1 : TEAM_2;
+	LastTouchPlayer = thrower;
 }
 
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 

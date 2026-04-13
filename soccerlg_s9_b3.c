@@ -293,15 +293,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			if (dist_x <= 24 && dist_y <= 24) {
 					// Controllo Fuorigioco al momento della ricezione
 					bool offside = FALSE;
-					if (carrier < 7 && LastTouchTeam == TEAM_1) {
+					if (carrier < 7 && LastTouchTeam == TEAM_1 && LastTouchPlayer != carrier) {
 						u16 offside_line = (SwSprite[8].ly < SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
 						if (Carrier->ly > offside_line + 8 && Carrier->ly > 256) offside = TRUE;
-					} else if (carrier >= 7 && LastTouchTeam == TEAM_2) {
+					} else if (carrier >= 7 && LastTouchTeam == TEAM_2 && LastTouchPlayer != carrier) {
 						u16 offside_line = (SwSprite[1].ly > SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
 						if (Carrier->ly < offside_line - 8 && Carrier->ly < 256) offside = TRUE;
 					}
 					if (offside) {
 						*game_state = 6; // Ferma il gioco
+						RestartType = 0; // Temporaneo fallback a KickOff per la ripresa
 						CallFnc_VOID(SEG_EVENTS, EventOffside);
 						Ball->anim = Ball->dx = Ball->dy = 0;
 						T1_Carrier = T2_Carrier = 0xFF;
@@ -311,6 +312,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					}
 
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
+					LastTouchPlayer = carrier;
 					
 					// Ricalcola il ricevitore adesso che il portatore ha la palla
 					i8 c_dx = (Carrier->dx > 0) ? 1 : ((Carrier->dx < 0) ? -1 : 0);

@@ -68,6 +68,7 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8  T2_Receiver = 0xFF;
 	bool TimerEnabled = FALSE;
 	u8  LastTouchTeam = 0xFF;
+	u8  LastTouchPlayer = 0xFF;
 	u8  RestartType = 0;
 	u8  RestartSideX = 0;
 	u16 RestartSideY = 0;
