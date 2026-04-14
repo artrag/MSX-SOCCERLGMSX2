@@ -672,7 +672,7 @@ _CheckFieldBoundaries::
 	ld	a, c
 	sub	a, #0x10
 	jr	C, 00102$
-	ld	a, #0xf0
+	ld	a, #0xdf
 	sub	a, c
 	jr	C, 00102$
 	ld	hl, (#(_SwSprite + 326) + 0)
@@ -819,7 +819,7 @@ _CheckFieldBoundaries::
 	ld	a, -4 (ix)
 	sub	a, #0x10
 	jr	C, 00118$
-	ld	a, #0xf0
+	ld	a, #0xdf
 	sub	a, -4 (ix)
 	jr	NC, 00119$
 00118$:
@@ -844,7 +844,7 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:95: RestartType = RESTART_THROWIN;
 	ld	hl, #_RestartType
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 18;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
 	ld	a, (#(_SwSprite + 322) + 0)
 	sub	a, #0x80
 	jr	NC, 00136$

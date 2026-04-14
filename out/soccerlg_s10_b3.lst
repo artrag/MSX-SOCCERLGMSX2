@@ -672,7 +672,7 @@
     0000013C 79               [ 4]  672 	ld	a, c
     0000013D D6 10            [ 7]  673 	sub	a, #0x10
     0000013F 38 20            [12]  674 	jr	C, 00102$
-    00000141 3E F0            [ 7]  675 	ld	a, #0xf0
+    00000141 3E DF            [ 7]  675 	ld	a, #0xdf
     00000143 91               [ 4]  676 	sub	a, c
     00000144 38 1B            [12]  677 	jr	C, 00102$
     00000146 2Ar46r01         [16]  678 	ld	hl, (#(_SwSprite + 326) + 0)
@@ -819,7 +819,7 @@
     00000250 DD 7E FC         [19]  819 	ld	a, -4 (ix)
     00000253 D6 10            [ 7]  820 	sub	a, #0x10
     00000255 38 07            [12]  821 	jr	C, 00118$
-    00000257 3E F0            [ 7]  822 	ld	a, #0xf0
+    00000257 3E DF            [ 7]  822 	ld	a, #0xdf
     00000259 DD 96 FC         [19]  823 	sub	a, -4 (ix)
     0000025C 30 7B            [12]  824 	jr	NC, 00119$
     0000025E                        825 00118$:
@@ -844,7 +844,7 @@
                                     844 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:95: RestartType = RESTART_THROWIN;
     0000027A 21r00r00         [10]  845 	ld	hl, #_RestartType
     0000027D 36 01            [10]  846 	ld	(hl), #0x01
-                                    847 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 18;
+                                    847 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
     0000027F 3Ar42r01         [13]  848 	ld	a, (#(_SwSprite + 322) + 0)
     00000282 D6 80            [ 7]  849 	sub	a, #0x80
     00000284 30 05            [12]  850 	jr	NC, 00136$

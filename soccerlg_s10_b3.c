@@ -44,7 +44,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	
 	// Limiti fisici del campo (in base al disegno del prato)
 	u8 left_boundary = 16;      // Fallo laterale a sinistra
-	u8 right_boundary = 240;    // Fallo laterale a destra
+	u8 right_boundary = 223;    // Fallo laterale a destra
 	u16 top_boundary = 24;      // Fallo di fondo sopra (Team 2 goal)
 	u16 bottom_boundary = 478;  // Fallo di fondo sotto (Team 1 goal)
 	
@@ -93,8 +93,8 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			*game_state = 6;
 			Field.dy = 0;
 			RestartType = RESTART_THROWIN;
-			// Spostiamo il punto di battuta a destra verso l'interno (222) per mantenere il giocatore ben visibile
-			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 18;
+			// Spostiamo il punto di battuta a destra verso l'interno (219) per mantenere il giocatore ben visibile
+			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
 			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
 			Ball->anim = Ball->dx = Ball->dy = 0;
