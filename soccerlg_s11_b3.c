@@ -94,7 +94,7 @@ void AssignThrowInTargets() {
 	// 4. Salva stato globale per la battuta
 	u16 thrower_y = RestartSideY - 8;
 	i8 dir_x = (RestartSideX < 128) ? 1 : -1;
-	u16 thrower_x = RestartSideX - (dir_x * 10); // Arretra di 10 pixel fuori dal campo
+	u16 thrower_x = RestartSideX - (dir_x * 8); // Arretra di 8 pixel fuori dal campo
 
 	SwSprite[14].lx = thrower_x;
 	SwSprite[14].ly = thrower_y - 6; // Palla sopra la testa del battitore
@@ -151,8 +151,8 @@ void AssignThrowInTargets() {
 		u8 idx = players_to_check[p];
 		if (SwSprite[idx].tx < 16) SwSprite[idx].tx = 16;
 		if (SwSprite[idx].tx > 240) SwSprite[idx].tx = 240;
-		if (SwSprite[idx].ty < 30) SwSprite[idx].ty = 30;
-		if (SwSprite[idx].ty > 482) SwSprite[idx].ty = 482;
+		if (SwSprite[idx].ty < 24) SwSprite[idx].ty = 24;
+		if (SwSprite[idx].ty > 488) SwSprite[idx].ty = 488;
 	}
 }
 
@@ -224,11 +224,68 @@ void AssignGoalKickTargets() {
 		
 		if (final_x < 16) final_x = 16;
 		if (final_x > 240) final_x = 240;
-		if (final_y < 48) final_y = 48;
-		if (final_y > 464) final_y = 464;
+		if (final_y < 24) final_y = 24;
+		if (final_y > 488) final_y = 488;
 		
 		SwSprite[i].tx = (u8)final_x;
 		SwSprite[i].ty = (u16)final_y;
+	}
+}
+
+void AssignCornerKickTargets() {
+	u8 team_to_kick = (LastTouchTeam == TEAM_1) ? TEAM_2 : TEAM_1;
+	if (LastTouchTeam == 0xFF) team_to_kick = TEAM_1;
+
+	u8 thrower = (team_to_kick == TEAM_1) ? 5 : 12; // Attaccante sx/dx
+	
+	u16 corner_x = (RestartSideX < 128) ? 20 : 216; // Allontanato dal bordo laterale
+	u16 corner_y = (RestartSideY < 256) ? 40 : 472; // Più all'interno del campo di 4px
+
+	SwSprite[14].lx = corner_x;
+	SwSprite[14].ly = corner_y;
+	SwSprite[14].frame = SPR_BALL_SIZE_1;
+	SwSprite[14].dx = SwSprite[14].dy = SwSprite[14].anim = SwSprite[14].count = 0;
+	g_thrower_id = thrower;
+
+	i8 dir_x = (corner_x < 128) ? 1 : -1;
+	i8 dir_y = (corner_y < 256) ? 1 : -1;
+	SwSprite[thrower].tx = corner_x - (dir_x * 8);
+	SwSprite[thrower].ty = corner_y - (dir_y * 8);
+
+	u8 start_t = (team_to_kick == TEAM_1) ? 1 : 8;
+	g_throw_rec_1 = start_t + 2; // Centro sx/dx
+	g_throw_rec_2 = start_t + 3; // Centro dx/sx
+	g_selected_rec = 0;
+
+	u16 area_y = (corner_y < 256) ? 96 : 416; // Piazzi i ricevitori al limite dell'area
+	SwSprite[g_throw_rec_1].tx = 108; SwSprite[g_throw_rec_1].ty = area_y;
+	SwSprite[g_throw_rec_2].tx = 148; SwSprite[g_throw_rec_2].ty = area_y + (dir_y * 16);
+
+	SwSprite[0].tx = 128; SwSprite[0].ty = 32;
+	SwSprite[7].tx = 128; SwSprite[7].ty = 444;
+
+	for(u8 i=1; i<14; i++) {
+		if (i == 7 || i == thrower || i == g_throw_rec_1 || i == g_throw_rec_2) continue;
+		u8 team = (i < 7) ? TEAM_1 : TEAM_2;
+		u8 role = (team == TEAM_1) ? i : (i - 7);
+		
+		u16 base_x = 48 + (role * 24); // Distribuisce a ventaglio
+		u16 base_y = area_y + (dir_y * 32) + (dir_y * (role * 8)); // Li tiene fuori dall'area
+		i8 rand_x = ((Frms + i * 11) % 40) - 20;
+		i8 rand_y = ((Frms + i * 17) % 40) - 20;
+		
+		i16 final_x = base_x + rand_x;
+		i16 final_y = base_y + rand_y;
+		if (final_x < 16) final_x = 16; if (final_x > 240) final_x = 240;
+		
+		if (corner_y < 256) {
+			if (final_y < 80) final_y = 80; // Barriera invisibile per non farli entrare
+			if (final_y > 256) final_y = 256;
+		} else {
+			if (final_y > 432) final_y = 432; // Barriera invisibile
+			if (final_y < 256) final_y = 256;
+		}
+		SwSprite[i].tx = (u8)final_x; SwSprite[i].ty = (u16)final_y;
 	}
 }
 
@@ -251,6 +308,28 @@ void ExecuteThrowIn(u8 thrower, u8 receiver) {
 	SwSprite[14].ly = g_pass_start_y;
 	SwSprite[14].anim = 5; 
 	SwSprite[14].count = 0; 
+	CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+	LastTouchTeam = (thrower < 7) ? TEAM_1 : TEAM_2;
+	LastTouchPlayer = thrower;
+}
+
+void ExecuteCornerKick(u8 thrower, u8 receiver) {
+	g_pass_receiver = receiver;
+	g_pass_start_x = SwSprite[thrower].lx;
+	g_pass_start_y = SwSprite[thrower].ly; 
+	g_pass_target_x = SwSprite[receiver].lx;
+	g_pass_target_y = SwSprite[receiver].ly;
+	
+	u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
+	u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
+	
+	g_pass_max_frames = (r_dx + r_dy) / 3; 
+	if (g_pass_max_frames < 20) g_pass_max_frames = 20;
+	if (g_pass_max_frames > 60) g_pass_max_frames = 60;
+	g_pass_max_height = 7; // Cross alto e a spiovere
+	
+	SwSprite[14].lx = g_pass_start_x; SwSprite[14].ly = g_pass_start_y;
+	SwSprite[14].anim = 5; SwSprite[14].count = 0; 
 	CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 	LastTouchTeam = (thrower < 7) ? TEAM_1 : TEAM_2;
 	LastTouchPlayer = thrower;

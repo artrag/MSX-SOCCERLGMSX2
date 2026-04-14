@@ -122,7 +122,7 @@ bool IsBallForeground()
 // +++ Show message sprites +++
 void ShowSpriteMessage(u16 messageId)
 {
-	DEBUG_LOG("1-1");
+
 	u8 len = 0;
 	u16 logical_y = 0;
 

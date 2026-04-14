@@ -26,6 +26,16 @@ void PlayerAI(u8 i)
 		return;
 	}
 
+	// Il giocatore che ha appena effettuato un lancio o cross resta fermo a guardare la palla in volo
+	if (Ball->anim == 5 && i == LastTouchPlayer) {
+		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
+		i8 look_dx = (Ball->lx > SwSprite[i].lx) ? 1 : ((Ball->lx < SwSprite[i].lx) ? -1 : 0);
+		i8 look_dy = (Ball->ly > SwSprite[i].ly) ? 1 : ((Ball->ly < SwSprite[i].ly) ? -1 : 0);
+		if (look_dx == 0 && look_dy == 0) look_dy = (i < 7) ? 1 : -1;
+		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, look_dx, look_dy);
+		return;
+	}
+
 	struct ObjectInfo* Player = &SwSprite[i];
 	
 	u8 team = (i < 7) ? TEAM_1 : TEAM_2;
@@ -45,7 +55,7 @@ void PlayerAI(u8 i)
 		if (target_x < 104) target_x = 104;
 		if (target_x > 152) target_x = 152;
 		
-		target_y = (team == TEAM_1) ? 32 : 444;
+		target_y = (team == TEAM_1) ? 32 : 452;
 		
 		Player->dx = (target_x > Player->lx) ? 1 : ((target_x < Player->lx) ? -1 : 0);
 		Player->dy = 0;
@@ -251,7 +261,7 @@ void PlayerAI(u8 i)
 	if (target_x < 16) target_x = 16; 
 	if (target_x > 240) target_x = 240;
 	if (target_y < 24) target_y = 24;
-	if (target_y > 488) target_y = 488;
+	if (target_y > 478) target_y = 478;
 
 	// --- ESECUZIONE MOVIMENTO E ANIMAZIONE ---
 	

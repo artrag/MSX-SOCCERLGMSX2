@@ -436,7 +436,9 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 void AssignKickOffTargets();
 void AssignThrowInTargets();
 void AssignGoalKickTargets();
+void AssignCornerKickTargets();
 void ExecuteThrowIn(u8 thrower, u8 receiver);
+void ExecuteCornerKick(u8 thrower, u8 receiver);
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
 u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 

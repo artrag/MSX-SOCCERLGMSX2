@@ -97,6 +97,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignThrowInTargets);
 					} else if (RestartType == RESTART_GOALKICK) {
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignGoalKickTargets);
+					} else if (RestartType == RESTART_CORNERKICK) {
+						CallFnc_VOID(SEG_GAMESTATE_2, AssignCornerKickTargets);
 					} else {
 						// Ritorno provvisorio a centrocampo per Goal o KickOff
 						SwSprite[14].lx = BALL_START_X;
@@ -168,13 +170,21 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			if (*wait_secs == 0) do_throw = TRUE; // Lancio automatico scaduto il tempo
 
 			if (do_throw) {
-				CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+				if (RestartType == RESTART_THROWIN) {
+					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+				} else {
+					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+				}
 				*game_state = 3; TimerEnabled = TRUE;
 			}
 		} else {
 			if (*wait_secs == 0) {
 				u8 target = ((Frms % 2) == 0) ? g_throw_rec_1 : g_throw_rec_2;
-				CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
+				if (RestartType == RESTART_THROWIN) {
+					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
+				} else {
+					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, target);
+				}
 				*game_state = 3; TimerEnabled = TRUE;
 			}
 		}

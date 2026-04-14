@@ -57,7 +57,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				i8 dir_y = (i < 7) ? 1 : -1; // Team 1 guarda sempre a Sud, Team 2 sempre a Nord
 				p->dx = 0; p->dy = 0;
 				
-				if (RestartType == 1 && i == g_thrower_id) {
+				if (RestartType == RESTART_THROWIN && i == g_thrower_id) {
 					if (i < 7) {
 						p->frame = (RestartSideX < 128) ? SPR_T1_PLAYER_THROWIN_FROM_WEST_1 : SPR_T1_PLAYER_THROWIN_FROM_EAST_1;
 					} else {
@@ -69,7 +69,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			}
 		}
 		if (all_in_position) {
-			if (RestartType == 1) {
+			if (RestartType == RESTART_THROWIN || RestartType == RESTART_CORNERKICK) {
 				*game_state = 7;
 				u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
 				bool is_human = FALSE;

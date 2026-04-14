@@ -8,7 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _DEBUG_LOG
 	.globl _VPD_CommandSetupR32
 	.globl _g_SLTSL
 	.globl _g_GRPACY
@@ -2331,11 +2330,8 @@ _ShowSpriteMessage::
 	ld	iy, #-9
 	add	iy, sp
 	ld	sp, iy
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:125: DEBUG_LOG("1-1");
-	push	hl
-	ld	hl, #___str_0
-	call	_DEBUG_LOG
-	pop	bc
+	ld	c, l
+	ld	b, h
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:129: if (messageId == SPR_MSG_KICKOFF) {
 	ld	a, c
 	sub	a, #0x20
@@ -2629,9 +2625,6 @@ _ShowSpriteMessage::
 	ld	sp, ix
 	pop	ix
 	ret
-___str_0:
-	.ascii "1-1"
-	.db 0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:174: void HideSpriteMessage()
 ;	---------------------------------
 ; Function HideSpriteMessage
