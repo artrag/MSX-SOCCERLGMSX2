@@ -173,9 +173,9 @@ void PlayerAI(u8 i)
 										g_pass_target_x = SwSprite[receiver].lx;
 										g_pass_target_y = SwSprite[receiver].ly;
 										
-										g_pass_max_frames = (r_dx + r_dy) / 4; 
-										if (g_pass_max_frames < 10) g_pass_max_frames = 10;
-										if (g_pass_max_frames > 40) g_pass_max_frames = 40;
+										g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
+										if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+										if (g_pass_max_frames > 34) g_pass_max_frames = 34;
 										g_pass_max_height = 7;
 										
 										Ball->lx = g_pass_start_x;

@@ -32,9 +32,9 @@ DEF l__DATA 0x2ED
 DEF l__SEG10 0x3A1
 DEF l__SEG5 0xCB3
 DEF l__SEG4 0xDAC
-DEF l__SEG12 0xF7A
-DEF l__SEG9 0x14F8
-DEF l__SEG6 0x16A0
+DEF l__SEG12 0x1010
+DEF l__SEG9 0x14F6
+DEF l__SEG6 0x169F
 DEF l__SEG11 0x196D
 DEF l__CODE 0x29DF
 DEF s__CODE 0x4000
@@ -497,7 +497,7 @@ DEF _IsBallForeground 0x5A991
 DEF _ShowSpriteMessage 0x5AACB
 DEF _HideSpriteMessage 0x5AC91
 DEF _PlayerAI 0x6A000
-DEF _FindReceiver 0x6B43A
+DEF _FindReceiver 0x6B439
 DEF _IsTeamJoystickTriggerPressed 0x7A000
 DEF _GetJoystickDirection 0x7A026
 DEF _EventBallKicked 0x8A000

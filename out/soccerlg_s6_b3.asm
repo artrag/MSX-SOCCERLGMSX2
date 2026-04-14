@@ -700,7 +700,7 @@ _PlayerAI::
 	ld	-3 (ix), #0x98
 	ld	-2 (ix), #0
 00127$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:58: target_y = (team == TEAM_1) ? 32 : 444;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:58: target_y = (team == TEAM_1) ? 32 : 452;
 	ld	a, -26 (ix)
 	or	a, a
 	jr	NZ, 00284$
@@ -708,7 +708,7 @@ _PlayerAI::
 	ld	-5 (ix), #0
 	jp	00285$
 00284$:
-	ld	-6 (ix), #0xbc
+	ld	-6 (ix), #0xc4
 	ld	-5 (ix), #0x01
 00285$:
 	ld	a, -6 (ix)
@@ -1790,7 +1790,6 @@ _PlayerAI::
 	ld	l, -13 (ix)
 	ld	h, -12 (ix)
 	ld	a, (hl)
-	ld	-4 (ix), a
 	ld	(_g_pass_target_x+0), a
 	ld	hl, #_g_pass_target_x + 1
 	ld	(hl), #0x00
@@ -1802,25 +1801,31 @@ _PlayerAI::
 	ld	(_g_pass_target_y+0), a
 	ld	a, (hl)
 	ld	(_g_pass_target_y+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:176: g_pass_max_frames = (r_dx + r_dy) / 4; 
-	srl	-2 (ix)
-	rr	-3 (ix)
-	srl	-2 (ix)
-	rr	-3 (ix)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:176: g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
+	ld	de, #0x0005
+	ld	l, -3 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, -2 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	call	__divuint
+	ld	-3 (ix), e
+	ld	-2 (ix), d
 	ld	a, -3 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:177: if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:177: if (g_pass_max_frames < 8) g_pass_max_frames = 8;
 	ld	(_g_pass_max_frames+0), a
-	sub	a, #0x0a
+	sub	a, #0x08
 	jr	NC, 00175$
 	ld	hl, #_g_pass_max_frames
-	ld	(hl), #0x0a
+	ld	(hl), #0x08
 00175$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:178: if (g_pass_max_frames > 40) g_pass_max_frames = 40;
-	ld	a, #0x28
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:178: if (g_pass_max_frames > 34) g_pass_max_frames = 34;
+	ld	a, #0x22
 	ld	iy, #_g_pass_max_frames
 	sub	a, 0 (iy)
 	jr	NC, 00177$
-	ld	0 (iy), #0x28
+	ld	0 (iy), #0x22
 00177$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:179: g_pass_max_height = 7;
 	ld	hl, #_g_pass_max_height
@@ -2323,15 +2328,15 @@ _PlayerAI::
 	ld	-23 (ix), #0x18
 	ld	-22 (ix), #0
 00245$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:264: if (target_y > 488) target_y = 488;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:264: if (target_y > 478) target_y = 478;
 	ld	c, -23 (ix)
 	ld	b, -22 (ix)
-	ld	a, #0xe8
+	ld	a, #0xde
 	cp	a, c
 	ld	a, #0x01
 	sbc	a, b
 	jr	NC, 00247$
-	ld	-23 (ix), #0xe8
+	ld	-23 (ix), #0xde
 	ld	-22 (ix), #0x01
 00247$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:268: u16 dist_x = (target_x > Player->lx) ? (target_x - Player->lx) : (Player->lx - target_x);

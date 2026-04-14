@@ -2905,26 +2905,24 @@ _UpdateGameState::
 	cp	a, a
 	sbc	hl, de
 00414$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:361: g_pass_max_frames = (r_dx + r_dy) / 4; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:361: g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
 	add	hl, bc
-	srl	h
-	rr	l
-	srl	h
-	rr	l
+	ld	de, #0x0005
+	call	__divuint
 	ld	iy, #_g_pass_max_frames
-	ld	0 (iy), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:362: if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+	ld	0 (iy), e
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:362: if (g_pass_max_frames < 8) g_pass_max_frames = 8;
 	ld	a, (_g_pass_max_frames+0)
-	sub	a, #0x0a
+	sub	a, #0x08
 	jr	NC, 00265$
-	ld	0 (iy), #0x0a
+	ld	0 (iy), #0x08
 00265$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:363: if (g_pass_max_frames > 40) g_pass_max_frames = 40;
-	ld	a, #0x28
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:363: if (g_pass_max_frames > 34) g_pass_max_frames = 34;
+	ld	a, #0x22
 	ld	iy, #_g_pass_max_frames
 	sub	a, 0 (iy)
 	jr	NC, 00267$
-	ld	0 (iy), #0x28
+	ld	0 (iy), #0x22
 00267$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:364: g_pass_max_height = 7; // Passaggio normale alto
 	ld	hl, #_g_pass_max_height

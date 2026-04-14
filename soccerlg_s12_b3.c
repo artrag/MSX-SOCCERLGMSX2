@@ -175,6 +175,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				} else {
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
 				}
+				g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%
 				*game_state = 3; TimerEnabled = TRUE;
 			}
 		} else {
@@ -183,8 +184,20 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				if (RestartType == RESTART_THROWIN) {
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
 				} else {
+					// Selezione bersaglio largo per il Corner CPU (Fuori area o defilati)
+					u8 team_to_kick = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
+					u8 start_t = (team_to_kick == TEAM_1) ? 1 : 8;
+					u8 out_targets[4];
+					out_targets[0] = start_t;
+					out_targets[1] = start_t + 1;
+					out_targets[2] = start_t + 4;
+					out_targets[3] = start_t + 5;
+					target = out_targets[Frms % 4];
+					if (target == g_thrower_id) target = out_targets[(Frms + 1) % 4];
+					
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, target);
 				}
+				g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%
 				*game_state = 3; TimerEnabled = TRUE;
 			}
 		}

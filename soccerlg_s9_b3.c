@@ -358,9 +358,9 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							
 							u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 							u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
-							g_pass_max_frames = (r_dx + r_dy) / 4; 
-							if (g_pass_max_frames < 10) g_pass_max_frames = 10;
-							if (g_pass_max_frames > 40) g_pass_max_frames = 40;
+							g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
+							if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+							if (g_pass_max_frames > 34) g_pass_max_frames = 34;
 							g_pass_max_height = 7; // Passaggio normale alto
 							
 							Ball->lx = g_pass_start_x;

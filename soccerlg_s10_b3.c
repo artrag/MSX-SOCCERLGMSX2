@@ -93,7 +93,8 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			*game_state = 6;
 			Field.dy = 0;
 			RestartType = RESTART_THROWIN;
-			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary;
+			// Spostiamo il punto di battuta a destra verso l'interno (222) per mantenere il giocatore ben visibile
+			RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 18;
 			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
 			Ball->anim = Ball->dx = Ball->dy = 0;
