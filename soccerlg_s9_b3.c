@@ -78,11 +78,20 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				
 				*wait_secs = is_human ? 5 : 1; // 5 secondi per il giocatore, 1 per la CPU
 				*start_sec = Frms;
+				g_last_input_dir = DIRECTION_NONE; // Resetta l'input per la selezione
 				return;
 			} else if (RestartType == RESTART_GOALKICK) {
 				*game_state = 8; // Stato di attesa e rincorsa rinvio
-				*wait_secs = 1;
+				
+				u8 gk = (RestartSideY < 256) ? 0 : 7;
+				u8 team_to_kick = (gk == 0) ? TEAM_1 : TEAM_2;
+				bool is_human = FALSE;
+				if (team_to_kick == TEAM_2) is_human = TRUE;
+				else if (team_to_kick == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2) is_human = TRUE;
+				
+				*wait_secs = is_human ? 5 : 1; // 5s per l'umano, 1s per la CPU
 				*start_sec = Frms;
+				g_last_input_dir = DIRECTION_NONE; // Resetta l'input per la selezione
 				return;
 			}
 			*game_state = 3;
@@ -234,21 +243,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		// 2. Gestione portatori (Player 1 e Player 2)
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
 		u8 receivers[2] = {T1_Receiver, T2_Receiver};
-		u8 dirs[2] = { DIRECTION_NONE, DIRECTION_NONE };
-		bool triggers[2] = { FALSE, FALSE };
 		
-		if (T2_Carrier != 0xFF) {
-			dirs[1] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0); // P1 controlla Team 2
-			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, 0);
-			if (cur_trig != 0 && g_prev_trigger[1] == 0) triggers[1] = TRUE;
-			g_prev_trigger[1] = cur_trig;
-		}
-		if (T1_Carrier != 0xFF && GameMode == GAMEMODE_P1_VS_P2) {
-			dirs[0] = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1); // P2 controlla Team 1
-			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, 1);
-			if (cur_trig != 0 && g_prev_trigger[0] == 0) triggers[0] = TRUE;
-			g_prev_trigger[0] = cur_trig;
-		}
+		u8 dirs[2] = {
+			(GameMode == GAMEMODE_P1_VS_P2) ? CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1) : DIRECTION_NONE,
+			CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0)
+		};
+		bool triggers[2] = {
+			(GameMode == GAMEMODE_P1_VS_P2) ? CallFnc_BOOL_P1(SEG_INPUT, (u8 (*)(u8))IsTeamJoystickTriggerPressed, 1) : FALSE,
+			CallFnc_BOOL_P1(SEG_INPUT, (u8 (*)(u8))IsTeamJoystickTriggerPressed, 0)
+		};
 
 		for (u8 i = 0; i < 2; i++) {
 			u8 carrier = carriers[i];
@@ -273,8 +276,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				g_last_dx[i] = Carrier->dx;
 				g_last_dy[i] = Carrier->dy;
 				
-				Carrier->lx += Carrier->dx;
-				Carrier->ly += Carrier->dy;
+				i16 next_x = (i16)Carrier->lx + Carrier->dx;
+				if (next_x < 16) Carrier->lx = 16;
+				else if (next_x > 240) Carrier->lx = 240;
+				else Carrier->lx = (u8)next_x;
+				
+				i16 next_y = (i16)Carrier->ly + Carrier->dy;
+				if (next_y < 24) Carrier->ly = 24;
+				else if (next_y > 488) Carrier->ly = 488;
+				else Carrier->ly = (u16)next_y;
 				
 				Carrier->anim++;
 				const u8 walk_seq[4] = {0, 1, 2, 1}; 
@@ -285,13 +295,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			}
 			
 			// Calcolo della distanza dalla palla (SEMPRE, sia che si muova che fermo)
-			u8 dx_diff = (u8)(Carrier->lx - Ball->lx);
-			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
-			u16 dy_diff = (u16)(Carrier->ly - Ball->ly) & 511;
-			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
+			u16 dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
+			u16 dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 			
-			// Se il portatore tocca la palla (hitbox 24 pixel per sicurezza assoluta arcade)
-			if (dist_x <= 24 && dist_y <= 24) {
+			u8 carrier_team = (carrier < 7) ? TEAM_1 : TEAM_2;
+			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : 10; // 10 pixel per il tackle
+			if (Ball->anim >= 6) touch_dist = 8; // I tiri potenti sfuggono facilmente al tackle
+			
+			// Se il giocatore tocca fisicamente la palla (e non è in volo)
+			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5) {
 					// Controllo Fuorigioco al momento della ricezione
 					bool offside = FALSE;
 					if (carrier < 7 && LastTouchTeam == TEAM_1 && LastTouchPlayer != carrier) {
@@ -338,6 +350,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							Ball->anim = 0;
 							Ball->count = 0;
 							
+							g_pass_receiver = receiver;
 							g_pass_start_x = Carrier->lx;
 							g_pass_start_y = Carrier->ly;
 							g_pass_target_x = SwSprite[receiver].lx;

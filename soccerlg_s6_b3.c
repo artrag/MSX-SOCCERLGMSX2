@@ -18,8 +18,15 @@ void PlayerAI(u8 i)
 		if (i == T1_Carrier || i == T2_Carrier) return;
 	}
 
-	struct ObjectInfo* Player = &SwSprite[i];
 	struct ObjectInfo* Ball = &SwSprite[14];
+	// I giocatori destinatari di passaggi in volo NON vengono mossi dall'AI
+	if (Ball->anim == 5 && i == g_pass_receiver) {
+		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
+		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, 0, (i < 7) ? 1 : -1);
+		return;
+	}
+
+	struct ObjectInfo* Player = &SwSprite[i];
 	
 	u8 team = (i < 7) ? TEAM_1 : TEAM_2;
 	bool is_gk = (i == 0 || i == 7);
@@ -150,6 +157,7 @@ void PlayerAI(u8 i)
 									
 									// Passa solo se il compagno è a una distanza tattica sensata (almeno 3 mattonelle)
 									if (r_dx + r_dy >= 48) {
+										g_pass_receiver = receiver;
 										g_pass_start_x = Player->lx;
 										g_pass_start_y = Player->ly;
 										g_pass_target_x = SwSprite[receiver].lx;

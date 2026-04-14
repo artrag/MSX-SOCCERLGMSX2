@@ -290,7 +290,7 @@ struct TeamColors {
 #define SEG_GAMESTATE_2 11
 #define SEG_GAMESTATE_3 12
 
-#define OnScreen(y)  	((((y) + 527 - Field.ly) & 511) < 207)
+#define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
 #define NumSprite	(24)
 
@@ -350,9 +350,11 @@ extern  u16 g_pass_target_x;
 extern  u16 g_pass_target_y;
 extern  u8  g_pass_max_frames;
 extern  u8  g_pass_max_height;
+extern  u8  g_pass_receiver;
 extern  i8  g_last_dx[2];
 extern  i8  g_last_dy[2];
 extern  u8  g_prev_trigger[2];
+extern  u8  g_last_input_dir;
 
 
 

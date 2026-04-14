@@ -174,6 +174,6 @@ void ShowSpriteMessage(u16 messageId)
 void HideSpriteMessage()
 {
 	for (u8 i = 15; i < NumSprite; i++) {
-		SwSprite[i].ly = 1000;
+		SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
 	}
 }

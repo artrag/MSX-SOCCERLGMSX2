@@ -12,10 +12,10 @@ Symbol Table
   7 _AssignThrowInTargets                                           000000C6 GR
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
-  7 _ExecuteThrowIn                                                 00000D28 GR
+  7 _ExecuteThrowIn                                                 00000D48 GR
     _Frms                                                           ******** GX
-  7 _GetPlayerAnimFrame                                             00000E50 GR
-  7 _GetPlayerIdleFrame                                             000012A9 GR
+  7 _GetPlayerAnimFrame                                             00000E74 GR
+  7 _GetPlayerIdleFrame                                             000012CD GR
     _KickOffTeam                                                    ******** GX
     _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
@@ -272,6 +272,7 @@ Symbol Table
     _g_YSAVE                                                    =   0000FB00 G
     _g_pass_max_frames                                              ******** GX
     _g_pass_max_height                                              ******** GX
+    _g_pass_receiver                                                ******** GX
     _g_pass_start_x                                                 ******** GX
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
@@ -280,7 +281,6 @@ Symbol Table
     _g_throw_rec_1                                                  ******** GX
     _g_throw_rec_2                                                  ******** GX
     _g_thrower_id                                                   ******** GX
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
@@ -294,7 +294,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG11                                     size     14A2   flags    0
+   7 _SEG11                                     size     14C6   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

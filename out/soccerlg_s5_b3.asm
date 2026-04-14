@@ -2644,7 +2644,7 @@ _HideSpriteMessage::
 	ld	a, c
 	sub	a, #0x18
 	ret	NC
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 1000;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -2660,9 +2660,9 @@ _HideSpriteMessage::
 	inc	hl
 	inc	hl
 	inc	hl
-	ld	(hl), #0xe8
+	ld	(hl), #0xf0
 	inc	hl
-	ld	(hl), #0x03
+	ld	(hl), #0xff
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
 	inc	c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: }

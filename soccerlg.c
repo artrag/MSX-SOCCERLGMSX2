@@ -82,9 +82,11 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u16 g_pass_target_y = 0;
 	u8  g_pass_max_frames = 10;
 	u8  g_pass_max_height = 7;
+	u8  g_pass_receiver = 0xFF;
 	i8  g_last_dx[2] = {0, 0};
 	i8  g_last_dy[2] = {1, -1};
 	u8  g_prev_trigger[2] = {0, 0};
+	u8  g_last_input_dir = DIRECTION_NONE;
 
 
 struct ObjectInfo SwSprite[NumSprite];

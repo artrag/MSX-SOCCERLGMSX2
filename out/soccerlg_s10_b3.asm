@@ -911,25 +911,25 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:111: RestartType = 0;
 	ld	hl, #_RestartType
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:118: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
-	ld	bc, (#(_SwSprite + 326) + 0)
-	ld	a, c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:118: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_2) || 
+	ld	hl, (#(_SwSprite + 326) + 0)
+	ld	a, l
 	sub	a, #0x1e
-	ld	a, b
+	ld	a, h
 	sbc	a, #0x00
 	jr	NC, 00126$
 	ld	a, (_LastTouchTeam+0)
-	or	a, a
+	dec	a
 	jr	Z, 00121$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:119: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:119: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_1)) {
 	ld	a, #0xe2
-	cp	a, c
+	cp	a, l
 	ld	a, #0x01
-	sbc	a, b
+	sbc	a, h
 	jr	NC, 00122$
 	ld	a, (_LastTouchTeam+0)
-	dec	a
+	or	a, a
 	jr	NZ, 00122$
 00121$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:120: RestartType = RESTART_CORNERKICK;

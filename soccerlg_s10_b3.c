@@ -111,12 +111,12 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 		
 		// Determina Corner o Goal Kick secondo il team che ha toccato per ultimo
-		// Se Team 1 ha toccato per ultimo e la palla esce dal fondo superiore → CORNER (attacco riuscito)
-		// Se Team 2 ha toccato per ultimo e la palla esce dal fondo inferiore → CORNER (attacco riuscito)
-		// Altrimenti → GOAL KICK (difesa fallita nel respingere)
+		// Se Team 2 (difesa a NORD) tocca per ultimo e la palla esce a NORD -> Corner Kick (attacco avversario).
+		// Se Team 1 (difesa a SUD) tocca per ultimo e la palla esce a SUD -> Corner Kick (attacco avversario).
+		// Altrimenti -> Goal Kick (l'attaccante ha sbagliato mira).
 		
-		if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
-		    (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+		if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_2) || 
+		    (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_1)) {
 			RestartType = RESTART_CORNERKICK;
 			RestartSideX = Ball->lx;
 			RestartSideY = Ball->ly;

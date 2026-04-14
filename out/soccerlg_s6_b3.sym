@@ -11,7 +11,7 @@ Symbol Table
     _CallFnc_U16_P4                                                 ******** GX
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
-  7 _FindReceiver                                                   00001063 GR
+  7 _FindReceiver                                                   00001313 GR
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -278,6 +278,7 @@ Symbol Table
     _g_YSAVE                                                    =   0000FB00 G
     _g_pass_max_frames                                              ******** GX
     _g_pass_max_height                                              ******** GX
+    _g_pass_receiver                                                ******** GX
     _g_pass_start_x                                                 ******** GX
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
@@ -296,7 +297,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     12C9   flags    0
+   7 _SEG6                                      size     1579   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

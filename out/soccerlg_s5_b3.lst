@@ -2644,7 +2644,7 @@
     00000CA0 79               [ 4] 2644 	ld	a, c
     00000CA1 D6 18            [ 7] 2645 	sub	a, #0x18
     00000CA3 D0               [11] 2646 	ret	NC
-                                   2647 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 1000;
+                                   2647 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
     00000CA4 06 00            [ 7] 2648 	ld	b, #0x00
     00000CA6 69               [ 4] 2649 	ld	l, c
     00000CA7 60               [ 4] 2650 	ld	h, b
@@ -2660,9 +2660,9 @@
     00000CB1 23               [ 6] 2660 	inc	hl
     00000CB2 23               [ 6] 2661 	inc	hl
     00000CB3 23               [ 6] 2662 	inc	hl
-    00000CB4 36 E8            [10] 2663 	ld	(hl), #0xe8
+    00000CB4 36 F0            [10] 2663 	ld	(hl), #0xf0
     00000CB6 23               [ 6] 2664 	inc	hl
-    00000CB7 36 03            [10] 2665 	ld	(hl), #0x03
+    00000CB7 36 FF            [10] 2665 	ld	(hl), #0xff
                                    2666 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
     00000CB9 0C               [ 4] 2667 	inc	c
                                    2668 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: }
