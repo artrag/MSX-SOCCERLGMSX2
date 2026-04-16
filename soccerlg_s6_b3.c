@@ -29,10 +29,14 @@ void PlayerAI(u8 i)
 	// Il giocatore che ha appena effettuato un lancio o cross resta fermo a guardare la palla in volo
 	if (Ball->anim == 5 && i == LastTouchPlayer) {
 		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
+		if (i == 0 || i == 7) {
+			SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_SHOT_TO_SOUTH : SPR_GK_PLAYER_SHOT_TO_NORTH;
+		} else {
 		i8 look_dx = (Ball->lx > SwSprite[i].lx) ? 1 : ((Ball->lx < SwSprite[i].lx) ? -1 : 0);
 		i8 look_dy = (Ball->ly > SwSprite[i].ly) ? 1 : ((Ball->ly < SwSprite[i].ly) ? -1 : 0);
 		if (look_dx == 0 && look_dy == 0) look_dy = (i < 7) ? 1 : -1;
 		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, look_dx, look_dy);
+		}
 		return;
 	}
 
@@ -152,49 +156,66 @@ void PlayerAI(u8 i)
 					target_x = 128; 
 					target_y = 480; 
 
-					// Scelta tra Passaggio e Dribbling
+					// Scelta tra Tiro, Passaggio e Dribbling
 					if (min_dist <= 12 && Ball->anim == 0) {
-						bool passed = FALSE;
+						bool action_taken = FALSE;
 						
+						// Tiro in porta (se campo scrollato e abbastanza vicino)
+						if (Field.ly >= 320 && Player->ly > 360) { // Scrolling completo e in area di tiro
+							u8 rand_shot = (Player->lx + Frms) % 100;
+							if (rand_shot < 15) { // 15% di probabilità di tirare
+								action_taken = TRUE;
+								Ball->anim = 0; Ball->count = 0;
+								g_pass_receiver = 0xFF;
+								g_pass_start_x = Player->lx;
+								g_pass_start_y = Player->ly;
+								g_pass_target_x = 96 + (Frms % 48); // Posizione casuale nello specchio della porta (96-143)
+								g_pass_target_y = 496; // Dentro la porta
+								
+								u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
+								u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
+								
+								g_pass_max_frames = (r_dx + r_dy) / 8; // Tiro potente
+								if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+								if (g_pass_max_frames > 25) g_pass_max_frames = 25;
+								g_pass_max_height = 3; // Tiro rasoterra
+								
+								Ball->anim = 5;
+								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							}
+						}
+
 						// Passaggio intelligente verso un compagno in direzione dello sguardo
-						if (Frms % 16 == 0) {
+						if (!action_taken && Frms % 16 == 0) {
 							u8 rand_pass = (Player->lx * 5 + Player->ly * 3 + Frms) % 100;
-							if (rand_pass < 5) { // Probabilità simulata fissa al 5% per spingerla a dribblare
+							if (rand_pass < 40) { // 40% di probabilità di passare
 								u8 receiver = FindReceiver(i, 0xFF, Player->dx, Player->dy);
 								if (receiver != 0xFF) {
 									u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
 									u16 r_dy = (SwSprite[receiver].ly > Player->ly) ? (SwSprite[receiver].ly - Player->ly) : (Player->ly - SwSprite[receiver].ly);
 									
-									// Passa solo se il compagno è a una distanza tattica sensata (almeno 3 mattonelle)
 									if (r_dx + r_dy >= 48) {
+										action_taken = TRUE;
+										Ball->anim = 0; Ball->count = 0;
 										g_pass_receiver = receiver;
 										g_pass_start_x = Player->lx;
 										g_pass_start_y = Player->ly;
 										g_pass_target_x = SwSprite[receiver].lx;
 										g_pass_target_y = SwSprite[receiver].ly;
-										
 										g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
 										if (g_pass_max_frames < 8) g_pass_max_frames = 8;
 										if (g_pass_max_frames > 34) g_pass_max_frames = 34;
 										g_pass_max_height = 7;
 										
-										Ball->lx = g_pass_start_x;
-										Ball->ly = g_pass_start_y;
-										Ball->anim = 5; 
-										Ball->count = 0;
-										Ball->dx = Ball->dy = 0;
-										
+										Ball->anim = 5;
 										CallFnc_VOID(SEG_EVENTS, EventBallKicked);
-										LastTouchTeam = team;
-										LastTouchPlayer = i;
-										passed = TRUE;
 									}
 								}
 							}
 						}
 						
 						// Dribbling se non ha passato
-						if (!passed) {
+						if (!action_taken) {
 							Ball->dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
 							Ball->dy = (Player->dy > 0) ? 1 : ((Player->dy < 0) ? -1 : 0);
 							if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
@@ -205,27 +226,9 @@ void PlayerAI(u8 i)
 							
 							Ball->lx = (u8)(Player->lx + off_x);
 							Ball->ly = (Player->ly + off_y) & 511;
-							Ball->anim = 3; // Dribbling medio-corto
-							Ball->count = 0; // Azzera volo per dribbling a terra
+							Ball->anim = 3; Ball->count = 0;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
-					}
-					
-					// Tiro in porta (se abbastanza vicino)
-					if (Player->ly > 380 && Ball->anim == 0) {
-						Ball->dx = (Player->lx < 110) ? 1 : ((Player->lx > 146) ? -1 : 0);
-						Ball->dy = 1;
-						
-						i8 off_x = 0; i8 off_y = 6;
-						if (Ball->dx > 0) off_x = 9; else if (Ball->dx < 0) off_x = -9;
-						if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -3; 
-						
-						Ball->lx = (u8)(Player->lx + off_x);
-						Ball->ly = (Player->ly + off_y) & 511;
-						Ball->anim = 8; // Tiro potente
-						Ball->count = 0; // Azzera volo per tiro a terra
-						CallFnc_VOID(SEG_EVENTS, EventBallKicked);
-						LastTouchTeam = 0xFF;
 					}
 				} else {
 					// Palla in transito (es: appena tirata), continua a seguirla

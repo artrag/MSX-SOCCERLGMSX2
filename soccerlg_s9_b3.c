@@ -371,36 +371,70 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					
 					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
 					bool action_taken = FALSE;
-					if (trigger_pressed) {
-						// Il giocatore ha premuto il trigger -> SEMPRE tenta il passaggio se c'è un ricevitore
-						u8 receiver = receivers[i];
-						
-						if (receiver != 0xFF) {
-							// === PASSAGGIO DIRETTO AL DESTINATARIO - FORZA PASSAGGIO ===
-							// Resetta lo stato della palla prima di lanciare il passaggio
-							Ball->anim = 0;
-							Ball->count = 0;
+					if (trigger_pressed) {						
+						bool is_shooting = FALSE;
+						u8 dir = g_player_input[i].direction;
+
+						// Condizioni per il tiro
+						// Team 2 (P1, sud) attacca verso Nord
+						if (i == 1 && Carrier->ly < 256 && Field.ly == 0) {
+							if (dir == DIRECTION_UP || dir == DIRECTION_UP_LEFT || dir == DIRECTION_UP_RIGHT) {
+								is_shooting = TRUE;
+							}
+						}
+						// Team 1 (P2, nord) attacca verso Sud
+						else if (i == 0 && GameMode == GAMEMODE_P1_VS_P2 && Carrier->ly > 256 && Field.ly == (FIELD_HEIGHT - 192)) {
+							if (dir == DIRECTION_DOWN || dir == DIRECTION_DOWN_LEFT || dir == DIRECTION_DOWN_RIGHT) {
+								is_shooting = TRUE;
+							}
+						}
+
+						if (is_shooting) {
+							action_taken = TRUE;
+							Ball->anim = 0; Ball->count = 0;
+							g_pass_receiver = 0xFF; 
 							
-							g_pass_receiver = receiver;
 							g_pass_start_x = Carrier->lx;
 							g_pass_start_y = Carrier->ly;
-							g_pass_target_x = SwSprite[receiver].lx;
-							g_pass_target_y = SwSprite[receiver].ly;
+							
+							g_pass_target_x = g_h_arrow_x; // Direzione della freccia
+							g_pass_target_y = (i == 1) ? 16 : 496; // Dentro la porta
 							
 							u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 							u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
-							g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
-							if (g_pass_max_frames < 8) g_pass_max_frames = 8;
-							if (g_pass_max_frames > 34) g_pass_max_frames = 34;
-							g_pass_max_height = 7; // Passaggio normale alto
 							
-							Ball->lx = g_pass_start_x;
-							Ball->ly = g_pass_start_y;
-							Ball->anim = 5; // Flag per passaggio
-							Ball->count = 0; // Inizio dell'interpolazione
-							Ball->dx = Ball->dy = 0; // Non usato nel passaggio, ma azzera lo stato
+							g_pass_max_frames = (r_dx + r_dy) / 8; // Tiro potente e veloce
+							if (g_pass_max_frames < 10) g_pass_max_frames = 10;
+							if (g_pass_max_frames > 25) g_pass_max_frames = 25;
+							g_pass_max_height = 3; // Tiro rasoterra
+							
+							Ball->anim = 5;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
-							action_taken = TRUE;
+						} else {
+							// Se non si tira, si passa
+							u8 receiver = receivers[i];
+						
+							if (receiver != 0xFF) {
+								// === PASSAGGIO DIRETTO AL DESTINATARIO - FORZA PASSAGGIO ===
+								Ball->anim = 0; Ball->count = 0;
+								
+								g_pass_receiver = receiver;
+								g_pass_start_x = Carrier->lx;
+								g_pass_start_y = Carrier->ly;
+								g_pass_target_x = SwSprite[receiver].lx;
+								g_pass_target_y = SwSprite[receiver].ly;
+								
+								u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
+								u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
+								g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
+								if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+								if (g_pass_max_frames > 34) g_pass_max_frames = 34;
+								g_pass_max_height = 7; // Passaggio normale alto
+								
+								Ball->anim = 5; // Flag per passaggio
+								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+								action_taken = TRUE;
+							}
 						}
 					}
 					
