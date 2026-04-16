@@ -178,7 +178,7 @@ void PlayerAI(u8 i)
 								g_pass_max_frames = (r_dx + r_dy) / 8; // Tiro potente
 								if (g_pass_max_frames < 10) g_pass_max_frames = 10;
 								if (g_pass_max_frames > 25) g_pass_max_frames = 25;
-								g_pass_max_height = 3; // Tiro rasoterra
+								g_pass_max_height = 2; // Tiro rasoterra e limitato
 								
 								Ball->anim = 5;
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);

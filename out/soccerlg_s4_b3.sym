@@ -41,7 +41,7 @@ Symbol Table
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
     _WaitForVBlank                                                  ******** GX
-  7 ___str_0                                                        00000DEE R
+  7 ___str_0                                                        00000DF6 R
     __divsint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -306,7 +306,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size      DF1   flags    0
+   7 _SEG4                                      size      DF9   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

@@ -1645,9 +1645,9 @@
     00000A95 30 04            [12] 1645 	jr	NC, 00181$
     00000A97 FD 36 00 19      [19] 1646 	ld	0 (iy), #0x19
     00000A9B                       1647 00181$:
-                                   1648 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: g_pass_max_height = 3; // Tiro rasoterra
+                                   1648 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: g_pass_max_height = 2; // Tiro rasoterra e limitato
     00000A9B 21r00r00         [10] 1649 	ld	hl, #_g_pass_max_height
-    00000A9E 36 03            [10] 1650 	ld	(hl), #0x03
+    00000A9E 36 02            [10] 1650 	ld	(hl), #0x02
                                    1651 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:183: Ball->anim = 5;
     00000AA0 21 05 00         [10] 1652 	ld	hl, #0x0005
     00000AA3 22r55r01         [16] 1653 	ld	((_SwSprite + 341)), hl

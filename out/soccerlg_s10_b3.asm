@@ -326,165 +326,302 @@ _UpdateFieldCamera::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:11: struct ObjectInfo* Ball = &SwSprite[14];
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:13: i16 camera_dy = 0;
 	ld	bc, #0x0000
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:16: if (Ball->ly < Field.ly + 64 && Field.ly > 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:18: u16 top_margin = 64;
+	ld	hl, #0x0040
+	ex	(sp), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:19: u16 bottom_margin = 64;
+	ld	-8 (ix), #0x40
+	ld	-7 (ix), #0
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:21: if (Ball->ly < 256) {
 	ld	hl, #(_SwSprite + 322) + 4
 	ld	a, (hl)
-	ld	-10 (ix), a
+	ld	-6 (ix), a
 	inc	hl
 	ld	a, (hl)
-	ld	-9 (ix), a
+	ld	-5 (ix), a
+	ld	e, -6 (ix)
+	ld	d, -5 (ix)
+	ld	a, d
+	sub	a, #0x01
+	jr	NC, 00108$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:22: top_margin = 64 + (256 - Ball->ly) / 2;
+	xor	a, a
+	sub	a, -6 (ix)
+	ld	e, a
+	ld	a, #0x01
+	sbc	a, -5 (ix)
+	ld	d, a
+	srl	d
+	rr	e
+	ld	hl, #0x0040
+	add	hl, de
+	ex	(sp), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:23: if (top_margin > 140) top_margin = 140;
+	pop	de
+	push	de
+	ld	a, #0x8c
+	cp	a, e
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00109$
+	ld	hl, #0x008c
+	ex	(sp), hl
+	jp	00109$
+00108$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:24: } else if (Ball->ly > 256) {
+	xor	a, a
+	cp	a, e
+	ld	a, #0x01
+	sbc	a, d
+	jr	NC, 00109$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:25: bottom_margin = 64 + (Ball->ly - 256) / 2;
+	dec	d
+	srl	d
+	rr	e
+	ld	hl, #0x0040
+	add	hl, de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:26: if (bottom_margin > 140) bottom_margin = 140;
+	ld	-8 (ix), l
+	ld	-7 (ix), h
+	ex	de,hl
+	ld	a, #0x8c
+	cp	a, e
+	ld	a, #0x00
+	sbc	a, d
+	jr	NC, 00109$
+	ld	-8 (ix), #0x8c
+	ld	-7 (ix), #0
+00109$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:30: if (Ball->ly < Field.ly + top_margin && Field.ly > 0) {
 	ld	hl, #(_Field + 4)
 	ld	a, (hl)
-	ld	-8 (ix), a
+	ld	-4 (ix), a
 	inc	hl
 	ld	a, (hl)
-	ld	-7 (ix), a
-	ld	a, -8 (ix)
-	ld	-6 (ix), a
-	ld	a, -7 (ix)
-	ld	-5 (ix), a
-	ld	a, -6 (ix)
-	add	a, #0x40
-	ld	-4 (ix), a
-	ld	a, -5 (ix)
-	adc	a, #0x00
 	ld	-3 (ix), a
 	ld	a, -10 (ix)
+	add	a, -4 (ix)
 	ld	-2 (ix), a
 	ld	a, -9 (ix)
+	adc	a, -3 (ix)
 	ld	-1 (ix), a
-	ld	a, -2 (ix)
-	sub	a, -4 (ix)
-	ld	a, -1 (ix)
-	sbc	a, -3 (ix)
-	jr	NC, 00115$
-	ld	a, -7 (ix)
-	or	a, -8 (ix)
-	jr	Z, 00115$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:17: i16 diff = (i16)(Field.ly + 64) - (i16)Ball->ly;
-	ld	l, -4 (ix)
+	ld	a, -6 (ix)
+	sub	a, -2 (ix)
+	ld	a, -5 (ix)
+	sbc	a, -1 (ix)
+	jp	NC, 00128$
+	ld	a, -3 (ix)
+	or	a, -4 (ix)
+	jp	Z, 00128$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:31: i16 diff = (i16)(Field.ly + top_margin) - (i16)Ball->ly;
+	ld	l, -2 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
-	ld	h, -3 (ix)
+	ld	h, -1 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
-	pop	bc
-	push	bc
+	ld	c, -6 (ix)
+	ld	b, -5 (ix)
 	cp	a, a
 	sbc	hl, bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:18: if (diff > 5) camera_dy = -5;
-	ld	-4 (ix), l
-	ld	-3 (ix), h
-	ld	c, l
-	ld	b, h
+	ld	-2 (ix), l
+	ld	-1 (ix), h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:32: if (diff > 5) {
+	ld	a, -2 (ix)
+	ld	-6 (ix), a
+	ld	a, -1 (ix)
+	ld	-5 (ix), a
 	ld	a, #0x05
-	cp	a, c
+	cp	a, -6 (ix)
 	ld	a, #0x00
-	sbc	a, b
-	jp	PO, 00160$
+	sbc	a, -5 (ix)
+	jp	PO, 00215$
 	xor	a, #0x80
-00160$:
-	jp	P, 00102$
-	ld	bc, #0xfffb
-	jp	00103$
-00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:19: else camera_dy = -diff;
-	xor	a, a
-	sub	a, -4 (ix)
+00215$:
+	jp	P, 00113$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:33: camera_dy = -(5 + diff / 16); // Accelera dolcemente se è molto indietro
+	ld	a, -6 (ix)
 	ld	-2 (ix), a
-	sbc	a, a
-	sub	a, -3 (ix)
+	ld	a, -5 (ix)
 	ld	-1 (ix), a
+	bit	7, -5 (ix)
+	jr	Z, 00133$
+	ld	a, -6 (ix)
+	add	a, #0x0f
+	ld	-2 (ix), a
+	ld	a, -5 (ix)
+	adc	a, #0x00
+	ld	-1 (ix), a
+00133$:
 	ld	c, -2 (ix)
 	ld	b, -1 (ix)
-00103$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:22: if ((i16)Field.ly + camera_dy < 0) {
-	ld	e, -8 (ix)
-	ld	d, -7 (ix)
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	ld	hl, #0x0005
+	add	hl, bc
+	xor	a, a
+	sub	a, l
+	ld	c, a
+	sbc	a, a
+	sub	a, h
+	ld	b, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:34: if (camera_dy < -8) camera_dy = -8; // Velocità massima di recupero (fluida)
+	ld	a, c
+	sub	a, #0xf8
+	ld	a, b
+	rla
+	ccf
+	rra
+	sbc	a, #0x7f
+	jr	NC, 00114$
+	ld	bc, #0xfff8
+	jp	00114$
+00113$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:36: camera_dy = -diff;
+	xor	a, a
+	sub	a, -2 (ix)
+	ld	c, a
+	sbc	a, a
+	sub	a, -1 (ix)
+	ld	b, a
+00114$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:40: if ((i16)Field.ly + camera_dy < 0) {
+	ld	e, -4 (ix)
+	ld	d, -3 (ix)
 	ld	l, c
 	ld	h, b
 	add	hl, de
 	bit	7, h
-	jr	Z, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:23: camera_dy = -(i16)Field.ly;
+	jp	Z, 00129$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:41: camera_dy = -(i16)Field.ly;
 	xor	a, a
 	sub	a, e
 	ld	c, a
 	sbc	a, a
 	sub	a, d
 	ld	b, a
-	jp	00116$
-00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:26: else if (Ball->ly > Field.ly + 192 - 64 && Field.ly < (FIELD_HEIGHT - 192)) {
-	ld	l, -6 (ix)
-	ld	h, -5 (ix)
-	ld	de, #0x0080
+	jp	00129$
+00128$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:44: else if (Ball->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
+	ld	e, -4 (ix)
+	ld	d, -3 (ix)
+	ld	hl, #0x00c0
 	add	hl, de
 	ld	a, l
-	sub	a, -2 (ix)
+	sub	a, -8 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
 	ld	a, h
-	sbc	a, -1 (ix)
-	jr	NC, 00116$
-	ld	a, -6 (ix)
+	sbc	a, -7 (ix)
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, l
+	sub	a, -6 (ix)
+	ld	a, h
+	sbc	a, -5 (ix)
+	jr	NC, 00129$
+	ld	a, e
 	sub	a, #0x40
-	ld	a, -5 (ix)
+	ld	a, d
 	sbc	a, #0x01
-	jr	NC, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:27: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - 64);
-	pop	bc
-	push	bc
-	ld	a, c
+	jr	NC, 00129$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:45: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - bottom_margin);
+	ld	a, -6 (ix)
+	ld	b, -5 (ix)
 	sub	a, l
 	ld	c, a
 	ld	a, b
 	sbc	a, h
 	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:28: if (diff > 5) camera_dy = 5;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:46: if (diff > 5) {
 	ld	e, c
 	ld	d, b
 	ld	a, #0x05
 	cp	a, e
 	ld	a, #0x00
 	sbc	a, d
-	jp	PO, 00161$
+	jp	PO, 00216$
 	xor	a, #0x80
-00161$:
-	jp	P, 00107$
-	ld	bc, #0x0005
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:29: else camera_dy = diff;
-00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:32: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
+00216$:
+	jp	P, 00120$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:47: camera_dy = 5 + diff / 16; // Accelera dolcemente
+	ld	c, e
+	ld	b, d
+	bit	7, d
+	jr	Z, 00134$
+	ld	hl, #0x000f
+	add	hl, de
+	ld	c, l
+	ld	b, h
+00134$:
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	sra	b
+	rr	c
+	inc	bc
+	inc	bc
+	inc	bc
+	inc	bc
+	inc	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:48: if (camera_dy > 8) camera_dy = 8; // Velocità massima di recupero
 	ld	e, c
 	ld	d, b
-	ld	l, -8 (ix)
-	ld	h, -7 (ix)
+	ld	a, #0x08
+	cp	a, e
+	ld	a, #0x00
+	sbc	a, d
+	jp	PO, 00217$
+	xor	a, #0x80
+00217$:
+	jp	P, 00121$
+	ld	bc, #0x0008
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:50: camera_dy = diff;
+00120$:
+00121$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:54: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
+	ld	e, c
+	ld	d, b
+	ld	l, -4 (ix)
+	ld	h, -3 (ix)
 	add	hl, de
 	ld	a, #0x40
 	cp	a, l
 	ld	a, #0x01
 	sbc	a, h
-	jr	NC, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:33: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
+	jr	NC, 00129$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:55: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
 	ld	a, #0x40
-	sub	a, -8 (ix)
+	sub	a, -4 (ix)
 	ld	c, a
 	ld	a, #0x01
-	sbc	a, -7 (ix)
+	sbc	a, -3 (ix)
 	ld	b, a
-00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:37: Field.ly += camera_dy;
+00129$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:59: Field.ly += camera_dy;
 	ld	a, c
 	ld	d, b
-	add	a, -8 (ix)
+	add	a, -4 (ix)
 	ld	e, a
 	ld	a, d
-	adc	a, -7 (ix)
+	adc	a, -3 (ix)
 	ld	d, a
 	ld	((_Field + 4)), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:38: Field.dy = (i8)camera_dy;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:60: Field.dy = (i8)camera_dy;
 	ld	hl, #(_Field + 18)
 	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:39: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:61: }
 	ld	sp, ix
 	pop	ix
 	ret
@@ -652,7 +789,7 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:41: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:63: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 ;	---------------------------------
 ; Function CheckFieldBoundaries
 ; ---------------------------------
@@ -665,8 +802,8 @@ _CheckFieldBoundaries::
 	push	af
 	ld	-2 (ix), l
 	ld	-1 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:43: struct ObjectInfo* Ball = &SwSprite[14];
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:52: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:65: struct ObjectInfo* Ball = &SwSprite[14];
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
 	ld	hl, #(_SwSprite + 322)
 	ld	c, (hl)
 	ld	a, c
@@ -686,11 +823,11 @@ _CheckFieldBoundaries::
 	ld	a, #0x01
 	sbc	a, h
 	jr	C, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:53: RestartType = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:75: RestartType = 0;
 	ld	iy, #_RestartType
 	ld	0 (iy), #0x00
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:62: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	ld	-6 (ix), a
@@ -704,10 +841,10 @@ _CheckFieldBoundaries::
 	ld	a, #0x00
 	rla
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:52: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:62: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 	ld	a, c
 	or	a, a
 	jr	Z, 00107$
@@ -717,48 +854,48 @@ _CheckFieldBoundaries::
 	ld	a, #0x9c
 	sub	a, -4 (ix)
 	jr	C, 00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:63: *game_state = 6;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:85: *game_state = 6;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:64: Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:86: Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
 	ld	hl, #(_Field + 18)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:65: RestartType = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:87: RestartType = 0;
 	ld	hl, #_RestartType
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:66: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:88: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 	push	de
 	ld	de, #_EventGoal
 	ld	a, #0x08
 	call	_CallFnc_VOID
 	pop	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:67: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:89: Ball->anim = Ball->dx = Ball->dy = 0;
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:68: T1_Carrier = T2_Carrier = 0xFF;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: T1_Carrier = T2_Carrier = 0xFF;
 	ld	hl, #_T2_Carrier
 	ld	(hl), #0xff
 	ld	hl, #_T1_Carrier
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:69: TimerEnabled = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:91: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:70: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
 	ld	a, #0x03
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
 	ld	a, (_Frms+0)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:71: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: return;
 	jp	00134$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:75: if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
 	ld	a, #0xde
 	cp	a, -6 (ix)
 	ld	a, #0x01
@@ -774,48 +911,48 @@ _CheckFieldBoundaries::
 	ld	a, #0x9c
 	sub	a, -4 (ix)
 	jr	C, 00111$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:76: *game_state = 6;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:98: *game_state = 6;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:77: Field.dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:99: Field.dy = 0;
 	ld	hl, #(_Field + 18)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:78: RestartType = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: RestartType = 0;
 	ld	hl, #_RestartType
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:79: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:101: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 	push	de
 	ld	de, #_EventGoal
 	ld	a, #0x08
 	call	_CallFnc_VOID
 	pop	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:80: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:102: Ball->anim = Ball->dx = Ball->dy = 0;
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:81: T1_Carrier = T2_Carrier = 0xFF;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:103: T1_Carrier = T2_Carrier = 0xFF;
 	ld	hl, #_T2_Carrier
 	ld	(hl), #0xff
 	ld	hl, #_T1_Carrier
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:82: TimerEnabled = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:104: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:83: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:105: *wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
 	ld	a, #0x03
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
 	ld	a, (_Frms+0)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: return;
 	jp	00134$
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:88: if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:110: if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
 	ld	a, -4 (ix)
 	sub	a, #0x10
 	jr	C, 00118$
@@ -823,8 +960,8 @@ _CheckFieldBoundaries::
 	sub	a, -4 (ix)
 	jr	NC, 00119$
 00118$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:67: Ball->anim = Ball->dx = Ball->dy = 0;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: if (RestartType != 0 && Ball->anim == 5) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:89: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:112: if (RestartType != 0 && Ball->anim == 5) {
 	ld	a, (_RestartType+0)
 	or	a, a
 	jr	Z, 00115$
@@ -834,17 +971,17 @@ _CheckFieldBoundaries::
 	or	a, h
 	jr	Z, 00119$
 00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: *game_state = 6;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:115: *game_state = 6;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: Field.dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:116: Field.dy = 0;
 	ld	hl, #(_Field + 18)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:95: RestartType = RESTART_THROWIN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:117: RestartType = RESTART_THROWIN;
 	ld	hl, #_RestartType
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:119: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
 	ld	a, (#(_SwSprite + 322) + 0)
 	sub	a, #0x80
 	jr	NC, 00136$
@@ -855,45 +992,45 @@ _CheckFieldBoundaries::
 00137$:
 	ld	hl, #_RestartSideX
 	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:98: RestartSideY = Ball->ly;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:120: RestartSideY = Ball->ly;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	inc	hl
 	ld	(_RestartSideY+0), a
 	ld	a, (hl)
 	ld	(_RestartSideY+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:99: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:121: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
 	push	de
 	ld	de, #_EventThrowIn
 	ld	a, #0x08
 	call	_CallFnc_VOID
 	pop	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:122: Ball->anim = Ball->dx = Ball->dy = 0;
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:101: T1_Carrier = T2_Carrier = 0xFF;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:123: T1_Carrier = T2_Carrier = 0xFF;
 	ld	hl, #_T2_Carrier
 	ld	(hl), #0xff
 	ld	hl, #_T1_Carrier
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:102: TimerEnabled = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:124: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:103: *wait_secs = 2; *start_sec = Frms;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:125: *wait_secs = 2; *start_sec = Frms;
 	ld	a, #0x02
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
 	ld	a, (_Frms+0)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:104: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:126: return;
 	jp	00134$
 00119$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:131: if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
 	ld	a, c
 	or	a, a
 	jr	NZ, 00131$
@@ -901,8 +1038,8 @@ _CheckFieldBoundaries::
 	or	a, a
 	jp	Z, 00134$
 00131$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:67: Ball->anim = Ball->dx = Ball->dy = 0;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:111: if (RestartType != 0 && Ball->anim == 5) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:89: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:133: if (RestartType != 0 && Ball->anim == 5) {
 	ld	a, (_RestartType+0)
 	or	a, a
 	jr	Z, 00128$
@@ -912,17 +1049,17 @@ _CheckFieldBoundaries::
 	or	a, h
 	jp	Z,00134$
 00128$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:114: *game_state = 6;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:136: *game_state = 6;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:115: Field.dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:137: Field.dy = 0;
 	ld	hl, #(_Field + 18)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:116: RestartType = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:138: RestartType = 0;
 	ld	hl, #_RestartType
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:119: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:141: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
 	ld	bc, (#(_SwSprite + 326) + 0)
 	ld	a, c
 	sub	a, #0x18
@@ -933,7 +1070,7 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00121$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:120: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:142: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
 	ld	a, #0xde
 	cp	a, c
 	ld	a, #0x01
@@ -943,20 +1080,20 @@ _CheckFieldBoundaries::
 	dec	a
 	jr	NZ, 00122$
 00121$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:121: RestartType = RESTART_CORNERKICK;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:143: RestartType = RESTART_CORNERKICK;
 	ld	hl, #_RestartType
 	ld	(hl), #0x03
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:122: RestartSideX = Ball->lx;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:144: RestartSideX = Ball->lx;
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	(_RestartSideX+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:123: RestartSideY = Ball->ly;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:145: RestartSideY = Ball->ly;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	inc	hl
 	ld	(_RestartSideY+0), a
 	ld	a, (hl)
 	ld	(_RestartSideY+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:124: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:146: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
 	push	de
 	ld	de, #_EventCornerKick
 	ld	a, #0x08
@@ -964,51 +1101,51 @@ _CheckFieldBoundaries::
 	pop	de
 	jp	00123$
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:126: RestartType = RESTART_GOALKICK;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:148: RestartType = RESTART_GOALKICK;
 	ld	hl, #_RestartType
 	ld	(hl), #0x02
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:127: RestartSideX = Ball->lx;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:149: RestartSideX = Ball->lx;
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	(_RestartSideX+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:128: RestartSideY = Ball->ly;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:150: RestartSideY = Ball->ly;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	inc	hl
 	ld	(_RestartSideY+0), a
 	ld	a, (hl)
 	ld	(_RestartSideY+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:129: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:151: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
 	push	de
 	ld	de, #_EventGoalKick
 	ld	a, #0x08
 	call	_CallFnc_VOID
 	pop	de
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:132: Ball->anim = Ball->dx = Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:154: Ball->anim = Ball->dx = Ball->dy = 0;
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:133: T1_Carrier = T2_Carrier = 0xFF;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:155: T1_Carrier = T2_Carrier = 0xFF;
 	ld	hl, #_T2_Carrier
 	ld	(hl), #0xff
 	ld	hl, #_T1_Carrier
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:134: TimerEnabled = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:156: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:135: *wait_secs = 2; *start_sec = Frms;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:157: *wait_secs = 2; *start_sec = Frms;
 	ld	a, #0x02
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
 	ld	a, (_Frms+0)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:136: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:158: return;
 00134$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:139: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:161: }
 	ld	sp, ix
 	pop	ix
 	pop	hl

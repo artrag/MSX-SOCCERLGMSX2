@@ -12,21 +12,43 @@ void UpdateFieldCamera()
 	
 	i16 camera_dy = 0;
 	
-	// Margini di scorrimento: la telecamera si aggancia se la palla supera i 64 pixel dal bordo
-	if (Ball->ly < Field.ly + 64 && Field.ly > 0) {
-		i16 diff = (i16)(Field.ly + 64) - (i16)Ball->ly;
-		if (diff > 5) camera_dy = -5;
-		else camera_dy = -diff;
+	// Calcolo dinamico dei margini per anticipare lo scrolling verso le porte.
+	// Man mano che la palla si avvicina al fondo campo, il margine aumenta
+	// costringendo la telecamera a inquadrare in anticipo la trequarti/area.
+	u16 top_margin = 64;
+	u16 bottom_margin = 64;
+	
+	if (Ball->ly < 256) {
+		top_margin = 64 + (256 - Ball->ly) / 2;
+		if (top_margin > 140) top_margin = 140;
+	} else if (Ball->ly > 256) {
+		bottom_margin = 64 + (Ball->ly - 256) / 2;
+		if (bottom_margin > 140) bottom_margin = 140;
+	}
+
+	// Margini di scorrimento: la telecamera si aggancia se la palla supera i limiti dinamici
+	if (Ball->ly < Field.ly + top_margin && Field.ly > 0) {
+		i16 diff = (i16)(Field.ly + top_margin) - (i16)Ball->ly;
+		if (diff > 5) {
+			camera_dy = -(5 + diff / 16); // Accelera dolcemente se è molto indietro
+			if (camera_dy < -8) camera_dy = -8; // Velocità massima di recupero (fluida)
+		} else {
+			camera_dy = -diff;
+		}
 		
 		// Evita l'underflow della Y del campo
 		if ((i16)Field.ly + camera_dy < 0) {
 			camera_dy = -(i16)Field.ly;
 		}
 	}
-	else if (Ball->ly > Field.ly + 192 - 64 && Field.ly < (FIELD_HEIGHT - 192)) {
-		i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - 64);
-		if (diff > 5) camera_dy = 5;
-		else camera_dy = diff;
+	else if (Ball->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
+		i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - bottom_margin);
+		if (diff > 5) {
+			camera_dy = 5 + diff / 16; // Accelera dolcemente
+			if (camera_dy > 8) camera_dy = 8; // Velocità massima di recupero
+		} else {
+			camera_dy = diff;
+		}
 		
 		// Evita l'overflow oltre il fondo del campo
 		if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {

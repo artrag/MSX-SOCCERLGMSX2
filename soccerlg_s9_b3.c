@@ -229,6 +229,9 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				u8 progress = Ball->count; // 0 = inizio da tiratore, max = fine verso ricevitore
 				u8 half_frame = g_pass_max_frames >> 1; // metà del percorso
 				
+				i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
+				i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
+
 				// Interpolazione lineare della posizione XY verso il destinatario
 				if (progress == 0) {
 					Ball->lx = g_pass_start_x;
@@ -238,12 +241,74 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					Ball->ly = g_pass_target_y;
 				} else {
 					// Calcola la posizione interpolata: start + (target - start) * progress / max
-					i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
-					i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
 					Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
 					Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
 				}
 				
+				// CONTROLLO PALO (solo per i tiri, altezza max 2)
+				if (g_pass_max_height <= 2 && progress > 0) {
+					u16 top_boundary = 24;
+					u16 bottom_boundary = 478;
+					u8 goal_left = 100;
+					u8 goal_right = 156;
+					
+					i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
+					i16 new_ly = Ball->ly;
+					i16 old_lx = (i16)g_pass_start_x + (dx_total * (progress - 1)) / g_pass_max_frames;
+					i16 new_lx = Ball->lx;
+
+					bool hit_post = FALSE;
+					
+					// Controllo palo nord (attraversamento della linea di porta)
+					if (old_ly > top_boundary && new_ly <= top_boundary) {
+						i16 cross_x = old_lx + ((new_lx - old_lx) * (old_ly - top_boundary)) / (old_ly - new_ly);
+						if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
+							(cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
+							hit_post = TRUE;
+						}
+					} 
+					// Controllo palo sud
+					else if (old_ly < bottom_boundary && new_ly >= bottom_boundary) {
+						i16 cross_x = old_lx + ((new_lx - old_lx) * (bottom_boundary - old_ly)) / (new_ly - old_ly);
+						if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
+							(cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
+							hit_post = TRUE;
+						}
+					}
+					
+					if (hit_post) {
+						i16 in_dx = dx_total; 
+						i16 in_dy = dy_total; 
+						
+						// Angolo specchiato rispetto alla linea di porta
+						i16 out_dx = in_dx;
+						i16 out_dy = -in_dy;
+						
+						// Limita il rimbalzo a circa 20 pixel
+						i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
+						if (len == 0) len = 1;
+						
+						out_dx = (out_dx * 20) / len;
+						out_dy = (out_dy * 20) / len;
+						
+						// Forza la palla in campo per evitare falli di fondo o goal al frame successivo
+						if (out_dy > 0) {
+							if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
+						} else {
+							if (Ball->ly > bottom_boundary - 2) Ball->ly = bottom_boundary - 2;
+						}
+						
+						g_pass_start_x = Ball->lx;
+						g_pass_start_y = Ball->ly;
+						
+						g_pass_target_x = g_pass_start_x + out_dx;
+						g_pass_target_y = g_pass_start_y + out_dy;
+						
+						g_pass_max_frames = 10; // Rimbalzo rapido
+						Ball->count = 0; 
+					}
+				}
+
 				// Effetto di volo: scala da 1 a 8 (andata) e 8 a 1 (ritorno)
 				u8 scale;
 				if (progress <= half_frame) {
@@ -406,7 +471,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							g_pass_max_frames = (r_dx + r_dy) / 8; // Tiro potente e veloce
 							if (g_pass_max_frames < 10) g_pass_max_frames = 10;
 							if (g_pass_max_frames > 25) g_pass_max_frames = 25;
-							g_pass_max_height = 3; // Tiro rasoterra
+							g_pass_max_height = 2; // Tiro rasoterra e limitato
 							
 							Ball->anim = 5;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);

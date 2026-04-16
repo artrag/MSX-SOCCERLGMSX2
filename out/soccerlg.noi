@@ -29,13 +29,13 @@ DEF l__INITIALIZED 0x4B
 DEF l__INITIALIZER 0x4B
 DEF l__SEG7 0x1B6
 DEF l__DATA 0x33A
-DEF l__SEG10 0x3A1
+DEF l__SEG10 0x480
 DEF l__SEG5 0xCB3
-DEF l__SEG4 0xDF1
+DEF l__SEG4 0xDF9
 DEF l__SEG12 0x10F0
 DEF l__SEG6 0x14BC
 DEF l__SEG11 0x1B53
-DEF l__SEG9 0x1B76
+DEF l__SEG9 0x1DBC
 DEF l__CODE 0x29DF
 DEF s__CODE 0x4000
 DEF s__HOME 0x69DF
@@ -516,7 +516,7 @@ DEF _EventOffside 0x8A03B
 DEF _EventGoal 0x8A03C
 DEF _UpdateGameState 0x9A000
 DEF _UpdateFieldCamera 0xAA000
-DEF _CheckFieldBoundaries 0xAA127
+DEF _CheckFieldBoundaries 0xAA206
 DEF _AssignKickOffTargets 0xBA000
 DEF _AssignThrowInTargets 0xBA0C6
 DEF _AssignGoalKickTargets 0xBA8C0

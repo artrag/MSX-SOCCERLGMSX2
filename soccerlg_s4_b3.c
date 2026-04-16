@@ -1070,8 +1070,8 @@ void MainLoop(){
 		SwSprite[i].y0 = SwSprite[i].ly;
 		SwSprite[i].x1 = SwSprite[i].lx;
 		SwSprite[i].y1 = SwSprite[i].ly;
-		SwSprite[i].x2 = 0;
-		SwSprite[i].y2 = 0;
+		SwSprite[i].x2 = SwSprite[i].lx;
+		SwSprite[i].y2 = SwSprite[i].ly;
 	}
 
 	// Sincronizzazione tabelloni per l'inizio del Triplo Buffer
@@ -1101,40 +1101,40 @@ void MainLoop(){
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x2, SwSprite[i].y2, 512);
 		}
 
-		if (!ball_fg && OnScreen(SwSprite[14].y1)) 
-			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
+		if (!ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255)+256,SwSprite[14].frame);
 
 		for (u8 i=0; i<14;i++) 
 		{
 			// scrivo 	1
-			if OnScreen(SwSprite[i].y1) 
-				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,GetDrawFrame(i));
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255)+256,GetDrawFrame(i));
 		}
 
-		if (ball_fg && OnScreen(SwSprite[14].y1)) 
-			CallSpriteFrame(SwSprite[14].x1,(SwSprite[14].y1&255)+256,SwSprite[14].frame);
+		if (ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255)+256,SwSprite[14].frame);
 
 		for (u8 i=15; i<NumSprite;i++) 
 		{
 			// scrivo 	1 (messaggi)
-			if OnScreen(SwSprite[i].y1) 
-				CallSpriteFrame(SwSprite[i].x1,(SwSprite[i].y1&255)+256,SwSprite[i].frame);
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255)+256,SwSprite[i].frame);
 		}
 
 		// cancello 2	 scrivo 	1
 		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.lx, Field.ly, 256);
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 256);
 		
 		for (u8 i=0; i<NumSprite;i++) 
 		{
-			SwSprite[i].x2 = SwSprite[i].lx;
-			SwSprite[i].y2 = SwSprite[i].ly;
+			SwSprite[i].x1 = SwSprite[i].lx;
+			SwSprite[i].y1 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y2 = Field.ly;	
-		ScoreBoardRight.y2 = Field.ly;	
+		ScoreBoardLeft.y1 = Field.ly;	
+		ScoreBoardRight.y1 = Field.ly;	
 	
 		// vedo 	1
 		WaitForVBlank();
@@ -1154,40 +1154,40 @@ void MainLoop(){
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x0, SwSprite[i].y0, 0);
 		}
 
-		if (!ball_fg && OnScreen(SwSprite[14].y2)) 
-			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
+		if (!ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255)+512,SwSprite[14].frame);
 
 		for (u8 i=0; i<14;i++) 
 		{
 			// scrivo 	2 
-			if OnScreen(SwSprite[i].y2) 
-				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,GetDrawFrame(i));
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255)+512,GetDrawFrame(i));
 		}
 
-		if (ball_fg && OnScreen(SwSprite[14].y2)) 
-			CallSpriteFrame(SwSprite[14].x2,(SwSprite[14].y2&255)+512,SwSprite[14].frame);
+		if (ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255)+512,SwSprite[14].frame);
 
 		for (u8 i=15; i<NumSprite;i++) 
 		{
 			// scrivo 	2 (messaggi)
-			if OnScreen(SwSprite[i].y2) 
-				CallSpriteFrame(SwSprite[i].x2,(SwSprite[i].y2&255)+512,SwSprite[i].frame);
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255)+512,SwSprite[i].frame);
 		}
 
 		// cancello 0	 scrivo 	2
 		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x2, ScoreBoardLeft.y2, 512);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.lx, Field.ly, 512);
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 512);
 		
 		for (u8 i=0; i<NumSprite;i++) 
 		{
-			SwSprite[i].x0 = SwSprite[i].lx;
-			SwSprite[i].y0 = SwSprite[i].ly;
+			SwSprite[i].x2 = SwSprite[i].lx;
+			SwSprite[i].y2 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y0 = Field.ly;
-		ScoreBoardRight.y0 = Field.ly;
+		ScoreBoardLeft.y2 = Field.ly;
+		ScoreBoardRight.y2 = Field.ly;
 		
 		// vedo 	2	
 		WaitForVBlank();
@@ -1207,40 +1207,40 @@ void MainLoop(){
 			CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x1, SwSprite[i].y1, 256);
 		}
 
-		if (!ball_fg && OnScreen(SwSprite[14].y0)) 
-			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
+		if (!ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255),SwSprite[14].frame);
 
 		for (u8 i=0; i<14;i++) 
 		{
 			// scrivo 	0	
-			if OnScreen(SwSprite[i].y0) 
-				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),GetDrawFrame(i));	
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255),GetDrawFrame(i));	
 		}
 
-		if (ball_fg && OnScreen(SwSprite[14].y0)) 
-			CallSpriteFrame(SwSprite[14].x0,(SwSprite[14].y0&255),SwSprite[14].frame);
+		if (ball_fg && OnScreen(SwSprite[14].ly)) 
+			CallSpriteFrame(SwSprite[14].lx,(SwSprite[14].ly&255),SwSprite[14].frame);
 
 		for (u8 i=15; i<NumSprite;i++) 
 		{
 			// scrivo 	0 (messaggi)
-			if OnScreen(SwSprite[i].y0) 
-				CallSpriteFrame(SwSprite[i].x0,(SwSprite[i].y0&255),SwSprite[i].frame);	
+			if OnScreen(SwSprite[i].ly) 
+				CallSpriteFrame(SwSprite[i].lx,(SwSprite[i].ly&255),SwSprite[i].frame);	
 		}
 
 		// cancello 1	scrivo 	0
 		// CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardLeft, ScoreBoardLeft.x1, ScoreBoardLeft.y1, 256);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.x0, ScoreBoardLeft.y0, 0);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.lx, Field.ly, 0);
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
-		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
+		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 0);
 		
 		for (u8 i=0; i<NumSprite;i++) 
 		{
-			SwSprite[i].x1 = SwSprite[i].lx;
-			SwSprite[i].y1 = SwSprite[i].ly;
+			SwSprite[i].x0 = SwSprite[i].lx;
+			SwSprite[i].y0 = SwSprite[i].ly;
 		}
 
-		ScoreBoardLeft.y1 = Field.ly;
-		ScoreBoardRight.y1 = Field.ly;
+		ScoreBoardLeft.y0 = Field.ly;
+		ScoreBoardRight.y0 = Field.ly;
 
 		// update scoreboard
 		Print_SetPosition(1, 24+768);

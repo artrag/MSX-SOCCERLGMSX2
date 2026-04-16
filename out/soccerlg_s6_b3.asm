@@ -1645,9 +1645,9 @@ _PlayerAI::
 	jr	NC, 00181$
 	ld	0 (iy), #0x19
 00181$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: g_pass_max_height = 3; // Tiro rasoterra
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:181: g_pass_max_height = 2; // Tiro rasoterra e limitato
 	ld	hl, #_g_pass_max_height
-	ld	(hl), #0x03
+	ld	(hl), #0x02
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:183: Ball->anim = 5;
 	ld	hl, #0x0005
 	ld	((_SwSprite + 341)), hl
