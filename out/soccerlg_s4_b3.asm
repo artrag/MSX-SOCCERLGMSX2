@@ -1544,7 +1544,7 @@ _MainLoop::
 	ld	c, #0x0f
 00172$:
 	ld	a, c
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00102$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1053: SwSprite[i].lx = 0;
 	ld	b, #0x00
@@ -1592,7 +1592,7 @@ _MainLoop::
 	ld	c, #0x00
 00175$:
 	ld	a, c
-	sub	a, #0x19
+	sub	a, #0x1a
 	jp	NC, 00103$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1063: SwSprite[i].x0 = SwSprite[i].lx;
 	ld	b, #0x00
@@ -1743,7 +1743,7 @@ _MainLoop::
 	ld	b, #0x00
 00178$:
 	ld	a, b
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00104$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1095: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x2, SwSprite[i].y2, 512);
 	ld	e, b
@@ -1965,7 +1965,7 @@ _MainLoop::
 	ld	c, #0x0f
 00184$:
 	ld	a, c
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00120$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1114: if OnScreen(SwSprite[i].y1) 
 	ld	b, #0x00
@@ -2077,7 +2077,7 @@ _MainLoop::
 	ld	c, #0x00
 00187$:
 	ld	a, c
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00121$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1126: SwSprite[i].x2 = SwSprite[i].lx;
 	ld	b, #0x00
@@ -2171,7 +2171,7 @@ _MainLoop::
 	ld	b, #0x00
 00190$:
 	ld	a, b
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00122$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1148: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x0, SwSprite[i].y0, 0);
 	ld	e, b
@@ -2392,7 +2392,7 @@ _MainLoop::
 	ld	-1 (ix), #0x0f
 00196$:
 	ld	a, -1 (ix)
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00138$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1167: if OnScreen(SwSprite[i].y2) 
 	ld	c, -1 (ix)
@@ -2492,7 +2492,7 @@ _MainLoop::
 	ld	-1 (ix), #0x00
 00199$:
 	ld	a, -1 (ix)
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00139$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1179: SwSprite[i].x0 = SwSprite[i].lx;
 	ld	c, -1 (ix)
@@ -2583,7 +2583,7 @@ _MainLoop::
 	ld	-1 (ix), #0x00
 00202$:
 	ld	a, -1 (ix)
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00140$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1201: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x1, SwSprite[i].y1, 256);
 	ld	e, -1 (ix)
@@ -2793,7 +2793,7 @@ _MainLoop::
 	ld	-1 (ix), #0x0f
 00208$:
 	ld	a, -1 (ix)
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00156$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1220: if OnScreen(SwSprite[i].y0) 
 	ld	c, -1 (ix)
@@ -2892,7 +2892,7 @@ _MainLoop::
 	ld	c, #0x00
 00211$:
 	ld	a, c
-	sub	a, #0x19
+	sub	a, #0x1a
 	jr	NC, 00157$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1232: SwSprite[i].x1 = SwSprite[i].lx;
 	ld	b, #0x00

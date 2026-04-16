@@ -151,14 +151,22 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		CallFnc_VOID(SEG_FIELD, UpdateFieldCamera);
 		CallFnc_VOID_3PTR(SEG_FIELD, CheckFieldBoundaries, game_state, wait_secs, start_sec);
 
-		// --- AGGIORNAMENTO FRECCIA ORIZZONTALE ---
+		// --- AGGIORNAMENTO FRECCE ORIZZONTALI ---
 		g_h_arrow_x += g_h_arrow_dir;
-		if (g_h_arrow_x < 50) { g_h_arrow_x = 50; g_h_arrow_dir = 1; }
-		else if (g_h_arrow_x > 150) { g_h_arrow_x = 150; g_h_arrow_dir = -1; }
+		if (g_h_arrow_x < 80) { g_h_arrow_x = 80; g_h_arrow_dir = 1; }
+		else if (g_h_arrow_x > 162) { g_h_arrow_x = 162; g_h_arrow_dir = -1; }
 		
-		SwSprite[24].lx = (u8)g_h_arrow_x;
-		SwSprite[24].ly = 50; 
-		SwSprite[24].frame = SPR_BIG_ARROW_TOP;
+		// Freccia in alto (per Team 1 che attacca verso il basso)
+		// Visibile se P2 è umano (P1 vs P2)
+		if (GameMode == GAMEMODE_P1_VS_P2) {
+			SwSprite[24].lx = (u8)g_h_arrow_x;
+			SwSprite[24].ly = 440; 
+			SwSprite[24].frame = SPR_BIG_ARROW_BOTTOM;
+		} else {
+			SwSprite[24].ly = 1000; // Nascondi
+		}
+		// Freccia in basso (per Team 2 che attacca verso l'alto)
+		SwSprite[25].lx = (u8)g_h_arrow_x; SwSprite[25].ly = 50; SwSprite[25].frame = SPR_BIG_ARROW_TOP;
 
 
 		// --- AGGIORNAMENTO POSSESSO E FOCUS UMANO ---
@@ -412,7 +420,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 	} else {
-		SwSprite[24].ly = 1000; // Nasconde la freccia orizzontale durante le pause
+		SwSprite[24].ly = 1000; // Nasconde la freccia superiore durante le pause
+		SwSprite[25].ly = 1000; // Nasconde la freccia inferiore durante le pause
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_3, UpdateGameState_Restarts, game_state, wait_secs, start_sec, target_ly);
 	}
 }

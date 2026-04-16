@@ -374,13 +374,13 @@
     00000000                        374 _g_player_input::
     00000000                        375 	.ds 6
     00000006                        376 _SwSprite::
-    00000006                        377 	.ds 575
-    00000245                        378 _Field::
-    00000245                        379 	.ds 23
-    0000025C                        380 _ScoreBoardLeft::
-    0000025C                        381 	.ds 23
-    00000273                        382 _ScoreBoardRight::
-    00000273                        383 	.ds 23
+    00000006                        377 	.ds 598
+    0000025C                        378 _Field::
+    0000025C                        379 	.ds 23
+    00000273                        380 _ScoreBoardLeft::
+    00000273                        381 	.ds 23
+    0000028A                        382 _ScoreBoardRight::
+    0000028A                        383 	.ds 23
                                     384 ;--------------------------------------------------------
                                     385 ; ram data
                                     386 ;--------------------------------------------------------
@@ -3559,23 +3559,23 @@
     00000EC6 F1               [10] 3559 	pop	af
     00000EC7 F1               [10] 3560 	pop	af
                                    3561 ;./soccerlg.c:502: Field.dy = 1;
-    00000EC8 21r57r02         [10] 3562 	ld	hl, #(_Field + 18)
+    00000EC8 21r6Er02         [10] 3562 	ld	hl, #(_Field + 18)
     00000ECB 36 01            [10] 3563 	ld	(hl), #0x01
                                    3564 ;./soccerlg.c:503: Field.ly = 0;
     00000ECD 21 00 00         [10] 3565 	ld	hl, #0x0000
-    00000ED0 22r49r02         [16] 3566 	ld	((_Field + 4)), hl
+    00000ED0 22r60r02         [16] 3566 	ld	((_Field + 4)), hl
                                    3567 ;./soccerlg.c:505: ScoreBoardLeft.lx = 0;
-    00000ED3 21r5Cr02         [10] 3568 	ld	hl, #_ScoreBoardLeft
+    00000ED3 21r73r02         [10] 3568 	ld	hl, #_ScoreBoardLeft
     00000ED6 36 00            [10] 3569 	ld	(hl), #0x00
                                    3570 ;./soccerlg.c:506: ScoreBoardLeft.ly = Field.ly;
-    00000ED8 ED 4Br49r02      [20] 3571 	ld	bc, (#(_Field + 4) + 0)
-    00000EDC ED 43r60r02      [20] 3572 	ld	((_ScoreBoardLeft + 4)), bc
+    00000ED8 ED 4Br60r02      [20] 3571 	ld	bc, (#(_Field + 4) + 0)
+    00000EDC ED 43r77r02      [20] 3572 	ld	((_ScoreBoardLeft + 4)), bc
                                    3573 ;./soccerlg.c:508: ScoreBoardRight.lx = 248;
-    00000EE0 21r73r02         [10] 3574 	ld	hl, #_ScoreBoardRight
+    00000EE0 21r8Ar02         [10] 3574 	ld	hl, #_ScoreBoardRight
     00000EE3 36 F8            [10] 3575 	ld	(hl), #0xf8
                                    3576 ;./soccerlg.c:509: ScoreBoardRight.ly = Field.ly;
-    00000EE5 ED 4Br49r02      [20] 3577 	ld	bc, (#(_Field + 4) + 0)
-    00000EE9 ED 43r77r02      [20] 3578 	ld	((_ScoreBoardRight + 4)), bc
+    00000EE5 ED 4Br60r02      [20] 3577 	ld	bc, (#(_Field + 4) + 0)
+    00000EE9 ED 43r8Er02      [20] 3578 	ld	((_ScoreBoardRight + 4)), bc
                                    3579 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     00000EED AF               [ 4] 3580 	xor	a, a
     00000EEE F5               [11] 3581 	push	af
@@ -3586,7 +3586,7 @@
     00000EF2 3E 01            [ 7] 3586 	ld	a, #0x01
     00000EF4 CDr00r00         [17] 3587 	call	_VDP_RegWriteBakMask
                                    3588 ;./soccerlg.c:512: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-    00000EF7 2Ar49r02         [16] 3589 	ld	hl, (#(_Field + 4) + 0)
+    00000EF7 2Ar60r02         [16] 3589 	ld	hl, (#(_Field + 4) + 0)
     00000EFA 11 00 00         [10] 3590 	ld	de, #0x0000
     00000EFD D5               [11] 3591 	push	de
     00000EFE E5               [11] 3592 	push	hl
@@ -3594,7 +3594,7 @@
     00000F02 3E 05            [ 7] 3594 	ld	a, #0x05
     00000F04 CDrF1r04         [17] 3595 	call	_CallFnc_VOID_16_P2
                                    3596 ;./soccerlg.c:513: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-    00000F07 2Ar49r02         [16] 3597 	ld	hl, (#(_Field + 4) + 0)
+    00000F07 2Ar60r02         [16] 3597 	ld	hl, (#(_Field + 4) + 0)
     00000F0A 11 00 01         [10] 3598 	ld	de, #0x0100
     00000F0D D5               [11] 3599 	push	de
     00000F0E E5               [11] 3600 	push	hl
@@ -3602,7 +3602,7 @@
     00000F12 3E 05            [ 7] 3602 	ld	a, #0x05
     00000F14 CDrF1r04         [17] 3603 	call	_CallFnc_VOID_16_P2
                                    3604 ;./soccerlg.c:514: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
-    00000F17 2Ar49r02         [16] 3605 	ld	hl, (#(_Field + 4) + 0)
+    00000F17 2Ar60r02         [16] 3605 	ld	hl, (#(_Field + 4) + 0)
     00000F1A 11 00 02         [10] 3606 	ld	de, #0x0200
     00000F1D D5               [11] 3607 	push	de
     00000F1E E5               [11] 3608 	push	hl
@@ -3614,28 +3614,28 @@
     00000F2A 21 9F FD         [10] 3614 	ld	hl, #0xfd9f
     00000F2D CDr00r00         [17] 3615 	call	_Bios_SetHookCallback
                                    3616 ;./soccerlg.c:526: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
-    00000F30 01r5Dr02         [10] 3617 	ld	bc, #_ScoreBoardLeft + 1
-    00000F33 3Ar5Cr02         [13] 3618 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F30 01r74r02         [10] 3617 	ld	bc, #_ScoreBoardLeft + 1
+    00000F33 3Ar73r02         [13] 3618 	ld	a, (#_ScoreBoardLeft + 0)
     00000F36 02               [ 7] 3619 	ld	(bc), a
                                    3620 ;./soccerlg.c:527: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
-    00000F37 01r5Er02         [10] 3621 	ld	bc, #_ScoreBoardLeft + 2
-    00000F3A 3Ar5Cr02         [13] 3622 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F37 01r75r02         [10] 3621 	ld	bc, #_ScoreBoardLeft + 2
+    00000F3A 3Ar73r02         [13] 3622 	ld	a, (#_ScoreBoardLeft + 0)
     00000F3D 02               [ 7] 3623 	ld	(bc), a
                                    3624 ;./soccerlg.c:528: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
-    00000F3E 01r5Fr02         [10] 3625 	ld	bc, #_ScoreBoardLeft + 3
-    00000F41 3Ar5Cr02         [13] 3626 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F3E 01r76r02         [10] 3625 	ld	bc, #_ScoreBoardLeft + 3
+    00000F41 3Ar73r02         [13] 3626 	ld	a, (#_ScoreBoardLeft + 0)
     00000F44 02               [ 7] 3627 	ld	(bc), a
                                    3628 ;./soccerlg.c:530: ScoreBoardRight.x0 = ScoreBoardRight.lx;
-    00000F45 01r74r02         [10] 3629 	ld	bc, #_ScoreBoardRight + 1
-    00000F48 3Ar73r02         [13] 3630 	ld	a, (#_ScoreBoardRight + 0)
+    00000F45 01r8Br02         [10] 3629 	ld	bc, #_ScoreBoardRight + 1
+    00000F48 3Ar8Ar02         [13] 3630 	ld	a, (#_ScoreBoardRight + 0)
     00000F4B 02               [ 7] 3631 	ld	(bc), a
                                    3632 ;./soccerlg.c:531: ScoreBoardRight.x1 = ScoreBoardRight.lx;
-    00000F4C 01r75r02         [10] 3633 	ld	bc, #_ScoreBoardRight + 2
-    00000F4F 3Ar73r02         [13] 3634 	ld	a, (#_ScoreBoardRight + 0)
+    00000F4C 01r8Cr02         [10] 3633 	ld	bc, #_ScoreBoardRight + 2
+    00000F4F 3Ar8Ar02         [13] 3634 	ld	a, (#_ScoreBoardRight + 0)
     00000F52 02               [ 7] 3635 	ld	(bc), a
                                    3636 ;./soccerlg.c:532: ScoreBoardRight.x2 = ScoreBoardRight.lx;
-    00000F53 01r76r02         [10] 3637 	ld	bc, #_ScoreBoardRight + 3
-    00000F56 3Ar73r02         [13] 3638 	ld	a, (#_ScoreBoardRight + 0)
+    00000F53 01r8Dr02         [10] 3637 	ld	bc, #_ScoreBoardRight + 3
+    00000F56 3Ar8Ar02         [13] 3638 	ld	a, (#_ScoreBoardRight + 0)
     00000F59 02               [ 7] 3639 	ld	(bc), a
                                    3640 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     00000F5A 3E 40            [ 7] 3641 	ld	a, #0x40
@@ -3713,7 +3713,7 @@
     00000009                       3710 __xinit__KickOffTeam:
     00000009 01                    3711 	.db #0x01	; 1
     0000000A                       3712 __xinit__GameMode:
-    0000000A 00                    3713 	.db #0x00	; 0
+    0000000A 01                    3713 	.db #0x01	; 1
     0000000B                       3714 __xinit__T1_Carrier:
     0000000B FF                    3715 	.db #0xff	; 255
     0000000C                       3716 __xinit__T1_Receiver:

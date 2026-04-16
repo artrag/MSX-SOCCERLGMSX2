@@ -298,7 +298,7 @@ struct TeamColors {
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(25)
+#define NumSprite	(26)
 
 #define SCOREBOARD_NX_LEFT 8
 #define SCOREBOARD_NY_LEFT 212

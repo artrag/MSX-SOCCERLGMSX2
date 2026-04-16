@@ -374,7 +374,7 @@ _g_SLTSL	=	0xffff
 _g_player_input::
 	.ds 6
 _SwSprite::
-	.ds 575
+	.ds 598
 _Field::
 	.ds 23
 _ScoreBoardLeft::
@@ -3710,7 +3710,7 @@ __xinit__Team2Code:
 __xinit__KickOffTeam:
 	.db #0x01	; 1
 __xinit__GameMode:
-	.db #0x00	; 0
+	.db #0x01	; 1
 __xinit__T1_Carrier:
 	.db #0xff	; 255
 __xinit__T1_Receiver:
