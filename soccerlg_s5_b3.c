@@ -165,15 +165,15 @@ void ShowSpriteMessage(u16 messageId)
 	}
 	
 	// Nasconde eventuali sprite precedenti in eccesso non usati
-	for (u8 i = 15 + len; i < NumSprite; i++) {
-		SwSprite[i].ly = 1000;
+	for (u8 i = 15 + len; i < 24; i++) {
+		SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
 	}
 }
 
 // +++ Hide message sprites +++
 void HideSpriteMessage()
 {
-	for (u8 i = 15; i < NumSprite; i++) {
-		SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
+	for (u8 i = 15; i < 24; i++) {
+		SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
 	}
 }

@@ -2591,7 +2591,7 @@
     00000C5F DD 34 FF         [23] 2591 	inc	-1 (ix)
     00000C62 C3rC0r0B         [10] 2592 	jp	00128$
     00000C65                       2593 00125$:
-                                   2594 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < NumSprite; i++) {
+                                   2594 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < 24; i++) {
     00000C65 DD 7E F7         [19] 2595 	ld	a, -9 (ix)
     00000C68 C6 0F            [ 7] 2596 	add	a, #0x0f
     00000C6A 4F               [ 4] 2597 	ld	c, a
@@ -2599,7 +2599,7 @@
     00000C6B 79               [ 4] 2599 	ld	a, c
     00000C6C D6 18            [ 7] 2600 	sub	a, #0x18
     00000C6E 30 1C            [12] 2601 	jr	NC, 00133$
-                                   2602 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:169: SwSprite[i].ly = 1000;
+                                   2602 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:169: SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
     00000C70 06 00            [ 7] 2603 	ld	b, #0x00
     00000C72 69               [ 4] 2604 	ld	l, c
     00000C73 60               [ 4] 2605 	ld	h, b
@@ -2617,7 +2617,7 @@
     00000C83 36 E8            [10] 2617 	ld	(hl), #0xe8
     00000C85 23               [ 6] 2618 	inc	hl
     00000C86 36 03            [10] 2619 	ld	(hl), #0x03
-                                   2620 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < NumSprite; i++) {
+                                   2620 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < 24; i++) {
     00000C88 0C               [ 4] 2621 	inc	c
     00000C89 C3r6Br0C         [10] 2622 	jp	00131$
     00000C8C                       2623 00133$:
@@ -2630,14 +2630,14 @@
                                    2630 ; Function HideSpriteMessage
                                    2631 ; ---------------------------------
     00000C91                       2632 _HideSpriteMessage::
-                                   2633 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
+                                   2633 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < 24; i++) {
     00000C91 11r00r00         [10] 2634 	ld	de, #_SwSprite+0
     00000C94 0E 0F            [ 7] 2635 	ld	c, #0x0f
     00000C96                       2636 00103$:
     00000C96 79               [ 4] 2637 	ld	a, c
     00000C97 D6 18            [ 7] 2638 	sub	a, #0x18
     00000C99 D0               [11] 2639 	ret	NC
-                                   2640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
+                                   2640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
     00000C9A 06 00            [ 7] 2641 	ld	b, #0x00
     00000C9C 69               [ 4] 2642 	ld	l, c
     00000C9D 60               [ 4] 2643 	ld	h, b
@@ -2656,7 +2656,7 @@
     00000CAA 36 F0            [10] 2656 	ld	(hl), #0xf0
     00000CAC 23               [ 6] 2657 	inc	hl
     00000CAD 36 FF            [10] 2658 	ld	(hl), #0xff
-                                   2659 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
+                                   2659 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < 24; i++) {
     00000CAF 0C               [ 4] 2660 	inc	c
                                    2661 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: }
     00000CB0 C3r96r0C         [10] 2662 	jp	00103$

@@ -79,6 +79,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				*wait_secs = is_human ? 5 : 1; // 5 secondi per il giocatore, 1 per la CPU
 				*start_sec = Frms;
 				g_last_input_dir = DIRECTION_NONE; // Resetta l'input per la selezione
+				// NOTA: L'input viene sincronizzato da UpdateAllInputs nel loop principale
 				return;
 			} else if (RestartType == RESTART_GOALKICK) {
 				*game_state = 8; // Stato di attesa e rincorsa rinvio
@@ -92,6 +93,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				*wait_secs = is_human ? 5 : 1; // 5s per l'umano, 1s per la CPU
 				*start_sec = Frms;
 				g_last_input_dir = DIRECTION_NONE; // Resetta l'input per la selezione
+				// NOTA: L'input viene sincronizzato da UpdateAllInputs nel loop principale
 				return;
 			}
 			*game_state = 3;
@@ -141,12 +143,23 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				}
 			}
 			*start_sec = Frms;
+			// NOTA: L'input viene sincronizzato da UpdateAllInputs nel loop principale
 			return; // Ferma l'IA e il gioco finché la scritta non sparisce
 		}
 
 		// --- TELECAMERA E LIMITI ---
 		CallFnc_VOID(SEG_FIELD, UpdateFieldCamera);
 		CallFnc_VOID_3PTR(SEG_FIELD, CheckFieldBoundaries, game_state, wait_secs, start_sec);
+
+		// --- AGGIORNAMENTO FRECCIA ORIZZONTALE ---
+		g_h_arrow_x += g_h_arrow_dir;
+		if (g_h_arrow_x < 50) { g_h_arrow_x = 50; g_h_arrow_dir = 1; }
+		else if (g_h_arrow_x > 150) { g_h_arrow_x = 150; g_h_arrow_dir = -1; }
+		
+		SwSprite[24].lx = (u8)g_h_arrow_x;
+		SwSprite[24].ly = 50; 
+		SwSprite[24].frame = SPR_BIG_ARROW_TOP;
+
 
 		// --- AGGIORNAMENTO POSSESSO E FOCUS UMANO ---
 		struct ObjectInfo* Ball = &SwSprite[14];
@@ -243,24 +256,17 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		// 2. Gestione portatori (Player 1 e Player 2)
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
 		u8 receivers[2] = {T1_Receiver, T2_Receiver};
-		
-		u8 dirs[2] = {
-			(GameMode == GAMEMODE_P1_VS_P2) ? CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 1) : DIRECTION_NONE,
-			CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, 0)
-		};
-		bool triggers[2] = {
-			(GameMode == GAMEMODE_P1_VS_P2) ? CallFnc_BOOL_P1(SEG_INPUT, (u8 (*)(u8))IsTeamJoystickTriggerPressed, 1) : FALSE,
-			CallFnc_BOOL_P1(SEG_INPUT, (u8 (*)(u8))IsTeamJoystickTriggerPressed, 0)
-		};
 
-		for (u8 i = 0; i < 2; i++) {
+		for (u8 i = 0; i < 2; i++) { // i=0 per Team 1 (P2/CPU), i=1 per Team 2 (P1)
 			u8 carrier = carriers[i];
 			if (carrier == 0xFF) continue;
 			
+			u8 dir = g_player_input[i].direction;
+			bool trigger_pressed = g_player_input[i].trigger_pressed;
 			struct ObjectInfo* Carrier = &SwSprite[carrier];
 			
 			Carrier->dx = 0; Carrier->dy = 0;
-			switch(dirs[i]) {
+			switch(dir) {
 				case DIRECTION_UP: Carrier->dy = -2; break;
 				case DIRECTION_UP_RIGHT: Carrier->dy = -2; Carrier->dx = 2; break;
 				case DIRECTION_RIGHT: Carrier->dx = 2; break;
@@ -340,7 +346,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					receivers[i] = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
 					
 					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
-					if (triggers[i]) {
+					bool action_taken = FALSE;
+					if (trigger_pressed) {
 						// Il giocatore ha premuto il trigger -> SEMPRE tenta il passaggio se c'è un ricevitore
 						u8 receiver = receivers[i];
 						
@@ -369,8 +376,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							Ball->count = 0; // Inizio dell'interpolazione
 							Ball->dx = Ball->dy = 0; // Non usato nel passaggio, ma azzera lo stato
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							action_taken = TRUE;
 						}
-					} else if (Ball->anim == 0 && (Ball->dx != c_dx || Ball->dy != c_dy)) {
+					}
+					
+					if (!action_taken && Ball->anim == 0 && (Ball->dx != c_dx || Ball->dy != c_dy)) {
 						// Cambio direzione istantaneo e sicuro (senza perdere mai il controllo)
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
@@ -380,7 +390,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						Ball->dy = c_dy;
 						Ball->lx = (u8)(Carrier->lx + off_x);
 						Ball->ly = (Carrier->ly + off_y) & 511;
-					} else if (Ball->anim == 0) {
+					} else if (!action_taken && Ball->anim == 0) {
 						// Stessa direzione: ricalibra la palla e dai un calcetto in avanti
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
@@ -402,6 +412,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
 	} else {
+		SwSprite[24].ly = 1000; // Nasconde la freccia orizzontale durante le pause
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_3, UpdateGameState_Restarts, game_state, wait_secs, start_sec, target_ly);
 	}
 }

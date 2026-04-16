@@ -7,10 +7,13 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
+    _GameMode                                                       ******** GX
   7 _GetJoystickDirection                                           00000026 GR
   7 _IsTeamJoystickTriggerPressed                                   00000000 GR
     _Joystick_Read                                                  ******** GX
     _Keyboard_IsKeyPressed                                          ******** GX
+  7 _UpdateAllInputs                                                00000135 GR
+  1 _UpdateAllInputs_s_prev_trigger_state_65536_787                 00000000 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -55,14 +58,14 @@ Symbol Table
     _g_ENSTOP                                                   =   0000FBB0 G
     _g_ERRORS                                                   =   0000FB1A G
     _g_ESCCNT                                                   =   0000FCA7 G
-    _g_ESTBLS                                                   =   0000FB1C G
-    _g_EXBRSA                                                   =   0000FAF8 G
-    _g_EXPTBL                                                   =   0000FCC1 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_ESTBLS                                                   =   0000FB1C G
+    _g_EXBRSA                                                   =   0000FAF8 G
+    _g_EXPTBL                                                   =   0000FCC1 G
     _g_FLAGS                                                    =   0000FB1B G
     _g_FLBMEM                                                   =   0000FCAE G
     _g_FNKFLG                                                   =   0000FBCE G
@@ -115,14 +118,14 @@ Symbol Table
     _g_MLTCGP                                                   =   0000F3D5 G
     _g_MLTCOL                                                   =   0000F3D3 G
     _g_MLTNAM                                                   =   0000F3D1 G
-    _g_MLTPAT                                                   =   0000F3D9 G
-    _g_MNROM                                                    =   0000FCC1 G
-    _g_MODE                                                     =   0000FAFC G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_MLTPAT                                                   =   0000F3D9 G
+    _g_MNROM                                                    =   0000FCC1 G
+    _g_MODE                                                     =   0000FAFC G
     _g_MSXAudio_DataPort                                        =   000000C1 
     _g_MSXAudio_DataPort2                                       =   000000C3 
     _g_MSXAudio_IndexPort                                       =   000000C0 
@@ -175,14 +178,14 @@ Symbol Table
     _g_RG13SAV                                                  =   0000FFEC G
     _g_RG14SAV                                                  =   0000FFED G
     _g_RG15SAV                                                  =   0000FFEE G
-    _g_RG16SAV                                                  =   0000FFEF G
-    _g_RG17SAV                                                  =   0000FFF0 G
-    _g_RG18SAV                                                  =   0000FFF1 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RG16SAV                                                  =   0000FFEF G
+    _g_RG17SAV                                                  =   0000FFF0 G
+    _g_RG18SAV                                                  =   0000FFF1 G
     _g_RG19SAV                                                  =   0000FFF2 G
     _g_RG1SAV                                                   =   0000F3E0 G
     _g_RG20SAV                                                  =   0000FFF3 G
@@ -235,14 +238,14 @@ Symbol Table
     _g_TXTPAT                                                   =   0000F3BB G
     _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
-    _g_VCBB                                                     =   0000FB66 G
-    _g_VCBC                                                     =   0000FB8B G
-    _g_VDP_AddrPort                                             =   00000099 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_VCBB                                                     =   0000FB66 G
+    _g_VCBC                                                     =   0000FB8B G
+    _g_VDP_AddrPort                                             =   00000099 
     _g_VDP_DR                                                   =   00000006 G
     _g_VDP_DW                                                   =   00000007 G
     _g_VDP_DataPort                                             =   00000098 
@@ -258,6 +261,7 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_player_input                                                 ******** GX
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
@@ -266,13 +270,13 @@ Hexadecimal [32-Bits]
 Area Table
 
    0 _CODE                                      size        0   flags    0
-   1 _DATA                                      size        0   flags    0
+   1 _DATA                                      size        2   flags    0
    2 _INITIALIZED                               size        0   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0
-   5 _GSINIT                                    size        0   flags    0
+   5 _GSINIT                                    size        8   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG7                                      size      135   flags    0
+   7 _SEG7                                      size      1B6   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

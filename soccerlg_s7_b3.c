@@ -105,3 +105,37 @@ u8 GetJoystickDirection(u8 player){
 	}
 	return retValue;
 }
+
+// +++ Update all player inputs once per frame +++
+void UpdateAllInputs()
+{
+	// Static variable to hold the previous frame's trigger state for edge detection.
+	// Index 0 for Team 1 (P2/CPU), Index 1 for Team 2 (P1).
+	static bool s_prev_trigger_state[2] = {FALSE, FALSE};
+
+	// --- Player 1 (Team 2, joy 0) ---
+	// This player is always human-controlled.
+	g_player_input[1].direction = GetJoystickDirection(0);
+	bool p1_trigger_down = IsTeamJoystickTriggerPressed(0);
+	g_player_input[1].trigger_pressed = p1_trigger_down && !s_prev_trigger_state[1];
+	g_player_input[1].trigger_down = p1_trigger_down;
+	s_prev_trigger_state[1] = p1_trigger_down;
+
+	// --- Player 2 (Team 1, joy 1) or CPU ---
+	if (GameMode == GAMEMODE_P1_VS_P2)
+	{
+		// In 2-player mode, read joystick 2.
+		g_player_input[0].direction = GetJoystickDirection(1);
+		bool p2_trigger_down = IsTeamJoystickTriggerPressed(1);
+		g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
+		g_player_input[0].trigger_down = p2_trigger_down;
+		s_prev_trigger_state[0] = p2_trigger_down;
+	}
+	else // In 1-player mode, this is the CPU, so clear inputs.
+	{
+		g_player_input[0].direction = DIRECTION_NONE;
+		g_player_input[0].trigger_down = FALSE;
+		g_player_input[0].trigger_pressed = FALSE;
+		s_prev_trigger_state[0] = FALSE; // Ensure state is clean
+	}
+}

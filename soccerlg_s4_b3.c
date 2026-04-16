@@ -1077,8 +1077,12 @@ void MainLoop(){
 
     for (;;)
 	{
-		// vedo 	0
 		WaitForVBlank();
+		// LOGICA DI AGGIORNAMENTO
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+
+		// vedo 	0
 		VDP_SetPage(0);		
 		VDP_SetVerticalOffset(ScoreBoardLeft.y0 & 255);
 		AddLines(&Field);
@@ -1117,9 +1121,6 @@ void MainLoop(){
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		
-		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
-
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			SwSprite[i].x2 = SwSprite[i].lx;
@@ -1131,6 +1132,10 @@ void MainLoop(){
 	
 		// vedo 	1
 		WaitForVBlank();
+		// LOGICA DI AGGIORNAMENTO
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+
 		VDP_SetPage(1);		
 		VDP_SetVerticalOffset(ScoreBoardLeft.y1 & 255);
 		AddLines(&Field);
@@ -1169,9 +1174,6 @@ void MainLoop(){
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x2, ScoreBoardRight.y2, 512);
 		
-		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
-
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			SwSprite[i].x0 = SwSprite[i].lx;
@@ -1182,8 +1184,11 @@ void MainLoop(){
 		ScoreBoardRight.y0 = Field.ly;
 		
 		// vedo 	2	
-		
 		WaitForVBlank();
+		// LOGICA DI AGGIORNAMENTO
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+
 		VDP_SetPage(2);		
 		VDP_SetVerticalOffset(ScoreBoardLeft.y2 & 255);
 		AddLines(&Field);
@@ -1222,9 +1227,6 @@ void MainLoop(){
         // CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveScoreBoardRight, ScoreBoardRight.x1, ScoreBoardRight.y1, 256);
 		CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.x0, ScoreBoardRight.y0, 0);
 		
-		// LOGICA DI AGGIORNAMENTO
-		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
-
 		for (u8 i=0; i<NumSprite;i++) 
 		{
 			SwSprite[i].x1 = SwSprite[i].lx;

@@ -158,14 +158,11 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			else T2_Receiver = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
 
 			// Ciclare tra i due destinatari
-			u8 dir = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, joy_port);
+			u8 dir = g_player_input[throw_team].direction;
 			if (dir != DIRECTION_NONE && g_last_input_dir == DIRECTION_NONE) g_selected_rec = 1 - g_selected_rec;
 			g_last_input_dir = dir;
 
-			u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, joy_port);
-			bool do_throw = FALSE;
-			if (cur_trig != 0 && g_prev_trigger[joy_port] == 0) do_throw = TRUE;
-			g_prev_trigger[joy_port] = cur_trig;
+			bool do_throw = g_player_input[throw_team].trigger_pressed;
 
 			if (*wait_secs == 0) do_throw = TRUE; // Lancio automatico scaduto il tempo
 
@@ -293,14 +290,11 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				if (team_to_kick == TEAM_1) T1_Receiver = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
 				else T2_Receiver = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
 
-				u8 dir = CallFnc_U8_P1(SEG_INPUT, GetJoystickDirection, joy_port);
+				u8 dir = g_player_input[team_to_kick].direction;
 				if (dir != DIRECTION_NONE && g_last_input_dir == DIRECTION_NONE) g_selected_rec = 1 - g_selected_rec;
 				g_last_input_dir = dir;
 
-				u8 cur_trig = CallFnc_U8_P1(SEG_INPUT, IsTeamJoystickTriggerPressed, joy_port);
-				bool do_kick = FALSE;
-				if (cur_trig != 0 && g_prev_trigger[joy_port] == 0) do_kick = TRUE;
-				g_prev_trigger[joy_port] = cur_trig;
+				bool do_kick = g_player_input[team_to_kick].trigger_pressed;
 
 				if (do_kick) *wait_secs = 0; // Trigger premuto: inizia subito la rincorsa!
 			}

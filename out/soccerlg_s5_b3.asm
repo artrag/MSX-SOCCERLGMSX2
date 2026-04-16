@@ -2591,7 +2591,7 @@ _ShowSpriteMessage::
 	inc	-1 (ix)
 	jp	00128$
 00125$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < NumSprite; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < 24; i++) {
 	ld	a, -9 (ix)
 	add	a, #0x0f
 	ld	c, a
@@ -2599,7 +2599,7 @@ _ShowSpriteMessage::
 	ld	a, c
 	sub	a, #0x18
 	jr	NC, 00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:169: SwSprite[i].ly = 1000;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:169: SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -2617,7 +2617,7 @@ _ShowSpriteMessage::
 	ld	(hl), #0xe8
 	inc	hl
 	ld	(hl), #0x03
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < NumSprite; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:168: for (u8 i = 15 + len; i < 24; i++) {
 	inc	c
 	jp	00131$
 00133$:
@@ -2630,14 +2630,14 @@ _ShowSpriteMessage::
 ; Function HideSpriteMessage
 ; ---------------------------------
 _HideSpriteMessage::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < 24; i++) {
 	ld	de, #_SwSprite+0
 	ld	c, #0x0f
 00103$:
 	ld	a, c
 	sub	a, #0x18
 	ret	NC
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Valore "sicuro" per essere fuori schermo
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -2656,7 +2656,7 @@ _HideSpriteMessage::
 	ld	(hl), #0xf0
 	inc	hl
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < NumSprite; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: for (u8 i = 15; i < 24; i++) {
 	inc	c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: }
 	jp	00103$

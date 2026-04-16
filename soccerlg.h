@@ -21,6 +21,12 @@ struct ObjectInfo {
 	u16 count;
 };
 
+struct InputState {
+    u8 direction;
+    bool trigger_pressed;
+    bool trigger_down;
+};
+
 struct TeamColors {
     u16 Shirt;
     u16 Shorts;
@@ -228,8 +234,8 @@ struct TeamColors {
 #define SPR_LITTLE_ARROW_TOP						304
 #define SPR_LITTLE_ARROW_BOTTOM						305
 #define SPR_MENU_SELECTOR							306
-#define SPR_BIG_ARROW_TOP						    307
-#define SPR_BIG_ARROW_BOTTOM						308
+#define SPR_BIG_ARROW_TOP						    108
+#define SPR_BIG_ARROW_BOTTOM						107
 
 #define SPR_MSG_KICKOFF								288
 #define SPR_MSG_GOALKICK							292
@@ -292,7 +298,7 @@ struct TeamColors {
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(24)
+#define NumSprite	(25)
 
 #define SCOREBOARD_NX_LEFT 8
 #define SCOREBOARD_NY_LEFT 212
@@ -355,6 +361,10 @@ extern  i8  g_last_dx[2];
 extern  i8  g_last_dy[2];
 extern  u8  g_prev_trigger[2];
 extern  u8  g_last_input_dir;
+extern  u16 g_h_arrow_x;
+extern  i8  g_h_arrow_dir;
+
+extern struct InputState g_player_input[2];
 
 
 
@@ -415,6 +425,7 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
 // +++ SEGMENT SEG_INPUT (7) +++
 bool IsTeamJoystickTriggerPressed(u8 player);
 u8 GetJoystickDirection(u8 player);
+void UpdateAllInputs();
 
 // +++ SEGMENT SEG_EVENTS (8) +++
 void EventStartPresentationScrollig();

@@ -85,10 +85,12 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8  g_pass_receiver = 0xFF;
 	i8  g_last_dx[2] = {0, 0};
 	i8  g_last_dy[2] = {1, -1};
-	u8  g_prev_trigger[2] = {0, 0};
 	u8  g_last_input_dir = DIRECTION_NONE;
+	u16 g_h_arrow_x = 100;
+	i8  g_h_arrow_dir = 1;
 
 
+struct InputState g_player_input[2];
 struct ObjectInfo SwSprite[NumSprite];
 struct ObjectInfo Field;
 struct ObjectInfo ScoreBoardLeft;
