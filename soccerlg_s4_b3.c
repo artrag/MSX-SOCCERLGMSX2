@@ -1048,14 +1048,20 @@ void MainLoop(){
 	SwSprite[14].dx = 0;
 	SwSprite[14].dy = 0;
 
-	// Nascondi gli sprite in eccesso (fuori dal campo)
-	for (u8 i = 15; i < NumSprite; i++) {
+	// Nascondi gli sprite dei messaggi e delle frecce
+	for (u8 i = 15; i < 26; i++) {
 		SwSprite[i].lx = 0;
 		SwSprite[i].ly = 1000; // Valore Y alto, fuori dal limite del campo (504)
 		SwSprite[i].frame = 0;
 		SwSprite[i].dx = 0;
 		SwSprite[i].dy = 0;
 	}
+	// Arbitro
+	SwSprite[26].lx = 20;
+	SwSprite[26].ly = BALL_START_Y;
+	SwSprite[26].frame = SPR_REFEREE_PLAYER_FACE_TO_WEST;
+	SwSprite[26].dx = 0;
+	SwSprite[26].dy = 0;
 
 	// Allineamento coordinate fisiche per i tre buffer (sprite immobili)
 	for (u8 i=0; i<NumSprite;i++) 

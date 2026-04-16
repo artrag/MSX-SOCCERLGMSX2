@@ -737,7 +737,7 @@ _UpdateGameState_Restarts::
 	ld	c, #0x0f
 00265$:
 	ld	a, c
-	sub	a, #0x1a
+	sub	a, #0x1b
 	jr	NC, 00269$
 	ld	b, #0x00
 	ld	l, c
@@ -827,7 +827,7 @@ _UpdateGameState_Restarts::
 	ld	-5 (ix), #0x00
 00271$:
 	ld	a, -5 (ix)
-	sub	a, #0x1a
+	sub	a, #0x1b
 	jp	NC, 00119$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:59: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
 	ld	c, -5 (ix)

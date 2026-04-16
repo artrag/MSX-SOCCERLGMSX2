@@ -165,14 +165,26 @@ void AssignGoalKickTargets() {
 	u16 gk_start_x = (RestartSideX < 128) ? 75 : 181; // Partenza del portiere
 	u16 ball_x = (RestartSideX < 128) ? 95 : 161; // Palla spostata di 20 pixel verso lo specchio della porta
 	
+	if (RestartType == RESTART_GKSAVE) {
+		gk_start_x = RestartSideX;
+		kick_y = RestartSideY;
+		ball_x = RestartSideX;
+	}
+
 	SwSprite[14].lx = ball_x;
 	SwSprite[14].ly = kick_y;
-	SwSprite[14].frame = SPR_BALL_SIZE_1; 
+	
+	if (RestartType == RESTART_GKSAVE) {
+		SwSprite[14].ly = 1000;
+		SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
+	} else {
+		SwSprite[14].frame = SPR_BALL_SIZE_1; 
+	}
 	SwSprite[14].dx = SwSprite[14].dy = SwSprite[14].anim = SwSprite[14].count = 0;
 	
 	// Posiziona i Portieri con una rincorsa più lunga
 	SwSprite[gk].tx = gk_start_x; 
-	SwSprite[gk].ty = kick_y - (dir_y * 20);
+	SwSprite[gk].ty = kick_y - ((RestartType == RESTART_GKSAVE) ? 0 : (dir_y * 20));
 	
 	u8 other_gk = (gk == 0) ? 7 : 0;
 	SwSprite[other_gk].tx = 128;
@@ -338,6 +350,17 @@ void ExecuteCornerKick(u8 thrower, u8 receiver) {
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step) 
 {
 	bool is_gk = (i == 0 || i == 7);
+	if (i == 26) { // Arbitro
+		if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_DIRECTION_3;
+		if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_DIRECTION_3;
+		if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_EAST_DIRECTION_3;
+		if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_WEST_DIRECTION_3;
+		if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_3;
+		if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_3;
+		if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_3;
+		if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_3;
+		return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+	}
 	u8 team = (i < 7) ? 1 : 2;
 	
 	if (is_gk) {
@@ -378,6 +401,17 @@ u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step)
 u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy) 
 {
 	bool is_gk = (i == 0 || i == 7);
+	if (i == 26) { // Arbitro
+		if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
+		if (dy > 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+		if (dy == 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_EAST;
+		if (dy == 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_WEST;
+		if (dy < 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_EAST;
+		if (dy < 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_WEST;
+		if (dy > 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_EAST;
+		if (dy > 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_WEST;
+		return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+	}
 	u8 team = (i < 7) ? 1 : 2;
 	
 	if (is_gk) {

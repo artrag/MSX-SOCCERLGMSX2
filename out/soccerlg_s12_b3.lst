@@ -737,7 +737,7 @@
     000002EC 0E 0F            [ 7]  737 	ld	c, #0x0f
     000002EE                        738 00265$:
     000002EE 79               [ 4]  739 	ld	a, c
-    000002EF D6 1A            [ 7]  740 	sub	a, #0x1a
+    000002EF D6 1B            [ 7]  740 	sub	a, #0x1b
     000002F1 30 79            [12]  741 	jr	NC, 00269$
     000002F3 06 00            [ 7]  742 	ld	b, #0x00
     000002F5 69               [ 4]  743 	ld	l, c
@@ -827,7 +827,7 @@
     0000037C DD 36 FB 00      [19]  827 	ld	-5 (ix), #0x00
     00000380                        828 00271$:
     00000380 DD 7E FB         [19]  829 	ld	a, -5 (ix)
-    00000383 D6 1A            [ 7]  830 	sub	a, #0x1a
+    00000383 D6 1B            [ 7]  830 	sub	a, #0x1b
     00000385 D2r6Er04         [10]  831 	jp	NC, 00119$
                                     832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:59: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
     00000388 DD 4E FB         [19]  833 	ld	c, -5 (ix)

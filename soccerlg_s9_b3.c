@@ -419,6 +419,49 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		for (u8 i = 0; i < 14; i++) {
 			CallFnc_VOID_P1(SEG_LOGIC, PlayerAI, i);
 		}
+
+		// --- AGGIORNAMENTO ARBITRO ---
+		struct ObjectInfo* Referee = &SwSprite[26];
+
+		// L'arbitro segue la palla mantenendosi a debita distanza (in diagonale)
+		u16 target_x = (Ball->lx < 128) ? ((u16)Ball->lx + 40) : ((u16)Ball->lx - 40);
+		u16 target_y = (Ball->ly < 256) ? (Ball->ly + 48) : (Ball->ly - 48);
+
+		// Limiti per non uscire troppo dal campo
+		if (target_x < 16) target_x = 16;
+		if (target_x > 240) target_x = 240;
+		if (target_y < 24) target_y = 24;
+		if (target_y > 488) target_y = 488;
+
+		// Movimento graduale verso il target
+		i8 ref_dx = 0;
+		i8 ref_dy = 0;
+		u8 speed = 1; // L'arbitro si muove più lentamente
+
+		if (target_x > Referee->lx + speed) ref_dx = speed;
+		else if (target_x < Referee->lx - speed) ref_dx = -speed;
+
+		if (target_y > Referee->ly + speed) ref_dy = speed;
+		else if (target_y < Referee->ly - speed) ref_dy = -speed;
+
+		Referee->lx += ref_dx;
+		Referee->ly += ref_dy;
+
+		// Sguardo sempre orientato verso la palla
+		i8 look_dx = (Ball->lx > Referee->lx) ? 1 : ((Ball->lx < Referee->lx) ? -1 : 0);
+		i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
+		if (look_dx == 0 && look_dy == 0) look_dy = 1; // Guarda in basso di default
+
+		// Animazione
+		if (ref_dx != 0 || ref_dy != 0) {
+			Referee->anim++;
+			const u8 walk_seq[4] = {0, 1, 2, 1};
+			// Usa la direzione dello sguardo per l'animazione, così l'arbitro "scivola" guardando l'azione
+			Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
+		} else {
+			// Posa ferma orientata verso la palla
+			Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, 26, look_dx, look_dy);
+		}
 	} else {
 		SwSprite[24].ly = 1000; // Nasconde la freccia superiore durante le pause
 		SwSprite[25].ly = 1000; // Nasconde la freccia inferiore durante le pause

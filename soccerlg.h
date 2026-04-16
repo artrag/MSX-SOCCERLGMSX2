@@ -217,8 +217,8 @@ struct TeamColors {
 #define SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_3   274
 #define SPR_REFEREE_PLAYER_FACE_TO_NORTH            261
 #define SPR_REFEREE_PLAYER_FACE_TO_SOUTH            262
-#define SPR_REFEREE_PLAYER_FACE_TO_EAST             283
-#define SPR_REFEREE_PLAYER_FACE_TO_WEST             282
+#define SPR_REFEREE_PLAYER_FACE_TO_EAST             282
+#define SPR_REFEREE_PLAYER_FACE_TO_WEST             283
 #define SPR_REFEREE_PLAYER_FACE_TO_NORTH_EAST       272
 #define SPR_REFEREE_PLAYER_FACE_TO_NORTH_WEST       271
 #define SPR_REFEREE_PLAYER_FACE_TO_SOUTH_EAST       265
@@ -261,6 +261,7 @@ struct TeamColors {
 #define RESTART_THROWIN                             1
 #define RESTART_GOALKICK                            2
 #define RESTART_CORNERKICK                          3
+#define RESTART_GKSAVE                              4
 
 #define TEAM_1                                      0
 #define TEAM_2                                      1
@@ -298,7 +299,7 @@ struct TeamColors {
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(26)
+#define NumSprite	(27)
 
 #define SCOREBOARD_NX_LEFT 8
 #define SCOREBOARD_NY_LEFT 212
