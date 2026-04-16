@@ -33,7 +33,19 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		*start_sec = Frms;
 	} else if (*game_state == 2) {
 		bool all_in_position = TRUE;
-		for (u8 i = 0; i < 14; i++) {
+
+		// Imposta dinamicamente il target dell'arbitro in base alla posizione della palla
+		u16 ref_tx = (SwSprite[14].lx < 128) ? ((u16)SwSprite[14].lx + 40) : ((u16)SwSprite[14].lx - 40);
+		u16 ref_ty = (SwSprite[14].ly < 256) ? (SwSprite[14].ly + 48) : (SwSprite[14].ly - 48);
+		if (ref_tx < 16) ref_tx = 16;
+		if (ref_tx > 240) ref_tx = 240;
+		if (ref_ty < 24) ref_ty = 24;
+		if (ref_ty > 488) ref_ty = 488;
+		SwSprite[26].tx = ref_tx;
+		SwSprite[26].ty = ref_ty;
+
+		for (u8 i = 0; i <= 26; i++) {
+			if (i >= 14 && i < 26) continue;
 			struct ObjectInfo* p = &SwSprite[i];
 			if (p->lx != p->tx || p->ly != p->ty) {
 				all_in_position = FALSE;
@@ -55,6 +67,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			} else {
 				i8 dir_x = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
 				i8 dir_y = (i < 7) ? 1 : -1; // Team 1 guarda sempre a Sud, Team 2 sempre a Nord
+				if (i == 26) {
+					dir_y = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
+					if (dir_x == 0 && dir_y == 0) dir_y = 1;
+				}
 				p->dx = 0; p->dy = 0;
 				
 				if (RestartType == RESTART_THROWIN && i == g_thrower_id) {
