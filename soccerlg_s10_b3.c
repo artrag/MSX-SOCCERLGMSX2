@@ -76,8 +76,8 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	}
 	
 	// Specchio porta: ricalibrato e perfettamente simmetrico rispetto al centro
-	u8 goal_left = 90;
-	u8 goal_right = 150;
+	u8 goal_left = 84;
+	u8 goal_right = 156;
 	
 	// ========== CONTROLLO GOAL ==========
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
@@ -86,10 +86,11 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
 		RestartType = RESTART_GOAL;
 		KickOffTeam = TEAM_1; // Il Team 1 subisce gol, quindi batte
+		ScoreTeam2++; // Aumenta il punteggio
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-		T1_Carrier = T2_Carrier = 0xFF;
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 		TimerEnabled = FALSE;
 		*wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
 		return;
@@ -101,10 +102,11 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		Field.dy = 0;
 		RestartType = RESTART_GOAL;
 		KickOffTeam = TEAM_2; // Il Team 2 subisce gol, quindi batte
+		ScoreTeam1++; // Aumenta il punteggio
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-		T1_Carrier = T2_Carrier = 0xFF;
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 		TimerEnabled = FALSE;
 		*wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
 		return;
@@ -125,7 +127,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
 			Ball->anim = Ball->dx = Ball->dy = 0;
 			Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-			T1_Carrier = T2_Carrier = 0xFF;
+			T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 			TimerEnabled = FALSE;
 			*wait_secs = 2; *start_sec = Frms;
 			return;
@@ -158,7 +160,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			
 			Ball->anim = Ball->dx = Ball->dy = 0;
 			Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-			T1_Carrier = T2_Carrier = 0xFF;
+			T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 			TimerEnabled = FALSE;
 			*wait_secs = 2; *start_sec = Frms;
 			return;

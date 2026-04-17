@@ -257,6 +257,7 @@ struct TeamColors {
 #define SPR_MSG_TIMEUP								320
 #define SPR_MSG_HALFTIME							324
 #define SPR_MSG_PENALTIES							329
+#define SPR_MSG_OOFFSIDE							248
 
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
 
@@ -265,6 +266,7 @@ struct TeamColors {
 #define SPRITE_MSG_THROWIN_LENGTH					5
 #define SPRITE_MSG_CORNERKICK_LENGTH				6
 #define SPRITE_MSG_INGOAL_LENGTH					4
+#define SPRITE_MSG_OFFSIDE_LENGTH					4
 
 #define SPRITE_MSG_TIMEUP_LENGTH					4
 #define SPRITE_MSG_HALFTIME_LENGTH					5
@@ -343,6 +345,8 @@ extern	u8	Frms;
 extern	u8	Secs;
 extern	u8	Mins;
 extern  u8  LastSecs;
+extern  u8  ScoreTeam1;
+extern  u8  ScoreTeam2;
 extern  struct ObjectInfo Field;
 extern  struct ObjectInfo ScoreBoardLeft;
 extern  struct ObjectInfo ScoreBoardRight;

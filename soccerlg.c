@@ -56,8 +56,10 @@ const struct TeamColors g_TeamColorsArray[] = {
 	u8	Mins = HALF_TIME_DURATION;
     u8  LastSecs=0xFF;
     u8  Half = 1;
-	u8  ScoreA = 0;
-	u8  ScoreB = 0;
+	u8  ScoreTeam1 = 0;
+	u8  ScoreTeam2 = 0;
+	u8  LastScoreTeam1 = 0;
+	u8  LastScoreTeam2 = 0;
 	u8  Team1Code=TEAM_ITA_COLORS;
 	u8  Team2Code=TEAM_NLD_COLORS;
 	u8  KickOffTeam=TEAM_2; // P1 (Team 2) batte nel primo tempo
@@ -474,13 +476,13 @@ void main()
     Print_SetPosition(0,  16+768);Print_DrawText("U");
     Print_SetPosition(0,  24+768);Print_DrawText("S");
     Print_SetPosition(0,  32+768);Print_DrawText(" ");
-    Print_SetPosition(0,  40+768);Print_DrawText("1");
+    Print_SetPosition(0,  40+768);Print_DrawText("0");
 
 	Print_SetPosition(0,  56+768);Print_DrawText("I");
     Print_SetPosition(0,  64+768);Print_DrawText("T");
     Print_SetPosition(0,  72+768);Print_DrawText("A");
     Print_SetPosition(0,  80+768);Print_DrawText(" ");
-    Print_SetPosition(0,  88+768);Print_DrawText("2");
+    Print_SetPosition(0,  88+768);Print_DrawText("0");
 
 
     Print_SetPosition(248,  8+768);Print_DrawText("T");

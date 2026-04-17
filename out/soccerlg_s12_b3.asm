@@ -1844,11 +1844,11 @@ _UpdateGameState_Restarts::
 	ld	a, -1 (ix)
 	sub	a, #0x07
 	jp	Z,00211$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:179: u8 phase = ((Frms / 10) + (i % 2)) % 8; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:179: u8 phase = ((Frms / 6) + i * 3) % 8; // Velocità e sfasamento
 	ld	a, (_Frms+0)
 	ld	-8 (ix), a
 	ld	-7 (ix), #0x00
-	ld	de, #0x000a
+	ld	de, #0x0006
 	ld	l, -8 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1860,9 +1860,16 @@ _UpdateGameState_Restarts::
 	inc	sp
 	push	de
 	ld	a, -1 (ix)
-	and	a, #0x01
-	ld	-13 (ix), a
-	ld	-12 (ix), #0x00
+	ld	-8 (ix), a
+	ld	-7 (ix), #0x00
+	ld	c, a
+	ld	b, #0x00
+	ld	l, c
+	ld	h, b
+	add	hl, hl
+	add	hl, bc
+	ld	-13 (ix), l
+	ld	-12 (ix), h
 	ld	a, -26 (ix)
 	add	a, -13 (ix)
 	ld	-8 (ix), a
@@ -1901,45 +1908,45 @@ _UpdateGameState_Restarts::
 	jp	00191$
 	jp	00192$
 	jp	00193$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:182: case 0: dx =  0; dy = -1; break; // N
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:182: case 0: dx =  0; dy = -2; break; // N
 00186$:
 	ld	-13 (ix), #0x00
-	ld	-12 (ix), #0xff
+	ld	-12 (ix), #0xfe
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:183: case 1: dx =  1; dy = -1; break; // NE
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:183: case 1: dx =  2; dy = -2; break; // NE
 00187$:
-	ld	-13 (ix), #0x01
-	ld	-12 (ix), #0xff
+	ld	-13 (ix), #0x02
+	ld	-12 (ix), #0xfe
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:184: case 2: dx =  1; dy =  0; break; // E
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:184: case 2: dx =  2; dy =  0; break; // E
 00188$:
-	ld	-13 (ix), #0x01
+	ld	-13 (ix), #0x02
 	ld	-12 (ix), #0x00
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:185: case 3: dx =  1; dy =  1; break; // SE
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:185: case 3: dx =  2; dy =  2; break; // SE
 00189$:
-	ld	-13 (ix), #0x01
-	ld	-12 (ix), #0x01
+	ld	-13 (ix), #0x02
+	ld	-12 (ix), #0x02
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:186: case 4: dx =  0; dy =  1; break; // S
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:186: case 4: dx =  0; dy =  2; break; // S
 00190$:
 	ld	-13 (ix), #0x00
-	ld	-12 (ix), #0x01
+	ld	-12 (ix), #0x02
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:187: case 5: dx = -1; dy =  1; break; // SW
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:187: case 5: dx = -2; dy =  2; break; // SW
 00191$:
-	ld	-13 (ix), #0xff
-	ld	-12 (ix), #0x01
+	ld	-13 (ix), #0xfe
+	ld	-12 (ix), #0x02
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:188: case 6: dx = -1; dy =  0; break; // W
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:188: case 6: dx = -2; dy =  0; break; // W
 00192$:
-	ld	-13 (ix), #0xff
+	ld	-13 (ix), #0xfe
 	ld	-12 (ix), #0x00
 	jp	00194$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:189: case 7: dx = -1; dy = -1; break; // NW
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:189: case 7: dx = -2; dy = -2; break; // NW
 00193$:
-	ld	-13 (ix), #0xff
-	ld	-12 (ix), #0xff
+	ld	-13 (ix), #0xfe
+	ld	-12 (ix), #0xfe
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:190: }
 00194$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:193: i16 next_x = p->lx + dx;
