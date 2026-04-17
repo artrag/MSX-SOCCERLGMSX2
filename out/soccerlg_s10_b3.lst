@@ -849,9 +849,9 @@
     00000261 B7               [ 4]  849 	or	a, a
     00000262 28 66            [12]  850 	jr	Z, 00107$
     00000264 DD 7E FC         [19]  851 	ld	a, -4 (ix)
-    00000267 D6 54            [ 7]  852 	sub	a, #0x54
+    00000267 D6 5A            [ 7]  852 	sub	a, #0x5a
     00000269 38 5F            [12]  853 	jr	C, 00107$
-    0000026B 3E 9C            [ 7]  854 	ld	a, #0x9c
+    0000026B 3E 96            [ 7]  854 	ld	a, #0x96
     0000026D DD 96 FC         [19]  855 	sub	a, -4 (ix)
     00000270 38 58            [12]  856 	jr	C, 00107$
                                     857 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:85: *game_state = 9;
@@ -891,8 +891,8 @@
                                     891 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: TimerEnabled = FALSE;
     000002B2 FD 21r00r00      [14]  892 	ld	iy, #_TimerEnabled
     000002B6 FD 36 00 00      [19]  893 	ld	0 (iy), #0x00
-                                    894 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: *wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
-    000002BA 3E 02            [ 7]  895 	ld	a, #0x02
+                                    894 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+    000002BA 3E 03            [ 7]  895 	ld	a, #0x03
     000002BC 12               [ 7]  896 	ld	(de), a
     000002BD DD 4E 04         [19]  897 	ld	c, 4 (ix)
     000002C0 DD 46 05         [19]  898 	ld	b, 5 (ix)
@@ -912,9 +912,9 @@
     000002DA B7               [ 4]  912 	or	a, a
     000002DB 28 66            [12]  913 	jr	Z, 00111$
     000002DD DD 7E FC         [19]  914 	ld	a, -4 (ix)
-    000002E0 D6 54            [ 7]  915 	sub	a, #0x54
+    000002E0 D6 5A            [ 7]  915 	sub	a, #0x5a
     000002E2 38 5F            [12]  916 	jr	C, 00111$
-    000002E4 3E 9C            [ 7]  917 	ld	a, #0x9c
+    000002E4 3E 96            [ 7]  917 	ld	a, #0x96
     000002E6 DD 96 FC         [19]  918 	sub	a, -4 (ix)
     000002E9 38 58            [12]  919 	jr	C, 00111$
                                     920 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: *game_state = 9;
@@ -954,8 +954,8 @@
                                     954 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:108: TimerEnabled = FALSE;
     0000032B FD 21r00r00      [14]  955 	ld	iy, #_TimerEnabled
     0000032F FD 36 00 00      [19]  956 	ld	0 (iy), #0x00
-                                    957 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: *wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
-    00000333 3E 02            [ 7]  958 	ld	a, #0x02
+                                    957 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+    00000333 3E 03            [ 7]  958 	ld	a, #0x03
     00000335 12               [ 7]  959 	ld	(de), a
     00000336 DD 4E 04         [19]  960 	ld	c, 4 (ix)
     00000339 DD 46 05         [19]  961 	ld	b, 5 (ix)

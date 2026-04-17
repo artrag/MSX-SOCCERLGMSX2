@@ -75,9 +75,9 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 	}
 	
-	// Specchio porta: simmetrico rispetto alla coordinata lx della palla al centro (120)
-	u8 goal_left = 84;
-	u8 goal_right = 156;
+	// Specchio porta: ricalibrato e perfettamente simmetrico rispetto al centro
+	u8 goal_left = 90;
+	u8 goal_right = 150;
 	
 	// ========== CONTROLLO GOAL ==========
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
@@ -91,7 +91,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = 0xFF;
 		TimerEnabled = FALSE;
-		*wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
+		*wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
 		return;
 	}
 	
@@ -106,7 +106,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = 0xFF;
 		TimerEnabled = FALSE;
-		*wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
+		*wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
 		return;
 	}
 	

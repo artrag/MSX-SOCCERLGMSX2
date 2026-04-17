@@ -175,18 +175,18 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			struct ObjectInfo* p = &SwSprite[i];
 			
 			if (team == scoring_team && i != 0 && i != 7) { 
-				// Movimento per i festeggiamenti
-				u8 phase = ((Frms / 6) + i * 3) % 8; // Velocità e sfasamento
+				// Movimento per i festeggiamenti (più lento e in gruppo)
+				u8 phase = ((Frms / 10) + (i % 2)) % 8; 
 				i8 dx = 0, dy = 0;
 				switch(phase) {
-					case 0: dx =  0; dy = -2; break; // N
-					case 1: dx =  2; dy = -2; break; // NE
-					case 2: dx =  2; dy =  0; break; // E
-					case 3: dx =  2; dy =  2; break; // SE
-					case 4: dx =  0; dy =  2; break; // S
-					case 5: dx = -2; dy =  2; break; // SW
-					case 6: dx = -2; dy =  0; break; // W
-					case 7: dx = -2; dy = -2; break; // NW
+					case 0: dx =  0; dy = -1; break; // N
+					case 1: dx =  1; dy = -1; break; // NE
+					case 2: dx =  1; dy =  0; break; // E
+					case 3: dx =  1; dy =  1; break; // SE
+					case 4: dx =  0; dy =  1; break; // S
+					case 5: dx = -1; dy =  1; break; // SW
+					case 6: dx = -1; dy =  0; break; // W
+					case 7: dx = -1; dy = -1; break; // NW
 				}
 
 				// Mantieni i giocatori all'interno dei limiti dello schermo/campo

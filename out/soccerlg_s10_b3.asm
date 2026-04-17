@@ -849,9 +849,9 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00107$
 	ld	a, -4 (ix)
-	sub	a, #0x54
+	sub	a, #0x5a
 	jr	C, 00107$
-	ld	a, #0x9c
+	ld	a, #0x96
 	sub	a, -4 (ix)
 	jr	C, 00107$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:85: *game_state = 9;
@@ -891,8 +891,8 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: *wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
-	ld	a, #0x02
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+	ld	a, #0x03
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
@@ -912,9 +912,9 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00111$
 	ld	a, -4 (ix)
-	sub	a, #0x54
+	sub	a, #0x5a
 	jr	C, 00111$
-	ld	a, #0x9c
+	ld	a, #0x96
 	sub	a, -4 (ix)
 	jr	C, 00111$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: *game_state = 9;
@@ -954,8 +954,8 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:108: TimerEnabled = FALSE;
 	ld	iy, #_TimerEnabled
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: *wait_secs = 2; *start_sec = Frms;  // Pausa per il goal e i festeggiamenti
-	ld	a, #0x02
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+	ld	a, #0x03
 	ld	(de), a
 	ld	c, 4 (ix)
 	ld	b, 5 (ix)
