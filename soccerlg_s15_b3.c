@@ -10,6 +10,8 @@
 
 void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly)
 {
+	(void)target_ly; // Evita il warning 85 per parametro non utilizzato
+
 	if (*game_state == 7) {
 		// --- ATTESA BATTUTA RIMESSA LATERALE ---
 		u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;

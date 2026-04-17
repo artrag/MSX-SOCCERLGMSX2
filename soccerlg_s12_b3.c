@@ -87,6 +87,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						*game_state = 10; // Vittoria: Esultanza e Uscita
 						*wait_secs = 3;
 						*start_sec = Frms;
+						g_is_penalty_shootout = FALSE;
 					} else {
 						*game_state = 11; // Pareggio: Setup Rigori
 						CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
@@ -107,16 +108,16 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 								case 5: off_x =  18; off_y =   2; break; // Giocatore 6 (centro)
 								case 6: off_x = -10; off_y =  22; break; // Giocatore 7 (avanti)
 							}
-							SwSprite[i].tx = t_cx + off_x;
-							SwSprite[i].ty = 256 + off_y;
+							SwSprite[i].tx = (u8)(t_cx + off_x);
+							SwSprite[i].ty = (u16)(256 + off_y);
 						}
 						// Arbitro in disparte al limite del cerchio
-						SwSprite[26].tx = 128 + 24;
-						SwSprite[26].ty = 256 - 24;
+						SwSprite[26].tx = (u8)(128 + 24);
+						SwSprite[26].ty = (u16)(256 - 24);
 						
 						// Nascondi la palla
-						SwSprite[14].tx = 0; SwSprite[14].ty = 1000;
-						SwSprite[14].lx = 0; SwSprite[14].ly = 1000;
+						SwSprite[14].tx = 0; SwSprite[14].ty = (u16)1000;
+						SwSprite[14].lx = 0; SwSprite[14].ly = (u16)1000;
 						SwSprite[14].dx = 0; SwSprite[14].dy = 0;
 						SwSprite[14].anim = 0;
 					}
@@ -331,60 +332,9 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			CallFnc_VOID(SEG_MENU, ShowMenu);
 		}
 		return;
-	} else if (*game_state == 11) {
-		// --- PAREGGIO E SETUP RIGORI ---
-
-		if (*wait_secs > 0) {
-			if (*start_sec < Frms) { 
-				(*wait_secs)--;
-				if (*wait_secs == 0) {
-					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
-				}
-			}
-			*start_sec = Frms;
-			return;
-		}
-
-		bool all_in_position = TRUE;
-
-		// Rientro della telecamera verso centrocampo
-		if (Field.ly > 156 + 3) {
-			Field.dy = -4; Field.ly += Field.dy; all_in_position = FALSE;
-		} else if (Field.ly + 3 < 156) {
-			Field.dy = 4; Field.ly += Field.dy; all_in_position = FALSE;
-		} else {
-			Field.dy = 0; Field.ly = 156;
-		}
-
-		// Muovi giocatori e arbitro verso le postazioni dei rigori
-		for (u8 i = 0; i <= 26; i++) {
-			if (i >= 14 && i < 26) continue; // Salta UI e Palla
-			struct ObjectInfo* p = &SwSprite[i];
-			if (p->lx != p->tx || p->ly != p->ty) {
-				all_in_position = FALSE;
-				if (p->tx > p->lx) p->dx = (p->tx - p->lx >= 2) ? 2 : (i8)(p->tx - p->lx); else if (p->tx < p->lx) p->dx = (p->lx - p->tx >= 2) ? -2 : (i8)-(p->lx - p->tx); else p->dx = 0;
-				if (p->ty > p->ly) p->dy = (p->ty - p->ly >= 2) ? 2 : (i8)(p->ty - p->ly); else if (p->ty < p->ly) p->dy = (p->ly - p->ty >= 2) ? -2 : (i8)-(p->ly - p->ty); else p->dy = 0;
-				p->lx += p->dx; p->ly += p->dy; p->anim++;
-				const u8 walk_seq[4] = {0, 1, 2, 1};
-				p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
-			} else {
-				p->dx = 0; p->dy = 0;
-				i8 look_dx = 0, look_dy = 1;
-				if (i == 26) { // L'arbitro fissa sempre la palla
-					look_dx = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
-					look_dy = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
-				} else { // I giocatori guardano in direzioni varie
-					look_dx = (i8)((i % 3) - 1);
-					look_dy = (i8)(((i / 3) % 3) - 1);
-				}
-				if (look_dx == 0 && look_dy == 0) look_dy = 1;
-				p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, look_dx, look_dy);
-			}
-		}
-		if (all_in_position) *game_state = 12; // Va in Loop infinito dei Rigori
+	} else if (*game_state >= 11 && *game_state <= 16) {
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_6, UpdateGameState_Penalties, game_state, wait_secs, start_sec, target_ly);
 		return;
-	} else if (*game_state == 12) {
-		return; // CICLO INFINITO IN ATTESA DEI RIGORI
 	} else if (*game_state == 7 || *game_state == 8) {
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);
 		return;

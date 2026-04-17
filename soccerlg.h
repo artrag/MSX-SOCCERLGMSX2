@@ -205,6 +205,8 @@ struct TeamColors {
 #define SPR_GK_PLAYER_NORTH_1			        	242
 #define SPR_GK_PLAYER_NORTH_2			        	245
 #define SPR_GK_PLAYER_NORTH_SHOT			    	247
+#define SPR_GK_PLAYER_DOWN_EAST				    	238
+#define SPR_GK_PLAYER_DOWN_WEST			    		239
 #define SPR_REFEREE_SOUTH_DIRECTION_1        		256
 #define SPR_REFEREE_SOUTH_DIRECTION_2        		257
 #define SPR_REFEREE_SOUTH_DIRECTION_3        		258
@@ -318,6 +320,7 @@ struct TeamColors {
 #define SEG_GAMESTATE_4 13
 #define SEG_MENU        14
 #define SEG_GAMESTATE_5 15
+#define SEG_GAMESTATE_6 16
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -355,6 +358,12 @@ extern  u8  ScoreTeam2;
 extern  u8  LastScoreTeam1;
 extern  u8  LastScoreTeam2;
 extern  struct ObjectInfo Field;
+extern  bool g_is_penalty_shootout;
+extern  u8  g_penalty_shot_count[2];
+extern  u8  g_penalty_shooter_idx;
+extern  u8  g_penalty_team;
+extern  u8  g_penalty_arrow_pos;
+extern  i8  g_penalty_arrow_dir;
 extern  struct ObjectInfo ScoreBoardLeft;
 extern  struct ObjectInfo ScoreBoardRight;
 
@@ -466,6 +475,7 @@ void EventCornerKick();
 void EventGoalKick();
 void EventOffside();
 void EventGoal();
+void EventPenaltyWhistle();
 
 // +++ SEGMENT SEG_GAMESTATE_1 (9) +++
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -491,6 +501,9 @@ void ShowMenu();
 
 // +++ SEGMENT SEG_GAMESTATE_5 (15) +++
 void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+
+// +++ SEGMENT SEG_GAMESTATE_6 (16) +++
+void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

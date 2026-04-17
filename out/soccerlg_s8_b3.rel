@@ -1,5 +1,5 @@
 XL4
-H A areas D9 global symbols
+H A areas DA global symbols
 M soccerlg_s8_b3
 O -mz80
 S _g_SAVVOL Def0000FB39
@@ -215,8 +215,9 @@ A _DABS size 0 flags 8 addr 0
 A _HOME size 0 flags 0 addr 0
 A _GSINIT size 0 flags 0 addr 0
 A _GSFINAL size 0 flags 0 addr 0
-A _SEG8 size 47 flags 0 addr 0
+A _SEG8 size 48 flags 0 addr 0
 S _EventCornerKick Def0000001F
+S _EventPenaltyWhistle Def00000047
 S _EventOffside Def00000039
 S _EventGoal Def0000003A
 S _EventGoalKick Def0000002C
@@ -282,4 +283,8 @@ R 00 00 07 00
 T 3A 00 00 00 21 39 01 E5 11 00 00 3E 05 CD 00 00
 R 00 00 07 00 02 09 C1 00 02 0E 6B 00
 T 46 00 00 00 C9
+R 00 00 07 00
+T 47 00 00 00
+R 00 00 07 00
+T 47 00 00 00 C9
 R 00 00 07 00

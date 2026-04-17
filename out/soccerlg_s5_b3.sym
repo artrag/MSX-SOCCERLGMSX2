@@ -9,7 +9,7 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _Field                                                          ******** GX
   7 _FieldMap                                                       0000007E R
-  7 _HideSpriteMessage                                              00000CA9 GR
+  7 _HideSpriteMessage                                              00000CB4 GR
   7 _IsBallForeground                                               00000991 GR
     _KickOffTeam                                                    ******** GX
   7 _PlotField                                                      00000000 GR
@@ -21,7 +21,7 @@ Symbol Table
     _RestartSideY                                                   ******** GX
     _RestartType                                                    ******** GX
   7 _SetBallSprite                                                  0000097D GR
-  7 _ShowSpriteMessage                                              00000AE3 GR
+  7 _ShowSpriteMessage                                              00000AEE GR
     _SwSprite                                                       ******** GX
     _VPD_CommandSetupR32                                            ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -272,6 +272,8 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_is_penalty_shootout                                          ******** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
@@ -285,7 +287,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size      CCB   flags    0
+   7 _SEG5                                      size      CD6   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

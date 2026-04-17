@@ -82,6 +82,12 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	// ========== CONTROLLO GOAL ==========
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
 	if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+		if(g_is_penalty_shootout) {
+			ScoreTeam2++;
+			RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
+			Ball->anim = 0; // Ferma la palla
+			return;
+		}
 		*game_state = 9;
 		Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
 		RestartType = RESTART_GOAL;
@@ -98,6 +104,12 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	
 	// Goal alla squadra 1 se la palla è oltre la linea inferiore ma nello specchio della porta
 	if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+		if(g_is_penalty_shootout) {
+			ScoreTeam1++;
+			RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
+			Ball->anim = 0; // Ferma la palla
+			return;
+		}
 		*game_state = 9;
 		Field.dy = 0;
 		RestartType = RESTART_GOAL;

@@ -202,6 +202,12 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						u16 dist_y = (SwSprite[gk_idx].ly > Ball->ly) ? (SwSprite[gk_idx].ly - Ball->ly) : (Ball->ly - SwSprite[gk_idx].ly);
 						
 						if (dist_x <= 12 && dist_y <= 12) {
+							if(g_is_penalty_shootout) {
+								RestartType = RESTART_GKSAVE; // Segnala la parata per lo stato 15
+								Ball->anim = 0; // Ferma la palla
+								return;
+							}
+
 							*game_state = 6; // Ferma il gioco per preparare il rinvio
 							Field.dy = 0;
 							RestartType = RESTART_GKSAVE;

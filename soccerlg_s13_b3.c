@@ -40,8 +40,10 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 				Field.dy = -4; Field.ly += Field.dy; all_in_position = FALSE;
 			} else if (Field.ly + 3 < target_ly) {
 				Field.dy = 4; Field.ly += Field.dy; all_in_position = FALSE;
+			} else if (Field.ly != target_ly) {
+				Field.dy = (i8)(target_ly - Field.ly); Field.ly = target_ly; all_in_position = FALSE;
 			} else {
-				Field.dy = 0; Field.ly = target_ly;
+				Field.dy = 0;
 			}
 		}
 

@@ -224,6 +224,7 @@
 	.globl _EventGoalKick
 	.globl _EventOffside
 	.globl _EventGoal
+	.globl _EventPenaltyWhistle
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -588,6 +589,13 @@ _EventGoal::
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:78: }
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:80: void EventPenaltyWhistle()
+;	---------------------------------
+; Function EventPenaltyWhistle
+; ---------------------------------
+_EventPenaltyWhistle::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:83: }
 	ret
 	.area _SEG8
 	.area _INITIALIZER

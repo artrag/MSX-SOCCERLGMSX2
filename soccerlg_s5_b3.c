@@ -100,6 +100,11 @@ bool IsBallForeground()
 		return TRUE; // Il portiere a Nord (che guarda a sud) sta dietro la palla
 	}
 
+	// Durante i rigori, se il portiere si tuffa, la palla è sempre davanti
+	if (g_is_penalty_shootout) {
+		return TRUE;
+	}
+
 	u8 closest_player = 0;
 	u16 min_dist = 0xFFFF;
 	
