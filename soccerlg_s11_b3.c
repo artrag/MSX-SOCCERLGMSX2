@@ -175,7 +175,8 @@ void AssignGoalKickTargets() {
 	SwSprite[14].ly = kick_y;
 	
 	if (RestartType == RESTART_GKSAVE) {
-		SwSprite[14].ly = 1000;
+		SwSprite[14].ly = RestartSideY + (dir_y * 4); // Palla visibile in mano
+		SwSprite[14].frame = SPR_BALL_SIZE_2; // Dimensione > 1 forza lo z-order in primo piano
 		SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
 	} else {
 		SwSprite[14].frame = SPR_BALL_SIZE_1; 

@@ -7,17 +7,17 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  7 _AssignCornerKickTargets                                        00000D17 GR
+  7 _AssignCornerKickTargets                                        00000D44 GR
   7 _AssignGoalKickTargets                                          000008C0 GR
   7 _AssignKickOffTargets                                           00000000 GR
   7 _AssignThrowInTargets                                           000000C6 GR
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
-  7 _ExecuteCornerKick                                              000011C5 GR
-  7 _ExecuteThrowIn                                                 00001099 GR
+  7 _ExecuteCornerKick                                              000011F2 GR
+  7 _ExecuteThrowIn                                                 000010C6 GR
     _Frms                                                           ******** GX
-  7 _GetPlayerAnimFrame                                             000012EC GR
-  7 _GetPlayerIdleFrame                                             000018BE GR
+  7 _GetPlayerAnimFrame                                             00001319 GR
+  7 _GetPlayerIdleFrame                                             000018EB GR
     _KickOffTeam                                                    ******** GX
     _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
@@ -300,7 +300,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG11                                     size     1B53   flags    0
+   7 _SEG11                                     size     1B80   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

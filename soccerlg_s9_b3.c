@@ -35,8 +35,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		bool all_in_position = TRUE;
 
 		// Imposta dinamicamente il target dell'arbitro in base alla posizione della palla
-		u16 ref_tx = (SwSprite[14].lx < 128) ? ((u16)SwSprite[14].lx + 40) : ((u16)SwSprite[14].lx - 40);
-		u16 ref_ty = (SwSprite[14].ly < 256) ? (SwSprite[14].ly + 48) : (SwSprite[14].ly - 48);
+		u16 ball_ref_x = (RestartType == RESTART_GKSAVE) ? RestartSideX : SwSprite[14].lx;
+		u16 ball_ref_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
+		u16 ref_tx = (ball_ref_x < 128) ? (ball_ref_x + 40) : (ball_ref_x - 40);
+		u16 ref_ty = (ball_ref_y < 256) ? (ball_ref_y + 48) : (ball_ref_y - 48);
 		if (ref_tx < 16) ref_tx = 16;
 		if (ref_tx > 240) ref_tx = 240;
 		if (ref_ty < 24) ref_ty = 24;
@@ -68,7 +70,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				i8 dir_x = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
 				i8 dir_y = (i < 7) ? 1 : -1; // Team 1 guarda sempre a Sud, Team 2 sempre a Nord
 				if (i == 26) {
-					dir_y = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
+					u16 face_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
+					u16 face_x = (RestartType == RESTART_GKSAVE) ? RestartSideX : SwSprite[14].lx;
+					dir_x = (face_x > p->lx) ? 1 : ((face_x < p->lx) ? -1 : 0);
+					dir_y = (face_y > p->ly) ? 1 : ((face_y < p->ly) ? -1 : 0);
 					if (dir_x == 0 && dir_y == 0) dir_y = 1;
 				}
 				p->dx = 0; p->dy = 0;
@@ -79,6 +84,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					} else {
 						p->frame = (RestartSideX < 128) ? SPR_T2_PLAYER_THROWIN_FROM_WEST_1 : SPR_T2_PLAYER_THROWIN_FROM_EAST_1;
 					}
+				} else if (RestartType == RESTART_GKSAVE && i == ((RestartSideY < 256) ? 0 : 7)) {
+					p->frame = (i == 0) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
 				} else {
 					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
 				}
@@ -97,7 +104,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				g_last_input_dir = DIRECTION_NONE; // Resetta l'input per la selezione
 				// NOTA: L'input viene sincronizzato da UpdateAllInputs nel loop principale
 				return;
-			} else if (RestartType == RESTART_GOALKICK) {
+			} else if (RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE) {
 				*game_state = 8; // Stato di attesa e rincorsa rinvio
 				
 				u8 gk = (RestartSideY < 256) ? 0 : 7;
@@ -231,6 +238,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				
 				i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
 				i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
+				bool hit_post = FALSE;
 
 				// Interpolazione lineare della posizione XY verso il destinatario
 				if (progress == 0) {
@@ -257,8 +265,6 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					i16 old_lx = (i16)g_pass_start_x + (dx_total * (progress - 1)) / g_pass_max_frames;
 					i16 new_lx = Ball->lx;
 
-					bool hit_post = FALSE;
-					
 					// Controllo palo nord (attraversamento della linea di porta)
 					if (old_ly > top_boundary && new_ly <= top_boundary) {
 						i16 cross_x = old_lx + ((new_lx - old_lx) * (old_ly - top_boundary)) / (old_ly - new_ly);
@@ -288,8 +294,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
 						if (len == 0) len = 1;
 						
-						out_dx = (out_dx * 20) / len;
-						out_dy = (out_dy * 20) / len;
+						out_dx = (out_dx * 40) / len;
+						out_dy = (out_dy * 40) / len;
 						
 						// Forza la palla in campo per evitare falli di fondo o goal al frame successivo
 						if (out_dy > 0) {
@@ -306,6 +312,33 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						
 						g_pass_max_frames = 10; // Rimbalzo rapido
 						Ball->count = 0; 
+					}
+				}
+				
+				// CONTROLLO PARATA PORTIERE
+				if (!hit_post && progress > 0) {
+					u8 gks[2] = {0, 7};
+					for (u8 g = 0; g < 2; g++) {
+						u8 gk_idx = gks[g];
+						
+						// Disabilita la parata se il portiere ha appena rinviato la palla
+						if (LastTouchPlayer == gk_idx) continue;
+						
+						u16 dist_x = (SwSprite[gk_idx].lx > Ball->lx) ? (SwSprite[gk_idx].lx - Ball->lx) : (Ball->lx - SwSprite[gk_idx].lx);
+						u16 dist_y = (SwSprite[gk_idx].ly > Ball->ly) ? (SwSprite[gk_idx].ly - Ball->ly) : (Ball->ly - SwSprite[gk_idx].ly);
+						
+						if (dist_x <= 12 && dist_y <= 12) {
+							*game_state = 6; // Ferma il gioco per preparare il rinvio
+							Field.dy = 0;
+							RestartType = RESTART_GKSAVE;
+							RestartSideX = SwSprite[gk_idx].lx;
+							RestartSideY = SwSprite[gk_idx].ly;
+							Ball->anim = Ball->dx = Ball->dy = 0;
+							T1_Carrier = T2_Carrier = 0xFF;
+							TimerEnabled = FALSE;
+							*wait_secs = 1; *start_sec = Frms;
+							return; // Esci dall'update per avviare la routine di pausa e ripresa
+						}
 					}
 				}
 

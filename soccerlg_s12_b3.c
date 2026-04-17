@@ -95,7 +95,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					
 					if (RestartType == RESTART_THROWIN) {
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignThrowInTargets);
-					} else if (RestartType == RESTART_GOALKICK) {
+					} else if (RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE) {
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignGoalKickTargets);
 					} else if (RestartType == RESTART_CORNERKICK) {
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignCornerKickTargets);
@@ -110,10 +110,11 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					}
 					
 					// Centra la telecamera e pulisce il focus
-					if (RestartType == RESTART_THROWIN || RestartType == RESTART_GOALKICK) {
-						if (SwSprite[14].ly < 96) Field.ly = 0;
-						else if (SwSprite[14].ly > 512 - 192) Field.ly = 512 - 192;
-						else Field.ly = SwSprite[14].ly - 96;
+					if (RestartType == RESTART_THROWIN || RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE) {
+						u16 cam_target_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
+						if (cam_target_y < 96) Field.ly = 0;
+						else if (cam_target_y > 512 - 192) Field.ly = 512 - 192;
+						else Field.ly = cam_target_y - 96;
 						
 						T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 					}
@@ -215,8 +216,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		i8 dir_y = (gk == 0) ? 1 : -1;
 		i8 dir_x = (RestartSideX < 128) ? 1 : -1;
 		
-		u16 target_gk_x = Ball->lx - (dir_x * 6);
-		u16 target_gk_y = Ball->ly - (dir_y * 8);
+		u16 target_gk_x = (RestartType == RESTART_GKSAVE) ? RestartSideX : (Ball->lx - (dir_x * 6));
+		u16 target_gk_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : (Ball->ly - (dir_y * 8));
 
 		u8 team_to_kick = (gk == 0) ? TEAM_1 : TEAM_2;
 		bool is_human = FALSE;
@@ -254,8 +255,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				u8 target = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
 				if (!is_human) target = ((Frms % 2) == 0) ? g_throw_rec_1 : g_throw_rec_2;
 				
-				g_pass_start_x = Ball->lx;
-				g_pass_start_y = Ball->ly;
+				g_pass_start_x = (RestartType == RESTART_GKSAVE) ? GK->lx : Ball->lx;
+				g_pass_start_y = (RestartType == RESTART_GKSAVE) ? GK->ly : Ball->ly;
 				g_pass_target_x = SwSprite[target].lx;
 				g_pass_target_y = SwSprite[target].ly;
 				
@@ -300,10 +301,12 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			}
 			
 			// Il portiere fissa la palla
-			i8 look_dx = (Ball->lx > GK->lx) ? 1 : ((Ball->lx < GK->lx) ? -1 : 0);
-			i8 look_dy = (Ball->ly > GK->ly) ? 1 : ((Ball->ly < GK->ly) ? -1 : 0);
-			if (look_dx == 0 && look_dy == 0) look_dy = (gk == 0) ? 1 : -1;
-			GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, gk, look_dx, look_dy);
+			if (RestartType != RESTART_GKSAVE) {
+				i8 look_dx = (Ball->lx > GK->lx) ? 1 : ((Ball->lx < GK->lx) ? -1 : 0);
+				i8 look_dy = (Ball->ly > GK->ly) ? 1 : ((Ball->ly < GK->ly) ? -1 : 0);
+				if (look_dx == 0 && look_dy == 0) look_dy = (gk == 0) ? 1 : -1;
+				GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, gk, look_dx, look_dy);
+			}
 		}
 		return;
 	}
