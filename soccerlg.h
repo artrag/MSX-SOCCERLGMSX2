@@ -313,6 +313,7 @@ struct TeamColors {
 #define SEG_GAMESTATE_2 11
 #define SEG_GAMESTATE_3 12
 #define SEG_GAMESTATE_4 13
+#define SEG_MENU        14
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -347,6 +348,8 @@ extern	u8	Mins;
 extern  u8  LastSecs;
 extern  u8  ScoreTeam1;
 extern  u8  ScoreTeam2;
+extern  u8  LastScoreTeam1;
+extern  u8  LastScoreTeam2;
 extern  struct ObjectInfo Field;
 extern  struct ObjectInfo ScoreBoardLeft;
 extern  struct ObjectInfo ScoreBoardRight;
@@ -478,6 +481,9 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 
 // +++ SEGMENT SEG_GAMESTATE_4 (13) +++
 void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+
+// +++ SEGMENT SEG_MENU (14) +++
+void ShowMenu();
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

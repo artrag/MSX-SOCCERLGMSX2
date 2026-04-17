@@ -46,7 +46,6 @@ void EventHalfTime()
 void EventTimeUp()
 {
 	// Trigger sonoro per la fine della partita
-    for(;;);
 }
 
 void EventThrowIn()

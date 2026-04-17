@@ -849,7 +849,7 @@
     00000261 B7               [ 4]  849 	or	a, a
     00000262 28 74            [12]  850 	jr	Z, 00107$
     00000264 DD 7E FC         [19]  851 	ld	a, -4 (ix)
-    00000267 D6 54            [ 7]  852 	sub	a, #0x54
+    00000267 D6 5A            [ 7]  852 	sub	a, #0x5a
     00000269 38 6D            [12]  853 	jr	C, 00107$
     0000026B 3E 9C            [ 7]  854 	ld	a, #0x9c
     0000026D DD 96 FC         [19]  855 	sub	a, -4 (ix)
@@ -870,7 +870,7 @@
                                     870 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:89: ScoreTeam2++; // Aumenta il punteggio
     00000289 21r00r00         [10]  871 	ld	hl, #_ScoreTeam2
     0000028C 34               [11]  872 	inc	(hl)
-                                    873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+                                    873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
     0000028D D5               [11]  874 	push	de
     0000028E 11r00r00         [10]  875 	ld	de, #_EventGoal
     00000291 3E 08            [ 7]  876 	ld	a, #0x08
@@ -919,7 +919,7 @@
     000002E8 B7               [ 4]  919 	or	a, a
     000002E9 28 74            [12]  920 	jr	Z, 00111$
     000002EB DD 7E FC         [19]  921 	ld	a, -4 (ix)
-    000002EE D6 54            [ 7]  922 	sub	a, #0x54
+    000002EE D6 5A            [ 7]  922 	sub	a, #0x5a
     000002F0 38 6D            [12]  923 	jr	C, 00111$
     000002F2 3E 9C            [ 7]  924 	ld	a, #0x9c
     000002F4 DD 96 FC         [19]  925 	sub	a, -4 (ix)
@@ -940,7 +940,7 @@
                                     940 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:105: ScoreTeam1++; // Aumenta il punteggio
     00000310 21r00r00         [10]  941 	ld	hl, #_ScoreTeam1
     00000313 34               [11]  942 	inc	(hl)
-                                    943 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+                                    943 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
     00000314 D5               [11]  944 	push	de
     00000315 11r00r00         [10]  945 	ld	de, #_EventGoal
     00000318 3E 08            [ 7]  946 	ld	a, #0x08

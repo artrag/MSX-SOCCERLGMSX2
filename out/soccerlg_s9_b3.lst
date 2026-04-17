@@ -1170,14 +1170,14 @@
     000005ED 19               [11] 1170 	add	hl, de
                                    1171 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:145: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
     000005EE 7D               [ 4] 1172 	ld	a, l
-    000005EF D6 50            [ 7] 1173 	sub	a, #0x50
+    000005EF D6 56            [ 7] 1173 	sub	a, #0x56
     000005F1 7C               [ 4] 1174 	ld	a, h
     000005F2 17               [ 4] 1175 	rla
     000005F3 3F               [ 4] 1176 	ccf
     000005F4 1F               [ 4] 1177 	rra
     000005F5 DE 80            [ 7] 1178 	sbc	a, #0x80
     000005F7 38 0E            [12] 1179 	jr	C, 00150$
-    000005F9 3E 58            [ 7] 1180 	ld	a, #0x58
+    000005F9 3E 5E            [ 7] 1180 	ld	a, #0x5e
     000005FB BD               [ 4] 1181 	cp	a, l
     000005FC 3E 00            [ 7] 1182 	ld	a, #0x00
     000005FE 9C               [ 4] 1183 	sbc	a, h
@@ -1264,14 +1264,14 @@
     0000067C 19               [11] 1264 	add	hl, de
                                    1265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:153: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
     0000067D 7D               [ 4] 1266 	ld	a, l
-    0000067E D6 50            [ 7] 1267 	sub	a, #0x50
+    0000067E D6 56            [ 7] 1267 	sub	a, #0x56
     00000680 7C               [ 4] 1268 	ld	a, h
     00000681 17               [ 4] 1269 	rla
     00000682 3F               [ 4] 1270 	ccf
     00000683 1F               [ 4] 1271 	rra
     00000684 DE 80            [ 7] 1272 	sbc	a, #0x80
     00000686 38 0E            [12] 1273 	jr	C, 00155$
-    00000688 3E 58            [ 7] 1274 	ld	a, #0x58
+    00000688 3E 5E            [ 7] 1274 	ld	a, #0x5e
     0000068A BD               [ 4] 1275 	cp	a, l
     0000068B 3E 00            [ 7] 1276 	ld	a, #0x00
     0000068D 9C               [ 4] 1277 	sbc	a, h

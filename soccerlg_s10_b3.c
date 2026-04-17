@@ -75,8 +75,8 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 	}
 	
-	// Specchio porta: ricalibrato e perfettamente simmetrico rispetto al centro
-	u8 goal_left = 84;
+	// Specchio porta: ricalibrato (ridotto a sinistra di 6px per evitare falsi goal sul palo)
+	u8 goal_left = 90;
 	u8 goal_right = 156;
 	
 	// ========== CONTROLLO GOAL ==========
@@ -87,7 +87,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = RESTART_GOAL;
 		KickOffTeam = TEAM_1; // Il Team 1 subisce gol, quindi batte
 		ScoreTeam2++; // Aumenta il punteggio
-		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
@@ -103,7 +103,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = RESTART_GOAL;
 		KickOffTeam = TEAM_2; // Il Team 2 subisce gol, quindi batte
 		ScoreTeam1++; // Aumenta il punteggio
-		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;

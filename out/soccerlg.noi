@@ -15,6 +15,7 @@ DEF s__DABS 0x0
 DEF s__HEADER 0x0
 DEF s__HEADER0 0x0
 DEF _g_STRSRC 0x2
+DEF l__SEG14 0x3
 DEF _g_CGTABL 0x4
 DEF _g_VDP_DR 0x6
 DEF _g_VDP_DW 0x7
@@ -24,7 +25,7 @@ DEF _g_ROMVersion 0x2B
 DEF _g_MSXVER 0x2D
 DEF _g_MSXMID 0x2E
 DEF _g_CHAR_16 0x34
-DEF l__SEG8 0x49
+DEF l__SEG8 0x47
 DEF l__INITIALIZED 0x4D
 DEF l__INITIALIZER 0x4D
 DEF l__SEG7 0x262
@@ -32,11 +33,11 @@ DEF l__DATA 0x33A
 DEF l__SEG10 0x4CF
 DEF l__SEG13 0x8D5
 DEF l__SEG5 0xCBF
-DEF l__SEG4 0xDF9
+DEF l__SEG4 0xE45
 DEF l__SEG6 0x14C2
-DEF l__SEG12 0x16A1
 DEF l__SEG9 0x1940
 DEF l__SEG11 0x1C70
+DEF l__SEG12 0x1FB1
 DEF l__CODE 0x29DD
 DEF s__CODE 0x4000
 DEF s__HOME 0x69DD
@@ -252,6 +253,7 @@ DEF s__SEG10 0xAA000
 DEF s__SEG11 0xBA000
 DEF s__SEG12 0xCA000
 DEF s__SEG13 0xDA000
+DEF s__SEG14 0xEA000
 DEF _g_FirstAddr 0x4000
 DEF _g_HeaderAddr 0x4000
 DEF crt0_rom_header 0x4000
@@ -513,11 +515,11 @@ DEF _EventPlayerFirstPresentationStarted 0x8A002
 DEF _EventKickOffReady 0x8A003
 DEF _EventHalfTime 0x8A010
 DEF _EventTimeUp 0x8A011
-DEF _EventThrowIn 0x8A014
-DEF _EventCornerKick 0x8A021
-DEF _EventGoalKick 0x8A02E
-DEF _EventOffside 0x8A03B
-DEF _EventGoal 0x8A03C
+DEF _EventThrowIn 0x8A012
+DEF _EventCornerKick 0x8A01F
+DEF _EventGoalKick 0x8A02C
+DEF _EventOffside 0x8A039
+DEF _EventGoal 0x8A03A
 DEF _UpdateGameState 0x9A000
 DEF _UpdateFieldCamera 0xAA000
 DEF _CheckFieldBoundaries 0xAA206
@@ -531,4 +533,5 @@ DEF _GetPlayerAnimFrame 0xBB319
 DEF _GetPlayerIdleFrame 0xBB9DB
 DEF _UpdateGameState_Restarts 0xCA000
 DEF _UpdateGameState_Init 0xDA000
+DEF _ShowMenu 0xEA000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx

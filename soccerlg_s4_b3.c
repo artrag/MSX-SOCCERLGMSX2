@@ -1254,5 +1254,17 @@ void MainLoop(){
             Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);
 	        	
         }
+
+		if(LastScoreTeam1 != ScoreTeam1){
+            LastScoreTeam1 = ScoreTeam1;
+            VDP_CommandHMMV(0,  88+768, 8, 8, 0x77); // Cancella lo sfondo per ITA (Team 1)
+            Print_SetPosition(0,  88+768);Print_DrawFormat("%i", (i16)ScoreTeam1);
+        }
+
+        if(LastScoreTeam2 != ScoreTeam2){
+            LastScoreTeam2 = ScoreTeam2;
+            VDP_CommandHMMV(0,  40+768, 8, 8, 0x77); // Cancella lo sfondo per AUS (Team 2)
+            Print_SetPosition(0,  40+768);Print_DrawFormat("%i", (i16)ScoreTeam2);
+        }
 	}
 }

@@ -849,7 +849,7 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00107$
 	ld	a, -4 (ix)
-	sub	a, #0x54
+	sub	a, #0x5a
 	jr	C, 00107$
 	ld	a, #0x9c
 	sub	a, -4 (ix)
@@ -870,7 +870,7 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:89: ScoreTeam2++; // Aumenta il punteggio
 	ld	hl, #_ScoreTeam2
 	inc	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:90: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 	push	de
 	ld	de, #_EventGoal
 	ld	a, #0x08
@@ -919,7 +919,7 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00111$
 	ld	a, -4 (ix)
-	sub	a, #0x54
+	sub	a, #0x5a
 	jr	C, 00111$
 	ld	a, #0x9c
 	sub	a, -4 (ix)
@@ -940,7 +940,7 @@ _CheckFieldBoundaries::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:105: ScoreTeam1++; // Aumenta il punteggio
 	ld	hl, #_ScoreTeam1
 	inc	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 	push	de
 	ld	de, #_EventGoal
 	ld	a, #0x08
