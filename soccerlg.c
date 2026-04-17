@@ -52,8 +52,8 @@ const struct TeamColors g_TeamColorsArray[] = {
 // -----------------
 
 	u8	Frms = 60;
-	u8	Secs = 0;
-	u8	Mins = HALF_TIME_DURATION;
+	u8	Secs = HALF_TIME_SECS;
+	u8	Mins = HALF_TIME_MINS;
     u8  LastSecs=0xFF;
     u8  Half = 1;
 	u8  ScoreTeam1 = 0;

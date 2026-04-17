@@ -1029,14 +1029,14 @@ void MainLoop(){
 		// Squadra 1 (Nord - Difende l'area in alto)
 		SwSprite[i].lx = 36 + i * 28;
 		SwSprite[i].ly = 252 - 24; // Schierata sopra la riga di centrocampo
-		SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH;
+		SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_PRESENTATION;
 		SwSprite[i].dx = 0;
 		SwSprite[i].dy = 0;
 
 		// Squadra 2 (Sud - Difende l'area in basso)
 		SwSprite[i+7].lx = 36 + i * 28;
 		SwSprite[i+7].ly = 252 + 24; // Schierata sotto la riga di centrocampo
-		SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH;
+		SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_PRESENTATION;
 		SwSprite[i+7].dx = 0;
 		SwSprite[i+7].dy = 0;
 	}
@@ -1059,7 +1059,7 @@ void MainLoop(){
 	// Arbitro
 	SwSprite[26].lx = 20;
 	SwSprite[26].ly = BALL_START_Y;
-	SwSprite[26].frame = SPR_REFEREE_PLAYER_FACE_TO_WEST;
+	SwSprite[26].frame = SPR_REFEREE_FACE_TO_WEST;
 	SwSprite[26].dx = 0;
 	SwSprite[26].dy = 0;
 

@@ -1932,10 +1932,10 @@
     000009BD DD 7E F4         [19] 1932 	ld	a, -12 (ix)
     000009C0 B7               [ 4] 1933 	or	a, a
     000009C1 20 06            [12] 1934 	jr	NZ, 00172$
-    000009C3 11 F0 00         [10] 1935 	ld	de, #0x00f0
+    000009C3 11 F1 00         [10] 1935 	ld	de, #0x00f1
     000009C6 C3rCCr09         [10] 1936 	jp	00173$
     000009C9                       1937 00172$:
-    000009C9 11 F1 00         [10] 1938 	ld	de, #0x00f1
+    000009C9 11 F2 00         [10] 1938 	ld	de, #0x00f2
     000009CC                       1939 00173$:
     000009CC 73               [ 7] 1940 	ld	(hl), e
     000009CD 23               [ 6] 1941 	inc	hl
@@ -3401,7 +3401,7 @@
     0000133D DD 7E FF         [19] 3401 	ld	a, -1 (ix)
     00001340 D6 1A            [ 7] 3402 	sub	a, #0x1a
     00001342 C2rA8r14         [10] 3403 	jp	NZ,00126$
-                                   3404 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:355: if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_DIRECTION_3;
+                                   3404 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:355: if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_DIRECTION_2 : SPR_REFEREE_NORTH_DIRECTION_3;
     00001345 DD 7E 04         [19] 3405 	ld	a, 4 (ix)
     00001348 07               [ 4] 3406 	rlca
     00001349 E6 01            [ 7] 3407 	and	a,#0x01
@@ -3426,7 +3426,7 @@
     0000136D 11 15 01         [10] 3426 	ld	de, #0x0115
     00001370 C3rD4r19         [10] 3427 	jp	00221$
     00001373                       3428 00102$:
-                                   3429 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:356: if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_DIRECTION_3;
+                                   3429 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:356: if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_DIRECTION_2 : SPR_REFEREE_SOUTH_DIRECTION_3;
     00001373 AF               [ 4] 3430 	xor	a, a
     00001374 DD 96 04         [19] 3431 	sub	a, 4 (ix)
     00001377 E2r7Cr13         [10] 3432 	jp	PO, 01174$
@@ -3455,7 +3455,7 @@
     0000139F 11 02 01         [10] 3455 	ld	de, #0x0102
     000013A2 C3rD4r19         [10] 3456 	jp	00221$
     000013A5                       3457 00105$:
-                                   3458 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:357: if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_EAST_DIRECTION_3;
+                                   3458 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:357: if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_EAST_DIRECTION_2 : SPR_REFEREE_EAST_DIRECTION_3;
     000013A5 DD 7E 04         [19] 3459 	ld	a, 4 (ix)
     000013A8 B7               [ 4] 3460 	or	a,a
     000013A9 20 27            [12] 3461 	jr	NZ, 00108$
@@ -3479,7 +3479,7 @@
     000013CC 11 1B 01         [10] 3479 	ld	de, #0x011b
     000013CF C3rD4r19         [10] 3480 	jp	00221$
     000013D2                       3481 00108$:
-                                   3482 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:358: if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_WEST_DIRECTION_3;
+                                   3482 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:358: if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_WEST_DIRECTION_2 : SPR_REFEREE_WEST_DIRECTION_3;
     000013D2 DD 7E 04         [19] 3483 	ld	a, 4 (ix)
     000013D5 B7               [ 4] 3484 	or	a, a
     000013D6 20 22            [12] 3485 	jr	NZ, 00111$
@@ -3500,7 +3500,7 @@
     000013F4 11 1A 01         [10] 3500 	ld	de, #0x011a
     000013F7 C3rD4r19         [10] 3501 	jp	00221$
     000013FA                       3502 00111$:
-                                   3503 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:359: if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_3;
+                                   3503 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:359: if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_NORTH_EAST_DIRECTION_3;
     000013FA DD 7E FE         [19] 3504 	ld	a, -2 (ix)
     000013FD B7               [ 4] 3505 	or	a, a
     000013FE 28 28            [12] 3506 	jr	Z, 00114$
@@ -3525,7 +3525,7 @@
     00001422 11 0D 01         [10] 3525 	ld	de, #0x010d
     00001425 C3rD4r19         [10] 3526 	jp	00221$
     00001428                       3527 00114$:
-                                   3528 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:360: if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_3;
+                                   3528 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:360: if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_NORTH_WEST_DIRECTION_3;
     00001428 DD 7E FE         [19] 3529 	ld	a, -2 (ix)
     0000142B B7               [ 4] 3530 	or	a, a
     0000142C 28 22            [12] 3531 	jr	Z, 00117$
@@ -3546,7 +3546,7 @@
     0000144A 11 12 01         [10] 3546 	ld	de, #0x0112
     0000144D C3rD4r19         [10] 3547 	jp	00221$
     00001450                       3548 00117$:
-                                   3549 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:361: if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_3;
+                                   3549 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:361: if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_SOUTH_EAST_DIRECTION_3;
     00001450 7B               [ 4] 3550 	ld	a, e
     00001451 B7               [ 4] 3551 	or	a, a
     00001452 28 28            [12] 3552 	jr	Z, 00120$
@@ -3571,7 +3571,7 @@
     00001476 11 0A 01         [10] 3571 	ld	de, #0x010a
     00001479 C3rD4r19         [10] 3572 	jp	00221$
     0000147C                       3573 00120$:
-                                   3574 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:362: if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_3;
+                                   3574 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:362: if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_SOUTH_WEST_DIRECTION_3;
     0000147C 7B               [ 4] 3575 	ld	a, e
     0000147D B7               [ 4] 3576 	or	a, a
     0000147E 28 22            [12] 3577 	jr	Z, 00123$
@@ -3586,13 +3586,13 @@
     00001490 DD 7E 05         [19] 3586 	ld	a, 5 (ix)
     00001493 3D               [ 4] 3587 	dec	a
     00001494 20 06            [12] 3588 	jr	NZ, 00256$
-    00001496 11 08 01         [10] 3589 	ld	de, #0x0108
+    00001496 11 09 01         [10] 3589 	ld	de, #0x0109
     00001499 C3rD4r19         [10] 3590 	jp	00221$
     0000149C                       3591 00256$:
-    0000149C 11 09 01         [10] 3592 	ld	de, #0x0109
+    0000149C 11 08 01         [10] 3592 	ld	de, #0x0108
     0000149F C3rD4r19         [10] 3593 	jp	00221$
     000014A2                       3594 00123$:
-                                   3595 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:363: return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+                                   3595 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:363: return SPR_REFEREE_FACE_TO_SOUTH;
     000014A2 11 06 01         [10] 3596 	ld	de, #0x0106
     000014A5 C3rD4r19         [10] 3597 	jp	00221$
     000014A8                       3598 00126$:
@@ -4358,14 +4358,14 @@
     000019ED                       4358 00208$:
     000019ED 1E 01            [ 7] 4359 	ld	e, #0x01
     000019EF                       4360 00209$:
-                                   4361 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
+                                   4361 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_FACE_TO_NORTH;
     000019EF DD 7E 04         [19] 4362 	ld	a, 4 (ix)
     000019F2 07               [ 4] 4363 	rlca
     000019F3 E6 01            [ 7] 4364 	and	a,#0x01
     000019F5 57               [ 4] 4365 	ld	d, a
                                    4366 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:412: if (i == 26) { // Arbitro
     000019F6 79               [ 4] 4367 	ld	a, c
-                                   4368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
+                                   4368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_FACE_TO_NORTH;
     000019F7 D6 1A            [ 7] 4369 	sub	a,#0x1a
     000019F9 C2r92r1A         [10] 4370 	jp	NZ,00126$
     000019FC B2               [ 4] 4371 	or	a,d
@@ -4376,7 +4376,7 @@
     00001A03 11 05 01         [10] 4376 	ld	de, #0x0105
     00001A06 C3r6Br1C         [10] 4377 	jp	00205$
     00001A09                       4378 00102$:
-                                   4379 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:414: if (dy > 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+                                   4379 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:414: if (dy > 0 && dx == 0) return SPR_REFEREE_FACE_TO_SOUTH;
     00001A09 AF               [ 4] 4380 	xor	a, a
     00001A0A DD 96 04         [19] 4381 	sub	a, 4 (ix)
     00001A0D E2r12r1A         [10] 4382 	jp	PO, 00565$
@@ -4393,7 +4393,7 @@
     00001A1D 11 06 01         [10] 4393 	ld	de, #0x0106
     00001A20 C3r6Br1C         [10] 4394 	jp	00205$
     00001A23                       4395 00105$:
-                                   4396 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:415: if (dy == 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_EAST;
+                                   4396 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:415: if (dy == 0 && dx > 0) return SPR_REFEREE_FACE_TO_EAST;
     00001A23 DD 7E 04         [19] 4397 	ld	a, 4 (ix)
     00001A26 B7               [ 4] 4398 	or	a,a
     00001A27 20 0F            [12] 4399 	jr	NZ, 00108$
@@ -4405,7 +4405,7 @@
     00001A32 11 1A 01         [10] 4405 	ld	de, #0x011a
     00001A35 C3r6Br1C         [10] 4406 	jp	00205$
     00001A38                       4407 00108$:
-                                   4408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:416: if (dy == 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_WEST;
+                                   4408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:416: if (dy == 0 && dx < 0) return SPR_REFEREE_FACE_TO_WEST;
     00001A38 DD 7E 04         [19] 4409 	ld	a, 4 (ix)
     00001A3B B7               [ 4] 4410 	or	a, a
     00001A3C 20 0A            [12] 4411 	jr	NZ, 00111$
@@ -4414,7 +4414,7 @@
     00001A42 11 1B 01         [10] 4414 	ld	de, #0x011b
     00001A45 C3r6Br1C         [10] 4415 	jp	00205$
     00001A48                       4416 00111$:
-                                   4417 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:417: if (dy < 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_EAST;
+                                   4417 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:417: if (dy < 0 && dx > 0) return SPR_REFEREE_FACE_TO_NORTH_EAST;
     00001A48 7A               [ 4] 4418 	ld	a, d
     00001A49 B7               [ 4] 4419 	or	a, a
     00001A4A 28 10            [12] 4420 	jr	Z, 00114$
@@ -4427,7 +4427,7 @@
     00001A56 11 10 01         [10] 4427 	ld	de, #0x0110
     00001A59 C3r6Br1C         [10] 4428 	jp	00205$
     00001A5C                       4429 00114$:
-                                   4430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:418: if (dy < 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_WEST;
+                                   4430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:418: if (dy < 0 && dx < 0) return SPR_REFEREE_FACE_TO_NORTH_WEST;
     00001A5C 7A               [ 4] 4431 	ld	a, d
     00001A5D B7               [ 4] 4432 	or	a, a
     00001A5E 28 0A            [12] 4433 	jr	Z, 00117$
@@ -4436,7 +4436,7 @@
     00001A64 11 0F 01         [10] 4436 	ld	de, #0x010f
     00001A67 C3r6Br1C         [10] 4437 	jp	00205$
     00001A6A                       4438 00117$:
-                                   4439 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:419: if (dy > 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_EAST;
+                                   4439 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:419: if (dy > 0 && dx > 0) return SPR_REFEREE_FACE_TO_SOUTH_EAST;
     00001A6A 79               [ 4] 4440 	ld	a, c
     00001A6B B7               [ 4] 4441 	or	a, a
     00001A6C 28 10            [12] 4442 	jr	Z, 00120$
@@ -4449,7 +4449,7 @@
     00001A78 11 09 01         [10] 4449 	ld	de, #0x0109
     00001A7B C3r6Br1C         [10] 4450 	jp	00205$
     00001A7E                       4451 00120$:
-                                   4452 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:420: if (dy > 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_WEST;
+                                   4452 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:420: if (dy > 0 && dx < 0) return SPR_REFEREE_FACE_TO_SOUTH_WEST;
     00001A7E 79               [ 4] 4453 	ld	a, c
     00001A7F B7               [ 4] 4454 	or	a, a
     00001A80 28 0A            [12] 4455 	jr	Z, 00123$
@@ -4458,7 +4458,7 @@
     00001A86 11 08 01         [10] 4458 	ld	de, #0x0108
     00001A89 C3r6Br1C         [10] 4459 	jp	00205$
     00001A8C                       4460 00123$:
-                                   4461 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:421: return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+                                   4461 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:421: return SPR_REFEREE_FACE_TO_SOUTH;
     00001A8C 11 06 01         [10] 4462 	ld	de, #0x0106
     00001A8F C3r6Br1C         [10] 4463 	jp	00205$
     00001A92                       4464 00126$:

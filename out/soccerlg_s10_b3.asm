@@ -849,7 +849,7 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00107$
 	ld	a, -4 (ix)
-	sub	a, #0x5a
+	sub	a, #0x52
 	jr	C, 00107$
 	ld	a, #0x9c
 	sub	a, -4 (ix)
@@ -919,7 +919,7 @@ _CheckFieldBoundaries::
 	or	a, a
 	jr	Z, 00111$
 	ld	a, -4 (ix)
-	sub	a, #0x5a
+	sub	a, #0x52
 	jr	C, 00111$
 	ld	a, #0x9c
 	sub	a, -4 (ix)

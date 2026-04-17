@@ -1396,7 +1396,7 @@ _MainLoop::
 	ld	(hl), #0xe4
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1032: SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1032: SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_PRESENTATION;
 	ld	hl, #0x000f
 	add	hl, bc
 	ld	-4 (ix), l
@@ -1407,7 +1407,7 @@ _MainLoop::
 	ld	de, #0x00d5
 	jp	00228$
 00227$:
-	ld	de, #0x0001
+	ld	de, #0x0003
 00228$:
 	ld	l, -4 (ix)
 	ld	h, -3 (ix)
@@ -1450,7 +1450,7 @@ _MainLoop::
 	ld	(hl), #0x14
 	inc	hl
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1039: SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1039: SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_PRESENTATION;
 	ld	a, -7 (ix)
 	add	a, #0x0f
 	ld	-5 (ix), a
@@ -1464,7 +1464,7 @@ _MainLoop::
 	ld	-2 (ix), #0
 	jp	00230$
 00229$:
-	ld	-3 (ix), #0x83
+	ld	-3 (ix), #0x06
 	ld	-2 (ix), #0
 00230$:
 	ld	c, -3 (ix)
@@ -1559,7 +1559,7 @@ _MainLoop::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1061: SwSprite[26].ly = BALL_START_Y;
 	ld	hl, #0x0100
 	ld	((_SwSprite + 602)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1062: SwSprite[26].frame = SPR_REFEREE_PLAYER_FACE_TO_WEST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1062: SwSprite[26].frame = SPR_REFEREE_FACE_TO_WEST;
 	ld	l, #0x1b
 	ld	((_SwSprite + 613)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1063: SwSprite[26].dx = 0;

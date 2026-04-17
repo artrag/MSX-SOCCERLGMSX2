@@ -1396,7 +1396,7 @@
     000003B7 36 E4            [10] 1396 	ld	(hl), #0xe4
     000003B9 23               [ 6] 1397 	inc	hl
     000003BA 36 00            [10] 1398 	ld	(hl), #0x00
-                                   1399 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1032: SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_FACE_TO_SOUTH;
+                                   1399 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1032: SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_T1_PLAYER_PRESENTATION;
     000003BC 21 0F 00         [10] 1400 	ld	hl, #0x000f
     000003BF 09               [11] 1401 	add	hl, bc
     000003C0 DD 75 FC         [19] 1402 	ld	-4 (ix), l
@@ -1407,7 +1407,7 @@
     000003CC 11 D5 00         [10] 1407 	ld	de, #0x00d5
     000003CF C3rD5r03         [10] 1408 	jp	00228$
     000003D2                       1409 00227$:
-    000003D2 11 01 00         [10] 1410 	ld	de, #0x0001
+    000003D2 11 03 00         [10] 1410 	ld	de, #0x0003
     000003D5                       1411 00228$:
     000003D5 DD 6E FC         [19] 1412 	ld	l, -4 (ix)
     000003D8 DD 66 FD         [19] 1413 	ld	h, -3 (ix)
@@ -1450,7 +1450,7 @@
     00000414 36 14            [10] 1450 	ld	(hl), #0x14
     00000416 23               [ 6] 1451 	inc	hl
     00000417 36 01            [10] 1452 	ld	(hl), #0x01
-                                   1453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1039: SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_FACE_TO_NORTH;
+                                   1453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1039: SwSprite[i+7].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_NORTH : SPR_T2_PLAYER_PRESENTATION;
     00000419 DD 7E F9         [19] 1454 	ld	a, -7 (ix)
     0000041C C6 0F            [ 7] 1455 	add	a, #0x0f
     0000041E DD 77 FB         [19] 1456 	ld	-5 (ix), a
@@ -1464,7 +1464,7 @@
     00000433 DD 36 FE 00      [19] 1464 	ld	-2 (ix), #0
     00000437 C3r42r04         [10] 1465 	jp	00230$
     0000043A                       1466 00229$:
-    0000043A DD 36 FD 83      [19] 1467 	ld	-3 (ix), #0x83
+    0000043A DD 36 FD 06      [19] 1467 	ld	-3 (ix), #0x06
     0000043E DD 36 FE 00      [19] 1468 	ld	-2 (ix), #0
     00000442                       1469 00230$:
     00000442 DD 4E FD         [19] 1470 	ld	c, -3 (ix)
@@ -1559,7 +1559,7 @@
                                    1559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1061: SwSprite[26].ly = BALL_START_Y;
     000004CA 21 00 01         [10] 1560 	ld	hl, #0x0100
     000004CD 22r5Ar02         [16] 1561 	ld	((_SwSprite + 602)), hl
-                                   1562 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1062: SwSprite[26].frame = SPR_REFEREE_PLAYER_FACE_TO_WEST;
+                                   1562 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1062: SwSprite[26].frame = SPR_REFEREE_FACE_TO_WEST;
     000004D0 2E 1B            [ 7] 1563 	ld	l, #0x1b
     000004D2 22r65r02         [16] 1564 	ld	((_SwSprite + 613)), hl
                                    1565 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1063: SwSprite[26].dx = 0;

@@ -75,8 +75,8 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 	}
 	
-	// Specchio porta: ricalibrato (ridotto a sinistra di 6px per evitare falsi goal sul palo)
-	u8 goal_left = 90;
+	// Specchio porta: ricalibrato (allargato a sinistra di 8px per evitare falsi rinvii sul palo)
+	u8 goal_left = 82;
 	u8 goal_right = 156;
 	
 	// ========== CONTROLLO GOAL ==========

@@ -95,7 +95,10 @@ bool IsBallForeground()
 	if (SwSprite[14].frame > SPR_BALL_SIZE_1) return TRUE;
 
 	// Forza in primo piano durante la parata anche se di dimensione base
-	if (RestartType == RESTART_GKSAVE) return TRUE;
+	if (RestartType == RESTART_GKSAVE) {
+		if (RestartSideY >= 256) return FALSE; // Il portiere a Sud (che guarda a nord) copre la palla
+		return TRUE; // Il portiere a Nord (che guarda a sud) sta dietro la palla
+	}
 
 	u8 closest_player = 0;
 	u16 min_dist = 0xFFFF;

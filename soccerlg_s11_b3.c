@@ -352,15 +352,15 @@ u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step)
 {
 	bool is_gk = (i == 0 || i == 7);
 	if (i == 26) { // Arbitro
-		if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_DIRECTION_3;
-		if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_DIRECTION_3;
-		if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_EAST_DIRECTION_3;
-		if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_WEST_DIRECTION_3;
-		if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_3;
-		if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_3;
-		if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_3;
-		if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_3;
-		return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+		if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_DIRECTION_2 : SPR_REFEREE_NORTH_DIRECTION_3;
+		if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_DIRECTION_2 : SPR_REFEREE_SOUTH_DIRECTION_3;
+		if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_EAST_DIRECTION_2 : SPR_REFEREE_EAST_DIRECTION_3;
+		if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_WEST_DIRECTION_2 : SPR_REFEREE_WEST_DIRECTION_3;
+		if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_NORTH_EAST_DIRECTION_3;
+		if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_NORTH_WEST_DIRECTION_3;
+		if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_SOUTH_EAST_DIRECTION_3;
+		if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_SOUTH_WEST_DIRECTION_3;
+		return SPR_REFEREE_FACE_TO_SOUTH;
 	}
 	u8 team = (i < 7) ? 1 : 2;
 	bool is_celebrating = (RestartType == RESTART_GOAL && ((team == 1 && KickOffTeam == TEAM_2) || (team == 2 && KickOffTeam == TEAM_1)));
@@ -410,15 +410,15 @@ u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy)
 {
 	bool is_gk = (i == 0 || i == 7);
 	if (i == 26) { // Arbitro
-		if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
-		if (dy > 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
-		if (dy == 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_EAST;
-		if (dy == 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_WEST;
-		if (dy < 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_EAST;
-		if (dy < 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_WEST;
-		if (dy > 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_EAST;
-		if (dy > 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_WEST;
-		return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+		if (dy < 0 && dx == 0) return SPR_REFEREE_FACE_TO_NORTH;
+		if (dy > 0 && dx == 0) return SPR_REFEREE_FACE_TO_SOUTH;
+		if (dy == 0 && dx > 0) return SPR_REFEREE_FACE_TO_EAST;
+		if (dy == 0 && dx < 0) return SPR_REFEREE_FACE_TO_WEST;
+		if (dy < 0 && dx > 0) return SPR_REFEREE_FACE_TO_NORTH_EAST;
+		if (dy < 0 && dx < 0) return SPR_REFEREE_FACE_TO_NORTH_WEST;
+		if (dy > 0 && dx > 0) return SPR_REFEREE_FACE_TO_SOUTH_EAST;
+		if (dy > 0 && dx < 0) return SPR_REFEREE_FACE_TO_SOUTH_WEST;
+		return SPR_REFEREE_FACE_TO_SOUTH;
 	}
 	u8 team = (i < 7) ? 1 : 2;
 	

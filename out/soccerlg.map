@@ -41,12 +41,13 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000033A  l__DATA                         
      000004CF  l__SEG10                        
      000008D5  l__SEG13                        
-     00000CBF  l__SEG5                         
+     00000B20  l__SEG15                        
+     00000CCB  l__SEG5                         
      00000E45  l__SEG4                         
      000014C2  l__SEG6                         
      00001940  l__SEG9                         
+     00001B7D  l__SEG12                        
      00001C70  l__SEG11                        
-     00001FB1  l__SEG12                        
      000029DD  l__CODE                         
      00004000  s__CODE                         
      000069DD  s__HOME                         
@@ -56,7 +57,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      00006A32  s__GSFINAL                      
      0000C000  s__DATA                         
      0000C33A  s__INITIALIZED                  
-     0000C387  s__BSEG                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,6 +66,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000C387  s__BSEG                         
      0000C387  s__BSS                          
      0000C387  s__HEAP                         
      0000F30F  _g_KANJTABLE                       bios
@@ -116,7 +117,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000F3E2  _g_RG3SAV                          system
      0000F3E3  _g_RG4SAV                          system
      0000F3E4  _g_RG5SAV                          system
-     0000F3E5  _g_RG6SAV                          system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -126,6 +126,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000F3E5  _g_RG6SAV                          system
      0000F3E6  _g_RG7SAV                          system
      0000F3E7  _g_STATFL                          system
      0000F3E8  _g_TRGFLG                          system
@@ -176,7 +177,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000FB0C  _g_OLDINT                          system
      0000FB0C  _g_OLDSTT                          system
      0000FB16  _g_DEVNUM                          system
-     0000FB17  _g_DATCNT                          system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -186,6 +186,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000FB17  _g_DATCNT                          system
      0000FB1A  _g_ERRORS                          system
      0000FB1B  _g_FLAGS                           system
      0000FB1C  _g_ESTBLS                          system
@@ -236,7 +237,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000FCA9  _g_CSRSW                           system
      0000FCAA  _g_CSTYLE                          system
      0000FCAB  _g_CAPST                           system
-     0000FCAC  _g_KANAST                          system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -246,6 +246,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000FCAC  _g_KANAST                          system
      0000FCAD  _g_KANAMD                          system
      0000FCAE  _g_FLBMEM                          system
      0000FCAF  _g_SCRMOD                          system
@@ -296,7 +297,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0009A000  s__SEG9                         
      000AA000  s__SEG10                        
      000BA000  s__SEG11                        
-     000CA000  s__SEG12                        
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -306,9 +306,10 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     000CA000  s__SEG12                        
      000DA000  s__SEG13                        
      000EA000  s__SEG14                        
-
+     000FA000  s__SEG15                        
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
@@ -648,7 +649,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00000CBF =        3263. bytes (REL,CON)
+_SEG5                               0005A000    00000CCB =        3275. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -660,8 +661,8 @@ _SEG5                               0005A000    00000CBF =        3263. bytes (R
      0005A858  _PrintScoreBoardRight              soccerlg_s5_b3
      0005A97D  _SetBallSprite                     soccerlg_s5_b3
      0005A991  _IsBallForeground                  soccerlg_s5_b3
-     0005AAD7  _ShowSpriteMessage                 soccerlg_s5_b3
-     0005AC9D  _HideSpriteMessage                 soccerlg_s5_b3
+     0005AAE3  _ShowSpriteMessage                 soccerlg_s5_b3
+     0005ACA9  _HideSpriteMessage                 soccerlg_s5_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
@@ -754,7 +755,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG12                              000CA000    00001FB1 =        8113. bytes (REL,CON)
+_SEG12                              000CA000    00001B7D =        7037. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -783,6 +784,17 @@ _SEG14                              000EA000    00000003 =           3. bytes (R
      000EA000  _ShowMenu                          soccerlg_s14_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 27.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_SEG15                              000FA000    00000B20 =        2848. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000FA000  _UpdateGameState_SetPieces         soccerlg_s15_b3
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 28.
 
 Files Linked                              [ module(s) ]
 
@@ -812,6 +824,8 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s
                                           [ soccerlg_s13_b3 ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s14_b3.rel
                                           [ soccerlg_s14_b3 ]
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s15_b3.rel
+                                          [ soccerlg_s15_b3 ]
 
 
 Libraries Linked                          [ object file ]
@@ -843,7 +857,7 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ divsigned.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 28.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 29.
 
 User Base Address Definitions
 
@@ -860,5 +874,6 @@ _SEG11=0x000BA000
 _SEG12=0x000CA000
 _SEG13=0x000DA000
 _SEG14=0x000EA000
+_SEG15=0x000FA000
 
 

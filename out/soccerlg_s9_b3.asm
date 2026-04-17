@@ -1170,14 +1170,14 @@ _UpdateGameState::
 	add	hl, de
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:145: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
 	ld	a, l
-	sub	a, #0x56
+	sub	a, #0x4e
 	ld	a, h
 	rla
 	ccf
 	rra
 	sbc	a, #0x80
 	jr	C, 00150$
-	ld	a, #0x5e
+	ld	a, #0x56
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h
@@ -1264,14 +1264,14 @@ _UpdateGameState::
 	add	hl, de
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:153: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
 	ld	a, l
-	sub	a, #0x56
+	sub	a, #0x4e
 	ld	a, h
 	rla
 	ccf
 	rra
 	sbc	a, #0x80
 	jr	C, 00155$
-	ld	a, #0x5e
+	ld	a, #0x56
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h

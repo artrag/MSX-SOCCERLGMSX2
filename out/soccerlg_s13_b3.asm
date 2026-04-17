@@ -1259,11 +1259,11 @@ _UpdateGameState_Init::
 	ld	a, -1 (ix)
 	or	a, a
 	jr	NZ, 00239$
-	ld	-7 (ix), #0xf0
+	ld	-7 (ix), #0xf1
 	ld	-6 (ix), #0
 	jp	00240$
 00239$:
-	ld	-7 (ix), #0xf1
+	ld	-7 (ix), #0xf2
 	ld	-6 (ix), #0
 00240$:
 	ld	l, -14 (ix)

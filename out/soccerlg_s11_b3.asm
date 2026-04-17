@@ -1932,10 +1932,10 @@ _AssignGoalKickTargets::
 	ld	a, -12 (ix)
 	or	a, a
 	jr	NZ, 00172$
-	ld	de, #0x00f0
+	ld	de, #0x00f1
 	jp	00173$
 00172$:
-	ld	de, #0x00f1
+	ld	de, #0x00f2
 00173$:
 	ld	(hl), e
 	inc	hl
@@ -3401,7 +3401,7 @@ _GetPlayerAnimFrame::
 	ld	a, -1 (ix)
 	sub	a, #0x1a
 	jp	NZ,00126$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:355: if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:355: if (dy < 0 && dx == 0) return (step==0) ? SPR_REFEREE_NORTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_DIRECTION_2 : SPR_REFEREE_NORTH_DIRECTION_3;
 	ld	a, 4 (ix)
 	rlca
 	and	a,#0x01
@@ -3426,7 +3426,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x0115
 	jp	00221$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:356: if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:356: if (dy > 0 && dx == 0) return (step==0) ? SPR_REFEREE_SOUTH_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_DIRECTION_2 : SPR_REFEREE_SOUTH_DIRECTION_3;
 	xor	a, a
 	sub	a, 4 (ix)
 	jp	PO, 01174$
@@ -3455,7 +3455,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x0102
 	jp	00221$
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:357: if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_EAST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:357: if (dy == 0 && dx > 0) return (step==0) ? SPR_REFEREE_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_EAST_DIRECTION_2 : SPR_REFEREE_EAST_DIRECTION_3;
 	ld	a, 4 (ix)
 	or	a,a
 	jr	NZ, 00108$
@@ -3479,7 +3479,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x011b
 	jp	00221$
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:358: if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_WEST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:358: if (dy == 0 && dx < 0) return (step==0) ? SPR_REFEREE_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_WEST_DIRECTION_2 : SPR_REFEREE_WEST_DIRECTION_3;
 	ld	a, 4 (ix)
 	or	a, a
 	jr	NZ, 00111$
@@ -3500,7 +3500,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x011a
 	jp	00221$
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:359: if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_EAST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:359: if (dy < 0 && dx > 0) return (step==0) ? SPR_REFEREE_NORTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_EAST_DIRECTION_2 : SPR_REFEREE_NORTH_EAST_DIRECTION_3;
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00114$
@@ -3525,7 +3525,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x010d
 	jp	00221$
 00114$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:360: if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_NORTH_WEST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:360: if (dy < 0 && dx < 0) return (step==0) ? SPR_REFEREE_NORTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_NORTH_WEST_DIRECTION_2 : SPR_REFEREE_NORTH_WEST_DIRECTION_3;
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00117$
@@ -3546,7 +3546,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x0112
 	jp	00221$
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:361: if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_EAST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:361: if (dy > 0 && dx > 0) return (step==0) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_EAST_DIRECTION_2 : SPR_REFEREE_SOUTH_EAST_DIRECTION_3;
 	ld	a, e
 	or	a, a
 	jr	Z, 00120$
@@ -3571,7 +3571,7 @@ _GetPlayerAnimFrame::
 	ld	de, #0x010a
 	jp	00221$
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:362: if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_PLAYER_SOUTH_WEST_DIRECTION_3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:362: if (dy > 0 && dx < 0) return (step==0) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_1 : (step==1) ? SPR_REFEREE_SOUTH_WEST_DIRECTION_2 : SPR_REFEREE_SOUTH_WEST_DIRECTION_3;
 	ld	a, e
 	or	a, a
 	jr	Z, 00123$
@@ -3586,13 +3586,13 @@ _GetPlayerAnimFrame::
 	ld	a, 5 (ix)
 	dec	a
 	jr	NZ, 00256$
-	ld	de, #0x0108
-	jp	00221$
-00256$:
 	ld	de, #0x0109
 	jp	00221$
+00256$:
+	ld	de, #0x0108
+	jp	00221$
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:363: return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:363: return SPR_REFEREE_FACE_TO_SOUTH;
 	ld	de, #0x0106
 	jp	00221$
 00126$:
@@ -4358,14 +4358,14 @@ _GetPlayerIdleFrame::
 00208$:
 	ld	e, #0x01
 00209$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_FACE_TO_NORTH;
 	ld	a, 4 (ix)
 	rlca
 	and	a,#0x01
 	ld	d, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:412: if (i == 26) { // Arbitro
 	ld	a, c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:413: if (dy < 0 && dx == 0) return SPR_REFEREE_FACE_TO_NORTH;
 	sub	a,#0x1a
 	jp	NZ,00126$
 	or	a,d
@@ -4376,7 +4376,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x0105
 	jp	00205$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:414: if (dy > 0 && dx == 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:414: if (dy > 0 && dx == 0) return SPR_REFEREE_FACE_TO_SOUTH;
 	xor	a, a
 	sub	a, 4 (ix)
 	jp	PO, 00565$
@@ -4393,7 +4393,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x0106
 	jp	00205$
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:415: if (dy == 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_EAST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:415: if (dy == 0 && dx > 0) return SPR_REFEREE_FACE_TO_EAST;
 	ld	a, 4 (ix)
 	or	a,a
 	jr	NZ, 00108$
@@ -4405,7 +4405,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x011a
 	jp	00205$
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:416: if (dy == 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_WEST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:416: if (dy == 0 && dx < 0) return SPR_REFEREE_FACE_TO_WEST;
 	ld	a, 4 (ix)
 	or	a, a
 	jr	NZ, 00111$
@@ -4414,7 +4414,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x011b
 	jp	00205$
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:417: if (dy < 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_EAST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:417: if (dy < 0 && dx > 0) return SPR_REFEREE_FACE_TO_NORTH_EAST;
 	ld	a, d
 	or	a, a
 	jr	Z, 00114$
@@ -4427,7 +4427,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x0110
 	jp	00205$
 00114$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:418: if (dy < 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_NORTH_WEST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:418: if (dy < 0 && dx < 0) return SPR_REFEREE_FACE_TO_NORTH_WEST;
 	ld	a, d
 	or	a, a
 	jr	Z, 00117$
@@ -4436,7 +4436,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x010f
 	jp	00205$
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:419: if (dy > 0 && dx > 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_EAST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:419: if (dy > 0 && dx > 0) return SPR_REFEREE_FACE_TO_SOUTH_EAST;
 	ld	a, c
 	or	a, a
 	jr	Z, 00120$
@@ -4449,7 +4449,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x0109
 	jp	00205$
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:420: if (dy > 0 && dx < 0) return SPR_REFEREE_PLAYER_FACE_TO_SOUTH_WEST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:420: if (dy > 0 && dx < 0) return SPR_REFEREE_FACE_TO_SOUTH_WEST;
 	ld	a, c
 	or	a, a
 	jr	Z, 00123$
@@ -4458,7 +4458,7 @@ _GetPlayerIdleFrame::
 	ld	de, #0x0108
 	jp	00205$
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:421: return SPR_REFEREE_PLAYER_FACE_TO_SOUTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:421: return SPR_REFEREE_FACE_TO_SOUTH;
 	ld	de, #0x0106
 	jp	00205$
 00126$:
