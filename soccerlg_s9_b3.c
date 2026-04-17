@@ -334,6 +334,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							RestartSideX = SwSprite[gk_idx].lx;
 							RestartSideY = SwSprite[gk_idx].ly;
 							Ball->anim = Ball->dx = Ball->dy = 0;
+							Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 							T1_Carrier = T2_Carrier = 0xFF;
 							TimerEnabled = FALSE;
 							*wait_secs = 1; *start_sec = Frms;
@@ -342,15 +343,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					}
 				}
 
-				// Effetto di volo: scala da 1 a 8 (andata) e 8 a 1 (ritorno)
+				// Effetto di volo: scala da 0 a g_pass_max_height e viceversa
 				u8 scale;
 				if (progress <= half_frame) {
 					// Prima metà: sale fino all'altezza massima stabilita
-					scale = 1 + (progress * g_pass_max_height) / half_frame;
+					scale = (progress * g_pass_max_height) / half_frame;
 				} else {
-					// Seconda metà: scende dall'altezza massima a 1
+					// Seconda metà: scende dall'altezza massima a 0
 					u8 progress_down = progress - half_frame;
-					scale = 1 + g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
+					scale = g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
 				}
 				if (scale > 7) scale = 7; // Clamp a 7 (SPR_BALL_SIZE_8 = SPR_BALL_SIZE_1 + 7)
 				CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
@@ -446,6 +447,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						RestartType = 0; // Temporaneo fallback a KickOff per la ripresa
 						CallFnc_VOID(SEG_EVENTS, EventOffside);
 						Ball->anim = Ball->dx = Ball->dy = 0;
+						Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 						T1_Carrier = T2_Carrier = 0xFF;
 						TimerEnabled = FALSE;
 						*wait_secs = 2; *start_sec = Frms;
@@ -454,6 +456,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
+					Ball->frame = SPR_BALL_SIZE_1; // Assicura che la palla sia a terra quando tra i piedi
 					
 					// Ricalcola il ricevitore adesso che il portatore ha la palla
 					i8 c_dx, c_dy;

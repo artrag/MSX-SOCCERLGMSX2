@@ -87,6 +87,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
+		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = 0xFF;
 		TimerEnabled = FALSE;
 		*wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
@@ -100,6 +101,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
 		Ball->anim = Ball->dx = Ball->dy = 0;
+		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = 0xFF;
 		TimerEnabled = FALSE;
 		*wait_secs = 3; *start_sec = Frms;  // Pausa più lunga per il goal
@@ -120,6 +122,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			RestartSideY = Ball->ly;
 			CallFnc_VOID(SEG_EVENTS, EventThrowIn);
 			Ball->anim = Ball->dx = Ball->dy = 0;
+			Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 			T1_Carrier = T2_Carrier = 0xFF;
 			TimerEnabled = FALSE;
 			*wait_secs = 2; *start_sec = Frms;
@@ -152,6 +155,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			}
 			
 			Ball->anim = Ball->dx = Ball->dy = 0;
+			Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 			T1_Carrier = T2_Carrier = 0xFF;
 			TimerEnabled = FALSE;
 			*wait_secs = 2; *start_sec = Frms;

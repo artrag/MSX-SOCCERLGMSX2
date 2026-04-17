@@ -256,6 +256,7 @@ void PlayerAI(u8 i)
 				LastTouchTeam = team;
 				LastTouchPlayer = i; // Protezione dal fischio di fuorigioco
 				if (Ball->anim > 3) Ball->anim = 3; // L'AI stoppa la palla
+				Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 			}
 		}
 	}

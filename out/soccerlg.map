@@ -38,11 +38,11 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000004B  l__INITIALIZER                  
      000001B6  l__SEG7                         
      0000033A  l__DATA                         
-     00000480  l__SEG10                        
+     00000495  l__SEG10                        
      00000CBF  l__SEG5                         
      00000DF9  l__SEG4                         
-     000011C2  l__SEG12                        
-     000014BC  l__SEG6                         
+     000011CC  l__SEG12                        
+     000014C2  l__SEG6                         
      00001B80  l__SEG11                        
      00001FFC  l__SEG9                         
      000029DF  l__CODE                         
@@ -651,12 +651,12 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    000014BC =        5308. bytes (REL,CON)
+_SEG6                               0006A000    000014C2 =        5314. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0006A000  _PlayerAI                          soccerlg_s6_b3
-     0006B256  _FindReceiver                      soccerlg_s6_b3
+     0006B25C  _FindReceiver                      soccerlg_s6_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
@@ -707,7 +707,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG10                              000AA000    00000480 =        1152. bytes (REL,CON)
+_SEG10                              000AA000    00000495 =        1173. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -737,7 +737,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG12                              000CA000    000011C2 =        4546. bytes (REL,CON)
+_SEG12                              000CA000    000011CC =        4556. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

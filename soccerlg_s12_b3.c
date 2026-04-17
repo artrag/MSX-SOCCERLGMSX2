@@ -28,6 +28,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					SwSprite[14].lx = BALL_START_X;
 					SwSprite[14].ly = BALL_START_Y;
 					SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
+					SwSprite[14].frame = SPR_BALL_SIZE_1;
 					
 					Field.ly = target_ly; // Centra campo immediatamente per 2T
 					Field.dy = 0; // Impedisce ad AddLines di far scorrere lo sfondo non esistente
@@ -104,6 +105,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						SwSprite[14].lx = BALL_START_X;
 						SwSprite[14].ly = BALL_START_Y;
 						SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
+						SwSprite[14].frame = SPR_BALL_SIZE_1;
 						
 						Field.ly = target_ly; // Teletrasporta telecamera al centro
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
