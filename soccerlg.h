@@ -296,6 +296,7 @@ struct TeamColors {
 #define SEG_FIELD		10
 #define SEG_GAMESTATE_2 11
 #define SEG_GAMESTATE_3 12
+#define SEG_GAMESTATE_4 13
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -456,6 +457,9 @@ u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 
 // +++ SEGMENT SEG_GAMESTATE_3 (12) +++
 void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+
+// +++ SEGMENT SEG_GAMESTATE_4 (13) +++
+void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

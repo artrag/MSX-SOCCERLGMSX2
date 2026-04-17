@@ -28,9 +28,13 @@ bool IsTeamJoystickTriggerPressed(u8 player){
 		{
 			return true;
 		}
-	} else { // Player 2 (Solo Joystick 2)
+	} else { // Player 2 (Joystick 2 + Tastiera W,Z,A,S,T)
 		u8 joyStat = Joystick_Read(JOY_PORT_2);
 		if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
+		{
+			return true;
+		}
+		if(Keyboard_IsKeyPressed(KEY_T))
 		{
 			return true;
 		}
@@ -99,6 +103,40 @@ u8 GetJoystickDirection(u8 player){
 			retValue=DIRECTION_UP;
 		}
 		if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_DOWN))
+		{
+			retValue=DIRECTION_DOWN;
+		}
+	}
+	if(retValue==DIRECTION_NONE && player == 1){
+		if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_W))
+		{
+			retValue=DIRECTION_UP_LEFT;
+		}
+		if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_Z))
+		{
+			retValue=DIRECTION_DOWN_LEFT;
+		}
+		if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_Z))
+		{
+			retValue=DIRECTION_DOWN_RIGHT;
+		}
+		if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_W))
+		{
+			retValue=DIRECTION_UP_RIGHT;
+		}		
+		if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_A))
+		{
+			retValue=DIRECTION_LEFT;
+		}
+		if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_S))
+		{
+			retValue=DIRECTION_RIGHT;
+		}
+		if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_W))
+		{
+			retValue=DIRECTION_UP;
+		}
+		if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_Z))
 		{
 			retValue=DIRECTION_DOWN;
 		}

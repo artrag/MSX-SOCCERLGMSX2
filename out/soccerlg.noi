@@ -27,15 +27,16 @@ DEF _g_CHAR_16 0x34
 DEF l__SEG8 0x49
 DEF l__INITIALIZED 0x4B
 DEF l__INITIALIZER 0x4B
-DEF l__SEG7 0x1B6
+DEF l__SEG7 0x262
 DEF l__DATA 0x33A
 DEF l__SEG10 0x495
+DEF l__SEG13 0x797
 DEF l__SEG5 0xCBF
 DEF l__SEG4 0xDF9
 DEF l__SEG12 0x11CC
 DEF l__SEG6 0x14C2
+DEF l__SEG9 0x193C
 DEF l__SEG11 0x1B80
-DEF l__SEG9 0x1FFC
 DEF l__CODE 0x29DF
 DEF s__CODE 0x4000
 DEF s__HOME 0x69DF
@@ -250,6 +251,7 @@ DEF s__SEG9 0x9A000
 DEF s__SEG10 0xAA000
 DEF s__SEG11 0xBA000
 DEF s__SEG12 0xCA000
+DEF s__SEG13 0xDA000
 DEF _g_FirstAddr 0x4000
 DEF _g_HeaderAddr 0x4000
 DEF crt0_rom_header 0x4000
@@ -501,8 +503,8 @@ DEF _HideSpriteMessage 0x5AC9D
 DEF _PlayerAI 0x6A000
 DEF _FindReceiver 0x6B25C
 DEF _IsTeamJoystickTriggerPressed 0x7A000
-DEF _GetJoystickDirection 0x7A026
-DEF _UpdateAllInputs 0x7A135
+DEF _GetJoystickDirection 0x7A031
+DEF _UpdateAllInputs 0x7A1E1
 DEF _EventBallKicked 0x8A000
 DEF _EventStartPresentationScrollig 0x8A001
 DEF _EventPlayerFirstPresentationStarted 0x8A002
@@ -526,4 +528,5 @@ DEF _ExecuteCornerKick 0xBB1F2
 DEF _GetPlayerAnimFrame 0xBB319
 DEF _GetPlayerIdleFrame 0xBB8EB
 DEF _UpdateGameState_Restarts 0xCA000
+DEF _UpdateGameState_Init 0xDA000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx

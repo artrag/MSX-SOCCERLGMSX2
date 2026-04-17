@@ -286,7 +286,7 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_UpdateAllInputs_s_prev_trigger_state_65536_787:
+_UpdateAllInputs_s_prev_trigger_state_65536_798:
 	.ds 2
 ;--------------------------------------------------------
 ; ram data
@@ -303,8 +303,8 @@ _UpdateAllInputs_s_prev_trigger_state_65536_787:
 	.area _GSINIT
 	.area _GSFINAL
 	.area _GSINIT
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:114: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
-	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_787+0
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:152: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
+	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_798+0
 	xor	a, a
 	ld	(bc), a
 	inc	bc
@@ -326,7 +326,7 @@ _UpdateAllInputs_s_prev_trigger_state_65536_787:
 _IsTeamJoystickTriggerPressed::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:21: if (player == 0) { // Player 1 (Joystick 1 + Tastiera)
 	or	a, a
-	jr	NZ, 00108$
+	jr	NZ, 00110$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:22: u8 joyStat = Joystick_Read(JOY_PORT_1);
 	ld	l, #0x0f
 ;	spillPairReg hl
@@ -343,11 +343,11 @@ _IsTeamJoystickTriggerPressed::
 	ld	a, #0x08
 	call	_Keyboard_IsKeyPressed
 	or	a, a
-	jr	Z, 00109$
+	jr	Z, 00111$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:29: return true;
 	ld	a, #0x01
 	ret
-00108$:
+00110$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:32: u8 joyStat = Joystick_Read(JOY_PORT_2);
 	ld	l, #0x4f
 ;	spillPairReg hl
@@ -355,13 +355,22 @@ _IsTeamJoystickTriggerPressed::
 	call	_Joystick_Read
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:33: if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
 	bit	4, l
+	jr	NZ, 00106$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:35: return true;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:38: return FALSE;
 	ld	a, #0x01
-	ret	Z
-00109$:
+	ret
+00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:37: if(Keyboard_IsKeyPressed(KEY_T))
+	ld	a, #0x15
+	call	_Keyboard_IsKeyPressed
+	or	a, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:39: return true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:42: return FALSE;
+	ld	a, #0x01
+	ret	NZ
+00111$:
 	xor	a, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:39: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:43: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -527,41 +536,41 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:42: u8 GetJoystickDirection(u8 player){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:46: u8 GetJoystickDirection(u8 player){
 ;	---------------------------------
 ; Function GetJoystickDirection
 ; ---------------------------------
 _GetJoystickDirection::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:43: u8 port = (player == 0) ? JOY_PORT_1 : JOY_PORT_2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:47: u8 port = (player == 0) ? JOY_PORT_1 : JOY_PORT_2;
 	ld	c, a
 	or	a, a
-	jr	NZ, 00140$
+	jr	NZ, 00167$
 	ld	hl, #0x000f
-	jp	00141$
-00140$:
+	jp	00168$
+00167$:
 	ld	hl, #0x004f
-00141$:
+00168$:
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/input.h:182: u8 in = ~Joystick_Read(port);
 	call	_Joystick_Read
 	ld	a, l
 	cpl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:44: u8 dir = Joystick_GetDirection(port);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:48: u8 dir = Joystick_GetDirection(port);
 	and	a, #0x0f
 	ld	d, a
 	ld	e, d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:45: u8 retValue=DIRECTION_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:49: u8 retValue=DIRECTION_NONE;
 	ld	b, #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:46: switch (dir){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:50: switch (dir){
 	ld	a, #0x0a
 	sub	a, d
 	jr	C, 00109$
 	ld	d, #0x00
-	ld	hl, #00242$
+	ld	hl, #00359$
 	add	hl, de
 	add	hl, de
 	add	hl, de
 	jp	(hl)
-00242$:
+00359$:
 	jp	00109$
 	jp	00101$
 	jp	00102$
@@ -573,61 +582,61 @@ _GetJoystickDirection::
 	jp	00104$
 	jp	00105$
 	jp	00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:47: case JOY_INPUT_DIR_UP:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:51: case JOY_INPUT_DIR_UP:
 00101$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:48: retValue=DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:52: retValue=DIRECTION_UP;
 	ld	b, #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:49: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:53: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:50: case JOY_INPUT_DIR_DOWN:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:54: case JOY_INPUT_DIR_DOWN:
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:51: retValue=DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:55: retValue=DIRECTION_DOWN;
 	ld	b, #0x05
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:52: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:56: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:53: case JOY_INPUT_DIR_LEFT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:57: case JOY_INPUT_DIR_LEFT:
 00103$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:54: retValue=DIRECTION_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:58: retValue=DIRECTION_LEFT;
 	ld	b, #0x07
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:55: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:59: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:56: case JOY_INPUT_DIR_RIGHT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:60: case JOY_INPUT_DIR_RIGHT:
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:57: retValue=DIRECTION_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:61: retValue=DIRECTION_RIGHT;
 	ld	b, #0x03
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:58: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:62: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:59: case JOY_INPUT_DIR_UP_RIGHT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:63: case JOY_INPUT_DIR_UP_RIGHT:
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:60: retValue=DIRECTION_UP_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:64: retValue=DIRECTION_UP_RIGHT;
 	ld	b, #0x02
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:61: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:65: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:62: case JOY_INPUT_DIR_UP_LEFT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:66: case JOY_INPUT_DIR_UP_LEFT:
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:63: retValue=DIRECTION_UP_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:67: retValue=DIRECTION_UP_LEFT;
 	ld	b, #0x08
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:64: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:68: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:65: case JOY_INPUT_DIR_DOWN_RIGHT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:69: case JOY_INPUT_DIR_DOWN_RIGHT:
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:66: retValue=DIRECTION_DOWN_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:70: retValue=DIRECTION_DOWN_RIGHT;
 	ld	b, #0x04
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:67: break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:71: break;
 	jp	00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:68: case JOY_INPUT_DIR_DOWN_LEFT:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:72: case JOY_INPUT_DIR_DOWN_LEFT:
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:69: retValue=DIRECTION_DOWN_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:73: retValue=DIRECTION_DOWN_LEFT;
 	ld	b, #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:71: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:75: }
 00109$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:72: if(retValue==DIRECTION_NONE && player == 0){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:76: if(retValue==DIRECTION_NONE && player == 0){
 	ld	a, b
 	or	a,a
 	jp	NZ,00135$
 	or	a,c
 	jp	NZ, 00135$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:73: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_UP))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:77: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_UP))
 	push	bc
 	ld	a, #0x48
 	call	_Keyboard_IsKeyPressed
@@ -640,10 +649,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00111$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:75: retValue=DIRECTION_UP_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:79: retValue=DIRECTION_UP_LEFT;
 	ld	b, #0x08
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:77: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_DOWN))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:81: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_DOWN))
 	push	bc
 	ld	a, #0x48
 	call	_Keyboard_IsKeyPressed
@@ -656,10 +665,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00114$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:79: retValue=DIRECTION_DOWN_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:83: retValue=DIRECTION_DOWN_LEFT;
 	ld	b, #0x06
 00114$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:81: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_DOWN))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:85: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_DOWN))
 	push	bc
 	ld	a, #0x78
 	call	_Keyboard_IsKeyPressed
@@ -672,10 +681,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00117$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:83: retValue=DIRECTION_DOWN_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:87: retValue=DIRECTION_DOWN_RIGHT;
 	ld	b, #0x04
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:85: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_UP))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:89: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_UP))
 	push	bc
 	ld	a, #0x78
 	call	_Keyboard_IsKeyPressed
@@ -688,10 +697,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00120$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:87: retValue=DIRECTION_UP_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:91: retValue=DIRECTION_UP_RIGHT;
 	ld	b, #0x02
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:89: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_LEFT))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:93: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_LEFT))
 	ld	a, b
 	or	a, a
 	jr	NZ, 00123$
@@ -701,10 +710,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00123$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:91: retValue=DIRECTION_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:95: retValue=DIRECTION_LEFT;
 	ld	b, #0x07
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:93: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_RIGHT))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:97: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_RIGHT))
 	ld	a, b
 	or	a, a
 	jr	NZ, 00126$
@@ -714,10 +723,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00126$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:95: retValue=DIRECTION_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:99: retValue=DIRECTION_RIGHT;
 	ld	b, #0x03
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:97: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_UP))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:101: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_UP))
 	ld	a, b
 	or	a, a
 	jr	NZ, 00129$
@@ -727,10 +736,10 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00129$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:99: retValue=DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:103: retValue=DIRECTION_UP;
 	ld	b, #0x01
 00129$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:101: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_DOWN))
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:105: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_DOWN))
 	ld	a, b
 	or	a, a
 	jr	NZ, 00135$
@@ -740,14 +749,136 @@ _GetJoystickDirection::
 	pop	bc
 	or	a, a
 	jr	Z, 00135$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:103: retValue=DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:107: retValue=DIRECTION_DOWN;
 	ld	b, #0x05
 00135$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:106: return retValue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:110: if(retValue==DIRECTION_NONE && player == 1){
 	ld	a, b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:107: }
+	or	a, a
+	jp	NZ, 00162$
+	dec	c
+	jp	NZ,00162$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:111: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_W))
+	push	bc
+	ld	a, #0x62
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00138$
+	push	bc
+	ld	a, #0x45
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00138$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:113: retValue=DIRECTION_UP_LEFT;
+	ld	b, #0x08
+00138$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:115: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_Z))
+	push	bc
+	ld	a, #0x62
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00141$
+	push	bc
+	ld	a, #0x75
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00141$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:117: retValue=DIRECTION_DOWN_LEFT;
+	ld	b, #0x06
+00141$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:119: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_Z))
+	push	bc
+	ld	a, #0x05
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00144$
+	push	bc
+	ld	a, #0x75
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00144$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:121: retValue=DIRECTION_DOWN_RIGHT;
+	ld	b, #0x04
+00144$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:123: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_W))
+	push	bc
+	ld	a, #0x05
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00147$
+	push	bc
+	ld	a, #0x45
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00147$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:125: retValue=DIRECTION_UP_RIGHT;
+	ld	b, #0x02
+00147$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:127: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_A))
+	ld	a, b
+	or	a, a
+	jr	NZ, 00150$
+	push	bc
+	ld	a, #0x62
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00150$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:129: retValue=DIRECTION_LEFT;
+	ld	b, #0x07
+00150$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:131: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_S))
+	ld	a, b
+	or	a, a
+	jr	NZ, 00153$
+	push	bc
+	ld	a, #0x05
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00153$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:133: retValue=DIRECTION_RIGHT;
+	ld	b, #0x03
+00153$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:135: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_W))
+	ld	a, b
+	or	a, a
+	jr	NZ, 00156$
+	push	bc
+	ld	a, #0x45
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00156$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:137: retValue=DIRECTION_UP;
+	ld	b, #0x01
+00156$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:139: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_Z))
+	ld	a, b
+	or	a, a
+	jr	NZ, 00162$
+	push	bc
+	ld	a, #0x75
+	call	_Keyboard_IsKeyPressed
+	pop	bc
+	or	a, a
+	jr	Z, 00162$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:141: retValue=DIRECTION_DOWN;
+	ld	b, #0x05
+00162$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:144: return retValue;
+	ld	a, b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:145: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:110: void UpdateAllInputs()
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:148: void UpdateAllInputs()
 ;	---------------------------------
 ; Function UpdateAllInputs
 ; ---------------------------------
@@ -756,20 +887,20 @@ _UpdateAllInputs::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:118: g_player_input[1].direction = GetJoystickDirection(0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:156: g_player_input[1].direction = GetJoystickDirection(0);
 	xor	a, a
 	call	_GetJoystickDirection
 	ld	(#(_g_player_input + 3)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:119: bool p1_trigger_down = IsTeamJoystickTriggerPressed(0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:157: bool p1_trigger_down = IsTeamJoystickTriggerPressed(0);
 	xor	a, a
 	call	_IsTeamJoystickTriggerPressed
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:120: g_player_input[1].trigger_pressed = p1_trigger_down && !s_prev_trigger_state[1];
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:158: g_player_input[1].trigger_pressed = p1_trigger_down && !s_prev_trigger_state[1];
 	ld	bc, #_g_player_input + 4
 	ld	a, e
 	or	a, a
 	jr	Z, 00106$
-	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_787 + 1) + 0)
+	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_798 + 1) + 0)
 	or	a, a
 	jr	Z, 00107$
 00106$:
@@ -779,31 +910,31 @@ _UpdateAllInputs::
 	ld	a, #0x01
 00108$:
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:121: g_player_input[1].trigger_down = p1_trigger_down;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:159: g_player_input[1].trigger_down = p1_trigger_down;
 	ld	hl, #(_g_player_input + 5)
 	ld	(hl), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:122: s_prev_trigger_state[1] = p1_trigger_down;
-	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_787+0
-	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_787 + 1)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:160: s_prev_trigger_state[1] = p1_trigger_down;
+	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_798+0
+	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_798 + 1)
 	ld	(hl), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:130: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:131: g_player_input[0].trigger_down = p2_trigger_down;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:125: if (GameMode == GAMEMODE_P1_VS_P2)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:163: if (GameMode == GAMEMODE_P1_VS_P2)
 	ld	a, (_GameMode+0)
 	dec	a
 	jr	NZ, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:128: g_player_input[0].direction = GetJoystickDirection(1);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:166: g_player_input[0].direction = GetJoystickDirection(1);
 	push	bc
 	ld	a, #0x01
 	call	_GetJoystickDirection
 	pop	bc
 	ld	(#_g_player_input),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:129: bool p2_trigger_down = IsTeamJoystickTriggerPressed(1);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:167: bool p2_trigger_down = IsTeamJoystickTriggerPressed(1);
 	push	bc
 	ld	a, #0x01
 	call	_IsTeamJoystickTriggerPressed
 	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:130: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
 	ld	-1 (ix), a
 	or	a, a
 	jr	Z, 00109$
@@ -817,29 +948,29 @@ _UpdateAllInputs::
 	ld	a, #0x01
 00111$:
 	ld	(#(_g_player_input + 1)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:131: g_player_input[0].trigger_down = p2_trigger_down;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
 	ld	hl, #(_g_player_input + 2)
 	ld	a, -1 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:132: s_prev_trigger_state[0] = p2_trigger_down;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:170: s_prev_trigger_state[0] = p2_trigger_down;
 	ld	a, -1 (ix)
 	ld	(bc), a
 	jp	00104$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:136: g_player_input[0].direction = DIRECTION_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:174: g_player_input[0].direction = DIRECTION_NONE;
 	ld	hl, #_g_player_input
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:137: g_player_input[0].trigger_down = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:175: g_player_input[0].trigger_down = FALSE;
 	ld	hl, #(_g_player_input + 2)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:138: g_player_input[0].trigger_pressed = FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:176: g_player_input[0].trigger_pressed = FALSE;
 	ld	hl, #(_g_player_input + 1)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:139: s_prev_trigger_state[0] = FALSE; // Ensure state is clean
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:177: s_prev_trigger_state[0] = FALSE; // Ensure state is clean
 	xor	a, a
 	ld	(bc), a
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:141: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:179: }
 	inc	sp
 	pop	ix
 	ret

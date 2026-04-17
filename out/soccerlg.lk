@@ -11,6 +11,7 @@
 -b_SEG10=0x000AA000
 -b_SEG11=0x000BA000
 -b_SEG12=0x000CA000
+-b_SEG13=0x000DA000
 -k E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80
 -k E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/bin\..\lib\z80
 -l E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/msxgl.lib
@@ -26,5 +27,6 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s10_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s11_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s12_b3.rel
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg_s13_b3.rel
 
 -e
