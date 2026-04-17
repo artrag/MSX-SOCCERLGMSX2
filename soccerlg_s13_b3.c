@@ -34,6 +34,17 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 	} else if (*game_state == 2) {
 		bool all_in_position = TRUE;
 
+		// Rientro morbido della telecamera verso centrocampo se era un Goal
+		if (RestartType == RESTART_KICKOFF_SCROLL) {
+			if (Field.ly > target_ly + 3) {
+				Field.dy = -4; Field.ly += Field.dy; all_in_position = FALSE;
+			} else if (Field.ly + 3 < target_ly) {
+				Field.dy = 4; Field.ly += Field.dy; all_in_position = FALSE;
+			} else {
+				Field.dy = 0; Field.ly = target_ly;
+			}
+		}
+
 		// Imposta dinamicamente il target dell'arbitro in base alla posizione della palla
 		u16 ball_ref_x = (RestartType == RESTART_GKSAVE) ? RestartSideX : SwSprite[14].lx;
 		u16 ball_ref_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
@@ -119,6 +130,7 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 				// NOTA: L'input viene sincronizzato da UpdateAllInputs nel loop principale
 				return;
 			}
+			if (RestartType == RESTART_KICKOFF_SCROLL) RestartType = 0;
 			*game_state = 3;
 			
 			// Assegna Carrier e Receiver per il Kickoff

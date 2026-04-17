@@ -131,7 +131,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				if (g_pass_max_height <= 2 && progress > 0) {
 					u16 top_boundary = 24;
 					u16 bottom_boundary = 478;
-					u8 goal_left = 100;
+					u8 goal_left = 84;
 					u8 goal_right = 156;
 					
 					i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
@@ -168,8 +168,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
 						if (len == 0) len = 1;
 						
-						out_dx = (out_dx * 40) / len;
-						out_dy = (out_dy * 40) / len;
+						out_dx = (out_dx * 60) / len;
+						out_dy = (out_dy * 60) / len;
 						
 						// Forza la palla in campo per evitare falli di fondo o goal al frame successivo
 						if (out_dy > 0) {

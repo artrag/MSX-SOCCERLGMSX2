@@ -107,7 +107,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						SwSprite[14].dx = 0; SwSprite[14].dy = 0; SwSprite[14].anim = 0;
 						SwSprite[14].frame = SPR_BALL_SIZE_1;
 						
-						Field.ly = target_ly; // Teletrasporta telecamera al centro
+						if (RestartType != RESTART_GOAL) Field.ly = target_ly; // Teletrasporta solo se NON è un Goal
 						CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
 					}
 					
@@ -148,10 +148,79 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 512);
 
 					*game_state = 2; // Riparte la coreografia di schieramento
+					if (RestartType == RESTART_GOAL) RestartType = RESTART_KICKOFF_SCROLL;
 				}
 			}
 			*start_sec = Frms;
 		}
+	} else if (*game_state == 9) {
+		// --- FESTEGGIAMENTI GOAL ---
+		if (*wait_secs > 0) {
+			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
+				(*wait_secs)--;
+				if (*wait_secs == 0) {
+					*game_state = 6; // Passa al reset del campo
+					*wait_secs = 1;  // Pausa minima per permettere il ridisegno pulito
+					*start_sec = Frms;
+					return;
+				}
+			}
+			*start_sec = Frms;
+		}
+
+		u8 scoring_team = (KickOffTeam == TEAM_1) ? TEAM_2 : TEAM_1;
+
+		for (u8 i = 0; i < 14; i++) {
+			u8 team = (i < 7) ? TEAM_1 : TEAM_2;
+			struct ObjectInfo* p = &SwSprite[i];
+			
+			if (team == scoring_team && i != 0 && i != 7) { 
+				// Movimento per i festeggiamenti
+				u8 phase = ((Frms / 6) + i * 3) % 8; // Velocità e sfasamento
+				i8 dx = 0, dy = 0;
+				switch(phase) {
+					case 0: dx =  0; dy = -2; break; // N
+					case 1: dx =  2; dy = -2; break; // NE
+					case 2: dx =  2; dy =  0; break; // E
+					case 3: dx =  2; dy =  2; break; // SE
+					case 4: dx =  0; dy =  2; break; // S
+					case 5: dx = -2; dy =  2; break; // SW
+					case 6: dx = -2; dy =  0; break; // W
+					case 7: dx = -2; dy = -2; break; // NW
+				}
+
+				// Mantieni i giocatori all'interno dei limiti dello schermo/campo
+				i16 next_x = p->lx + dx;
+				i16 next_y = p->ly + dy;
+				if (next_x < 32 && dx < 0) dx = 2;
+				if (next_x > 224 && dx > 0) dx = -2;
+				if (next_y < Field.ly + 32 && dy < 0) dy = 2;
+				if (next_y > Field.ly + 192 - 32 && dy > 0) dy = -2;
+
+				p->dx = dx;
+				p->dy = dy;
+				p->lx += dx;
+				p->ly += dy;
+				p->anim++;
+
+				const u8 walk_seq[4] = {0, 1, 2, 1};
+				p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+			} else {
+				// Giocatori sconfitti fermi guardano la palla triste a terra
+				i8 look_dx = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
+				i8 look_dy = (SwSprite[14].ly > p->ly) ? 1 : ((SwSprite[14].ly < p->ly) ? -1 : 0);
+				if (look_dx == 0 && look_dy == 0) look_dy = 1;
+				p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, look_dx, look_dy);
+			}
+		}
+
+		// Aggiorniamo anche lo sguardo dell'arbitro
+		struct ObjectInfo* ref = &SwSprite[26];
+		i8 look_dx = (SwSprite[14].lx > ref->lx) ? 1 : ((SwSprite[14].lx < ref->lx) ? -1 : 0);
+		i8 look_dy = (SwSprite[14].ly > ref->ly) ? 1 : ((SwSprite[14].ly < ref->ly) ? -1 : 0);
+		if (look_dx == 0 && look_dy == 0) look_dy = 1;
+		ref->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, 26, look_dx, look_dy);
+		return;
 	} else if (*game_state == 7) {
 		// --- ATTESA BATTUTA RIMESSA LATERALE ---
 		u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;

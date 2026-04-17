@@ -95,6 +95,12 @@ struct TeamColors {
 #define SPR_T1_PLAYER_SHOT_TO_NORTH_WEST 			38
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_EAST        	42
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_WEST        	41
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_1        		60
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_2        		61
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_3        		62
+#define SPR_T1_PLAYER_HAPPY_TO_NORTH_1        		92
+#define SPR_T1_PLAYER_HAPPY_TO_NORTH_2        		93
+#define SPR_T1_PLAYER_HAPPY_TO_NORTH_3        		94
 #define SPR_T2_PLAYER_EAST_DIRECTION_1          	141
 #define SPR_T2_PLAYER_EAST_DIRECTION_2          	140
 #define SPR_T2_PLAYER_EAST_DIRECTION_3          	139
@@ -143,6 +149,12 @@ struct TeamColors {
 #define SPR_T2_PLAYER_SHOT_TO_NORTH_WEST        	150
 #define SPR_T2_PLAYER_SHOT_TO_SOUTH_EAST        	154
 #define SPR_T2_PLAYER_SHOT_TO_SOUTH_WEST        	153
+#define SPR_T2_PLAYER_HAPPY_TO_SOUTH_1        		156
+#define SPR_T2_PLAYER_HAPPY_TO_SOUTH_2        		157
+#define SPR_T2_PLAYER_HAPPY_TO_SOUTH_3        		158
+#define SPR_T2_PLAYER_HAPPY_TO_NORTH_1        		204
+#define SPR_T2_PLAYER_HAPPY_TO_NORTH_2        		205
+#define SPR_T2_PLAYER_HAPPY_TO_NORTH_3        		206
 #define SPR_GK_PLAYER_EAST_DIRECTION_1          	237
 #define SPR_GK_PLAYER_EAST_DIRECTION_2          	236
 #define SPR_GK_PLAYER_EAST_DIRECTION_3          	235
@@ -262,6 +274,8 @@ struct TeamColors {
 #define RESTART_GOALKICK                            2
 #define RESTART_CORNERKICK                          3
 #define RESTART_GKSAVE                              4
+#define RESTART_GOAL                                5
+#define RESTART_KICKOFF_SCROLL                      6
 
 #define TEAM_1                                      0
 #define TEAM_2                                      1

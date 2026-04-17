@@ -29,14 +29,14 @@ DEF l__INITIALIZED 0x4B
 DEF l__INITIALIZER 0x4B
 DEF l__SEG7 0x262
 DEF l__DATA 0x33A
-DEF l__SEG10 0x495
-DEF l__SEG13 0x797
+DEF l__SEG10 0x49F
+DEF l__SEG13 0x8D5
 DEF l__SEG5 0xCBF
 DEF l__SEG4 0xDF9
-DEF l__SEG12 0x11CC
 DEF l__SEG6 0x14C2
-DEF l__SEG9 0x193C
-DEF l__SEG11 0x1B80
+DEF l__SEG12 0x16A1
+DEF l__SEG9 0x1940
+DEF l__SEG11 0x1C70
 DEF l__CODE 0x29DF
 DEF s__CODE 0x4000
 DEF s__HOME 0x69DF
@@ -526,7 +526,7 @@ DEF _AssignCornerKickTargets 0xBAD44
 DEF _ExecuteThrowIn 0xBB0C6
 DEF _ExecuteCornerKick 0xBB1F2
 DEF _GetPlayerAnimFrame 0xBB319
-DEF _GetPlayerIdleFrame 0xBB8EB
+DEF _GetPlayerIdleFrame 0xBB9DB
 DEF _UpdateGameState_Restarts 0xCA000
 DEF _UpdateGameState_Init 0xDA000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx
