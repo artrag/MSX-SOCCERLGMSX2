@@ -120,9 +120,22 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					}
 					
 					Field.dy = 0;
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-					CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
+					
+					// Ridisegno di background con rinfresco sprite per evitare sparizioni
+					bool ball_fg = CallFnc_BOOL(SEG_DRAW, IsBallForeground);
+					for (u16 page = 0; page <= 512; page += 256) {
+						CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, page);
+						if (!ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
+						for (u8 i=0; i<14; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+						if (ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
+						for (u8 i=15; i<NumSprite; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+					}
+					
+					// Aggiorna la storia del triplo buffer per evitare che gli sprite vecchi corrompano il campo
+					for (u8 i = 0; i < NumSprite; i++) {
+						SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
+						SwSprite[i].y0 = SwSprite[i].y1 = SwSprite[i].y2 = SwSprite[i].ly;
+					}
 					
 					// Ripristina l'interfaccia
 					CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.lx, Field.ly, 0);

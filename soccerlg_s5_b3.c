@@ -94,6 +94,9 @@ bool IsBallForeground()
 	// Se la palla è in volo (dimensione > 1), è sempre in primo piano
 	if (SwSprite[14].frame > SPR_BALL_SIZE_1) return TRUE;
 
+	// Forza in primo piano durante la parata anche se di dimensione base
+	if (RestartType == RESTART_GKSAVE) return TRUE;
+
 	u8 closest_player = 0;
 	u16 min_dist = 0xFFFF;
 	

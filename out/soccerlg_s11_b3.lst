@@ -1873,7 +1873,7 @@
     00000967 23               [ 6] 1873 	inc	hl
     00000968 DD 7E FB         [19] 1874 	ld	a, -5 (ix)
     0000096B 77               [ 7] 1875 	ld	(hl), a
-                                   1876 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:179: SwSprite[14].frame = SPR_BALL_SIZE_2; // Dimensione > 1 forza lo z-order in primo piano
+                                   1876 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:179: SwSprite[14].frame = SPR_BALL_SIZE_1; // Dimensione 1 per proporzione realistica
                                    1877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:180: SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
     0000096C DD 4E F8         [19] 1878 	ld	c, -8 (ix)
     0000096F 06 00            [ 7] 1879 	ld	b, #0x00
@@ -1923,8 +1923,8 @@
     000009AF 13               [ 6] 1923 	inc	de
     000009B0 DD 7E FF         [19] 1924 	ld	a, -1 (ix)
     000009B3 12               [ 7] 1925 	ld	(de), a
-                                   1926 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:179: SwSprite[14].frame = SPR_BALL_SIZE_2; // Dimensione > 1 forza lo z-order in primo piano
-    000009B4 21 61 00         [10] 1927 	ld	hl, #0x0061
+                                   1926 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:179: SwSprite[14].frame = SPR_BALL_SIZE_1; // Dimensione 1 per proporzione realistica
+    000009B4 21 60 00         [10] 1927 	ld	hl, #0x0060
     000009B7 22r51r01         [16] 1928 	ld	((_SwSprite + 337)), hl
                                    1929 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:180: SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
     000009BA 2E 0F            [ 7] 1930 	ld	l, #0x0f
