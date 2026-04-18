@@ -9,19 +9,19 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _Field                                                          ******** GX
   7 _FieldMap                                                       0000007E R
-  7 _HideSpriteMessage                                              00000CC5 GR
-  7 _IsBallForeground                                               00000991 GR
+  7 _HideSpriteMessage                                              00000D93 GR
+  7 _IsBallForeground                                               00000A70 GR
     _KickOffTeam                                                    ******** GX
   7 _PlotField                                                      00000000 GR
-  7 _PrintScoreBoardLeft                                            000005B9 GR
-  7 _PrintScoreBoardRight                                           00000858 GR
-  7 _RemoveScoreBoardLeft                                           00000435 GR
-  7 _RemoveScoreBoardRight                                          000006D4 GR
+  7 _PrintScoreBoardLeft                                            00000698 GR
+  7 _PrintScoreBoardRight                                           00000937 GR
+  7 _RemoveScoreBoardLeft                                           00000514 GR
+  7 _RemoveScoreBoardRight                                          000007B3 GR
   7 _RemoveSwSprite                                                 0000027E GR
     _RestartSideY                                                   ******** GX
     _RestartType                                                    ******** GX
-  7 _SetBallSprite                                                  0000097D GR
-  7 _ShowSpriteMessage                                              00000AEE GR
+  7 _SetBallSprite                                                  00000A5C GR
+  7 _ShowSpriteMessage                                              00000BCD GR
     _SwSprite                                                       ******** GX
     _VPD_CommandSetupR32                                            ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -287,7 +287,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size      CFD   flags    0
+   7 _SEG5                                      size      DB5   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

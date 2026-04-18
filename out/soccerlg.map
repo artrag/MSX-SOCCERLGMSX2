@@ -42,12 +42,12 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000050B  l__SEG10                        
      00000903  l__SEG13                        
      00000B20  l__SEG15                        
-     00000CFD  l__SEG5                         
-     00000E60  l__SEG4                         
+     00000DB5  l__SEG5                         
+     00000E45  l__SEG4                         
      00001496  l__SEG12                        
      000014C2  l__SEG6                         
-     00001997  l__SEG9                         
-     00001B77  l__SEG16                        
+     00001959  l__SEG9                         
+     00001ACB  l__SEG16                        
      00001C70  l__SEG11                        
      000029DD  l__CODE                         
      00004000  s__CODE                         
@@ -646,7 +646,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    00000E60 =        3680. bytes (REL,CON)
+_SEG4                               0004A000    00000E45 =        3653. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -658,20 +658,20 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00000CFD =        3325. bytes (REL,CON)
+_SEG5                               0005A000    00000DB5 =        3509. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0005A000  _PlotField                         soccerlg_s5_b3
      0005A27E  _RemoveSwSprite                    soccerlg_s5_b3
-     0005A435  _RemoveScoreBoardLeft              soccerlg_s5_b3
-     0005A5B9  _PrintScoreBoardLeft               soccerlg_s5_b3
-     0005A6D4  _RemoveScoreBoardRight             soccerlg_s5_b3
-     0005A858  _PrintScoreBoardRight              soccerlg_s5_b3
-     0005A97D  _SetBallSprite                     soccerlg_s5_b3
-     0005A991  _IsBallForeground                  soccerlg_s5_b3
-     0005AAEE  _ShowSpriteMessage                 soccerlg_s5_b3
-     0005ACC5  _HideSpriteMessage                 soccerlg_s5_b3
+     0005A514  _RemoveScoreBoardLeft              soccerlg_s5_b3
+     0005A698  _PrintScoreBoardLeft               soccerlg_s5_b3
+     0005A7B3  _RemoveScoreBoardRight             soccerlg_s5_b3
+     0005A937  _PrintScoreBoardRight              soccerlg_s5_b3
+     0005AA5C  _SetBallSprite                     soccerlg_s5_b3
+     0005AA70  _IsBallForeground                  soccerlg_s5_b3
+     0005ABCD  _ShowSpriteMessage                 soccerlg_s5_b3
+     0005AD93  _HideSpriteMessage                 soccerlg_s5_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
@@ -723,7 +723,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001997 =        6551. bytes (REL,CON)
+_SEG9                               0009A000    00001959 =        6489. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -808,7 +808,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG16                              0010A000    00001B77 =        7031. bytes (REL,CON)
+_SEG16                              0010A000    00001ACB =        6859. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

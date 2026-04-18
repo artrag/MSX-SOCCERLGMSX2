@@ -44,8 +44,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				SwSprite[26].tx = (u8)(128 + 24);
 				SwSprite[26].ty = (u16)(256 - 24);
 				
-				// Nascondi la palla in modo sicuro senza sfarfallii
-				SwSprite[14].ly = Field.ly + 256;
+				// Nascondi la palla in modo assoluto
+				SwSprite[14].ly = 1000;
 			}
 			*start_sec = Frms;
 			return;
@@ -127,16 +127,16 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			g_penalty_shooter_idx = (g_penalty_team == TEAM_1) ? shooter_role : shooter_role + 7;
 
 			// Posiziona la palla sul dischetto del rigore (porta nord)
-			Ball->lx = 120; Ball->ty = 92; Ball->tx = 120; Ball->ly = 92;
+			Ball->lx = 120; Ball->ty = 80; Ball->tx = 120; Ball->ly = 80;
 			Ball->anim = 0; Ball->frame = SPR_BALL_SIZE_1;
 
 			// Imposta le posizioni target
 			SwSprite[g_penalty_shooter_idx].tx = 120;     // Tiratore dietro la palla
-			SwSprite[g_penalty_shooter_idx].ty = 108;     // Tiratore dietro al dischetto
+			SwSprite[g_penalty_shooter_idx].ty = 96;      // 80 + 16
 			SwSprite[keeper_idx].tx = 120;                // Portiere al centro della porta
 			SwSprite[keeper_idx].ty = 32;
-			SwSprite[26].tx = 82 - 20;                    // Arbitro a lato dell'area
-			SwSprite[26].ty = 92 - 24;
+			SwSprite[26].tx = 62;                         // Arbitro a lato dell'area
+			SwSprite[26].ty = 56;
 
 			// Riporta i giocatori a centrocampo alle loro pose di attesa
 			for(u8 i=0; i<=26; i++) {
@@ -149,7 +149,6 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 		}
 		else if(*game_state == 13) { // STATO 13: Avvicinamento al dischetto
 			bool all_in_position = TRUE;
-			u8 actors[] = {g_penalty_shooter_idx, keeper_idx, 26};
 
 			// Movimento telecamera per seguire il portiere verso la porta
 			u16 cam_target = (SwSprite[keeper_idx].ly < 96) ? 0 : SwSprite[keeper_idx].ly - 96;
@@ -159,13 +158,14 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			else { Field.dy = 0; }
 
 			for(u8 i=0; i<3; i++) {
-				struct ObjectInfo* p = &SwSprite[actors[i]];
+				u8 actor_idx = (i == 0) ? g_penalty_shooter_idx : ((i == 1) ? keeper_idx : 26);
+				struct ObjectInfo* p = &SwSprite[actor_idx];
 				
 				// Offset per evitare sovrapposizione in camminata (corsie separate)
-				u8 final_tx = (actors[i] == 26) ? (120 - 38) : 120; 
+				u8 final_tx = (actor_idx == 26) ? 62 : 120; 
 				u8 current_tx = final_tx;
-				if (actors[i] == g_penalty_shooter_idx && p->ly > p->ty + 4) current_tx = 96;
-				if (actors[i] == keeper_idx && p->ly > p->ty + 4) current_tx = 144;
+				if (actor_idx == g_penalty_shooter_idx && p->ly > p->ty + 4) current_tx = 96;
+				if (actor_idx == keeper_idx && p->ly > p->ty + 4) current_tx = 144;
 
 				if (p->lx != current_tx || p->ly != p->ty) {
 					all_in_position = FALSE;
@@ -180,10 +180,10 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					
 					p->lx += p->dx; p->ly += p->dy; p->anim++;
 					const u8 walk_seq[4] = {0, 1, 2, 1};
-					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actors[i], p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 				} else {
 					p->dx = 0; p->dy = 0;
-					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actors[i], 0, (i8)((actors[i] == keeper_idx) ? 1 : -1));
+					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actor_idx, 0, (i8)((actor_idx == keeper_idx) ? 1 : -1));
 				}
 			}
 
@@ -233,7 +233,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 			if(do_shot) {
 				*wait_secs = 0; // Prepara il timer per lo stato 15
-				SwSprite[25].ly = Field.ly + 256; // Nasconde freccia in modo sicuro e pulito
+				SwSprite[25].ly = 1000; // Nasconde freccia in modo assoluto
 				u8 shot_dir; // 0=sx, 1=centro, 2=dx
 				if(is_shooter_human) shot_dir = g_penalty_arrow_pos;
 				else shot_dir = Frms % 3;
@@ -281,7 +281,6 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 156) {
 						if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;
-						CallFnc_VOID(SEG_EVENTS, EventGoal);
 					}
 					*wait_secs = 2; // Inizializza attesa post-tiro prima di cambiare giocatore
 					*start_sec = Frms;
@@ -300,8 +299,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					g_penalty_shot_count[g_penalty_team]++;
 					g_penalty_team = (g_penalty_team == TEAM_1) ? TEAM_2 : TEAM_1;
 					
-					// Nascondi la palla senza usare frame = 0
-					Ball->ly = Field.ly + 256;
+					// Nascondi la palla in modo assoluto
+					Ball->ly = 1000;
 
 					// Calcola le posizioni di attesa a centrocampo per Shooter e Keeper
 					u8 p_idx = g_penalty_shooter_idx;
@@ -337,7 +336,6 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 		}
 		else if(*game_state == 16) { // STATO 16: Ritorno a centrocampo
 			bool all_in_position = TRUE;
-			u8 actors[] = {g_penalty_shooter_idx, keeper_idx, 26};
 
 			// Movimento telecamera per seguire il portiere che torna
 			u16 cam_target = (SwSprite[keeper_idx].ly < 96) ? 0 : SwSprite[keeper_idx].ly - 96;
@@ -348,7 +346,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			else { Field.dy = 0; }
 
 			for(u8 i=0; i<3; i++) {
-				struct ObjectInfo* p = &SwSprite[actors[i]];
+				u8 actor_idx = (i == 0) ? g_penalty_shooter_idx : ((i == 1) ? keeper_idx : 26);
+				struct ObjectInfo* p = &SwSprite[actor_idx];
 				if (p->lx != p->tx || p->ly != p->ty) {
 					all_in_position = FALSE;
 					
@@ -362,17 +361,19 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					
 					p->lx += p->dx; p->ly += p->dy; p->anim++;
 					const u8 walk_seq[4] = {0, 1, 2, 1};
-					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actors[i], p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+					// FIX: Utilizziamo actor_idx e non 'i' per garantire l'indice e i colori della maglietta corretti
+					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 				} else {
 					p->dx = 0; p->dy = 0;
 					i8 look_dx = 0, look_dy = 1;
-					if (actors[i] == 26) { look_dy = 1; }
+					if (actor_idx == 26) { look_dy = 1; }
 					else {
-						look_dx = (i8)((actors[i] % 3) - 1);
-						look_dy = (i8)(((actors[i] / 3) % 3) - 1);
+						look_dx = (i8)((actor_idx % 3) - 1);
+						look_dy = (i8)(((actor_idx / 3) % 3) - 1);
 					}
 					if (look_dx == 0 && look_dy == 0) look_dy = 1;
-					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actors[i], look_dx, look_dy);
+					// FIX: Utilizziamo actor_idx anche per la posa idle una volta fermi
+					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actor_idx, look_dx, look_dy);
 				}
 			}
 

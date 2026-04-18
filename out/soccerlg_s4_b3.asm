@@ -1464,7 +1464,7 @@ _MainLoop::
 	ld	-2 (ix), #0
 	jp	00230$
 00229$:
-	ld	-3 (ix), #0x66
+	ld	-3 (ix), #0x76
 	ld	-2 (ix), #0
 00230$:
 	ld	c, -3 (ix)
@@ -1528,23 +1528,12 @@ _MainLoop::
 	ex	de, hl
 	xor	a, a
 	ld	(de), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1054: SwSprite[i].ly = Field.ly + 256; // Valore sicuro per il triplo buffer
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1054: SwSprite[i].ly = 1000; // Nascondimento assoluto
 	ld	hl, #0x0004
 	add	hl, de
-	ld	-4 (ix), l
-	ld	-3 (ix), h
-	ld	hl, (#(_Field + 4) + 0)
-	ld	a, h
-	inc	a
-	ld	-2 (ix), l
-	ld	-1 (ix), a
-	ld	l, -4 (ix)
-	ld	h, -3 (ix)
-	ld	a, -2 (ix)
-	ld	(hl), a
+	ld	(hl), #0xe8
 	inc	hl
-	ld	a, -1 (ix)
-	ld	(hl), a
+	ld	(hl), #0x03
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1055: SwSprite[i].frame = 0;
 	ld	hl, #0x000f
 	add	hl, de

@@ -60,7 +60,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			SwSprite[24].ly = 440; 
 			SwSprite[24].frame = SPR_BIG_ARROW_BOTTOM;
 		} else {
-			SwSprite[24].ly = Field.ly + 256; // Nascondimento sicuro
+			SwSprite[24].ly = 1000; // Nascondimento assoluto
 		}
 		// Freccia in basso (per Team 2 che attacca verso l'alto)
 		SwSprite[25].lx = (u8)g_h_arrow_x; SwSprite[25].ly = 50; SwSprite[25].frame = SPR_BIG_ARROW_TOP;
@@ -494,8 +494,8 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, 26, look_dx, look_dy);
 		}
 	} else {
-		SwSprite[24].ly = Field.ly + 256; // Nascondimento sicuro
-		SwSprite[25].ly = Field.ly + 256; // Nascondimento sicuro
+		SwSprite[24].ly = 1000; // Nascondimento assoluto
+		SwSprite[25].ly = 1000; // Nascondimento assoluto
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_3, UpdateGameState_Restarts, game_state, wait_secs, start_sec, target_ly);
 	}
 }

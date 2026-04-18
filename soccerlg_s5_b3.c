@@ -19,6 +19,7 @@ void PlotField(u16 y,u16 page)
 
 void RemoveSwSprite(u8 px,u16 py,u16 page) 
 {
+	if (py >= 1000) return; // Ignora in modo sicuro gli sprite nascosti
 	u16 diff = (py + 512 - Field.ly) & 511;
 	if (diff < 224 || diff > 480) 
 	{
@@ -177,7 +178,7 @@ void ShowSpriteMessage(u16 messageId)
 	
 	// Nasconde eventuali sprite precedenti in eccesso non usati
 	for (u8 i = 15 + len; i < 24; i++) {
-		SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
+		SwSprite[i].ly = 1000; // Nascondimento assoluto
 	}
 }
 
@@ -185,6 +186,6 @@ void ShowSpriteMessage(u16 messageId)
 void HideSpriteMessage()
 {
 	for (u8 i = 15; i < 24; i++) {
-		SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
+		SwSprite[i].ly = 1000; // Nascondimento assoluto
 	}
 }
