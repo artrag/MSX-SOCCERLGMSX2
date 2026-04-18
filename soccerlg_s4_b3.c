@@ -1051,7 +1051,7 @@ void MainLoop(){
 	// Nascondi gli sprite dei messaggi e delle frecce
 	for (u8 i = 15; i < 26; i++) {
 		SwSprite[i].lx = 0;
-		SwSprite[i].ly = 1000; // Valore Y alto, fuori dal limite del campo (504)
+		SwSprite[i].ly = Field.ly + 256; // Valore sicuro per il triplo buffer
 		SwSprite[i].frame = 0;
 		SwSprite[i].dx = 0;
 		SwSprite[i].dy = 0;

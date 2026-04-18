@@ -21,6 +21,31 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
 				}
+
+				// Assegna posizioni "disordinate ma vicine" a centrocampo per i rigori
+				T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Rimuovi tutti i focus
+				for(u8 i=0; i<14; i++) {
+					u8 role = (i < 7) ? i : i - 7;
+					u8 t_cx = (i < 7) ? 64 : 192;
+					i8 off_x = 0; i8 off_y = 0;
+					switch(role) {
+						case 0: off_x = -18; off_y = -18; break; // Giocatore 1 (dietro)
+						case 1: off_x =   2; off_y = -18; break; // Giocatore 2 (dietro)
+						case 2: off_x =  22; off_y = -18; break; // Giocatore 3 (dietro)
+						case 3: off_x = -22; off_y =   2; break; // Giocatore 4 (centro)
+						case 4: off_x =  -2; off_y =   2; break; // Giocatore 5 (centro)
+						case 5: off_x =  18; off_y =   2; break; // Giocatore 6 (centro)
+						case 6: off_x = -10; off_y =  22; break; // Giocatore 7 (avanti)
+					}
+					SwSprite[i].tx = (u8)(t_cx + off_x);
+					SwSprite[i].ty = (u16)(256 + off_y);
+				}
+				// Arbitro in disparte al limite del cerchio
+				SwSprite[26].tx = (u8)(128 + 24);
+				SwSprite[26].ty = (u16)(256 - 24);
+				
+				// Nascondi la palla in modo sicuro senza sfarfallii
+				SwSprite[14].ly = Field.ly + 256;
 			}
 			*start_sec = Frms;
 			return;
@@ -102,13 +127,13 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			g_penalty_shooter_idx = (g_penalty_team == TEAM_1) ? shooter_role : shooter_role + 7;
 
 			// Posiziona la palla sul dischetto del rigore (porta nord)
-			Ball->lx = 112; Ball->ty = 76; Ball->tx = 112; Ball->ly = 76;
+			Ball->lx = 120; Ball->ty = 92; Ball->tx = 120; Ball->ly = 92;
 			Ball->anim = 0; Ball->frame = SPR_BALL_SIZE_1;
 
 			// Imposta le posizioni target
-			SwSprite[g_penalty_shooter_idx].tx = 112;     // Tiratore dietro la palla
-			SwSprite[g_penalty_shooter_idx].ty = 76 + 16;
-			SwSprite[keeper_idx].tx = 128;                // Portiere al centro della porta
+			SwSprite[g_penalty_shooter_idx].tx = 120;     // Tiratore dietro la palla
+			SwSprite[g_penalty_shooter_idx].ty = 108;     // Tiratore dietro al dischetto
+			SwSprite[keeper_idx].tx = 120;                // Portiere al centro della porta
 			SwSprite[keeper_idx].ty = 32;
 			SwSprite[26].tx = 82 - 20;                    // Arbitro a lato dell'area
 			SwSprite[26].ty = 92 - 24;
@@ -135,11 +160,18 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 			for(u8 i=0; i<3; i++) {
 				struct ObjectInfo* p = &SwSprite[actors[i]];
-				if (p->lx != p->tx || p->ly != p->ty) {
+				
+				// Offset per evitare sovrapposizione in camminata (corsie separate)
+				u8 final_tx = (actors[i] == 26) ? (120 - 38) : 120; 
+				u8 current_tx = final_tx;
+				if (actors[i] == g_penalty_shooter_idx && p->ly > p->ty + 4) current_tx = 96;
+				if (actors[i] == keeper_idx && p->ly > p->ty + 4) current_tx = 144;
+
+				if (p->lx != current_tx || p->ly != p->ty) {
 					all_in_position = FALSE;
 					
-					if (p->tx > p->lx) p->dx = (i8)((p->tx - p->lx >= 2) ? 2 : 1); 
-					else if (p->tx < p->lx) p->dx = (i8)((p->lx - p->tx >= 2) ? -2 : -1); 
+					if (current_tx > p->lx) p->dx = (i8)((current_tx - p->lx >= 2) ? 2 : 1); 
+					else if (current_tx < p->lx) p->dx = (i8)((p->lx - current_tx >= 2) ? -2 : -1); 
 					else p->dx = 0;
 					
 					if (p->ty > p->ly) p->dy = (i8)((p->ty - p->ly >= 2) ? 2 : 1); 
@@ -171,9 +203,9 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			// Logica portiere
 			if(is_keeper_human) {
 				u8 dir = g_player_input[keeper_team_idx].direction;
-				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) Keeper->tx = (u8)(128 - 24);
-				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) Keeper->tx = (u8)(128 + 24);
-				else Keeper->tx = (u8)128;
+				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) Keeper->tx = (u8)(120 - 24);
+				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) Keeper->tx = (u8)(120 + 24);
+				else Keeper->tx = (u8)120;
 			}
 			
 			if (Keeper->lx != Keeper->tx) {
@@ -188,10 +220,10 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					g_penalty_arrow_pos += g_penalty_arrow_dir;
 					if(g_penalty_arrow_pos == 0 || g_penalty_arrow_pos == 2) g_penalty_arrow_dir = (i8)-g_penalty_arrow_dir;
 				}
-				u8 arrow_x_pos[] = {100, 128, 156};
+				u8 arrow_x_pos[] = {92, 120, 148};
 				SwSprite[25].lx = arrow_x_pos[g_penalty_arrow_pos];
 				SwSprite[25].ly = 50; SwSprite[25].frame = SPR_BIG_ARROW_TOP;
-				if(g_player_input[g_penalty_team].trigger_pressed) do_shot = TRUE;
+				if(g_player_input[g_penalty_team].trigger_pressed) do_shot = TRUE; // Impedisce tiri accidentali
 			} else { // CPU Shooter
 				if(*wait_secs < 4) do_shot = TRUE;
 			}
@@ -200,17 +232,18 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			if (*wait_secs == 0) do_shot = TRUE;
 
 			if(do_shot) {
-				SwSprite[25].ly = (u16)1000; // Nasconde freccia
+				*wait_secs = 0; // Prepara il timer per lo stato 15
+				SwSprite[25].ly = Field.ly + 256; // Nasconde freccia in modo sicuro e pulito
 				u8 shot_dir; // 0=sx, 1=centro, 2=dx
 				if(is_shooter_human) shot_dir = g_penalty_arrow_pos;
 				else shot_dir = Frms % 3;
 
-				u8 target_x_pos[] = {100, 128, 156};
+				u8 target_x_pos[] = {92, 120, 148};
 				g_pass_start_x = Ball->lx; g_pass_start_y = Ball->ly;
 				g_pass_target_x = target_x_pos[shot_dir]; g_pass_target_y = 16;
 				g_pass_max_frames = 15; g_pass_max_height = 1; // Tiro basso e veloce (dimensione 1)
 				g_pass_receiver = 0xFF;
-				Ball->anim = 5; Ball->count = 0;
+				Ball->anim = 5; Ball->count = 1;
 
 				// Animazione tiro
 				SwSprite[g_penalty_shooter_idx].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, g_penalty_shooter_idx, 0, (i8)-1);
@@ -218,7 +251,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				// Logica tuffo portiere
 				u8 dive_dir; // 0=sx, 1=fermo, 2=dx
 				if(is_keeper_human) {
-					if(Keeper->tx < 128) dive_dir = 0; else if (Keeper->tx > 128) dive_dir = 2; else dive_dir = 1;
+					if(Keeper->tx < 120) dive_dir = 0; else if (Keeper->tx > 120) dive_dir = 2; else dive_dir = 1;
 				} else { // CPU
 					dive_dir = (Frms + g_penalty_shot_count[0]) % 3;
 				}
@@ -229,49 +262,77 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				// Controlla se il portiere para
 				if(dive_dir == shot_dir) {
 					g_pass_max_frames = 10; // Tiro smorzato
+					g_pass_target_y = 32;   // Palla bloccata sul portiere (niente Goal)
 				}
 
 				*game_state = 15;
 			}
 		}
 		else if(*game_state == 15) { // STATO 15: Attesa esito rigore
-			if(Ball->anim == 0) { // Tiro terminato
-				g_penalty_shot_count[g_penalty_team]++;
-				g_penalty_team = (g_penalty_team == TEAM_1) ? TEAM_2 : TEAM_1;
-				
-				// Nascondi la palla
-				Ball->tx = 0; Ball->ty = (u16)1000;
-				Ball->lx = 0; Ball->ly = (u16)1000;
+			if (Ball->anim == 5) {
+				u8 progress = Ball->count;
+				i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
+				i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
 
-				// Calcola le posizioni di attesa a centrocampo per Shooter e Keeper
-				u8 p_idx = g_penalty_shooter_idx;
-				u8 role = (p_idx < 7) ? p_idx : p_idx - 7;
-				u8 t_cx = (p_idx < 7) ? 64 : 192;
-				i8 off_x = 0; i8 off_y = 0;
-				switch(role) {
-					case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
-					case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
-					case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
-					case 6: off_x = -10; off_y =  22; break;
+				if (progress >= g_pass_max_frames) {
+					Ball->lx = g_pass_target_x;
+					Ball->ly = g_pass_target_y;
+					Ball->anim = 0; // Tiro terminato
+
+					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 156) {
+						if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;
+						CallFnc_VOID(SEG_EVENTS, EventGoal);
+					}
+					*wait_secs = 2; // Inizializza attesa post-tiro prima di cambiare giocatore
+					*start_sec = Frms;
+				} else {
+					Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
+					Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
+					Ball->count++;
 				}
-				SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
-
-				p_idx = keeper_idx;
-				role = (p_idx < 7) ? p_idx : p_idx - 7;
-				t_cx = (p_idx < 7) ? 64 : 192;
-				switch(role) {
-					case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
-					case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
-					case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
-					case 6: off_x = -10; off_y =  22; break;
+			} else if(Ball->anim == 0) { // Attesa post-tiro
+				if (*start_sec < Frms) { 
+					if (*wait_secs > 0) (*wait_secs)--; 
 				}
-				SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
+				*start_sec = Frms;
 
-				// Arbitro in disparte al limite del cerchio
-				SwSprite[26].tx = (u8)(128 + 24); SwSprite[26].ty = (u16)(256 - 24);
+				if (*wait_secs == 0) {
+					g_penalty_shot_count[g_penalty_team]++;
+					g_penalty_team = (g_penalty_team == TEAM_1) ? TEAM_2 : TEAM_1;
+					
+					// Nascondi la palla senza usare frame = 0
+					Ball->ly = Field.ly + 256;
 
-				*game_state = 16; // Prepara ritorno a centrocampo
-				RestartType = 0; // Azzera il flag di esito
+					// Calcola le posizioni di attesa a centrocampo per Shooter e Keeper
+					u8 p_idx = g_penalty_shooter_idx;
+					u8 role = (p_idx < 7) ? p_idx : p_idx - 7;
+					u8 t_cx = (p_idx < 7) ? 64 : 192;
+					i8 off_x = 0; i8 off_y = 0;
+					switch(role) {
+						case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
+						case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
+						case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
+						case 6: off_x = -10; off_y =  22; break;
+					}
+					SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
+
+					p_idx = keeper_idx;
+					role = (p_idx < 7) ? p_idx : p_idx - 7;
+					t_cx = (p_idx < 7) ? 64 : 192;
+					switch(role) {
+						case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
+						case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
+						case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
+						case 6: off_x = -10; off_y =  22; break;
+					}
+					SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
+
+					// Arbitro in disparte al limite del cerchio
+					SwSprite[26].tx = (u8)(128 + 24); SwSprite[26].ty = (u16)(256 - 24);
+
+					*game_state = 16; // Prepara ritorno a centrocampo
+					RestartType = 0; // Azzera il flag di esito
+				}
 			}
 		}
 		else if(*game_state == 16) { // STATO 16: Ritorno a centrocampo

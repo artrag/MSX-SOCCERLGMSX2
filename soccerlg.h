@@ -102,7 +102,7 @@ struct TeamColors {
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_1        		92
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_2        		93
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_3        		94
-#define SPR_T2_PLAYER_PRESENTATION   				6
+#define SPR_T2_PLAYER_PRESENTATION   				118
 #define SPR_T2_PLAYER_EAST_DIRECTION_1          	141
 #define SPR_T2_PLAYER_EAST_DIRECTION_2          	140
 #define SPR_T2_PLAYER_EAST_DIRECTION_3          	139

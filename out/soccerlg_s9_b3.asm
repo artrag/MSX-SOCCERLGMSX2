@@ -573,9 +573,11 @@ _UpdateGameState::
 	dec	a
 	jr	NZ, 00121$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:59: SwSprite[24].lx = (u8)g_h_arrow_x;
-	ld	bc, #_SwSprite + 552
 	ld	a, (_g_h_arrow_x+0)
-	ld	(bc), a
+	ld	-1 (ix), a
+	ld	hl, #(_SwSprite + 552)
+	ld	a, -1 (ix)
+	ld	(hl), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:60: SwSprite[24].ly = 440; 
 	ld	hl, #0x01b8
 	ld	((_SwSprite + 556)), hl
@@ -584,9 +586,28 @@ _UpdateGameState::
 	ld	((_SwSprite + 567)), hl
 	jp	00122$
 00121$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:63: SwSprite[24].ly = 1000; // Nascondi
-	ld	hl, #0x03e8
-	ld	((_SwSprite + 556)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:63: SwSprite[24].ly = Field.ly + 256; // Nascondimento sicuro
+	ld	hl, #(_Field + 4)
+	ld	a, (hl)
+	ld	-7 (ix), a
+	inc	hl
+	ld	a, (hl)
+	ld	-6 (ix), a
+	ld	a, -7 (ix)
+	ld	-9 (ix), a
+	ld	a, -6 (ix)
+	ld	-8 (ix), a
+	ld	a, -9 (ix)
+	ld	-7 (ix), a
+	ld	a, -8 (ix)
+	inc	a
+	ld	-6 (ix), a
+	ld	hl, #(_SwSprite + 556)
+	ld	a, -7 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -6 (ix)
+	ld	(hl), a
 00122$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:66: SwSprite[25].lx = (u8)g_h_arrow_x; SwSprite[25].ly = 50; SwSprite[25].frame = SPR_BIG_ARROW_TOP;
 	ld	bc, #_SwSprite + 575
@@ -3721,11 +3742,20 @@ _UpdateGameState::
 	ld	((_SwSprite + 613)), de
 	jp	00377$
 00359$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:497: SwSprite[24].ly = 1000; // Nasconde la freccia superiore durante le pause
-	ld	hl, #0x03e8
-	ld	((_SwSprite + 556)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:498: SwSprite[25].ly = 1000; // Nasconde la freccia inferiore durante le pause
-	ld	((_SwSprite + 579)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:497: SwSprite[24].ly = Field.ly + 256; // Nascondimento sicuro
+	ld	hl, (#(_Field + 4) + 0)
+	ld	c, l
+	ld	a, h
+	inc	a
+	ld	b, a
+	ld	((_SwSprite + 556)), bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:498: SwSprite[25].ly = Field.ly + 256; // Nascondimento sicuro
+	ld	hl, (#(_Field + 4) + 0)
+	ld	c, l
+	ld	a, h
+	inc	a
+	ld	b, a
+	ld	((_SwSprite + 579)), bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:499: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_3, UpdateGameState_Restarts, game_state, wait_secs, start_sec, target_ly);
 	ld	l, 6 (ix)
 ;	spillPairReg hl

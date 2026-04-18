@@ -93,33 +93,6 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
 						*wait_secs = 2;
 						*start_sec = Frms;
-						
-						// Assegna posizioni "disordinate ma vicine" a centrocampo per i rigori
-						for(u8 i=0; i<14; i++) {
-							u8 role = (i < 7) ? i : i - 7;
-							u8 t_cx = (i < 7) ? 64 : 192;
-							i8 off_x = 0; i8 off_y = 0;
-							switch(role) {
-								case 0: off_x = -18; off_y = -18; break; // Giocatore 1 (dietro)
-								case 1: off_x =   2; off_y = -18; break; // Giocatore 2 (dietro)
-								case 2: off_x =  22; off_y = -18; break; // Giocatore 3 (dietro)
-								case 3: off_x = -22; off_y =   2; break; // Giocatore 4 (centro)
-								case 4: off_x =  -2; off_y =   2; break; // Giocatore 5 (centro)
-								case 5: off_x =  18; off_y =   2; break; // Giocatore 6 (centro)
-								case 6: off_x = -10; off_y =  22; break; // Giocatore 7 (avanti)
-							}
-							SwSprite[i].tx = (u8)(t_cx + off_x);
-							SwSprite[i].ty = (u16)(256 + off_y);
-						}
-						// Arbitro in disparte al limite del cerchio
-						SwSprite[26].tx = (u8)(128 + 24);
-						SwSprite[26].ty = (u16)(256 - 24);
-						
-						// Nascondi la palla
-						SwSprite[14].tx = 0; SwSprite[14].ty = (u16)1000;
-						SwSprite[14].lx = 0; SwSprite[14].ly = (u16)1000;
-						SwSprite[14].dx = 0; SwSprite[14].dy = 0;
-						SwSprite[14].anim = 0;
 					}
 				}
 			}

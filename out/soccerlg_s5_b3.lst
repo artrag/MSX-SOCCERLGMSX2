@@ -2480,10 +2480,10 @@
                                    2480 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:161: } else if (messageId == SPR_MSG_PENALTIES) {
     00000BB8 79               [ 4] 2481 	ld	a, c
     00000BB9 D6 49            [ 7] 2482 	sub	a, #0x49
-    00000BBB C2rAFr0C         [10] 2483 	jp	NZ,00133$
+    00000BBB C2rC0r0C         [10] 2483 	jp	NZ,00133$
     00000BBE 78               [ 4] 2484 	ld	a, b
     00000BBF 3D               [ 4] 2485 	dec	a
-    00000BC0 C2rAFr0C         [10] 2486 	jp	NZ,00133$
+    00000BC0 C2rC0r0C         [10] 2486 	jp	NZ,00133$
                                    2487 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:162: len = SPRITE_MSG_PENALTIES_LENGTH;
     00000BC3 DD 36 F7 05      [19] 2488 	ld	-9 (ix), #0x05
                                    2489 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:163: logical_y = Field.ly + 96;
@@ -2622,8 +2622,8 @@
     00000C8E                       2622 00131$:
     00000C8E 79               [ 4] 2623 	ld	a, c
     00000C8F D6 18            [ 7] 2624 	sub	a, #0x18
-    00000C91 30 1C            [12] 2625 	jr	NC, 00133$
-                                   2626 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:180: SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
+    00000C91 30 2D            [12] 2625 	jr	NC, 00133$
+                                   2626 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:180: SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
     00000C93 06 00            [ 7] 2627 	ld	b, #0x00
     00000C95 69               [ 4] 2628 	ld	l, c
     00000C96 60               [ 4] 2629 	ld	h, b
@@ -2638,52 +2638,74 @@
     00000CA1 19               [11] 2638 	add	hl, de
     00000CA2 11 04 00         [10] 2639 	ld	de, #0x0004
     00000CA5 19               [11] 2640 	add	hl, de
-    00000CA6 36 E8            [10] 2641 	ld	(hl), #0xe8
-    00000CA8 23               [ 6] 2642 	inc	hl
-    00000CA9 36 03            [10] 2643 	ld	(hl), #0x03
-                                   2644 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: for (u8 i = 15 + len; i < 24; i++) {
-    00000CAB 0C               [ 4] 2645 	inc	c
-    00000CAC C3r8Er0C         [10] 2646 	jp	00131$
-    00000CAF                       2647 00133$:
-                                   2648 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:182: }
-    00000CAF DD F9            [10] 2649 	ld	sp, ix
-    00000CB1 DD E1            [14] 2650 	pop	ix
-    00000CB3 C9               [10] 2651 	ret
-                                   2652 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:185: void HideSpriteMessage()
-                                   2653 ;	---------------------------------
-                                   2654 ; Function HideSpriteMessage
-                                   2655 ; ---------------------------------
-    00000CB4                       2656 _HideSpriteMessage::
-                                   2657 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
-    00000CB4 11r00r00         [10] 2658 	ld	de, #_SwSprite+0
-    00000CB7 0E 0F            [ 7] 2659 	ld	c, #0x0f
-    00000CB9                       2660 00103$:
-    00000CB9 79               [ 4] 2661 	ld	a, c
-    00000CBA D6 18            [ 7] 2662 	sub	a, #0x18
-    00000CBC D0               [11] 2663 	ret	NC
-                                   2664 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:188: SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
-    00000CBD 06 00            [ 7] 2665 	ld	b, #0x00
-    00000CBF 69               [ 4] 2666 	ld	l, c
-    00000CC0 60               [ 4] 2667 	ld	h, b
-    00000CC1 29               [11] 2668 	add	hl, hl
-    00000CC2 29               [11] 2669 	add	hl, hl
-    00000CC3 09               [11] 2670 	add	hl, bc
-    00000CC4 29               [11] 2671 	add	hl, hl
-    00000CC5 09               [11] 2672 	add	hl, bc
-    00000CC6 29               [11] 2673 	add	hl, hl
-    00000CC7 09               [11] 2674 	add	hl, bc
-    00000CC8 19               [11] 2675 	add	hl, de
-    00000CC9 23               [ 6] 2676 	inc	hl
-    00000CCA 23               [ 6] 2677 	inc	hl
-    00000CCB 23               [ 6] 2678 	inc	hl
-    00000CCC 23               [ 6] 2679 	inc	hl
-    00000CCD 36 F0            [10] 2680 	ld	(hl), #0xf0
-    00000CCF 23               [ 6] 2681 	inc	hl
-    00000CD0 36 FF            [10] 2682 	ld	(hl), #0xff
-                                   2683 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
-    00000CD2 0C               [ 4] 2684 	inc	c
-                                   2685 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:190: }
-    00000CD3 C3rB9r0C         [10] 2686 	jp	00103$
-                                   2687 	.area _SEG5
-                                   2688 	.area _INITIALIZER
-                                   2689 	.area _CABS (ABS)
+    00000CA6 DD 75 FE         [19] 2641 	ld	-2 (ix), l
+    00000CA9 DD 74 FF         [19] 2642 	ld	-1 (ix), h
+    00000CAC 2Ar04r00         [16] 2643 	ld	hl, (#(_Field + 4) + 0)
+    00000CAF 5D               [ 4] 2644 	ld	e, l
+    00000CB0 7C               [ 4] 2645 	ld	a, h
+    00000CB1 3C               [ 4] 2646 	inc	a
+    00000CB2 57               [ 4] 2647 	ld	d, a
+    00000CB3 DD 6E FE         [19] 2648 	ld	l, -2 (ix)
+    00000CB6 DD 66 FF         [19] 2649 	ld	h, -1 (ix)
+    00000CB9 73               [ 7] 2650 	ld	(hl), e
+    00000CBA 23               [ 6] 2651 	inc	hl
+    00000CBB 72               [ 7] 2652 	ld	(hl), d
+                                   2653 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: for (u8 i = 15 + len; i < 24; i++) {
+    00000CBC 0C               [ 4] 2654 	inc	c
+    00000CBD C3r8Er0C         [10] 2655 	jp	00131$
+    00000CC0                       2656 00133$:
+                                   2657 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:182: }
+    00000CC0 DD F9            [10] 2658 	ld	sp, ix
+    00000CC2 DD E1            [14] 2659 	pop	ix
+    00000CC4 C9               [10] 2660 	ret
+                                   2661 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:185: void HideSpriteMessage()
+                                   2662 ;	---------------------------------
+                                   2663 ; Function HideSpriteMessage
+                                   2664 ; ---------------------------------
+    00000CC5                       2665 _HideSpriteMessage::
+    00000CC5 DD E5            [15] 2666 	push	ix
+    00000CC7 DD 21 00 00      [14] 2667 	ld	ix,#0
+    00000CCB DD 39            [15] 2668 	add	ix,sp
+    00000CCD F5               [11] 2669 	push	af
+                                   2670 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
+    00000CCE 0E 0F            [ 7] 2671 	ld	c, #0x0f
+    00000CD0                       2672 00103$:
+    00000CD0 79               [ 4] 2673 	ld	a, c
+    00000CD1 D6 18            [ 7] 2674 	sub	a, #0x18
+    00000CD3 30 23            [12] 2675 	jr	NC, 00105$
+                                   2676 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:188: SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
+    00000CD5 06 00            [ 7] 2677 	ld	b, #0x00
+    00000CD7 69               [ 4] 2678 	ld	l, c
+    00000CD8 60               [ 4] 2679 	ld	h, b
+    00000CD9 29               [11] 2680 	add	hl, hl
+    00000CDA 29               [11] 2681 	add	hl, hl
+    00000CDB 09               [11] 2682 	add	hl, bc
+    00000CDC 29               [11] 2683 	add	hl, hl
+    00000CDD 09               [11] 2684 	add	hl, bc
+    00000CDE 29               [11] 2685 	add	hl, hl
+    00000CDF 09               [11] 2686 	add	hl, bc
+    00000CE0 EB               [ 4] 2687 	ex	de, hl
+    00000CE1 21r04r00         [10] 2688 	ld	hl, #_SwSprite+1+1+1+1
+    00000CE4 19               [11] 2689 	add	hl, de
+    00000CE5 EB               [ 4] 2690 	ex	de, hl
+    00000CE6 2Ar04r00         [16] 2691 	ld	hl, (#(_Field + 4) + 0)
+    00000CE9 24               [ 4] 2692 	inc	h
+                                   2693 ;	spillPairReg hl
+                                   2694 ;	spillPairReg hl
+    00000CEA E3               [19] 2695 	ex	(sp), hl
+    00000CEB DD 7E FE         [19] 2696 	ld	a, -2 (ix)
+    00000CEE 12               [ 7] 2697 	ld	(de), a
+    00000CEF 13               [ 6] 2698 	inc	de
+    00000CF0 DD 7E FF         [19] 2699 	ld	a, -1 (ix)
+    00000CF3 12               [ 7] 2700 	ld	(de), a
+                                   2701 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
+    00000CF4 0C               [ 4] 2702 	inc	c
+    00000CF5 C3rD0r0C         [10] 2703 	jp	00103$
+    00000CF8                       2704 00105$:
+                                   2705 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:190: }
+    00000CF8 DD F9            [10] 2706 	ld	sp, ix
+    00000CFA DD E1            [14] 2707 	pop	ix
+    00000CFC C9               [10] 2708 	ret
+                                   2709 	.area _SEG5
+                                   2710 	.area _INITIALIZER
+                                   2711 	.area _CABS (ABS)

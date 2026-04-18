@@ -2623,7 +2623,7 @@ _ShowSpriteMessage::
 	ld	a, c
 	sub	a, #0x18
 	jr	NC, 00133$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:180: SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:180: SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -2638,9 +2638,18 @@ _ShowSpriteMessage::
 	add	hl, de
 	ld	de, #0x0004
 	add	hl, de
-	ld	(hl), #0xe8
+	ld	-2 (ix), l
+	ld	-1 (ix), h
+	ld	hl, (#(_Field + 4) + 0)
+	ld	e, l
+	ld	a, h
+	inc	a
+	ld	d, a
+	ld	l, -2 (ix)
+	ld	h, -1 (ix)
+	ld	(hl), e
 	inc	hl
-	ld	(hl), #0x03
+	ld	(hl), d
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: for (u8 i = 15 + len; i < 24; i++) {
 	inc	c
 	jp	00131$
@@ -2654,14 +2663,17 @@ _ShowSpriteMessage::
 ; Function HideSpriteMessage
 ; ---------------------------------
 _HideSpriteMessage::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
-	ld	de, #_SwSprite+0
 	ld	c, #0x0f
 00103$:
 	ld	a, c
 	sub	a, #0x18
-	ret	NC
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:188: SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
+	jr	NC, 00105$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:188: SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -2672,18 +2684,28 @@ _HideSpriteMessage::
 	add	hl, bc
 	add	hl, hl
 	add	hl, bc
+	ex	de, hl
+	ld	hl, #_SwSprite+1+1+1+1
 	add	hl, de
-	inc	hl
-	inc	hl
-	inc	hl
-	inc	hl
-	ld	(hl), #0xf0
-	inc	hl
-	ld	(hl), #0xff
+	ex	de, hl
+	ld	hl, (#(_Field + 4) + 0)
+	inc	h
+;	spillPairReg hl
+;	spillPairReg hl
+	ex	(sp), hl
+	ld	a, -2 (ix)
+	ld	(de), a
+	inc	de
+	ld	a, -1 (ix)
+	ld	(de), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:187: for (u8 i = 15; i < 24; i++) {
 	inc	c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:190: }
 	jp	00103$
+00105$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:190: }
+	ld	sp, ix
+	pop	ix
+	ret
 	.area _SEG5
 	.area _INITIALIZER
 	.area _CABS (ABS)

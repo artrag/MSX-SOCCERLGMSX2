@@ -177,7 +177,7 @@ void ShowSpriteMessage(u16 messageId)
 	
 	// Nasconde eventuali sprite precedenti in eccesso non usati
 	for (u8 i = 15 + len; i < 24; i++) {
-		SwSprite[i].ly = 1000; // Non toccare lo sprite 24 (freccia)
+		SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
 	}
 }
 
@@ -185,6 +185,6 @@ void ShowSpriteMessage(u16 messageId)
 void HideSpriteMessage()
 {
 	for (u8 i = 15; i < 24; i++) {
-		SwSprite[i].ly = 0xFFF0; // Non toccare lo sprite 24 (freccia)
+		SwSprite[i].ly = Field.ly + 256; // Nascondimento sicuro
 	}
 }
