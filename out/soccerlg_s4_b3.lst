@@ -1505,11 +1505,11 @@
                                    1505 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1049: SwSprite[14].dy = 0;
     00000485 21r54r01         [10] 1506 	ld	hl, #(_SwSprite + 340)
     00000488 36 00            [10] 1507 	ld	(hl), #0x00
-                                   1508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1052: for (u8 i = 15; i < 26; i++) {
+                                   1508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1052: for (u8 i = 15; i < NumSprite; i++) {
     0000048A 0E 0F            [ 7] 1509 	ld	c, #0x0f
     0000048C                       1510 00182$:
     0000048C 79               [ 4] 1511 	ld	a, c
-    0000048D D6 1A            [ 7] 1512 	sub	a, #0x1a
+    0000048D D6 25            [ 7] 1512 	sub	a, #0x25
     0000048F 30 34            [12] 1513 	jr	NC, 00102$
                                    1514 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1053: SwSprite[i].lx = 0;
     00000491 06 00            [ 7] 1515 	ld	b, #0x00
@@ -1549,7 +1549,7 @@
     000004BB 21 12 00         [10] 1549 	ld	hl, #0x0012
     000004BE 19               [11] 1550 	add	hl, de
     000004BF 36 00            [10] 1551 	ld	(hl), #0x00
-                                   1552 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1052: for (u8 i = 15; i < 26; i++) {
+                                   1552 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1052: for (u8 i = 15; i < NumSprite; i++) {
     000004C1 0C               [ 4] 1553 	inc	c
     000004C2 C3r8Cr04         [10] 1554 	jp	00182$
     000004C5                       1555 00102$:
@@ -1572,7 +1572,7 @@
     000004DF 4E               [ 7] 1572 	ld	c, (hl)
     000004E0                       1573 00185$:
     000004E0 79               [ 4] 1574 	ld	a, c
-    000004E1 D6 1B            [ 7] 1575 	sub	a, #0x1b
+    000004E1 D6 25            [ 7] 1575 	sub	a, #0x25
     000004E3 D2r7Br05         [10] 1576 	jp	NC, 00103$
                                    1577 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1069: SwSprite[i].x0 = SwSprite[i].lx;
     000004E6 06 00            [ 7] 1578 	ld	b, #0x00
@@ -1738,7 +1738,7 @@
     000005E9 06 00            [ 7] 1738 	ld	b, #0x00
     000005EB                       1739 00188$:
     000005EB 78               [ 4] 1740 	ld	a, b
-    000005EC D6 1B            [ 7] 1741 	sub	a, #0x1b
+    000005EC D6 25            [ 7] 1741 	sub	a, #0x25
     000005EE 30 3C            [12] 1742 	jr	NC, 00104$
                                    1743 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1101: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x2, SwSprite[i].y2, 512);
     000005F0 58               [ 4] 1744 	ld	e, b
@@ -1979,7 +1979,7 @@
     00000739 0E 0F            [ 7] 1979 	ld	c, #0x0f
     0000073B                       1980 00194$:
     0000073B 79               [ 4] 1981 	ld	a, c
-    0000073C D6 1B            [ 7] 1982 	sub	a, #0x1b
+    0000073C D6 25            [ 7] 1982 	sub	a, #0x25
     0000073E 30 75            [12] 1983 	jr	NC, 00120$
                                    1984 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1120: if OnScreen(SwSprite[i].ly) 
     00000740 06 00            [ 7] 1985 	ld	b, #0x00
@@ -2082,7 +2082,7 @@
     000007E1 0E 00            [ 7] 2082 	ld	c, #0x00
     000007E3                       2083 00197$:
     000007E3 79               [ 4] 2084 	ld	a, c
-    000007E4 D6 1B            [ 7] 2085 	sub	a, #0x1b
+    000007E4 D6 25            [ 7] 2085 	sub	a, #0x25
     000007E6 30 33            [12] 2086 	jr	NC, 00121$
                                    2087 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1132: SwSprite[i].x1 = SwSprite[i].lx;
     000007E8 06 00            [ 7] 2088 	ld	b, #0x00
@@ -2175,7 +2175,7 @@
     0000086E 06 00            [ 7] 2175 	ld	b, #0x00
     00000870                       2176 00200$:
     00000870 78               [ 4] 2177 	ld	a, b
-    00000871 D6 1B            [ 7] 2178 	sub	a, #0x1b
+    00000871 D6 25            [ 7] 2178 	sub	a, #0x25
     00000873 30 3E            [12] 2179 	jr	NC, 00122$
                                    2180 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1154: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x0, SwSprite[i].y0, 0);
     00000875 58               [ 4] 2181 	ld	e, b
@@ -2410,7 +2410,7 @@
     000009C1 DD 36 FF 0F      [19] 2410 	ld	-1 (ix), #0x0f
     000009C5                       2411 00206$:
     000009C5 DD 7E FF         [19] 2412 	ld	a, -1 (ix)
-    000009C8 D6 1B            [ 7] 2413 	sub	a, #0x1b
+    000009C8 D6 25            [ 7] 2413 	sub	a, #0x25
     000009CA 30 64            [12] 2414 	jr	NC, 00138$
                                    2415 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1173: if OnScreen(SwSprite[i].ly) 
     000009CC DD 4E FF         [19] 2416 	ld	c, -1 (ix)
@@ -2510,7 +2510,7 @@
     00000A5C DD 36 FF 00      [19] 2510 	ld	-1 (ix), #0x00
     00000A60                       2511 00209$:
     00000A60 DD 7E FF         [19] 2512 	ld	a, -1 (ix)
-    00000A63 D6 1B            [ 7] 2513 	sub	a, #0x1b
+    00000A63 D6 25            [ 7] 2513 	sub	a, #0x25
     00000A65 30 33            [12] 2514 	jr	NC, 00139$
                                    2515 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1185: SwSprite[i].x2 = SwSprite[i].lx;
     00000A67 DD 4E FF         [19] 2516 	ld	c, -1 (ix)
@@ -2603,7 +2603,7 @@
     00000AED DD 36 FF 00      [19] 2603 	ld	-1 (ix), #0x00
     00000AF1                       2604 00212$:
     00000AF1 DD 7E FF         [19] 2605 	ld	a, -1 (ix)
-    00000AF4 D6 1B            [ 7] 2606 	sub	a, #0x1b
+    00000AF4 D6 25            [ 7] 2606 	sub	a, #0x25
     00000AF6 30 3A            [12] 2607 	jr	NC, 00140$
                                    2608 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1207: CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[i].x1, SwSprite[i].y1, 256);
     00000AF8 DD 5E FF         [19] 2609 	ld	e, -1 (ix)
@@ -2831,7 +2831,7 @@
     00000C37 DD 36 FF 0F      [19] 2831 	ld	-1 (ix), #0x0f
     00000C3B                       2832 00218$:
     00000C3B DD 7E FF         [19] 2833 	ld	a, -1 (ix)
-    00000C3E D6 1B            [ 7] 2834 	sub	a, #0x1b
+    00000C3E D6 25            [ 7] 2834 	sub	a, #0x25
     00000C40 30 5E            [12] 2835 	jr	NC, 00156$
                                    2836 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1226: if OnScreen(SwSprite[i].ly) 
     00000C42 DD 4E FF         [19] 2837 	ld	c, -1 (ix)
@@ -2921,7 +2921,7 @@
     00000CCC 0E 00            [ 7] 2921 	ld	c, #0x00
     00000CCE                       2922 00221$:
     00000CCE 79               [ 4] 2923 	ld	a, c
-    00000CCF D6 1B            [ 7] 2924 	sub	a, #0x1b
+    00000CCF D6 25            [ 7] 2924 	sub	a, #0x25
     00000CD1 30 32            [12] 2925 	jr	NC, 00157$
                                    2926 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s4_b3.c:1238: SwSprite[i].x0 = SwSprite[i].lx;
     00000CD3 06 00            [ 7] 2927 	ld	b, #0x00

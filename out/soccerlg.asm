@@ -382,7 +382,7 @@ _g_SLTSL	=	0xffff
 _g_player_input::
 	.ds 6
 _SwSprite::
-	.ds 621
+	.ds 851
 _Field::
 	.ds 23
 _ScoreBoardLeft::

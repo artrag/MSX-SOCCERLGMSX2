@@ -1048,8 +1048,8 @@ void MainLoop(){
 	SwSprite[14].dx = 0;
 	SwSprite[14].dy = 0;
 
-	// Nascondi gli sprite dei messaggi e delle frecce
-	for (u8 i = 15; i < 26; i++) {
+	// Nascondi gli sprite dei messaggi, frecce e tracker
+	for (u8 i = 15; i < NumSprite; i++) {
 		SwSprite[i].lx = 0;
 		SwSprite[i].ly = 1000; // Nascondimento assoluto
 		SwSprite[i].frame = 0;

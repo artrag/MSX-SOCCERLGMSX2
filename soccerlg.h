@@ -252,6 +252,10 @@ struct TeamColors {
 #define SPR_MENU_SELECTOR							306
 #define SPR_BIG_ARROW_TOP						    108
 #define SPR_BIG_ARROW_BOTTOM						107
+#define SPR_T1_O                                    47
+#define SPR_T1_X                                    22
+#define SPR_T2_O                                    159
+#define SPR_T2_X                                    134
 
 #define SPR_MSG_KICKOFF								288
 #define SPR_MSG_GOALKICK							292
@@ -324,7 +328,7 @@ struct TeamColors {
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(27)
+#define NumSprite	(37)
 
 #define SCOREBOARD_NX_LEFT 8
 #define SCOREBOARD_NY_LEFT 212

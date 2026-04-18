@@ -38,17 +38,17 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000054  l__INITIALIZED                  
      00000054  l__INITIALIZER                  
      00000262  l__SEG7                         
-     0000033A  l__DATA                         
+     00000420  l__DATA                         
      0000050B  l__SEG10                        
      00000903  l__SEG13                        
      00000B20  l__SEG15                        
      00000DB5  l__SEG5                         
      00000E45  l__SEG4                         
-     00001496  l__SEG12                        
      000014C2  l__SEG6                         
      00001959  l__SEG9                         
-     00001B64  l__SEG16                        
+     00001A65  l__SEG12                        
      00001C70  l__SEG11                        
+     00001D6C  l__SEG16                        
      000029DD  l__CODE                         
      00004000  s__CODE                         
      000069DD  s__HOME                         
@@ -66,10 +66,10 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000C33A  s__INITIALIZED                  
-     0000C38E  s__BSEG                         
-     0000C38E  s__BSS                          
-     0000C38E  s__HEAP                         
+     0000C420  s__INITIALIZED                  
+     0000C474  s__BSEG                         
+     0000C474  s__BSS                          
+     0000C474  s__HEAP                         
      0000F30F  _g_KANJTABLE                       bios
      0000F323  _g_DISKVE                          bios
      0000F325  _g_BREAKV                          bios
@@ -550,7 +550,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               0000C000    0000033A =         826. bytes (REL,CON)
+_DATA                               0000C000    00000420 =        1056. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -563,83 +563,83 @@ _DATA                               0000C000    0000033A =         826. bytes (R
      0000C009  _g_Bank3Segment                    crt0
      0000C00B  _g_player_input                    soccerlg
      0000C011  _SwSprite                          soccerlg
-     0000C27E  _Field                             soccerlg
-     0000C295  _ScoreBoardLeft                    soccerlg
-     0000C2AC  _ScoreBoardRight                   soccerlg
-     0000C2C5  _g_PrintData                       print
-     0000C2F7  _g_VDP_REGSAV                      vdp
-     0000C313  _g_VDP_Data                        vdp
-     0000C315  _g_VDP_Command                     vdp
-     0000C324  _g_VDP_Sprite                      vdp
-     0000C328  _g_ScreenLayoutLow                 vdp
-     0000C32A  _g_ScreenColorLow                  vdp
-     0000C32C  _g_ScreenPatternLow                vdp
-     0000C32E  _g_SpriteAttributeLow              vdp
-     0000C330  _g_SpritePatternLow                vdp
-     0000C332  _g_SpriteColorLow                  vdp
-     0000C334  _g_ScreenLayoutHigh                vdp
-     0000C335  _g_ScreenColorHigh                 vdp
-     0000C336  _g_ScreenPatternHigh               vdp
-     0000C337  _g_SpriteAttributeHigh             vdp
-     0000C338  _g_SpritePatternHigh               vdp
-     0000C339  _g_SpriteColorHigh                 vdp
+     0000C364  _Field                             soccerlg
+     0000C37B  _ScoreBoardLeft                    soccerlg
+     0000C392  _ScoreBoardRight                   soccerlg
+     0000C3AB  _g_PrintData                       print
+     0000C3DD  _g_VDP_REGSAV                      vdp
+     0000C3F9  _g_VDP_Data                        vdp
+     0000C3FB  _g_VDP_Command                     vdp
+     0000C40A  _g_VDP_Sprite                      vdp
+     0000C40E  _g_ScreenLayoutLow                 vdp
+     0000C410  _g_ScreenColorLow                  vdp
+     0000C412  _g_ScreenPatternLow                vdp
+     0000C414  _g_SpriteAttributeLow              vdp
+     0000C416  _g_SpritePatternLow                vdp
+     0000C418  _g_SpriteColorLow                  vdp
+     0000C41A  _g_ScreenLayoutHigh                vdp
+     0000C41B  _g_ScreenColorHigh                 vdp
+     0000C41C  _g_ScreenPatternHigh               vdp
+     0000C41D  _g_SpriteAttributeHigh             vdp
+     0000C41E  _g_SpritePatternHigh               vdp
+     0000C41F  _g_SpriteColorHigh                 vdp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        0000C33A    00000054 =          84. bytes (REL,CON)
+_INITIALIZED                        0000C420    00000054 =          84. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000C33A  _Frms                              soccerlg
-     0000C33B  _Secs                              soccerlg
-     0000C33C  _Mins                              soccerlg
-     0000C33D  _LastSecs                          soccerlg
-     0000C33E  _Half                              soccerlg
-     0000C33F  _ScoreTeam1                        soccerlg
-     0000C340  _ScoreTeam2                        soccerlg
-     0000C341  _LastScoreTeam1                    soccerlg
-     0000C342  _LastScoreTeam2                    soccerlg
-     0000C343  _g_is_penalty_shootout             soccerlg
-     0000C344  _g_penalty_shot_count              soccerlg
-     0000C346  _g_penalty_shooter_idx             soccerlg
-     0000C347  _g_penalty_team                    soccerlg
-     0000C348  _g_penalty_arrow_pos               soccerlg
-     0000C349  _g_penalty_arrow_dir               soccerlg
-     0000C34A  _Team1Code                         soccerlg
-     0000C34B  _Team2Code                         soccerlg
-     0000C34C  _KickOffTeam                       soccerlg
-     0000C34D  _GameMode                          soccerlg
-     0000C34E  _T1_Carrier                        soccerlg
-     0000C34F  _T1_Receiver                       soccerlg
-     0000C350  _T2_Carrier                        soccerlg
-     0000C351  _T2_Receiver                       soccerlg
-     0000C352  _TimerEnabled                      soccerlg
-     0000C353  _LastTouchTeam                     soccerlg
-     0000C354  _LastTouchPlayer                   soccerlg
-     0000C355  _RestartType                       soccerlg
-     0000C356  _RestartSideX                      soccerlg
-     0000C357  _RestartSideY                      soccerlg
-     0000C359  _g_throw_rec_1                     soccerlg
-     0000C35A  _g_throw_rec_2                     soccerlg
-     0000C35B  _g_selected_rec                    soccerlg
-     0000C35C  _g_thrower_id                      soccerlg
-     0000C35D  _g_pass_start_x                    soccerlg
-     0000C35F  _g_pass_start_y                    soccerlg
-     0000C361  _g_pass_target_x                   soccerlg
-     0000C363  _g_pass_target_y                   soccerlg
-     0000C365  _g_pass_max_frames                 soccerlg
-     0000C366  _g_pass_max_height                 soccerlg
-     0000C367  _g_pass_receiver                   soccerlg
-     0000C368  _g_last_dx                         soccerlg
-     0000C36A  _g_last_dy                         soccerlg
-     0000C36C  _g_last_input_dir                  soccerlg
-     0000C36D  _g_h_arrow_x                       soccerlg
-     0000C36F  _g_h_arrow_dir                     soccerlg
-     0000C370  _g_VSynch                          soccerlg
-     0000C38D  _g_VDPInitilized                   vdp
+     0000C420  _Frms                              soccerlg
+     0000C421  _Secs                              soccerlg
+     0000C422  _Mins                              soccerlg
+     0000C423  _LastSecs                          soccerlg
+     0000C424  _Half                              soccerlg
+     0000C425  _ScoreTeam1                        soccerlg
+     0000C426  _ScoreTeam2                        soccerlg
+     0000C427  _LastScoreTeam1                    soccerlg
+     0000C428  _LastScoreTeam2                    soccerlg
+     0000C429  _g_is_penalty_shootout             soccerlg
+     0000C42A  _g_penalty_shot_count              soccerlg
+     0000C42C  _g_penalty_shooter_idx             soccerlg
+     0000C42D  _g_penalty_team                    soccerlg
+     0000C42E  _g_penalty_arrow_pos               soccerlg
+     0000C42F  _g_penalty_arrow_dir               soccerlg
+     0000C430  _Team1Code                         soccerlg
+     0000C431  _Team2Code                         soccerlg
+     0000C432  _KickOffTeam                       soccerlg
+     0000C433  _GameMode                          soccerlg
+     0000C434  _T1_Carrier                        soccerlg
+     0000C435  _T1_Receiver                       soccerlg
+     0000C436  _T2_Carrier                        soccerlg
+     0000C437  _T2_Receiver                       soccerlg
+     0000C438  _TimerEnabled                      soccerlg
+     0000C439  _LastTouchTeam                     soccerlg
+     0000C43A  _LastTouchPlayer                   soccerlg
+     0000C43B  _RestartType                       soccerlg
+     0000C43C  _RestartSideX                      soccerlg
+     0000C43D  _RestartSideY                      soccerlg
+     0000C43F  _g_throw_rec_1                     soccerlg
+     0000C440  _g_throw_rec_2                     soccerlg
+     0000C441  _g_selected_rec                    soccerlg
+     0000C442  _g_thrower_id                      soccerlg
+     0000C443  _g_pass_start_x                    soccerlg
+     0000C445  _g_pass_start_y                    soccerlg
+     0000C447  _g_pass_target_x                   soccerlg
+     0000C449  _g_pass_target_y                   soccerlg
+     0000C44B  _g_pass_max_frames                 soccerlg
+     0000C44C  _g_pass_max_height                 soccerlg
+     0000C44D  _g_pass_receiver                   soccerlg
+     0000C44E  _g_last_dx                         soccerlg
+     0000C450  _g_last_dy                         soccerlg
+     0000C452  _g_last_input_dir                  soccerlg
+     0000C453  _g_h_arrow_x                       soccerlg
+     0000C455  _g_h_arrow_dir                     soccerlg
+     0000C456  _g_VSynch                          soccerlg
+     0000C473  _g_VDPInitilized                   vdp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
@@ -764,7 +764,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG12                              000CA000    00001496 =        5270. bytes (REL,CON)
+_SEG12                              000CA000    00001A65 =        6757. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -808,7 +808,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG16                              0010A000    00001B64 =        7012. bytes (REL,CON)
+_SEG16                              0010A000    00001D6C =        7532. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
