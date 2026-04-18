@@ -127,12 +127,12 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			g_penalty_shooter_idx = (g_penalty_team == TEAM_1) ? shooter_role : shooter_role + 7;
 
 			// Posiziona la palla sul dischetto del rigore (porta nord)
-			Ball->lx = 120; Ball->ty = 80; Ball->tx = 120; Ball->ly = 80;
+			Ball->lx = 120; Ball->ty = 76; Ball->tx = 120; Ball->ly = 76;
 			Ball->anim = 0; Ball->frame = SPR_BALL_SIZE_1;
 
 			// Imposta le posizioni target
 			SwSprite[g_penalty_shooter_idx].tx = 120;     // Tiratore dietro la palla
-			SwSprite[g_penalty_shooter_idx].ty = 96;      // 80 + 16
+			SwSprite[g_penalty_shooter_idx].ty = 92;      // 76 + 16
 			SwSprite[keeper_idx].tx = 120;                // Portiere al centro della porta
 			SwSprite[keeper_idx].ty = 32;
 			SwSprite[26].tx = 62;                         // Arbitro a lato dell'area
@@ -281,6 +281,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 156) {
 						if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;
+						RestartType = RESTART_GOAL; // Segnala il goal per poter attivare l'esultanza
 					}
 					*wait_secs = 2; // Inizializza attesa post-tiro prima di cambiare giocatore
 					*start_sec = Frms;
@@ -330,7 +331,6 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					SwSprite[26].tx = (u8)(128 + 24); SwSprite[26].ty = (u16)(256 - 24);
 
 					*game_state = 16; // Prepara ritorno a centrocampo
-					RestartType = 0; // Azzera il flag di esito
 				}
 			}
 		}
@@ -361,8 +361,17 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					
 					p->lx += p->dx; p->ly += p->dy; p->anim++;
 					const u8 walk_seq[4] = {0, 1, 2, 1};
-					// FIX: Utilizziamo actor_idx e non 'i' per garantire l'indice e i colori della maglietta corretti
-					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+					
+					// Se ha segnato, esulta tornando verso centrocampo
+					if (RestartType == RESTART_GOAL && actor_idx == g_penalty_shooter_idx && p->dy > 0) {
+						u8 step = walk_seq[(p->anim / 3) % 4];
+						p->frame = (actor_idx < 7) ? 
+							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
+							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+					} else {
+						// FIX: Utilizziamo actor_idx e non 'i' per garantire l'indice e i colori della maglietta corretti
+						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+					}
 				} else {
 					p->dx = 0; p->dy = 0;
 					i8 look_dx = 0, look_dy = 1;
@@ -379,6 +388,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 			if (all_in_position) {
 				*game_state = 12; // Inizia il prossimo rigore
+				RestartType = 0;  // Azzera il flag di esito per il prossimo
 			}
 		}
 		return;
