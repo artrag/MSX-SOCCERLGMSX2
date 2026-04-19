@@ -41,10 +41,37 @@ void PlayerAI(u8 i)
 	}
 
 	struct ObjectInfo* Player = &SwSprite[i];
-	
 	u8 team = (i < 7) ? TEAM_1 : TEAM_2;
 	bool is_gk = (i == 0 || i == 7);
 	
+	// --- GESTIONE SCIVOLATA (Tackle) ---
+	if (Player->count > 0 && !is_gk) {
+		Player->count--;
+		Player->lx += Player->dx;
+		Player->ly += Player->dy;
+		
+		if (Player->lx < 16) Player->lx = 16;
+		if (Player->lx > 224) Player->lx = 224;
+		if (Player->ly < 24) Player->ly = 24;
+		if (Player->ly > 478) Player->ly = 478;
+
+		Player->frame = (Player->dx > 0) ? 
+					((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
+					((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
+
+		// Controllo furto durante la scivolata
+		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
+		if (b_dist_x <= 12 && b_dist_y <= 12 && Ball->anim < 5 && RestartType == 0) {
+			LastTouchTeam = team;
+			LastTouchPlayer = i;
+			if (Ball->anim > 3) Ball->anim = 3;
+			Ball->frame = SPR_BALL_SIZE_1;
+			Player->count = 0; // Ferma la scivolata appena ruba palla
+		}
+		return; // Salta il resto della logica finché è in scivolata
+	}
+
 	u16 target_x = Player->lx;
 	u16 target_y = Player->ly;
 
@@ -55,9 +82,9 @@ void PlayerAI(u8 i)
 		else if (Ball->lx < Player->lx - 4) target_x = Player->lx - 2;
 		else target_x = Ball->lx;
 		
-		// Limiti dell'area di porta (circa 104 - 152)
-		if (target_x < 104) target_x = 104;
-		if (target_x > 152) target_x = 152;
+		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 156)
+		if (target_x < 88) target_x = 88;
+		if (target_x > 150) target_x = 150;
 		
 		target_y = (team == TEAM_1) ? 32 : 452;
 		
@@ -81,76 +108,121 @@ void PlayerAI(u8 i)
 	
 	u8 role = (team == TEAM_1) ? i : (i - 7); // 1,2: Dif, 3,4: Cen, 5,6: Att
 	
-	u16 base_x = 128;
-	u16 base_y = 256;
+	// Trova il giocatore più vicino alla palla per la propria squadra
+	u8 closest_mate = 0xFF;
+	u16 min_dist = 0xFFFF;
+	u8 start_mate = (team == TEAM_1) ? 1 : 8; 
+	u8 end_mate = start_mate + 6;
+	
+	for (u8 j = start_mate; j < end_mate; j++) {
+		u16 dx = (SwSprite[j].lx > Ball->lx) ? (SwSprite[j].lx - Ball->lx) : (Ball->lx - SwSprite[j].lx);
+		u16 dy = (SwSprite[j].ly > Ball->ly) ? (SwSprite[j].ly - Ball->ly) : (Ball->ly - SwSprite[j].ly);
+		if (dx + dy < min_dist) {
+			min_dist = dx + dy;
+			closest_mate = j;
+		}
+	}
 
-	// Formazione base 2-2-2 (rispetto al centro del campo)
-	if (role == 1) { base_x = 64;  base_y = (team == TEAM_1) ? 120 : 392; } // Difensore sx
-	else if (role == 2) { base_x = 192; base_y = (team == TEAM_1) ? 120 : 392; } // Difensore dx
-	else if (role == 3) { base_x = 64;  base_y = (team == TEAM_1) ? 200 : 312; } // Centro sx
-	else if (role == 4) { base_x = 192; base_y = (team == TEAM_1) ? 200 : 312; } // Centro dx
-	else if (role == 5) { base_x = 80;  base_y = (team == TEAM_1) ? 280 : 232; } // Attaccante sx
-	else if (role == 6) { base_x = 176; base_y = (team == TEAM_1) ? 280 : 232; } // Attaccante dx
-
-	// I giocatori si spostano per seguire la palla (mantenendo la struttura)
-	i16 ball_offset_x = (i16)Ball->lx - 128;
-	i16 ball_offset_y = (i16)Ball->ly - 256;
-
-	target_x = base_x + (ball_offset_x / 2);
-	target_y = base_y + (ball_offset_y / 3);
-
-	// Tattica di squadra: spingere in avanti o ritirarsi in base al possesso
+	// Tattica di squadra: Smarcamento dinamico IN BASE ALLA PALLA
 	if (LastTouchTeam == team) {
-		target_y += (team == TEAM_1) ? 40 : -40; // Fase offensiva
-	} else if (LastTouchTeam != 0xFF) {
-		target_y += (team == TEAM_1) ? -24 : 24; // Fase difensiva (ripiegamento controllato)
-
-		// Difesa: i difensori non scappano in porta, ma accorciano per contrastare la palla
-		if (team == TEAM_1) {
-			// Evita di farsi schiacciare troppo in area se la palla è lontana
-			if (target_y < 72 && Ball->ly > 72) target_y = 72;
-			// Convergenza verso la palla quando è nella propria metà campo (chiudono gli spazi)
-			if (Ball->ly < 256) {
-				target_y = (target_y + Ball->ly - 16) / 2;
-				target_x = (target_x + Ball->lx) / 2;
+		// FASE OFFENSIVA: I compagni si posizionano per aprire il gioco
+		u8 run_dist = g_ActiveStats[team].aggro_attack * 10; 
+		u8 wide_dist = 24 + (g_ActiveStats[team].pass_tendency * 8); 
+		
+		if (role >= 5) { // Attaccanti molto avanti
+			target_y = Ball->ly + ((team == TEAM_1) ? (60 + run_dist) : -(60 + run_dist));
+			target_x = (role == 5) ? 64 : 160;
+		} else if (role >= 3) { // Centrocampisti a supporto largo
+			target_y = Ball->ly + ((team == TEAM_1) ? 24 : -24);
+			target_x = Ball->lx + ((role == 3) ? -wide_dist : wide_dist);
+		} else { // Difensori rimangono dietro
+			target_y = Ball->ly + ((team == TEAM_1) ? -64 : 64);
+			target_x = (role == 1) ? 80 : 144;
+		}
+		
+		// Evita assolutamente di intralciare il portatore di palla (si spingono verso l'esterno)
+		if (LastTouchPlayer != 0xFF && LastTouchPlayer != i) {
+			u16 dist_c_x = (SwSprite[LastTouchPlayer].lx > target_x) ? (SwSprite[LastTouchPlayer].lx - target_x) : (target_x - SwSprite[LastTouchPlayer].lx);
+			u16 dist_c_y = (SwSprite[LastTouchPlayer].ly > target_y) ? (SwSprite[LastTouchPlayer].ly - target_y) : (target_y - SwSprite[LastTouchPlayer].ly);
+			if (dist_c_x < 48 && dist_c_y < 48) {
+				target_x += (target_x > 112) ? 48 : -48;
+				target_y += (team == TEAM_1) ? 32 : -32; 
 			}
-		} else {
-			// Evita di farsi schiacciare troppo in area se la palla è lontana
-			if (target_y > 440 && Ball->ly < 440) target_y = 440;
-			// Convergenza verso la palla quando è nella propria metà campo
-			if (Ball->ly > 256) {
-				target_y = (target_y + Ball->ly + 16) / 2;
-				target_x = (target_x + Ball->lx) / 2;
+		}
+	} else if (LastTouchTeam != 0xFF) {
+		// FASE DIFENSIVA: Si frappongono tra la palla e la propria porta
+		if (role >= 5) { // Attaccanti alti
+			target_y = Ball->ly + ((team == TEAM_1) ? -40 : 40);
+			target_x = (role == 5) ? 80 : 144;
+		} else if (role >= 3) { // Centrocampisti chiudono il centro
+			target_y = Ball->ly + ((team == TEAM_1) ? 32 : -32);
+			target_x = Ball->lx + ((role == 3) ? -32 : 32);
+		} else { // Difensori coprono l'area
+			target_y = Ball->ly + ((team == TEAM_1) ? 80 : -80);
+			target_x = Ball->lx + ((role == 1) ? -24 : 24);
+			
+			// Non indietreggiare troppo dentro la propria area
+			if (team == TEAM_1 && target_y < 72) target_y = 72;
+			if (team == TEAM_2 && target_y > 440) target_y = 440;
+		}
+	} else {
+		// Palla libera: mantieni una zona di copertura neutra
+		target_x = (role % 2 == 1) ? 80 : 144;
+		target_y = Ball->ly + ((team == TEAM_1) ? -32 : 32);
+	}
+
+	// Intervento attivo: SOLO il compagno più vicino va al pressing estremo sulla palla (se la palla è degli avversari)
+	if (LastTouchTeam != team && LastTouchTeam != 0xFF && i == closest_mate) {
+		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
+		
+		// Raggio di pressing dinamico basato sull'aggressività (Stat 1: 32px, Stat 5: 64px)
+		u16 press_radius = 24 + (g_ActiveStats[team].aggro_defense * 8);
+		
+		// Aumenta l'aggressività e il pressing vicino all'area di rigore (difesa estrema)
+		if (team == TEAM_1 && Ball->ly < 192) press_radius += 32;
+		if (team == TEAM_2 && Ball->ly > 320) press_radius += 32;
+
+		if (b_dist_x < press_radius && b_dist_y < press_radius) {
+			target_x = Ball->lx;
+			target_y = Ball->ly;
+			
+			// Decide se tentare la scivolata
+			if (b_dist_x < 48 && b_dist_y < 48 && (b_dist_x > 16 || b_dist_y > 16) && Ball->anim < 5 && Player->count == 0 && RestartType == 0) {
+				bool opponent_has_ball = FALSE;
+				if (LastTouchPlayer != 0xFF) {
+					u16 opp_bx = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
+					u16 opp_by = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
+					if (opp_bx <= 16 && opp_by <= 16) opponent_has_ball = TRUE;
+				}
+				
+				if (opponent_has_ball && (Frms % 16 == 0)) {
+					u8 slide_chance = g_ActiveStats[team].aggro_defense * 15; // Fino al 75% per Stat 5
+					if ((Frms + i * 7) % 100 < slide_chance) {
+						Player->count = 12; // durata scivolata
+						Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
+						Player->dy = (Ball->ly > Player->ly) ? 3 : -3;
+						return; // Esce e inizia la scivolata dal prossimo frame
+					}
+				}
+			}
+
+			// Furto della palla (Tackle) intercettazione fisica
+			u8 base_steal = (LastTouchTeam == 0xFF) ? 24 : 6;
+			u8 steal_dist = base_steal + (g_ActiveStats[team].aggro_defense * 2);
+			if (Ball->anim >= 6) steal_dist = 8; 
+			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+				LastTouchTeam = team;
+				LastTouchPlayer = i; 
+				if (Ball->anim > 3) Ball->anim = 3; 
+				Ball->frame = SPR_BALL_SIZE_1; 
 			}
 		}
 	}
 
-	// Controllo CPU Team per inseguimento e dribbling
+	// Controllo CPU Team per dribbling e tiri in attacco
 	bool is_cpu_team = (GameMode == GAMEMODE_P1_VS_CPU && team == TEAM_1);
-	
-	if (is_cpu_team) {
-		// Trova il giocatore più vicino alla palla
-		u8 closest_cpu = 0xFF;
-		u16 min_dist = 0xFFFF;
-		u8 start_cpu = 1; 
-		u8 end_cpu = 7;
-		
-		for (u8 j = start_cpu; j < end_cpu; j++) {
-			u16 dx = (SwSprite[j].lx > Ball->lx) ? (SwSprite[j].lx - Ball->lx) : (Ball->lx - SwSprite[j].lx);
-			u16 dy = (SwSprite[j].ly > Ball->ly) ? (SwSprite[j].ly - Ball->ly) : (Ball->ly - SwSprite[j].ly);
-			if (dx + dy < min_dist) {
-				min_dist = dx + dy;
-				closest_cpu = j;
-			}
-		}
-
-		if (i == closest_cpu) {
-			if (LastTouchTeam != team) {
-				// Il CPU non ha la palla: vai a pressare/inseguire
-				target_x = Ball->lx;
-				target_y = Ball->ly;
-			} else {
-				// Il CPU ha la palla
+	if (is_cpu_team && i == closest_mate && LastTouchTeam == team) {
 				if (min_dist <= 24) {
 					// Punta alla porta avversaria (Sud per il Team 1)
 					target_x = 128; 
@@ -163,7 +235,10 @@ void PlayerAI(u8 i)
 						// Tiro in porta (se campo scrollato e abbastanza vicino)
 						if (Field.ly >= 320 && Player->ly > 360) { // Scrolling completo e in area di tiro
 							u8 rand_shot = (Player->lx + Frms) % 100;
-							if (rand_shot < 15) { // 15% di probabilità di tirare
+							
+							// Propensione al tiro: da 5% (Stat 1) a 25% (Stat 5)
+							u8 shot_prob = 5 + (g_ActiveStats[team].aggro_attack * 4);
+							if (rand_shot < shot_prob) { 
 								action_taken = TRUE;
 								Ball->anim = 0; Ball->count = 0;
 								g_pass_receiver = 0xFF;
@@ -188,7 +263,10 @@ void PlayerAI(u8 i)
 						// Passaggio intelligente verso un compagno in direzione dello sguardo
 						if (!action_taken && Frms % 16 == 0) {
 							u8 rand_pass = (Player->lx * 5 + Player->ly * 3 + Frms) % 100;
-							if (rand_pass < 40) { // 40% di probabilità di passare
+							
+							// Propensione passaggi: da 20% (Stat 1) a 60% (Stat 5)
+							u8 pass_prob = 10 + (g_ActiveStats[team].pass_tendency * 10);
+							if (rand_pass < pass_prob) { 
 								u8 receiver = FindReceiver(i, 0xFF, Player->dx, Player->dy);
 								if (receiver != 0xFF) {
 									u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
@@ -235,35 +313,11 @@ void PlayerAI(u8 i)
 					target_x = Ball->lx;
 					target_y = Ball->ly;
 				}
-			}
-		}
-	}
-
-	// Intervento attivo: se un giocatore (anche non governato in quel momento dal player) 
-	// passa molto vicino alla palla in fase difensiva, abbandona il piazzamento tattico per il contrasto
-	if (LastTouchTeam != team) {
-		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
-		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
-		
-		if (b_dist_x < 32 && b_dist_y < 32) {
-			target_x = Ball->lx;
-			target_y = Ball->ly;
-			
-			// Furto della palla (Tackle) intercettazione fisica
-			u8 steal_dist = (LastTouchTeam == 0xFF) ? 24 : 8;
-			if (Ball->anim >= 6) steal_dist = 8; // I tiri potenti sfuggono più facilmente al tackle
-			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0) {
-				LastTouchTeam = team;
-				LastTouchPlayer = i; // Protezione dal fischio di fuorigioco
-				if (Ball->anim > 3) Ball->anim = 3; // L'AI stoppa la palla
-				Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-			}
-		}
 	}
 
 	// Limiti fisici del campo per i giocatori di movimento
 	if (target_x < 16) target_x = 16; 
-	if (target_x > 240) target_x = 240;
+	if (target_x > 224) target_x = 224;
 	if (target_y < 24) target_y = 24;
 	if (target_y > 478) target_y = 478;
 

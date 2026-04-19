@@ -7,22 +7,21 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-    _CallFnc_U16_P3                                                 ******** GX
-    _CallFnc_U16_P4                                                 ******** GX
+  7 _AssignCornerKickTargets                                        00000C7E GR
+  7 _AssignGoalKickTargets                                          000007FA GR
+  7 _AssignOffsideTargets                                           00001253 GR
+  7 _AssignThrowInTargets                                           00000000 GR
     _CallFnc_VOID                                                   ******** GX
-    _CallFnc_VOID_P1                                                ******** GX
-    _Field                                                          ******** GX
+    _EventBallKicked                                                ******** GX
+  7 _ExecuteCornerKick                                              0000112C GR
+  7 _ExecuteThrowIn                                                 00001000 GR
     _Frms                                                           ******** GX
-    _GetPlayerAnimFrame                                             ******** GX
-    _GetPlayerIdleFrame                                             ******** GX
+    _LastTouchPlayer                                                ******** GX
+    _LastTouchTeam                                                  ******** GX
+    _RestartSideX                                                   ******** GX
+    _RestartSideY                                                   ******** GX
     _RestartType                                                    ******** GX
-    _ScoreTeam1                                                     ******** GX
-    _ScoreTeam2                                                     ******** GX
-    _SetBallSprite                                                  ******** GX
-    _ShowMenu                                                       ******** GX
     _SwSprite                                                       ******** GX
-  7 _UpdateGameState_Penalties_End                                  00000000 GR
-    __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     __modsint                                                       ******** GX
     __mulint                                                        ******** GX
@@ -58,12 +57,12 @@ Symbol Table
     _g_CS240                                                    =   0000F401 G
     _g_CSRSW                                                    =   0000FCA9 G
     _g_CSRX                                                     =   0000F3DD G
+    _g_CSRY                                                     =   0000F3DC G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_CSRY                                                     =   0000F3DC G
     _g_CSTYLE                                                   =   0000FCAA G
     _g_DATCNT                                                   =   0000FB17 G
     _g_DEVNUM                                                   =   0000FB16 G
@@ -118,12 +117,12 @@ Symbol Table
     _g_LOW                                                      =   0000F406 G
     _g_LOWLIM                                                   =   0000FCA4 G
     _g_LSTCOM                                                   =   0000FB1E G
+    _g_LSTMOD                                                   =   0000FB1F G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_LSTMOD                                                   =   0000FB1F G
     _g_MASTER                                                   =   0000F348 G
     _g_MAXUPD                                                   =   0000F3EC G
     _g_MCLLEN                                                   =   0000FB3B G
@@ -178,12 +177,12 @@ Symbol Table
     _g_RAMAD0                                                   =   0000F341 G
     _g_RAMAD1                                                   =   0000F342 G
     _g_RAMAD2                                                   =   0000F343 G
+    _g_RAMAD3                                                   =   0000F344 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_RAMAD3                                                   =   0000F344 G
     _g_RDPRIM                                                   =   0000F380 G
     _g_REPCNT                                                   =   0000F3F7 G
     _g_RG08SAV                                                  =   0000FFE7 G
@@ -238,12 +237,12 @@ Symbol Table
     _g_T32ATR                                                   =   0000F3C3 G
     _g_T32CGP                                                   =   0000F3C1 G
     _g_T32COL                                                   =   0000F3BF G
+    _g_T32NAM                                                   =   0000F3BD G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_T32NAM                                                   =   0000F3BD G
     _g_T32PAT                                                   =   0000F3C5 G
     _g_TOCNT                                                    =   0000FB03 G
     _g_TRGFLG                                                   =   0000F3E8 G
@@ -275,13 +274,15 @@ Symbol Table
     _g_YSAVE                                                    =   0000FB00 G
     _g_pass_max_frames                                              ******** GX
     _g_pass_max_height                                              ******** GX
+    _g_pass_receiver                                                ******** GX
     _g_pass_start_x                                                 ******** GX
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
     _g_pass_target_y                                                ******** GX
-    _g_penalty_shooter_idx                                          ******** GX
-    _g_penalty_shot_count                                           ******** GX
-    _g_penalty_team                                                 ******** GX
+    _g_selected_rec                                                 ******** GX
+    _g_throw_rec_1                                                  ******** GX
+    _g_throw_rec_2                                                  ******** GX
+    _g_thrower_id                                                   ******** GX
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
@@ -296,7 +297,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG17                                     size     10EA   flags    0
+   7 _SEG17                                     size     17C1   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

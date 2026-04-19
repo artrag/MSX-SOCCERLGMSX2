@@ -500,7 +500,7 @@
     00000164 3Ar00r00         [13]  500 	ld	a, (_RestartType+0)
     00000167 3D               [ 4]  501 	dec	a
     00000168 20 21            [12]  502 	jr	NZ, 00120$
-                                    503 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:47: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+                                    503 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:47: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
     0000016A 3Ar00r00         [13]  504 	ld	a, (_g_selected_rec+0)
     0000016D B7               [ 4]  505 	or	a, a
     0000016E 20 06            [12]  506 	jr	NZ, 00203$
@@ -515,11 +515,11 @@
     0000017E F5               [11]  515 	push	af
     0000017F 33               [ 6]  516 	inc	sp
     00000180 11r00r00         [10]  517 	ld	de, #_ExecuteThrowIn
-    00000183 3E 0B            [ 7]  518 	ld	a, #0x0b
+    00000183 3E 11            [ 7]  518 	ld	a, #0x11
     00000185 CDr00r00         [17]  519 	call	_CallFnc_VOID_U8U8
     00000188 C3rA9r01         [10]  520 	jp	00121$
     0000018B                        521 00120$:
-                                    522 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:49: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+                                    522 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:49: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
     0000018B 3Ar00r00         [13]  523 	ld	a, (_g_selected_rec+0)
     0000018E B7               [ 4]  524 	or	a, a
     0000018F 20 06            [12]  525 	jr	NZ, 00205$
@@ -534,7 +534,7 @@
     0000019F F5               [11]  534 	push	af
     000001A0 33               [ 6]  535 	inc	sp
     000001A1 11r00r00         [10]  536 	ld	de, #_ExecuteCornerKick
-    000001A4 3E 0B            [ 7]  537 	ld	a, #0x0b
+    000001A4 3E 11            [ 7]  537 	ld	a, #0x11
     000001A6 CDr00r00         [17]  538 	call	_CallFnc_VOID_U8U8
     000001A9                        539 00121$:
                                     540 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:51: g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%
@@ -595,7 +595,7 @@
     0000020B 3Ar00r00         [13]  595 	ld	a, (_RestartType+0)
     0000020E 3D               [ 4]  596 	dec	a
     0000020F 20 15            [12]  597 	jr	NZ, 00127$
-                                    598 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:58: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
+                                    598 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:58: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, target);
     00000211 DD 7E FB         [19]  599 	ld	a, -5 (ix)
     00000214 F5               [11]  600 	push	af
     00000215 33               [ 6]  601 	inc	sp
@@ -603,7 +603,7 @@
     00000219 F5               [11]  603 	push	af
     0000021A 33               [ 6]  604 	inc	sp
     0000021B 11r00r00         [10]  605 	ld	de, #_ExecuteThrowIn
-    0000021E 3E 0B            [ 7]  606 	ld	a, #0x0b
+    0000021E 3E 11            [ 7]  606 	ld	a, #0x11
     00000220 CDr00r00         [17]  607 	call	_CallFnc_VOID_U8U8
     00000223 C3rF7r02         [10]  608 	jp	00128$
     00000226                        609 00127$:
@@ -695,7 +695,7 @@
     000002E1 7E               [ 7]  695 	ld	a, (hl)
     000002E2 DD 77 FB         [19]  696 	ld	-5 (ix), a
     000002E5                        697 00125$:
-                                    698 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:71: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, target);
+                                    698 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:71: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, target);
     000002E5 DD 7E FB         [19]  699 	ld	a, -5 (ix)
     000002E8 F5               [11]  700 	push	af
     000002E9 33               [ 6]  701 	inc	sp
@@ -703,7 +703,7 @@
     000002ED F5               [11]  703 	push	af
     000002EE 33               [ 6]  704 	inc	sp
     000002EF 11r00r00         [10]  705 	ld	de, #_ExecuteCornerKick
-    000002F2 3E 0B            [ 7]  706 	ld	a, #0x0b
+    000002F2 3E 11            [ 7]  706 	ld	a, #0x11
     000002F4 CDr00r00         [17]  707 	call	_CallFnc_VOID_U8U8
     000002F7                        708 00128$:
                                     709 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:73: g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%

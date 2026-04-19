@@ -48,12 +48,12 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 		}
 
 		// Imposta dinamicamente il target dell'arbitro in base alla posizione della palla
-		u16 ball_ref_x = (RestartType == RESTART_GKSAVE) ? RestartSideX : SwSprite[14].lx;
-		u16 ball_ref_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
+		u16 ball_ref_x = (RestartType == RESTART_GKSAVE || RestartType == RESTART_OFFSIDE) ? RestartSideX : SwSprite[14].lx;
+		u16 ball_ref_y = (RestartType == RESTART_GKSAVE || RestartType == RESTART_OFFSIDE) ? RestartSideY : SwSprite[14].ly;
 		u16 ref_tx = (ball_ref_x < 128) ? (ball_ref_x + 40) : (ball_ref_x - 40);
 		u16 ref_ty = (ball_ref_y < 256) ? (ball_ref_y + 48) : (ball_ref_y - 48);
 		if (ref_tx < 16) ref_tx = 16;
-		if (ref_tx > 240) ref_tx = 240;
+		if (ref_tx > 224) ref_tx = 224;
 		if (ref_ty < 24) ref_ty = 24;
 		if (ref_ty > 488) ref_ty = 488;
 		SwSprite[26].tx = ref_tx;
@@ -105,7 +105,13 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 			}
 		}
 		if (all_in_position) {
-			if (RestartType == RESTART_THROWIN || RestartType == RESTART_CORNERKICK) {
+			// FIX: Azzera i counter per evitare scivolate fantasma memorizzate da azioni precedenti
+			for (u8 i = 0; i < 14; i++) {
+				SwSprite[i].count = 0;
+			}
+			LastTouchPlayer = 0xFF; // Nessuno ha toccato la palla finora nella nuova azione
+
+			if (RestartType == RESTART_THROWIN || RestartType == RESTART_CORNERKICK || RestartType == RESTART_OFFSIDE) {
 				*game_state = 7;
 				u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
 				bool is_human = FALSE;

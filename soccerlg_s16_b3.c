@@ -125,8 +125,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 		else if(*game_state == 14) { // STATO 14: Mira e Tiro
 			struct ObjectInfo* Keeper = &SwSprite[keeper_idx];
 			u8 keeper_team_idx = (keeper_idx == 0) ? 0 : 1;
-			bool is_keeper_human = (keeper_team_idx == TEAM_1) || (keeper_team_idx == TEAM_2 && GameMode == GAMEMODE_P1_VS_P2);
-			bool is_shooter_human = (g_penalty_team == TEAM_1) || (g_penalty_team == TEAM_2 && GameMode == GAMEMODE_P1_VS_P2);
+			bool is_keeper_human = (keeper_team_idx == TEAM_2) || (keeper_team_idx == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2);
+			bool is_shooter_human = (g_penalty_team == TEAM_2) || (g_penalty_team == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2);
 			bool do_shot = FALSE;
 			u8 shot_dir = 1; // 0=sx, 1=centro, 2=dx
 
@@ -184,7 +184,14 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				if(is_keeper_human) {
 					dive_dir = Keeper->dx; // Usa la direzione memorizzata
 				} else { // CPU
-					dive_dir = (Frms + g_penalty_shot_count[0]) % 3;
+					// L'abilità del portiere (1-5) determina la percentuale di successo nell'indovinare l'angolo
+					u8 skill_chance = g_ActiveStats[keeper_team_idx].gk_penalty_skill * 12; // Es: Stat 5 = 60%
+					if ((Frms % 100) < skill_chance) {
+						dive_dir = shot_dir; // Il portiere intuisce la direzione corretta!
+					} else {
+						// Se sbaglia a intuire, sceglie a caso tra le due direzioni rimanenti
+						dive_dir = (shot_dir + 1 + (Frms % 2)) % 3;
+					}
 				}
 
 				// Imposta sprite e posizione esatta per la parata in base alla fisica dello sprite (mani sulla palla)

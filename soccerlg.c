@@ -47,6 +47,16 @@ const struct TeamColors g_TeamColorsArray[] = {
     { 0x0071, 0x0071, 0x0777 }  // 5: ESP (Shirt: Rossa, Shorts: Rosse, Righe: Bianche)
 };
 
+// Teams stats array (Scala 1-5 per ogni caratteristica)
+const struct TeamStats g_TeamStatsArray[] = {
+    { 3, 3, 3, 2, 5, 2, 4 }, // 0: ITA (Catenaccio: Difesa 5, Portiere 4, Attacco 2)
+    { 2, 2, 2, 2, 2, 2, 2 }, // 1: FRA (La più debole: tutto 2)
+    { 5, 5, 4, 5, 3, 5, 3 }, // 2: BRA (Campioni: Velocità 5, Attacco 5, Dribbling 5)
+    { 3, 4, 4, 3, 4, 4, 5 }, // 3: GER (Rocciosi: Difesa 4, Attacco 4, Portiere 5)
+    { 4, 4, 5, 4, 3, 4, 3 }, // 4: NLD (Calcio Totale: Passaggi 5, Velocità 4)
+    { 3, 3, 5, 3, 3, 3, 3 }  // 5: ESP (Tiki-Taka: Passaggi 5, resto nella media)
+};
+
 // -----------------
 // *** VARIABLES ***
 // -----------------
@@ -103,6 +113,7 @@ struct ObjectInfo SwSprite[NumSprite];
 struct ObjectInfo Field;
 struct ObjectInfo ScoreBoardLeft;
 struct ObjectInfo ScoreBoardRight;
+struct TeamStats g_ActiveStats[2];
 
 volatile bool g_VSynch=FALSE;
 

@@ -10,12 +10,12 @@ Symbol Table
     _CallFnc_VOID_16_P1                                             ******** GX
   7 _EventBallKicked                                                00000000 GR
   7 _EventCornerKick                                                0000001F GR
-  7 _EventGoal                                                      0000003A GR
+  7 _EventGoal                                                      00000046 GR
   7 _EventGoalKick                                                  0000002C GR
   7 _EventHalfTime                                                  00000010 GR
   7 _EventKickOffReady                                              00000003 GR
   7 _EventOffside                                                   00000039 GR
-  7 _EventPenaltyWhistle                                            00000047 GR
+  7 _EventPenaltyWhistle                                            00000053 GR
   7 _EventPlayerFirstPresentationStarted                            00000002 GR
   7 _EventStartPresentationScrollig                                 00000001 GR
   7 _EventThrowIn                                                   00000012 GR
@@ -282,7 +282,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG8                                      size       48   flags    0
+   7 _SEG8                                      size       54   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

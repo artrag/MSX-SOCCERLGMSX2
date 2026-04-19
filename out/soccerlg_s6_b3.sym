@@ -12,7 +12,7 @@ Symbol Table
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
     _Field                                                          ******** GX
-  7 _FindReceiver                                                   0000125C GR
+  7 _FindReceiver                                                   000018FA GR
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -20,10 +20,10 @@ Symbol Table
     _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
   7 _PlayerAI                                                       00000000 GR
+    _RestartType                                                    ******** GX
     _SwSprite                                                       ******** GX
     _T1_Carrier                                                     ******** GX
     _T2_Carrier                                                     ******** GX
-    __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     __modsint                                                       ******** GX
     __moduint                                                       ******** GX
@@ -36,6 +36,7 @@ Symbol Table
     _g_ASPCT2                                                   =   0000F40D G
     _g_ATRBYT                                                   =   0000F3F2 G
     _g_AVCSAV                                                   =   0000FAF7 G
+    _g_ActiveStats                                                  ******** GX
     _g_BAKCLR                                                   =   0000F3EA G
     _g_BASROM                                                   =   0000FBB1 G
     _g_BASRVN                                                   =   0000002B G
@@ -57,12 +58,12 @@ Symbol Table
     _g_CMASK                                                    =   0000F92C G
     _g_CNSDFG                                                   =   0000F3DE G
     _g_CODSAV                                                   =   0000FBCC G
-    _g_COMMSK                                                   =   0000FB1D G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
     _g_CS120                                                    =   0000F3FC G
     _g_CS240                                                    =   0000F401 G
@@ -117,12 +118,12 @@ Symbol Table
     _g_LINL32                                                   =   0000F3AF G
     _g_LINL40                                                   =   0000F3AE G
     _g_LINLEN                                                   =   0000F3B0 G
-    _g_LINTTB                                                   =   0000FBB2 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_LINTTB                                                   =   0000FBB2 G
     _g_LINWRK                                                   =   0000FC18 G
     _g_LOGOPR                                                   =   0000FB02 G
     _g_LOW                                                      =   0000F406 G
@@ -177,12 +178,12 @@ Symbol Table
     _g_PortPrimarySlot                                          =   000000A8 
     _g_PortReadKeyboard                                         =   000000A9 
     _g_QUEBAK                                                   =   0000F971 G
-    _g_QUETAB                                                   =   0000F959 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_QUETAB                                                   =   0000F959 G
     _g_QUEUEN                                                   =   0000FB3E G
     _g_QUEUES                                                   =   0000F3F3 G
     _g_RAMAD0                                                   =   0000F341 G
@@ -237,12 +238,12 @@ Symbol Table
     _g_SLTWRK                                                   =   0000FD09 G
     _g_STATFL                                                   =   0000F3E7 G
     _g_STRSRC                                                   =   00000002 G
-    _g_SUBRID                                                   =   00000000 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_SUBRID                                                   =   00000000 G
     _g_SVFFF8                                                   =   0000FFF8 G
     _g_SVFFFD                                                   =   0000FFFD G
     _g_T32ATR                                                   =   0000F3C3 G
@@ -299,7 +300,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     14C2   flags    0
+   7 _SEG6                                      size     1B60   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

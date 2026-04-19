@@ -500,7 +500,7 @@ _UpdateGameState_SetPieces::
 	ld	a, (_RestartType+0)
 	dec	a
 	jr	NZ, 00120$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:47: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:47: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
 	ld	a, (_g_selected_rec+0)
 	or	a, a
 	jr	NZ, 00203$
@@ -515,11 +515,11 @@ _UpdateGameState_SetPieces::
 	push	af
 	inc	sp
 	ld	de, #_ExecuteThrowIn
-	ld	a, #0x0b
+	ld	a, #0x11
 	call	_CallFnc_VOID_U8U8
 	jp	00121$
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:49: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:49: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
 	ld	a, (_g_selected_rec+0)
 	or	a, a
 	jr	NZ, 00205$
@@ -534,7 +534,7 @@ _UpdateGameState_SetPieces::
 	push	af
 	inc	sp
 	ld	de, #_ExecuteCornerKick
-	ld	a, #0x0b
+	ld	a, #0x11
 	call	_CallFnc_VOID_U8U8
 00121$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:51: g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%
@@ -595,7 +595,7 @@ _UpdateGameState_SetPieces::
 	ld	a, (_RestartType+0)
 	dec	a
 	jr	NZ, 00127$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:58: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteThrowIn, g_thrower_id, target);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:58: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, target);
 	ld	a, -5 (ix)
 	push	af
 	inc	sp
@@ -603,7 +603,7 @@ _UpdateGameState_SetPieces::
 	push	af
 	inc	sp
 	ld	de, #_ExecuteThrowIn
-	ld	a, #0x0b
+	ld	a, #0x11
 	call	_CallFnc_VOID_U8U8
 	jp	00128$
 00127$:
@@ -695,7 +695,7 @@ _UpdateGameState_SetPieces::
 	ld	a, (hl)
 	ld	-5 (ix), a
 00125$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:71: CallFnc_VOID_U8U8(SEG_GAMESTATE_2, ExecuteCornerKick, g_thrower_id, target);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:71: CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, target);
 	ld	a, -5 (ix)
 	push	af
 	inc	sp
@@ -703,7 +703,7 @@ _UpdateGameState_SetPieces::
 	push	af
 	inc	sp
 	ld	de, #_ExecuteCornerKick
-	ld	a, #0x0b
+	ld	a, #0x11
 	call	_CallFnc_VOID_U8U8
 00128$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:73: g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%

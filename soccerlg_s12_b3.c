@@ -107,11 +107,13 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
 					
 					if (RestartType == RESTART_THROWIN) {
-						CallFnc_VOID(SEG_GAMESTATE_2, AssignThrowInTargets);
+						CallFnc_VOID(SEG_GAMESTATE_7, AssignThrowInTargets);
 					} else if (RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE) {
-						CallFnc_VOID(SEG_GAMESTATE_2, AssignGoalKickTargets);
+						CallFnc_VOID(SEG_GAMESTATE_7, AssignGoalKickTargets);
 					} else if (RestartType == RESTART_CORNERKICK) {
-						CallFnc_VOID(SEG_GAMESTATE_2, AssignCornerKickTargets);
+						CallFnc_VOID(SEG_GAMESTATE_7, AssignCornerKickTargets);
+					} else if (RestartType == RESTART_OFFSIDE) {
+						CallFnc_VOID(SEG_GAMESTATE_7, AssignOffsideTargets);
 					} else {
 						// Ritorno provvisorio a centrocampo per Goal o KickOff
 						SwSprite[14].lx = BALL_START_X;
@@ -124,8 +126,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					}
 					
 					// Centra la telecamera e pulisce il focus
-					if (RestartType == RESTART_THROWIN || RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE) {
-						u16 cam_target_y = (RestartType == RESTART_GKSAVE) ? RestartSideY : SwSprite[14].ly;
+					if (RestartType == RESTART_THROWIN || RestartType == RESTART_GOALKICK || RestartType == RESTART_GKSAVE || RestartType == RESTART_OFFSIDE) {
+						u16 cam_target_y = (RestartType == RESTART_GKSAVE || RestartType == RESTART_OFFSIDE) ? RestartSideY : SwSprite[14].ly;
 						if (cam_target_y < 96) Field.ly = 0;
 						else if (cam_target_y > 512 - 192) Field.ly = 512 - 192;
 						else Field.ly = cam_target_y - 96;

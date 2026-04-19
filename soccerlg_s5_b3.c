@@ -162,6 +162,9 @@ void ShowSpriteMessage(u16 messageId)
 	} else if (messageId == SPR_MSG_PENALTIES) {
 		len = SPRITE_MSG_PENALTIES_LENGTH;
 		logical_y = Field.ly + 96;
+	} else if (messageId == SPR_MSG_OFFSIDE) {
+		len = SPRITE_MSG_OFFSIDE_LENGTH;
+		logical_y = Field.ly + 96;
 	} else {
 		return;
 	}

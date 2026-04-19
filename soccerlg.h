@@ -33,6 +33,16 @@ struct TeamColors {
     u16 Stripes;
 };
 
+struct TeamStats {
+    u8 speed_carrier;      // Velocità portatore palla (1-5)
+    u8 speed_chasing;      // Velocità inseguimento (1-5)
+    u8 pass_tendency;      // Propensione passaggi e cambi (1-5)
+    u8 dribble_variation;  // Propensione a cambi direzione (1-5)
+    u8 aggro_defense;      // Aggressività difesa/tackle (1-5)
+    u8 aggro_attack;       // Aggressività attacco/tiro (1-5)
+    u8 gk_penalty_skill;   // Bravura portiere rigori (1-5)
+};
+
 // ---------------
 // *** DEFINES ***
 // ---------------
@@ -205,8 +215,8 @@ struct TeamColors {
 #define SPR_GK_PLAYER_NORTH_1			        	242
 #define SPR_GK_PLAYER_NORTH_2			        	245
 #define SPR_GK_PLAYER_NORTH_SHOT			    	247
-#define SPR_GK_PLAYER_DOWN_EAST				    	238
-#define SPR_GK_PLAYER_DOWN_WEST			    		239
+#define SPR_GK_PLAYER_DOWN_EAST				    	239
+#define SPR_GK_PLAYER_DOWN_WEST			    		238
 #define SPR_REFEREE_SOUTH_DIRECTION_1        		256
 #define SPR_REFEREE_SOUTH_DIRECTION_2        		257
 #define SPR_REFEREE_SOUTH_DIRECTION_3        		258
@@ -265,7 +275,7 @@ struct TeamColors {
 #define SPR_MSG_TIMEUP								320
 #define SPR_MSG_HALFTIME							324
 #define SPR_MSG_PENALTIES							329
-#define SPR_MSG_OOFFSIDE							248
+#define SPR_MSG_OFFSIDE								248
 
 #define SPRITE_FOCUSED_PLAYER_OFFSET				48
 
@@ -286,6 +296,7 @@ struct TeamColors {
 #define RESTART_GKSAVE                              4
 #define RESTART_GOAL                                5
 #define RESTART_KICKOFF_SCROLL                      6
+#define RESTART_OFFSIDE                             7
 
 #define TEAM_1                                      0
 #define TEAM_2                                      1
@@ -325,6 +336,7 @@ struct TeamColors {
 #define SEG_MENU        14
 #define SEG_GAMESTATE_5 15
 #define SEG_GAMESTATE_6 16
+#define SEG_GAMESTATE_7 17
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -344,6 +356,7 @@ struct TeamColors {
 
 extern const unsigned char g_Fonts[];
 extern const struct TeamColors g_TeamColorsArray[];
+extern const struct TeamStats g_TeamStatsArray[];
 
 // -----------------
 // *** VARIABLES ***
@@ -405,6 +418,7 @@ extern  u16 g_h_arrow_x;
 extern  i8  g_h_arrow_dir;
 
 extern struct InputState g_player_input[2];
+extern struct TeamStats g_ActiveStats[2];
 
 
 
@@ -489,6 +503,7 @@ void AssignKickOffTargets();
 void AssignThrowInTargets();
 void AssignGoalKickTargets();
 void AssignCornerKickTargets();
+void AssignOffsideTargets();
 void ExecuteThrowIn(u8 thrower, u8 receiver);
 void ExecuteCornerKick(u8 thrower, u8 receiver);
 u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);

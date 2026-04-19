@@ -79,6 +79,14 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 	u8 goal_left = 82;
 	u8 goal_right = 156;
 	
+	// Controlla se la palla è portata da un giocatore (dribbling)
+	bool is_carried = FALSE;
+	if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+		u16 dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
+		u16 dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
+		if (dist_x <= 12 && dist_y <= 12) is_carried = TRUE;
+	}
+
 	// ========== CONTROLLO GOAL ==========
 	// Goal alla squadra 2 se la palla è prima della linea superiore ma nello specchio della porta
 	if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
