@@ -77,14 +77,18 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
 			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
 			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
-			if (dist_x + dist_y < min_dist_t1) { min_dist_t1 = dist_x + dist_y; closest_t1 = i; }
+			u16 dist = dist_x + dist_y;
+			if (LastTouchTeam == TEAM_1 && i == LastTouchPlayer && Ball->anim < 5) dist = 0; // Forza il focus sul portatore
+			if (dist < min_dist_t1) { min_dist_t1 = dist; closest_t1 = i; }
 		}
 		for (u8 i = 8; i < 14; i++) {
 			u8 dx_diff = (u8)(SwSprite[i].lx - Ball->lx);
 			u16 dist_x = (dx_diff < 128) ? dx_diff : (256 - dx_diff);
 			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
 			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
-			if (dist_x + dist_y < min_dist_t2) { min_dist_t2 = dist_x + dist_y; closest_t2 = i; }
+			u16 dist = dist_x + dist_y;
+			if (LastTouchTeam == TEAM_2 && i == LastTouchPlayer && Ball->anim < 5) dist = 0; // Forza il focus sul portatore
+			if (dist < min_dist_t2) { min_dist_t2 = dist; closest_t2 = i; }
 		}
 
 		// Assegna il cursore di controllo al giocatore più vicino
@@ -335,11 +339,19 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			u16 dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
 			u16 dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 			
-			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : 10; // 10 pixel per il tackle
+			bool is_ball_carried = FALSE;
+			if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
+				u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
+				u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
+				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
+			}
+
+			bool can_walk_steal = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF || !is_ball_carried);
+			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : 12; 
 			if (Ball->anim >= 6) touch_dist = 8; // I tiri potenti sfuggono facilmente al tackle
 			
-			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5 && RestartType == 0) {
+			// Se il giocatore tocca fisicamente la palla (e non è in volo) e può prenderla camminando
+			if (can_walk_steal && dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5 && RestartType == 0) {
 					// Controllo Fuorigioco al momento della ricezione
 					bool offside = FALSE;
 					if (carrier < 7 && LastTouchTeam == TEAM_1 && LastTouchPlayer != carrier) {

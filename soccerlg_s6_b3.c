@@ -171,32 +171,35 @@ void PlayerAI(u8 i)
 		target_y = Ball->ly + ((team == TEAM_1) ? -32 : 32);
 	}
 
-	// Intervento attivo: SOLO il compagno più vicino va al pressing estremo sulla palla (se la palla è degli avversari)
-	if (LastTouchTeam != team && LastTouchTeam != 0xFF && i == closest_mate) {
+	// Intervento attivo: SOLO il compagno più vicino va sulla palla (se avversari o palla libera)
+	if (LastTouchTeam != team && i == closest_mate) {
 		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
 		
-		// Raggio di pressing dinamico basato sull'aggressività (Stat 1: 32px, Stat 5: 64px)
+		// Raggio di pressing dinamico basato sull'aggressività
 		u16 press_radius = 24 + (g_ActiveStats[team].aggro_defense * 8);
+		if (LastTouchTeam == 0xFF) press_radius = 500; // Palla libera: vai sempre a prenderla!
 		
 		// Aumenta l'aggressività e il pressing vicino all'area di rigore (difesa estrema)
-		if (team == TEAM_1 && Ball->ly < 192) press_radius += 32;
-		if (team == TEAM_2 && Ball->ly > 320) press_radius += 32;
+		if (LastTouchTeam != 0xFF) {
+			if (team == TEAM_1 && Ball->ly < 192) press_radius += 32;
+			if (team == TEAM_2 && Ball->ly > 320) press_radius += 32;
+		}
 
 		if (b_dist_x < press_radius && b_dist_y < press_radius) {
 			target_x = Ball->lx;
 			target_y = Ball->ly;
 			
-			// Decide se tentare la scivolata
-			if (b_dist_x < 48 && b_dist_y < 48 && (b_dist_x > 16 || b_dist_y > 16) && Ball->anim < 5 && Player->count == 0 && RestartType == 0) {
-				bool opponent_has_ball = FALSE;
-				if (LastTouchPlayer != 0xFF) {
-					u16 opp_bx = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
-					u16 opp_by = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
-					if (opp_bx <= 16 && opp_by <= 16) opponent_has_ball = TRUE;
-				}
-				
-				if (opponent_has_ball && (Frms % 16 == 0)) {
+			bool is_ball_carried = FALSE;
+			if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
+				u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
+				u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
+				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
+			}
+			
+			// Decide se tentare la scivolata (SOLO se l'avversario ha la palla)
+			if (is_ball_carried && b_dist_x < 48 && b_dist_y < 48 && (b_dist_x > 16 || b_dist_y > 16) && Player->count == 0 && RestartType == 0) {
+				if (Frms % 16 == 0) {
 					u8 slide_chance = g_ActiveStats[team].aggro_defense * 15; // Fino al 75% per Stat 5
 					if ((Frms + i * 7) % 100 < slide_chance) {
 						Player->count = 12; // durata scivolata
@@ -207,15 +210,15 @@ void PlayerAI(u8 i)
 				}
 			}
 
-			// Furto della palla (Tackle) intercettazione fisica
-			u8 base_steal = (LastTouchTeam == 0xFF) ? 24 : 6;
-			u8 steal_dist = base_steal + (g_ActiveStats[team].aggro_defense * 2);
-			if (Ball->anim >= 6) steal_dist = 8; 
-			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
-				LastTouchTeam = team;
-				LastTouchPlayer = i; 
-				if (Ball->anim > 3) Ball->anim = 3; 
-				Ball->frame = SPR_BALL_SIZE_1; 
+			// Furto della palla intercettazione fisica (solo se la palla non è portata o è libera)
+			if (!is_ball_carried) {
+				u8 steal_dist = 12; 
+				if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+					LastTouchTeam = team;
+					LastTouchPlayer = i; 
+					if (Ball->anim > 3) Ball->anim = 3; 
+					Ball->frame = SPR_BALL_SIZE_1; 
+				}
 			}
 		}
 	}

@@ -47,9 +47,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000E45  l__SEG4                         
      000017C1  l__SEG17                        
      00001A85  l__SEG12                        
-     00001B60  l__SEG6                         
-     00001C86  l__SEG9                         
+     00001B33  l__SEG6                         
      00001CFF  l__SEG16                        
+     00001DCB  l__SEG9                         
      00002A07  l__CODE                         
      00004000  s__CODE                         
      00006A07  s__HOME                         
@@ -681,12 +681,12 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    00001B60 =        7008. bytes (REL,CON)
+_SEG6                               0006A000    00001B33 =        6963. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0006A000  _PlayerAI                          soccerlg_s6_b3
-     0006B8FA  _FindReceiver                      soccerlg_s6_b3
+     0006B8CD  _FindReceiver                      soccerlg_s6_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
@@ -726,7 +726,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001C86 =        7302. bytes (REL,CON)
+_SEG9                               0009A000    00001DCB =        7627. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
