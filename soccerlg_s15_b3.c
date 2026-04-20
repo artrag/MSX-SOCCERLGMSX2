@@ -328,6 +328,9 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 						p->frame = (actor_idx < 7) ? 
 							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
 							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+					} else if (RestartType != RESTART_GOAL && actor_idx == keeper_idx) {
+						u8 step = walk_seq[(p->anim / 3) % 4];
+						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
 					} else {
 						// FIX: Utilizziamo actor_idx e non 'i' per garantire l'indice e i colori della maglietta corretti
 						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
@@ -363,11 +366,11 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 				u8 team = (i < 7) ? TEAM_1 : ((i < 14) ? TEAM_2 : 0xFF);
 				
 				if (team == losing_team || i == 26) {
-					// Sconfitti e arbitro escono verso sud
-					if (p->ly < 512) {
+					// Sconfitti e arbitro escono dal campo
+					if (OnScreen(p->ly)) {
 						losers_offscreen = FALSE;
-						p->dy = 2; p->dx = 0;
-						p->ly += p->dy;
+						p->dy = 3; p->dx = 0;
+						p->ly = (p->ly + p->dy) & 511; // Evita l'underflow matematico
 						p->anim++;
 						const u8 walk_seq[4] = {0, 1, 2, 1};
 						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
@@ -383,8 +386,12 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
 					u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
 					
-					if (p->lx < t_x - 2) p->dx = 2; else if (p->lx > t_x + 2) p->dx = -2; else p->dx = 0;
-					if (p->ly < t_y - 2) p->dy = 2; else if (p->ly > t_y + 2) p->dy = -2; else p->dy = 0;
+					u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
+					u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
+					u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
+					
+					if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
+					if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
 					
 					p->lx += p->dx; p->ly += p->dy; p->anim++;
 					
@@ -392,13 +399,21 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					if (step == 3) step = 1;
 					
 					if (p->dy < 0 || (p->dy == 0 && (Frms % 64) < 32)) { 
-						p->frame = (team == TEAM_1) ? 
-							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
-							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
+						if (i == 0 || i == 7) {
+							p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
+						} else {
+							p->frame = (team == TEAM_1) ? 
+								((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
+								((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
+						}
 					} else {
-						p->frame = (team == TEAM_1) ? 
-							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
-							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+						if (i == 0 || i == 7) {
+							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, step);
+						} else {
+							p->frame = (team == TEAM_1) ? 
+								((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
+								((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+						}
 					}
 				}
 			}

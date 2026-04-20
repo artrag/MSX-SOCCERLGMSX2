@@ -190,11 +190,11 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 				// Imposta sprite e posizione esatta per la parata in base alla fisica dello sprite (mani sulla palla)
 				if(dive_dir == 0) { // Tuffo a Sinistra (X=92)
-					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST;
+					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
 					Keeper->lx = 84; // Sposta il body a 84, mani della maglietta a 92
 				}
 				else if(dive_dir == 2) { // Tuffo a Destra (X=148)
-					Keeper->frame = SPR_GK_PLAYER_DOWN_WEST;
+					Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
 					Keeper->lx = 156; // Sposta il body a 156, mani della maglietta a 148
 				}
 				else { // Parata centrale

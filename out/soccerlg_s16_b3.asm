@@ -1818,7 +1818,7 @@ _UpdateGameState_Penalties::
 	call	__modsint
 	ld	-1 (ix), e
 00203$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
 	ld	a, -12 (ix)
 	add	a, #0x0f
 	ld	-8 (ix), a
@@ -1829,7 +1829,7 @@ _UpdateGameState_Penalties::
 	ld	a, -1 (ix)
 	or	a, a
 	jr	NZ, 00208$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
 	ld	(hl), #0xef
@@ -1845,7 +1845,7 @@ _UpdateGameState_Penalties::
 	ld	a, -1 (ix)
 	sub	a, #0x02
 	jr	NZ, 00205$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
 	ld	(hl), #0xee

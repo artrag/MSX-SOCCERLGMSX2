@@ -152,6 +152,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					return;
 				}
 
+				if (dist_x >= 6) {
+					if (Ball->lx < SwSprite[gk_idx].lx) {
+						SwSprite[gk_idx].lx = Ball->lx - 8;
+						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_EAST_NORTH : SPR_GK_PLAYER_DOWN_EAST_SOUTH;
+					} else {
+						SwSprite[gk_idx].lx = Ball->lx + 8;
+						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_WEST_NORTH : SPR_GK_PLAYER_DOWN_WEST_SOUTH;
+					}
+				}
+
 				*game_state = 6; // Ferma il gioco per preparare il rinvio
 				Field.dy = 0;
 				RestartType = RESTART_GKSAVE;
@@ -206,6 +216,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				u16 b_dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
 				u16 b_dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 				if (b_dist_x <= 12 && b_dist_y <= 12 && Ball->anim < 5 && RestartType == 0) {
+					if (LastTouchTeam != carrier_team) Ball->count = 16; // Immunità
 					LastTouchTeam = carrier_team;
 					LastTouchPlayer = carrier;
 					if (Ball->anim > 3) Ball->anim = 3;
@@ -265,7 +276,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			if (Ball->anim >= 6) touch_dist = 8; // I tiri potenti sfuggono facilmente al tackle
 			
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5 && RestartType == 0) {
+			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
 					// Controllo Fuorigioco (memorizzato al momento del passaggio)
 					bool offside = FALSE;
 					if (LastTouchTeam != 0xFF && LastTouchTeam == carrier_team && LastTouchPlayer != carrier) {
@@ -288,6 +299,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						continue; // Salta il controllo palla
 					}
 
+					if (LastTouchTeam != carrier_team) Ball->count = 16; // Immunità
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
 					Ball->frame = SPR_BALL_SIZE_1; // Assicura che la palla sia a terra quando tra i piedi
@@ -423,6 +435,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						if (opponent_has_ball) {
 							if (dist_x <= 16 && dist_y <= 16) {
 								// Rubare palla da vicino restando in piedi (es. inseguimento o incrocio stretto)
+								if (LastTouchTeam != carrier_team) Ball->count = 16; // Immunità
 								LastTouchTeam = carrier_team;
 								LastTouchPlayer = carrier;
 								if (Ball->anim > 3) Ball->anim = 3;

@@ -121,6 +121,11 @@ void UpdateBallPhysics()
 			Ball->anim--;
 		}
 	}
+
+	// Decrementa il timer di immunità ai contrasti
+	if (Ball->anim < 5 && Ball->count > 0) {
+		Ball->count--;
+	}
 }
 
 void UpdateReferee()

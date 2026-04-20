@@ -63,6 +63,7 @@ void PlayerAI(u8 i)
 		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
 		if (b_dist_x <= 12 && b_dist_y <= 12 && Ball->anim < 5 && RestartType == 0) {
+			if (LastTouchTeam != team) Ball->count = 16; // Immunità dopo il furto
 			LastTouchTeam = team;
 			LastTouchPlayer = i;
 			if (Ball->anim > 3) Ball->anim = 3;
@@ -235,7 +236,8 @@ void PlayerAI(u8 i)
 
 			// Furto della palla intercettazione fisica (distanza ridotta se palla al piede)
 			u8 steal_dist = is_ball_carried ? 8 : 12; 
-			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
+				if (LastTouchTeam != team) Ball->count = 16; // Immunità dopo il furto
 				LastTouchTeam = team;
 				LastTouchPlayer = i; 
 				if (Ball->anim > 3) Ball->anim = 3; 

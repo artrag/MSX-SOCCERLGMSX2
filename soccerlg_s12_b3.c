@@ -169,6 +169,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		}
 	} else if (*game_state == 9) {
 		// --- FESTEGGIAMENTI GOAL ---
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Nascondi i focus
+
 		if (*wait_secs > 0) {
 			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
 				(*wait_secs)--;
@@ -188,38 +190,44 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			u8 team = (i < 7) ? TEAM_1 : TEAM_2;
 			struct ObjectInfo* p = &SwSprite[i];
 			
-			if (team == scoring_team && i != 0 && i != 7) { 
-				// Movimento ampio per i festeggiamenti
-				u16 total_frms = (*wait_secs * 60) + Frms;
-				u8 phase = ((total_frms / 32) + i) % 8; // Traiettorie molto più ampie e lunghe
-				i8 dx = 0, dy = 0;
-				switch(phase) {
-					case 0: dx =  0; dy = -2; break; // N
-					case 1: dx =  2; dy = -2; break; // NE
-					case 2: dx =  2; dy =  0; break; // E
-					case 3: dx =  2; dy =  2; break; // SE
-					case 4: dx =  0; dy =  2; break; // S
-					case 5: dx = -2; dy =  2; break; // SW
-					case 6: dx = -2; dy =  0; break; // W
-					case 7: dx = -2; dy = -2; break; // NW
-				}
-
-				// Mantieni i giocatori all'interno dei limiti dello schermo/campo facendoli scivolare
-				i16 next_x = p->lx + dx;
-				i16 next_y = p->ly + dy;
-				if (next_x < 32 && dx < 0) dx = 0;
-				if (next_x > 224 && dx > 0) dx = 0;
-				if (next_y < (i16)Field.ly + 32 && dy < 0) dy = 0;
-				if (next_y > (i16)Field.ly + 192 - 32 && dy > 0) dy = 0;
-
-				p->dx = dx;
-				p->dy = dy;
-				p->lx += dx;
-				p->ly += dy;
+			if (team == scoring_team) { 
+				// Convergono verso il centro dello schermo visibile (compreso il portiere)
+				u16 center_x = 128;
+				u16 center_y = Field.ly + 96;
+				
+				u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
+				u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
+				
+				u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
+				u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
+				u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
+				
+				if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
+				if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
+				
+				p->lx += p->dx; p->ly += p->dy; 
 				p->anim++;
 
-				const u8 walk_seq[4] = {0, 1, 2, 1};
-				p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+				u8 step = (p->anim / 3) % 4;
+				if (step == 3) step = 1;
+				
+				if (p->dy < 0 || (p->dy == 0 && (Frms % 64) < 32)) { 
+					if (i == 0 || i == 7) {
+						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
+					} else {
+						p->frame = (team == TEAM_1) ? 
+							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
+							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
+					}
+				} else {
+					if (i == 0 || i == 7) {
+						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, step);
+					} else {
+						p->frame = (team == TEAM_1) ? 
+							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
+							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+					}
+				}
 			} else {
 				// Giocatori sconfitti fermi guardano la palla triste a terra
 				i8 look_dx = (SwSprite[14].lx > p->lx) ? 1 : ((SwSprite[14].lx < p->lx) ? -1 : 0);
@@ -238,6 +246,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		return;
 	} else if (*game_state == 10) {
 		// --- FESTEGGIAMENTI FINE PARTITA E USCITA DAL CAMPO ---
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Nascondi i focus
+
 		bool time_up = FALSE;
 		if (*wait_secs > 0) {
 			if (*start_sec < Frms) { 
@@ -252,7 +262,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		u8 losing_team = (winning_team == TEAM_1) ? TEAM_2 : TEAM_1;
 		bool all_offscreen = TRUE;
 
-		i8 exit_dy = (Field.ly < 256) ? -1 : 1; // Escono verso il bordo schermo più vicino
+		i8 exit_dy = (Field.ly < 256) ? -3 : 3; // Escono velocemente verso il bordo schermo più vicino
 
 		for (u8 i = 0; i <= 26; i++) {
 			if (i >= 15 && i < 26) continue; // Salta UI e Frecce
@@ -260,26 +270,43 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			struct ObjectInfo* p = &SwSprite[i];
 			u8 team = (i < 7) ? TEAM_1 : ((i < 14) ? TEAM_2 : 0xFF);
 			
-			if (team == winning_team && i != 0 && i != 7) {
-				// Movimento ampio per i festeggiamenti
-				u16 total_frms = (*wait_secs * 60) + Frms;
-				u8 phase = ((total_frms / 32) + i) % 8; // Traiettorie molto più ampie
-				i8 dx = 0, dy = 0;
-				switch(phase) {
-					case 0: dx =  0; dy = -2; break; case 1: dx =  2; dy = -2; break;
-					case 2: dx =  2; dy =  0; break; case 3: dx =  2; dy =  2; break;
-					case 4: dx =  0; dy =  2; break; case 5: dx = -2; dy =  2; break;
-					case 6: dx = -2; dy =  0; break; case 7: dx = -2; dy = -2; break;
-				}
+			if (team == winning_team) {
+				// Convergono verso il centro dello schermo visibile (compreso il portiere!)
+				u16 center_x = 128;
+				u16 center_y = Field.ly + 96;
 				
-				// Mantieni i giocatori all'interno dei limiti scivolando
-				i16 next_x = p->lx + dx; i16 next_y = p->ly + dy;
-				if (next_x < 32 && dx < 0) dx = 0;   if (next_x > 224 && dx > 0) dx = 0;
-				if (next_y < (i16)Field.ly + 32 && dy < 0) dy = 0; if (next_y > (i16)Field.ly + 192 - 32 && dy > 0) dy = 0;
-
-				p->dx = dx; p->dy = dy; p->lx += dx; p->ly += dy; p->anim++;
-				const u8 walk_seq[4] = {0, 1, 2, 1};
-				p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+				u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
+				u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
+				
+				u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
+				u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
+				u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
+				
+				if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
+				if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
+				
+				p->lx += p->dx; p->ly += p->dy; p->anim++;
+				
+				u8 step = (p->anim / 3) % 4;
+				if (step == 3) step = 1;
+				
+				if (p->dy < 0 || (p->dy == 0 && (Frms % 64) < 32)) { 
+					if (i == 0 || i == 7) {
+						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
+					} else {
+						p->frame = (team == TEAM_1) ? 
+							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
+							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
+					}
+				} else {
+					if (i == 0 || i == 7) {
+						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, step);
+					} else {
+						p->frame = (team == TEAM_1) ? 
+							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
+							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T2_PLAYER_HAPPY_TO_SOUTH_3));
+					}
+				}
 			} 
 			else if (team == losing_team || i == 26 || i == 14) {
 				// Sconfitti, Arbitro e Palla abbandonano il campo
@@ -295,10 +322,6 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				} else {
 					p->ly = 1000; // Nascondi del tutto quando fuori visuale
 				}
-			}
-			else if (i == 0 || i == 7) {
-				// Il portiere vincente esulta sul posto guardando a sud
-				p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, 0, 1);
 			}
 		}
 

@@ -12,7 +12,7 @@ Symbol Table
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
     _Field                                                          ******** GX
-  7 _FindReceiver                                                   000017C3 GR
+  7 _FindReceiver                                                   00001A1D GR
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -300,7 +300,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     1A29   flags    0
+   7 _SEG6                                      size     1C83   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

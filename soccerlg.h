@@ -207,7 +207,7 @@ struct TeamStats {
 #define SPR_GK_PLAYER_SHOT_TO_NORTH_WEST        	246
 #define SPR_GK_PLAYER_SHOT_TO_SOUTH_EAST        	250
 #define SPR_GK_PLAYER_SHOT_TO_SOUTH_WEST        	249
-#define SPR_GK_PLAYER_SOUTH_WITH_BALL           	241
+#define SPR_GK_PLAYER_SOUTH_WITH_BALL           	243
 #define SPR_GK_PLAYER_NORTH_WITH_BALL        		242
 #define SPR_GK_PLAYER_SOUTH_1			        	243
 #define SPR_GK_PLAYER_SOUTH_2			        	244
@@ -215,8 +215,13 @@ struct TeamStats {
 #define SPR_GK_PLAYER_NORTH_1			        	242
 #define SPR_GK_PLAYER_NORTH_2			        	245
 #define SPR_GK_PLAYER_NORTH_SHOT			    	247
-#define SPR_GK_PLAYER_DOWN_EAST				    	239
-#define SPR_GK_PLAYER_DOWN_WEST			    		238
+#define SPR_GK_PLAYER_DOWN_EAST_NORTH				239
+#define SPR_GK_PLAYER_DOWN_WEST_NORTH			 	238
+#define SPR_GK_PLAYER_DOWN_EAST_SOUTH				226
+#define SPR_GK_PLAYER_DOWN_WEST_SOUTH	    		248
+#define SPR_GK_PLAYER_HAPPY_1					    253
+#define SPR_GK_PLAYER_HAPPY_2					    254
+#define SPR_GK_PLAYER_HAPPY_3					    255
 #define SPR_REFEREE_SOUTH_DIRECTION_1        		256
 #define SPR_REFEREE_SOUTH_DIRECTION_2        		257
 #define SPR_REFEREE_SOUTH_DIRECTION_3        		258

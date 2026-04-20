@@ -1818,7 +1818,7 @@
     00000B87 CDr00r00         [17] 1818 	call	__modsint
     00000B8A DD 73 FF         [19] 1819 	ld	-1 (ix), e
     00000B8D                       1820 00203$:
-                                   1821 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST;
+                                   1821 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
     00000B8D DD 7E F4         [19] 1822 	ld	a, -12 (ix)
     00000B90 C6 0F            [ 7] 1823 	add	a, #0x0f
     00000B92 DD 77 F8         [19] 1824 	ld	-8 (ix), a
@@ -1829,7 +1829,7 @@
     00000B9D DD 7E FF         [19] 1829 	ld	a, -1 (ix)
     00000BA0 B7               [ 4] 1830 	or	a, a
     00000BA1 20 16            [12] 1831 	jr	NZ, 00208$
-                                   1832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST;
+                                   1832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
     00000BA3 DD 6E F8         [19] 1833 	ld	l, -8 (ix)
     00000BA6 DD 66 F9         [19] 1834 	ld	h, -7 (ix)
     00000BA9 36 EF            [10] 1835 	ld	(hl), #0xef
@@ -1845,7 +1845,7 @@
     00000BB9 DD 7E FF         [19] 1845 	ld	a, -1 (ix)
     00000BBC D6 02            [ 7] 1846 	sub	a, #0x02
     00000BBE 20 16            [12] 1847 	jr	NZ, 00205$
-                                   1848 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST;
+                                   1848 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
     00000BC0 DD 6E F8         [19] 1849 	ld	l, -8 (ix)
     00000BC3 DD 66 F9         [19] 1850 	ld	h, -7 (ix)
     00000BC6 36 EE            [10] 1851 	ld	(hl), #0xee

@@ -32,6 +32,9 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 		}
 		*start_sec = Frms;
 	} else if (*game_state == 2) {
+		// Nessun giocatore deve avere il focus durante le animazioni di riposizionamento passivo
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
+
 		bool all_in_position = TRUE;
 
 		// Rientro morbido della telecamera verso centrocampo se era un Goal
