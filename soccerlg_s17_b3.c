@@ -187,12 +187,13 @@ void AssignGoalKickTargets() {
 		
 		u16 base_y;
 		if (team == team_to_kick) {
-			if (role == 1 || role == 2) base_y = 60;
-			else if (role == 3 || role == 4) base_y = 110;
-			else base_y = 160; // Attaccanti visibili nello schermo per la selezione
+			u16 rel_kick = (team_to_kick == TEAM_1) ? kick_y : (512 - kick_y);
+			if (role == 1 || role == 2) base_y = rel_kick + 36;
+			else if (role == 3 || role == 4) base_y = rel_kick + 84;
+			else base_y = rel_kick + 140; // Attaccanti visibili nello schermo per la selezione
 		} else {
-			if (role == 1 || role == 2) base_y = 240; 
-			else if (role == 3 || role == 4) base_y = 180; 
+			if (role == 1 || role == 2) base_y = 280; 
+			else if (role == 3 || role == 4) base_y = 200; 
 			else base_y = 120; 
 		}
 		

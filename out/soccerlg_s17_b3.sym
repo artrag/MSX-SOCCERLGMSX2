@@ -7,14 +7,14 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  7 _AssignCornerKickTargets                                        00000C7E GR
+  7 _AssignCornerKickTargets                                        00000C3B GR
   7 _AssignGoalKickTargets                                          000007FA GR
-  7 _AssignOffsideTargets                                           00001253 GR
+  7 _AssignOffsideTargets                                           00001210 GR
   7 _AssignThrowInTargets                                           00000000 GR
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
-  7 _ExecuteCornerKick                                              0000112C GR
-  7 _ExecuteThrowIn                                                 00001000 GR
+  7 _ExecuteCornerKick                                              000010E9 GR
+  7 _ExecuteThrowIn                                                 00000FBD GR
     _Frms                                                           ******** GX
     _LastTouchPlayer                                                ******** GX
     _LastTouchTeam                                                  ******** GX
@@ -297,7 +297,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG17                                     size     17C1   flags    0
+   7 _SEG17                                     size     177E   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

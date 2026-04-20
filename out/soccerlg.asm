@@ -3796,7 +3796,7 @@ __xinit__Team2Code:
 __xinit__KickOffTeam:
 	.db #0x01	; 1
 __xinit__GameMode:
-	.db #0x01	; 1
+	.db #0x00	; 0
 __xinit__T1_Carrier:
 	.db #0xff	; 255
 __xinit__T1_Receiver:

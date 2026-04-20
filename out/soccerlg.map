@@ -46,7 +46,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000C30  l__SEG16                        
      00000DC9  l__SEG5                         
      00000E45  l__SEG4                         
-     000017C1  l__SEG17                        
+     0000177E  l__SEG17                        
      00001880  l__SEG9                         
      00001A29  l__SEG6                         
      00001ABB  l__SEG12                        
@@ -818,16 +818,16 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG17                              0011A000    000017C1 =        6081. bytes (REL,CON)
+_SEG17                              0011A000    0000177E =        6014. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0011A000  _AssignThrowInTargets              soccerlg_s17_b3
      0011A7FA  _AssignGoalKickTargets             soccerlg_s17_b3
-     0011AC7E  _AssignCornerKickTargets           soccerlg_s17_b3
-     0011B000  _ExecuteThrowIn                    soccerlg_s17_b3
-     0011B12C  _ExecuteCornerKick                 soccerlg_s17_b3
-     0011B253  _AssignOffsideTargets              soccerlg_s17_b3
+     0011AC3B  _AssignCornerKickTargets           soccerlg_s17_b3
+     0011AFBD  _ExecuteThrowIn                    soccerlg_s17_b3
+     0011B0E9  _ExecuteCornerKick                 soccerlg_s17_b3
+     0011B210  _AssignOffsideTargets              soccerlg_s17_b3
 ASxxxx Linker V03.00 + NoICE + sdld,  page 30.
 Hexadecimal  [32-Bits]
 
