@@ -337,6 +337,7 @@ struct TeamStats {
 #define SEG_GAMESTATE_5 15
 #define SEG_GAMESTATE_6 16
 #define SEG_GAMESTATE_7 17
+#define SEG_GAMESTATE_8 18
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -520,9 +521,14 @@ void ShowMenu();
 
 // +++ SEGMENT SEG_GAMESTATE_5 (15) +++
 void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_GAMESTATE_6 (16) +++
 void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+
+// +++ SEGMENT SEG_GAMESTATE_7 (17) +++
+void UpdateBallPhysics();
+void UpdateReferee();
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

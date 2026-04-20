@@ -91,10 +91,36 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			if (dist < min_dist_t2) { min_dist_t2 = dist; closest_t2 = i; }
 		}
 
+		// Memorizza se il trigger è stato usato per il cambio giocatore
+		bool t1_switched = FALSE;
+		bool t2_switched = FALSE;
+
 		// Assegna il cursore di controllo al giocatore più vicino
-		T2_Carrier = closest_t2;
-		if (GameMode == GAMEMODE_P1_VS_P2) T1_Carrier = closest_t1;
-		else T1_Carrier = 0xFF;
+		if (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF || T2_Carrier == 0xFF) {
+			T2_Carrier = closest_t2;
+		} else if (g_player_input[1].trigger_pressed) {
+			u16 b_dist_x = (SwSprite[T2_Carrier].lx > Ball->lx) ? (SwSprite[T2_Carrier].lx - Ball->lx) : (Ball->lx - SwSprite[T2_Carrier].lx);
+			u16 b_dist_y = (SwSprite[T2_Carrier].ly > Ball->ly) ? (SwSprite[T2_Carrier].ly - Ball->ly) : (Ball->ly - SwSprite[T2_Carrier].ly);
+			if ((b_dist_x > 36 || b_dist_y > 16) && closest_t2 != T2_Carrier) {
+				T2_Carrier = closest_t2; // Cambio manuale del giocatore in difesa!
+				t2_switched = TRUE;
+			}
+		}
+		
+		if (GameMode == GAMEMODE_P1_VS_P2) {
+			if (LastTouchTeam == TEAM_1 || LastTouchTeam == 0xFF || T1_Carrier == 0xFF) {
+				T1_Carrier = closest_t1;
+			} else if (g_player_input[0].trigger_pressed) {
+				u16 b_dist_x = (SwSprite[T1_Carrier].lx > Ball->lx) ? (SwSprite[T1_Carrier].lx - Ball->lx) : (Ball->lx - SwSprite[T1_Carrier].lx);
+				u16 b_dist_y = (SwSprite[T1_Carrier].ly > Ball->ly) ? (SwSprite[T1_Carrier].ly - Ball->ly) : (Ball->ly - SwSprite[T1_Carrier].ly);
+				if ((b_dist_x > 36 || b_dist_y > 16) && closest_t1 != T1_Carrier) {
+					T1_Carrier = closest_t1; // Cambio manuale del giocatore in difesa!
+					t1_switched = TRUE;
+				}
+			}
+		} else {
+			T1_Carrier = 0xFF;
+		}
 
 		// Aggiorna il bersaglio del passaggio in base alla direzione dello sguardo
 		// Mostra il bersaglio SOLO se la propria squadra ha il possesso della palla (o è palla contesa iniziale)
@@ -141,123 +167,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		}
 		
 		// 1. Fisica della palla
-		if (Ball->anim > 0) {
-			if (Ball->anim == 5) {
-				// === PASSAGGIO CON TRAIETTORIA INTERPOLATA E EFFETTO DI VOLO ===
-				u8 progress = Ball->count; // 0 = inizio da tiratore, max = fine verso ricevitore
-				u8 half_frame = g_pass_max_frames >> 1; // metà del percorso
-				
-				i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
-				i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
-				bool hit_post = FALSE;
-
-				// Interpolazione lineare della posizione XY verso il destinatario
-				if (progress == 0) {
-					Ball->lx = g_pass_start_x;
-					Ball->ly = g_pass_start_y;
-				} else if (progress >= g_pass_max_frames) {
-					Ball->lx = g_pass_target_x;
-					Ball->ly = g_pass_target_y;
-				} else {
-					// Calcola la posizione interpolata: start + (target - start) * progress / max
-					Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
-					Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
-				}
-				
-				// CONTROLLO PALO (solo per i tiri, altezza max 2)
-				if (g_pass_max_height <= 2 && progress > 0) {
-					u16 top_boundary = 24;
-					u16 bottom_boundary = 478;
-					u8 goal_left = 82;
-					u8 goal_right = 156;
-					
-					i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
-					i16 new_ly = Ball->ly;
-					i16 old_lx = (i16)g_pass_start_x + (dx_total * (progress - 1)) / g_pass_max_frames;
-					i16 new_lx = Ball->lx;
-
-					// Controllo palo nord (attraversamento della linea di porta)
-					if (old_ly > top_boundary && new_ly <= top_boundary) {
-						i16 cross_x = old_lx + ((new_lx - old_lx) * (old_ly - top_boundary)) / (old_ly - new_ly);
-						if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
-							(cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
-							hit_post = TRUE;
-						}
-					} 
-					// Controllo palo sud
-					else if (old_ly < bottom_boundary && new_ly >= bottom_boundary) {
-						i16 cross_x = old_lx + ((new_lx - old_lx) * (bottom_boundary - old_ly)) / (new_ly - old_ly);
-						if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
-							(cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
-							hit_post = TRUE;
-						}
-					}
-					
-					if (hit_post) {
-						i16 in_dx = dx_total; 
-						i16 in_dy = dy_total; 
-						
-						// Angolo specchiato rispetto alla linea di porta
-						i16 out_dx = in_dx;
-						i16 out_dy = -in_dy;
-						
-						// Limita il rimbalzo a circa 20 pixel
-						i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
-						if (len == 0) len = 1;
-						
-						out_dx = (out_dx * 60) / len;
-						out_dy = (out_dy * 60) / len;
-						
-						// Forza la palla in campo per evitare falli di fondo o goal al frame successivo
-						if (out_dy > 0) {
-							if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
-						} else {
-							if (Ball->ly > bottom_boundary - 2) Ball->ly = bottom_boundary - 2;
-						}
-						
-						g_pass_start_x = Ball->lx;
-						g_pass_start_y = Ball->ly;
-						
-						g_pass_target_x = g_pass_start_x + out_dx;
-						g_pass_target_y = g_pass_start_y + out_dy;
-						
-						g_pass_max_frames = 10; // Rimbalzo rapido
-						Ball->count = 0; 
-					}
-				}
-				
-				// Effetto di volo: scala da 0 a g_pass_max_height e viceversa
-				u8 scale;
-				if (progress <= half_frame) {
-					// Prima metà: sale fino all'altezza massima stabilita
-					scale = (progress * g_pass_max_height) / half_frame;
-				} else {
-					// Seconda metà: scende dall'altezza massima a 0
-					u8 progress_down = progress - half_frame;
-					scale = g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
-				}
-				if (scale > 7) scale = 7; // Clamp a 7 (SPR_BALL_SIZE_8 = SPR_BALL_SIZE_1 + 7)
-				CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
-				
-				Ball->count++;
-				if (Ball->count >= g_pass_max_frames) {
-					Ball->anim = 0; // Passaggio completato
-					Ball->count = 0;
-					Ball->dx = Ball->dy = 0;
-					CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); // Torna a scale 1
-				}
-			} else {
-				// Dribbling velocità decrescente: 5, 4, 3, 2 (totale 14 pixel). Supera i 2 px del portatore per staccarsi visibilmente!
-				u8 speed = Ball->anim + 1;
-				if (Ball->dx > 0) Ball->lx += speed;
-				else if (Ball->dx < 0) Ball->lx -= speed;
-				
-				if (Ball->dy > 0) Ball->ly += speed;
-				else if (Ball->dy < 0) Ball->ly -= speed;
-				
-				Ball->anim--;
-			}
-		}
+		CallFnc_VOID(SEG_GAMESTATE_8, UpdateBallPhysics);
 
 		// 2. Gestione portatori (Player 1 e Player 2)
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
@@ -269,6 +179,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			
 			u8 dir = g_player_input[i].direction;
 			bool trigger_pressed = g_player_input[i].trigger_pressed;
+			
+			// Disabilita il trigger per il resto del loop se l'abbiamo appena usato per cambiare giocatore
+			if (i == 0 && t1_switched) trigger_pressed = FALSE;
+			if (i == 1 && t2_switched) trigger_pressed = FALSE;
+			
 			struct ObjectInfo* Carrier = &SwSprite[carrier];
 			u8 carrier_team = (carrier < 7) ? TEAM_1 : TEAM_2;
 
@@ -346,20 +261,17 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
 			}
 
-			bool can_walk_steal = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF || !is_ball_carried);
-			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : 12; 
+			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : (is_ball_carried ? 8 : 12); 
 			if (Ball->anim >= 6) touch_dist = 8; // I tiri potenti sfuggono facilmente al tackle
 			
-			// Se il giocatore tocca fisicamente la palla (e non è in volo) e può prenderla camminando
-			if (can_walk_steal && dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5 && RestartType == 0) {
-					// Controllo Fuorigioco al momento della ricezione
+			// Se il giocatore tocca fisicamente la palla (e non è in volo)
+			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim != 5 && RestartType == 0) {
+					// Controllo Fuorigioco (memorizzato al momento del passaggio)
 					bool offside = FALSE;
-					if (carrier < 7 && LastTouchTeam == TEAM_1 && LastTouchPlayer != carrier) {
-						u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
-						if (Carrier->ly > offside_line + 8 && Carrier->ly > 256) offside = TRUE;
-					} else if (carrier >= 7 && LastTouchTeam == TEAM_2 && LastTouchPlayer != carrier) {
-						u16 offside_line = (SwSprite[1].ly < SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
-						if (Carrier->ly < offside_line - 8 && Carrier->ly < 256) offside = TRUE;
+					if (LastTouchTeam != 0xFF && LastTouchTeam == carrier_team && LastTouchPlayer != carrier) {
+						if (carrier == (g_pass_receiver & 0x7F) && (g_pass_receiver & 0x80)) {
+							offside = TRUE;
+						}
 					}
 					if (offside) {
 						*game_state = 6; // Ferma il gioco
@@ -370,6 +282,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						Ball->anim = Ball->dx = Ball->dy = 0;
 						Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 						T1_Carrier = T2_Carrier = 0xFF;
+						g_pass_receiver = 0xFF; // Resetta ricevitore
 						TimerEnabled = FALSE;
 						*wait_secs = 2; *start_sec = Frms;
 						continue; // Salta il controllo palla
@@ -378,6 +291,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
 					Ball->frame = SPR_BALL_SIZE_1; // Assicura che la palla sia a terra quando tra i piedi
+					g_pass_receiver = 0xFF; // Resetta il ricevitore adesso che ha palla
 					
 					// Ricalcola il ricevitore adesso che il portatore ha la palla
 					i8 c_dx, c_dy;
@@ -437,10 +351,22 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							u8 receiver = receivers[i];
 						
 							if (receiver != 0xFF) {
+								// === CONTROLLO OFFSIDE AL MOMENTO DEL PASSAGGIO ===
+								bool is_offside = FALSE;
+								if (i == 1) { // Team 2 (P1)
+									u16 offside_line = (SwSprite[1].ly < SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
+									if (Carrier->ly < offside_line) offside_line = Carrier->ly; // Regola linea palla
+									if (SwSprite[receiver].ly < offside_line - 8 && SwSprite[receiver].ly < 256) is_offside = TRUE;
+								} else { // Team 1 (CPU/P2)
+									u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
+									if (Carrier->ly > offside_line) offside_line = Carrier->ly; // Regola linea palla
+									if (SwSprite[receiver].ly > offside_line + 8 && SwSprite[receiver].ly > 256) is_offside = TRUE;
+								}
+
 								// === PASSAGGIO DIRETTO AL DESTINATARIO - FORZA PASSAGGIO ===
 								Ball->anim = 0; Ball->count = 0;
 								
-								g_pass_receiver = receiver;
+								g_pass_receiver = receiver | (is_offside ? 0x80 : 0);
 								g_pass_start_x = Carrier->lx;
 								g_pass_start_y = Carrier->ly;
 								g_pass_target_x = SwSprite[receiver].lx;
@@ -485,24 +411,28 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						}
 					}
 				} else {
-					// Non ha la palla: innesco della scivolata su comando!
+					// Non ha la palla: innesco della scivolata o furto ravvicinato su comando!
 					if (trigger_pressed && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF && Carrier->count == 0 && RestartType == 0) {
 						bool opponent_has_ball = FALSE;
 						if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
 							u16 opp_bx = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
 							u16 opp_by = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
-							if (opp_bx <= 16 && opp_by <= 16) opponent_has_ball = TRUE;
+							if (opp_bx <= 12 && opp_by <= 12) opponent_has_ball = TRUE; // L'avversario ha saldo possesso
 						}
 						
 						if (opponent_has_ball) {
-							Carrier->count = 12; // 12 frames di scivolata
-							Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
-							if (dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) Carrier->dx = -4;
-							else if (dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) Carrier->dx = 4;
-							
-							Carrier->dy = (Ball->ly > Carrier->ly) ? 3 : -3;
-							if (dir == DIRECTION_UP || dir == DIRECTION_UP_LEFT || dir == DIRECTION_UP_RIGHT) Carrier->dy = -3;
-							else if (dir == DIRECTION_DOWN || dir == DIRECTION_DOWN_LEFT || dir == DIRECTION_DOWN_RIGHT) Carrier->dy = 3;
+							if (dist_x <= 16 && dist_y <= 16) {
+								// Rubare palla da vicino restando in piedi (es. inseguimento o incrocio stretto)
+								LastTouchTeam = carrier_team;
+								LastTouchPlayer = carrier;
+								if (Ball->anim > 3) Ball->anim = 3;
+								Ball->frame = SPR_BALL_SIZE_1;
+							} else if (dist_x <= 36 && dist_y <= 12) {
+								// Tackle orizzontale solo se allineati sulla Y e a distanza realistica (max 36px)
+								Carrier->count = 8; // 8 frames di scivolata (più corta e netta)
+								Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
+								Carrier->dy = 0; // Movimento rigorosamente orizzontale
+							}
 						}
 					}
 				}
@@ -514,47 +444,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		}
 
 		// --- AGGIORNAMENTO ARBITRO ---
-		struct ObjectInfo* Referee = &SwSprite[26];
-
-		// L'arbitro segue la palla mantenendosi a debita distanza (in diagonale)
-		u16 target_x = (Ball->lx < 128) ? ((u16)Ball->lx + 40) : ((u16)Ball->lx - 40);
-		u16 target_y = (Ball->ly < 256) ? (Ball->ly + 48) : (Ball->ly - 48);
-
-		// Limiti per non uscire troppo dal campo
-		if (target_x < 16) target_x = 16;
-		if (target_x > 224) target_x = 224;
-		if (target_y < 24) target_y = 24;
-		if (target_y > 488) target_y = 488;
-
-		// Movimento graduale verso il target
-		i8 ref_dx = 0;
-		i8 ref_dy = 0;
-		u8 speed = 1; // L'arbitro si muove più lentamente
-
-		if (target_x > Referee->lx + speed) ref_dx = speed;
-		else if (target_x < Referee->lx - speed) ref_dx = -speed;
-
-		if (target_y > Referee->ly + speed) ref_dy = speed;
-		else if (target_y < Referee->ly - speed) ref_dy = -speed;
-
-		Referee->lx += ref_dx;
-		Referee->ly += ref_dy;
-
-		// Sguardo sempre orientato verso la palla
-		i8 look_dx = (Ball->lx > Referee->lx) ? 1 : ((Ball->lx < Referee->lx) ? -1 : 0);
-		i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
-		if (look_dx == 0 && look_dy == 0) look_dy = 1; // Guarda in basso di default
-
-		// Animazione
-		if (ref_dx != 0 || ref_dy != 0) {
-			Referee->anim++;
-			const u8 walk_seq[4] = {0, 1, 2, 1};
-			// Usa la direzione dello sguardo per l'animazione, così l'arbitro "scivola" guardando l'azione
-			Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
-		} else {
-			// Posa ferma orientata verso la palla
-			Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, 26, look_dx, look_dy);
-		}
+		CallFnc_VOID(SEG_GAMESTATE_8, UpdateReferee);
 	} else {
 		SwSprite[24].ly = 1000; // Nascondimento assoluto
 		SwSprite[25].ly = 1000; // Nascondimento assoluto

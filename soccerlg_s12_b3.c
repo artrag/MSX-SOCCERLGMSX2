@@ -393,8 +393,11 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		}
 		if (all_in_position) *game_state = 12; // Va in Loop infinito dei Rigori
 		return;
-	} else if (*game_state >= 12 && *game_state <= 17) {
+	} else if (*game_state >= 12 && *game_state <= 14) {
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_6, UpdateGameState_Penalties, game_state, wait_secs, start_sec, target_ly);
+		return;
+	} else if (*game_state >= 15 && *game_state <= 17) {
+		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
 		return;
 	} else if (*game_state == 7 || *game_state == 8) {
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);

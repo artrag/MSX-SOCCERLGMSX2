@@ -32,15 +32,16 @@ DEF l__SEG7 0x262
 DEF l__DATA 0x42E
 DEF l__SEG10 0x530
 DEF l__SEG13 0x839
+DEF l__SEG18 0x91C
 DEF l__SEG11 0xA1D
-DEF l__SEG15 0xB20
+DEF l__SEG16 0xC30
 DEF l__SEG5 0xDC9
 DEF l__SEG4 0xE45
 DEF l__SEG17 0x17C1
-DEF l__SEG12 0x1A85
-DEF l__SEG6 0x1B33
-DEF l__SEG16 0x1CFF
-DEF l__SEG9 0x1DCB
+DEF l__SEG9 0x1880
+DEF l__SEG6 0x1A29
+DEF l__SEG12 0x1ABB
+DEF l__SEG15 0x1BA8
 DEF l__CODE 0x2A07
 DEF s__CODE 0x4000
 DEF s__HOME 0x6A07
@@ -260,6 +261,7 @@ DEF s__SEG14 0xEA000
 DEF s__SEG15 0xFA000
 DEF s__SEG16 0x10A000
 DEF s__SEG17 0x11A000
+DEF s__SEG18 0x12A000
 DEF _g_FirstAddr 0x4000
 DEF _g_HeaderAddr 0x4000
 DEF crt0_rom_header 0x4000
@@ -519,7 +521,7 @@ DEF _IsBallForeground 0x5AA70
 DEF _ShowSpriteMessage 0x5ABCD
 DEF _HideSpriteMessage 0x5ADA7
 DEF _PlayerAI 0x6A000
-DEF _FindReceiver 0x6B8CD
+DEF _FindReceiver 0x6B7C3
 DEF _IsTeamJoystickTriggerPressed 0x7A000
 DEF _GetJoystickDirection 0x7A031
 DEF _UpdateAllInputs 0x7A1E1
@@ -545,6 +547,7 @@ DEF _UpdateGameState_Restarts 0xCA000
 DEF _UpdateGameState_Init 0xDA000
 DEF _ShowMenu 0xEA000
 DEF _UpdateGameState_SetPieces 0xFA000
+DEF _UpdateGameState_Penalties_End 0xFAB20
 DEF _UpdateGameState_Penalties 0x10A000
 DEF _AssignThrowInTargets 0x11A000
 DEF _AssignGoalKickTargets 0x11A7FA
@@ -552,4 +555,6 @@ DEF _AssignCornerKickTargets 0x11AC7E
 DEF _ExecuteThrowIn 0x11B000
 DEF _ExecuteCornerKick 0x11B12C
 DEF _AssignOffsideTargets 0x11B253
+DEF _UpdateBallPhysics 0x12A000
+DEF _UpdateReferee 0x12A72D
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx

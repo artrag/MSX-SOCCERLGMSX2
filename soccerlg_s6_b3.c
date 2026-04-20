@@ -20,7 +20,7 @@ void PlayerAI(u8 i)
 
 	struct ObjectInfo* Ball = &SwSprite[14];
 	// I giocatori destinatari di passaggi in volo NON vengono mossi dall'AI
-	if (Ball->anim == 5 && i == g_pass_receiver) {
+	if (Ball->anim == 5 && i == (g_pass_receiver & 0x7F)) {
 		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
 		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, 0, (i < 7) ? 1 : -1);
 		return;
@@ -132,12 +132,35 @@ void PlayerAI(u8 i)
 		if (role >= 5) { // Attaccanti molto avanti
 			target_y = Ball->ly + ((team == TEAM_1) ? (60 + run_dist) : -(60 + run_dist));
 			target_x = (role == 5) ? 64 : 160;
+			
+			// Gestione intelligente del Fuorigioco e dei limiti del campo
+			if (team == TEAM_1) {
+				u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
+				if (offside_line < 256) offside_line = 256; // Il fuorigioco esiste solo nella metà campo offensiva
+				
+				// Il ruolo 6 fa la punta di sfondamento: scatta in fuorigioco solo 1 secondo ogni 5 per farsi rincorrere
+				u16 max_y = (role == 6 && (Secs % 5) == 0) ? offside_line + 16 : offside_line - 12;
+				if (target_y > max_y) target_y = max_y;
+				if (target_y > 440) target_y = 440; // Evita di schiacciarsi sulla linea di fondo avversaria
+			} else {
+				u16 offside_line = (SwSprite[1].ly < SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
+				if (offside_line > 256) offside_line = 256;
+				
+				// Punta di sfondamento per il Team 2
+				u16 min_y = (role == 6 && (Secs % 5) == 0) ? offside_line - 16 : offside_line + 12;
+				if (target_y < min_y) target_y = min_y;
+				if (target_y < 72) target_y = 72; // Evita di schiacciarsi sulla linea di fondo avversaria
+			}
 		} else if (role >= 3) { // Centrocampisti a supporto largo
 			target_y = Ball->ly + ((team == TEAM_1) ? 24 : -24);
 			target_x = Ball->lx + ((role == 3) ? -wide_dist : wide_dist);
+			if (team == TEAM_1 && target_y > 420) target_y = 420;
+			if (team == TEAM_2 && target_y < 92) target_y = 92;
 		} else { // Difensori rimangono dietro
 			target_y = Ball->ly + ((team == TEAM_1) ? -64 : 64);
 			target_x = (role == 1) ? 80 : 144;
+			if (team == TEAM_1 && target_y < 72) target_y = 72;
+			if (team == TEAM_2 && target_y > 440) target_y = 440;
 		}
 		
 		// Evita assolutamente di intralciare il portatore di palla (si spingono verso l'esterno)
@@ -197,28 +220,26 @@ void PlayerAI(u8 i)
 				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
 			}
 			
-			// Decide se tentare la scivolata (SOLO se l'avversario ha la palla)
-			if (is_ball_carried && b_dist_x < 48 && b_dist_y < 48 && (b_dist_x > 16 || b_dist_y > 16) && Player->count == 0 && RestartType == 0) {
+			// Decide se tentare la scivolata (SOLO in orizzontale e solo se vicino all'avversario)
+			if (is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 12 && Player->count == 0 && RestartType == 0) {
 				if (Frms % 16 == 0) {
 					u8 slide_chance = g_ActiveStats[team].aggro_defense * 15; // Fino al 75% per Stat 5
 					if ((Frms + i * 7) % 100 < slide_chance) {
-						Player->count = 12; // durata scivolata
+						Player->count = 8; // durata scivolata (corta e chirurgica)
 						Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
-						Player->dy = (Ball->ly > Player->ly) ? 3 : -3;
+						Player->dy = 0; // Solo scivolata orizzontale
 						return; // Esce e inizia la scivolata dal prossimo frame
 					}
 				}
 			}
 
-			// Furto della palla intercettazione fisica (solo se la palla non è portata o è libera)
-			if (!is_ball_carried) {
-				u8 steal_dist = 12; 
-				if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
-					LastTouchTeam = team;
-					LastTouchPlayer = i; 
-					if (Ball->anim > 3) Ball->anim = 3; 
-					Ball->frame = SPR_BALL_SIZE_1; 
-				}
+			// Furto della palla intercettazione fisica (distanza ridotta se palla al piede)
+			u8 steal_dist = is_ball_carried ? 8 : 12; 
+			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+				LastTouchTeam = team;
+				LastTouchPlayer = i; 
+				if (Ball->anim > 3) Ball->anim = 3; 
+				Ball->frame = SPR_BALL_SIZE_1; 
 			}
 		}
 	}
@@ -277,8 +298,21 @@ void PlayerAI(u8 i)
 									
 									if (r_dx + r_dy >= 48) {
 										action_taken = TRUE;
+										
+										// === CONTROLLO OFFSIDE AL MOMENTO DEL PASSAGGIO ===
+										bool is_offside = FALSE;
+										if (team == TEAM_1) {
+											u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
+											if (Player->ly > offside_line) offside_line = Player->ly;
+											if (SwSprite[receiver].ly > offside_line + 8 && SwSprite[receiver].ly > 256) is_offside = TRUE;
+										} else {
+											u16 offside_line = (SwSprite[1].ly < SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
+											if (Player->ly < offside_line) offside_line = Player->ly;
+											if (SwSprite[receiver].ly < offside_line - 8 && SwSprite[receiver].ly < 256) is_offside = TRUE;
+										}
+
 										Ball->anim = 0; Ball->count = 0;
-										g_pass_receiver = receiver;
+										g_pass_receiver = receiver | (is_offside ? 0x80 : 0);
 										g_pass_start_x = Player->lx;
 										g_pass_start_y = Player->ly;
 										g_pass_target_x = SwSprite[receiver].lx;

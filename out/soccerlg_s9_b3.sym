@@ -35,7 +35,6 @@ Symbol Table
     _RestartSideY                                                   ******** GX
     _RestartType                                                    ******** GX
     _Secs                                                           ******** GX
-    _SetBallSprite                                                  ******** GX
     _ShowSpriteMessage                                              ******** GX
     _SwSprite                                                       ******** GX
     _T1_Carrier                                                     ******** GX
@@ -43,13 +42,13 @@ Symbol Table
     _T2_Carrier                                                     ******** GX
     _T2_Receiver                                                    ******** GX
     _TimerEnabled                                                   ******** GX
+    _UpdateBallPhysics                                              ******** GX
     _UpdateFieldCamera                                              ******** GX
   7 _UpdateGameState                                                00000000 GR
     _UpdateGameState_Init                                           ******** GX
     _UpdateGameState_Restarts                                       ******** GX
-    __divsint                                                       ******** GX
+    _UpdateReferee                                                  ******** GX
     __divuint                                                       ******** GX
-    __mulint                                                        ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -58,12 +57,12 @@ Symbol Table
     _g_BAKCLR                                                   =   0000F3EA G
     _g_BASROM                                                   =   0000FBB1 G
     _g_BASRVN                                                   =   0000002B G
+    _g_BDOS                                                     =   0000F37D G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_BDOS                                                     =   0000F37D G
     _g_BDRCLR                                                   =   0000F3EB G
     _g_BOTTOM                                                   =   0000FC48 G
     _g_BRDATR                                                   =   0000FCB2 G
@@ -118,12 +117,12 @@ Symbol Table
     _g_GRPCOL                                                   =   0000F3C9 G
     _g_GRPHED                                                   =   0000FCA6 G
     _g_GRPNAM                                                   =   0000F3C7 G
+    _g_GRPPAT                                                   =   0000F3CF G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_GRPPAT                                                   =   0000F3CF G
     _g_GXPOS                                                    =   0000FCB3 G
     _g_GYPOS                                                    =   0000FCB5 G
     _g_HEADER                                                   =   0000F40A G
@@ -178,12 +177,12 @@ Symbol Table
     _g_OLDSCR                                                   =   0000FCB0 G
     _g_OLDSTT                                                   =   0000FB0C G
     _g_ONGSBF                                                   =   0000FBD8 G
+    _g_PADX                                                     =   0000FC9D G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_PADX                                                     =   0000FC9D G
     _g_PADY                                                     =   0000FC9C G
     _g_PATWRK                                                   =   0000FC40 G
     _g_PLYCNT                                                   =   0000FB40 G
@@ -238,12 +237,12 @@ Symbol Table
     _g_RG6SAV                                                   =   0000F3E5 G
     _g_RG7SAV                                                   =   0000F3E6 G
     _g_ROMA                                                     =   0000FAFA G
+    _g_ROMVersion                                               =   0000002B G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_ROMVersion                                               =   0000002B G
     _g_RS2IQ                                                    =   0000FAF5 G
     _g_RSFCB                                                    =   0000FB04 G
     _g_RSIQLN                                                   =   0000FB06 G
@@ -298,12 +297,12 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
     _g_h_arrow_dir                                                  ******** GX
+    _g_h_arrow_x                                                    ******** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _g_h_arrow_x                                                    ******** GX
     _g_is_penalty_shootout                                          ******** GX
     _g_last_dx                                                      ******** GX
     _g_last_dy                                                      ******** GX
@@ -329,7 +328,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG9                                      size     1DCB   flags    0
+   7 _SEG9                                      size     1880   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

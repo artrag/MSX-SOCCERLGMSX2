@@ -10,10 +10,12 @@ Symbol Table
     _CallFnc_U16_P3                                                 ******** GX
     _CallFnc_U16_P4                                                 ******** GX
     _CallFnc_VOID                                                   ******** GX
+    _CallFnc_VOID_P1                                                ******** GX
     _CallFnc_VOID_U8U8                                              ******** GX
     _EventBallKicked                                                ******** GX
     _ExecuteCornerKick                                              ******** GX
     _ExecuteThrowIn                                                 ******** GX
+    _Field                                                          ******** GX
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -23,16 +25,22 @@ Symbol Table
     _RestartSideX                                                   ******** GX
     _RestartSideY                                                   ******** GX
     _RestartType                                                    ******** GX
+    _ScoreTeam1                                                     ******** GX
+    _ScoreTeam2                                                     ******** GX
+    _SetBallSprite                                                  ******** GX
+    _ShowMenu                                                       ******** GX
     _SwSprite                                                       ******** GX
     _T1_Carrier                                                     ******** GX
     _T1_Receiver                                                    ******** GX
     _T2_Carrier                                                     ******** GX
     _T2_Receiver                                                    ******** GX
     _TimerEnabled                                                   ******** GX
+  7 _UpdateGameState_Penalties_End                                  00000B20 GR
   7 _UpdateGameState_SetPieces                                      00000000 GR
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
     __modsint                                                       ******** GX
+    __mulint                                                        ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -50,6 +58,11 @@ Symbol Table
     _g_CASPRV                                                   =   0000FCB1 G
     _g_CGTABL                                                   =   00000004 G
     _g_CHAR_16                                                  =   00000034 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_CHRCNT                                                   =   0000FAF9 G
     _g_CLIKFL                                                   =   0000FBD9 G
     _g_CLIKSW                                                   =   0000F3DB G
@@ -58,11 +71,6 @@ Symbol Table
     _g_CLPRIM                                                   =   0000F38C G
     _g_CMASK                                                    =   0000F92C G
     _g_CNSDFG                                                   =   0000F3DE G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_CODSAV                                                   =   0000FBCC G
     _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
@@ -110,6 +118,11 @@ Symbol Table
     _g_INSFLG                                                   =   0000FCA8 G
     _g_INTCNT                                                   =   0000FCA2 G
     _g_INTFLG                                                   =   0000FC9B G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_INTVAL                                                   =   0000FCA0 G
     _g_JIFFY                                                    =   0000FC9E G
     _g_KANAMD                                                   =   0000FCAD G
@@ -118,11 +131,6 @@ Symbol Table
     _g_KEYBUF                                                   =   0000FBF0 G
     _g_LINL32                                                   =   0000F3AF G
     _g_LINL40                                                   =   0000F3AE G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_LINLEN                                                   =   0000F3B0 G
     _g_LINTTB                                                   =   0000FBB2 G
     _g_LINWRK                                                   =   0000FC18 G
@@ -170,6 +178,11 @@ Symbol Table
     _g_PSG_DataPort                                             =   000000A1 
     _g_PSG_Ext_DataPort                                         =   00000011 
     _g_PSG_Ext_RegPort                                          =   00000010 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_PSG_Ext_StatPort                                         =   00000012 
     _g_PSG_RegPort                                              =   000000A0 
     _g_PSG_StatPort                                             =   000000A2 
@@ -178,11 +191,6 @@ Symbol Table
     _g_PortControl                                              =   000000AB 
     _g_PortPrimarySlot                                          =   000000A8 
     _g_PortReadKeyboard                                         =   000000A9 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_QUEBAK                                                   =   0000F971 G
     _g_QUETAB                                                   =   0000F959 G
     _g_QUEUEN                                                   =   0000FB3E G
@@ -230,6 +238,11 @@ Symbol Table
     _g_RTC_DataPort                                             =   000000B5 
     _g_RTYCNT                                                   =   0000FC9A G
     _g_SAVSP                                                    =   0000FB36 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_SAVVOL                                                   =   0000FB39 G
     _g_SCNCNT                                                   =   0000F3F6 G
     _g_SCRMOD                                                   =   0000FCAF G
@@ -238,11 +251,6 @@ Symbol Table
     _g_SLTTBL                                                   =   0000FCC5 G
     _g_SLTWRK                                                   =   0000FD09 G
     _g_STATFL                                                   =   0000F3E7 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_STRSRC                                                   =   00000002 G
     _g_SUBRID                                                   =   00000000 G
     _g_SVFFF8                                                   =   0000FFF8 G
@@ -288,13 +296,22 @@ Symbol Table
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
     _g_pass_target_y                                                ******** GX
+    _g_penalty_shooter_idx                                          ******** GX
+    _g_penalty_shot_count                                           ******** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    _g_penalty_team                                                 ******** GX
     _g_player_input                                                 ******** GX
     _g_selected_rec                                                 ******** GX
     _g_throw_rec_1                                                  ******** GX
     _g_throw_rec_2                                                  ******** GX
     _g_thrower_id                                                   ******** GX
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Area Table
@@ -306,7 +323,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG15                                     size      B20   flags    0
+   7 _SEG15                                     size     1BA8   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
