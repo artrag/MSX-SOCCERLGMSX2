@@ -12,7 +12,7 @@ Symbol Table
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
     _Field                                                          ******** GX
-  7 _FindReceiver                                                   00001A1D GR
+  7 _FindReceiver                                                   00001C27 GR
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -280,6 +280,9 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_closest_t1                                                   ******** GX
+    _g_closest_t2                                                   ******** GX
+    _g_is_ball_carried                                              ******** GX
     _g_pass_max_frames                                              ******** GX
     _g_pass_max_height                                              ******** GX
     _g_pass_receiver                                                ******** GX
@@ -300,7 +303,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     1C83   flags    0
+   7 _SEG6                                      size     1E8D   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

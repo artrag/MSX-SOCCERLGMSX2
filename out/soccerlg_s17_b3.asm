@@ -1811,7 +1811,7 @@ _AssignGoalKickTargets::
 	ld	a, -14 (ix)
 	or	a, a
 	jr	NZ, 00172$
-	ld	-2 (ix), #0xf1
+	ld	-2 (ix), #0xf3
 	ld	-1 (ix), #0
 	jp	00173$
 00172$:

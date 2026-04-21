@@ -78,7 +78,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
 			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
 			u16 dist = dist_x + dist_y;
-			if (LastTouchTeam == TEAM_1 && i == LastTouchPlayer && Ball->anim < 5) dist = 0; // Forza il focus sul portatore
+			if (LastTouchTeam == TEAM_1 && i == LastTouchPlayer && Ball->anim < 5 && g_is_ball_carried) dist = 0; // Forza il focus sul portatore (solo se ha davvero palla ai piedi)
 			if (dist < min_dist_t1) { min_dist_t1 = dist; closest_t1 = i; }
 		}
 		for (u8 i = 8; i < 14; i++) {
@@ -87,9 +87,12 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			u16 dy_diff = (u16)(SwSprite[i].ly - Ball->ly) & 511;
 			u16 dist_y = (dy_diff < 256) ? dy_diff : (512 - dy_diff);
 			u16 dist = dist_x + dist_y;
-			if (LastTouchTeam == TEAM_2 && i == LastTouchPlayer && Ball->anim < 5) dist = 0; // Forza il focus sul portatore
+			if (LastTouchTeam == TEAM_2 && i == LastTouchPlayer && Ball->anim < 5 && g_is_ball_carried) dist = 0; // Forza il focus sul portatore (solo se ha davvero palla ai piedi)
 			if (dist < min_dist_t2) { min_dist_t2 = dist; closest_t2 = i; }
 		}
+
+		g_closest_t1 = closest_t1;
+		g_closest_t2 = closest_t2;
 
 		// Memorizza se il trigger è stato usato per il cambio giocatore
 		bool t1_switched = FALSE;
@@ -154,11 +157,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 
 				if (dist_x >= 6) {
 					if (Ball->lx < SwSprite[gk_idx].lx) {
-						SwSprite[gk_idx].lx = Ball->lx - 8;
-						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_EAST_NORTH : SPR_GK_PLAYER_DOWN_EAST_SOUTH;
-					} else {
 						SwSprite[gk_idx].lx = Ball->lx + 8;
 						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_WEST_NORTH : SPR_GK_PLAYER_DOWN_WEST_SOUTH;
+					} else {
+						SwSprite[gk_idx].lx = Ball->lx - 8;
+						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_EAST_NORTH : SPR_GK_PLAYER_DOWN_EAST_SOUTH;
 					}
 				}
 
@@ -178,6 +181,13 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		
 		// 1. Fisica della palla
 		CallFnc_VOID(SEG_GAMESTATE_8, UpdateBallPhysics);
+
+		g_is_ball_carried = FALSE;
+		if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
+			u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
+			u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
+			if (c_dist_x <= 20 && c_dist_y <= 20) g_is_ball_carried = TRUE;
+		}
 
 		// 2. Gestione portatori (Player 1 e Player 2)
 		u8 carriers[2] = {T1_Carrier, T2_Carrier};
@@ -265,18 +275,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			u16 dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
 			u16 dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 			
-			bool is_ball_carried = FALSE;
-			if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
-				u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
-				u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
-				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
-			}
-
-			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 24 : (is_ball_carried ? 8 : 12); 
-			if (Ball->anim >= 6) touch_dist = 8; // I tiri potenti sfuggono facilmente al tackle
+			// Tolleranza allargata a 32 pixel se il giocatore è già il legittimo portatore per ammortizzare 
+			// i bruschi cambi di direzione (es: da diagonale a dritto) o le partenze repentine.
+			u8 touch_dist = (LastTouchTeam == carrier_team || LastTouchTeam == 0xFF) ? 32 : (g_is_ball_carried ? 10 : 14); 
+			if (Ball->anim >= 6) touch_dist = 12; // I tiri potenti sfuggono facilmente al tackle
 			
+			bool is_immune = (Ball->count > 0 && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
+
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
+			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim < 5 && !is_immune && RestartType == 0) {
 					// Controllo Fuorigioco (memorizzato al momento del passaggio)
 					bool offside = FALSE;
 					if (LastTouchTeam != 0xFF && LastTouchTeam == carrier_team && LastTouchPlayer != carrier) {
@@ -398,27 +405,40 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						}
 					}
 					
-					if (!action_taken && Ball->anim == 0 && (Ball->dx != c_dx || Ball->dy != c_dy)) {
-						// Cambio direzione istantaneo e sicuro (senza perdere mai il controllo)
+					if (!action_taken && (Ball->dx != c_dx || Ball->dy != c_dy)) {
+						// Cambio direzione fluido: la palla si riavvicina dolcemente ai piedi
+						// invece di teletrasportarsi, evitando uscite dal campo accidentali.
 						i8 off_x = 0; i8 off_y = 6;
-						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
-						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -3;
+						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
+						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
-						Ball->lx = (u8)(Carrier->lx + off_x);
-						Ball->ly = (Carrier->ly + off_y) & 511;
-					} else if (!action_taken && Ball->anim == 0) {
-						// Stessa direzione: ricalibra la palla e dai un calcetto in avanti
-						i8 off_x = 0; i8 off_y = 6;
-						if (c_dx > 0) off_x = 9; else if (c_dx < 0) off_x = -9;
-						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -3;
 						
-						Ball->lx = (u8)(Carrier->lx + off_x);
-						Ball->ly = (Carrier->ly + off_y) & 511;
+						i16 ideal_x = (i16)Carrier->lx + off_x;
+						i16 ideal_y = (i16)Carrier->ly + off_y;
+						Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
+						Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
 						
 						if (Carrier->dx != 0 || Carrier->dy != 0) {
-							Ball->anim = 3; // Colpetto in avanti medio-corto
+							Ball->anim = 2; // Riavvia l'animazione di dribbling dolcemente
+							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						} else {
+							Ball->anim = 0;
+						}
+					} else if (!action_taken && Ball->anim == 0) {
+						// Stessa direzione: ricalibra la palla dolcemente e dai un calcetto controllato
+						i8 off_x = 0; i8 off_y = 6;
+						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
+						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -2;
+						
+						i16 ideal_x = (i16)Carrier->lx + off_x;
+						i16 ideal_y = (i16)Carrier->ly + off_y;
+						Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
+						Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
+						
+						if (Carrier->dx != 0 || Carrier->dy != 0) {
+							Ball->anim = 2; // Colpetto in avanti controllato e incollato
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
 					}

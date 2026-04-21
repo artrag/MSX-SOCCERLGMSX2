@@ -130,15 +130,15 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			// Memorizza in tempo reale la scelta del portiere per non costringerlo a tenere premuto al momento esatto
 			if(is_keeper_human) {
 				u8 k_dir = g_player_input[keeper_team_idx].direction;
-				if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 0; 
-				else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 2; 
+				if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 2; 
+				else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 0; 
 			}
 
 			// Logica tiratore
 			if(is_shooter_human) {
 				u8 dir = g_player_input[g_penalty_team].direction;
-				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 0;
-				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 2;
+				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 2;
+				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 0;
 				else shot_dir = 1;
 
 				if(g_player_input[g_penalty_team].trigger_pressed) do_shot = TRUE; // Impedisce tiri accidentali
@@ -190,12 +190,12 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 				// Imposta sprite e posizione esatta per la parata in base alla fisica dello sprite (mani sulla palla)
 				if(dive_dir == 0) { // Tuffo a Sinistra (X=92)
-					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
-					Keeper->lx = 84; // Sposta il body a 84, mani della maglietta a 92
+					Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
+					Keeper->lx = 100; // Sposta il body a 100, mani della maglietta a 92
 				}
 				else if(dive_dir == 2) { // Tuffo a Destra (X=148)
-					Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
-					Keeper->lx = 156; // Sposta il body a 156, mani della maglietta a 148
+					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH; // Est = Tuffo a Destra
+					Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
 				}
 				else { // Parata centrale
 					Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

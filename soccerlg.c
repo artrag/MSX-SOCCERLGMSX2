@@ -106,6 +106,9 @@ const struct TeamStats g_TeamStatsArray[] = {
 	u8  g_last_input_dir = DIRECTION_NONE;
 	u16 g_h_arrow_x = 100;
 	i8  g_h_arrow_dir = 1;
+	u8  g_closest_t1 = 0xFF;
+	u8  g_closest_t2 = 0xFF;
+	bool g_is_ball_carried = FALSE;
 
 
 struct InputState g_player_input[2];

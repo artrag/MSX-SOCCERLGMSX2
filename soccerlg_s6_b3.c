@@ -110,21 +110,19 @@ void PlayerAI(u8 i)
 	u8 role = (team == TEAM_1) ? i : (i - 7); // 1,2: Dif, 3,4: Cen, 5,6: Att
 	
 	// Trova il giocatore più vicino alla palla per la propria squadra
-	u8 closest_mate = 0xFF;
-	u16 min_dist = 0xFFFF;
-	u8 start_mate = (team == TEAM_1) ? 1 : 8; 
-	u8 end_mate = start_mate + 6;
-	
-	for (u8 j = start_mate; j < end_mate; j++) {
-		u16 dx = (SwSprite[j].lx > Ball->lx) ? (SwSprite[j].lx - Ball->lx) : (Ball->lx - SwSprite[j].lx);
-		u16 dy = (SwSprite[j].ly > Ball->ly) ? (SwSprite[j].ly - Ball->ly) : (Ball->ly - SwSprite[j].ly);
-		if (dx + dy < min_dist) {
-			min_dist = dx + dy;
-			closest_mate = j;
-		}
-	}
+	u8 closest_mate = (team == TEAM_1) ? g_closest_t1 : g_closest_t2;
 
-	// Tattica di squadra: Smarcamento dinamico IN BASE ALLA PALLA
+	// Calcola distanza dalla palla una sola volta, usata sia per intercetto che per pressing
+	u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+	u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
+
+	// INTERCETTO PALLA LIBERA: qualsiasi giocatore entro 48px va direttamente sulla palla
+	// senza passare per la logica tattica. Bypassa tutti i target role-based.
+	bool ball_free_nearby = (!g_is_ball_carried && Ball->anim < 5 && b_dist_x <= 48 && b_dist_y <= 48);
+	if (ball_free_nearby) {
+		target_x = Ball->lx;
+		target_y = Ball->ly;
+	} else {
 	if (LastTouchTeam == team) {
 		// FASE OFFENSIVA: I compagni si posizionano per aprire il gioco
 		u8 run_dist = g_ActiveStats[team].aggro_attack * 10; 
@@ -162,6 +160,9 @@ void PlayerAI(u8 i)
 			target_x = (role == 1) ? 80 : 144;
 			if (team == TEAM_1 && target_y < 72) target_y = 72;
 			if (team == TEAM_2 && target_y > 440) target_y = 440;
+			// I difensori non superano mai la metà della propria metà campo
+			if (team == TEAM_1 && target_y > 192) target_y = 192;
+			if (team == TEAM_2 && target_y < 320) target_y = 320;
 		}
 		
 		// Evita assolutamente di intralciare il portatore di palla (si spingono verso l'esterno)
@@ -182,49 +183,80 @@ void PlayerAI(u8 i)
 			target_y = Ball->ly + ((team == TEAM_1) ? 32 : -32);
 			target_x = Ball->lx + ((role == 3) ? -32 : 32);
 		} else { // Difensori coprono l'area
-			target_y = Ball->ly + ((team == TEAM_1) ? 80 : -80);
-			target_x = Ball->lx + ((role == 1) ? -24 : 24);
+			// Pressing alternato nell'area difensiva: il difensore sul lato della palla preme,
+			// l'altro copre la porta. Fuori dall'area si posizionano normalmente.
+			bool ball_in_own_area = (team == TEAM_1) ? (Ball->ly < 140) : (Ball->ly > 372);
+			bool side_presses = (role == 1) ? (Ball->lx < 128) : (Ball->lx >= 128);
 			
-			// Non indietreggiare troppo dentro la propria area
-			if (team == TEAM_1 && target_y < 72) target_y = 72;
-			if (team == TEAM_2 && target_y > 440) target_y = 440;
+			if (ball_in_own_area && side_presses) {
+				// Questo difensore esce a pressare l'avversario
+				target_x = Ball->lx;
+				target_y = Ball->ly;
+			} else if (ball_in_own_area) {
+				// L'altro difensore rimane a coprire il centro dell'area
+				target_x = (role == 1) ? 80 : 144;
+				target_y = (team == TEAM_1) ? 88 : 424;
+			} else {
+				target_y = Ball->ly + ((team == TEAM_1) ? 80 : -80);
+				target_x = Ball->lx + ((role == 1) ? -24 : 24);
+				// Non indietreggiare troppo dentro la propria area
+				if (team == TEAM_1 && target_y < 72) target_y = 72;
+				if (team == TEAM_2 && target_y > 440) target_y = 440;
+				// Non avanzare oltre la metà della propria metà campo
+				if (team == TEAM_1 && target_y > 192) target_y = 192;
+				if (team == TEAM_2 && target_y < 320) target_y = 320;
+			}
 		}
 	} else {
 		// Palla libera: mantieni una zona di copertura neutra
 		target_x = (role % 2 == 1) ? 80 : 144;
 		target_y = Ball->ly + ((team == TEAM_1) ? -32 : 32);
-	}
+		// I difensori non superano mai la metà della propria metà campo
+		if (role <= 2) {
+			if (team == TEAM_1 && target_y > 192) target_y = 192;
+			if (team == TEAM_2 && target_y < 320) target_y = 320;
+		}
+	} // fine if-else tattica (LastTouchTeam)
+	} // fine blocco else ball_free_nearby
 
 	// Intervento attivo: SOLO il compagno più vicino va sulla palla (se avversari o palla libera)
-	if (LastTouchTeam != team && i == closest_mate) {
-		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
-		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
-		
+	// Usa b_dist_x/b_dist_y già calcolati all'inizio
+	if ((ball_free_nearby || LastTouchTeam != team || (!g_is_ball_carried && Ball->anim < 5)) && i == closest_mate) {
 		// Raggio di pressing dinamico basato sull'aggressività
 		u16 press_radius = 24 + (g_ActiveStats[team].aggro_defense * 8);
-		if (LastTouchTeam == 0xFF) press_radius = 500; // Palla libera: vai sempre a prenderla!
+		if (LastTouchTeam == 0xFF || !g_is_ball_carried) press_radius = 500; // Palla libera o non controllata: vai a prenderla!
 		
-		// Aumenta l'aggressività e il pressing vicino all'area di rigore (difesa estrema)
+		bool is_human_team = FALSE;
+		if (team == TEAM_2) is_human_team = TRUE;
+		else if (team == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2) is_human_team = TRUE;
+
+		bool should_press = TRUE;
+
 		if (LastTouchTeam != 0xFF) {
-			if (team == TEAM_1 && Ball->ly < 192) press_radius += 32;
-			if (team == TEAM_2 && Ball->ly > 320) press_radius += 32;
+			if (is_human_team && g_is_ball_carried) {
+				// Il player umano usa il trigger per selezionare il difensore più vicino e gestirlo.
+				// L'IA non deve intervenire a rubare palla al portatore in automatico,
+				// MA deve andare sulla palla se questa è libera e vagante.
+				should_press = FALSE;
+			} else {
+				// CPU: in modalità P1vsCPU il Team 1 preme sempre (a prescindere dalla posizione della palla)
+				if (GameMode == GAMEMODE_P1_VS_CPU && team == TEAM_1) press_radius = 500;
+				// Aumenta il pressing quando l'avversario si avvicina alla porta da difendere.
+				else if (team == TEAM_1 && Ball->ly < 220) press_radius = 500; // Pressing asfissiante in trequarti
+				else if (team == TEAM_2 && Ball->ly > 292) press_radius = 500;
+				else if (team == TEAM_1 && Ball->ly < 256) press_radius += 48; // Inizia il pressing nella propria metà campo
+				else if (team == TEAM_2 && Ball->ly > 256) press_radius += 48;
+			}
 		}
 
-		if (b_dist_x < press_radius && b_dist_y < press_radius) {
+		if (should_press && b_dist_x < press_radius && b_dist_y < press_radius) {
 			target_x = Ball->lx;
 			target_y = Ball->ly;
 			
-			bool is_ball_carried = FALSE;
-			if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
-				u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
-				u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
-				if (c_dist_x <= 16 && c_dist_y <= 16) is_ball_carried = TRUE;
-			}
-			
 			// Decide se tentare la scivolata (SOLO in orizzontale e solo se vicino all'avversario)
-			if (is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 12 && Player->count == 0 && RestartType == 0) {
-				if (Frms % 16 == 0) {
-					u8 slide_chance = g_ActiveStats[team].aggro_defense * 15; // Fino al 75% per Stat 5
+			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 12 && Player->count == 0 && RestartType == 0) {
+				if (Frms % 8 == 0) { // Molto più reattivo
+					u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
 					if ((Frms + i * 7) % 100 < slide_chance) {
 						Player->count = 8; // durata scivolata (corta e chirurgica)
 						Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
@@ -234,12 +266,20 @@ void PlayerAI(u8 i)
 				}
 			}
 
-			// Furto della palla intercettazione fisica (distanza ridotta se palla al piede)
-			u8 steal_dist = is_ball_carried ? 8 : 12; 
-			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
-				if (LastTouchTeam != team) Ball->count = 16; // Immunità dopo il furto
-				LastTouchTeam = team;
-				LastTouchPlayer = i; 
+			// Furto della palla / raccolta palla libera
+			// steal_dist più generoso per palla libera (non portata e non avversario attivo)
+			bool is_free_ball = (!g_is_ball_carried && (LastTouchTeam == 0xFF || LastTouchTeam == team));
+			u8 steal_dist = g_is_ball_carried ? 10 : (is_free_ball ? 20 : 14); 
+			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera: non trasferire possesso tra compagni
+					// Immunità breve per palla libera (nessun avversario da proteggere), lunga per furto da avversario
+					Ball->count = is_free_ball ? 2 : 16;
+					LastTouchTeam = team;
+					LastTouchPlayer = i;
+				} else if (is_free_ball && LastTouchTeam == team && LastTouchPlayer != i) {
+					// Palla libera già reclamata dalla squadra ma non portata: aggiorna il portatore
+					LastTouchPlayer = i;
+				}
 				if (Ball->anim > 3) Ball->anim = 3; 
 				Ball->frame = SPR_BALL_SIZE_1; 
 			}
@@ -248,14 +288,16 @@ void PlayerAI(u8 i)
 
 	// Controllo CPU Team per dribbling e tiri in attacco
 	bool is_cpu_team = (GameMode == GAMEMODE_P1_VS_CPU && team == TEAM_1);
-	if (is_cpu_team && i == closest_mate && LastTouchTeam == team) {
-				if (min_dist <= 24) {
-					// Punta alla porta avversaria (Sud per il Team 1)
+	if (is_cpu_team && i == closest_mate && LastTouchTeam == team && g_is_ball_carried) {
+				u16 d_bx = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+				u16 d_by = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
+				if (d_bx + d_by <= 12) {
+					// Palla davvero ai piedi: punta alla porta avversaria (Sud per il Team 1)
 					target_x = 128; 
 					target_y = 480; 
 
 					// Scelta tra Tiro, Passaggio e Dribbling
-					if (min_dist <= 12 && Ball->anim == 0) {
+					if (d_bx + d_by <= 12 && Ball->anim == 0) {
 						bool action_taken = FALSE;
 						
 						// Tiro in porta (se campo scrollato e abbastanza vicino)
@@ -338,12 +380,15 @@ void PlayerAI(u8 i)
 							if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
 							
 							i8 off_x = 0; i8 off_y = 6;
-							if (Ball->dx > 0) off_x = 9; else if (Ball->dx < 0) off_x = -9;
-							if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -3; 
+							if (Ball->dx > 0) off_x = 8; else if (Ball->dx < 0) off_x = -8;
+							if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -2; 
 							
-							Ball->lx = (u8)(Player->lx + off_x);
-							Ball->ly = (Player->ly + off_y) & 511;
-							Ball->anim = 3; Ball->count = 0;
+							i16 ideal_x = (i16)Player->lx + off_x;
+							i16 ideal_y = (i16)Player->ly + off_y;
+							Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
+							Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
+							
+							Ball->anim = 2; Ball->count = 0;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
 					}
@@ -367,7 +412,8 @@ void PlayerAI(u8 i)
 
 	// Regola la velocità: corsa veloce se molto distante, camminata se vicino
 	u8 speed = 1;
-	if (dist_x > 24 || dist_y > 24) speed = 2;
+	// Forza speed=2 se: lontano dal target, è il portatore della propria squadra, o sta inseguendo una palla non portata
+	if (dist_x > 24 || dist_y > 24 || (LastTouchTeam == team && i == closest_mate) || (!g_is_ball_carried && Ball->anim < 5 && i == closest_mate)) speed = 2;
 
 	Player->dx = 0; Player->dy = 0;
 	

@@ -422,6 +422,9 @@ extern  u8  g_prev_trigger[2];
 extern  u8  g_last_input_dir;
 extern  u16 g_h_arrow_x;
 extern  i8  g_h_arrow_dir;
+extern  u8  g_closest_t1;
+extern  u8  g_closest_t2;
+extern  bool g_is_ball_carried;
 
 extern struct InputState g_player_input[2];
 extern struct TeamStats g_ActiveStats[2];

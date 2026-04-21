@@ -1456,7 +1456,7 @@
     000008D2 19               [11] 1456 	add	hl, de
     000008D3 09               [11] 1457 	add	hl, bc
     000008D4 7E               [ 7] 1458 	ld	a, (hl)
-                                   1459 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:133: if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 0; 
+                                   1459 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:133: if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 2; 
     000008D5 FE 07            [ 7] 1460 	cp	a, #0x07
     000008D7 28 08            [12] 1461 	jr	Z, 00166$
     000008D9 FE 08            [ 7] 1462 	cp	a, #0x08
@@ -1468,10 +1468,10 @@
     000008E4 DD 66 F5         [19] 1468 	ld	h, -11 (ix)
     000008E7 11 11 00         [10] 1469 	ld	de, #0x0011
     000008EA 19               [11] 1470 	add	hl, de
-    000008EB 36 00            [10] 1471 	ld	(hl), #0x00
+    000008EB 36 02            [10] 1471 	ld	(hl), #0x02
     000008ED C3r08r09         [10] 1472 	jp	00172$
     000008F0                       1473 00167$:
-                                   1474 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:134: else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 2; 
+                                   1474 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:134: else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 0; 
     000008F0 FE 03            [ 7] 1475 	cp	a, #0x03
     000008F2 28 08            [12] 1476 	jr	Z, 00162$
     000008F4 FE 02            [ 7] 1477 	cp	a, #0x02
@@ -1483,7 +1483,7 @@
     000008FF DD 66 F5         [19] 1483 	ld	h, -11 (ix)
     00000902 11 11 00         [10] 1484 	ld	de, #0x0011
     00000905 19               [11] 1485 	add	hl, de
-    00000906 36 02            [10] 1486 	ld	(hl), #0x02
+    00000906 36 00            [10] 1486 	ld	(hl), #0x00
     00000908                       1487 00172$:
                                    1488 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:138: if(is_shooter_human) {
     00000908 DD 7E F8         [19] 1489 	ld	a, -8 (ix)
@@ -1501,7 +1501,7 @@
     0000091C 45               [ 4] 1501 	ld	b,l
     0000091D 5C               [ 4] 1502 	ld	e,h
     0000091E 7E               [ 7] 1503 	ld	a, (hl)
-                                   1504 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:140: if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 0;
+                                   1504 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:140: if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 2;
     0000091F FE 07            [ 7] 1505 	cp	a, #0x07
     00000921 28 08            [12] 1506 	jr	Z, 00178$
     00000923 FE 08            [ 7] 1507 	cp	a, #0x08
@@ -1509,10 +1509,10 @@
     00000927 FE 06            [ 7] 1509 	cp	a, #0x06
     00000929 20 07            [12] 1510 	jr	NZ, 00179$
     0000092B                       1511 00178$:
-    0000092B DD 36 FA 00      [19] 1512 	ld	-6 (ix), #0x00
+    0000092B DD 36 FA 02      [19] 1512 	ld	-6 (ix), #0x02
     0000092F C3r49r09         [10] 1513 	jp	00180$
     00000932                       1514 00179$:
-                                   1515 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:141: else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 2;
+                                   1515 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:141: else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 0;
     00000932 FE 03            [ 7] 1516 	cp	a, #0x03
     00000934 28 08            [12] 1517 	jr	Z, 00173$
     00000936 FE 02            [ 7] 1518 	cp	a, #0x02
@@ -1520,7 +1520,7 @@
     0000093A D6 04            [ 7] 1520 	sub	a, #0x04
     0000093C 20 07            [12] 1521 	jr	NZ, 00174$
     0000093E                       1522 00173$:
-    0000093E DD 36 FA 02      [19] 1523 	ld	-6 (ix), #0x02
+    0000093E DD 36 FA 00      [19] 1523 	ld	-6 (ix), #0x00
     00000942 C3r49r09         [10] 1524 	jp	00180$
     00000945                       1525 00174$:
                                    1526 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:142: else shot_dir = 1;
@@ -1818,7 +1818,7 @@
     00000B87 CDr00r00         [17] 1818 	call	__modsint
     00000B8A DD 73 FF         [19] 1819 	ld	-1 (ix), e
     00000B8D                       1820 00203$:
-                                   1821 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
+                                   1821 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
     00000B8D DD 7E F4         [19] 1822 	ld	a, -12 (ix)
     00000B90 C6 0F            [ 7] 1823 	add	a, #0x0f
     00000B92 DD 77 F8         [19] 1824 	ld	-8 (ix), a
@@ -1829,32 +1829,32 @@
     00000B9D DD 7E FF         [19] 1829 	ld	a, -1 (ix)
     00000BA0 B7               [ 4] 1830 	or	a, a
     00000BA1 20 16            [12] 1831 	jr	NZ, 00208$
-                                   1832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
+                                   1832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
     00000BA3 DD 6E F8         [19] 1833 	ld	l, -8 (ix)
     00000BA6 DD 66 F9         [19] 1834 	ld	h, -7 (ix)
-    00000BA9 36 EF            [10] 1835 	ld	(hl), #0xef
+    00000BA9 36 EE            [10] 1835 	ld	(hl), #0xee
     00000BAB 23               [ 6] 1836 	inc	hl
     00000BAC 36 00            [10] 1837 	ld	(hl), #0x00
-                                   1838 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:194: Keeper->lx = 84; // Sposta il body a 84, mani della maglietta a 92
+                                   1838 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:194: Keeper->lx = 100; // Sposta il body a 100, mani della maglietta a 92
     00000BAE DD 6E F4         [19] 1839 	ld	l, -12 (ix)
     00000BB1 DD 66 F5         [19] 1840 	ld	h, -11 (ix)
-    00000BB4 36 54            [10] 1841 	ld	(hl), #0x54
+    00000BB4 36 64            [10] 1841 	ld	(hl), #0x64
     00000BB6 C3rFBr0B         [10] 1842 	jp	00209$
     00000BB9                       1843 00208$:
                                    1844 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:196: else if(dive_dir == 2) { // Tuffo a Destra (X=148)
     00000BB9 DD 7E FF         [19] 1845 	ld	a, -1 (ix)
     00000BBC D6 02            [ 7] 1846 	sub	a, #0x02
     00000BBE 20 16            [12] 1847 	jr	NZ, 00205$
-                                   1848 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
+                                   1848 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH; // Est = Tuffo a Destra
     00000BC0 DD 6E F8         [19] 1849 	ld	l, -8 (ix)
     00000BC3 DD 66 F9         [19] 1850 	ld	h, -7 (ix)
-    00000BC6 36 EE            [10] 1851 	ld	(hl), #0xee
+    00000BC6 36 EF            [10] 1851 	ld	(hl), #0xef
     00000BC8 23               [ 6] 1852 	inc	hl
     00000BC9 36 00            [10] 1853 	ld	(hl), #0x00
-                                   1854 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:198: Keeper->lx = 156; // Sposta il body a 156, mani della maglietta a 148
+                                   1854 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:198: Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
     00000BCB DD 6E F4         [19] 1855 	ld	l, -12 (ix)
     00000BCE DD 66 F5         [19] 1856 	ld	h, -11 (ix)
-    00000BD1 36 9C            [10] 1857 	ld	(hl), #0x9c
+    00000BD1 36 8C            [10] 1857 	ld	(hl), #0x8c
     00000BD3 C3rFBr0B         [10] 1858 	jp	00209$
     00000BD6                       1859 00205$:
                                    1860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:201: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

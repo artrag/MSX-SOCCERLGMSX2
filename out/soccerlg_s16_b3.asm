@@ -1456,7 +1456,7 @@ _UpdateGameState_Penalties::
 	add	hl, de
 	add	hl, bc
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:133: if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 0; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:133: if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 2; 
 	cp	a, #0x07
 	jr	Z, 00166$
 	cp	a, #0x08
@@ -1468,10 +1468,10 @@ _UpdateGameState_Penalties::
 	ld	h, -11 (ix)
 	ld	de, #0x0011
 	add	hl, de
-	ld	(hl), #0x00
+	ld	(hl), #0x02
 	jp	00172$
 00167$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:134: else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 2; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:134: else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 0; 
 	cp	a, #0x03
 	jr	Z, 00162$
 	cp	a, #0x02
@@ -1483,7 +1483,7 @@ _UpdateGameState_Penalties::
 	ld	h, -11 (ix)
 	ld	de, #0x0011
 	add	hl, de
-	ld	(hl), #0x02
+	ld	(hl), #0x00
 00172$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:138: if(is_shooter_human) {
 	ld	a, -8 (ix)
@@ -1501,7 +1501,7 @@ _UpdateGameState_Penalties::
 	ld	b,l
 	ld	e,h
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:140: if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:140: if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 2;
 	cp	a, #0x07
 	jr	Z, 00178$
 	cp	a, #0x08
@@ -1509,10 +1509,10 @@ _UpdateGameState_Penalties::
 	cp	a, #0x06
 	jr	NZ, 00179$
 00178$:
-	ld	-6 (ix), #0x00
+	ld	-6 (ix), #0x02
 	jp	00180$
 00179$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:141: else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:141: else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 0;
 	cp	a, #0x03
 	jr	Z, 00173$
 	cp	a, #0x02
@@ -1520,7 +1520,7 @@ _UpdateGameState_Penalties::
 	sub	a, #0x04
 	jr	NZ, 00174$
 00173$:
-	ld	-6 (ix), #0x02
+	ld	-6 (ix), #0x00
 	jp	00180$
 00174$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:142: else shot_dir = 1;
@@ -1818,7 +1818,7 @@ _UpdateGameState_Penalties::
 	call	__modsint
 	ld	-1 (ix), e
 00203$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
 	ld	a, -12 (ix)
 	add	a, #0x0f
 	ld	-8 (ix), a
@@ -1829,32 +1829,32 @@ _UpdateGameState_Penalties::
 	ld	a, -1 (ix)
 	or	a, a
 	jr	NZ, 00208$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:193: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
-	ld	(hl), #0xef
+	ld	(hl), #0xee
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:194: Keeper->lx = 84; // Sposta il body a 84, mani della maglietta a 92
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:194: Keeper->lx = 100; // Sposta il body a 100, mani della maglietta a 92
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
-	ld	(hl), #0x54
+	ld	(hl), #0x64
 	jp	00209$
 00208$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:196: else if(dive_dir == 2) { // Tuffo a Destra (X=148)
 	ld	a, -1 (ix)
 	sub	a, #0x02
 	jr	NZ, 00205$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH; // Est = Tuffo a Destra
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
-	ld	(hl), #0xee
+	ld	(hl), #0xef
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:198: Keeper->lx = 156; // Sposta il body a 156, mani della maglietta a 148
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:198: Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
-	ld	(hl), #0x9c
+	ld	(hl), #0x8c
 	jp	00209$
 00205$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:201: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale
