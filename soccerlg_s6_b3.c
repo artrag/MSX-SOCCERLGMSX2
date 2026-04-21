@@ -328,46 +328,49 @@ void PlayerAI(u8 i)
 							}
 						}
 
-						// Passaggio intelligente verso un compagno in direzione dello sguardo
+						// Passaggio intelligente verso un compagno in direzione OFFENSIVA (sempre verso Sud per TEAM_1)
 						if (!action_taken && Frms % 16 == 0) {
 							u8 rand_pass = (Player->lx * 5 + Player->ly * 3 + Frms) % 100;
 							
 							// Propensione passaggi: da 20% (Stat 1) a 60% (Stat 5)
 							u8 pass_prob = 10 + (g_ActiveStats[team].pass_tendency * 10);
-							if (rand_pass < pass_prob) { 
-								u8 receiver = FindReceiver(i, 0xFF, Player->dx, Player->dy);
+							if (rand_pass < pass_prob) {
+								// CPU TEAM_1 attacca verso Sud: forza la ricerca in avanti (dy=1)
+								// mai passare all'indietro indipendentemente da dove si stava muovendo
+								i8 pass_dx = (ai_last_dx[i] > 0) ? 1 : ((ai_last_dx[i] < 0) ? -1 : 0);
+								i8 pass_dy = 1; // TEAM_1 attacca sempre verso Sud
+								u8 receiver = FindReceiver(i, 0xFF, pass_dx, pass_dy);
 								if (receiver != 0xFF) {
-									u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
-									u16 r_dy = (SwSprite[receiver].ly > Player->ly) ? (SwSprite[receiver].ly - Player->ly) : (Player->ly - SwSprite[receiver].ly);
+									// Verifica che il ricevitore sia effettivamente davanti (a Sud) - mai passare indietro
+									if (SwSprite[receiver].ly > Player->ly - 16) {
+										u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
+										u16 r_dy = (SwSprite[receiver].ly > Player->ly) ? (SwSprite[receiver].ly - Player->ly) : (Player->ly - SwSprite[receiver].ly);
 									
-									if (r_dx + r_dy >= 48) {
-										action_taken = TRUE;
-										
-										// === CONTROLLO OFFSIDE AL MOMENTO DEL PASSAGGIO ===
-										bool is_offside = FALSE;
-										if (team == TEAM_1) {
-											u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
-											if (Player->ly > offside_line) offside_line = Player->ly;
-											if (SwSprite[receiver].ly > offside_line + 8 && SwSprite[receiver].ly > 256) is_offside = TRUE;
-										} else {
-											u16 offside_line = (SwSprite[1].ly < SwSprite[2].ly) ? SwSprite[1].ly : SwSprite[2].ly;
-											if (Player->ly < offside_line) offside_line = Player->ly;
-											if (SwSprite[receiver].ly < offside_line - 8 && SwSprite[receiver].ly < 256) is_offside = TRUE;
-										}
+										if (r_dx + r_dy >= 48) {
+											action_taken = TRUE;
+											
+											// === CONTROLLO OFFSIDE AL MOMENTO DEL PASSAGGIO ===
+											bool is_offside = FALSE;
+											if (team == TEAM_1) {
+												u16 offside_line = (SwSprite[8].ly > SwSprite[9].ly) ? SwSprite[8].ly : SwSprite[9].ly;
+												if (Player->ly > offside_line) offside_line = Player->ly;
+												if (SwSprite[receiver].ly > offside_line + 8 && SwSprite[receiver].ly > 256) is_offside = TRUE;
+											}
 
-										Ball->anim = 0; Ball->count = 0;
-										g_pass_receiver = receiver | (is_offside ? 0x80 : 0);
-										g_pass_start_x = Player->lx;
-										g_pass_start_y = Player->ly;
-										g_pass_target_x = SwSprite[receiver].lx;
-										g_pass_target_y = SwSprite[receiver].ly;
-										g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
-										if (g_pass_max_frames < 8) g_pass_max_frames = 8;
-										if (g_pass_max_frames > 34) g_pass_max_frames = 34;
-										g_pass_max_height = 7;
-										
-										Ball->anim = 5;
-										CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+											Ball->anim = 0; Ball->count = 0;
+											g_pass_receiver = receiver | (is_offside ? 0x80 : 0);
+											g_pass_start_x = Player->lx;
+											g_pass_start_y = Player->ly;
+											g_pass_target_x = SwSprite[receiver].lx;
+											g_pass_target_y = SwSprite[receiver].ly;
+											g_pass_max_frames = (r_dx + r_dy) / 5;
+											if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+											if (g_pass_max_frames > 34) g_pass_max_frames = 34;
+											g_pass_max_height = 7;
+											
+											Ball->anim = 5;
+											CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+										}
 									}
 								}
 							}
@@ -375,21 +378,27 @@ void PlayerAI(u8 i)
 						
 						// Dribbling se non ha passato
 						if (!action_taken) {
-							Ball->dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
-							Ball->dy = (Player->dy > 0) ? 1 : ((Player->dy < 0) ? -1 : 0);
-							if (Ball->dx == 0 && Ball->dy == 0) Ball->dy = 1; // Avanza verso Sud
+							// Forza il dribbling verso la porta avversaria (Sud per TEAM_1)
+							// Usa ai_last_dx solo per la componente orizzontale, mai verso la propria porta
+							Ball->dx = (ai_last_dx[i] > 0) ? 1 : ((ai_last_dx[i] < 0) ? -1 : 0);
+							Ball->dy = 1; // TEAM_1 dribble sempre verso Sud (porta avversaria)
 							
-							i8 off_x = 0; i8 off_y = 6;
-							if (Ball->dx > 0) off_x = 8; else if (Ball->dx < 0) off_x = -8;
-							if (Ball->dy > 0) off_y = 8; else if (Ball->dy < 0) off_y = -2; 
-							
-							i16 ideal_x = (i16)Player->lx + off_x;
-							i16 ideal_y = (i16)Player->ly + off_y;
-							Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
-							Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
-							
-							Ball->anim = 2; Ball->count = 0;
-							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							// Non dribblare fuori dal campo: se vicino al bordo Sud, smetti di calciare
+							if (Player->ly > 450) {
+								Ball->dx = 0; Ball->dy = 0;
+								Ball->anim = 0;
+							} else {
+								i8 off_x = 0; i8 off_y = 8;
+								if (Ball->dx > 0) off_x = 8; else if (Ball->dx < 0) off_x = -8;
+								
+								i16 ideal_x = (i16)Player->lx + off_x;
+								i16 ideal_y = (i16)Player->ly + off_y;
+								Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
+								Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
+								
+								Ball->anim = 2; Ball->count = 0;
+								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							}
 						}
 					}
 				} else {
