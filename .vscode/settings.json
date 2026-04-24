@@ -50,6 +50,10 @@
         "/^cmd /c \"build\\.bat\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^\\$result = cmd /C \"build\\.bat\" 2>&1 ; \\$result \\| Select-Object -Last 25 ; Write-Host \"EXIT: \\$LASTEXITCODE\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

@@ -172,9 +172,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 				RestartSideY = SwSprite[gk_idx].ly;
 				Ball->anim = Ball->dx = Ball->dy = 0;
 				Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
+				Ball->lx = SwSprite[gk_idx].lx; // Teletrasporta la palla sulle braccia del portiere
+				Ball->ly = SwSprite[gk_idx].ly;
 				T1_Carrier = T2_Carrier = 0xFF;
 				TimerEnabled = FALSE;
-				*wait_secs = 1; *start_sec = Frms;
+				*wait_secs = 1; *start_sec = 0; // start_sec=0: la pausa scade al frame successivo (nessun freeze)
 				return; // Esci dall'update per avviare la routine di pausa e ripresa
 			}
 		}
@@ -410,7 +412,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						// invece di teletrasportarsi, evitando uscite dal campo accidentali.
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
-						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -2;
+						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
@@ -426,19 +428,18 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						} else {
 							Ball->anim = 0;
 						}
-					} else if (!action_taken && Ball->anim == 0) {
-						// Stessa direzione: ricalibra la palla dolcemente e dai un calcetto controllato
+					} else if (!action_taken) {
+						// Stessa direzione: aggancia la palla ai piedi ogni frame (assegnazione diretta)
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
-						if (c_dy > 0) off_y = 8; else if (c_dy < 0) off_y = -2;
+						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
 						
-						i16 ideal_x = (i16)Carrier->lx + off_x;
-						i16 ideal_y = (i16)Carrier->ly + off_y;
-						Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
-						Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
+						// Assegnazione diretta (non media): la palla segue il portatore frame per frame
+						Ball->lx = (u8)((i16)Carrier->lx + off_x);
+						Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;
 						
 						if (Carrier->dx != 0 || Carrier->dy != 0) {
-							Ball->anim = 2; // Colpetto in avanti controllato e incollato
+							Ball->anim = 2;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						}
 					}

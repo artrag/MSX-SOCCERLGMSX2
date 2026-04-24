@@ -388,13 +388,14 @@ void PlayerAI(u8 i)
 								Ball->dx = 0; Ball->dy = 0;
 								Ball->anim = 0;
 							} else {
-								i8 off_x = 0; i8 off_y = 8;
+								i8 off_x = 0;
+								// off_y più alto per le diagonali (il giocatore T1 ha il corpo più in alto nello sprite box)
+								i8 off_y = (Ball->dx != 0) ? 13 : 8;
 								if (Ball->dx > 0) off_x = 8; else if (Ball->dx < 0) off_x = -8;
 								
-								i16 ideal_x = (i16)Player->lx + off_x;
-								i16 ideal_y = (i16)Player->ly + off_y;
-								Ball->lx = (u8)(((i16)Ball->lx + ideal_x) / 2);
-								Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
+								// Assegnazione diretta ai piedi del portatore
+								Ball->lx = (u8)((i16)Player->lx + off_x);
+								Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
 								
 								Ball->anim = 2; Ball->count = 0;
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
