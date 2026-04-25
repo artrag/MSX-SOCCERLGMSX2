@@ -378,27 +378,31 @@ void PlayerAI(u8 i)
 						
 						// Dribbling se non ha passato
 						if (!action_taken) {
-							// Usa la direzione attuale del giocatore (verso target 128,480) non l'ultima salvata.
-							// Questo evita che la palla derivi verso il fallo laterale perché Ball->dx
-							// viene poi spostato da UpdateBallPhysics ogni frame.
 							i8 move_dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
-							Ball->dx = move_dx;
-							Ball->dy = 1; // TEAM_1 dribble sempre verso Sud (porta avversaria)
 							
-							// Non dribblare fuori dal campo: se vicino al bordo Sud, smetti di calciare
+							// Non dribblare fuori dal campo: se vicino al bordo Sud, ferma tutto
 							if (Player->ly > 450) {
 								Ball->dx = 0; Ball->dy = 0;
 								Ball->anim = 0;
 							} else {
 								i8 off_x = 0;
-								// off_y più alto per le diagonali (il giocatore T1 ha il corpo più in alto nello sprite box)
 								i8 off_y = (move_dx != 0) ? 13 : 8;
 								if (move_dx > 0) off_x = 8; else if (move_dx < 0) off_x = -8;
 								
-							// Palla incollata ai piedi senza velocità: evita il drift di UpdateBallPhysics
-							Ball->dx = 0; Ball->dy = 0; Ball->anim = 0; Ball->count = 0;
-							Ball->lx = (u8)((i16)Player->lx + off_x);
-							Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
+								Ball->lx = (u8)((i16)Player->lx + off_x);
+								Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
+								
+								if (move_dx == 0) {
+									// Dritto verso sud: kick animato (nessun drift laterale)
+									Ball->dx = 0; Ball->dy = 1;
+									Ball->anim = 4; Ball->count = 0;
+									CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+								} else {
+									// Diagonale: kick corto (anim=2 = 5px per asse, rimane entro soglia 26px)
+									Ball->dx = move_dx; Ball->dy = 1;
+									Ball->anim = 2; Ball->count = 0;
+									CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+								}
 							}
 						}
 					}
