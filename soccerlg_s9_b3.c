@@ -429,18 +429,20 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 							Ball->anim = 0;
 						}
 					} else if (!action_taken) {
-						// Stessa direzione: aggancia la palla ai piedi ogni frame (assegnazione diretta)
-						i8 off_x = 0; i8 off_y = 6;
-						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
-						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
-						
-						// Assegnazione diretta (non media): la palla segue il portatore frame per frame
-						Ball->lx = (u8)((i16)Carrier->lx + off_x);
-						Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;
-						
-						if (Carrier->dx != 0 || Carrier->dy != 0) {
-							Ball->anim = 2;
-							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+						// Stessa direzione: kick solo quando la palla è ferma (anim==0).
+						// Quando anim>0, UpdateBallPhysics gestisce il rotolamento; non sovrascrivere.
+						if (Ball->anim == 0) {
+							i8 off_x = 0; i8 off_y = 6;
+							if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
+							if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
+							// Snap esatto alla posizione corretta, poi calcio
+							Ball->lx = (u8)((i16)Carrier->lx + off_x);
+							Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;
+							Ball->dx = c_dx; Ball->dy = c_dy;
+							if (Carrier->dx != 0 || Carrier->dy != 0) {
+								Ball->anim = 4; // 4 frames = 14px di rotolamento visibile prima del re-aggancio
+								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							}
 						}
 					}
 				} else {

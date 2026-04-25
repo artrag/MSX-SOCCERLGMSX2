@@ -47,10 +47,10 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000DC9  l__SEG5                         
      00000E45  l__SEG4                         
      0000177E  l__SEG17                        
-     00001ADE  l__SEG9                         
+     00001AF4  l__SEG9                         
      00001D47  l__SEG12                        
      00001DB7  l__SEG15                        
-     00001DFA  l__SEG6                         
+     00001E04  l__SEG6                         
      00002A07  l__CODE                         
      00004000  s__CODE                         
      00006A07  s__HOME                         
@@ -685,12 +685,12 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    00001DFA =        7674. bytes (REL,CON)
+_SEG6                               0006A000    00001E04 =        7684. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0006A000  _PlayerAI                          soccerlg_s6_b3
-     0006BB94  _FindReceiver                      soccerlg_s6_b3
+     0006BB9E  _FindReceiver                      soccerlg_s6_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
@@ -730,7 +730,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001ADE =        6878. bytes (REL,CON)
+_SEG9                               0009A000    00001AF4 =        6900. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

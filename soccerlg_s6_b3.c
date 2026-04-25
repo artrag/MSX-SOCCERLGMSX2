@@ -291,13 +291,13 @@ void PlayerAI(u8 i)
 	if (is_cpu_team && i == closest_mate && LastTouchTeam == team && g_is_ball_carried) {
 				u16 d_bx = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 				u16 d_by = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
-				if (d_bx + d_by <= 12) {
+				if (d_bx + d_by <= 26) {
 					// Palla davvero ai piedi: punta alla porta avversaria (Sud per il Team 1)
 					target_x = 128; 
 					target_y = 480; 
 
 					// Scelta tra Tiro, Passaggio e Dribbling
-					if (d_bx + d_by <= 12 && Ball->anim == 0) {
+					if (d_bx + d_by <= 26 && Ball->anim == 0) {
 						bool action_taken = FALSE;
 						
 						// Tiro in porta (se campo scrollato e abbastanza vicino)
@@ -378,9 +378,11 @@ void PlayerAI(u8 i)
 						
 						// Dribbling se non ha passato
 						if (!action_taken) {
-							// Forza il dribbling verso la porta avversaria (Sud per TEAM_1)
-							// Usa ai_last_dx solo per la componente orizzontale, mai verso la propria porta
-							Ball->dx = (ai_last_dx[i] > 0) ? 1 : ((ai_last_dx[i] < 0) ? -1 : 0);
+							// Usa la direzione attuale del giocatore (verso target 128,480) non l'ultima salvata.
+							// Questo evita che la palla derivi verso il fallo laterale perché Ball->dx
+							// viene poi spostato da UpdateBallPhysics ogni frame.
+							i8 move_dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
+							Ball->dx = move_dx;
 							Ball->dy = 1; // TEAM_1 dribble sempre verso Sud (porta avversaria)
 							
 							// Non dribblare fuori dal campo: se vicino al bordo Sud, smetti di calciare
@@ -390,15 +392,13 @@ void PlayerAI(u8 i)
 							} else {
 								i8 off_x = 0;
 								// off_y più alto per le diagonali (il giocatore T1 ha il corpo più in alto nello sprite box)
-								i8 off_y = (Ball->dx != 0) ? 13 : 8;
-								if (Ball->dx > 0) off_x = 8; else if (Ball->dx < 0) off_x = -8;
+								i8 off_y = (move_dx != 0) ? 13 : 8;
+								if (move_dx > 0) off_x = 8; else if (move_dx < 0) off_x = -8;
 								
-								// Assegnazione diretta ai piedi del portatore
-								Ball->lx = (u8)((i16)Player->lx + off_x);
-								Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
-								
-								Ball->anim = 2; Ball->count = 0;
-								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							// Palla incollata ai piedi senza velocità: evita il drift di UpdateBallPhysics
+							Ball->dx = 0; Ball->dy = 0; Ball->anim = 0; Ball->count = 0;
+							Ball->lx = (u8)((i16)Player->lx + off_x);
+							Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
 							}
 						}
 					}
