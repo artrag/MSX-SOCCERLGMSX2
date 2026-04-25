@@ -1666,7 +1666,7 @@
     000008F5 20 02            [12] 1666 	jr	NZ, 00120$
     000008F7 06 01            [ 7] 1667 	ld	b, #0x01
     000008F9                       1668 00120$:
-                                   1669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
+                                   1669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
                                    1670 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:161: if (ref_dx != 0 || ref_dy != 0) {
     000008F9 DD 7E FA         [19] 1671 	ld	a, -6 (ix)
     000008FC B7               [ 4] 1672 	or	a, a
@@ -1684,7 +1684,7 @@
     00000912 DD 36 F7 01      [19] 1684 	ld	-9 (ix), #0x01
     00000916 DD 36 F8 02      [19] 1685 	ld	-8 (ix), #0x02
     0000091A DD 36 F9 01      [19] 1686 	ld	-7 (ix), #0x01
-                                   1687 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
+                                   1687 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
     0000091E C5               [11] 1688 	push	bc
     0000091F EB               [ 4] 1689 	ex	de, hl
     00000920 11 03 00         [10] 1690 	ld	de, #0x0003
@@ -1706,19 +1706,19 @@
     00000938 2E 1A            [ 7] 1706 	ld	l, #0x1a
     0000093A E5               [11] 1707 	push	hl
     0000093B 11r00r00         [10] 1708 	ld	de, #_GetPlayerAnimFrame
-    0000093E 3E 0B            [ 7] 1709 	ld	a, #0x0b
+    0000093E 3E 13            [ 7] 1709 	ld	a, #0x13
     00000940 CDr00r00         [17] 1710 	call	_CallFnc_U16_P4
     00000943 ED 53r65r02      [20] 1711 	ld	((_SwSprite + 613)), de
     00000947 C3r5Cr09         [10] 1712 	jp	00126$
     0000094A                       1713 00123$:
-                                   1714 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:166: Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, 26, look_dx, look_dy);
+                                   1714 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:166: Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, 26, look_dx, look_dy);
     0000094A C5               [11] 1715 	push	bc
     0000094B 33               [ 6] 1716 	inc	sp
     0000094C 61               [ 4] 1717 	ld	h, c
     0000094D 2E 1A            [ 7] 1718 	ld	l, #0x1a
     0000094F E5               [11] 1719 	push	hl
     00000950 11r00r00         [10] 1720 	ld	de, #_GetPlayerIdleFrame
-    00000953 3E 0B            [ 7] 1721 	ld	a, #0x0b
+    00000953 3E 13            [ 7] 1721 	ld	a, #0x13
     00000955 CDr00r00         [17] 1722 	call	_CallFnc_U16_P3
     00000958 ED 53r65r02      [20] 1723 	ld	((_SwSprite + 613)), de
     0000095C                       1724 00126$:

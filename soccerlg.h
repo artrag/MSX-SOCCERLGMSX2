@@ -343,6 +343,7 @@ struct TeamStats {
 #define SEG_GAMESTATE_6 16
 #define SEG_GAMESTATE_7 17
 #define SEG_GAMESTATE_8 18
+#define SEG_GAMESTATE_9 19
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -515,8 +516,6 @@ void AssignCornerKickTargets();
 void AssignOffsideTargets();
 void ExecuteThrowIn(u8 thrower, u8 receiver);
 void ExecuteCornerKick(u8 thrower, u8 receiver);
-u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
-u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 
 // +++ SEGMENT SEG_GAMESTATE_3 (12) +++
 void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -537,6 +536,10 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 // +++ SEGMENT SEG_GAMESTATE_7 (17) +++
 void UpdateBallPhysics();
 void UpdateReferee();
+
+// +++ SEGMENT SEG_GAMESTATE_9 (19) +++
+u16 GetPlayerAnimFrame(u8 i, i8 dx, i8 dy, u8 step);
+u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();

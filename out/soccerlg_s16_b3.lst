@@ -1030,7 +1030,7 @@
     0000059E DD 7E EA         [19] 1030 	ld	a, -22 (ix)
     000005A1 CE 00            [ 7] 1031 	adc	a, #0x00
     000005A3 DD 77 F2         [19] 1032 	ld	-14 (ix), a
-                                   1033 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:105: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+                                   1033 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:105: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
     000005A6 DD 7E E9         [19] 1034 	ld	a, -23 (ix)
     000005A9 C6 0F            [ 7] 1035 	add	a, #0x0f
     000005AB DD 77 F3         [19] 1036 	ld	-13 (ix), a
@@ -1262,7 +1262,7 @@
     00000772 DD 36 E1 01      [19] 1262 	ld	-31 (ix), #0x01
     00000776 DD 36 E2 02      [19] 1263 	ld	-30 (ix), #0x02
     0000077A DD 36 E3 01      [19] 1264 	ld	-29 (ix), #0x01
-                                   1265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:105: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+                                   1265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:105: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
     0000077E EB               [ 4] 1266 	ex	de, hl
     0000077F 11 03 00         [10] 1267 	ld	de, #0x0003
     00000782 CDr00r00         [17] 1268 	call	__divuint
@@ -1288,7 +1288,7 @@
     000007A6 F5               [11] 1288 	push	af
     000007A7 33               [ 6] 1289 	inc	sp
     000007A8 11r00r00         [10] 1290 	ld	de, #_GetPlayerAnimFrame
-    000007AB 3E 0B            [ 7] 1291 	ld	a, #0x0b
+    000007AB 3E 13            [ 7] 1291 	ld	a, #0x13
     000007AD CDr00r00         [17] 1292 	call	_CallFnc_U16_P4
     000007B0 DD 6E F3         [19] 1293 	ld	l, -13 (ix)
     000007B3 DD 66 F4         [19] 1294 	ld	h, -12 (ix)
@@ -1304,7 +1304,7 @@
     000007C4 DD 6E F1         [19] 1304 	ld	l, -15 (ix)
     000007C7 DD 66 F2         [19] 1305 	ld	h, -14 (ix)
     000007CA 36 00            [10] 1306 	ld	(hl), #0x00
-                                   1307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:108: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actor_idx, 0, (i8)((actor_idx == keeper_idx) ? 1 : -1));
+                                   1307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:108: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, actor_idx, 0, (i8)((actor_idx == keeper_idx) ? 1 : -1));
     000007CC DD 7E F8         [19] 1308 	ld	a, -8 (ix)
     000007CF B7               [ 4] 1309 	or	a, a
     000007D0 28 06            [12] 1310 	jr	Z, 00258$
@@ -1323,7 +1323,7 @@
     000007E4 F5               [11] 1323 	push	af
     000007E5 33               [ 6] 1324 	inc	sp
     000007E6 11r00r00         [10] 1325 	ld	de, #_GetPlayerIdleFrame
-    000007E9 3E 0B            [ 7] 1326 	ld	a, #0x0b
+    000007E9 3E 13            [ 7] 1326 	ld	a, #0x13
     000007EB CDr00r00         [17] 1327 	call	_CallFnc_U16_P3
     000007EE DD 6E F3         [19] 1328 	ld	l, -13 (ix)
     000007F1 DD 66 F4         [19] 1329 	ld	h, -12 (ix)
@@ -1666,7 +1666,7 @@
     00000A46 22r55r01         [16] 1666 	ld	((_SwSprite + 341)), hl
     00000A49 2E 01            [ 7] 1667 	ld	l, #0x01
     00000A4B 22r57r01         [16] 1668 	ld	((_SwSprite + 343)), hl
-                                   1669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: SwSprite[g_penalty_shooter_idx].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, g_penalty_shooter_idx, 0, (i8)-1);
+                                   1669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: SwSprite[g_penalty_shooter_idx].frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, g_penalty_shooter_idx, 0, (i8)-1);
     00000A4E ED 4Br00r00      [20] 1670 	ld	bc, (_g_penalty_shooter_idx)
     00000A52 06 00            [ 7] 1671 	ld	b, #0x00
     00000A54 69               [ 4] 1672 	ld	l, c
@@ -1702,7 +1702,7 @@
     00000A8D F5               [11] 1702 	push	af
     00000A8E 33               [ 6] 1703 	inc	sp
     00000A8F 11r00r00         [10] 1704 	ld	de, #_GetPlayerIdleFrame
-    00000A92 3E 0B            [ 7] 1705 	ld	a, #0x0b
+    00000A92 3E 13            [ 7] 1705 	ld	a, #0x13
     00000A94 CDr00r00         [17] 1706 	call	_CallFnc_U16_P3
     00000A97 DD 73 F8         [19] 1707 	ld	-8 (ix), e
     00000A9A DD 72 F9         [19] 1708 	ld	-7 (ix), d
@@ -1857,7 +1857,7 @@
     00000BD1 36 8C            [10] 1857 	ld	(hl), #0x8c
     00000BD3 C3rFBr0B         [10] 1858 	jp	00209$
     00000BD6                       1859 00205$:
-                                   1860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:201: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale
+                                   1860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:201: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale
     00000BD6 3E 01            [ 7] 1861 	ld	a, #0x01
     00000BD8 F5               [11] 1862 	push	af
     00000BD9 33               [ 6] 1863 	inc	sp
@@ -1868,7 +1868,7 @@
     00000BE0 F5               [11] 1868 	push	af
     00000BE1 33               [ 6] 1869 	inc	sp
     00000BE2 11r00r00         [10] 1870 	ld	de, #_GetPlayerIdleFrame
-    00000BE5 3E 0B            [ 7] 1871 	ld	a, #0x0b
+    00000BE5 3E 13            [ 7] 1871 	ld	a, #0x13
     00000BE7 CDr00r00         [17] 1872 	call	_CallFnc_U16_P3
     00000BEA DD 6E F8         [19] 1873 	ld	l, -8 (ix)
     00000BED DD 66 F9         [19] 1874 	ld	h, -7 (ix)

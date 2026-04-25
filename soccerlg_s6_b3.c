@@ -22,7 +22,7 @@ void PlayerAI(u8 i)
 	// I giocatori destinatari di passaggi in volo NON vengono mossi dall'AI
 	if (Ball->anim == 5 && i == (g_pass_receiver & 0x7F)) {
 		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
-		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, 0, (i < 7) ? 1 : -1);
+		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, 0, (i < 7) ? 1 : -1);
 		return;
 	}
 
@@ -35,7 +35,7 @@ void PlayerAI(u8 i)
 		i8 look_dx = (Ball->lx > SwSprite[i].lx) ? 1 : ((Ball->lx < SwSprite[i].lx) ? -1 : 0);
 		i8 look_dy = (Ball->ly > SwSprite[i].ly) ? 1 : ((Ball->ly < SwSprite[i].ly) ? -1 : 0);
 		if (look_dx == 0 && look_dy == 0) look_dy = (i < 7) ? 1 : -1;
-		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, look_dx, look_dy);
+		SwSprite[i].frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, look_dx, look_dy);
 		}
 		return;
 	}
@@ -254,22 +254,20 @@ void PlayerAI(u8 i)
 			target_y = Ball->ly;
 			
 			// Decide se tentare la scivolata (SOLO in orizzontale e solo se vicino all'avversario)
-			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 12 && Player->count == 0 && RestartType == 0) {
-				if (Frms % 8 == 0) { // Molto più reattivo
-					u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
-					if ((Frms + i * 7) % 100 < slide_chance) {
-						Player->count = 8; // durata scivolata (corta e chirurgica)
-						Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
-						Player->dy = 0; // Solo scivolata orizzontale
-						return; // Esce e inizia la scivolata dal prossimo frame
-					}
+			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 14 && Player->count == 0 && RestartType == 0) {
+				u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
+				if ((Frms + i * 7) % 100 < slide_chance) {
+					Player->count = 8; // durata scivolata (corta e chirurgica)
+					Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
+					Player->dy = 0; // Solo scivolata orizzontale
+					return; // Esce e inizia la scivolata dal prossimo frame
 				}
 			}
 
 			// Furto della palla / raccolta palla libera
 			// steal_dist più generoso per palla libera (non portata e non avversario attivo)
 			bool is_free_ball = (!g_is_ball_carried && (LastTouchTeam == 0xFF || LastTouchTeam == team));
-			u8 steal_dist = g_is_ball_carried ? 10 : (is_free_ball ? 20 : 14); 
+			u8 steal_dist = g_is_ball_carried ? 14 : (is_free_ball ? 20 : 14); 
 			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera: non trasferire possesso tra compagni
 					// Immunità breve per palla libera (nessun avversario da proteggere), lunga per furto da avversario
@@ -443,7 +441,7 @@ void PlayerAI(u8 i)
 		
 		Player->anim++;
 		const u8 walk_seq[4] = {0, 1, 2, 1};
-		Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+		Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
 	} else {
 		// Posa ferma orientata verso la palla
 		i8 dir_x = (Ball->lx > Player->lx + 4) ? 1 : ((Ball->lx < Player->lx - 4) ? -1 : 0);
@@ -451,7 +449,7 @@ void PlayerAI(u8 i)
 		if (dir_x == 0 && dir_y == 0) {
 			dir_y = (team == TEAM_1) ? 1 : -1;
 		}
-		Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, i, dir_x, dir_y);
+		Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
 	}
 }
 

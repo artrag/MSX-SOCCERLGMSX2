@@ -8,9 +8,9 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _ShowMenu
 	.globl _GetPlayerIdleFrame
 	.globl _GetPlayerAnimFrame
+	.globl _ShowMenu
 	.globl _ExecuteCornerKick
 	.globl _ExecuteThrowIn
 	.globl _EventBallKicked
@@ -1000,7 +1000,7 @@ _UpdateGameState_SetPieces::
 	xor	a, a
 00670$:
 	ld	-10 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:126: GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:126: GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
 	ld	a, -22 (ix)
 	add	a, #0x0f
 	ld	-9 (ix), a
@@ -1317,7 +1317,7 @@ _UpdateGameState_SetPieces::
 	ld	-26 (ix), #0x01
 	ld	-25 (ix), #0x02
 	ld	-24 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:126: GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:126: GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
 	ld	de, #0x0003
 	ld	l, -11 (ix)
 ;	spillPairReg hl
@@ -1356,7 +1356,7 @@ _UpdateGameState_SetPieces::
 	ld	l, -23 (ix)
 	push	hl
 	ld	de, #_GetPlayerAnimFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P4
 	ld	l, -9 (ix)
 	ld	h, -8 (ix)
@@ -1752,7 +1752,7 @@ _UpdateGameState_SetPieces::
 	ld	de, #0xffff
 00260$:
 00183$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:182: GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, gk, look_dx, look_dy);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:182: GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, gk, look_dx, look_dy);
 	ld	a, -22 (ix)
 	add	a, #0x0f
 	ld	l, a
@@ -1770,7 +1770,7 @@ _UpdateGameState_SetPieces::
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerIdleFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P3
 	pop	hl
 	ld	(hl), e
@@ -3307,7 +3307,7 @@ _UpdateGameState_Penalties_End::
 	ld	(hl), b
 	jp	00260$
 00176$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:336: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:336: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 	ld	l, -15 (ix)
 	ld	h, -14 (ix)
 	ld	d, (hl)
@@ -3322,7 +3322,7 @@ _UpdateGameState_Penalties_End::
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerAnimFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P4
 	ld	l, -13 (ix)
 	ld	h, -12 (ix)
@@ -3379,13 +3379,13 @@ _UpdateGameState_Penalties_End::
 	jr	NZ, 00188$
 	ld	b, #0x01
 00188$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:348: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actor_idx, look_dx, look_dy);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:348: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, actor_idx, look_dx, look_dy);
 	push	bc
 	ld	a, -24 (ix)
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerIdleFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P3
 	ld	l, -13 (ix)
 	ld	h, -12 (ix)
@@ -3655,7 +3655,7 @@ _UpdateGameState_Penalties_End::
 	ld	-29 (ix), #0x01
 	ld	-28 (ix), #0x02
 	ld	-27 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:376: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:376: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
 	ld	a, -19 (ix)
 	add	a, #0x0f
 	ld	-9 (ix), a
@@ -3702,7 +3702,7 @@ _UpdateGameState_Penalties_End::
 	push	af
 	inc	sp
 	ld	de, #_GetPlayerAnimFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P4
 	ld	l, -9 (ix)
 	ld	h, -8 (ix)
@@ -4155,7 +4155,7 @@ _UpdateGameState_Penalties_End::
 	ld	h, -6 (ix)
 	ld	a, (hl)
 	ld	-6 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:376: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:376: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
 	ld	a, -19 (ix)
 	add	a, #0x0f
 	ld	-10 (ix), a
@@ -4277,7 +4277,7 @@ _UpdateGameState_Penalties_End::
 	sub	a, #0x07
 	jr	NZ, 00223$
 00222$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:411: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, step);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:411: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, step);
 	ld	l, -13 (ix)
 	ld	h, -12 (ix)
 	ld	a, (hl)
@@ -4289,7 +4289,7 @@ _UpdateGameState_Penalties_End::
 	ld	l, -1 (ix)
 	push	hl
 	ld	de, #_GetPlayerAnimFrame
-	ld	a, #0x0b
+	ld	a, #0x13
 	call	_CallFnc_U16_P4
 	ld	-7 (ix), e
 	ld	-6 (ix), d

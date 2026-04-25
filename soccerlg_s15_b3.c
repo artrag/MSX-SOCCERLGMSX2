@@ -123,7 +123,7 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				
 				GK->anim++;
 				const u8 walk_seq[4] = {0, 1, 2, 1};
-				GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
+				GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
 			} else {
 				// IL RINVIO: lancio immediato verso il centrocampo
 				u8 target = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
@@ -179,7 +179,7 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				i8 look_dx = (Ball->lx > GK->lx) ? 1 : ((Ball->lx < GK->lx) ? -1 : 0);
 				i8 look_dy = (Ball->ly > GK->ly) ? 1 : ((Ball->ly < GK->ly) ? -1 : 0);
 				if (look_dx == 0 && look_dy == 0) look_dy = (gk == 0) ? 1 : -1;
-				GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, gk, look_dx, look_dy);
+				GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, gk, look_dx, look_dy);
 			}
 		}
 	}
@@ -333,7 +333,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
 					} else {
 						// FIX: Utilizziamo actor_idx e non 'i' per garantire l'indice e i colori della maglietta corretti
-						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
+						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 					}
 				} else {
 					p->dx = 0; p->dy = 0;
@@ -345,7 +345,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					}
 					if (look_dx == 0 && look_dy == 0) look_dy = 1;
 					// FIX: Utilizziamo actor_idx anche per la posa idle una volta fermi
-					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_2, GetPlayerIdleFrame, actor_idx, look_dx, look_dy);
+					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, actor_idx, look_dx, look_dy);
 				}
 			}
 
@@ -373,7 +373,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 						p->ly = (p->ly + p->dy) & 511; // Evita l'underflow matematico
 						p->anim++;
 						const u8 walk_seq[4] = {0, 1, 2, 1};
-						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
 					} else {
 						p->ly = 1000;
 					}
@@ -408,7 +408,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 						}
 					} else {
 						if (i == 0 || i == 7) {
-							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_2, GetPlayerAnimFrame, i, p->dx, p->dy, step);
+							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, step);
 						} else {
 							p->frame = (team == TEAM_1) ? 
 								((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
