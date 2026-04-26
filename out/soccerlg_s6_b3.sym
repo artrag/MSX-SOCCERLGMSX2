@@ -12,7 +12,7 @@ Symbol Table
     _CallFnc_VOID                                                   ******** GX
     _EventBallKicked                                                ******** GX
     _Field                                                          ******** GX
-  7 _FindReceiver                                                   00001C02 GR
+  7 _FindReceiver                                                   00001CFE GR
     _Frms                                                           ******** GX
     _GameMode                                                       ******** GX
     _GetPlayerAnimFrame                                             ******** GX
@@ -282,6 +282,7 @@ Symbol Table
     _g_YSAVE                                                    =   0000FB00 G
     _g_closest_t1                                                   ******** GX
     _g_closest_t2                                                   ******** GX
+    _g_h_arrow_x                                                    ******** GX
     _g_is_ball_carried                                              ******** GX
     _g_pass_max_frames                                              ******** GX
     _g_pass_max_height                                              ******** GX
@@ -290,6 +291,7 @@ Symbol Table
     _g_pass_start_y                                                 ******** GX
     _g_pass_target_x                                                ******** GX
     _g_pass_target_y                                                ******** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
@@ -303,7 +305,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     1E68   flags    0
+   7 _SEG6                                      size     1F64   flags    0
    8 _INITIALIZER                               size       1C   flags    0
    9 _CABS                                      size        0   flags    8
 

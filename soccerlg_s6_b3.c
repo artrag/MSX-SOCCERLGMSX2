@@ -303,20 +303,30 @@ void PlayerAI(u8 i)
 					if (d_bx + d_by <= 26 && Ball->anim == 0) {
 						bool action_taken = FALSE;
 						
-						// Tiro in porta (se campo scrollato e abbastanza vicino)
-						if (Field.ly >= 320 && Player->ly > 360) { // Scrolling completo e in area di tiro
-							u8 rand_shot = (Player->lx + Frms) % 100;
-							
-							// Propensione al tiro: da 5% (Stat 1) a 25% (Stat 5)
-							u8 shot_prob = 5 + (g_ActiveStats[team].aggro_attack * 4);
-							if (rand_shot < shot_prob) { 
-								action_taken = TRUE;
-								Ball->anim = 0; Ball->count = 0;
-								g_pass_receiver = 0xFF;
-								g_pass_start_x = Player->lx;
-								g_pass_start_y = Player->ly;
-								g_pass_target_x = 96 + (Frms % 48); // Posizione casuale nello specchio della porta (96-143)
-								g_pass_target_y = 496; // Dentro la porta
+					// Tiro in porta: solo quando il campo è completamente scrollato verso la porta avversaria
+					// (stesso vincolo del tiro umano: Field.ly == FIELD_HEIGHT - 192)
+					// La freccia non è visibile in P1vsCPU ma l'oscillazione di g_h_arrow_x è calcolata ugualmente
+					if (Field.ly == (FIELD_HEIGHT - 192)) {
+						u8 rand_shot = (Player->lx + Frms) % 100;
+						u8 shot_prob = 0;
+						if (Player->ly > 380) {
+							// Zona ravvicinata / bordo area: probabilità alta
+							shot_prob = 50 + (g_ActiveStats[team].aggro_attack * 6); // 56-80%
+						} else if (Player->ly > 300) {
+							// Zona di tiro media: prima dell'area
+							shot_prob = 18 + (g_ActiveStats[team].aggro_attack * 5); // 23-43%
+						} else if (Player->ly > 260) {
+							// Tiro lungo: possibile ma raro
+							shot_prob = 6 + (g_ActiveStats[team].aggro_attack * 3); // 9-21%
+						}
+						if (shot_prob > 0 && rand_shot < shot_prob) {
+							action_taken = TRUE;
+							Ball->anim = 0; Ball->count = 0;
+							g_pass_receiver = 0xFF;
+							g_pass_start_x = Player->lx;
+							g_pass_start_y = Player->ly;
+							g_pass_target_x = g_h_arrow_x; // Freccia non visibile ma oscilla come quella umana
+							g_pass_target_y = 496; // Dentro la porta Sud
 								
 								u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 								u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);

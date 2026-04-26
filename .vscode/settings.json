@@ -70,6 +70,10 @@
         "/^cmd /c \"build\\.bat > build_output\\.txt 2>&1\" ; Get-Content build_output\\.txt \\| Select-String \"Seg\\\\\\[0009\\\\\\]\\|error\\|Exit code\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^cmd /c build\\.bat$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
