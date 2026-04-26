@@ -316,7 +316,7 @@
                                     316 ; code
                                     317 ;--------------------------------------------------------
                                     318 	.area _SEG5
-                                    319 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:11: void PlotField(u16 y,u16 page)
+                                    319 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:11: void PlotField(u16 y,u16 page)
                                     320 ;	---------------------------------
                                     321 ; Function PlotField
                                     322 ; ---------------------------------
@@ -330,7 +330,7 @@
     0000000B 44               [ 4]  330 	ld	b, h
     0000000C DD 73 FE         [19]  331 	ld	-2 (ix), e
     0000000F DD 72 FF         [19]  332 	ld	-1 (ix), d
-                                    333 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:13: for (u16 i=y; i<y+192; i++) {
+                                    333 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:13: for (u16 i=y; i<y+192; i++) {
     00000012 C5               [11]  334 	push	bc
     00000013 FD E1            [14]  335 	pop	iy
     00000015                        336 00104$:
@@ -345,7 +345,7 @@
     00000020 7A               [ 4]  345 	ld	a, d
     00000021 9C               [ 4]  346 	sbc	a, h
     00000022 30 55            [12]  347 	jr	NC, 00106$
-                                    348 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:14: VDP_CommandYMMM(FieldMap[i&511]+768, 0, (i&255)+page, 1, 0);		
+                                    348 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:14: VDP_CommandYMMM(FieldMap[i&511]+768, 0, (i&255)+page, 1, 0);		
     00000024 7B               [ 4]  349 	ld	a, e
     00000025 2E 00            [ 7]  350 	ld	l, #0x00
                                     351 ;	spillPairReg hl
@@ -369,38 +369,38 @@
     00000041 7A               [ 4]  369 	ld	a, d
     00000042 C6 03            [ 7]  370 	add	a, #0x03
     00000044 57               [ 4]  371 	ld	d, a
-                                    372 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
+                                    372 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
     00000045 ED 53r02r00      [20]  373 	ld	((_g_VDP_Command + 2)), de
-                                    374 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
+                                    374 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
     00000049 21 00 00         [10]  375 	ld	hl, #0x0000
     0000004C 22r04r00         [16]  376 	ld	((_g_VDP_Command + 4)), hl
-                                    377 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
+                                    377 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
     0000004F 21r06r00         [10]  378 	ld	hl, #(_g_VDP_Command + 6)
     00000052 DD 7E FC         [19]  379 	ld	a, -4 (ix)
     00000055 77               [ 7]  380 	ld	(hl), a
     00000056 23               [ 6]  381 	inc	hl
     00000057 DD 7E FD         [19]  382 	ld	a, -3 (ix)
     0000005A 77               [ 7]  383 	ld	(hl), a
-                                    384 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
+                                    384 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
     0000005B 21 01 00         [10]  385 	ld	hl, #0x0001
     0000005E 22r0Ar00         [16]  386 	ld	((_g_VDP_Command + 10)), hl
-                                    387 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
+                                    387 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
     00000061 21r0Dr00         [10]  388 	ld	hl, #(_g_VDP_Command + 13)
     00000064 36 00            [10]  389 	ld	(hl), #0x00
-                                    390 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
+                                    390 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
     00000066 21r0Er00         [10]  391 	ld	hl, #(_g_VDP_Command + 14)
     00000069 36 E0            [10]  392 	ld	(hl), #0xe0
-                                    393 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
+                                    393 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
     0000006B C5               [11]  394 	push	bc
     0000006C FD E5            [15]  395 	push	iy
     0000006E CDr00r00         [17]  396 	call	_VPD_CommandSetupR32
     00000071 FD E1            [14]  397 	pop	iy
     00000073 C1               [10]  398 	pop	bc
-                                    399 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:13: for (u16 i=y; i<y+192; i++) {
+                                    399 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:13: for (u16 i=y; i<y+192; i++) {
     00000074 FD 23            [10]  400 	inc	iy
     00000076 C3r15r00         [10]  401 	jp	00104$
     00000079                        402 00106$:
-                                    403 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:16: }
+                                    403 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:16: }
     00000079 DD F9            [10]  404 	ld	sp, ix
     0000007B DD E1            [14]  405 	pop	ix
     0000007D C9               [10]  406 	ret
@@ -1081,7 +1081,7 @@
     0000027B FD                    1081 	.db #0xfd	; 253
     0000027C FE                    1082 	.db #0xfe	; 254
     0000027D FF                    1083 	.db #0xff	; 255
-                                   1084 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:20: void RemoveSwSprite(u8 px,u16 py,u16 page) 
+                                   1084 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:20: void RemoveSwSprite(u8 px,u16 py,u16 page) 
                                    1085 ;	---------------------------------
                                    1086 ; Function RemoveSwSprite
                                    1087 ; ---------------------------------
@@ -1095,7 +1095,7 @@
     0000028B DD 77 FF         [19] 1095 	ld	-1 (ix), a
     0000028E DD 73 FD         [19] 1096 	ld	-3 (ix), e
     00000291 DD 72 FE         [19] 1097 	ld	-2 (ix), d
-                                   1098 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:22: if (py >= 1000) return; // Ignora in modo sicuro gli sprite nascosti
+                                   1098 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:22: if (py >= 1000) return; // Ignora in modo sicuro gli sprite nascosti
     00000294 DD 7E FD         [19] 1099 	ld	a, -3 (ix)
     00000297 DD 77 F0         [19] 1100 	ld	-16 (ix), a
     0000029A DD 7E FE         [19] 1101 	ld	a, -2 (ix)
@@ -1105,7 +1105,7 @@
     000002A5 DD 7E F1         [19] 1105 	ld	a, -15 (ix)
     000002A8 DE 03            [ 7] 1106 	sbc	a, #0x03
     000002AA D2r0Dr05         [10] 1107 	jp	NC,00115$
-                                   1108 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:23: u16 diff = (py + 512 - Field.ly) & 511;
+                                   1108 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:23: u16 diff = (py + 512 - Field.ly) & 511;
     000002AD DD 5E F0         [19] 1109 	ld	e, -16 (ix)
     000002B0 DD 7E F1         [19] 1110 	ld	a, -15 (ix)
     000002B3 C6 02            [ 7] 1111 	add	a, #0x02
@@ -1119,7 +1119,7 @@
     000002C1 67               [ 4] 1119 	ld	h, a
                                    1120 ;	spillPairReg hl
                                    1121 ;	spillPairReg hl
-                                   1122 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:24: if (diff < 224 || diff > 480) 
+                                   1122 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:24: if (diff < 224 || diff > 480) 
     000002C2 7D               [ 4] 1123 	ld	a, l
     000002C3 D6 E0            [ 7] 1124 	sub	a, #0xe0
     000002C5 7C               [ 4] 1125 	ld	a, h
@@ -1131,10 +1131,10 @@
     000002CF 9C               [ 4] 1131 	sbc	a, h
     000002D0 D2r0Dr05         [10] 1132 	jp	NC, 00115$
     000002D3                       1133 00106$:
-                                   1134 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:26: if SplitSprite(py) {
+                                   1134 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:26: if SplitSprite(py) {
     000002D3 DD 4E F0         [19] 1135 	ld	c, -16 (ix)
     000002D6 06 00            [ 7] 1136 	ld	b, #0x00
-                                   1137 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:28: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
+                                   1137 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:28: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
     000002D8 DD 7E FF         [19] 1138 	ld	a, -1 (ix)
     000002DB DD 77 F2         [19] 1139 	ld	-14 (ix), a
     000002DE DD 36 F3 00      [19] 1140 	ld	-13 (ix), #0x00
@@ -1150,16 +1150,16 @@
     000002F8 7B               [ 4] 1150 	ld	a, e
     000002F9 DD 8E 05         [19] 1151 	adc	a, 5 (ix)
     000002FC DD 77 FC         [19] 1152 	ld	-4 (ix), a
-                                   1153 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:26: if SplitSprite(py) {
+                                   1153 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:26: if SplitSprite(py) {
     000002FF 3E F0            [ 7] 1154 	ld	a, #0xf0
     00000301 B9               [ 4] 1155 	cp	a, c
     00000302 3E 00            [ 7] 1156 	ld	a, #0x00
     00000304 98               [ 4] 1157 	sbc	a, b
     00000305 D2r80r04         [10] 1158 	jp	NC, 00104$
-                                   1159 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:27: u8 t = 256 - (py & 255) ;
+                                   1159 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:27: u8 t = 256 - (py & 255) ;
     00000308 DD 7E FD         [19] 1160 	ld	a, -3 (ix)
     0000030B ED 44            [ 8] 1161 	neg
-                                   1162 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:28: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
+                                   1162 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:28: VDP_CommandHMMM(px,FieldMap[(py)    &511]+768,px,((py)&255)+page,16,  t);	
     0000030D DD 77 F4         [19] 1163 	ld	-12 (ix), a
     00000310 DD 77 F5         [19] 1164 	ld	-11 (ix), a
     00000313 DD 36 F6 00      [19] 1165 	ld	-10 (ix), #0x00
@@ -1188,53 +1188,53 @@
     00000356 DD 7E EF         [19] 1188 	ld	a, -17 (ix)
     00000359 C6 03            [ 7] 1189 	add	a, #0x03
     0000035B DD 77 FC         [19] 1190 	ld	-4 (ix), a
-                                   1191 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1191 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     0000035E 21r00r00         [10] 1192 	ld	hl, #_g_VDP_Command
     00000361 DD 7E F2         [19] 1193 	ld	a, -14 (ix)
     00000364 77               [ 7] 1194 	ld	(hl), a
     00000365 23               [ 6] 1195 	inc	hl
     00000366 DD 7E F3         [19] 1196 	ld	a, -13 (ix)
     00000369 77               [ 7] 1197 	ld	(hl), a
-                                   1198 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1198 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000036A 21r02r00         [10] 1199 	ld	hl, #(_g_VDP_Command + 2)
     0000036D DD 7E FB         [19] 1200 	ld	a, -5 (ix)
     00000370 77               [ 7] 1201 	ld	(hl), a
     00000371 23               [ 6] 1202 	inc	hl
     00000372 DD 7E FC         [19] 1203 	ld	a, -4 (ix)
     00000375 77               [ 7] 1204 	ld	(hl), a
-                                   1205 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1205 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000376 21r04r00         [10] 1206 	ld	hl, #(_g_VDP_Command + 4)
     00000379 DD 7E F9         [19] 1207 	ld	a, -7 (ix)
     0000037C 77               [ 7] 1208 	ld	(hl), a
     0000037D 23               [ 6] 1209 	inc	hl
     0000037E DD 7E FA         [19] 1210 	ld	a, -6 (ix)
     00000381 77               [ 7] 1211 	ld	(hl), a
-                                   1212 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1212 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000382 21r06r00         [10] 1213 	ld	hl, #(_g_VDP_Command + 6)
     00000385 DD 7E F7         [19] 1214 	ld	a, -9 (ix)
     00000388 77               [ 7] 1215 	ld	(hl), a
     00000389 23               [ 6] 1216 	inc	hl
     0000038A DD 7E F8         [19] 1217 	ld	a, -8 (ix)
     0000038D 77               [ 7] 1218 	ld	(hl), a
-                                   1219 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1219 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     0000038E 21 10 00         [10] 1220 	ld	hl, #0x0010
     00000391 22r08r00         [16] 1221 	ld	((_g_VDP_Command + 8)), hl
-                                   1222 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1222 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000394 21r0Ar00         [10] 1223 	ld	hl, #(_g_VDP_Command + 10)
     00000397 DD 7E F5         [19] 1224 	ld	a, -11 (ix)
     0000039A 77               [ 7] 1225 	ld	(hl), a
     0000039B 23               [ 6] 1226 	inc	hl
     0000039C DD 7E F6         [19] 1227 	ld	a, -10 (ix)
     0000039F 77               [ 7] 1228 	ld	(hl), a
-                                   1229 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1229 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     000003A0 21r0Dr00         [10] 1230 	ld	hl, #(_g_VDP_Command + 13)
     000003A3 36 00            [10] 1231 	ld	(hl), #0x00
-                                   1232 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1232 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     000003A5 21r0Er00         [10] 1233 	ld	hl, #(_g_VDP_Command + 14)
     000003A8 36 D0            [10] 1234 	ld	(hl), #0xd0
-                                   1235 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1235 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     000003AA CDr00r00         [17] 1236 	call	_VPD_CommandSetupR32
-                                   1237 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:29: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
+                                   1237 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:29: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
     000003AD DD 7E F4         [19] 1238 	ld	a, -12 (ix)
     000003B0 DD 77 FB         [19] 1239 	ld	-5 (ix), a
     000003B3 DD 36 FC 00      [19] 1240 	ld	-4 (ix), #0x00
@@ -1281,56 +1281,56 @@
     00000425 DD 77 FB         [19] 1281 	ld	-5 (ix), a
     00000428 DD 7E F6         [19] 1282 	ld	a, -10 (ix)
     0000042B DD 77 FC         [19] 1283 	ld	-4 (ix), a
-                                   1284 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1284 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     0000042E 21r00r00         [10] 1285 	ld	hl, #_g_VDP_Command
     00000431 DD 7E F2         [19] 1286 	ld	a, -14 (ix)
     00000434 77               [ 7] 1287 	ld	(hl), a
     00000435 23               [ 6] 1288 	inc	hl
     00000436 DD 7E F3         [19] 1289 	ld	a, -13 (ix)
     00000439 77               [ 7] 1290 	ld	(hl), a
-                                   1291 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1291 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000043A 21r02r00         [10] 1292 	ld	hl, #(_g_VDP_Command + 2)
     0000043D DD 7E FB         [19] 1293 	ld	a, -5 (ix)
     00000440 77               [ 7] 1294 	ld	(hl), a
     00000441 23               [ 6] 1295 	inc	hl
     00000442 DD 7E FC         [19] 1296 	ld	a, -4 (ix)
     00000445 77               [ 7] 1297 	ld	(hl), a
-                                   1298 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1298 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000446 21r04r00         [10] 1299 	ld	hl, #(_g_VDP_Command + 4)
     00000449 DD 7E F2         [19] 1300 	ld	a, -14 (ix)
     0000044C 77               [ 7] 1301 	ld	(hl), a
     0000044D 23               [ 6] 1302 	inc	hl
     0000044E DD 7E F3         [19] 1303 	ld	a, -13 (ix)
     00000451 77               [ 7] 1304 	ld	(hl), a
-                                   1305 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1305 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000452 21r06r00         [10] 1306 	ld	hl, #(_g_VDP_Command + 6)
     00000455 DD 7E F9         [19] 1307 	ld	a, -7 (ix)
     00000458 77               [ 7] 1308 	ld	(hl), a
     00000459 23               [ 6] 1309 	inc	hl
     0000045A DD 7E FA         [19] 1310 	ld	a, -6 (ix)
     0000045D 77               [ 7] 1311 	ld	(hl), a
-                                   1312 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1312 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     0000045E 21 10 00         [10] 1313 	ld	hl, #0x0010
     00000461 22r08r00         [16] 1314 	ld	((_g_VDP_Command + 8)), hl
-                                   1315 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1315 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000464 21r0Ar00         [10] 1316 	ld	hl, #(_g_VDP_Command + 10)
     00000467 DD 7E F7         [19] 1317 	ld	a, -9 (ix)
     0000046A 77               [ 7] 1318 	ld	(hl), a
     0000046B 23               [ 6] 1319 	inc	hl
     0000046C DD 7E F8         [19] 1320 	ld	a, -8 (ix)
     0000046F 77               [ 7] 1321 	ld	(hl), a
-                                   1322 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1322 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000470 21r0Dr00         [10] 1323 	ld	hl, #(_g_VDP_Command + 13)
     00000473 36 00            [10] 1324 	ld	(hl), #0x00
-                                   1325 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1325 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000475 21r0Er00         [10] 1326 	ld	hl, #(_g_VDP_Command + 14)
     00000478 36 D0            [10] 1327 	ld	(hl), #0xd0
-                                   1328 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1328 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000047A CDr00r00         [17] 1329 	call	_VPD_CommandSetupR32
-                                   1330 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:29: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
+                                   1330 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:29: VDP_CommandHMMM(px,FieldMap[((py)+t)&511]+768,px,           page,16,16-t);	
     0000047D C3r0Dr05         [10] 1331 	jp	00115$
     00000480                       1332 00104$:
-                                   1333 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:32: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
+                                   1333 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:32: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
     00000480 DD 7E F2         [19] 1334 	ld	a, -14 (ix)
     00000483 DD 77 F7         [19] 1335 	ld	-9 (ix), a
     00000486 DD 7E F3         [19] 1336 	ld	a, -13 (ix)
@@ -1356,56 +1356,56 @@
     000004BE DD 77 F9         [19] 1356 	ld	-7 (ix), a
     000004C1 DD 7E F6         [19] 1357 	ld	a, -10 (ix)
     000004C4 DD 77 FA         [19] 1358 	ld	-6 (ix), a
-                                   1359 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1359 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     000004C7 21r00r00         [10] 1360 	ld	hl, #_g_VDP_Command
     000004CA DD 7E F2         [19] 1361 	ld	a, -14 (ix)
     000004CD 77               [ 7] 1362 	ld	(hl), a
     000004CE 23               [ 6] 1363 	inc	hl
     000004CF DD 7E F3         [19] 1364 	ld	a, -13 (ix)
     000004D2 77               [ 7] 1365 	ld	(hl), a
-                                   1366 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1366 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     000004D3 21r02r00         [10] 1367 	ld	hl, #(_g_VDP_Command + 2)
     000004D6 DD 7E F9         [19] 1368 	ld	a, -7 (ix)
     000004D9 77               [ 7] 1369 	ld	(hl), a
     000004DA 23               [ 6] 1370 	inc	hl
     000004DB DD 7E FA         [19] 1371 	ld	a, -6 (ix)
     000004DE 77               [ 7] 1372 	ld	(hl), a
-                                   1373 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1373 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     000004DF 21r04r00         [10] 1374 	ld	hl, #(_g_VDP_Command + 4)
     000004E2 DD 7E F7         [19] 1375 	ld	a, -9 (ix)
     000004E5 77               [ 7] 1376 	ld	(hl), a
     000004E6 23               [ 6] 1377 	inc	hl
     000004E7 DD 7E F8         [19] 1378 	ld	a, -8 (ix)
     000004EA 77               [ 7] 1379 	ld	(hl), a
-                                   1380 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1380 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     000004EB 21r06r00         [10] 1381 	ld	hl, #(_g_VDP_Command + 6)
     000004EE DD 7E FB         [19] 1382 	ld	a, -5 (ix)
     000004F1 77               [ 7] 1383 	ld	(hl), a
     000004F2 23               [ 6] 1384 	inc	hl
     000004F3 DD 7E FC         [19] 1385 	ld	a, -4 (ix)
     000004F6 77               [ 7] 1386 	ld	(hl), a
-                                   1387 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1387 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     000004F7 21 10 00         [10] 1388 	ld	hl, #0x0010
     000004FA 22r08r00         [16] 1389 	ld	((_g_VDP_Command + 8)), hl
-                                   1390 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1390 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     000004FD 22r0Ar00         [16] 1391 	ld	((_g_VDP_Command + 10)), hl
-                                   1392 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1392 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000500 21r0Dr00         [10] 1393 	ld	hl, #(_g_VDP_Command + 13)
     00000503 36 00            [10] 1394 	ld	(hl), #0x00
-                                   1395 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1395 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000505 21r0Er00         [10] 1396 	ld	hl, #(_g_VDP_Command + 14)
     00000508 36 D0            [10] 1397 	ld	(hl), #0xd0
-                                   1398 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1398 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000050A CDr00r00         [17] 1399 	call	_VPD_CommandSetupR32
-                                   1400 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:32: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
+                                   1400 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:32: VDP_CommandHMMM(px,FieldMap[(py)&511]+768,px, ((py)&255)+page,16, 16);	
     0000050D                       1401 00115$:
-                                   1402 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:34: }
+                                   1402 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:34: }
     0000050D DD F9            [10] 1403 	ld	sp, ix
     0000050F DD E1            [14] 1404 	pop	ix
     00000511 E1               [10] 1405 	pop	hl
     00000512 F1               [10] 1406 	pop	af
     00000513 E9               [ 4] 1407 	jp	(hl)
-                                   1408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:36: void RemoveScoreBoardLeft(u8 px,u16 py,u16 page)
+                                   1408 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:36: void RemoveScoreBoardLeft(u8 px,u16 py,u16 page)
                                    1409 ;	---------------------------------
                                    1410 ; Function RemoveScoreBoardLeft
                                    1411 ; ---------------------------------
@@ -1419,7 +1419,7 @@
     00000521 4F               [ 4] 1419 	ld	c, a
     00000522 DD 73 FE         [19] 1420 	ld	-2 (ix), e
     00000525 DD 72 FF         [19] 1421 	ld	-1 (ix), d
-                                   1422 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
+                                   1422 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:38: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
     00000528 DD 7E FE         [19] 1423 	ld	a, -2 (ix)
     0000052B DD 77 F5         [19] 1424 	ld	-11 (ix), a
     0000052E DD 7E FF         [19] 1425 	ld	a, -1 (ix)
@@ -1427,7 +1427,7 @@
     00000534 DD 7E F5         [19] 1427 	ld	a, -11 (ix)
     00000537 DD 77 FC         [19] 1428 	ld	-4 (ix), a
     0000053A DD 36 FD 00      [19] 1429 	ld	-3 (ix), #0x00
-                                   1430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:41: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
+                                   1430 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:41: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
     0000053E DD 71 F7         [19] 1431 	ld	-9 (ix), c
     00000541 DD 36 F8 00      [19] 1432 	ld	-8 (ix), #0x00
     00000545 DD 4E F5         [19] 1433 	ld	c, -11 (ix)
@@ -1441,16 +1441,16 @@
     00000558 7A               [ 4] 1441 	ld	a, d
     00000559 DD 8E 05         [19] 1442 	adc	a, 5 (ix)
     0000055C 57               [ 4] 1443 	ld	d, a
-                                   1444 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:38: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
+                                   1444 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:38: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
     0000055D 3E 2C            [ 7] 1445 	ld	a, #0x2c
     0000055F DD BE FC         [19] 1446 	cp	a, -4 (ix)
     00000562 3E 00            [ 7] 1447 	ld	a, #0x00
     00000564 DD 9E FD         [19] 1448 	sbc	a, -3 (ix)
     00000567 D2r41r06         [10] 1449 	jp	NC, 00102$
-                                   1450 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:40: u8 t = 256 - (py & 255) ;
+                                   1450 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:40: u8 t = 256 - (py & 255) ;
     0000056A DD 7E FE         [19] 1451 	ld	a, -2 (ix)
     0000056D ED 44            [ 8] 1452 	neg
-                                   1453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:41: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
+                                   1453 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:41: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
     0000056F DD 77 F9         [19] 1454 	ld	-7 (ix), a
     00000572 DD 77 FA         [19] 1455 	ld	-6 (ix), a
     00000575 DD 36 FB 00      [19] 1456 	ld	-5 (ix), #0x00
@@ -1469,43 +1469,43 @@
     0000058D 7C               [ 4] 1469 	ld	a, h
     0000058E C6 03            [ 7] 1470 	add	a, #0x03
     00000590 47               [ 4] 1471 	ld	b, a
-                                   1472 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1472 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000591 21r00r00         [10] 1473 	ld	hl, #_g_VDP_Command
     00000594 DD 7E F7         [19] 1474 	ld	a, -9 (ix)
     00000597 77               [ 7] 1475 	ld	(hl), a
     00000598 23               [ 6] 1476 	inc	hl
     00000599 DD 7E F8         [19] 1477 	ld	a, -8 (ix)
     0000059C 77               [ 7] 1478 	ld	(hl), a
-                                   1479 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1479 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000059D ED 43r02r00      [20] 1480 	ld	((_g_VDP_Command + 2)), bc
-                                   1481 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1481 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     000005A1 ED 53r04r00      [20] 1482 	ld	((_g_VDP_Command + 4)), de
-                                   1483 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1483 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     000005A5 21r06r00         [10] 1484 	ld	hl, #(_g_VDP_Command + 6)
     000005A8 DD 7E FC         [19] 1485 	ld	a, -4 (ix)
     000005AB 77               [ 7] 1486 	ld	(hl), a
     000005AC 23               [ 6] 1487 	inc	hl
     000005AD DD 7E FD         [19] 1488 	ld	a, -3 (ix)
     000005B0 77               [ 7] 1489 	ld	(hl), a
-                                   1490 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1490 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     000005B1 21 08 00         [10] 1491 	ld	hl, #0x0008
     000005B4 22r08r00         [16] 1492 	ld	((_g_VDP_Command + 8)), hl
-                                   1493 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1493 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     000005B7 21r0Ar00         [10] 1494 	ld	hl, #(_g_VDP_Command + 10)
     000005BA DD 7E FA         [19] 1495 	ld	a, -6 (ix)
     000005BD 77               [ 7] 1496 	ld	(hl), a
     000005BE 23               [ 6] 1497 	inc	hl
     000005BF DD 7E FB         [19] 1498 	ld	a, -5 (ix)
     000005C2 77               [ 7] 1499 	ld	(hl), a
-                                   1500 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1500 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     000005C3 21r0Dr00         [10] 1501 	ld	hl, #(_g_VDP_Command + 13)
     000005C6 36 00            [10] 1502 	ld	(hl), #0x00
-                                   1503 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1503 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     000005C8 21r0Er00         [10] 1504 	ld	hl, #(_g_VDP_Command + 14)
     000005CB 36 D0            [10] 1505 	ld	(hl), #0xd0
-                                   1506 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1506 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     000005CD CDr00r00         [17] 1507 	call	_VPD_CommandSetupR32
-                                   1508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:42: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
+                                   1508 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:42: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
     000005D0 DD 5E F9         [19] 1509 	ld	e, -7 (ix)
     000005D3 16 00            [ 7] 1510 	ld	d, #0x00
     000005D5 21 D4 00         [10] 1511 	ld	hl, #0x00d4
@@ -1533,46 +1533,46 @@
     000005FB 7C               [ 4] 1533 	ld	a, h
     000005FC C6 03            [ 7] 1534 	add	a, #0x03
     000005FE 57               [ 4] 1535 	ld	d, a
-                                   1536 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1536 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     000005FF 21r00r00         [10] 1537 	ld	hl, #_g_VDP_Command
     00000602 DD 7E F7         [19] 1538 	ld	a, -9 (ix)
     00000605 77               [ 7] 1539 	ld	(hl), a
     00000606 23               [ 6] 1540 	inc	hl
     00000607 DD 7E F8         [19] 1541 	ld	a, -8 (ix)
     0000060A 77               [ 7] 1542 	ld	(hl), a
-                                   1543 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1543 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000060B ED 53r02r00      [20] 1544 	ld	((_g_VDP_Command + 2)), de
-                                   1545 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1545 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     0000060F 21r04r00         [10] 1546 	ld	hl, #(_g_VDP_Command + 4)
     00000612 DD 7E F7         [19] 1547 	ld	a, -9 (ix)
     00000615 77               [ 7] 1548 	ld	(hl), a
     00000616 23               [ 6] 1549 	inc	hl
     00000617 DD 7E F8         [19] 1550 	ld	a, -8 (ix)
     0000061A 77               [ 7] 1551 	ld	(hl), a
-                                   1552 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1552 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     0000061B ED 43r06r00      [20] 1553 	ld	((_g_VDP_Command + 6)), bc
-                                   1554 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1554 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     0000061F 21 08 00         [10] 1555 	ld	hl, #0x0008
     00000622 22r08r00         [16] 1556 	ld	((_g_VDP_Command + 8)), hl
-                                   1557 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1557 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000625 21r0Ar00         [10] 1558 	ld	hl, #(_g_VDP_Command + 10)
     00000628 DD 7E FC         [19] 1559 	ld	a, -4 (ix)
     0000062B 77               [ 7] 1560 	ld	(hl), a
     0000062C 23               [ 6] 1561 	inc	hl
     0000062D DD 7E FD         [19] 1562 	ld	a, -3 (ix)
     00000630 77               [ 7] 1563 	ld	(hl), a
-                                   1564 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1564 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000631 21r0Dr00         [10] 1565 	ld	hl, #(_g_VDP_Command + 13)
     00000634 36 00            [10] 1566 	ld	(hl), #0x00
-                                   1567 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1567 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000636 21r0Er00         [10] 1568 	ld	hl, #(_g_VDP_Command + 14)
     00000639 36 D0            [10] 1569 	ld	(hl), #0xd0
-                                   1570 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1570 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000063B CDr00r00         [17] 1571 	call	_VPD_CommandSetupR32
-                                   1572 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:42: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
+                                   1572 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:42: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
     0000063E C3r91r06         [10] 1573 	jp	00110$
     00000641                       1574 00102$:
-                                   1575 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:45: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
+                                   1575 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:45: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
     00000641 DD 7E F7         [19] 1576 	ld	a, -9 (ix)
     00000644 DD 77 FC         [19] 1577 	ld	-4 (ix), a
     00000647 DD 7E F8         [19] 1578 	ld	a, -8 (ix)
@@ -1588,47 +1588,47 @@
     00000655 7C               [ 4] 1588 	ld	a, h
     00000656 C6 03            [ 7] 1589 	add	a, #0x03
     00000658 47               [ 4] 1590 	ld	b, a
-                                   1591 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1591 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000659 21r00r00         [10] 1592 	ld	hl, #_g_VDP_Command
     0000065C DD 7E F7         [19] 1593 	ld	a, -9 (ix)
     0000065F 77               [ 7] 1594 	ld	(hl), a
     00000660 23               [ 6] 1595 	inc	hl
     00000661 DD 7E F8         [19] 1596 	ld	a, -8 (ix)
     00000664 77               [ 7] 1597 	ld	(hl), a
-                                   1598 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1598 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     00000665 ED 43r02r00      [20] 1599 	ld	((_g_VDP_Command + 2)), bc
-                                   1600 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1600 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000669 21r04r00         [10] 1601 	ld	hl, #(_g_VDP_Command + 4)
     0000066C DD 7E FC         [19] 1602 	ld	a, -4 (ix)
     0000066F 77               [ 7] 1603 	ld	(hl), a
     00000670 23               [ 6] 1604 	inc	hl
     00000671 DD 7E FD         [19] 1605 	ld	a, -3 (ix)
     00000674 77               [ 7] 1606 	ld	(hl), a
-                                   1607 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1607 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000675 ED 53r06r00      [20] 1608 	ld	((_g_VDP_Command + 6)), de
-                                   1609 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1609 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000679 21 08 00         [10] 1610 	ld	hl, #0x0008
     0000067C 22r08r00         [16] 1611 	ld	((_g_VDP_Command + 8)), hl
-                                   1612 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1612 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     0000067F 2E D4            [ 7] 1613 	ld	l, #0xd4
     00000681 22r0Ar00         [16] 1614 	ld	((_g_VDP_Command + 10)), hl
-                                   1615 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1615 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000684 21r0Dr00         [10] 1616 	ld	hl, #(_g_VDP_Command + 13)
     00000687 36 00            [10] 1617 	ld	(hl), #0x00
-                                   1618 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1618 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000689 21r0Er00         [10] 1619 	ld	hl, #(_g_VDP_Command + 14)
     0000068C 36 D0            [10] 1620 	ld	(hl), #0xd0
-                                   1621 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1621 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000068E CDr00r00         [17] 1622 	call	_VPD_CommandSetupR32
-                                   1623 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:45: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
+                                   1623 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:45: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
     00000691                       1624 00110$:
-                                   1625 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:46: }
+                                   1625 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:46: }
     00000691 DD F9            [10] 1626 	ld	sp, ix
     00000693 DD E1            [14] 1627 	pop	ix
     00000695 E1               [10] 1628 	pop	hl
     00000696 F1               [10] 1629 	pop	af
     00000697 E9               [ 4] 1630 	jp	(hl)
-                                   1631 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:48: void PrintScoreBoardLeft(u8 px,u16 py,u16 page)
+                                   1631 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:48: void PrintScoreBoardLeft(u8 px,u16 py,u16 page)
                                    1632 ;	---------------------------------
                                    1633 ; Function PrintScoreBoardLeft
                                    1634 ; ---------------------------------
@@ -1642,11 +1642,11 @@
     000006A5 4F               [ 4] 1642 	ld	c, a
     000006A6 DD 73 FE         [19] 1643 	ld	-2 (ix), e
     000006A9 DD 72 FF         [19] 1644 	ld	-1 (ix), d
-                                   1645 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:50: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
+                                   1645 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:50: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
     000006AC DD 7E FE         [19] 1646 	ld	a, -2 (ix)
     000006AF DD 77 FC         [19] 1647 	ld	-4 (ix), a
     000006B2 DD 36 FD 00      [19] 1648 	ld	-3 (ix), #0x00
-                                   1649 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
+                                   1649 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
     000006B6 06 00            [ 7] 1650 	ld	b, #0x00
     000006B8 DD 7E FC         [19] 1651 	ld	a, -4 (ix)
     000006BB DD 56 FD         [19] 1652 	ld	d, -3 (ix)
@@ -1655,57 +1655,57 @@
     000006C2 7A               [ 4] 1655 	ld	a, d
     000006C3 DD 8E 05         [19] 1656 	adc	a, 5 (ix)
     000006C6 57               [ 4] 1657 	ld	d, a
-                                   1658 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:50: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
+                                   1658 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:50: if (((py&255)>256-SCOREBOARD_NY_LEFT) ) 
     000006C7 3E 2C            [ 7] 1659 	ld	a, #0x2c
     000006C9 DD BE FC         [19] 1660 	cp	a, -4 (ix)
     000006CC 3E 00            [ 7] 1661 	ld	a, #0x00
     000006CE DD 9E FD         [19] 1662 	sbc	a, -3 (ix)
     000006D1 D2r81r07         [10] 1663 	jp	NC, 00102$
-                                   1664 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:52: u8 t = 256 - (py & 255) ;
+                                   1664 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:52: u8 t = 256 - (py & 255) ;
     000006D4 DD 7E FE         [19] 1665 	ld	a, -2 (ix)
     000006D7 ED 44            [ 8] 1666 	neg
-                                   1667 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
+                                   1667 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:53: VDP_CommandHMMM(0, 768,   px, ((py)&255)+page, SCOREBOARD_NX_LEFT, t);
     000006D9 DD 77 F9         [19] 1668 	ld	-7 (ix), a
     000006DC DD 77 FA         [19] 1669 	ld	-6 (ix), a
     000006DF DD 36 FB 00      [19] 1670 	ld	-5 (ix), #0x00
     000006E3 DD 71 FC         [19] 1671 	ld	-4 (ix), c
     000006E6 DD 70 FD         [19] 1672 	ld	-3 (ix), b
-                                   1673 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1673 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     000006E9 21 00 00         [10] 1674 	ld	hl, #0x0000
     000006EC 22r00r00         [16] 1675 	ld	(_g_VDP_Command), hl
-                                   1676 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1676 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     000006EF 26 03            [ 7] 1677 	ld	h, #0x03
     000006F1 22r02r00         [16] 1678 	ld	((_g_VDP_Command + 2)), hl
-                                   1679 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1679 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     000006F4 21r04r00         [10] 1680 	ld	hl, #(_g_VDP_Command + 4)
     000006F7 DD 7E FC         [19] 1681 	ld	a, -4 (ix)
     000006FA 77               [ 7] 1682 	ld	(hl), a
     000006FB 23               [ 6] 1683 	inc	hl
     000006FC DD 7E FD         [19] 1684 	ld	a, -3 (ix)
     000006FF 77               [ 7] 1685 	ld	(hl), a
-                                   1686 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1686 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000700 ED 53r06r00      [20] 1687 	ld	((_g_VDP_Command + 6)), de
-                                   1688 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1688 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000704 21 08 00         [10] 1689 	ld	hl, #0x0008
     00000707 22r08r00         [16] 1690 	ld	((_g_VDP_Command + 8)), hl
-                                   1691 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1691 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     0000070A 21r0Ar00         [10] 1692 	ld	hl, #(_g_VDP_Command + 10)
     0000070D DD 7E FA         [19] 1693 	ld	a, -6 (ix)
     00000710 77               [ 7] 1694 	ld	(hl), a
     00000711 23               [ 6] 1695 	inc	hl
     00000712 DD 7E FB         [19] 1696 	ld	a, -5 (ix)
     00000715 77               [ 7] 1697 	ld	(hl), a
-                                   1698 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1698 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000716 21r0Dr00         [10] 1699 	ld	hl, #(_g_VDP_Command + 13)
     00000719 36 00            [10] 1700 	ld	(hl), #0x00
-                                   1701 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1701 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     0000071B 21r0Er00         [10] 1702 	ld	hl, #(_g_VDP_Command + 14)
     0000071E 36 D0            [10] 1703 	ld	(hl), #0xd0
-                                   1704 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1704 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     00000720 C5               [11] 1705 	push	bc
     00000721 CDr00r00         [17] 1706 	call	_VPD_CommandSetupR32
     00000724 C1               [10] 1707 	pop	bc
-                                   1708 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:54: VDP_CommandHMMM(0, 768+t, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
+                                   1708 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:54: VDP_CommandHMMM(0, 768+t, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
     00000725 DD 6E F9         [19] 1709 	ld	l, -7 (ix)
                                    1710 ;	spillPairReg hl
                                    1711 ;	spillPairReg hl
@@ -1725,75 +1725,75 @@
     0000073D C6 03            [ 7] 1725 	add	a, #0x03
     0000073F DD 75 FC         [19] 1726 	ld	-4 (ix), l
     00000742 DD 77 FD         [19] 1727 	ld	-3 (ix), a
-                                   1728 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1728 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000745 21 00 00         [10] 1729 	ld	hl, #0x0000
     00000748 22r00r00         [16] 1730 	ld	(_g_VDP_Command), hl
-                                   1731 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1731 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000074B 21r02r00         [10] 1732 	ld	hl, #(_g_VDP_Command + 2)
     0000074E DD 7E FC         [19] 1733 	ld	a, -4 (ix)
     00000751 77               [ 7] 1734 	ld	(hl), a
     00000752 23               [ 6] 1735 	inc	hl
     00000753 DD 7E FD         [19] 1736 	ld	a, -3 (ix)
     00000756 77               [ 7] 1737 	ld	(hl), a
-                                   1738 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1738 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000757 ED 43r04r00      [20] 1739 	ld	((_g_VDP_Command + 4)), bc
-                                   1740 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1740 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     0000075B ED 53r06r00      [20] 1741 	ld	((_g_VDP_Command + 6)), de
-                                   1742 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1742 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     0000075F 21 08 00         [10] 1743 	ld	hl, #0x0008
     00000762 22r08r00         [16] 1744 	ld	((_g_VDP_Command + 8)), hl
-                                   1745 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1745 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000765 21r0Ar00         [10] 1746 	ld	hl, #(_g_VDP_Command + 10)
     00000768 DD 7E FA         [19] 1747 	ld	a, -6 (ix)
     0000076B 77               [ 7] 1748 	ld	(hl), a
     0000076C 23               [ 6] 1749 	inc	hl
     0000076D DD 7E FB         [19] 1750 	ld	a, -5 (ix)
     00000770 77               [ 7] 1751 	ld	(hl), a
-                                   1752 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1752 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000771 21r0Dr00         [10] 1753 	ld	hl, #(_g_VDP_Command + 13)
     00000774 36 00            [10] 1754 	ld	(hl), #0x00
-                                   1755 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1755 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000776 21r0Er00         [10] 1756 	ld	hl, #(_g_VDP_Command + 14)
     00000779 36 D0            [10] 1757 	ld	(hl), #0xd0
-                                   1758 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1758 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000077B CDr00r00         [17] 1759 	call	_VPD_CommandSetupR32
-                                   1760 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:54: VDP_CommandHMMM(0, 768+t, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
+                                   1760 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:54: VDP_CommandHMMM(0, 768+t, px, page,            SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT-t);
     0000077E C3rACr07         [10] 1761 	jp	00110$
     00000781                       1762 00102$:
-                                   1763 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:57: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
-                                   1764 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1763 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:57: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
+                                   1764 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000781 21 00 00         [10] 1765 	ld	hl, #0x0000
     00000784 22r00r00         [16] 1766 	ld	(_g_VDP_Command), hl
-                                   1767 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1767 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     00000787 26 03            [ 7] 1768 	ld	h, #0x03
     00000789 22r02r00         [16] 1769 	ld	((_g_VDP_Command + 2)), hl
-                                   1770 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1770 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     0000078C ED 43r04r00      [20] 1771 	ld	((_g_VDP_Command + 4)), bc
-                                   1772 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1772 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000790 ED 53r06r00      [20] 1773 	ld	((_g_VDP_Command + 6)), de
-                                   1774 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1774 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000794 21 08 00         [10] 1775 	ld	hl, #0x0008
     00000797 22r08r00         [16] 1776 	ld	((_g_VDP_Command + 8)), hl
-                                   1777 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1777 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     0000079A 2E D4            [ 7] 1778 	ld	l, #0xd4
     0000079C 22r0Ar00         [16] 1779 	ld	((_g_VDP_Command + 10)), hl
-                                   1780 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1780 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     0000079F 21r0Dr00         [10] 1781 	ld	hl, #(_g_VDP_Command + 13)
     000007A2 36 00            [10] 1782 	ld	(hl), #0x00
-                                   1783 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1783 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     000007A4 21r0Er00         [10] 1784 	ld	hl, #(_g_VDP_Command + 14)
     000007A7 36 D0            [10] 1785 	ld	(hl), #0xd0
-                                   1786 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1786 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     000007A9 CDr00r00         [17] 1787 	call	_VPD_CommandSetupR32
-                                   1788 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:57: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
+                                   1788 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:57: VDP_CommandHMMM(0, 768, px, ((py)&255)+page, SCOREBOARD_NX_LEFT, SCOREBOARD_NY_LEFT);
     000007AC                       1789 00110$:
-                                   1790 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:58: }
+                                   1790 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:58: }
     000007AC DD F9            [10] 1791 	ld	sp, ix
     000007AE DD E1            [14] 1792 	pop	ix
     000007B0 E1               [10] 1793 	pop	hl
     000007B1 F1               [10] 1794 	pop	af
     000007B2 E9               [ 4] 1795 	jp	(hl)
-                                   1796 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:60: void RemoveScoreBoardRight(u8 px,u16 py,u16 page)
+                                   1796 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:60: void RemoveScoreBoardRight(u8 px,u16 py,u16 page)
                                    1797 ;	---------------------------------
                                    1798 ; Function RemoveScoreBoardRight
                                    1799 ; ---------------------------------
@@ -1807,7 +1807,7 @@
     000007C0 4F               [ 4] 1807 	ld	c, a
     000007C1 DD 73 FE         [19] 1808 	ld	-2 (ix), e
     000007C4 DD 72 FF         [19] 1809 	ld	-1 (ix), d
-                                   1810 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:62: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
+                                   1810 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:62: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
     000007C7 DD 7E FE         [19] 1811 	ld	a, -2 (ix)
     000007CA DD 77 F5         [19] 1812 	ld	-11 (ix), a
     000007CD DD 7E FF         [19] 1813 	ld	a, -1 (ix)
@@ -1815,7 +1815,7 @@
     000007D3 DD 7E F5         [19] 1815 	ld	a, -11 (ix)
     000007D6 DD 77 FC         [19] 1816 	ld	-4 (ix), a
     000007D9 DD 36 FD 00      [19] 1817 	ld	-3 (ix), #0x00
-                                   1818 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
+                                   1818 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
     000007DD DD 71 F7         [19] 1819 	ld	-9 (ix), c
     000007E0 DD 36 F8 00      [19] 1820 	ld	-8 (ix), #0x00
     000007E4 DD 4E F5         [19] 1821 	ld	c, -11 (ix)
@@ -1829,16 +1829,16 @@
     000007F7 7A               [ 4] 1829 	ld	a, d
     000007F8 DD 8E 05         [19] 1830 	adc	a, 5 (ix)
     000007FB 57               [ 4] 1831 	ld	d, a
-                                   1832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:62: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
+                                   1832 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:62: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
     000007FC 3E 2C            [ 7] 1833 	ld	a, #0x2c
     000007FE DD BE FC         [19] 1834 	cp	a, -4 (ix)
     00000801 3E 00            [ 7] 1835 	ld	a, #0x00
     00000803 DD 9E FD         [19] 1836 	sbc	a, -3 (ix)
     00000806 D2rE0r08         [10] 1837 	jp	NC, 00102$
-                                   1838 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:64: u8 t = 256 - (py & 255) ;
+                                   1838 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:64: u8 t = 256 - (py & 255) ;
     00000809 DD 7E FE         [19] 1839 	ld	a, -2 (ix)
     0000080C ED 44            [ 8] 1840 	neg
-                                   1841 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
+                                   1841 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:65: VDP_CommandHMMM(px, FieldMap[(py)&511]+768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
     0000080E DD 77 F9         [19] 1842 	ld	-7 (ix), a
     00000811 DD 77 FA         [19] 1843 	ld	-6 (ix), a
     00000814 DD 36 FB 00      [19] 1844 	ld	-5 (ix), #0x00
@@ -1857,43 +1857,43 @@
     0000082C 7C               [ 4] 1857 	ld	a, h
     0000082D C6 03            [ 7] 1858 	add	a, #0x03
     0000082F 47               [ 4] 1859 	ld	b, a
-                                   1860 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1860 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000830 21r00r00         [10] 1861 	ld	hl, #_g_VDP_Command
     00000833 DD 7E F7         [19] 1862 	ld	a, -9 (ix)
     00000836 77               [ 7] 1863 	ld	(hl), a
     00000837 23               [ 6] 1864 	inc	hl
     00000838 DD 7E F8         [19] 1865 	ld	a, -8 (ix)
     0000083B 77               [ 7] 1866 	ld	(hl), a
-                                   1867 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1867 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000083C ED 43r02r00      [20] 1868 	ld	((_g_VDP_Command + 2)), bc
-                                   1869 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1869 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000840 ED 53r04r00      [20] 1870 	ld	((_g_VDP_Command + 4)), de
-                                   1871 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1871 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000844 21r06r00         [10] 1872 	ld	hl, #(_g_VDP_Command + 6)
     00000847 DD 7E FC         [19] 1873 	ld	a, -4 (ix)
     0000084A 77               [ 7] 1874 	ld	(hl), a
     0000084B 23               [ 6] 1875 	inc	hl
     0000084C DD 7E FD         [19] 1876 	ld	a, -3 (ix)
     0000084F 77               [ 7] 1877 	ld	(hl), a
-                                   1878 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1878 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000850 21 08 00         [10] 1879 	ld	hl, #0x0008
     00000853 22r08r00         [16] 1880 	ld	((_g_VDP_Command + 8)), hl
-                                   1881 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1881 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000856 21r0Ar00         [10] 1882 	ld	hl, #(_g_VDP_Command + 10)
     00000859 DD 7E FA         [19] 1883 	ld	a, -6 (ix)
     0000085C 77               [ 7] 1884 	ld	(hl), a
     0000085D 23               [ 6] 1885 	inc	hl
     0000085E DD 7E FB         [19] 1886 	ld	a, -5 (ix)
     00000861 77               [ 7] 1887 	ld	(hl), a
-                                   1888 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1888 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000862 21r0Dr00         [10] 1889 	ld	hl, #(_g_VDP_Command + 13)
     00000865 36 00            [10] 1890 	ld	(hl), #0x00
-                                   1891 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1891 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000867 21r0Er00         [10] 1892 	ld	hl, #(_g_VDP_Command + 14)
     0000086A 36 D0            [10] 1893 	ld	(hl), #0xd0
-                                   1894 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1894 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000086C CDr00r00         [17] 1895 	call	_VPD_CommandSetupR32
-                                   1896 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:66: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
+                                   1896 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:66: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
     0000086F DD 5E F9         [19] 1897 	ld	e, -7 (ix)
     00000872 16 00            [ 7] 1898 	ld	d, #0x00
     00000874 21 D4 00         [10] 1899 	ld	hl, #0x00d4
@@ -1921,46 +1921,46 @@
     0000089A 7C               [ 4] 1921 	ld	a, h
     0000089B C6 03            [ 7] 1922 	add	a, #0x03
     0000089D 57               [ 4] 1923 	ld	d, a
-                                   1924 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1924 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     0000089E 21r00r00         [10] 1925 	ld	hl, #_g_VDP_Command
     000008A1 DD 7E F7         [19] 1926 	ld	a, -9 (ix)
     000008A4 77               [ 7] 1927 	ld	(hl), a
     000008A5 23               [ 6] 1928 	inc	hl
     000008A6 DD 7E F8         [19] 1929 	ld	a, -8 (ix)
     000008A9 77               [ 7] 1930 	ld	(hl), a
-                                   1931 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1931 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     000008AA ED 53r02r00      [20] 1932 	ld	((_g_VDP_Command + 2)), de
-                                   1933 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1933 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     000008AE 21r04r00         [10] 1934 	ld	hl, #(_g_VDP_Command + 4)
     000008B1 DD 7E F7         [19] 1935 	ld	a, -9 (ix)
     000008B4 77               [ 7] 1936 	ld	(hl), a
     000008B5 23               [ 6] 1937 	inc	hl
     000008B6 DD 7E F8         [19] 1938 	ld	a, -8 (ix)
     000008B9 77               [ 7] 1939 	ld	(hl), a
-                                   1940 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1940 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     000008BA ED 43r06r00      [20] 1941 	ld	((_g_VDP_Command + 6)), bc
-                                   1942 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1942 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     000008BE 21 08 00         [10] 1943 	ld	hl, #0x0008
     000008C1 22r08r00         [16] 1944 	ld	((_g_VDP_Command + 8)), hl
-                                   1945 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   1945 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     000008C4 21r0Ar00         [10] 1946 	ld	hl, #(_g_VDP_Command + 10)
     000008C7 DD 7E FC         [19] 1947 	ld	a, -4 (ix)
     000008CA 77               [ 7] 1948 	ld	(hl), a
     000008CB 23               [ 6] 1949 	inc	hl
     000008CC DD 7E FD         [19] 1950 	ld	a, -3 (ix)
     000008CF 77               [ 7] 1951 	ld	(hl), a
-                                   1952 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   1952 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     000008D0 21r0Dr00         [10] 1953 	ld	hl, #(_g_VDP_Command + 13)
     000008D3 36 00            [10] 1954 	ld	(hl), #0x00
-                                   1955 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   1955 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     000008D5 21r0Er00         [10] 1956 	ld	hl, #(_g_VDP_Command + 14)
     000008D8 36 D0            [10] 1957 	ld	(hl), #0xd0
-                                   1958 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   1958 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     000008DA CDr00r00         [17] 1959 	call	_VPD_CommandSetupR32
-                                   1960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:66: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
+                                   1960 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:66: VDP_CommandHMMM(px, FieldMap[((py)+t)&511]+768, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
     000008DD C3r30r09         [10] 1961 	jp	00110$
     000008E0                       1962 00102$:
-                                   1963 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:69: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
+                                   1963 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:69: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
     000008E0 DD 7E F7         [19] 1964 	ld	a, -9 (ix)
     000008E3 DD 77 FC         [19] 1965 	ld	-4 (ix), a
     000008E6 DD 7E F8         [19] 1966 	ld	a, -8 (ix)
@@ -1976,47 +1976,47 @@
     000008F4 7C               [ 4] 1976 	ld	a, h
     000008F5 C6 03            [ 7] 1977 	add	a, #0x03
     000008F7 47               [ 4] 1978 	ld	b, a
-                                   1979 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   1979 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     000008F8 21r00r00         [10] 1980 	ld	hl, #_g_VDP_Command
     000008FB DD 7E F7         [19] 1981 	ld	a, -9 (ix)
     000008FE 77               [ 7] 1982 	ld	(hl), a
     000008FF 23               [ 6] 1983 	inc	hl
     00000900 DD 7E F8         [19] 1984 	ld	a, -8 (ix)
     00000903 77               [ 7] 1985 	ld	(hl), a
-                                   1986 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   1986 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     00000904 ED 43r02r00      [20] 1987 	ld	((_g_VDP_Command + 2)), bc
-                                   1988 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   1988 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000908 21r04r00         [10] 1989 	ld	hl, #(_g_VDP_Command + 4)
     0000090B DD 7E FC         [19] 1990 	ld	a, -4 (ix)
     0000090E 77               [ 7] 1991 	ld	(hl), a
     0000090F 23               [ 6] 1992 	inc	hl
     00000910 DD 7E FD         [19] 1993 	ld	a, -3 (ix)
     00000913 77               [ 7] 1994 	ld	(hl), a
-                                   1995 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   1995 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000914 ED 53r06r00      [20] 1996 	ld	((_g_VDP_Command + 6)), de
-                                   1997 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   1997 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000918 21 08 00         [10] 1998 	ld	hl, #0x0008
     0000091B 22r08r00         [16] 1999 	ld	((_g_VDP_Command + 8)), hl
-                                   2000 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   2000 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     0000091E 2E D4            [ 7] 2001 	ld	l, #0xd4
     00000920 22r0Ar00         [16] 2002 	ld	((_g_VDP_Command + 10)), hl
-                                   2003 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   2003 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000923 21r0Dr00         [10] 2004 	ld	hl, #(_g_VDP_Command + 13)
     00000926 36 00            [10] 2005 	ld	(hl), #0x00
-                                   2006 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   2006 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000928 21r0Er00         [10] 2007 	ld	hl, #(_g_VDP_Command + 14)
     0000092B 36 D0            [10] 2008 	ld	(hl), #0xd0
-                                   2009 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   2009 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     0000092D CDr00r00         [17] 2010 	call	_VPD_CommandSetupR32
-                                   2011 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:69: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
+                                   2011 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:69: VDP_CommandHMMM(px, FieldMap[(py)&511]+768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
     00000930                       2012 00110$:
-                                   2013 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:70: }
+                                   2013 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:70: }
     00000930 DD F9            [10] 2014 	ld	sp, ix
     00000932 DD E1            [14] 2015 	pop	ix
     00000934 E1               [10] 2016 	pop	hl
     00000935 F1               [10] 2017 	pop	af
     00000936 E9               [ 4] 2018 	jp	(hl)
-                                   2019 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:72: void PrintScoreBoardRight(u8 px,u16 py,u16 page)
+                                   2019 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:72: void PrintScoreBoardRight(u8 px,u16 py,u16 page)
                                    2020 ;	---------------------------------
                                    2021 ; Function PrintScoreBoardRight
                                    2022 ; ---------------------------------
@@ -2030,11 +2030,11 @@
     00000944 4F               [ 4] 2030 	ld	c, a
     00000945 DD 73 FE         [19] 2031 	ld	-2 (ix), e
     00000948 DD 72 FF         [19] 2032 	ld	-1 (ix), d
-                                   2033 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:74: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
+                                   2033 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:74: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
     0000094B DD 7E FE         [19] 2034 	ld	a, -2 (ix)
     0000094E DD 77 FC         [19] 2035 	ld	-4 (ix), a
     00000951 DD 36 FD 00      [19] 2036 	ld	-3 (ix), #0x00
-                                   2037 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
+                                   2037 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
     00000955 06 00            [ 7] 2038 	ld	b, #0x00
     00000957 DD 7E FC         [19] 2039 	ld	a, -4 (ix)
     0000095A DD 56 FD         [19] 2040 	ld	d, -3 (ix)
@@ -2043,56 +2043,56 @@
     00000961 7A               [ 4] 2043 	ld	a, d
     00000962 DD 8E 05         [19] 2044 	adc	a, 5 (ix)
     00000965 57               [ 4] 2045 	ld	d, a
-                                   2046 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:74: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
+                                   2046 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:74: if (((py&255)>256-SCOREBOARD_NY_RIGHT) ) 
     00000966 3E 2C            [ 7] 2047 	ld	a, #0x2c
     00000968 DD BE FC         [19] 2048 	cp	a, -4 (ix)
     0000096B 3E 00            [ 7] 2049 	ld	a, #0x00
     0000096D DD 9E FD         [19] 2050 	sbc	a, -3 (ix)
     00000970 D2r1Dr0A         [10] 2051 	jp	NC, 00102$
-                                   2052 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:76: u8 t = 256 - (py & 255) ;
+                                   2052 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:76: u8 t = 256 - (py & 255) ;
     00000973 DD 7E FE         [19] 2053 	ld	a, -2 (ix)
     00000976 ED 44            [ 8] 2054 	neg
-                                   2055 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
+                                   2055 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:77: VDP_CommandHMMM(px, 768,   px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, t);
     00000978 DD 77 F9         [19] 2056 	ld	-7 (ix), a
     0000097B DD 77 FA         [19] 2057 	ld	-6 (ix), a
     0000097E DD 36 FB 00      [19] 2058 	ld	-5 (ix), #0x00
     00000982 DD 71 FC         [19] 2059 	ld	-4 (ix), c
     00000985 DD 70 FD         [19] 2060 	ld	-3 (ix), b
-                                   2061 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   2061 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000988 ED 43r00r00      [20] 2062 	ld	(_g_VDP_Command), bc
-                                   2063 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   2063 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     0000098C 21 00 03         [10] 2064 	ld	hl, #0x0300
     0000098F 22r02r00         [16] 2065 	ld	((_g_VDP_Command + 2)), hl
-                                   2066 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   2066 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000992 21r04r00         [10] 2067 	ld	hl, #(_g_VDP_Command + 4)
     00000995 DD 7E FC         [19] 2068 	ld	a, -4 (ix)
     00000998 77               [ 7] 2069 	ld	(hl), a
     00000999 23               [ 6] 2070 	inc	hl
     0000099A DD 7E FD         [19] 2071 	ld	a, -3 (ix)
     0000099D 77               [ 7] 2072 	ld	(hl), a
-                                   2073 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   2073 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     0000099E ED 53r06r00      [20] 2074 	ld	((_g_VDP_Command + 6)), de
-                                   2075 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   2075 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     000009A2 21 08 00         [10] 2076 	ld	hl, #0x0008
     000009A5 22r08r00         [16] 2077 	ld	((_g_VDP_Command + 8)), hl
-                                   2078 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   2078 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     000009A8 21r0Ar00         [10] 2079 	ld	hl, #(_g_VDP_Command + 10)
     000009AB DD 7E FA         [19] 2080 	ld	a, -6 (ix)
     000009AE 77               [ 7] 2081 	ld	(hl), a
     000009AF 23               [ 6] 2082 	inc	hl
     000009B0 DD 7E FB         [19] 2083 	ld	a, -5 (ix)
     000009B3 77               [ 7] 2084 	ld	(hl), a
-                                   2085 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   2085 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     000009B4 21r0Dr00         [10] 2086 	ld	hl, #(_g_VDP_Command + 13)
     000009B7 36 00            [10] 2087 	ld	(hl), #0x00
-                                   2088 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   2088 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     000009B9 21r0Er00         [10] 2089 	ld	hl, #(_g_VDP_Command + 14)
     000009BC 36 D0            [10] 2090 	ld	(hl), #0xd0
-                                   2091 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   2091 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     000009BE C5               [11] 2092 	push	bc
     000009BF CDr00r00         [17] 2093 	call	_VPD_CommandSetupR32
     000009C2 C1               [10] 2094 	pop	bc
-                                   2095 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:78: VDP_CommandHMMM(px, 768+t, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
+                                   2095 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:78: VDP_CommandHMMM(px, 768+t, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
     000009C3 DD 6E F9         [19] 2096 	ld	l, -7 (ix)
                                    2097 ;	spillPairReg hl
                                    2098 ;	spillPairReg hl
@@ -2112,100 +2112,100 @@
     000009DB C6 03            [ 7] 2112 	add	a, #0x03
     000009DD DD 75 FC         [19] 2113 	ld	-4 (ix), l
     000009E0 DD 77 FD         [19] 2114 	ld	-3 (ix), a
-                                   2115 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   2115 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     000009E3 ED 43r00r00      [20] 2116 	ld	(_g_VDP_Command), bc
-                                   2117 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   2117 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     000009E7 21r02r00         [10] 2118 	ld	hl, #(_g_VDP_Command + 2)
     000009EA DD 7E FC         [19] 2119 	ld	a, -4 (ix)
     000009ED 77               [ 7] 2120 	ld	(hl), a
     000009EE 23               [ 6] 2121 	inc	hl
     000009EF DD 7E FD         [19] 2122 	ld	a, -3 (ix)
     000009F2 77               [ 7] 2123 	ld	(hl), a
-                                   2124 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   2124 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     000009F3 ED 43r04r00      [20] 2125 	ld	((_g_VDP_Command + 4)), bc
-                                   2126 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   2126 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     000009F7 ED 53r06r00      [20] 2127 	ld	((_g_VDP_Command + 6)), de
-                                   2128 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   2128 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     000009FB 21 08 00         [10] 2129 	ld	hl, #0x0008
     000009FE 22r08r00         [16] 2130 	ld	((_g_VDP_Command + 8)), hl
-                                   2131 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   2131 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000A01 21r0Ar00         [10] 2132 	ld	hl, #(_g_VDP_Command + 10)
     00000A04 DD 7E FA         [19] 2133 	ld	a, -6 (ix)
     00000A07 77               [ 7] 2134 	ld	(hl), a
     00000A08 23               [ 6] 2135 	inc	hl
     00000A09 DD 7E FB         [19] 2136 	ld	a, -5 (ix)
     00000A0C 77               [ 7] 2137 	ld	(hl), a
-                                   2138 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   2138 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000A0D 21r0Dr00         [10] 2139 	ld	hl, #(_g_VDP_Command + 13)
     00000A10 36 00            [10] 2140 	ld	(hl), #0x00
-                                   2141 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   2141 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000A12 21r0Er00         [10] 2142 	ld	hl, #(_g_VDP_Command + 14)
     00000A15 36 D0            [10] 2143 	ld	(hl), #0xd0
-                                   2144 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   2144 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     00000A17 CDr00r00         [17] 2145 	call	_VPD_CommandSetupR32
-                                   2146 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:78: VDP_CommandHMMM(px, 768+t, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
+                                   2146 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:78: VDP_CommandHMMM(px, 768+t, px, page,            SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT-t);
     00000A1A C3r55r0A         [10] 2147 	jp	00110$
     00000A1D                       2148 00102$:
-                                   2149 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:81: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
+                                   2149 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:81: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
     00000A1D DD 71 FC         [19] 2150 	ld	-4 (ix), c
     00000A20 DD 70 FD         [19] 2151 	ld	-3 (ix), b
-                                   2152 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
+                                   2152 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:105: g_VDP_Command.SX = sx;
     00000A23 ED 43r00r00      [20] 2153 	ld	(_g_VDP_Command), bc
-                                   2154 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
+                                   2154 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:106: g_VDP_Command.SY = sy;
     00000A27 21 00 03         [10] 2155 	ld	hl, #0x0300
     00000A2A 22r02r00         [16] 2156 	ld	((_g_VDP_Command + 2)), hl
-                                   2157 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
+                                   2157 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:107: g_VDP_Command.DX = dx;
     00000A2D 21r04r00         [10] 2158 	ld	hl, #(_g_VDP_Command + 4)
     00000A30 DD 7E FC         [19] 2159 	ld	a, -4 (ix)
     00000A33 77               [ 7] 2160 	ld	(hl), a
     00000A34 23               [ 6] 2161 	inc	hl
     00000A35 DD 7E FD         [19] 2162 	ld	a, -3 (ix)
     00000A38 77               [ 7] 2163 	ld	(hl), a
-                                   2164 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
+                                   2164 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:108: g_VDP_Command.DY = dy;
     00000A39 ED 53r06r00      [20] 2165 	ld	((_g_VDP_Command + 6)), de
-                                   2166 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
+                                   2166 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:109: g_VDP_Command.NX = nx;
     00000A3D 21 08 00         [10] 2167 	ld	hl, #0x0008
     00000A40 22r08r00         [16] 2168 	ld	((_g_VDP_Command + 8)), hl
-                                   2169 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
+                                   2169 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:110: g_VDP_Command.NY = ny;
     00000A43 2E D4            [ 7] 2170 	ld	l, #0xd4
     00000A45 22r0Ar00         [16] 2171 	ld	((_g_VDP_Command + 10)), hl
-                                   2172 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
+                                   2172 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:111: g_VDP_Command.ARG = arg; 
     00000A48 21r0Dr00         [10] 2173 	ld	hl, #(_g_VDP_Command + 13)
     00000A4B 36 00            [10] 2174 	ld	(hl), #0x00
-                                   2175 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
+                                   2175 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:112: g_VDP_Command.CMD = VDP_CMD_HMMM;
     00000A4D 21r0Er00         [10] 2176 	ld	hl, #(_g_VDP_Command + 14)
     00000A50 36 D0            [10] 2177 	ld	(hl), #0xd0
-                                   2178 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
+                                   2178 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:113: VPD_CommandSetupR32();
     00000A52 CDr00r00         [17] 2179 	call	_VPD_CommandSetupR32
-                                   2180 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:81: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
+                                   2180 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:81: VDP_CommandHMMM(px, 768, px, ((py)&255)+page, SCOREBOARD_NX_RIGHT, SCOREBOARD_NY_RIGHT);
     00000A55                       2181 00110$:
-                                   2182 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:82: }
+                                   2182 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:82: }
     00000A55 DD F9            [10] 2183 	ld	sp, ix
     00000A57 DD E1            [14] 2184 	pop	ix
     00000A59 E1               [10] 2185 	pop	hl
     00000A5A F1               [10] 2186 	pop	af
     00000A5B E9               [ 4] 2187 	jp	(hl)
-                                   2188 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:86: void SetBallSprite(u8 height) 
+                                   2188 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:86: void SetBallSprite(u8 height) 
                                    2189 ;	---------------------------------
                                    2190 ; Function SetBallSprite
                                    2191 ; ---------------------------------
     00000A5C                       2192 _SetBallSprite::
     00000A5C 4F               [ 4] 2193 	ld	c, a
-                                   2194 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:88: if (height > 7) height = 7;
+                                   2194 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:88: if (height > 7) height = 7;
     00000A5D 3E 07            [ 7] 2195 	ld	a, #0x07
     00000A5F 91               [ 4] 2196 	sub	a, c
     00000A60 30 02            [12] 2197 	jr	NC, 00102$
     00000A62 0E 07            [ 7] 2198 	ld	c, #0x07
     00000A64                       2199 00102$:
-                                   2200 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:89: SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
+                                   2200 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:89: SwSprite[14].frame = SPR_BALL_SIZE_1 + height;
     00000A64 06 00            [ 7] 2201 	ld	b, #0x00
     00000A66 21 60 00         [10] 2202 	ld	hl, #0x0060
     00000A69 09               [11] 2203 	add	hl, bc
     00000A6A EB               [ 4] 2204 	ex	de, hl
     00000A6B ED 53r51r01      [20] 2205 	ld	((_SwSprite + 337)), de
-                                   2206 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:90: }
+                                   2206 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:90: }
     00000A6F C9               [10] 2207 	ret
-                                   2208 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:93: bool IsBallForeground() 
+                                   2208 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:93: bool IsBallForeground() 
                                    2209 ;	---------------------------------
                                    2210 ; Function IsBallForeground
                                    2211 ; ---------------------------------
@@ -2216,7 +2216,7 @@
     00000A78 21 F3 FF         [10] 2216 	ld	hl, #-13
     00000A7B 39               [11] 2217 	add	hl, sp
     00000A7C F9               [ 6] 2218 	ld	sp, hl
-                                   2219 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:96: if (SwSprite[14].frame > SPR_BALL_SIZE_1) return TRUE;
+                                   2219 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:96: if (SwSprite[14].frame > SPR_BALL_SIZE_1) return TRUE;
     00000A7D 2Ar51r01         [16] 2220 	ld	hl, (#_SwSprite + 337)
     00000A80 3E 60            [ 7] 2221 	ld	a, #0x60
     00000A82 BD               [ 4] 2222 	cp	a, l
@@ -2226,11 +2226,11 @@
     00000A88 3E 01            [ 7] 2226 	ld	a, #0x01
     00000A8A C3rC8r0B         [10] 2227 	jp	00117$
     00000A8D                       2228 00102$:
-                                   2229 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:99: if (RestartType == RESTART_GKSAVE) {
+                                   2229 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:99: if (RestartType == RESTART_GKSAVE) {
     00000A8D 3Ar00r00         [13] 2230 	ld	a, (_RestartType+0)
     00000A90 D6 04            [ 7] 2231 	sub	a, #0x04
     00000A92 20 11            [12] 2232 	jr	NZ, 00106$
-                                   2233 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:100: if (RestartSideY >= 256) return FALSE; // Il portiere a Sud (che guarda a nord) copre la palla
+                                   2233 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:100: if (RestartSideY >= 256) return FALSE; // Il portiere a Sud (che guarda a nord) copre la palla
     00000A94 2Ar00r00         [16] 2234 	ld	hl, (_RestartSideY)
     00000A97 7C               [ 4] 2235 	ld	a, h
     00000A98 D6 01            [ 7] 2236 	sub	a, #0x01
@@ -2238,40 +2238,40 @@
     00000A9C AF               [ 4] 2238 	xor	a, a
     00000A9D C3rC8r0B         [10] 2239 	jp	00117$
     00000AA0                       2240 00104$:
-                                   2241 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:101: return TRUE; // Il portiere a Nord (che guarda a sud) sta dietro la palla
+                                   2241 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:101: return TRUE; // Il portiere a Nord (che guarda a sud) sta dietro la palla
     00000AA0 3E 01            [ 7] 2242 	ld	a, #0x01
     00000AA2 C3rC8r0B         [10] 2243 	jp	00117$
     00000AA5                       2244 00106$:
-                                   2245 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:105: if (g_is_penalty_shootout) {
+                                   2245 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:105: if (g_is_penalty_shootout) {
     00000AA5 3Ar00r00         [13] 2246 	ld	a, (_g_is_penalty_shootout+0)
     00000AA8 B7               [ 4] 2247 	or	a, a
     00000AA9 28 05            [12] 2248 	jr	Z, 00108$
-                                   2249 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:106: return TRUE;
+                                   2249 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:106: return TRUE;
     00000AAB 3E 01            [ 7] 2250 	ld	a, #0x01
     00000AAD C3rC8r0B         [10] 2251 	jp	00117$
     00000AB0                       2252 00108$:
-                                   2253 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:109: u8 closest_player = 0;
+                                   2253 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:109: u8 closest_player = 0;
     00000AB0 DD 36 F3 00      [19] 2254 	ld	-13 (ix), #0x00
-                                   2255 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:110: u16 min_dist = 0xFFFF;
+                                   2255 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:110: u16 min_dist = 0xFFFF;
     00000AB4 DD 36 F4 FF      [19] 2256 	ld	-12 (ix), #0xff
     00000AB8 DD 36 F5 FF      [19] 2257 	ld	-11 (ix), #0xff
-                                   2258 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
+                                   2258 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
     00000ABC 3Ar42r01         [13] 2259 	ld	a, (#_SwSprite + 322)
     00000ABF DD 77 F6         [19] 2260 	ld	-10 (ix), a
     00000AC2 DD 36 FF 00      [19] 2261 	ld	-1 (ix), #0x00
     00000AC6                       2262 00115$:
-                                   2263 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:115: u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
+                                   2263 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:115: u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
     00000AC6 21r46r01         [10] 2264 	ld	hl, #_SwSprite + 326
     00000AC9 7E               [ 7] 2265 	ld	a, (hl)
     00000ACA DD 77 F7         [19] 2266 	ld	-9 (ix), a
     00000ACD 23               [ 6] 2267 	inc	hl
     00000ACE 7E               [ 7] 2268 	ld	a, (hl)
     00000ACF DD 77 F8         [19] 2269 	ld	-8 (ix), a
-                                   2270 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
+                                   2270 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
     00000AD2 DD 7E FF         [19] 2271 	ld	a, -1 (ix)
     00000AD5 D6 0E            [ 7] 2272 	sub	a, #0x0e
     00000AD7 D2r9Ar0B         [10] 2273 	jp	NC, 00111$
-                                   2274 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:114: u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
+                                   2274 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:114: u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
     00000ADA DD 4E FF         [19] 2275 	ld	c, -1 (ix)
     00000ADD 06 00            [ 7] 2276 	ld	b, #0x00
     00000ADF 69               [ 4] 2277 	ld	l, c
@@ -2315,7 +2315,7 @@
     00000B19                       2315 00120$:
     00000B19 DD 73 F9         [19] 2316 	ld	-7 (ix), e
     00000B1C DD 72 FA         [19] 2317 	ld	-6 (ix), d
-                                   2318 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:115: u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
+                                   2318 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:115: u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
     00000B1F 21 04 00         [10] 2319 	ld	hl, #4
     00000B22 09               [11] 2320 	add	hl, bc
     00000B23 7E               [ 7] 2321 	ld	a, (hl)
@@ -2345,32 +2345,32 @@
     00000B61                       2345 00122$:
     00000B61 DD 4E FD         [19] 2346 	ld	c, -3 (ix)
     00000B64 DD 46 FE         [19] 2347 	ld	b, -2 (ix)
-                                   2348 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:116: u16 dist = dx + dy;
+                                   2348 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:116: u16 dist = dx + dy;
     00000B67 DD 6E F9         [19] 2349 	ld	l, -7 (ix)
     00000B6A DD 66 FA         [19] 2350 	ld	h, -6 (ix)
     00000B6D 09               [11] 2351 	add	hl, bc
     00000B6E DD 75 FD         [19] 2352 	ld	-3 (ix), l
     00000B71 DD 74 FE         [19] 2353 	ld	-2 (ix), h
-                                   2354 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:118: if (dist < min_dist) {
+                                   2354 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:118: if (dist < min_dist) {
     00000B74 DD 7E FD         [19] 2355 	ld	a, -3 (ix)
     00000B77 DD 96 F4         [19] 2356 	sub	a, -12 (ix)
     00000B7A DD 7E FE         [19] 2357 	ld	a, -2 (ix)
     00000B7D DD 9E F5         [19] 2358 	sbc	a, -11 (ix)
     00000B80 30 12            [12] 2359 	jr	NC, 00116$
-                                   2360 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:119: min_dist = dist;
+                                   2360 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:119: min_dist = dist;
     00000B82 DD 7E FD         [19] 2361 	ld	a, -3 (ix)
     00000B85 DD 77 F4         [19] 2362 	ld	-12 (ix), a
     00000B88 DD 7E FE         [19] 2363 	ld	a, -2 (ix)
     00000B8B DD 77 F5         [19] 2364 	ld	-11 (ix), a
-                                   2365 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:120: closest_player = i;
+                                   2365 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:120: closest_player = i;
     00000B8E DD 7E FF         [19] 2366 	ld	a, -1 (ix)
     00000B91 DD 77 F3         [19] 2367 	ld	-13 (ix), a
     00000B94                       2368 00116$:
-                                   2369 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
+                                   2369 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:113: for (u8 i = 0; i < 14; i++) {
     00000B94 DD 34 FF         [23] 2370 	inc	-1 (ix)
     00000B97 C3rC6r0A         [10] 2371 	jp	00115$
     00000B9A                       2372 00111$:
-                                   2373 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:127: if (SwSprite[14].ly <= SwSprite[closest_player].ly + 4) {
+                                   2373 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:127: if (SwSprite[14].ly <= SwSprite[closest_player].ly + 4) {
     00000B9A DD 4E F3         [19] 2374 	ld	c, -13 (ix)
     00000B9D 06 00            [ 7] 2375 	ld	b, #0x00
     00000B9F 69               [ 4] 2376 	ld	l, c
@@ -2396,18 +2396,18 @@
     00000BBD AF               [ 4] 2396 	xor	a, a
     00000BBE ED 42            [15] 2397 	sbc	hl, bc
     00000BC0 38 04            [12] 2398 	jr	C, 00113$
-                                   2399 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:128: return FALSE;
+                                   2399 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:128: return FALSE;
     00000BC2 AF               [ 4] 2400 	xor	a, a
     00000BC3 C3rC8r0B         [10] 2401 	jp	00117$
     00000BC6                       2402 00113$:
-                                   2403 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:131: return TRUE;
+                                   2403 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:131: return TRUE;
     00000BC6 3E 01            [ 7] 2404 	ld	a, #0x01
     00000BC8                       2405 00117$:
-                                   2406 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:132: }
+                                   2406 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:132: }
     00000BC8 DD F9            [10] 2407 	ld	sp, ix
     00000BCA DD E1            [14] 2408 	pop	ix
     00000BCC C9               [10] 2409 	ret
-                                   2410 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:135: void ShowSpriteMessage(u16 messageId)
+                                   2410 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:135: void ShowSpriteMessage(u16 messageId)
                                    2411 ;	---------------------------------
                                    2412 ; Function ShowSpriteMessage
                                    2413 ; ---------------------------------
@@ -2420,16 +2420,16 @@
     00000BDB FD F9            [10] 2420 	ld	sp, iy
     00000BDD 4D               [ 4] 2421 	ld	c, l
     00000BDE 44               [ 4] 2422 	ld	b, h
-                                   2423 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:141: if (messageId == SPR_MSG_KICKOFF) {
+                                   2423 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:141: if (messageId == SPR_MSG_KICKOFF) {
     00000BDF 79               [ 4] 2424 	ld	a, c
     00000BE0 D6 20            [ 7] 2425 	sub	a, #0x20
     00000BE2 20 23            [12] 2426 	jr	NZ, 00126$
     00000BE4 78               [ 4] 2427 	ld	a, b
     00000BE5 3D               [ 4] 2428 	dec	a
     00000BE6 20 1F            [12] 2429 	jr	NZ, 00126$
-                                   2430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:142: len = SPRITE_MSG_KICKOFF_LENGTH;
+                                   2430 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:142: len = SPRITE_MSG_KICKOFF_LENGTH;
     00000BE8 DD 36 F7 04      [19] 2431 	ld	-9 (ix), #0x04
-                                   2432 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:143: logical_y = (KickOffTeam == TEAM_1) ? (Field.ly + 48) : (Field.ly + 144); // Centro della rispettiva metà inquadratura
+                                   2432 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:143: logical_y = (KickOffTeam == TEAM_1) ? (Field.ly + 48) : (Field.ly + 144); // Centro della rispettiva metà inquadratura
     00000BEC 3Ar00r00         [13] 2433 	ld	a, (_KickOffTeam+0)
     00000BEF B7               [ 4] 2434 	or	a, a
     00000BF0 20 0A            [12] 2435 	jr	NZ, 00138$
@@ -2445,134 +2445,134 @@
     00000C03 EB               [ 4] 2445 	ex	de, hl
     00000C04 C3rC5r0C         [10] 2446 	jp	00127$
     00000C07                       2447 00126$:
-                                   2448 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:144: } else if (messageId == SPR_MSG_GOALKICK) {
+                                   2448 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:144: } else if (messageId == SPR_MSG_GOALKICK) {
     00000C07 79               [ 4] 2449 	ld	a, c
     00000C08 D6 24            [ 7] 2450 	sub	a, #0x24
     00000C0A 20 13            [12] 2451 	jr	NZ, 00123$
     00000C0C 78               [ 4] 2452 	ld	a, b
     00000C0D 3D               [ 4] 2453 	dec	a
     00000C0E 20 0F            [12] 2454 	jr	NZ, 00123$
-                                   2455 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:145: len = SPRITE_MSG_GOALKICK_LENGTH;
+                                   2455 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:145: len = SPRITE_MSG_GOALKICK_LENGTH;
     00000C10 DD 36 F7 05      [19] 2456 	ld	-9 (ix), #0x05
-                                   2457 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:146: logical_y = Field.ly + 96; // Metà dello schermo (192 / 2)
+                                   2457 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:146: logical_y = Field.ly + 96; // Metà dello schermo (192 / 2)
     00000C14 2Ar04r00         [16] 2458 	ld	hl, (#(_Field + 4) + 0)
     00000C17 11 60 00         [10] 2459 	ld	de, #0x0060
     00000C1A 19               [11] 2460 	add	hl, de
     00000C1B EB               [ 4] 2461 	ex	de, hl
     00000C1C C3rC5r0C         [10] 2462 	jp	00127$
     00000C1F                       2463 00123$:
-                                   2464 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:147: } else if (messageId == SPR_MSG_THROWIN) {
+                                   2464 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:147: } else if (messageId == SPR_MSG_THROWIN) {
     00000C1F 79               [ 4] 2465 	ld	a, c
     00000C20 D6 29            [ 7] 2466 	sub	a, #0x29
     00000C22 20 13            [12] 2467 	jr	NZ, 00120$
     00000C24 78               [ 4] 2468 	ld	a, b
     00000C25 3D               [ 4] 2469 	dec	a
     00000C26 20 0F            [12] 2470 	jr	NZ, 00120$
-                                   2471 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:148: len = SPRITE_MSG_THROWIN_LENGTH;
+                                   2471 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:148: len = SPRITE_MSG_THROWIN_LENGTH;
     00000C28 DD 36 F7 05      [19] 2472 	ld	-9 (ix), #0x05
-                                   2473 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:149: logical_y = Field.ly + 96;
+                                   2473 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:149: logical_y = Field.ly + 96;
     00000C2C 2Ar04r00         [16] 2474 	ld	hl, (#(_Field + 4) + 0)
     00000C2F 11 60 00         [10] 2475 	ld	de, #0x0060
     00000C32 19               [11] 2476 	add	hl, de
     00000C33 EB               [ 4] 2477 	ex	de, hl
     00000C34 C3rC5r0C         [10] 2478 	jp	00127$
     00000C37                       2479 00120$:
-                                   2480 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:150: } else if (messageId == SPR_MSG_CORNERKICK) {
+                                   2480 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:150: } else if (messageId == SPR_MSG_CORNERKICK) {
     00000C37 79               [ 4] 2481 	ld	a, c
     00000C38 D6 30            [ 7] 2482 	sub	a, #0x30
     00000C3A 20 13            [12] 2483 	jr	NZ, 00117$
     00000C3C 78               [ 4] 2484 	ld	a, b
     00000C3D 3D               [ 4] 2485 	dec	a
     00000C3E 20 0F            [12] 2486 	jr	NZ, 00117$
-                                   2487 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:151: len = SPRITE_MSG_CORNERKICK_LENGTH;
+                                   2487 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:151: len = SPRITE_MSG_CORNERKICK_LENGTH;
     00000C40 DD 36 F7 06      [19] 2488 	ld	-9 (ix), #0x06
-                                   2489 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:152: logical_y = Field.ly + 96;
+                                   2489 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:152: logical_y = Field.ly + 96;
     00000C44 2Ar04r00         [16] 2490 	ld	hl, (#(_Field + 4) + 0)
     00000C47 11 60 00         [10] 2491 	ld	de, #0x0060
     00000C4A 19               [11] 2492 	add	hl, de
     00000C4B EB               [ 4] 2493 	ex	de, hl
     00000C4C C3rC5r0C         [10] 2494 	jp	00127$
     00000C4F                       2495 00117$:
-                                   2496 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:153: } else if (messageId == SPR_MSG_INGOAL) {
+                                   2496 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:153: } else if (messageId == SPR_MSG_INGOAL) {
     00000C4F 79               [ 4] 2497 	ld	a, c
     00000C50 D6 39            [ 7] 2498 	sub	a, #0x39
     00000C52 20 13            [12] 2499 	jr	NZ, 00114$
     00000C54 78               [ 4] 2500 	ld	a, b
     00000C55 3D               [ 4] 2501 	dec	a
     00000C56 20 0F            [12] 2502 	jr	NZ, 00114$
-                                   2503 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:154: len = SPRITE_MSG_INGOAL_LENGTH;
+                                   2503 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:154: len = SPRITE_MSG_INGOAL_LENGTH;
     00000C58 DD 36 F7 04      [19] 2504 	ld	-9 (ix), #0x04
-                                   2505 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:155: logical_y = Field.ly + 96;
+                                   2505 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:155: logical_y = Field.ly + 96;
     00000C5C 2Ar04r00         [16] 2506 	ld	hl, (#(_Field + 4) + 0)
     00000C5F 11 60 00         [10] 2507 	ld	de, #0x0060
     00000C62 19               [11] 2508 	add	hl, de
     00000C63 EB               [ 4] 2509 	ex	de, hl
     00000C64 C3rC5r0C         [10] 2510 	jp	00127$
     00000C67                       2511 00114$:
-                                   2512 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:156: } else if (messageId == SPR_MSG_TIMEUP) {
+                                   2512 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:156: } else if (messageId == SPR_MSG_TIMEUP) {
     00000C67 79               [ 4] 2513 	ld	a, c
     00000C68 D6 40            [ 7] 2514 	sub	a, #0x40
     00000C6A 20 13            [12] 2515 	jr	NZ, 00111$
     00000C6C 78               [ 4] 2516 	ld	a, b
     00000C6D 3D               [ 4] 2517 	dec	a
     00000C6E 20 0F            [12] 2518 	jr	NZ, 00111$
-                                   2519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:157: len = SPRITE_MSG_TIMEUP_LENGTH;
+                                   2519 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:157: len = SPRITE_MSG_TIMEUP_LENGTH;
     00000C70 DD 36 F7 04      [19] 2520 	ld	-9 (ix), #0x04
-                                   2521 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:158: logical_y = Field.ly + 96;
+                                   2521 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:158: logical_y = Field.ly + 96;
     00000C74 2Ar04r00         [16] 2522 	ld	hl, (#(_Field + 4) + 0)
     00000C77 11 60 00         [10] 2523 	ld	de, #0x0060
     00000C7A 19               [11] 2524 	add	hl, de
     00000C7B EB               [ 4] 2525 	ex	de, hl
     00000C7C C3rC5r0C         [10] 2526 	jp	00127$
     00000C7F                       2527 00111$:
-                                   2528 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:159: } else if (messageId == SPR_MSG_HALFTIME) {
+                                   2528 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:159: } else if (messageId == SPR_MSG_HALFTIME) {
     00000C7F 79               [ 4] 2529 	ld	a, c
     00000C80 D6 44            [ 7] 2530 	sub	a, #0x44
     00000C82 20 13            [12] 2531 	jr	NZ, 00108$
     00000C84 78               [ 4] 2532 	ld	a, b
     00000C85 3D               [ 4] 2533 	dec	a
     00000C86 20 0F            [12] 2534 	jr	NZ, 00108$
-                                   2535 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:160: len = SPRITE_MSG_HALFTIME_LENGTH;
+                                   2535 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:160: len = SPRITE_MSG_HALFTIME_LENGTH;
     00000C88 DD 36 F7 05      [19] 2536 	ld	-9 (ix), #0x05
-                                   2537 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:161: logical_y = Field.ly + 96;
+                                   2537 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:161: logical_y = Field.ly + 96;
     00000C8C 2Ar04r00         [16] 2538 	ld	hl, (#(_Field + 4) + 0)
     00000C8F 11 60 00         [10] 2539 	ld	de, #0x0060
     00000C92 19               [11] 2540 	add	hl, de
     00000C93 EB               [ 4] 2541 	ex	de, hl
     00000C94 C3rC5r0C         [10] 2542 	jp	00127$
     00000C97                       2543 00108$:
-                                   2544 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:162: } else if (messageId == SPR_MSG_PENALTIES) {
+                                   2544 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:162: } else if (messageId == SPR_MSG_PENALTIES) {
     00000C97 79               [ 4] 2545 	ld	a, c
     00000C98 D6 49            [ 7] 2546 	sub	a, #0x49
     00000C9A 20 13            [12] 2547 	jr	NZ, 00105$
     00000C9C 78               [ 4] 2548 	ld	a, b
     00000C9D 3D               [ 4] 2549 	dec	a
     00000C9E 20 0F            [12] 2550 	jr	NZ, 00105$
-                                   2551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:163: len = SPRITE_MSG_PENALTIES_LENGTH;
+                                   2551 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:163: len = SPRITE_MSG_PENALTIES_LENGTH;
     00000CA0 DD 36 F7 05      [19] 2552 	ld	-9 (ix), #0x05
-                                   2553 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:164: logical_y = Field.ly + 96;
+                                   2553 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:164: logical_y = Field.ly + 96;
     00000CA4 2Ar04r00         [16] 2554 	ld	hl, (#(_Field + 4) + 0)
     00000CA7 11 60 00         [10] 2555 	ld	de, #0x0060
     00000CAA 19               [11] 2556 	add	hl, de
     00000CAB EB               [ 4] 2557 	ex	de, hl
     00000CAC C3rC5r0C         [10] 2558 	jp	00127$
     00000CAF                       2559 00105$:
-                                   2560 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:165: } else if (messageId == SPR_MSG_OFFSIDE) {
+                                   2560 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:165: } else if (messageId == SPR_MSG_OFFSIDE) {
     00000CAF 79               [ 4] 2561 	ld	a, c
     00000CB0 D6 F8            [ 7] 2562 	sub	a, #0xf8
     00000CB2 B0               [ 4] 2563 	or	a, b
     00000CB3 C2rA2r0D         [10] 2564 	jp	NZ,00136$
-                                   2565 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:166: len = SPRITE_MSG_OFFSIDE_LENGTH;
+                                   2565 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:166: len = SPRITE_MSG_OFFSIDE_LENGTH;
     00000CB6 DD 36 F7 04      [19] 2566 	ld	-9 (ix), #0x04
-                                   2567 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:167: logical_y = Field.ly + 96;
+                                   2567 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:167: logical_y = Field.ly + 96;
     00000CBA 2Ar04r00         [16] 2568 	ld	hl, (#(_Field + 4) + 0)
     00000CBD 11 60 00         [10] 2569 	ld	de, #0x0060
     00000CC0 19               [11] 2570 	add	hl, de
     00000CC1 EB               [ 4] 2571 	ex	de, hl
-                                   2572 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:169: return;
+                                   2572 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:169: return;
     00000CC2 C3rC5r0C         [10] 2573 	jp	00127$
     00000CC5                       2574 00127$:
-                                   2575 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:172: u8 start_x = 128 - (len * 8); // Centrato orizzontalmente: 128 - (lunghezza * 16 / 2)
+                                   2575 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:172: u8 start_x = 128 - (len * 8); // Centrato orizzontalmente: 128 - (lunghezza * 16 / 2)
     00000CC5 DD 7E F7         [19] 2576 	ld	a, -9 (ix)
     00000CC8 87               [ 4] 2577 	add	a, a
     00000CC9 87               [ 4] 2578 	add	a, a
@@ -2583,13 +2583,13 @@
     00000CCC 3E 80            [ 7] 2583 	ld	a, #0x80
     00000CCE 95               [ 4] 2584 	sub	a, l
     00000CCF DD 77 F8         [19] 2585 	ld	-8 (ix), a
-                                   2586 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:174: for (u8 i = 0; i < len; i++) {
+                                   2586 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:174: for (u8 i = 0; i < len; i++) {
     00000CD2 DD 36 FF 00      [19] 2587 	ld	-1 (ix), #0x00
     00000CD6                       2588 00131$:
     00000CD6 DD 7E FF         [19] 2589 	ld	a, -1 (ix)
     00000CD9 DD 96 F7         [19] 2590 	sub	a, -9 (ix)
     00000CDC D2r7Br0D         [10] 2591 	jp	NC, 00128$
-                                   2592 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:175: SwSprite[15 + i].lx = start_x + (i * 16);
+                                   2592 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:175: SwSprite[15 + i].lx = start_x + (i * 16);
     00000CDF DD 7E FF         [19] 2593 	ld	a, -1 (ix)
     00000CE2 DD 77 FD         [19] 2594 	ld	-3 (ix), a
     00000CE5 DD 36 FE 00      [19] 2595 	ld	-2 (ix), #0x00
@@ -2632,7 +2632,7 @@
     00000D17 DD 6E F9         [19] 2632 	ld	l, -7 (ix)
     00000D1A DD 66 FA         [19] 2633 	ld	h, -6 (ix)
     00000D1D 77               [ 7] 2634 	ld	(hl), a
-                                   2635 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:176: SwSprite[15 + i].ly = logical_y;
+                                   2635 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:176: SwSprite[15 + i].ly = logical_y;
     00000D1E DD 7E F9         [19] 2636 	ld	a, -7 (ix)
     00000D21 C6 04            [ 7] 2637 	add	a, #0x04
     00000D23 6F               [ 4] 2638 	ld	l, a
@@ -2646,7 +2646,7 @@
     00000D2A 73               [ 7] 2646 	ld	(hl), e
     00000D2B 23               [ 6] 2647 	inc	hl
     00000D2C 72               [ 7] 2648 	ld	(hl), d
-                                   2649 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:177: SwSprite[15 + i].frame = messageId + i;
+                                   2649 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:177: SwSprite[15 + i].frame = messageId + i;
     00000D2D DD 7E F9         [19] 2650 	ld	a, -7 (ix)
     00000D30 C6 0F            [ 7] 2651 	add	a, #0x0f
     00000D32 DD 77 FB         [19] 2652 	ld	-5 (ix), a
@@ -2669,7 +2669,7 @@
     00000D54 23               [ 6] 2669 	inc	hl
     00000D55 DD 7E FE         [19] 2670 	ld	a, -2 (ix)
     00000D58 77               [ 7] 2671 	ld	(hl), a
-                                   2672 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:178: SwSprite[15 + i].dx = 0;
+                                   2672 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:178: SwSprite[15 + i].dx = 0;
     00000D59 DD 7E F9         [19] 2673 	ld	a, -7 (ix)
     00000D5C C6 11            [ 7] 2674 	add	a, #0x11
     00000D5E 6F               [ 4] 2675 	ld	l, a
@@ -2679,7 +2679,7 @@
     00000D62 CE 00            [ 7] 2679 	adc	a, #0x00
     00000D64 67               [ 4] 2680 	ld	h, a
     00000D65 36 00            [10] 2681 	ld	(hl), #0x00
-                                   2682 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:179: SwSprite[15 + i].dy = 0;
+                                   2682 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:179: SwSprite[15 + i].dy = 0;
     00000D67 DD 7E F9         [19] 2683 	ld	a, -7 (ix)
     00000D6A C6 12            [ 7] 2684 	add	a, #0x12
     00000D6C 6F               [ 4] 2685 	ld	l, a
@@ -2689,11 +2689,11 @@
     00000D70 CE 00            [ 7] 2689 	adc	a, #0x00
     00000D72 67               [ 4] 2690 	ld	h, a
     00000D73 36 00            [10] 2691 	ld	(hl), #0x00
-                                   2692 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:174: for (u8 i = 0; i < len; i++) {
+                                   2692 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:174: for (u8 i = 0; i < len; i++) {
     00000D75 DD 34 FF         [23] 2693 	inc	-1 (ix)
     00000D78 C3rD6r0C         [10] 2694 	jp	00131$
     00000D7B                       2695 00128$:
-                                   2696 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:183: for (u8 i = 15 + len; i < 24; i++) {
+                                   2696 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:183: for (u8 i = 15 + len; i < 24; i++) {
     00000D7B DD 7E F7         [19] 2697 	ld	a, -9 (ix)
     00000D7E C6 0F            [ 7] 2698 	add	a, #0x0f
     00000D80 4F               [ 4] 2699 	ld	c, a
@@ -2701,7 +2701,7 @@
     00000D81 79               [ 4] 2701 	ld	a, c
     00000D82 D6 18            [ 7] 2702 	sub	a, #0x18
     00000D84 30 1C            [12] 2703 	jr	NC, 00136$
-                                   2704 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:184: SwSprite[i].ly = 1000; // Nascondimento assoluto
+                                   2704 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:184: SwSprite[i].ly = 1000; // Nascondimento assoluto
     00000D86 06 00            [ 7] 2705 	ld	b, #0x00
     00000D88 69               [ 4] 2706 	ld	l, c
     00000D89 60               [ 4] 2707 	ld	h, b
@@ -2719,27 +2719,27 @@
     00000D99 36 E8            [10] 2719 	ld	(hl), #0xe8
     00000D9B 23               [ 6] 2720 	inc	hl
     00000D9C 36 03            [10] 2721 	ld	(hl), #0x03
-                                   2722 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:183: for (u8 i = 15 + len; i < 24; i++) {
+                                   2722 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:183: for (u8 i = 15 + len; i < 24; i++) {
     00000D9E 0C               [ 4] 2723 	inc	c
     00000D9F C3r81r0D         [10] 2724 	jp	00134$
     00000DA2                       2725 00136$:
-                                   2726 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:186: }
+                                   2726 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:186: }
     00000DA2 DD F9            [10] 2727 	ld	sp, ix
     00000DA4 DD E1            [14] 2728 	pop	ix
     00000DA6 C9               [10] 2729 	ret
-                                   2730 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:189: void HideSpriteMessage()
+                                   2730 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:189: void HideSpriteMessage()
                                    2731 ;	---------------------------------
                                    2732 ; Function HideSpriteMessage
                                    2733 ; ---------------------------------
     00000DA7                       2734 _HideSpriteMessage::
-                                   2735 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:191: for (u8 i = 15; i < 24; i++) {
+                                   2735 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:191: for (u8 i = 15; i < 24; i++) {
     00000DA7 11r00r00         [10] 2736 	ld	de, #_SwSprite+0
     00000DAA 0E 0F            [ 7] 2737 	ld	c, #0x0f
     00000DAC                       2738 00103$:
     00000DAC 79               [ 4] 2739 	ld	a, c
     00000DAD D6 18            [ 7] 2740 	sub	a, #0x18
     00000DAF D0               [11] 2741 	ret	NC
-                                   2742 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:192: SwSprite[i].ly = 1000; // Nascondimento assoluto
+                                   2742 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:192: SwSprite[i].ly = 1000; // Nascondimento assoluto
     00000DB0 06 00            [ 7] 2743 	ld	b, #0x00
     00000DB2 69               [ 4] 2744 	ld	l, c
     00000DB3 60               [ 4] 2745 	ld	h, b
@@ -2758,9 +2758,9 @@
     00000DC0 36 E8            [10] 2758 	ld	(hl), #0xe8
     00000DC2 23               [ 6] 2759 	inc	hl
     00000DC3 36 03            [10] 2760 	ld	(hl), #0x03
-                                   2761 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:191: for (u8 i = 15; i < 24; i++) {
+                                   2761 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:191: for (u8 i = 15; i < 24; i++) {
     00000DC5 0C               [ 4] 2762 	inc	c
-                                   2763 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s5_b3.c:194: }
+                                   2763 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s5_b3.c:194: }
     00000DC6 C3rACr0D         [10] 2764 	jp	00103$
                                    2765 	.area _SEG5
                                    2766 	.area _INITIALIZER

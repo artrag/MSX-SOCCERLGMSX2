@@ -47,52 +47,52 @@ _g_PortDebugData	=	0x002f
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:66: void DEBUG_INIT() {}
+;C:\MSXgl-1.3.2\engine/src/debug.c:66: void DEBUG_INIT() {}
 ;	---------------------------------
 ; Function DEBUG_INIT
 ; ---------------------------------
 _DEBUG_INIT::
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:70: void DEBUG_BREAK()
+;C:\MSXgl-1.3.2\engine/src/debug.c:70: void DEBUG_BREAK()
 ;	---------------------------------
 ; Function DEBUG_BREAK
 ; ---------------------------------
 _DEBUG_BREAK::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:73: g_PortDebugMode = 0xFF;
+;C:\MSXgl-1.3.2\engine/src/debug.c:73: g_PortDebugMode = 0xFF;
 	ld	a, #0xff
 	out	(_g_PortDebugMode), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:75: }
+;C:\MSXgl-1.3.2\engine/src/debug.c:75: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:79: void DEBUG_ASSERT(bool a)
+;C:\MSXgl-1.3.2\engine/src/debug.c:79: void DEBUG_ASSERT(bool a)
 ;	---------------------------------
 ; Function DEBUG_ASSERT
 ; ---------------------------------
 _DEBUG_ASSERT::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:81: if (!(a))
+;C:\MSXgl-1.3.2\engine/src/debug.c:81: if (!(a))
 	ld	c, a
 	or	a, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:82: DEBUG_BREAK();
+;C:\MSXgl-1.3.2\engine/src/debug.c:82: DEBUG_BREAK();
 	jp	Z,_DEBUG_BREAK
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:83: }
+;C:\MSXgl-1.3.2\engine/src/debug.c:83: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:87: void DEBUG_LOG(const c8* msg)
+;C:\MSXgl-1.3.2\engine/src/debug.c:87: void DEBUG_LOG(const c8* msg)
 ;	---------------------------------
 ; Function DEBUG_LOG
 ; ---------------------------------
 _DEBUG_LOG::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:90: DEBUG_PRINT("%s", msg);
+;C:\MSXgl-1.3.2\engine/src/debug.c:90: DEBUG_PRINT("%s", msg);
 	ld	bc, #___str_0+0
 	push	hl
 	push	bc
 	call	_DEBUG_PRINT
 	pop	af
 	pop	af
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:96: }
+;C:\MSXgl-1.3.2\engine/src/debug.c:96: }
 	ret
 ___str_0:
 	.ascii "%s"
 	.db 0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:100: void DEBUG_LOGNUM(const c8* msg, u8 num)
+;C:\MSXgl-1.3.2\engine/src/debug.c:100: void DEBUG_LOGNUM(const c8* msg, u8 num)
 ;	---------------------------------
 ; Function DEBUG_LOGNUM
 ; ---------------------------------
@@ -100,7 +100,7 @@ _DEBUG_LOGNUM::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:103: DEBUG_PRINT("%s:%d", msg, num);
+;C:\MSXgl-1.3.2\engine/src/debug.c:103: DEBUG_PRINT("%s:%d", msg, num);
 	ld	e, 4 (ix)
 	ld	d, #0x00
 	ld	bc, #___str_1+0
@@ -111,7 +111,7 @@ _DEBUG_LOGNUM::
 	ld	hl, #6
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:110: }
+;C:\MSXgl-1.3.2\engine/src/debug.c:110: }
 	pop	ix
 	pop	hl
 	inc	sp
@@ -119,25 +119,25 @@ _DEBUG_LOGNUM::
 ___str_1:
 	.ascii "%s:%d"
 	.db 0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:114: void DEBUG_PRINT(const c8* format, ...)
+;C:\MSXgl-1.3.2\engine/src/debug.c:114: void DEBUG_PRINT(const c8* format, ...)
 ;	---------------------------------
 ; Function DEBUG_PRINT
 ; ---------------------------------
 _DEBUG_PRINT::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:118: va_start(args, format);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:119: u16 val = ((u16)args - sizeof(format));
+;C:\MSXgl-1.3.2\engine/src/debug.c:118: va_start(args, format);
+;C:\MSXgl-1.3.2\engine/src/debug.c:119: u16 val = ((u16)args - sizeof(format));
 	ld	hl,#0x2
 	add	hl,sp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:122: g_PortDebugMode = 1;
+;C:\MSXgl-1.3.2\engine/src/debug.c:122: g_PortDebugMode = 1;
 	ld	a, #0x01
 	out	(_g_PortDebugMode), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:123: g_PortDebugData = val & 0xFF; // low byte
+;C:\MSXgl-1.3.2\engine/src/debug.c:123: g_PortDebugData = val & 0xFF; // low byte
 	ld	a, l
 	out	(_g_PortDebugData), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:124: g_PortDebugData = val >> 8; // high byte
+;C:\MSXgl-1.3.2\engine/src/debug.c:124: g_PortDebugData = val >> 8; // high byte
 	ld	a, h
 	out	(_g_PortDebugData), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/debug.c:135: }
+;C:\MSXgl-1.3.2\engine/src/debug.c:135: }
 	ret
 	.area _CODE
 	.area _INITIALIZER

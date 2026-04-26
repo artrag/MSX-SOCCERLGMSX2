@@ -290,12 +290,12 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:27: u8 Input_Detect(enum INPUT_PORT port) __NAKED __PRESERVES(b, c, d, e, iyl, iyh)
+;C:\MSXgl-1.3.2\engine/src/input.c:27: u8 Input_Detect(enum INPUT_PORT port) __NAKED __PRESERVES(b, c, d, e, iyl, iyh)
 ;	---------------------------------
 ; Function Input_Detect
 ; ---------------------------------
 _Input_Detect::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:54: __endasm;
+;C:\MSXgl-1.3.2\engine/src/input.c:54: __endasm;
 	ld	h, a
 	and	#0b11001111
 	ld	l, a
@@ -314,13 +314,13 @@ _Input_Detect::
 	in	a, (0xA2)
 	and	#0x3F
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:55: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:74: u8 Joystick_Read(u8 port) __NAKED __FASTCALL __PRESERVES(b, c, d, e, h, iyl, iyh)
+;C:\MSXgl-1.3.2\engine/src/input.c:55: }
+;C:\MSXgl-1.3.2\engine/src/input.c:74: u8 Joystick_Read(u8 port) __NAKED __FASTCALL __PRESERVES(b, c, d, e, h, iyl, iyh)
 ;	---------------------------------
 ; Function Joystick_Read
 ; ---------------------------------
 _Joystick_Read::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:99: __endasm;
+;C:\MSXgl-1.3.2\engine/src/input.c:99: __endasm;
 	ld	a, #15
 	di
 	out	(0xA0), a
@@ -334,13 +334,13 @@ _Joystick_Read::
 	in	a, (0xA2)
 	ld	l, a
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:100: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:277: u8 Keyboard_Read(u8 row) __NAKED __FASTCALL __PRESERVES(b, c, d, e, h, iyl, iyh)
+;C:\MSXgl-1.3.2\engine/src/input.c:100: }
+;C:\MSXgl-1.3.2\engine/src/input.c:277: u8 Keyboard_Read(u8 row) __NAKED __FASTCALL __PRESERVES(b, c, d, e, h, iyl, iyh)
 ;	---------------------------------
 ; Function Keyboard_Read
 ; ---------------------------------
 _Keyboard_Read::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:290: __endasm;
+;C:\MSXgl-1.3.2\engine/src/input.c:290: __endasm;
 	in	a, (0xAA)
 	and	#0xF0
 	or	l
@@ -348,13 +348,13 @@ _Keyboard_Read::
 	in	a, (0xA9)
 	ld	l, a
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:291: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:332: u8 Keyboard_IsKeyPressed(u8 key)
+;C:\MSXgl-1.3.2\engine/src/input.c:291: }
+;C:\MSXgl-1.3.2\engine/src/input.c:332: u8 Keyboard_IsKeyPressed(u8 key)
 ;	---------------------------------
 ; Function Keyboard_IsKeyPressed
 ; ---------------------------------
 _Keyboard_IsKeyPressed::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:334: return (Keyboard_Read(KEY_ROW(key)) & (1 << KEY_IDX(key))) == 0;
+;C:\MSXgl-1.3.2\engine/src/input.c:334: return (Keyboard_Read(KEY_ROW(key)) & (1 << KEY_IDX(key))) == 0;
 	ld	e, a
 	and	a, #0x0f
 	ld	l, a
@@ -387,7 +387,7 @@ _Keyboard_IsKeyPressed::
 	ld	a, #0x01
 	ret	Z
 	xor	a, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/input.c:335: }
+;C:\MSXgl-1.3.2\engine/src/input.c:335: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385

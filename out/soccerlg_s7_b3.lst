@@ -303,7 +303,7 @@
                                     303 	.area _GSINIT
                                     304 	.area _GSFINAL
                                     305 	.area _GSINIT
-                                    306 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:152: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
+                                    306 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:152: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
     00000000 01r00r00         [10]  307 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_801+0
     00000003 AF               [ 4]  308 	xor	a, a
     00000004 02               [ 7]  309 	ld	(bc), a
@@ -319,58 +319,58 @@
                                     319 ; code
                                     320 ;--------------------------------------------------------
                                     321 	.area _SEG7
-                                    322 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:20: bool IsTeamJoystickTriggerPressed(u8 player){		
+                                    322 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:20: bool IsTeamJoystickTriggerPressed(u8 player){		
                                     323 ;	---------------------------------
                                     324 ; Function IsTeamJoystickTriggerPressed
                                     325 ; ---------------------------------
     00000000                        326 _IsTeamJoystickTriggerPressed::
-                                    327 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:21: if (player == 0) { // Player 1 (Joystick 1 + Tastiera)
+                                    327 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:21: if (player == 0) { // Player 1 (Joystick 1 + Tastiera)
     00000000 B7               [ 4]  328 	or	a, a
     00000001 20 17            [12]  329 	jr	NZ, 00110$
-                                    330 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:22: u8 joyStat = Joystick_Read(JOY_PORT_1);
+                                    330 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:22: u8 joyStat = Joystick_Read(JOY_PORT_1);
     00000003 2E 0F            [ 7]  331 	ld	l, #0x0f
                                     332 ;	spillPairReg hl
                                     333 ;	spillPairReg hl
     00000005 CDr00r00         [17]  334 	call	_Joystick_Read
-                                    335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:23: if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
+                                    335 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:23: if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
     00000008 CB 65            [ 8]  336 	bit	4, l
     0000000A 20 03            [12]  337 	jr	NZ, 00102$
-                                    338 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:25: return true;
+                                    338 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:25: return true;
     0000000C 3E 01            [ 7]  339 	ld	a, #0x01
     0000000E C9               [10]  340 	ret
     0000000F                        341 00102$:
-                                    342 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:27: if(Keyboard_IsKeyPressed(KEY_SPACE))
+                                    342 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:27: if(Keyboard_IsKeyPressed(KEY_SPACE))
     0000000F 3E 08            [ 7]  343 	ld	a, #0x08
     00000011 CDr00r00         [17]  344 	call	_Keyboard_IsKeyPressed
     00000014 B7               [ 4]  345 	or	a, a
     00000015 28 18            [12]  346 	jr	Z, 00111$
-                                    347 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:29: return true;
+                                    347 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:29: return true;
     00000017 3E 01            [ 7]  348 	ld	a, #0x01
     00000019 C9               [10]  349 	ret
     0000001A                        350 00110$:
-                                    351 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:32: u8 joyStat = Joystick_Read(JOY_PORT_2);
+                                    351 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:32: u8 joyStat = Joystick_Read(JOY_PORT_2);
     0000001A 2E 4F            [ 7]  352 	ld	l, #0x4f
                                     353 ;	spillPairReg hl
                                     354 ;	spillPairReg hl
     0000001C CDr00r00         [17]  355 	call	_Joystick_Read
-                                    356 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:33: if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
+                                    356 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:33: if (IS_JOY_PRESSED(joyStat, JOY_INPUT_TRIGGER_A))
     0000001F CB 65            [ 8]  357 	bit	4, l
     00000021 20 03            [12]  358 	jr	NZ, 00106$
-                                    359 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:35: return true;
+                                    359 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:35: return true;
     00000023 3E 01            [ 7]  360 	ld	a, #0x01
     00000025 C9               [10]  361 	ret
     00000026                        362 00106$:
-                                    363 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:37: if(Keyboard_IsKeyPressed(KEY_T))
+                                    363 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:37: if(Keyboard_IsKeyPressed(KEY_T))
     00000026 3E 15            [ 7]  364 	ld	a, #0x15
     00000028 CDr00r00         [17]  365 	call	_Keyboard_IsKeyPressed
     0000002B B7               [ 4]  366 	or	a, a
-                                    367 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:39: return true;
-                                    368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:42: return FALSE;
+                                    367 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:39: return true;
+                                    368 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:42: return FALSE;
     0000002C 3E 01            [ 7]  369 	ld	a, #0x01
     0000002E C0               [11]  370 	ret	NZ
     0000002F                        371 00111$:
     0000002F AF               [ 4]  372 	xor	a, a
-                                    373 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:43: }
+                                    373 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:43: }
     00000030 C9               [10]  374 	ret
                          0000F380   375 _g_RDPRIM	=	0xf380
                          0000F385   376 _g_WRPRIM	=	0xf385
@@ -536,12 +536,12 @@
                          0000F344   536 _g_RAMAD3	=	0xf344
                          0000F348   537 _g_MASTER	=	0xf348
                          0000F37D   538 _g_BDOS	=	0xf37d
-                                    539 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:46: u8 GetJoystickDirection(u8 player){
+                                    539 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:46: u8 GetJoystickDirection(u8 player){
                                     540 ;	---------------------------------
                                     541 ; Function GetJoystickDirection
                                     542 ; ---------------------------------
     00000031                        543 _GetJoystickDirection::
-                                    544 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:47: u8 port = (player == 0) ? JOY_PORT_1 : JOY_PORT_2;
+                                    544 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:47: u8 port = (player == 0) ? JOY_PORT_1 : JOY_PORT_2;
     00000031 4F               [ 4]  545 	ld	c, a
     00000032 B7               [ 4]  546 	or	a, a
     00000033 20 06            [12]  547 	jr	NZ, 00167$
@@ -550,17 +550,17 @@
     0000003B                        550 00167$:
     0000003B 21 4F 00         [10]  551 	ld	hl, #0x004f
     0000003E                        552 00168$:
-                                    553 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/input.h:182: u8 in = ~Joystick_Read(port);
+                                    553 ;C:/MSXgl-1.3.2/engine/src/input.h:182: u8 in = ~Joystick_Read(port);
     0000003E CDr00r00         [17]  554 	call	_Joystick_Read
     00000041 7D               [ 4]  555 	ld	a, l
     00000042 2F               [ 4]  556 	cpl
-                                    557 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:48: u8 dir = Joystick_GetDirection(port);
+                                    557 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:48: u8 dir = Joystick_GetDirection(port);
     00000043 E6 0F            [ 7]  558 	and	a, #0x0f
     00000045 57               [ 4]  559 	ld	d, a
     00000046 5A               [ 4]  560 	ld	e, d
-                                    561 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:49: u8 retValue=DIRECTION_NONE;
+                                    561 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:49: u8 retValue=DIRECTION_NONE;
     00000047 06 00            [ 7]  562 	ld	b, #0x00
-                                    563 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:50: switch (dir){
+                                    563 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:50: switch (dir){
     00000049 3E 0A            [ 7]  564 	ld	a, #0x0a
     0000004B 92               [ 4]  565 	sub	a, d
     0000004C 38 4F            [12]  566 	jr	C, 00109$
@@ -582,61 +582,61 @@
     0000006F C3r87r00         [10]  582 	jp	00104$
     00000072 C3r8Cr00         [10]  583 	jp	00105$
     00000075 C3r96r00         [10]  584 	jp	00107$
-                                    585 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:51: case JOY_INPUT_DIR_UP:
+                                    585 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:51: case JOY_INPUT_DIR_UP:
     00000078                        586 00101$:
-                                    587 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:52: retValue=DIRECTION_UP;
+                                    587 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:52: retValue=DIRECTION_UP;
     00000078 06 01            [ 7]  588 	ld	b, #0x01
-                                    589 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:53: break;
+                                    589 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:53: break;
     0000007A C3r9Dr00         [10]  590 	jp	00109$
-                                    591 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:54: case JOY_INPUT_DIR_DOWN:
+                                    591 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:54: case JOY_INPUT_DIR_DOWN:
     0000007D                        592 00102$:
-                                    593 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:55: retValue=DIRECTION_DOWN;
+                                    593 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:55: retValue=DIRECTION_DOWN;
     0000007D 06 05            [ 7]  594 	ld	b, #0x05
-                                    595 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:56: break;
+                                    595 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:56: break;
     0000007F C3r9Dr00         [10]  596 	jp	00109$
-                                    597 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:57: case JOY_INPUT_DIR_LEFT:
+                                    597 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:57: case JOY_INPUT_DIR_LEFT:
     00000082                        598 00103$:
-                                    599 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:58: retValue=DIRECTION_LEFT;
+                                    599 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:58: retValue=DIRECTION_LEFT;
     00000082 06 07            [ 7]  600 	ld	b, #0x07
-                                    601 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:59: break;
+                                    601 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:59: break;
     00000084 C3r9Dr00         [10]  602 	jp	00109$
-                                    603 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:60: case JOY_INPUT_DIR_RIGHT:
+                                    603 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:60: case JOY_INPUT_DIR_RIGHT:
     00000087                        604 00104$:
-                                    605 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:61: retValue=DIRECTION_RIGHT;
+                                    605 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:61: retValue=DIRECTION_RIGHT;
     00000087 06 03            [ 7]  606 	ld	b, #0x03
-                                    607 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:62: break;
+                                    607 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:62: break;
     00000089 C3r9Dr00         [10]  608 	jp	00109$
-                                    609 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:63: case JOY_INPUT_DIR_UP_RIGHT:
+                                    609 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:63: case JOY_INPUT_DIR_UP_RIGHT:
     0000008C                        610 00105$:
-                                    611 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:64: retValue=DIRECTION_UP_RIGHT;
+                                    611 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:64: retValue=DIRECTION_UP_RIGHT;
     0000008C 06 02            [ 7]  612 	ld	b, #0x02
-                                    613 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:65: break;
+                                    613 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:65: break;
     0000008E C3r9Dr00         [10]  614 	jp	00109$
-                                    615 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:66: case JOY_INPUT_DIR_UP_LEFT:
+                                    615 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:66: case JOY_INPUT_DIR_UP_LEFT:
     00000091                        616 00106$:
-                                    617 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:67: retValue=DIRECTION_UP_LEFT;
+                                    617 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:67: retValue=DIRECTION_UP_LEFT;
     00000091 06 08            [ 7]  618 	ld	b, #0x08
-                                    619 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:68: break;
+                                    619 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:68: break;
     00000093 C3r9Dr00         [10]  620 	jp	00109$
-                                    621 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:69: case JOY_INPUT_DIR_DOWN_RIGHT:
+                                    621 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:69: case JOY_INPUT_DIR_DOWN_RIGHT:
     00000096                        622 00107$:
-                                    623 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:70: retValue=DIRECTION_DOWN_RIGHT;
+                                    623 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:70: retValue=DIRECTION_DOWN_RIGHT;
     00000096 06 04            [ 7]  624 	ld	b, #0x04
-                                    625 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:71: break;
+                                    625 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:71: break;
     00000098 C3r9Dr00         [10]  626 	jp	00109$
-                                    627 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:72: case JOY_INPUT_DIR_DOWN_LEFT:
+                                    627 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:72: case JOY_INPUT_DIR_DOWN_LEFT:
     0000009B                        628 00108$:
-                                    629 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:73: retValue=DIRECTION_DOWN_LEFT;
+                                    629 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:73: retValue=DIRECTION_DOWN_LEFT;
     0000009B 06 06            [ 7]  630 	ld	b, #0x06
-                                    631 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:75: }
+                                    631 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:75: }
     0000009D                        632 00109$:
-                                    633 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:76: if(retValue==DIRECTION_NONE && player == 0){
+                                    633 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:76: if(retValue==DIRECTION_NONE && player == 0){
     0000009D 78               [ 4]  634 	ld	a, b
     0000009E B7               [ 4]  635 	or	a,a
     0000009F C2r3Er01         [10]  636 	jp	NZ,00135$
     000000A2 B1               [ 4]  637 	or	a,c
     000000A3 C2r3Er01         [10]  638 	jp	NZ, 00135$
-                                    639 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:77: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_UP))
+                                    639 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:77: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_UP))
     000000A6 C5               [11]  640 	push	bc
     000000A7 3E 48            [ 7]  641 	ld	a, #0x48
     000000A9 CDr00r00         [17]  642 	call	_Keyboard_IsKeyPressed
@@ -649,10 +649,10 @@
     000000B6 C1               [10]  649 	pop	bc
     000000B7 B7               [ 4]  650 	or	a, a
     000000B8 28 02            [12]  651 	jr	Z, 00111$
-                                    652 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:79: retValue=DIRECTION_UP_LEFT;
+                                    652 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:79: retValue=DIRECTION_UP_LEFT;
     000000BA 06 08            [ 7]  653 	ld	b, #0x08
     000000BC                        654 00111$:
-                                    655 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:81: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_DOWN))
+                                    655 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:81: if(Keyboard_IsKeyPressed(KEY_LEFT) && Keyboard_IsKeyPressed(KEY_DOWN))
     000000BC C5               [11]  656 	push	bc
     000000BD 3E 48            [ 7]  657 	ld	a, #0x48
     000000BF CDr00r00         [17]  658 	call	_Keyboard_IsKeyPressed
@@ -665,10 +665,10 @@
     000000CC C1               [10]  665 	pop	bc
     000000CD B7               [ 4]  666 	or	a, a
     000000CE 28 02            [12]  667 	jr	Z, 00114$
-                                    668 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:83: retValue=DIRECTION_DOWN_LEFT;
+                                    668 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:83: retValue=DIRECTION_DOWN_LEFT;
     000000D0 06 06            [ 7]  669 	ld	b, #0x06
     000000D2                        670 00114$:
-                                    671 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:85: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_DOWN))
+                                    671 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:85: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_DOWN))
     000000D2 C5               [11]  672 	push	bc
     000000D3 3E 78            [ 7]  673 	ld	a, #0x78
     000000D5 CDr00r00         [17]  674 	call	_Keyboard_IsKeyPressed
@@ -681,10 +681,10 @@
     000000E2 C1               [10]  681 	pop	bc
     000000E3 B7               [ 4]  682 	or	a, a
     000000E4 28 02            [12]  683 	jr	Z, 00117$
-                                    684 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:87: retValue=DIRECTION_DOWN_RIGHT;
+                                    684 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:87: retValue=DIRECTION_DOWN_RIGHT;
     000000E6 06 04            [ 7]  685 	ld	b, #0x04
     000000E8                        686 00117$:
-                                    687 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:89: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_UP))
+                                    687 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:89: if(Keyboard_IsKeyPressed(KEY_RIGHT) && Keyboard_IsKeyPressed(KEY_UP))
     000000E8 C5               [11]  688 	push	bc
     000000E9 3E 78            [ 7]  689 	ld	a, #0x78
     000000EB CDr00r00         [17]  690 	call	_Keyboard_IsKeyPressed
@@ -697,10 +697,10 @@
     000000F8 C1               [10]  697 	pop	bc
     000000F9 B7               [ 4]  698 	or	a, a
     000000FA 28 02            [12]  699 	jr	Z, 00120$
-                                    700 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:91: retValue=DIRECTION_UP_RIGHT;
+                                    700 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:91: retValue=DIRECTION_UP_RIGHT;
     000000FC 06 02            [ 7]  701 	ld	b, #0x02
     000000FE                        702 00120$:
-                                    703 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:93: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_LEFT))
+                                    703 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:93: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_LEFT))
     000000FE 78               [ 4]  704 	ld	a, b
     000000FF B7               [ 4]  705 	or	a, a
     00000100 20 0C            [12]  706 	jr	NZ, 00123$
@@ -710,10 +710,10 @@
     00000108 C1               [10]  710 	pop	bc
     00000109 B7               [ 4]  711 	or	a, a
     0000010A 28 02            [12]  712 	jr	Z, 00123$
-                                    713 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:95: retValue=DIRECTION_LEFT;
+                                    713 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:95: retValue=DIRECTION_LEFT;
     0000010C 06 07            [ 7]  714 	ld	b, #0x07
     0000010E                        715 00123$:
-                                    716 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:97: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_RIGHT))
+                                    716 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:97: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_RIGHT))
     0000010E 78               [ 4]  717 	ld	a, b
     0000010F B7               [ 4]  718 	or	a, a
     00000110 20 0C            [12]  719 	jr	NZ, 00126$
@@ -723,10 +723,10 @@
     00000118 C1               [10]  723 	pop	bc
     00000119 B7               [ 4]  724 	or	a, a
     0000011A 28 02            [12]  725 	jr	Z, 00126$
-                                    726 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:99: retValue=DIRECTION_RIGHT;
+                                    726 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:99: retValue=DIRECTION_RIGHT;
     0000011C 06 03            [ 7]  727 	ld	b, #0x03
     0000011E                        728 00126$:
-                                    729 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:101: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_UP))
+                                    729 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:101: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_UP))
     0000011E 78               [ 4]  730 	ld	a, b
     0000011F B7               [ 4]  731 	or	a, a
     00000120 20 0C            [12]  732 	jr	NZ, 00129$
@@ -736,10 +736,10 @@
     00000128 C1               [10]  736 	pop	bc
     00000129 B7               [ 4]  737 	or	a, a
     0000012A 28 02            [12]  738 	jr	Z, 00129$
-                                    739 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:103: retValue=DIRECTION_UP;
+                                    739 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:103: retValue=DIRECTION_UP;
     0000012C 06 01            [ 7]  740 	ld	b, #0x01
     0000012E                        741 00129$:
-                                    742 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:105: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_DOWN))
+                                    742 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:105: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_DOWN))
     0000012E 78               [ 4]  743 	ld	a, b
     0000012F B7               [ 4]  744 	or	a, a
     00000130 20 0C            [12]  745 	jr	NZ, 00135$
@@ -749,16 +749,16 @@
     00000138 C1               [10]  749 	pop	bc
     00000139 B7               [ 4]  750 	or	a, a
     0000013A 28 02            [12]  751 	jr	Z, 00135$
-                                    752 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:107: retValue=DIRECTION_DOWN;
+                                    752 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:107: retValue=DIRECTION_DOWN;
     0000013C 06 05            [ 7]  753 	ld	b, #0x05
     0000013E                        754 00135$:
-                                    755 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:110: if(retValue==DIRECTION_NONE && player == 1){
+                                    755 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:110: if(retValue==DIRECTION_NONE && player == 1){
     0000013E 78               [ 4]  756 	ld	a, b
     0000013F B7               [ 4]  757 	or	a, a
     00000140 C2rDFr01         [10]  758 	jp	NZ, 00162$
     00000143 0D               [ 4]  759 	dec	c
     00000144 C2rDFr01         [10]  760 	jp	NZ,00162$
-                                    761 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:111: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_W))
+                                    761 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:111: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_W))
     00000147 C5               [11]  762 	push	bc
     00000148 3E 62            [ 7]  763 	ld	a, #0x62
     0000014A CDr00r00         [17]  764 	call	_Keyboard_IsKeyPressed
@@ -771,10 +771,10 @@
     00000157 C1               [10]  771 	pop	bc
     00000158 B7               [ 4]  772 	or	a, a
     00000159 28 02            [12]  773 	jr	Z, 00138$
-                                    774 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:113: retValue=DIRECTION_UP_LEFT;
+                                    774 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:113: retValue=DIRECTION_UP_LEFT;
     0000015B 06 08            [ 7]  775 	ld	b, #0x08
     0000015D                        776 00138$:
-                                    777 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:115: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_Z))
+                                    777 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:115: if(Keyboard_IsKeyPressed(KEY_A) && Keyboard_IsKeyPressed(KEY_Z))
     0000015D C5               [11]  778 	push	bc
     0000015E 3E 62            [ 7]  779 	ld	a, #0x62
     00000160 CDr00r00         [17]  780 	call	_Keyboard_IsKeyPressed
@@ -787,10 +787,10 @@
     0000016D C1               [10]  787 	pop	bc
     0000016E B7               [ 4]  788 	or	a, a
     0000016F 28 02            [12]  789 	jr	Z, 00141$
-                                    790 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:117: retValue=DIRECTION_DOWN_LEFT;
+                                    790 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:117: retValue=DIRECTION_DOWN_LEFT;
     00000171 06 06            [ 7]  791 	ld	b, #0x06
     00000173                        792 00141$:
-                                    793 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:119: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_Z))
+                                    793 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:119: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_Z))
     00000173 C5               [11]  794 	push	bc
     00000174 3E 05            [ 7]  795 	ld	a, #0x05
     00000176 CDr00r00         [17]  796 	call	_Keyboard_IsKeyPressed
@@ -803,10 +803,10 @@
     00000183 C1               [10]  803 	pop	bc
     00000184 B7               [ 4]  804 	or	a, a
     00000185 28 02            [12]  805 	jr	Z, 00144$
-                                    806 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:121: retValue=DIRECTION_DOWN_RIGHT;
+                                    806 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:121: retValue=DIRECTION_DOWN_RIGHT;
     00000187 06 04            [ 7]  807 	ld	b, #0x04
     00000189                        808 00144$:
-                                    809 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:123: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_W))
+                                    809 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:123: if(Keyboard_IsKeyPressed(KEY_S) && Keyboard_IsKeyPressed(KEY_W))
     00000189 C5               [11]  810 	push	bc
     0000018A 3E 05            [ 7]  811 	ld	a, #0x05
     0000018C CDr00r00         [17]  812 	call	_Keyboard_IsKeyPressed
@@ -819,10 +819,10 @@
     00000199 C1               [10]  819 	pop	bc
     0000019A B7               [ 4]  820 	or	a, a
     0000019B 28 02            [12]  821 	jr	Z, 00147$
-                                    822 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:125: retValue=DIRECTION_UP_RIGHT;
+                                    822 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:125: retValue=DIRECTION_UP_RIGHT;
     0000019D 06 02            [ 7]  823 	ld	b, #0x02
     0000019F                        824 00147$:
-                                    825 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:127: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_A))
+                                    825 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:127: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_A))
     0000019F 78               [ 4]  826 	ld	a, b
     000001A0 B7               [ 4]  827 	or	a, a
     000001A1 20 0C            [12]  828 	jr	NZ, 00150$
@@ -832,10 +832,10 @@
     000001A9 C1               [10]  832 	pop	bc
     000001AA B7               [ 4]  833 	or	a, a
     000001AB 28 02            [12]  834 	jr	Z, 00150$
-                                    835 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:129: retValue=DIRECTION_LEFT;
+                                    835 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:129: retValue=DIRECTION_LEFT;
     000001AD 06 07            [ 7]  836 	ld	b, #0x07
     000001AF                        837 00150$:
-                                    838 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:131: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_S))
+                                    838 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:131: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_S))
     000001AF 78               [ 4]  839 	ld	a, b
     000001B0 B7               [ 4]  840 	or	a, a
     000001B1 20 0C            [12]  841 	jr	NZ, 00153$
@@ -845,10 +845,10 @@
     000001B9 C1               [10]  845 	pop	bc
     000001BA B7               [ 4]  846 	or	a, a
     000001BB 28 02            [12]  847 	jr	Z, 00153$
-                                    848 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:133: retValue=DIRECTION_RIGHT;
+                                    848 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:133: retValue=DIRECTION_RIGHT;
     000001BD 06 03            [ 7]  849 	ld	b, #0x03
     000001BF                        850 00153$:
-                                    851 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:135: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_W))
+                                    851 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:135: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_W))
     000001BF 78               [ 4]  852 	ld	a, b
     000001C0 B7               [ 4]  853 	or	a, a
     000001C1 20 0C            [12]  854 	jr	NZ, 00156$
@@ -858,10 +858,10 @@
     000001C9 C1               [10]  858 	pop	bc
     000001CA B7               [ 4]  859 	or	a, a
     000001CB 28 02            [12]  860 	jr	Z, 00156$
-                                    861 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:137: retValue=DIRECTION_UP;
+                                    861 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:137: retValue=DIRECTION_UP;
     000001CD 06 01            [ 7]  862 	ld	b, #0x01
     000001CF                        863 00156$:
-                                    864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:139: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_Z))
+                                    864 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:139: if(retValue==DIRECTION_NONE && Keyboard_IsKeyPressed(KEY_Z))
     000001CF 78               [ 4]  865 	ld	a, b
     000001D0 B7               [ 4]  866 	or	a, a
     000001D1 20 0C            [12]  867 	jr	NZ, 00162$
@@ -871,14 +871,14 @@
     000001D9 C1               [10]  871 	pop	bc
     000001DA B7               [ 4]  872 	or	a, a
     000001DB 28 02            [12]  873 	jr	Z, 00162$
-                                    874 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:141: retValue=DIRECTION_DOWN;
+                                    874 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:141: retValue=DIRECTION_DOWN;
     000001DD 06 05            [ 7]  875 	ld	b, #0x05
     000001DF                        876 00162$:
-                                    877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:144: return retValue;
+                                    877 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:144: return retValue;
     000001DF 78               [ 4]  878 	ld	a, b
-                                    879 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:145: }
+                                    879 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:145: }
     000001E0 C9               [10]  880 	ret
-                                    881 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:148: void UpdateAllInputs()
+                                    881 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:148: void UpdateAllInputs()
                                     882 ;	---------------------------------
                                     883 ; Function UpdateAllInputs
                                     884 ; ---------------------------------
@@ -887,15 +887,15 @@
     000001E3 DD 21 00 00      [14]  887 	ld	ix,#0
     000001E7 DD 39            [15]  888 	add	ix,sp
     000001E9 3B               [ 6]  889 	dec	sp
-                                    890 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:156: g_player_input[1].direction = GetJoystickDirection(0);
+                                    890 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:156: g_player_input[1].direction = GetJoystickDirection(0);
     000001EA AF               [ 4]  891 	xor	a, a
     000001EB CDr31r00         [17]  892 	call	_GetJoystickDirection
     000001EE 32r03r00         [13]  893 	ld	(#(_g_player_input + 3)),a
-                                    894 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:157: bool p1_trigger_down = IsTeamJoystickTriggerPressed(0);
+                                    894 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:157: bool p1_trigger_down = IsTeamJoystickTriggerPressed(0);
     000001F1 AF               [ 4]  895 	xor	a, a
     000001F2 CDr00r00         [17]  896 	call	_IsTeamJoystickTriggerPressed
     000001F5 5F               [ 4]  897 	ld	e, a
-                                    898 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:158: g_player_input[1].trigger_pressed = p1_trigger_down && !s_prev_trigger_state[1];
+                                    898 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:158: g_player_input[1].trigger_pressed = p1_trigger_down && !s_prev_trigger_state[1];
     000001F6 01r04r00         [10]  899 	ld	bc, #_g_player_input + 4
     000001F9 7B               [ 4]  900 	ld	a, e
     000001FA B7               [ 4]  901 	or	a, a
@@ -910,31 +910,31 @@
     00000207 3E 01            [ 7]  910 	ld	a, #0x01
     00000209                        911 00108$:
     00000209 02               [ 7]  912 	ld	(bc), a
-                                    913 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:159: g_player_input[1].trigger_down = p1_trigger_down;
+                                    913 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:159: g_player_input[1].trigger_down = p1_trigger_down;
     0000020A 21r05r00         [10]  914 	ld	hl, #(_g_player_input + 5)
     0000020D 73               [ 7]  915 	ld	(hl), e
-                                    916 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:160: s_prev_trigger_state[1] = p1_trigger_down;
+                                    916 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:160: s_prev_trigger_state[1] = p1_trigger_down;
     0000020E 01r00r00         [10]  917 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_801+0
     00000211 21r01r00         [10]  918 	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_801 + 1)
     00000214 73               [ 7]  919 	ld	(hl), e
-                                    920 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
-                                    921 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
-                                    922 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:163: if (GameMode == GAMEMODE_P1_VS_P2)
+                                    920 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
+                                    921 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
+                                    922 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:163: if (GameMode == GAMEMODE_P1_VS_P2)
     00000215 3Ar00r00         [13]  923 	ld	a, (_GameMode+0)
     00000218 3D               [ 4]  924 	dec	a
     00000219 20 32            [12]  925 	jr	NZ, 00102$
-                                    926 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:166: g_player_input[0].direction = GetJoystickDirection(1);
+                                    926 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:166: g_player_input[0].direction = GetJoystickDirection(1);
     0000021B C5               [11]  927 	push	bc
     0000021C 3E 01            [ 7]  928 	ld	a, #0x01
     0000021E CDr31r00         [17]  929 	call	_GetJoystickDirection
     00000221 C1               [10]  930 	pop	bc
     00000222 32r00r00         [13]  931 	ld	(#_g_player_input),a
-                                    932 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:167: bool p2_trigger_down = IsTeamJoystickTriggerPressed(1);
+                                    932 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:167: bool p2_trigger_down = IsTeamJoystickTriggerPressed(1);
     00000225 C5               [11]  933 	push	bc
     00000226 3E 01            [ 7]  934 	ld	a, #0x01
     00000228 CDr00r00         [17]  935 	call	_IsTeamJoystickTriggerPressed
     0000022B C1               [10]  936 	pop	bc
-                                    937 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
+                                    937 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
     0000022C DD 77 FF         [19]  938 	ld	-1 (ix), a
     0000022F B7               [ 4]  939 	or	a, a
     00000230 28 04            [12]  940 	jr	Z, 00109$
@@ -948,29 +948,29 @@
     0000023A 3E 01            [ 7]  948 	ld	a, #0x01
     0000023C                        949 00111$:
     0000023C 32r01r00         [13]  950 	ld	(#(_g_player_input + 1)),a
-                                    951 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
+                                    951 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;
     0000023F 21r02r00         [10]  952 	ld	hl, #(_g_player_input + 2)
     00000242 DD 7E FF         [19]  953 	ld	a, -1 (ix)
     00000245 77               [ 7]  954 	ld	(hl), a
-                                    955 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:170: s_prev_trigger_state[0] = p2_trigger_down;
+                                    955 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:170: s_prev_trigger_state[0] = p2_trigger_down;
     00000246 DD 7E FF         [19]  956 	ld	a, -1 (ix)
     00000249 02               [ 7]  957 	ld	(bc), a
     0000024A C3r5Er02         [10]  958 	jp	00104$
     0000024D                        959 00102$:
-                                    960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:174: g_player_input[0].direction = DIRECTION_NONE;
+                                    960 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:174: g_player_input[0].direction = DIRECTION_NONE;
     0000024D 21r00r00         [10]  961 	ld	hl, #_g_player_input
     00000250 36 00            [10]  962 	ld	(hl), #0x00
-                                    963 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:175: g_player_input[0].trigger_down = FALSE;
+                                    963 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:175: g_player_input[0].trigger_down = FALSE;
     00000252 21r02r00         [10]  964 	ld	hl, #(_g_player_input + 2)
     00000255 36 00            [10]  965 	ld	(hl), #0x00
-                                    966 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:176: g_player_input[0].trigger_pressed = FALSE;
+                                    966 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:176: g_player_input[0].trigger_pressed = FALSE;
     00000257 21r01r00         [10]  967 	ld	hl, #(_g_player_input + 1)
     0000025A 36 00            [10]  968 	ld	(hl), #0x00
-                                    969 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:177: s_prev_trigger_state[0] = FALSE; // Ensure state is clean
+                                    969 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:177: s_prev_trigger_state[0] = FALSE; // Ensure state is clean
     0000025C AF               [ 4]  970 	xor	a, a
     0000025D 02               [ 7]  971 	ld	(bc), a
     0000025E                        972 00104$:
-                                    973 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:179: }
+                                    973 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s7_b3.c:179: }
     0000025E 33               [ 6]  974 	inc	sp
     0000025F DD E1            [14]  975 	pop	ix
     00000261 C9               [10]  976 	ret

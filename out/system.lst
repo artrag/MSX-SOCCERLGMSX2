@@ -298,13 +298,13 @@
                                     298 ; code
                                     299 ;--------------------------------------------------------
                                     300 	.area _CODE
-                                    301 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:12: u8 Sys_GetPageSlot(u8 page)
+                                    301 ;C:\MSXgl-1.3.2\engine/src/system.c:12: u8 Sys_GetPageSlot(u8 page)
                                     302 ;	---------------------------------
                                     303 ; Function Sys_GetPageSlot
                                     304 ; ---------------------------------
     00000000                        305 _Sys_GetPageSlot::
     00000000 5F               [ 4]  306 	ld	e, a
-                                    307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:15: u8 slot = (g_PortPrimarySlot >> (page * 2)) & 0x03;
+                                    307 ;C:\MSXgl-1.3.2\engine/src/system.c:15: u8 slot = (g_PortPrimarySlot >> (page * 2)) & 0x03;
     00000001 CB 23            [ 8]  308 	sla	e
     00000003 43               [ 4]  309 	ld	b, e
     00000004 DB A8            [11]  310 	in	a, (_g_PortPrimarySlot)
@@ -318,19 +318,19 @@
     0000000F 79               [ 4]  318 	ld	a, c
     00000010 E6 03            [ 7]  319 	and	a, #0x03
     00000012 4F               [ 4]  320 	ld	c, a
-                                    321 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:18: if (g_EXPTBL[slot] & SLOT_EXP)
+                                    321 ;C:\MSXgl-1.3.2\engine/src/system.c:18: if (g_EXPTBL[slot] & SLOT_EXP)
     00000013 21 C1 FC         [10]  322 	ld	hl, #_g_EXPTBL+0
     00000016 06 00            [ 7]  323 	ld	b, #0x00
     00000018 09               [11]  324 	add	hl, bc
     00000019 7E               [ 7]  325 	ld	a, (hl)
     0000001A 07               [ 4]  326 	rlca
     0000001B 30 34            [12]  327 	jr	NC, 00102$
-                                    328 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:20: u8 prevSlot = g_PortPrimarySlot; // Backup current primary slots register
+                                    328 ;C:\MSXgl-1.3.2\engine/src/system.c:20: u8 prevSlot = g_PortPrimarySlot; // Backup current primary slots register
     0000001D DB A8            [11]  329 	in	a, (_g_PortPrimarySlot)
     0000001F 47               [ 4]  330 	ld	b, a
-                                    331 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:141: inline void DisableInterrupt() { __asm__("di"); }
+                                    331 ;C:\MSXgl-1.3.2\engine/src/system.h:141: inline void DisableInterrupt() { __asm__("di"); }
     00000020 F3               [ 4]  332 	di
-                                    333 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:22: g_PortPrimarySlot = (prevSlot & 0x3F) | (slot << 6); // Select primary slot in page 3
+                                    333 ;C:\MSXgl-1.3.2\engine/src/system.c:22: g_PortPrimarySlot = (prevSlot & 0x3F) | (slot << 6); // Select primary slot in page 3
     00000021 78               [ 4]  334 	ld	a, b
     00000022 E6 3F            [ 7]  335 	and	a, #0x3f
     00000024 6F               [ 4]  336 	ld	l, a
@@ -342,9 +342,9 @@
     00000028 E6 C0            [ 7]  342 	and	a, #0xc0
     0000002A B5               [ 4]  343 	or	a, l
     0000002B D3 A8            [11]  344 	out	(_g_PortPrimarySlot), a
-                                    345 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:23: slot |= SLOT_EXP;
+                                    345 ;C:\MSXgl-1.3.2\engine/src/system.c:23: slot |= SLOT_EXP;
     0000002D CB F9            [ 8]  346 	set	7, c
-                                    347 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:24: slot |= (((~g_SLTSL) >> (page * 2)) & 0x03) << 2;
+                                    347 ;C:\MSXgl-1.3.2\engine/src/system.c:24: slot |= (((~g_SLTSL) >> (page * 2)) & 0x03) << 2;
     0000002F 3A FF FF         [13]  348 	ld	a, (_g_SLTSL+0)
     00000032 6F               [ 4]  349 	ld	l, a
                                     350 ;	spillPairReg hl
@@ -376,16 +376,16 @@
     0000004A 87               [ 4]  376 	add	a, a
     0000004B B1               [ 4]  377 	or	a, c
     0000004C 4F               [ 4]  378 	ld	c, a
-                                    379 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:25: g_PortPrimarySlot = prevSlot; // Restore primary slots register
+                                    379 ;C:\MSXgl-1.3.2\engine/src/system.c:25: g_PortPrimarySlot = prevSlot; // Restore primary slots register
     0000004D 78               [ 4]  380 	ld	a, b
     0000004E D3 A8            [11]  381 	out	(_g_PortPrimarySlot), a
-                                    382 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:137: inline void EnableInterrupt() { __asm__("ei"); }
+                                    382 ;C:\MSXgl-1.3.2\engine/src/system.h:137: inline void EnableInterrupt() { __asm__("ei"); }
     00000050 FB               [ 4]  383 	ei
-                                    384 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:26: EnableInterrupt();
+                                    384 ;C:\MSXgl-1.3.2\engine/src/system.c:26: EnableInterrupt();
     00000051                        385 00102$:
-                                    386 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:28: return slot;
+                                    386 ;C:\MSXgl-1.3.2\engine/src/system.c:28: return slot;
     00000051 79               [ 4]  387 	ld	a, c
-                                    388 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:29: }
+                                    388 ;C:\MSXgl-1.3.2\engine/src/system.c:29: }
     00000052 C9               [10]  389 	ret
                          0000F380   390 _g_RDPRIM	=	0xf380
                          0000F385   391 _g_WRPRIM	=	0xf385
@@ -540,20 +540,20 @@
                          0000002D   540 _g_MSXVER	=	0x002d
                          0000002E   541 _g_MSXMID	=	0x002e
                          00000034   542 _g_CHAR_16	=	0x0034
-                                    543 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:33: void Sys_SetPageSlot(u8 page, u8 slotId)
+                                    543 ;C:\MSXgl-1.3.2\engine/src/system.c:33: void Sys_SetPageSlot(u8 page, u8 slotId)
                                     544 ;	---------------------------------
                                     545 ; Function Sys_SetPageSlot
                                     546 ; ---------------------------------
     00000053                        547 _Sys_SetPageSlot::
-                                    548 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:36: slotId;
-                                    549 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:60: }
+                                    548 ;C:\MSXgl-1.3.2\engine/src/system.c:36: slotId;
+                                    549 ;C:\MSXgl-1.3.2\engine/src/system.c:60: }
     00000053 C9               [10]  550 	ret
-                                    551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:64: void Sys_SetPage0Slot(u8 slotId) __NAKED
+                                    551 ;C:\MSXgl-1.3.2\engine/src/system.c:64: void Sys_SetPage0Slot(u8 slotId) __NAKED
                                     552 ;	---------------------------------
                                     553 ; Function Sys_SetPage0Slot
                                     554 ; ---------------------------------
     00000054                        555 _Sys_SetPage0Slot::
-                                    556 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:134: __endasm;
+                                    556 ;C:\MSXgl-1.3.2\engine/src/system.c:134: __endasm;
     00000054 4F               [ 4]  557 	ld	c, a
     00000055 E6 80            [ 7]  558 	and	#0b10000000
     00000057 CAr8Br00         [10]  559 	jp	z, SetNonExpendedSlot
@@ -602,8 +602,8 @@
     00000095 F3               [ 4]  602 	di
     00000096 D3 A8            [11]  603 	out	(0xA8), a
     00000098 C9               [10]  604 	ret
-                                    605 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:135: }
-                                    606 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:139: u8 Sys_CheckSlot(CheckSlotCallback cb)
+                                    605 ;C:\MSXgl-1.3.2\engine/src/system.c:135: }
+                                    606 ;C:\MSXgl-1.3.2\engine/src/system.c:139: u8 Sys_CheckSlot(CheckSlotCallback cb)
                                     607 ;	---------------------------------
                                     608 ; Function Sys_CheckSlot
                                     609 ; ---------------------------------
@@ -612,13 +612,13 @@
     0000009B DD 21 00 00      [14]  612 	ld	ix,#0
     0000009F DD 39            [15]  613 	add	ix,sp
     000000A1 3B               [ 6]  614 	dec	sp
-                                    615 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
+                                    615 ;C:\MSXgl-1.3.2\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
     000000A2 01 00 00         [10]  616 	ld	bc, #0x0
     000000A5                        617 00114$:
     000000A5 78               [ 4]  618 	ld	a, b
     000000A6 D6 04            [ 7]  619 	sub	a, #0x04
     000000A8 30 4D            [12]  620 	jr	NC, 00109$
-                                    621 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:143: if (g_EXPTBL[slot] & SLOT_EXP)
+                                    621 ;C:\MSXgl-1.3.2\engine/src/system.c:143: if (g_EXPTBL[slot] & SLOT_EXP)
     000000AA 11 C1 FC         [10]  622 	ld	de, #_g_EXPTBL+0
     000000AD 7B               [ 4]  623 	ld	a, e
     000000AE 80               [ 4]  624 	add	a, b
@@ -629,13 +629,13 @@
     000000B3 1A               [ 7]  629 	ld	a, (de)
     000000B4 07               [ 4]  630 	rlca
     000000B5 30 2C            [12]  631 	jr	NC, 00107$
-                                    632 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
+                                    632 ;C:\MSXgl-1.3.2\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
     000000B7 78               [ 4]  633 	ld	a, b
     000000B8 E6 03            [ 7]  634 	and	a, #0x03
     000000BA DD 77 FF         [19]  635 	ld	-1 (ix), a
     000000BD 0E 00            [ 7]  636 	ld	c, #0x00
     000000BF                        637 00111$:
-                                    638 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:147: u8 slotId = SLOTEX(slot, sub);
+                                    638 ;C:\MSXgl-1.3.2\engine/src/system.c:147: u8 slotId = SLOTEX(slot, sub);
     000000BF 79               [ 4]  639 	ld	a,c
     000000C0 FE 04            [ 7]  640 	cp	a,#0x04
     000000C2 30 2E            [12]  641 	jr	NC, 00115$
@@ -645,7 +645,7 @@
     000000C8 DD B6 FF         [19]  645 	or	a, -1 (ix)
     000000CB 5F               [ 4]  646 	ld	e, a
     000000CC CB FB            [ 8]  647 	set	7, e
-                                    648 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:148: if (cb(slotId))
+                                    648 ;C:\MSXgl-1.3.2\engine/src/system.c:148: if (cb(slotId))
     000000CE E5               [11]  649 	push	hl
     000000CF C5               [11]  650 	push	bc
     000000D0 D5               [11]  651 	push	de
@@ -656,15 +656,15 @@
     000000D7 E1               [10]  656 	pop	hl
     000000D8 B7               [ 4]  657 	or	a, a
     000000D9 28 04            [12]  658 	jr	Z, 00112$
-                                    659 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:149: return slotId;
+                                    659 ;C:\MSXgl-1.3.2\engine/src/system.c:149: return slotId;
     000000DB 7B               [ 4]  660 	ld	a, e
     000000DC C3rF9r00         [10]  661 	jp	00116$
     000000DF                        662 00112$:
-                                    663 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
+                                    663 ;C:\MSXgl-1.3.2\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
     000000DF 0C               [ 4]  664 	inc	c
     000000E0 C3rBFr00         [10]  665 	jp	00111$
     000000E3                        666 00107$:
-                                    667 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:152: else if (cb(slot))
+                                    667 ;C:\MSXgl-1.3.2\engine/src/system.c:152: else if (cb(slot))
     000000E3 E5               [11]  668 	push	hl
     000000E4 C5               [11]  669 	push	bc
     000000E5 78               [ 4]  670 	ld	a, b
@@ -673,19 +673,19 @@
     000000EA E1               [10]  673 	pop	hl
     000000EB B7               [ 4]  674 	or	a, a
     000000EC 28 04            [12]  675 	jr	Z, 00115$
-                                    676 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:153: return slot;
+                                    676 ;C:\MSXgl-1.3.2\engine/src/system.c:153: return slot;
     000000EE 79               [ 4]  677 	ld	a, c
     000000EF C3rF9r00         [10]  678 	jp	00116$
     000000F2                        679 00115$:
-                                    680 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
+                                    680 ;C:\MSXgl-1.3.2\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
     000000F2 04               [ 4]  681 	inc	b
     000000F3 48               [ 4]  682 	ld	c, b
     000000F4 C3rA5r00         [10]  683 	jp	00114$
     000000F7                        684 00109$:
-                                    685 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:155: return SLOT_NOTFOUND;
+                                    685 ;C:\MSXgl-1.3.2\engine/src/system.c:155: return SLOT_NOTFOUND;
     000000F7 3E FF            [ 7]  686 	ld	a, #0xff
     000000F9                        687 00116$:
-                                    688 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:156: }
+                                    688 ;C:\MSXgl-1.3.2\engine/src/system.c:156: }
     000000F9 33               [ 6]  689 	inc	sp
     000000FA DD E1            [14]  690 	pop	ix
     000000FC C9               [10]  691 	ret

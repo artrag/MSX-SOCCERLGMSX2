@@ -306,13 +306,13 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG14
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:9: void ShowMenu()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s14_b3.c:9: void ShowMenu()
 ;	---------------------------------
 ; Function ShowMenu
 ; ---------------------------------
 _ShowMenu::
 00103$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:12: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s14_b3.c:12: }
 	jp	00103$
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385

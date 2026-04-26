@@ -213,13 +213,53 @@ u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
     return _res;
 }
 // +++ Call function with 3 parameters with u16 returned value +++
-u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) {
-	u16 _res;
-	u8 _old = GET_BANK_SEGMENT(3);
-	SET_BANK_SEGMENT(3, segment);
-    _res = func(p1, p2, p3);
-	SET_BANK_SEGMENT(3, _old);
-    return _res;
+u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __naked
+{
+	segment;func;p1;p2;p3;
+	__asm
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	dec	sp
+	
+	ld	c, a
+	ld	a, (#(_g_Bank0Segment + 6) + 0)					; u8 _old = GET_BANK_SEGMENT(3);
+	ld	-1 (ix), a
+	xor	a,a
+	ld	(#0x7ffe),a
+	ld	a, c											;	SET_BANK_SEGMENT(3, segment);
+	ld	((_g_Bank0Segment + 6)), a						;   g_Bank0Segment[b] = s;
+	ld	(#0xb000), a
+
+; _res = func(p1, p2, p3);
+	ld	a, 6 (ix)
+	push	af
+	inc	sp
+	ld	l, 5 (ix)
+	ld	a, 4 (ix)
+	push	de
+	pop		iy
+	call	___sdcc_call_iy
+
+	xor	a,a
+	ld	(#0x7ffe),a
+	ld	a, -1 (ix)
+	ld	((_g_Bank0Segment + 6)), a						; g_Bank0Segment[b] = s;
+	ld	(#0xb000), a
+
+	inc	sp
+	pop	ix
+	pop	hl
+	pop	af
+	inc	sp
+	jp	(hl)
+	__endasm;
+//	u16 _res;
+//	u8 _old = GET_BANK_SEGMENT(3);
+//	SET_BANK_SEGMENT(3, segment);
+//  _res = func(p1, p2, p3);
+//	SET_BANK_SEGMENT(3, _old);
+//  return _res;
 }
 // +++ Call function with 4 parameters with u16 returned value +++
 u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3, u8 p4) {
@@ -401,7 +441,6 @@ SpriteFrame::
 //	u8 FieldMap[] 
 	#include "bin/FieldMap.h"
 
-	const u8 dummy[] = {0,0,0,0,0,0,0,0};
 
 // -----------
 // *** ISR ***

@@ -319,12 +319,12 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG8
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:21: void EventBallKicked()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:21: void EventBallKicked()
 ;	---------------------------------
 ; Function EventBallKicked
 ; ---------------------------------
 _EventBallKicked::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:24: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:24: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -490,118 +490,118 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:25: void EventStartPresentationScrollig()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:25: void EventStartPresentationScrollig()
 ;	---------------------------------
 ; Function EventStartPresentationScrollig
 ; ---------------------------------
 _EventStartPresentationScrollig::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:28: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:30: void EventPlayerFirstPresentationStarted()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:30: void EventPlayerFirstPresentationStarted()
 ;	---------------------------------
 ; Function EventPlayerFirstPresentationStarted
 ; ---------------------------------
 _EventPlayerFirstPresentationStarted::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:33: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:33: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:35: void EventKickOffReady()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:35: void EventKickOffReady()
 ;	---------------------------------
 ; Function EventKickOffReady
 ; ---------------------------------
 _EventKickOffReady::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:38: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:38: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 	ld	hl, #0x0120
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:39: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:39: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:41: void EventHalfTime()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:41: void EventHalfTime()
 ;	---------------------------------
 ; Function EventHalfTime
 ; ---------------------------------
 _EventHalfTime::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:44: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:44: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:46: void EventTimeUp()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:46: void EventTimeUp()
 ;	---------------------------------
 ; Function EventTimeUp
 ; ---------------------------------
 _EventTimeUp::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:49: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:49: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:51: void EventThrowIn()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:51: void EventThrowIn()
 ;	---------------------------------
 ; Function EventThrowIn
 ; ---------------------------------
 _EventThrowIn::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:54: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:54: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 	ld	hl, #0x0129
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:55: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:55: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:57: void EventCornerKick()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:57: void EventCornerKick()
 ;	---------------------------------
 ; Function EventCornerKick
 ; ---------------------------------
 _EventCornerKick::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:60: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:60: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 	ld	hl, #0x0130
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:61: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:61: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:63: void EventGoalKick()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:63: void EventGoalKick()
 ;	---------------------------------
 ; Function EventGoalKick
 ; ---------------------------------
 _EventGoalKick::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:66: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:66: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 	ld	hl, #0x0124
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:67: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:67: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:69: void EventOffside()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:69: void EventOffside()
 ;	---------------------------------
 ; Function EventOffside
 ; ---------------------------------
 _EventOffside::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:72: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:72: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 	ld	hl, #0x00f8
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:73: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:73: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:75: void EventGoal()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:75: void EventGoal()
 ;	---------------------------------
 ; Function EventGoal
 ; ---------------------------------
 _EventGoal::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:78: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_INGOAL);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:78: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_INGOAL);
 	ld	hl, #0x0139
 	push	hl
 	ld	de, #_ShowSpriteMessage
 	ld	a, #0x05
 	call	_CallFnc_VOID_16_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:79: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:79: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:81: void EventPenaltyWhistle()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:81: void EventPenaltyWhistle()
 ;	---------------------------------
 ; Function EventPenaltyWhistle
 ; ---------------------------------
 _EventPenaltyWhistle::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:84: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s8_b3.c:84: }
 	ret
 	.area _SEG8
 	.area _INITIALIZER

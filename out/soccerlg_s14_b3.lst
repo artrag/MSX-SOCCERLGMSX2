@@ -306,13 +306,13 @@
                                     306 ; code
                                     307 ;--------------------------------------------------------
                                     308 	.area _SEG14
-                                    309 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:9: void ShowMenu()
+                                    309 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s14_b3.c:9: void ShowMenu()
                                     310 ;	---------------------------------
                                     311 ; Function ShowMenu
                                     312 ; ---------------------------------
     00000000                        313 _ShowMenu::
     00000000                        314 00103$:
-                                    315 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:12: }
+                                    315 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s14_b3.c:12: }
     00000000 C3r00r00         [10]  316 	jp	00103$
                          0000F380   317 _g_RDPRIM	=	0xf380
                          0000F385   318 _g_WRPRIM	=	0xf385

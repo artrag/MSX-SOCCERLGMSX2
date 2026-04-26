@@ -298,13 +298,13 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:12: u8 Sys_GetPageSlot(u8 page)
+;C:\MSXgl-1.3.2\engine/src/system.c:12: u8 Sys_GetPageSlot(u8 page)
 ;	---------------------------------
 ; Function Sys_GetPageSlot
 ; ---------------------------------
 _Sys_GetPageSlot::
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:15: u8 slot = (g_PortPrimarySlot >> (page * 2)) & 0x03;
+;C:\MSXgl-1.3.2\engine/src/system.c:15: u8 slot = (g_PortPrimarySlot >> (page * 2)) & 0x03;
 	sla	e
 	ld	b, e
 	in	a, (_g_PortPrimarySlot)
@@ -318,19 +318,19 @@ _Sys_GetPageSlot::
 	ld	a, c
 	and	a, #0x03
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:18: if (g_EXPTBL[slot] & SLOT_EXP)
+;C:\MSXgl-1.3.2\engine/src/system.c:18: if (g_EXPTBL[slot] & SLOT_EXP)
 	ld	hl, #_g_EXPTBL+0
 	ld	b, #0x00
 	add	hl, bc
 	ld	a, (hl)
 	rlca
 	jr	NC, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:20: u8 prevSlot = g_PortPrimarySlot; // Backup current primary slots register
+;C:\MSXgl-1.3.2\engine/src/system.c:20: u8 prevSlot = g_PortPrimarySlot; // Backup current primary slots register
 	in	a, (_g_PortPrimarySlot)
 	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:141: inline void DisableInterrupt() { __asm__("di"); }
+;C:\MSXgl-1.3.2\engine/src/system.h:141: inline void DisableInterrupt() { __asm__("di"); }
 	di
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:22: g_PortPrimarySlot = (prevSlot & 0x3F) | (slot << 6); // Select primary slot in page 3
+;C:\MSXgl-1.3.2\engine/src/system.c:22: g_PortPrimarySlot = (prevSlot & 0x3F) | (slot << 6); // Select primary slot in page 3
 	ld	a, b
 	and	a, #0x3f
 	ld	l, a
@@ -342,9 +342,9 @@ _Sys_GetPageSlot::
 	and	a, #0xc0
 	or	a, l
 	out	(_g_PortPrimarySlot), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:23: slot |= SLOT_EXP;
+;C:\MSXgl-1.3.2\engine/src/system.c:23: slot |= SLOT_EXP;
 	set	7, c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:24: slot |= (((~g_SLTSL) >> (page * 2)) & 0x03) << 2;
+;C:\MSXgl-1.3.2\engine/src/system.c:24: slot |= (((~g_SLTSL) >> (page * 2)) & 0x03) << 2;
 	ld	a, (_g_SLTSL+0)
 	ld	l, a
 ;	spillPairReg hl
@@ -376,16 +376,16 @@ _Sys_GetPageSlot::
 	add	a, a
 	or	a, c
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:25: g_PortPrimarySlot = prevSlot; // Restore primary slots register
+;C:\MSXgl-1.3.2\engine/src/system.c:25: g_PortPrimarySlot = prevSlot; // Restore primary slots register
 	ld	a, b
 	out	(_g_PortPrimarySlot), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:137: inline void EnableInterrupt() { __asm__("ei"); }
+;C:\MSXgl-1.3.2\engine/src/system.h:137: inline void EnableInterrupt() { __asm__("ei"); }
 	ei
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:26: EnableInterrupt();
+;C:\MSXgl-1.3.2\engine/src/system.c:26: EnableInterrupt();
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:28: return slot;
+;C:\MSXgl-1.3.2\engine/src/system.c:28: return slot;
 	ld	a, c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:29: }
+;C:\MSXgl-1.3.2\engine/src/system.c:29: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -540,20 +540,20 @@ _g_ROMVersion	=	0x002b
 _g_MSXVER	=	0x002d
 _g_MSXMID	=	0x002e
 _g_CHAR_16	=	0x0034
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:33: void Sys_SetPageSlot(u8 page, u8 slotId)
+;C:\MSXgl-1.3.2\engine/src/system.c:33: void Sys_SetPageSlot(u8 page, u8 slotId)
 ;	---------------------------------
 ; Function Sys_SetPageSlot
 ; ---------------------------------
 _Sys_SetPageSlot::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:36: slotId;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:60: }
+;C:\MSXgl-1.3.2\engine/src/system.c:36: slotId;
+;C:\MSXgl-1.3.2\engine/src/system.c:60: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:64: void Sys_SetPage0Slot(u8 slotId) __NAKED
+;C:\MSXgl-1.3.2\engine/src/system.c:64: void Sys_SetPage0Slot(u8 slotId) __NAKED
 ;	---------------------------------
 ; Function Sys_SetPage0Slot
 ; ---------------------------------
 _Sys_SetPage0Slot::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:134: __endasm;
+;C:\MSXgl-1.3.2\engine/src/system.c:134: __endasm;
 	ld	c, a
 	and	#0b10000000
 	jp	z, SetNonExpendedSlot
@@ -602,8 +602,8 @@ _Sys_SetPage0Slot::
 	di
 	out	(0xA8), a
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:135: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:139: u8 Sys_CheckSlot(CheckSlotCallback cb)
+;C:\MSXgl-1.3.2\engine/src/system.c:135: }
+;C:\MSXgl-1.3.2\engine/src/system.c:139: u8 Sys_CheckSlot(CheckSlotCallback cb)
 ;	---------------------------------
 ; Function Sys_CheckSlot
 ; ---------------------------------
@@ -612,13 +612,13 @@ _Sys_CheckSlot::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
+;C:\MSXgl-1.3.2\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
 	ld	bc, #0x0
 00114$:
 	ld	a, b
 	sub	a, #0x04
 	jr	NC, 00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:143: if (g_EXPTBL[slot] & SLOT_EXP)
+;C:\MSXgl-1.3.2\engine/src/system.c:143: if (g_EXPTBL[slot] & SLOT_EXP)
 	ld	de, #_g_EXPTBL+0
 	ld	a, e
 	add	a, b
@@ -629,13 +629,13 @@ _Sys_CheckSlot::
 	ld	a, (de)
 	rlca
 	jr	NC, 00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
+;C:\MSXgl-1.3.2\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
 	ld	a, b
 	and	a, #0x03
 	ld	-1 (ix), a
 	ld	c, #0x00
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:147: u8 slotId = SLOTEX(slot, sub);
+;C:\MSXgl-1.3.2\engine/src/system.c:147: u8 slotId = SLOTEX(slot, sub);
 	ld	a,c
 	cp	a,#0x04
 	jr	NC, 00115$
@@ -645,7 +645,7 @@ _Sys_CheckSlot::
 	or	a, -1 (ix)
 	ld	e, a
 	set	7, e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:148: if (cb(slotId))
+;C:\MSXgl-1.3.2\engine/src/system.c:148: if (cb(slotId))
 	push	hl
 	push	bc
 	push	de
@@ -656,15 +656,15 @@ _Sys_CheckSlot::
 	pop	hl
 	or	a, a
 	jr	Z, 00112$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:149: return slotId;
+;C:\MSXgl-1.3.2\engine/src/system.c:149: return slotId;
 	ld	a, e
 	jp	00116$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
+;C:\MSXgl-1.3.2\engine/src/system.c:145: for (u8 sub = 0; sub < 4; ++sub)
 	inc	c
 	jp	00111$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:152: else if (cb(slot))
+;C:\MSXgl-1.3.2\engine/src/system.c:152: else if (cb(slot))
 	push	hl
 	push	bc
 	ld	a, b
@@ -673,19 +673,19 @@ _Sys_CheckSlot::
 	pop	hl
 	or	a, a
 	jr	Z, 00115$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:153: return slot;
+;C:\MSXgl-1.3.2\engine/src/system.c:153: return slot;
 	ld	a, c
 	jp	00116$
 00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
+;C:\MSXgl-1.3.2\engine/src/system.c:141: for (u8 slot = 0; slot < 4; ++slot)
 	inc	b
 	ld	c, b
 	jp	00114$
 00109$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:155: return SLOT_NOTFOUND;
+;C:\MSXgl-1.3.2\engine/src/system.c:155: return SLOT_NOTFOUND;
 	ld	a, #0xff
 00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.c:156: }
+;C:\MSXgl-1.3.2\engine/src/system.c:156: }
 	inc	sp
 	pop	ix
 	ret

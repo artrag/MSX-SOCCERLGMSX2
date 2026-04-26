@@ -306,112 +306,112 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG11
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:10: void AssignKickOffTargets() {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:10: void AssignKickOffTargets() {
 ;	---------------------------------
 ; Function AssignKickOffTargets
 ; ---------------------------------
 _AssignKickOffTargets::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:11: SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:11: SwSprite[0].tx = 120; SwSprite[0].ty = 32;   
 	ld	hl, #(_SwSprite + 12)
 	ld	(hl), #0x78
 	ld	hl, #0x0020
 	ld	((_SwSprite + 13)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:12: SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:12: SwSprite[1].tx = 64;  SwSprite[1].ty = 96;   
 	ld	hl, #(_SwSprite + 35)
 	ld	(hl), #0x40
 	ld	hl, #0x0060
 	ld	((_SwSprite + 36)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:13: SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:13: SwSprite[2].tx = 176; SwSprite[2].ty = 96;   
 	ld	hl, #(_SwSprite + 58)
 	ld	(hl), #0xb0
 	ld	hl, #0x0060
 	ld	((_SwSprite + 59)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:14: SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:14: SwSprite[5].tx = 40;  SwSprite[5].ty = 160;  
 	ld	hl, #(_SwSprite + 127)
 	ld	(hl), #0x28
 	ld	hl, #0x00a0
 	ld	((_SwSprite + 128)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:15: SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:15: SwSprite[6].tx = 200; SwSprite[6].ty = 160;  
 	ld	hl, #(_SwSprite + 150)
 	ld	(hl), #0xc8
 	ld	hl, #0x00a0
 	ld	((_SwSprite + 151)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:17: SwSprite[7].tx = 120; SwSprite[7].ty = 444;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:17: SwSprite[7].tx = 120; SwSprite[7].ty = 444;  
 	ld	hl, #(_SwSprite + 173)
 	ld	(hl), #0x78
 	ld	hl, #0x01bc
 	ld	((_SwSprite + 174)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:18: SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:18: SwSprite[8].tx = 64;  SwSprite[8].ty = 416;  
 	ld	hl, #(_SwSprite + 196)
 	ld	(hl), #0x40
 	ld	hl, #0x01a0
 	ld	((_SwSprite + 197)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:19: SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:19: SwSprite[9].tx = 176; SwSprite[9].ty = 416;  
 	ld	hl, #(_SwSprite + 219)
 	ld	(hl), #0xb0
 	ld	hl, #0x01a0
 	ld	((_SwSprite + 220)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:20: SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:20: SwSprite[12].tx= 40;  SwSprite[12].ty= 312;  
 	ld	hl, #(_SwSprite + 288)
 	ld	(hl), #0x28
 	ld	hl, #0x0138
 	ld	((_SwSprite + 289)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:21: SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:21: SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
 	ld	hl, #(_SwSprite + 311)
 	ld	(hl), #0xc8
 	ld	hl, #0x0138
 	ld	((_SwSprite + 312)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
 	ld	bc, #_SwSprite + 81
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
 	ld	de, #_SwSprite + 104
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:26: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:27: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:23: if (KickOffTeam == TEAM_1) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:26: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:27: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:23: if (KickOffTeam == TEAM_1) {
 	ld	a, (_KickOffTeam+0)
 	or	a, a
 	jr	NZ, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
 	ld	a, #0x74
 	ld	(bc), a
 	ld	hl, #0x00ec
 	ld	((_SwSprite + 82)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
 	ld	a, #0x84
 	ld	(de), a
 	ld	((_SwSprite + 105)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:26: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:26: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
 	ld	hl, #(_SwSprite + 242)
 	ld	(hl), #0x64
 	ld	hl, #0x0128
 	ld	((_SwSprite + 243)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:27: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:27: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
 	ld	hl, #(_SwSprite + 265)
 	ld	(hl), #0x8c
 	ld	hl, #0x0128
 	ld	((_SwSprite + 266)), hl
 	ret
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:30: SwSprite[3].tx = 100; SwSprite[3].ty = 200;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:30: SwSprite[3].tx = 100; SwSprite[3].ty = 200;
 	ld	a, #0x64
 	ld	(bc), a
 	ld	hl, #0x00c8
 	ld	((_SwSprite + 82)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:31: SwSprite[4].tx = 140; SwSprite[4].ty = 200;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:31: SwSprite[4].tx = 140; SwSprite[4].ty = 200;
 	ld	a, #0x8c
 	ld	(de), a
 	ld	((_SwSprite + 105)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:32: SwSprite[10].tx= 108; SwSprite[10].ty= 254;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:32: SwSprite[10].tx= 108; SwSprite[10].ty= 254;
 	ld	hl, #(_SwSprite + 242)
 	ld	(hl), #0x6c
 	ld	hl, #0x00fe
 	ld	((_SwSprite + 243)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:33: SwSprite[11].tx= 124; SwSprite[11].ty= 254; // 11 è il battitore P1
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:33: SwSprite[11].tx= 124; SwSprite[11].ty= 254; // 11 è il battitore P1
 	ld	hl, #(_SwSprite + 265)
 	ld	(hl), #0x7c
 	ld	hl, #0x00fe
 	ld	((_SwSprite + 266)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:35: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s11_b3.c:35: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385

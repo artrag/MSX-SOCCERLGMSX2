@@ -313,7 +313,7 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG18
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:10: void UpdateBallPhysics()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:10: void UpdateBallPhysics()
 ;	---------------------------------
 ; Function UpdateBallPhysics
 ; ---------------------------------
@@ -324,8 +324,8 @@ _UpdateBallPhysics::
 	ld	hl, #-21
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:12: struct ObjectInfo* Ball = &SwSprite[14];
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:14: if (Ball->anim > 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:12: struct ObjectInfo* Ball = &SwSprite[14];
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:14: if (Ball->anim > 0) {
 	ld	hl, #(_SwSprite + 341)
 	ld	a, (hl)
 	ld	-4 (ix), a
@@ -334,7 +334,7 @@ _UpdateBallPhysics::
 	ld	-3 (ix), a
 	or	a, -4 (ix)
 	jp	Z, 00159$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:15: if (Ball->anim == 5) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:15: if (Ball->anim == 5) {
 	ld	a, -4 (ix)
 	ld	-2 (ix), a
 	ld	a, -3 (ix)
@@ -343,14 +343,14 @@ _UpdateBallPhysics::
 	sub	a, #0x05
 	or	a, -1 (ix)
 	jp	NZ,00156$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:17: u8 progress = Ball->count; // 0 = inizio da tiratore, max = fine verso ricevitore
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:17: u8 progress = Ball->count; // 0 = inizio da tiratore, max = fine verso ricevitore
 	ld	a, (#(_SwSprite + 343) + 0)
 	ld	-21 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:18: u8 half_frame = g_pass_max_frames >> 1; // metà del percorso
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:18: u8 half_frame = g_pass_max_frames >> 1; // metà del percorso
 	ld	a, (_g_pass_max_frames+0)
 	srl	a
 	ld	-20 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:20: i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:20: i16 dx_total = (i16)g_pass_target_x - (i16)g_pass_start_x;
 	ld	hl, (_g_pass_target_x)
 	ld	-6 (ix), l
 	ld	-5 (ix), h
@@ -367,7 +367,7 @@ _UpdateBallPhysics::
 	ld	-19 (ix), a
 	ld	a, -1 (ix)
 	ld	-18 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:21: i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:21: i16 dy_total = (i16)g_pass_target_y - (i16)g_pass_start_y;
 	ld	hl, (_g_pass_target_y)
 	ld	-6 (ix), l
 	ld	-5 (ix), h
@@ -384,17 +384,17 @@ _UpdateBallPhysics::
 	ld	-17 (ix), a
 	ld	a, -1 (ix)
 	ld	-16 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:22: bool hit_post = FALSE;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:22: bool hit_post = FALSE;
 	ld	-15 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:27: Ball->ly = g_pass_start_y;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:25: if (progress == 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:27: Ball->ly = g_pass_start_y;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:25: if (progress == 0) {
 	ld	a, -21 (ix)
 	or	a, a
 	jr	NZ, 00105$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:26: Ball->lx = g_pass_start_x;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:26: Ball->lx = g_pass_start_x;
 	ld	a, (_g_pass_start_x+0)
 	ld	(#(_SwSprite + 322)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:27: Ball->ly = g_pass_start_y;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:27: Ball->ly = g_pass_start_y;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (_g_pass_start_y+0)
 	ld	(hl), a
@@ -403,15 +403,15 @@ _UpdateBallPhysics::
 	ld	(hl), a
 	jp	00106$
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:28: } else if (progress >= g_pass_max_frames) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:28: } else if (progress >= g_pass_max_frames) {
 	ld	hl, #_g_pass_max_frames
 	ld	a, -21 (ix)
 	sub	a, (hl)
 	jr	C, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:29: Ball->lx = g_pass_target_x;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:29: Ball->lx = g_pass_target_x;
 	ld	a, (_g_pass_target_x+0)
 	ld	(#(_SwSprite + 322)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:30: Ball->ly = g_pass_target_y;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:30: Ball->ly = g_pass_target_y;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (_g_pass_target_y+0)
 	ld	(hl), a
@@ -420,7 +420,7 @@ _UpdateBallPhysics::
 	ld	(hl), a
 	jp	00106$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:33: Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:33: Ball->lx = (u16)((i16)g_pass_start_x + (dx_total * progress) / g_pass_max_frames);
 	ld	a, (_g_pass_start_x+0)
 	ld	-5 (ix), a
 	ld	a, -21 (ix)
@@ -455,7 +455,7 @@ _UpdateBallPhysics::
 	ld	-1 (ix), a
 	add	a, -5 (ix)
 	ld	(#(_SwSprite + 322)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:34: Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:34: Ball->ly = (u16)((i16)g_pass_start_y + (dy_total * progress) / g_pass_max_frames);
 	ld	hl, (_g_pass_start_y)
 	ld	-2 (ix), l
 	ld	-1 (ix), h
@@ -501,7 +501,7 @@ _UpdateBallPhysics::
 	ld	a, -1 (ix)
 	ld	(hl), a
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:38: if (g_pass_max_height <= 2 && progress > 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:38: if (g_pass_max_height <= 2 && progress > 0) {
 	ld	a, #0x02
 	ld	hl, #_g_pass_max_height
 	sub	a, (hl)
@@ -509,7 +509,7 @@ _UpdateBallPhysics::
 	ld	a, -21 (ix)
 	or	a, a
 	jp	Z, 00136$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:44: i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:44: i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
 	ld	hl, (_g_pass_start_y)
 	ld	-2 (ix), l
 	ld	-1 (ix), h
@@ -552,7 +552,7 @@ _UpdateBallPhysics::
 	ld	-14 (ix), a
 	ld	a, -1 (ix)
 	ld	-13 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:45: i16 new_ly = Ball->ly;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:45: i16 new_ly = Ball->ly;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	ld	-12 (ix), a
@@ -563,7 +563,7 @@ _UpdateBallPhysics::
 	ld	-10 (ix), a
 	ld	a, -11 (ix)
 	ld	-9 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:46: i16 old_lx = (i16)g_pass_start_x + (dx_total * (progress - 1)) / g_pass_max_frames;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:46: i16 old_lx = (i16)g_pass_start_x + (dx_total * (progress - 1)) / g_pass_max_frames;
 	ld	hl, (_g_pass_start_x)
 	ld	-2 (ix), l
 	ld	-1 (ix), h
@@ -607,11 +607,11 @@ _UpdateBallPhysics::
 	ld	-6 (ix), a
 	ld	a, -1 (ix)
 	ld	-5 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:47: i16 new_lx = Ball->lx;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:47: i16 new_lx = Ball->lx;
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	-4 (ix), a
 	ld	-3 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:50: if (old_ly > top_boundary && new_ly <= top_boundary) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:50: if (old_ly > top_boundary && new_ly <= top_boundary) {
 	ld	a, -14 (ix)
 	ld	-2 (ix), a
 	ld	a, -13 (ix)
@@ -628,7 +628,7 @@ _UpdateBallPhysics::
 	ld	a, #0x00
 	sbc	a, b
 	jr	C, 00121$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:51: i16 cross_x = old_lx + ((new_lx - old_lx) * (old_ly - top_boundary)) / (old_ly - new_ly);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:51: i16 cross_x = old_lx + ((new_lx - old_lx) * (old_ly - top_boundary)) / (old_ly - new_ly);
 	ld	a, -4 (ix)
 	sub	a, -6 (ix)
 	ld	l, a
@@ -661,7 +661,7 @@ _UpdateBallPhysics::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:52: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:52: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
 	ld	a, l
 	sub	a, #0x4e
 	ld	a, h
@@ -679,7 +679,7 @@ _UpdateBallPhysics::
 00321$:
 	jp	P, 00107$
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:53: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:53: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
 	ld	a, l
 	sub	a, #0x98
 	ld	a, h
@@ -697,11 +697,11 @@ _UpdateBallPhysics::
 00322$:
 	jp	M, 00122$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:54: hit_post = TRUE;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:54: hit_post = TRUE;
 	ld	-15 (ix), #0x01
 	jp	00122$
 00121$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:58: else if (old_ly < bottom_boundary && new_ly >= bottom_boundary) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:58: else if (old_ly < bottom_boundary && new_ly >= bottom_boundary) {
 	ld	a, -2 (ix)
 	sub	a, #0xde
 	ld	a, -1 (ix)
@@ -713,7 +713,7 @@ _UpdateBallPhysics::
 	ld	a, b
 	sbc	a, #0x01
 	jr	C, 00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:59: i16 cross_x = old_lx + ((new_lx - old_lx) * (bottom_boundary - old_ly)) / (new_ly - old_ly);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:59: i16 cross_x = old_lx + ((new_lx - old_lx) * (bottom_boundary - old_ly)) / (new_ly - old_ly);
 	ld	a, -4 (ix)
 	sub	a, -6 (ix)
 	ld	l, a
@@ -746,7 +746,7 @@ _UpdateBallPhysics::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:60: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:60: if ((cross_x >= goal_left - 4 && cross_x <= goal_left + 4) ||
 	ld	a, l
 	sub	a, #0x4e
 	ld	a, h
@@ -764,7 +764,7 @@ _UpdateBallPhysics::
 00323$:
 	jp	P, 00112$
 00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:61: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:61: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
 	ld	a, l
 	sub	a, #0x98
 	ld	a, h
@@ -782,26 +782,26 @@ _UpdateBallPhysics::
 00324$:
 	jp	M, 00122$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:62: hit_post = TRUE;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:62: hit_post = TRUE;
 	ld	-15 (ix), #0x01
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:66: if (hit_post) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:66: if (hit_post) {
 	ld	a, -15 (ix)
 	or	a, a
 	jp	Z, 00136$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:71: i16 out_dx = in_dx;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:71: i16 out_dx = in_dx;
 	ld	a, -19 (ix)
 	ld	-4 (ix), a
 	ld	a, -18 (ix)
 	ld	-3 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:72: i16 out_dy = -in_dy;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:72: i16 out_dy = -in_dy;
 	xor	a, a
 	sub	a, -17 (ix)
 	ld	-2 (ix), a
 	sbc	a, a
 	sub	a, -16 (ix)
 	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:75: i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:75: i16 len = (out_dx > 0 ? out_dx : -out_dx) + (out_dy > 0 ? out_dy : -out_dy);
 	xor	a, a
 	cp	a, -8 (ix)
 	sbc	a, -7 (ix)
@@ -851,13 +851,13 @@ _UpdateBallPhysics::
 	ld	c, a
 	ld	a, -7 (ix)
 	adc	a, -5 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:76: if (len == 0) len = 1;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:76: if (len == 0) len = 1;
 	ld	b, a
 	or	a, c
 	jr	NZ, 00125$
 	ld	bc, #0x0001
 00125$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:78: out_dx = (out_dx * 60) / len;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:78: out_dx = (out_dx * 60) / len;
 	ld	e, -4 (ix)
 	ld	d, -3 (ix)
 	ld	l, e
@@ -877,7 +877,7 @@ _UpdateBallPhysics::
 	pop	bc
 	ld	-2 (ix), e
 	ld	-1 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:79: out_dy = (out_dy * 60) / len;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:79: out_dy = (out_dy * 60) / len;
 	ld	e, -10 (ix)
 	ld	d, -9 (ix)
 	ld	l, e
@@ -893,17 +893,17 @@ _UpdateBallPhysics::
 	ld	e, c
 	ld	d, b
 	call	__divsint
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:82: if (out_dy > 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:82: if (out_dy > 0) {
 	ld	-6 (ix), e
 	ld	-5 (ix), d
 	ld	c, e
 	ld	b, d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:83: if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:83: if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
 	ld	a, -12 (ix)
 	ld	-4 (ix), a
 	ld	a, -11 (ix)
 	ld	-3 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:82: if (out_dy > 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:82: if (out_dy > 0) {
 	xor	a, a
 	cp	a, c
 	sbc	a, b
@@ -911,7 +911,7 @@ _UpdateBallPhysics::
 	xor	a, #0x80
 00327$:
 	jp	P, 00131$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:83: if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:83: if (Ball->ly < top_boundary + 2) Ball->ly = top_boundary + 2;
 	ld	a, -4 (ix)
 	sub	a, #0x1a
 	ld	a, -3 (ix)
@@ -921,7 +921,7 @@ _UpdateBallPhysics::
 	ld	((_SwSprite + 326)), hl
 	jp	00132$
 00131$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:85: if (Ball->ly > bottom_boundary - 2) Ball->ly = bottom_boundary - 2;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:85: if (Ball->ly > bottom_boundary - 2) Ball->ly = bottom_boundary - 2;
 	ld	a, #0xdc
 	cp	a, -4 (ix)
 	ld	a, #0x01
@@ -930,19 +930,19 @@ _UpdateBallPhysics::
 	ld	hl, #0x01dc
 	ld	((_SwSprite + 326)), hl
 00132$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:88: g_pass_start_x = Ball->lx;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:88: g_pass_start_x = Ball->lx;
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	(_g_pass_start_x+0), a
 	ld	hl, #_g_pass_start_x + 1
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:89: g_pass_start_y = Ball->ly;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:89: g_pass_start_y = Ball->ly;
 	ld	hl, #(_SwSprite + 326)
 	ld	a, (hl)
 	inc	hl
 	ld	(_g_pass_start_y+0), a
 	ld	a, (hl)
 	ld	(_g_pass_start_y+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:91: g_pass_target_x = g_pass_start_x + out_dx;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:91: g_pass_target_x = g_pass_start_x + out_dx;
 	ld	a, -2 (ix)
 	ld	hl, #_g_pass_start_x
 	ld	iy, #_g_pass_target_x
@@ -953,7 +953,7 @@ _UpdateBallPhysics::
 	adc	a, (hl)
 	inc	iy
 	ld	0 (iy), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:92: g_pass_target_y = g_pass_start_y + out_dy;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:92: g_pass_target_y = g_pass_start_y + out_dy;
 	ld	a, -6 (ix)
 	ld	-2 (ix), a
 	ld	a, -5 (ix)
@@ -968,22 +968,22 @@ _UpdateBallPhysics::
 	adc	a, (hl)
 	inc	iy
 	ld	0 (iy), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:94: g_pass_max_frames = 10; // Rimbalzo rapido
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:94: g_pass_max_frames = 10; // Rimbalzo rapido
 	ld	hl, #_g_pass_max_frames
 	ld	(hl), #0x0a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:95: Ball->count = 0; 
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:95: Ball->count = 0; 
 	ld	hl, #0x0000
 	ld	((_SwSprite + 343)), hl
 00136$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:102: scale = (progress * g_pass_max_height) / half_frame;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:102: scale = (progress * g_pass_max_height) / half_frame;
 	ld	a, -20 (ix)
 	ld	-2 (ix), a
 	ld	-1 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:101: if (progress <= half_frame) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:101: if (progress <= half_frame) {
 	ld	a, -20 (ix)
 	sub	a, -21 (ix)
 	jr	C, 00139$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:102: scale = (progress * g_pass_max_height) / half_frame;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:102: scale = (progress * g_pass_max_height) / half_frame;
 	ld	a, (#_g_pass_max_height + 0)
 	ld	e, a
 	ld	h, -21 (ix)
@@ -1015,11 +1015,11 @@ _UpdateBallPhysics::
 	ld	-1 (ix), a
 	jp	00140$
 00139$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:104: u8 progress_down = progress - half_frame;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:104: u8 progress_down = progress - half_frame;
 	ld	a, -21 (ix)
 	sub	a, -20 (ix)
 	ld	-3 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:105: scale = g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:105: scale = g_pass_max_height - (progress_down * g_pass_max_height) / (g_pass_max_frames - half_frame);
 	ld	a, (#_g_pass_max_height + 0)
 	ld	e, a
 	ld	h, -3 (ix)
@@ -1058,20 +1058,20 @@ _UpdateBallPhysics::
 	sub	a, e
 	ld	-1 (ix), a
 00140$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:107: if (scale > 7) scale = 7; 
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:107: if (scale > 7) scale = 7; 
 	ld	a, #0x07
 	sub	a, -1 (ix)
 	jr	NC, 00142$
 	ld	-1 (ix), #0x07
 00142$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:108: CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:108: CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, scale);
 	ld	a, -1 (ix)
 	push	af
 	inc	sp
 	ld	de, #_SetBallSprite
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:110: Ball->count++;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:110: Ball->count++;
 	ld	hl, (#(_SwSprite + 343) + 0)
 	inc	hl
 	ld	-4 (ix), l
@@ -1082,7 +1082,7 @@ _UpdateBallPhysics::
 	inc	hl
 	ld	a, -3 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:111: if (Ball->count >= g_pass_max_frames) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:111: if (Ball->count >= g_pass_max_frames) {
 	ld	a, (_g_pass_max_frames+0)
 	ld	-2 (ix), a
 	ld	-1 (ix), #0x00
@@ -1091,17 +1091,17 @@ _UpdateBallPhysics::
 	ld	a, -3 (ix)
 	sbc	a, -1 (ix)
 	jp	C, 00159$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:112: Ball->anim = 0; // Passaggio completato
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:112: Ball->anim = 0; // Passaggio completato
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:113: Ball->count = 0;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:113: Ball->count = 0;
 	ld	((_SwSprite + 343)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:114: Ball->dx = Ball->dy = 0;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:114: Ball->dx = Ball->dy = 0;
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:115: CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); 
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:115: CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); 
 	xor	a, a
 	push	af
 	inc	sp
@@ -1110,11 +1110,11 @@ _UpdateBallPhysics::
 	call	_CallFnc_VOID_P1
 	jp	00159$
 00156$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:118: u8 speed = Ball->anim + 1;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:118: u8 speed = Ball->anim + 1;
 	ld	a, -4 (ix)
 	inc	a
 	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:119: if (Ball->dx > 0) Ball->lx += speed; else if (Ball->dx < 0) Ball->lx -= speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:119: if (Ball->dx > 0) Ball->lx += speed; else if (Ball->dx < 0) Ball->lx -= speed;
 	ld	hl, #(_SwSprite + 322) + 17
 	ld	c, (hl)
 	xor	a, a
@@ -1138,7 +1138,7 @@ _UpdateBallPhysics::
 	sub	a, -1 (ix)
 	ld	(#(_SwSprite + 322)),a
 00149$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:120: if (Ball->dy > 0) Ball->ly += speed; else if (Ball->dy < 0) Ball->ly -= speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:120: if (Ball->dy > 0) Ball->ly += speed; else if (Ball->dy < 0) Ball->ly -= speed;
 	ld	a, (#(_SwSprite + 322) + 18)
 	ld	-2 (ix), a
 	xor	a, a
@@ -1206,7 +1206,7 @@ _UpdateBallPhysics::
 	ld	a, -1 (ix)
 	ld	(hl), a
 00154$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:121: Ball->anim--;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:121: Ball->anim--;
 	ld	hl, #(_SwSprite + 341)
 	ld	a, (hl)
 	ld	-4 (ix), a
@@ -1226,7 +1226,7 @@ _UpdateBallPhysics::
 	ld	a, -1 (ix)
 	ld	(hl), a
 00159$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:126: if (Ball->anim < 5 && Ball->count > 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:126: if (Ball->anim < 5 && Ball->count > 0) {
 	ld	hl, #(_SwSprite + 341)
 	ld	a, (hl)
 	ld	-2 (ix), a
@@ -1246,7 +1246,7 @@ _UpdateBallPhysics::
 	ld	-3 (ix), a
 	or	a, -4 (ix)
 	jr	Z, 00163$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:127: Ball->count--;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:127: Ball->count--;
 	ld	a, -4 (ix)
 	add	a, #0xff
 	ld	-2 (ix), a
@@ -1260,7 +1260,7 @@ _UpdateBallPhysics::
 	ld	a, -1 (ix)
 	ld	(hl), a
 00163$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:129: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:129: }
 	ld	sp, ix
 	pop	ix
 	ret
@@ -1428,7 +1428,7 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:131: void UpdateReferee()
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:131: void UpdateReferee()
 ;	---------------------------------
 ; Function UpdateReferee
 ; ---------------------------------
@@ -1439,10 +1439,10 @@ _UpdateReferee::
 	ld	hl, #-12
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:133: struct ObjectInfo* Ball = &SwSprite[14];
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:133: struct ObjectInfo* Ball = &SwSprite[14];
 	ld	bc, #_SwSprite + 322
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:134: struct ObjectInfo* Referee = &SwSprite[26];
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:136: u16 target_x = (Ball->lx < 128) ? ((u16)Ball->lx + 40) : ((u16)Ball->lx - 40);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:134: struct ObjectInfo* Referee = &SwSprite[26];
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:136: u16 target_x = (Ball->lx < 128) ? ((u16)Ball->lx + 40) : ((u16)Ball->lx - 40);
 	ld	a, (bc)
 	ld	e, a
 	ld	d, #0x00
@@ -1465,7 +1465,7 @@ _UpdateReferee::
 00129$:
 	push	hl
 	pop	iy
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:137: u16 target_y = (Ball->ly < 256) ? (Ball->ly + 48) : (Ball->ly - 48);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:137: u16 target_y = (Ball->ly < 256) ? (Ball->ly + 48) : (Ball->ly - 48);
 	ld	de, (#(_SwSprite + 326) + 0)
 	ld	a, d
 	sub	a, #0x01
@@ -1485,7 +1485,7 @@ _UpdateReferee::
 00131$:
 	ld	-2 (ix), l
 	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:139: if (target_x < 16) target_x = 16;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:139: if (target_x < 16) target_x = 16;
 	push	iy
 	pop	de
 	ld	a, e
@@ -1495,7 +1495,7 @@ _UpdateReferee::
 	jr	NC, 00102$
 	ld	iy, #0x0010
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:140: if (target_x > 224) target_x = 224;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:140: if (target_x > 224) target_x = 224;
 	push	iy
 	pop	de
 	ld	a, #0xe0
@@ -1505,7 +1505,7 @@ _UpdateReferee::
 	jr	NC, 00104$
 	ld	iy, #0x00e0
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:141: if (target_y < 24) target_y = 24;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:141: if (target_y < 24) target_y = 24;
 	ld	a, -2 (ix)
 	ld	d, -1 (ix)
 	sub	a, #0x18
@@ -1515,7 +1515,7 @@ _UpdateReferee::
 	ld	-2 (ix), #0x18
 	ld	-1 (ix), #0
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:142: if (target_y > 488) target_y = 488;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:142: if (target_y > 488) target_y = 488;
 	ld	e, -2 (ix)
 	ld	d, -1 (ix)
 	ld	a, #0xe8
@@ -1526,11 +1526,11 @@ _UpdateReferee::
 	ld	-2 (ix), #0xe8
 	ld	-1 (ix), #0x01
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:144: i8 ref_dx = 0;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:144: i8 ref_dx = 0;
 	ld	-6 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:145: i8 ref_dy = 0;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:145: i8 ref_dy = 0;
 	ld	-5 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:148: if (target_x > Referee->lx + speed) ref_dx = speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:148: if (target_x > Referee->lx + speed) ref_dx = speed;
 	ld	hl, #(_SwSprite + 598)
 	ld	e, (hl)
 	ld	-12 (ix), e
@@ -1554,7 +1554,7 @@ _UpdateReferee::
 	ld	-6 (ix), #0x01
 	jp	00113$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:149: else if (target_x < Referee->lx - speed) ref_dx = -speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:149: else if (target_x < Referee->lx - speed) ref_dx = -speed;
 	pop	hl
 	push	hl
 	dec	hl
@@ -1565,7 +1565,7 @@ _UpdateReferee::
 	jr	NC, 00113$
 	ld	-6 (ix), #0xff
 00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:151: if (target_y > Referee->ly + speed) ref_dy = speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:151: if (target_y > Referee->ly + speed) ref_dy = speed;
 	ld	hl, (#(_SwSprite + 602) + 0)
 	ld	a, l
 	add	a, #0x01
@@ -1581,7 +1581,7 @@ _UpdateReferee::
 	ld	-5 (ix), #0x01
 	jp	00118$
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:152: else if (target_y < Referee->ly - speed) ref_dy = -speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:152: else if (target_y < Referee->ly - speed) ref_dy = -speed;
 	dec	hl
 	ld	a, -2 (ix)
 	sub	a, l
@@ -1590,11 +1590,11 @@ _UpdateReferee::
 	jr	NC, 00118$
 	ld	-5 (ix), #0xff
 00118$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:154: Referee->lx += ref_dx;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:154: Referee->lx += ref_dx;
 	ld	a, e
 	add	a, -6 (ix)
 	ld	(#(_SwSprite + 598)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:155: Referee->ly += ref_dy;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:155: Referee->ly += ref_dy;
 	ld	hl, (#(_SwSprite + 602) + 0)
 	ld	a, -5 (ix)
 	ld	e, a
@@ -1604,7 +1604,7 @@ _UpdateReferee::
 	add	hl, de
 	ex	de, hl
 	ld	((_SwSprite + 602)), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:157: i8 look_dx = (Ball->lx > Referee->lx) ? 1 : ((Ball->lx < Referee->lx) ? -1 : 0);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:157: i8 look_dx = (Ball->lx > Referee->lx) ? 1 : ((Ball->lx < Referee->lx) ? -1 : 0);
 	ld	a, (bc)
 	ld	c, a
 	ld	hl, #(_SwSprite + 598)
@@ -1628,16 +1628,16 @@ _UpdateReferee::
 00135$:
 	ld	c, -2 (ix)
 00133$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:158: i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:158: i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
 	ld	de, (#(_SwSprite + 326) + 0)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:151: if (target_y > Referee->ly + speed) ref_dy = speed;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:151: if (target_y > Referee->ly + speed) ref_dy = speed;
 	ld	hl, #(_SwSprite + 602)
 	ld	a, (hl)
 	ld	-2 (ix), a
 	inc	hl
 	ld	a, (hl)
 	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:158: i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:158: i8 look_dy = (Ball->ly > Referee->ly) ? 1 : ((Ball->ly < Referee->ly) ? -1 : 0);
 	ld	a, -2 (ix)
 	sub	a, e
 	ld	a, -1 (ix)
@@ -1658,7 +1658,7 @@ _UpdateReferee::
 00139$:
 00137$:
 	ld	b, e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:159: if (look_dx == 0 && look_dy == 0) look_dy = 1; 
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:159: if (look_dx == 0 && look_dy == 0) look_dy = 1; 
 	ld	a, c
 	or	a,a
 	jr	NZ, 00120$
@@ -1666,8 +1666,8 @@ _UpdateReferee::
 	jr	NZ, 00120$
 	ld	b, #0x01
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:161: if (ref_dx != 0 || ref_dy != 0) {
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:161: if (ref_dx != 0 || ref_dy != 0) {
 	ld	a, -6 (ix)
 	or	a, a
 	jr	NZ, 00122$
@@ -1675,16 +1675,16 @@ _UpdateReferee::
 	or	a, a
 	jr	Z, 00123$
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:162: Referee->anim++;
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:162: Referee->anim++;
 	ld	de, (#(_SwSprite + 617) + 0)
 	inc	de
 	ld	((_SwSprite + 617)), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:163: const u8 walk_seq[4] = {0, 1, 2, 1};
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:163: const u8 walk_seq[4] = {0, 1, 2, 1};
 	ld	-10 (ix), #0x00
 	ld	-9 (ix), #0x01
 	ld	-8 (ix), #0x02
 	ld	-7 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:164: Referee->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, 26, look_dx, look_dy, walk_seq[(Referee->anim / 3) % 4]);
 	push	bc
 	ex	de, hl
 	ld	de, #0x0003
@@ -1711,7 +1711,7 @@ _UpdateReferee::
 	ld	((_SwSprite + 613)), de
 	jp	00126$
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:166: Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, 26, look_dx, look_dy);
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:166: Referee->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, 26, look_dx, look_dy);
 	push	bc
 	inc	sp
 	ld	h, c
@@ -1722,7 +1722,7 @@ _UpdateReferee::
 	call	_CallFnc_U16_P3
 	ld	((_SwSprite + 613)), de
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:168: }
+;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s18_b3.c:168: }
 	ld	sp, ix
 	pop	ix
 	ret

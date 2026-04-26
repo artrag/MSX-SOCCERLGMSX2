@@ -49,26 +49,26 @@ _g_StackAddress::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:24: u16 Mem_GetStackAddress() __NAKED
+;C:\MSXgl-1.3.2\engine/src/memory.c:24: u16 Mem_GetStackAddress() __NAKED
 ;	---------------------------------
 ; Function Mem_GetStackAddress
 ; ---------------------------------
 _Mem_GetStackAddress::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:30: __endasm;
+;C:\MSXgl-1.3.2\engine/src/memory.c:30: __endasm;
 	ld	(_g_StackAddress), sp
 	ld	de, (_g_StackAddress)
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:31: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:35: void* Mem_HeapAlloc(u16 size)
+;C:\MSXgl-1.3.2\engine/src/memory.c:31: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:35: void* Mem_HeapAlloc(u16 size)
 ;	---------------------------------
 ; Function Mem_HeapAlloc
 ; ---------------------------------
 _Mem_HeapAlloc::
 	ld	c, l
 	ld	b, h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:37: u16 addr = g_HeapStartAddress;
+;C:\MSXgl-1.3.2\engine/src/memory.c:37: u16 addr = g_HeapStartAddress;
 	ld	de, (_g_HeapStartAddress)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:38: g_HeapStartAddress += size;
+;C:\MSXgl-1.3.2\engine/src/memory.c:38: g_HeapStartAddress += size;
 	ld	hl, #_g_HeapStartAddress
 	ld	a, (hl)
 	add	a, c
@@ -77,16 +77,16 @@ _Mem_HeapAlloc::
 	ld	a, (hl)
 	adc	a, b
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:39: return (void*)addr;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:40: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:39: return (void*)addr;
+;C:\MSXgl-1.3.2\engine/src/memory.c:40: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:44: void Mem_HeapFree(u16 size)
+;C:\MSXgl-1.3.2\engine/src/memory.c:44: void Mem_HeapFree(u16 size)
 ;	---------------------------------
 ; Function Mem_HeapFree
 ; ---------------------------------
 _Mem_HeapFree::
 	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:46: g_HeapStartAddress -= size;	
+;C:\MSXgl-1.3.2\engine/src/memory.c:46: g_HeapStartAddress -= size;	
 	ld	hl, #_g_HeapStartAddress
 	ld	a, (hl)
 	sub	a, e
@@ -95,26 +95,26 @@ _Mem_HeapFree::
 	ld	a, (hl)
 	sbc	a, d
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:47: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:47: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:52: void Mem_Copy(const void* src, void* dest, u16 size) __NAKED // Stack: 4 bytes
+;C:\MSXgl-1.3.2\engine/src/memory.c:52: void Mem_Copy(const void* src, void* dest, u16 size) __NAKED // Stack: 4 bytes
 ;	---------------------------------
 ; Function Mem_Copy
 ; ---------------------------------
 _Mem_Copy::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:72: __endasm;
+;C:\MSXgl-1.3.2\engine/src/memory.c:72: __endasm;
 	pop	iy
 	pop	bc
 	ldir
 	mem_copy_end:
 	jp	(iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:73: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:127: void Mem_Set(u8 val, void* dest, u16 size) __NAKED // Stack: 4 bytes
+;C:\MSXgl-1.3.2\engine/src/memory.c:73: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:127: void Mem_Set(u8 val, void* dest, u16 size) __NAKED // Stack: 4 bytes
 ;	---------------------------------
 ; Function Mem_Set
 ; ---------------------------------
 _Mem_Set::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:155: __endasm;
+;C:\MSXgl-1.3.2\engine/src/memory.c:155: __endasm;
 	push	de
 	pop	hl
 	ld	(hl), a
@@ -125,13 +125,13 @@ _Mem_Set::
 	ldir
 	mem_fill_end:
 	jp	(iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:156: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:161: void Mem_Set_16b(u16 val, void* dest, u16 size)
+;C:\MSXgl-1.3.2\engine/src/memory.c:156: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:161: void Mem_Set_16b(u16 val, void* dest, u16 size)
 ;	---------------------------------
 ; Function Mem_Set_16b
 ; ---------------------------------
 _Mem_Set_16b::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:196: __endasm;
+;C:\MSXgl-1.3.2\engine/src/memory.c:196: __endasm;
 	push	de
 	ex	de, hl
 	ld	(hl), d
@@ -147,16 +147,16 @@ _Mem_Set_16b::
 	ldir
 	mem_fill16_end:
 	jp	(iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:197: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:197: }
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:202: void Mem_FastSet(u8 val, void* dest, u16 size) __NAKED // Stack: 4 bytes
+;C:\MSXgl-1.3.2\engine/src/memory.c:202: void Mem_FastSet(u8 val, void* dest, u16 size) __NAKED // Stack: 4 bytes
 ;	---------------------------------
 ; Function Mem_FastSet
 ; ---------------------------------
 _Mem_FastSet::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:251: __endasm;
+;C:\MSXgl-1.3.2\engine/src/memory.c:251: __endasm;
 	push	de
 	pop	hl
 	ld	(hl), a
@@ -186,7 +186,7 @@ _Mem_FastSet::
 	jp	pe, mem_fastfill_loop
 	mem_fastfill_end:
 	jp	(iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/memory.c:252: }
+;C:\MSXgl-1.3.2\engine/src/memory.c:252: }
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)

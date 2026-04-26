@@ -312,7 +312,7 @@
                                     312 ; code
                                     313 ;--------------------------------------------------------
                                     314 	.area _SEG10
-                                    315 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:9: void UpdateFieldCamera()
+                                    315 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:9: void UpdateFieldCamera()
                                     316 ;	---------------------------------
                                     317 ; Function UpdateFieldCamera
                                     318 ; ---------------------------------
@@ -323,16 +323,16 @@
     00000008 21 F6 FF         [10]  323 	ld	hl, #-10
     0000000B 39               [11]  324 	add	hl, sp
     0000000C F9               [ 6]  325 	ld	sp, hl
-                                    326 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:11: struct ObjectInfo* Ball = &SwSprite[14];
-                                    327 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:13: i16 camera_dy = 0;
+                                    326 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:11: struct ObjectInfo* Ball = &SwSprite[14];
+                                    327 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:13: i16 camera_dy = 0;
     0000000D 01 00 00         [10]  328 	ld	bc, #0x0000
-                                    329 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:18: u16 top_margin = 64;
+                                    329 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:18: u16 top_margin = 64;
     00000010 21 40 00         [10]  330 	ld	hl, #0x0040
     00000013 E3               [19]  331 	ex	(sp), hl
-                                    332 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:19: u16 bottom_margin = 64;
+                                    332 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:19: u16 bottom_margin = 64;
     00000014 DD 36 F8 40      [19]  333 	ld	-8 (ix), #0x40
     00000018 DD 36 F9 00      [19]  334 	ld	-7 (ix), #0
-                                    335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:21: if (Ball->ly < 256) {
+                                    335 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:21: if (Ball->ly < 256) {
     0000001C 21r46r01         [10]  336 	ld	hl, #(_SwSprite + 322) + 4
     0000001F 7E               [ 7]  337 	ld	a, (hl)
     00000020 DD 77 FA         [19]  338 	ld	-6 (ix), a
@@ -344,7 +344,7 @@
     0000002E 7A               [ 4]  344 	ld	a, d
     0000002F D6 01            [ 7]  345 	sub	a, #0x01
     00000031 30 25            [12]  346 	jr	NC, 00108$
-                                    347 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:22: top_margin = 64 + (256 - Ball->ly) / 2;
+                                    347 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:22: top_margin = 64 + (256 - Ball->ly) / 2;
     00000033 AF               [ 4]  348 	xor	a, a
     00000034 DD 96 FA         [19]  349 	sub	a, -6 (ix)
     00000037 5F               [ 4]  350 	ld	e, a
@@ -356,7 +356,7 @@
     00000042 21 40 00         [10]  356 	ld	hl, #0x0040
     00000045 19               [11]  357 	add	hl, de
     00000046 E3               [19]  358 	ex	(sp), hl
-                                    359 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:23: if (top_margin > 140) top_margin = 140;
+                                    359 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:23: if (top_margin > 140) top_margin = 140;
     00000047 D1               [10]  360 	pop	de
     00000048 D5               [11]  361 	push	de
     00000049 3E 8C            [ 7]  362 	ld	a, #0x8c
@@ -368,19 +368,19 @@
     00000054 E3               [19]  368 	ex	(sp), hl
     00000055 C3r7Fr00         [10]  369 	jp	00109$
     00000058                        370 00108$:
-                                    371 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:24: } else if (Ball->ly > 256) {
+                                    371 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:24: } else if (Ball->ly > 256) {
     00000058 AF               [ 4]  372 	xor	a, a
     00000059 BB               [ 4]  373 	cp	a, e
     0000005A 3E 01            [ 7]  374 	ld	a, #0x01
     0000005C 9A               [ 4]  375 	sbc	a, d
     0000005D 30 20            [12]  376 	jr	NC, 00109$
-                                    377 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:25: bottom_margin = 64 + (Ball->ly - 256) / 2;
+                                    377 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:25: bottom_margin = 64 + (Ball->ly - 256) / 2;
     0000005F 15               [ 4]  378 	dec	d
     00000060 CB 3A            [ 8]  379 	srl	d
     00000062 CB 1B            [ 8]  380 	rr	e
     00000064 21 40 00         [10]  381 	ld	hl, #0x0040
     00000067 19               [11]  382 	add	hl, de
-                                    383 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:26: if (bottom_margin > 140) bottom_margin = 140;
+                                    383 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:26: if (bottom_margin > 140) bottom_margin = 140;
     00000068 DD 75 F8         [19]  384 	ld	-8 (ix), l
     0000006B DD 74 F9         [19]  385 	ld	-7 (ix), h
     0000006E EB               [ 4]  386 	ex	de,hl
@@ -392,7 +392,7 @@
     00000077 DD 36 F8 8C      [19]  392 	ld	-8 (ix), #0x8c
     0000007B DD 36 F9 00      [19]  393 	ld	-7 (ix), #0
     0000007F                        394 00109$:
-                                    395 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:30: if (Ball->ly < Field.ly + top_margin && Field.ly > 0) {
+                                    395 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:30: if (Ball->ly < Field.ly + top_margin && Field.ly > 0) {
     0000007F 21r04r00         [10]  396 	ld	hl, #(_Field + 4)
     00000082 7E               [ 7]  397 	ld	a, (hl)
     00000083 DD 77 FC         [19]  398 	ld	-4 (ix), a
@@ -413,7 +413,7 @@
     000000AC DD 7E FD         [19]  413 	ld	a, -3 (ix)
     000000AF DD B6 FC         [19]  414 	or	a, -4 (ix)
     000000B2 CAr5Cr01         [10]  415 	jp	Z, 00128$
-                                    416 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:31: i16 diff = (i16)(Field.ly + top_margin) - (i16)Ball->ly;
+                                    416 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:31: i16 diff = (i16)(Field.ly + top_margin) - (i16)Ball->ly;
     000000B5 DD 6E FE         [19]  417 	ld	l, -2 (ix)
                                     418 ;	spillPairReg hl
                                     419 ;	spillPairReg hl
@@ -426,7 +426,7 @@
     000000C2 ED 42            [15]  426 	sbc	hl, bc
     000000C4 DD 75 FE         [19]  427 	ld	-2 (ix), l
     000000C7 DD 74 FF         [19]  428 	ld	-1 (ix), h
-                                    429 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:32: if (diff > 5) {
+                                    429 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:32: if (diff > 5) {
     000000CA DD 7E FE         [19]  430 	ld	a, -2 (ix)
     000000CD DD 77 FA         [19]  431 	ld	-6 (ix), a
     000000D0 DD 7E FF         [19]  432 	ld	a, -1 (ix)
@@ -439,7 +439,7 @@
     000000E3 EE 80            [ 7]  439 	xor	a, #0x80
     000000E5                        440 00215$:
     000000E5 F2r3Br01         [10]  441 	jp	P, 00113$
-                                    442 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:33: camera_dy = -(5 + diff / 16); // Accelera dolcemente se è molto indietro
+                                    442 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:33: camera_dy = -(5 + diff / 16); // Accelera dolcemente se è molto indietro
     000000E8 DD 7E FA         [19]  443 	ld	a, -6 (ix)
     000000EB DD 77 FE         [19]  444 	ld	-2 (ix), a
     000000EE DD 7E FB         [19]  445 	ld	a, -5 (ix)
@@ -471,7 +471,7 @@
     00000127 9F               [ 4]  471 	sbc	a, a
     00000128 94               [ 4]  472 	sub	a, h
     00000129 47               [ 4]  473 	ld	b, a
-                                    474 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:34: if (camera_dy < -8) camera_dy = -8; // Velocità massima di recupero (fluida)
+                                    474 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:34: if (camera_dy < -8) camera_dy = -8; // Velocità massima di recupero (fluida)
     0000012A 79               [ 4]  475 	ld	a, c
     0000012B D6 F8            [ 7]  476 	sub	a, #0xf8
     0000012D 78               [ 4]  477 	ld	a, b
@@ -483,7 +483,7 @@
     00000135 01 F8 FF         [10]  483 	ld	bc, #0xfff8
     00000138 C3r45r01         [10]  484 	jp	00114$
     0000013B                        485 00113$:
-                                    486 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:36: camera_dy = -diff;
+                                    486 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:36: camera_dy = -diff;
     0000013B AF               [ 4]  487 	xor	a, a
     0000013C DD 96 FE         [19]  488 	sub	a, -2 (ix)
     0000013F 4F               [ 4]  489 	ld	c, a
@@ -491,7 +491,7 @@
     00000141 DD 96 FF         [19]  491 	sub	a, -1 (ix)
     00000144 47               [ 4]  492 	ld	b, a
     00000145                        493 00114$:
-                                    494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:40: if ((i16)Field.ly + camera_dy < 0) {
+                                    494 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:40: if ((i16)Field.ly + camera_dy < 0) {
     00000145 DD 5E FC         [19]  495 	ld	e, -4 (ix)
     00000148 DD 56 FD         [19]  496 	ld	d, -3 (ix)
     0000014B 69               [ 4]  497 	ld	l, c
@@ -499,7 +499,7 @@
     0000014D 19               [11]  499 	add	hl, de
     0000014E CB 7C            [ 8]  500 	bit	7, h
     00000150 CArEEr01         [10]  501 	jp	Z, 00129$
-                                    502 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:41: camera_dy = -(i16)Field.ly;
+                                    502 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:41: camera_dy = -(i16)Field.ly;
     00000153 AF               [ 4]  503 	xor	a, a
     00000154 93               [ 4]  504 	sub	a, e
     00000155 4F               [ 4]  505 	ld	c, a
@@ -508,7 +508,7 @@
     00000158 47               [ 4]  508 	ld	b, a
     00000159 C3rEEr01         [10]  509 	jp	00129$
     0000015C                        510 00128$:
-                                    511 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:44: else if (Ball->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
+                                    511 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:44: else if (Ball->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
     0000015C DD 5E FC         [19]  512 	ld	e, -4 (ix)
     0000015F DD 56 FD         [19]  513 	ld	d, -3 (ix)
     00000162 21 C0 00         [10]  514 	ld	hl, #0x00c0
@@ -533,7 +533,7 @@
     0000017D 7A               [ 4]  533 	ld	a, d
     0000017E DE 01            [ 7]  534 	sbc	a, #0x01
     00000180 30 6C            [12]  535 	jr	NC, 00129$
-                                    536 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:45: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - bottom_margin);
+                                    536 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:45: i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - bottom_margin);
     00000182 DD 7E FA         [19]  537 	ld	a, -6 (ix)
     00000185 DD 46 FB         [19]  538 	ld	b, -5 (ix)
     00000188 95               [ 4]  539 	sub	a, l
@@ -541,7 +541,7 @@
     0000018A 78               [ 4]  541 	ld	a, b
     0000018B 9C               [ 4]  542 	sbc	a, h
     0000018C 47               [ 4]  543 	ld	b, a
-                                    544 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:46: if (diff > 5) {
+                                    544 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:46: if (diff > 5) {
     0000018D 59               [ 4]  545 	ld	e, c
     0000018E 50               [ 4]  546 	ld	d, b
     0000018F 3E 05            [ 7]  547 	ld	a, #0x05
@@ -552,7 +552,7 @@
     00000198 EE 80            [ 7]  552 	xor	a, #0x80
     0000019A                        553 00216$:
     0000019A F2rD1r01         [10]  554 	jp	P, 00120$
-                                    555 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:47: camera_dy = 5 + diff / 16; // Accelera dolcemente
+                                    555 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:47: camera_dy = 5 + diff / 16; // Accelera dolcemente
     0000019D 4B               [ 4]  556 	ld	c, e
     0000019E 42               [ 4]  557 	ld	b, d
     0000019F CB 7A            [ 8]  558 	bit	7, d
@@ -575,7 +575,7 @@
     000001BB 03               [ 6]  575 	inc	bc
     000001BC 03               [ 6]  576 	inc	bc
     000001BD 03               [ 6]  577 	inc	bc
-                                    578 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:48: if (camera_dy > 8) camera_dy = 8; // Velocità massima di recupero
+                                    578 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:48: if (camera_dy > 8) camera_dy = 8; // Velocità massima di recupero
     000001BE 59               [ 4]  579 	ld	e, c
     000001BF 50               [ 4]  580 	ld	d, b
     000001C0 3E 08            [ 7]  581 	ld	a, #0x08
@@ -587,10 +587,10 @@
     000001CB                        587 00217$:
     000001CB F2rD1r01         [10]  588 	jp	P, 00121$
     000001CE 01 08 00         [10]  589 	ld	bc, #0x0008
-                                    590 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:50: camera_dy = diff;
+                                    590 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:50: camera_dy = diff;
     000001D1                        591 00120$:
     000001D1                        592 00121$:
-                                    593 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:54: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
+                                    593 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:54: if (Field.ly + camera_dy > (FIELD_HEIGHT - 192)) {
     000001D1 59               [ 4]  594 	ld	e, c
     000001D2 50               [ 4]  595 	ld	d, b
     000001D3 DD 6E FC         [19]  596 	ld	l, -4 (ix)
@@ -601,7 +601,7 @@
     000001DD 3E 01            [ 7]  601 	ld	a, #0x01
     000001DF 9C               [ 4]  602 	sbc	a, h
     000001E0 30 0C            [12]  603 	jr	NC, 00129$
-                                    604 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:55: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
+                                    604 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:55: camera_dy = (FIELD_HEIGHT - 192) - Field.ly;
     000001E2 3E 40            [ 7]  605 	ld	a, #0x40
     000001E4 DD 96 FC         [19]  606 	sub	a, -4 (ix)
     000001E7 4F               [ 4]  607 	ld	c, a
@@ -609,7 +609,7 @@
     000001EA DD 9E FD         [19]  609 	sbc	a, -3 (ix)
     000001ED 47               [ 4]  610 	ld	b, a
     000001EE                        611 00129$:
-                                    612 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:59: Field.ly += camera_dy;
+                                    612 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:59: Field.ly += camera_dy;
     000001EE 79               [ 4]  613 	ld	a, c
     000001EF 50               [ 4]  614 	ld	d, b
     000001F0 DD 86 FC         [19]  615 	add	a, -4 (ix)
@@ -618,10 +618,10 @@
     000001F5 DD 8E FD         [19]  618 	adc	a, -3 (ix)
     000001F8 57               [ 4]  619 	ld	d, a
     000001F9 ED 53r04r00      [20]  620 	ld	((_Field + 4)), de
-                                    621 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:60: Field.dy = (i8)camera_dy;
+                                    621 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:60: Field.dy = (i8)camera_dy;
     000001FD 21r12r00         [10]  622 	ld	hl, #(_Field + 18)
     00000200 71               [ 7]  623 	ld	(hl), c
-                                    624 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:61: }
+                                    624 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:61: }
     00000201 DD F9            [10]  625 	ld	sp, ix
     00000203 DD E1            [14]  626 	pop	ix
     00000205 C9               [10]  627 	ret
@@ -789,7 +789,7 @@
                          0000F344   789 _g_RAMAD3	=	0xf344
                          0000F348   790 _g_MASTER	=	0xf348
                          0000F37D   791 _g_BDOS	=	0xf37d
-                                    792 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:63: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
+                                    792 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:63: void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
                                     793 ;	---------------------------------
                                     794 ; Function CheckFieldBoundaries
                                     795 ; ---------------------------------
@@ -804,8 +804,8 @@
     00000219 DD 74 FF         [19]  804 	ld	-1 (ix), h
     0000021C DD 73 FC         [19]  805 	ld	-4 (ix), e
     0000021F DD 72 FD         [19]  806 	ld	-3 (ix), d
-                                    807 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:65: struct ObjectInfo* Ball = &SwSprite[14];
-                                    808 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+                                    807 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:65: struct ObjectInfo* Ball = &SwSprite[14];
+                                    808 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
     00000222 21r42r01         [10]  809 	ld	hl, #(_SwSprite + 322)
     00000225 4E               [ 7]  810 	ld	c, (hl)
     00000226 79               [ 4]  811 	ld	a, c
@@ -825,26 +825,26 @@
     0000023E 3E 01            [ 7]  825 	ld	a, #0x01
     00000240 9C               [ 4]  826 	sbc	a, h
     00000241 38 08            [12]  827 	jr	C, 00102$
-                                    828 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:75: RestartType = 0;
+                                    828 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:75: RestartType = 0;
     00000243 FD 21r00r00      [14]  829 	ld	iy, #_RestartType
     00000247 FD 36 00 00      [19]  830 	ld	0 (iy), #0x00
     0000024B                        831 00102$:
-                                    832 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
+                                    832 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:74: if (Ball->lx >= left_boundary && Ball->lx <= right_boundary && Ball->ly >= top_boundary && Ball->ly <= bottom_boundary) {
     0000024B 3Ar42r01         [13]  833 	ld	a, (#(_SwSprite + 322) + 0)
     0000024E DD 77 F7         [19]  834 	ld	-9 (ix), a
-                                    835 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+                                    835 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:92: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
     00000251 21r46r01         [10]  836 	ld	hl, #(_SwSprite + 326)
     00000254 7E               [ 7]  837 	ld	a, (hl)
     00000255 DD 77 F8         [19]  838 	ld	-8 (ix), a
     00000258 23               [ 6]  839 	inc	hl
     00000259 7E               [ 7]  840 	ld	a, (hl)
     0000025A DD 77 F9         [19]  841 	ld	-7 (ix), a
-                                    842 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+                                    842 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
     0000025D 3Ar00r00         [13]  843 	ld	a, (_LastTouchPlayer+0)
     00000260 3C               [ 4]  844 	inc	a
     00000261 28 00            [12]  845 	jr	Z, 00260$
     00000263                        846 00260$:
-                                    847 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+                                    847 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:92: if (Ball->ly < top_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
     00000263 DD 7E F8         [19]  848 	ld	a, -8 (ix)
     00000266 D6 18            [ 7]  849 	sub	a, #0x18
     00000268 DD 7E F9         [19]  850 	ld	a, -7 (ix)
@@ -860,54 +860,54 @@
     0000027F 3E 9C            [ 7]  860 	ld	a, #0x9c
     00000281 DD 96 F7         [19]  861 	sub	a, -9 (ix)
     00000284 DAr0Br03         [10]  862 	jp	C, 00115$
-                                    863 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
-                                    864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:93: if(g_is_penalty_shootout) {
+                                    863 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+                                    864 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:93: if(g_is_penalty_shootout) {
     00000287 3Ar00r00         [13]  865 	ld	a, (_g_is_penalty_shootout+0)
     0000028A B7               [ 4]  866 	or	a, a
     0000028B 28 15            [12]  867 	jr	Z, 00113$
-                                    868 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:94: ScoreTeam2++;
+                                    868 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:94: ScoreTeam2++;
     0000028D 21r00r00         [10]  869 	ld	hl, #_ScoreTeam2
     00000290 34               [11]  870 	inc	(hl)
-                                    871 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:95: RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
+                                    871 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:95: RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
     00000291 FD 21r00r00      [14]  872 	ld	iy, #_RestartType
     00000295 FD 36 00 05      [19]  873 	ld	0 (iy), #0x05
-                                    874 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:96: Ball->anim = 0; // Ferma la palla
+                                    874 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:96: Ball->anim = 0; // Ferma la palla
     00000299 21 00 00         [10]  875 	ld	hl, #0x0000
     0000029C 22r55r01         [16]  876 	ld	((_SwSprite + 341)), hl
-                                    877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:97: return;
+                                    877 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:97: return;
     0000029F C3r29r05         [10]  878 	jp	00144$
     000002A2                        879 00113$:
-                                    880 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:99: *game_state = 9;
+                                    880 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:99: *game_state = 9;
     000002A2 DD 6E FE         [19]  881 	ld	l, -2 (ix)
     000002A5 DD 66 FF         [19]  882 	ld	h, -1 (ix)
     000002A8 36 09            [10]  883 	ld	(hl), #0x09
-                                    884 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:100: Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
+                                    884 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:100: Field.dy = 0; // Ferma il motore di scrolling per evitare che AddLines cancelli la UI
     000002AA 21r12r00         [10]  885 	ld	hl, #(_Field + 18)
     000002AD 36 00            [10]  886 	ld	(hl), #0x00
-                                    887 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:101: RestartType = RESTART_GOAL;
+                                    887 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:101: RestartType = RESTART_GOAL;
     000002AF 21r00r00         [10]  888 	ld	hl, #_RestartType
     000002B2 36 05            [10]  889 	ld	(hl), #0x05
-                                    890 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:102: KickOffTeam = TEAM_1; // Il Team 1 subisce gol, quindi batte
+                                    890 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:102: KickOffTeam = TEAM_1; // Il Team 1 subisce gol, quindi batte
     000002B4 21r00r00         [10]  891 	ld	hl, #_KickOffTeam
     000002B7 36 00            [10]  892 	ld	(hl), #0x00
-                                    893 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:103: ScoreTeam2++; // Aumenta il punteggio
+                                    893 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:103: ScoreTeam2++; // Aumenta il punteggio
     000002B9 21r00r00         [10]  894 	ld	hl, #_ScoreTeam2
     000002BC 34               [11]  895 	inc	(hl)
-                                    896 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:104: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+                                    896 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:104: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
     000002BD 11r00r00         [10]  897 	ld	de, #_EventGoal
     000002C0 3E 08            [ 7]  898 	ld	a, #0x08
     000002C2 CDr00r00         [17]  899 	call	_CallFnc_VOID
-                                    900 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:105: Ball->anim = Ball->dx = Ball->dy = 0;
+                                    900 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:105: Ball->anim = Ball->dx = Ball->dy = 0;
     000002C5 21r54r01         [10]  901 	ld	hl, #(_SwSprite + 340)
     000002C8 36 00            [10]  902 	ld	(hl), #0x00
     000002CA 21r53r01         [10]  903 	ld	hl, #(_SwSprite + 339)
     000002CD 36 00            [10]  904 	ld	(hl), #0x00
     000002CF 21 00 00         [10]  905 	ld	hl, #0x0000
     000002D2 22r55r01         [16]  906 	ld	((_SwSprite + 341)), hl
-                                    907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:106: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
+                                    907 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:106: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
     000002D5 2E 60            [ 7]  908 	ld	l, #0x60
     000002D7 22r51r01         [16]  909 	ld	((_SwSprite + 337)), hl
-                                    910 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:107: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
+                                    910 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:107: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
     000002DA 21r00r00         [10]  911 	ld	hl, #_T2_Receiver
     000002DD 36 FF            [10]  912 	ld	(hl), #0xff
     000002DF 21r00r00         [10]  913 	ld	hl, #_T1_Receiver
@@ -916,10 +916,10 @@
     000002E7 36 FF            [10]  916 	ld	(hl), #0xff
     000002E9 21r00r00         [10]  917 	ld	hl, #_T1_Carrier
     000002EC 36 FF            [10]  918 	ld	(hl), #0xff
-                                    919 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:108: TimerEnabled = FALSE;
+                                    919 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:108: TimerEnabled = FALSE;
     000002EE FD 21r00r00      [14]  920 	ld	iy, #_TimerEnabled
     000002F2 FD 36 00 00      [19]  921 	ld	0 (iy), #0x00
-                                    922 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:109: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+                                    922 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:109: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
     000002F6 DD 6E FC         [19]  923 	ld	l, -4 (ix)
     000002F9 DD 66 FD         [19]  924 	ld	h, -3 (ix)
     000002FC 36 03            [10]  925 	ld	(hl), #0x03
@@ -927,10 +927,10 @@
     00000301 DD 46 05         [19]  927 	ld	b, 5 (ix)
     00000304 3Ar00r00         [13]  928 	ld	a, (_Frms+0)
     00000307 02               [ 7]  929 	ld	(bc), a
-                                    930 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:110: return;
+                                    930 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:110: return;
     00000308 C3r29r05         [10]  931 	jp	00144$
     0000030B                        932 00115$:
-                                    933 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:114: if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
+                                    933 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:114: if (Ball->ly > bottom_boundary && Ball->lx >= goal_left && Ball->lx <= goal_right) {
     0000030B 3E DE            [ 7]  934 	ld	a, #0xde
     0000030D DD BE F8         [19]  935 	cp	a, -8 (ix)
     00000310 3E 01            [ 7]  936 	ld	a, #0x01
@@ -946,54 +946,54 @@
     00000327 3E 9C            [ 7]  946 	ld	a, #0x9c
     00000329 DD 96 F7         [19]  947 	sub	a, -9 (ix)
     0000032C DArB3r03         [10]  948 	jp	C, 00121$
-                                    949 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
-                                    950 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:115: if(g_is_penalty_shootout) {
+                                    949 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+                                    950 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:115: if(g_is_penalty_shootout) {
     0000032F 3Ar00r00         [13]  951 	ld	a, (_g_is_penalty_shootout+0)
     00000332 B7               [ 4]  952 	or	a, a
     00000333 28 15            [12]  953 	jr	Z, 00119$
-                                    954 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:116: ScoreTeam1++;
+                                    954 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:116: ScoreTeam1++;
     00000335 21r00r00         [10]  955 	ld	hl, #_ScoreTeam1
     00000338 34               [11]  956 	inc	(hl)
-                                    957 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:117: RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
+                                    957 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:117: RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
     00000339 FD 21r00r00      [14]  958 	ld	iy, #_RestartType
     0000033D FD 36 00 05      [19]  959 	ld	0 (iy), #0x05
-                                    960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:118: Ball->anim = 0; // Ferma la palla
+                                    960 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:118: Ball->anim = 0; // Ferma la palla
     00000341 21 00 00         [10]  961 	ld	hl, #0x0000
     00000344 22r55r01         [16]  962 	ld	((_SwSprite + 341)), hl
-                                    963 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:119: return;
+                                    963 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:119: return;
     00000347 C3r29r05         [10]  964 	jp	00144$
     0000034A                        965 00119$:
-                                    966 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:121: *game_state = 9;
+                                    966 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:121: *game_state = 9;
     0000034A DD 6E FE         [19]  967 	ld	l, -2 (ix)
     0000034D DD 66 FF         [19]  968 	ld	h, -1 (ix)
     00000350 36 09            [10]  969 	ld	(hl), #0x09
-                                    970 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:122: Field.dy = 0;
+                                    970 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:122: Field.dy = 0;
     00000352 21r12r00         [10]  971 	ld	hl, #(_Field + 18)
     00000355 36 00            [10]  972 	ld	(hl), #0x00
-                                    973 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:123: RestartType = RESTART_GOAL;
+                                    973 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:123: RestartType = RESTART_GOAL;
     00000357 21r00r00         [10]  974 	ld	hl, #_RestartType
     0000035A 36 05            [10]  975 	ld	(hl), #0x05
-                                    976 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:124: KickOffTeam = TEAM_2; // Il Team 2 subisce gol, quindi batte
+                                    976 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:124: KickOffTeam = TEAM_2; // Il Team 2 subisce gol, quindi batte
     0000035C 21r00r00         [10]  977 	ld	hl, #_KickOffTeam
     0000035F 36 01            [10]  978 	ld	(hl), #0x01
-                                    979 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:125: ScoreTeam1++; // Aumenta il punteggio
+                                    979 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:125: ScoreTeam1++; // Aumenta il punteggio
     00000361 21r00r00         [10]  980 	ld	hl, #_ScoreTeam1
     00000364 34               [11]  981 	inc	(hl)
-                                    982 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:126: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+                                    982 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:126: CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
     00000365 11r00r00         [10]  983 	ld	de, #_EventGoal
     00000368 3E 08            [ 7]  984 	ld	a, #0x08
     0000036A CDr00r00         [17]  985 	call	_CallFnc_VOID
-                                    986 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:127: Ball->anim = Ball->dx = Ball->dy = 0;
+                                    986 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:127: Ball->anim = Ball->dx = Ball->dy = 0;
     0000036D 21r54r01         [10]  987 	ld	hl, #(_SwSprite + 340)
     00000370 36 00            [10]  988 	ld	(hl), #0x00
     00000372 21r53r01         [10]  989 	ld	hl, #(_SwSprite + 339)
     00000375 36 00            [10]  990 	ld	(hl), #0x00
     00000377 21 00 00         [10]  991 	ld	hl, #0x0000
     0000037A 22r55r01         [16]  992 	ld	((_SwSprite + 341)), hl
-                                    993 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:128: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
+                                    993 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:128: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
     0000037D 2E 60            [ 7]  994 	ld	l, #0x60
     0000037F 22r51r01         [16]  995 	ld	((_SwSprite + 337)), hl
-                                    996 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:129: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
+                                    996 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:129: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
     00000382 21r00r00         [10]  997 	ld	hl, #_T2_Receiver
     00000385 36 FF            [10]  998 	ld	(hl), #0xff
     00000387 21r00r00         [10]  999 	ld	hl, #_T1_Receiver
@@ -1002,10 +1002,10 @@
     0000038F 36 FF            [10] 1002 	ld	(hl), #0xff
     00000391 21r00r00         [10] 1003 	ld	hl, #_T1_Carrier
     00000394 36 FF            [10] 1004 	ld	(hl), #0xff
-                                   1005 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:130: TimerEnabled = FALSE;
+                                   1005 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:130: TimerEnabled = FALSE;
     00000396 FD 21r00r00      [14] 1006 	ld	iy, #_TimerEnabled
     0000039A FD 36 00 00      [19] 1007 	ld	0 (iy), #0x00
-                                   1008 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:131: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
+                                   1008 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:131: *wait_secs = 3; *start_sec = Frms;  // 3 secondi di festeggiamenti
     0000039E DD 6E FC         [19] 1009 	ld	l, -4 (ix)
     000003A1 DD 66 FD         [19] 1010 	ld	h, -3 (ix)
     000003A4 36 03            [10] 1011 	ld	(hl), #0x03
@@ -1013,10 +1013,10 @@
     000003A9 DD 46 05         [19] 1013 	ld	b, 5 (ix)
     000003AC 3Ar00r00         [13] 1014 	ld	a, (_Frms+0)
     000003AF 02               [ 7] 1015 	ld	(bc), a
-                                   1016 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:132: return;
+                                   1016 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:132: return;
     000003B0 C3r29r05         [10] 1017 	jp	00144$
     000003B3                       1018 00121$:
-                                   1019 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:136: if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
+                                   1019 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:136: if (Ball->lx < left_boundary || Ball->lx > right_boundary) {
     000003B3 DD 7E F7         [19] 1020 	ld	a, -9 (ix)
     000003B6 D6 10            [ 7] 1021 	sub	a, #0x10
     000003B8 38 08            [12] 1022 	jr	C, 00128$
@@ -1024,8 +1024,8 @@
     000003BC DD 96 F7         [19] 1024 	sub	a, -9 (ix)
     000003BF D2r56r04         [10] 1025 	jp	NC, 00129$
     000003C2                       1026 00128$:
-                                   1027 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
-                                   1028 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:138: if (RestartType != 0 && Ball->anim == 5) {
+                                   1027 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+                                   1028 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:138: if (RestartType != 0 && Ball->anim == 5) {
     000003C2 3Ar00r00         [13] 1029 	ld	a, (_RestartType+0)
     000003C5 B7               [ 4] 1030 	or	a, a
     000003C6 28 0A            [12] 1031 	jr	Z, 00125$
@@ -1035,17 +1035,17 @@
     000003CE B4               [ 4] 1035 	or	a, h
     000003CF CAr56r04         [10] 1036 	jp	Z,00129$
     000003D2                       1037 00125$:
-                                   1038 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:141: *game_state = 6;
+                                   1038 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:141: *game_state = 6;
     000003D2 DD 6E FE         [19] 1039 	ld	l, -2 (ix)
     000003D5 DD 66 FF         [19] 1040 	ld	h, -1 (ix)
     000003D8 36 06            [10] 1041 	ld	(hl), #0x06
-                                   1042 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:142: Field.dy = 0;
+                                   1042 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:142: Field.dy = 0;
     000003DA 21r12r00         [10] 1043 	ld	hl, #(_Field + 18)
     000003DD 36 00            [10] 1044 	ld	(hl), #0x00
-                                   1045 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:143: RestartType = RESTART_THROWIN;
+                                   1045 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:143: RestartType = RESTART_THROWIN;
     000003DF 21r00r00         [10] 1046 	ld	hl, #_RestartType
     000003E2 36 01            [10] 1047 	ld	(hl), #0x01
-                                   1048 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:145: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
+                                   1048 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:145: RestartSideX = (Ball->lx < 128) ? left_boundary : right_boundary - 1;
     000003E4 3Ar42r01         [13] 1049 	ld	a, (#(_SwSprite + 322) + 0)
     000003E7 D6 80            [ 7] 1050 	sub	a, #0x80
     000003E9 30 07            [12] 1051 	jr	NC, 00150$
@@ -1056,28 +1056,28 @@
     000003F6                       1056 00151$:
     000003F6 DD 7E FB         [19] 1057 	ld	a, -5 (ix)
     000003F9 32r00r00         [13] 1058 	ld	(_RestartSideX+0), a
-                                   1059 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:146: RestartSideY = Ball->ly;
+                                   1059 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:146: RestartSideY = Ball->ly;
     000003FC 21r46r01         [10] 1060 	ld	hl, #(_SwSprite + 326)
     000003FF 7E               [ 7] 1061 	ld	a, (hl)
     00000400 23               [ 6] 1062 	inc	hl
     00000401 32r00r00         [13] 1063 	ld	(_RestartSideY+0), a
     00000404 7E               [ 7] 1064 	ld	a, (hl)
     00000405 32r01r00         [13] 1065 	ld	(_RestartSideY+1), a
-                                   1066 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:147: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
+                                   1066 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:147: CallFnc_VOID(SEG_EVENTS, EventThrowIn);
     00000408 11r00r00         [10] 1067 	ld	de, #_EventThrowIn
     0000040B 3E 08            [ 7] 1068 	ld	a, #0x08
     0000040D CDr00r00         [17] 1069 	call	_CallFnc_VOID
-                                   1070 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:148: Ball->anim = Ball->dx = Ball->dy = 0;
+                                   1070 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:148: Ball->anim = Ball->dx = Ball->dy = 0;
     00000410 21r54r01         [10] 1071 	ld	hl, #(_SwSprite + 340)
     00000413 36 00            [10] 1072 	ld	(hl), #0x00
     00000415 21r53r01         [10] 1073 	ld	hl, #(_SwSprite + 339)
     00000418 36 00            [10] 1074 	ld	(hl), #0x00
     0000041A 21 00 00         [10] 1075 	ld	hl, #0x0000
     0000041D 22r55r01         [16] 1076 	ld	((_SwSprite + 341)), hl
-                                   1077 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:149: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
+                                   1077 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:149: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
     00000420 2E 60            [ 7] 1078 	ld	l, #0x60
     00000422 22r51r01         [16] 1079 	ld	((_SwSprite + 337)), hl
-                                   1080 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:150: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
+                                   1080 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:150: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
     00000425 21r00r00         [10] 1081 	ld	hl, #_T2_Receiver
     00000428 36 FF            [10] 1082 	ld	(hl), #0xff
     0000042A 21r00r00         [10] 1083 	ld	hl, #_T1_Receiver
@@ -1086,10 +1086,10 @@
     00000432 36 FF            [10] 1086 	ld	(hl), #0xff
     00000434 21r00r00         [10] 1087 	ld	hl, #_T1_Carrier
     00000437 36 FF            [10] 1088 	ld	(hl), #0xff
-                                   1089 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:151: TimerEnabled = FALSE;
+                                   1089 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:151: TimerEnabled = FALSE;
     00000439 FD 21r00r00      [14] 1090 	ld	iy, #_TimerEnabled
     0000043D FD 36 00 00      [19] 1091 	ld	0 (iy), #0x00
-                                   1092 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:152: *wait_secs = 2; *start_sec = Frms;
+                                   1092 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:152: *wait_secs = 2; *start_sec = Frms;
     00000441 DD 6E FC         [19] 1093 	ld	l, -4 (ix)
     00000444 DD 66 FD         [19] 1094 	ld	h, -3 (ix)
     00000447 36 02            [10] 1095 	ld	(hl), #0x02
@@ -1097,10 +1097,10 @@
     0000044C DD 46 05         [19] 1097 	ld	b, 5 (ix)
     0000044F 3Ar00r00         [13] 1098 	ld	a, (_Frms+0)
     00000452 02               [ 7] 1099 	ld	(bc), a
-                                   1100 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:153: return;
+                                   1100 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:153: return;
     00000453 C3r29r05         [10] 1101 	jp	00144$
     00000456                       1102 00129$:
-                                   1103 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:158: if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
+                                   1103 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:158: if (Ball->ly < top_boundary || Ball->ly > bottom_boundary) {
     00000456 DD 7E FA         [19] 1104 	ld	a, -6 (ix)
     00000459 B7               [ 4] 1105 	or	a, a
     0000045A 20 07            [12] 1106 	jr	NZ, 00141$
@@ -1108,8 +1108,8 @@
     0000045F B7               [ 4] 1108 	or	a, a
     00000460 CAr29r05         [10] 1109 	jp	Z, 00144$
     00000463                       1110 00141$:
-                                   1111 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
-                                   1112 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:160: if (RestartType != 0 && Ball->anim == 5) {
+                                   1111 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
+                                   1112 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:160: if (RestartType != 0 && Ball->anim == 5) {
     00000463 3Ar00r00         [13] 1113 	ld	a, (_RestartType+0)
     00000466 B7               [ 4] 1114 	or	a, a
     00000467 28 0A            [12] 1115 	jr	Z, 00138$
@@ -1119,17 +1119,17 @@
     0000046F B4               [ 4] 1119 	or	a, h
     00000470 CAr29r05         [10] 1120 	jp	Z,00144$
     00000473                       1121 00138$:
-                                   1122 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:163: *game_state = 6;
+                                   1122 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:163: *game_state = 6;
     00000473 DD 6E FE         [19] 1123 	ld	l, -2 (ix)
     00000476 DD 66 FF         [19] 1124 	ld	h, -1 (ix)
     00000479 36 06            [10] 1125 	ld	(hl), #0x06
-                                   1126 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:164: Field.dy = 0;
+                                   1126 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:164: Field.dy = 0;
     0000047B 21r12r00         [10] 1127 	ld	hl, #(_Field + 18)
     0000047E 36 00            [10] 1128 	ld	(hl), #0x00
-                                   1129 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:165: RestartType = 0;
+                                   1129 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:165: RestartType = 0;
     00000480 21r00r00         [10] 1130 	ld	hl, #_RestartType
     00000483 36 00            [10] 1131 	ld	(hl), #0x00
-                                   1132 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:168: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
+                                   1132 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:168: if ((Ball->ly < top_boundary && LastTouchTeam == TEAM_1) || 
     00000485 ED 4Br46r01      [20] 1133 	ld	bc, (#(_SwSprite + 326) + 0)
     00000489 79               [ 4] 1134 	ld	a, c
     0000048A D6 18            [ 7] 1135 	sub	a, #0x18
@@ -1140,7 +1140,7 @@
     00000494 B7               [ 4] 1140 	or	a, a
     00000495 28 0E            [12] 1141 	jr	Z, 00131$
     00000497                       1142 00136$:
-                                   1143 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:169: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
+                                   1143 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:169: (Ball->ly > bottom_boundary && LastTouchTeam == TEAM_2)) {
     00000497 3E DE            [ 7] 1144 	ld	a, #0xde
     00000499 B9               [ 4] 1145 	cp	a, c
     0000049A 3E 01            [ 7] 1146 	ld	a, #0x01
@@ -1150,54 +1150,54 @@
     000004A2 3D               [ 4] 1150 	dec	a
     000004A3 20 22            [12] 1151 	jr	NZ, 00132$
     000004A5                       1152 00131$:
-                                   1153 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:170: RestartType = RESTART_CORNERKICK;
+                                   1153 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:170: RestartType = RESTART_CORNERKICK;
     000004A5 21r00r00         [10] 1154 	ld	hl, #_RestartType
     000004A8 36 03            [10] 1155 	ld	(hl), #0x03
-                                   1156 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:171: RestartSideX = Ball->lx;
+                                   1156 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:171: RestartSideX = Ball->lx;
     000004AA 3Ar42r01         [13] 1157 	ld	a, (#(_SwSprite + 322) + 0)
     000004AD 32r00r00         [13] 1158 	ld	(_RestartSideX+0), a
-                                   1159 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:172: RestartSideY = Ball->ly;
+                                   1159 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:172: RestartSideY = Ball->ly;
     000004B0 21r46r01         [10] 1160 	ld	hl, #(_SwSprite + 326)
     000004B3 7E               [ 7] 1161 	ld	a, (hl)
     000004B4 23               [ 6] 1162 	inc	hl
     000004B5 32r00r00         [13] 1163 	ld	(_RestartSideY+0), a
     000004B8 7E               [ 7] 1164 	ld	a, (hl)
     000004B9 32r01r00         [13] 1165 	ld	(_RestartSideY+1), a
-                                   1166 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:173: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
+                                   1166 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:173: CallFnc_VOID(SEG_EVENTS, EventCornerKick);
     000004BC 11r00r00         [10] 1167 	ld	de, #_EventCornerKick
     000004BF 3E 08            [ 7] 1168 	ld	a, #0x08
     000004C1 CDr00r00         [17] 1169 	call	_CallFnc_VOID
     000004C4 C3rE6r04         [10] 1170 	jp	00133$
     000004C7                       1171 00132$:
-                                   1172 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:175: RestartType = RESTART_GOALKICK;
+                                   1172 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:175: RestartType = RESTART_GOALKICK;
     000004C7 21r00r00         [10] 1173 	ld	hl, #_RestartType
     000004CA 36 02            [10] 1174 	ld	(hl), #0x02
-                                   1175 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:176: RestartSideX = Ball->lx;
+                                   1175 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:176: RestartSideX = Ball->lx;
     000004CC 3Ar42r01         [13] 1176 	ld	a, (#(_SwSprite + 322) + 0)
     000004CF 32r00r00         [13] 1177 	ld	(_RestartSideX+0), a
-                                   1178 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:177: RestartSideY = Ball->ly;
+                                   1178 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:177: RestartSideY = Ball->ly;
     000004D2 21r46r01         [10] 1179 	ld	hl, #(_SwSprite + 326)
     000004D5 7E               [ 7] 1180 	ld	a, (hl)
     000004D6 23               [ 6] 1181 	inc	hl
     000004D7 32r00r00         [13] 1182 	ld	(_RestartSideY+0), a
     000004DA 7E               [ 7] 1183 	ld	a, (hl)
     000004DB 32r01r00         [13] 1184 	ld	(_RestartSideY+1), a
-                                   1185 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:178: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
+                                   1185 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:178: CallFnc_VOID(SEG_EVENTS, EventGoalKick);
     000004DE 11r00r00         [10] 1186 	ld	de, #_EventGoalKick
     000004E1 3E 08            [ 7] 1187 	ld	a, #0x08
     000004E3 CDr00r00         [17] 1188 	call	_CallFnc_VOID
     000004E6                       1189 00133$:
-                                   1190 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:181: Ball->anim = Ball->dx = Ball->dy = 0;
+                                   1190 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:181: Ball->anim = Ball->dx = Ball->dy = 0;
     000004E6 21r54r01         [10] 1191 	ld	hl, #(_SwSprite + 340)
     000004E9 36 00            [10] 1192 	ld	(hl), #0x00
     000004EB 21r53r01         [10] 1193 	ld	hl, #(_SwSprite + 339)
     000004EE 36 00            [10] 1194 	ld	(hl), #0x00
     000004F0 21 00 00         [10] 1195 	ld	hl, #0x0000
     000004F3 22r55r01         [16] 1196 	ld	((_SwSprite + 341)), hl
-                                   1197 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:182: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
+                                   1197 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:182: Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
     000004F6 2E 60            [ 7] 1198 	ld	l, #0x60
     000004F8 22r51r01         [16] 1199 	ld	((_SwSprite + 337)), hl
-                                   1200 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:183: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
+                                   1200 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:183: T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
     000004FB 21r00r00         [10] 1201 	ld	hl, #_T2_Receiver
     000004FE 36 FF            [10] 1202 	ld	(hl), #0xff
     00000500 21r00r00         [10] 1203 	ld	hl, #_T1_Receiver
@@ -1206,10 +1206,10 @@
     00000508 36 FF            [10] 1206 	ld	(hl), #0xff
     0000050A 21r00r00         [10] 1207 	ld	hl, #_T1_Carrier
     0000050D 36 FF            [10] 1208 	ld	(hl), #0xff
-                                   1209 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:184: TimerEnabled = FALSE;
+                                   1209 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:184: TimerEnabled = FALSE;
     0000050F FD 21r00r00      [14] 1210 	ld	iy, #_TimerEnabled
     00000513 FD 36 00 00      [19] 1211 	ld	0 (iy), #0x00
-                                   1212 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:185: *wait_secs = 2; *start_sec = Frms;
+                                   1212 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:185: *wait_secs = 2; *start_sec = Frms;
     00000517 DD 6E FC         [19] 1213 	ld	l, -4 (ix)
     0000051A DD 66 FD         [19] 1214 	ld	h, -3 (ix)
     0000051D 36 02            [10] 1215 	ld	(hl), #0x02
@@ -1217,9 +1217,9 @@
     00000522 DD 46 05         [19] 1217 	ld	b, 5 (ix)
     00000525 3Ar00r00         [13] 1218 	ld	a, (_Frms+0)
     00000528 02               [ 7] 1219 	ld	(bc), a
-                                   1220 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:186: return;
+                                   1220 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:186: return;
     00000529                       1221 00144$:
-                                   1222 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:189: }
+                                   1222 ;C:\MSXgl-1.3.2\projects\MSX-SOCCERLGMSX2/soccerlg_s10_b3.c:189: }
     00000529 DD F9            [10] 1223 	ld	sp, ix
     0000052B DD E1            [14] 1224 	pop	ix
     0000052D E1               [10] 1225 	pop	hl

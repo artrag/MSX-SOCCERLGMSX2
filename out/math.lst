@@ -58,12 +58,12 @@
                                      58 ; code
                                      59 ;--------------------------------------------------------
                                      60 	.area _CODE
-                                     61 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:26: i8 Math_Div10(i8 val) __NAKED __FASTCALL __PRESERVES(a, b, c, iyl, iyh)
+                                     61 ;C:\MSXgl-1.3.2\engine/src/math.c:26: i8 Math_Div10(i8 val) __NAKED __FASTCALL __PRESERVES(a, b, c, iyl, iyh)
                                      62 ;	---------------------------------
                                      63 ; Function Math_Div10
                                      64 ; ---------------------------------
     00000000                         65 _Math_Div10::
-                                     66 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:42: __endasm;
+                                     66 ;C:\MSXgl-1.3.2\engine/src/math.c:42: __endasm;
     00000000 16 00            [ 7]   67 	ld	d, #0
     00000002 62               [ 4]   68 	ld	h, d
     00000003 5D               [ 4]   69 	ld	e, l
@@ -75,13 +75,13 @@
     00000009 29               [11]   75 	add	hl, hl
     0000000A 6C               [ 4]   76 	ld	l, h
     0000000B C9               [10]   77 	ret
-                                     78 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:43: }
-                                     79 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:47: i16 Math_Div10_16b(i16 val) __NAKED __FASTCALL __PRESERVES(b, d, e, iyl, iyh)
+                                     78 ;C:\MSXgl-1.3.2\engine/src/math.c:43: }
+                                     79 ;C:\MSXgl-1.3.2\engine/src/math.c:47: i16 Math_Div10_16b(i16 val) __NAKED __FASTCALL __PRESERVES(b, d, e, iyl, iyh)
                                      80 ;	---------------------------------
                                      81 ; Function Math_Div10_16b
                                      82 ; ---------------------------------
     0000000C                         83 _Math_Div10_16b::
-                                     84 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:70: __endasm;
+                                     84 ;C:\MSXgl-1.3.2\engine/src/math.c:70: __endasm;
     0000000C 01 0A 0D         [10]   85 	ld	bc, #0x0D0A
     0000000F AF               [ 4]   86 	xor	a
     00000010 29               [11]   87 	add	hl, hl
@@ -100,13 +100,13 @@
     0000001D                        100 	label_1:
     0000001D 10 F7            [13]  101 	djnz	label_1 - #7
     0000001F C9               [10]  102 	ret
-                                    103 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:71: }
-                                    104 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:83: u8 Math_Mod10(u8 val) __NAKED __PRESERVES(b, c, d, e, iyl, iyh)
+                                    103 ;C:\MSXgl-1.3.2\engine/src/math.c:71: }
+                                    104 ;C:\MSXgl-1.3.2\engine/src/math.c:83: u8 Math_Mod10(u8 val) __NAKED __PRESERVES(b, c, d, e, iyl, iyh)
                                     105 ;	---------------------------------
                                     106 ; Function Math_Mod10
                                     107 ; ---------------------------------
     00000020                        108 _Math_Mod10::
-                                    109 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:105: __endasm;
+                                    109 ;C:\MSXgl-1.3.2\engine/src/math.c:105: __endasm;
     00000020 67               [ 4]  110 	ld	h, a
     00000021 0F               [ 4]  111 	rrca
     00000022 0F               [ 4]  112 	rrca
@@ -124,13 +124,13 @@
     00000030 27               [ 4]  124 	daa
     00000031 E6 0F            [ 7]  125 	and	#0x0F
     00000033 C9               [10]  126 	ret
-                                    127 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:106: }
-                                    128 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:114: u8 Math_Mod10_16b(u16 val) __NAKED __FASTCALL __PRESERVES(b, c, d, e, iyl, iyh)
+                                    127 ;C:\MSXgl-1.3.2\engine/src/math.c:106: }
+                                    128 ;C:\MSXgl-1.3.2\engine/src/math.c:114: u8 Math_Mod10_16b(u16 val) __NAKED __FASTCALL __PRESERVES(b, c, d, e, iyl, iyh)
                                     129 ;	---------------------------------
                                     130 ; Function Math_Mod10_16b
                                     131 ; ---------------------------------
     00000034                        132 _Math_Mod10_16b::
-                                    133 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:140: __endasm;
+                                    133 ;C:\MSXgl-1.3.2\engine/src/math.c:140: __endasm;
     00000034 7C               [ 4]  134 	ld	a, h
     00000035 85               [ 4]  135 	add	a, l
     00000036 CE 00            [ 7]  136 	adc	a, #0
@@ -152,13 +152,13 @@
     00000049 E6 0F            [ 7]  152 	and	#0x0F
     0000004B 6F               [ 4]  153 	ld	l, a
     0000004C C9               [10]  154 	ret
-                                    155 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:141: }
-                                    156 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:152: u8 Math_Flip(u8 val) __NAKED __PRESERVES(c, d, e, h, l, iyl, iyh)
+                                    155 ;C:\MSXgl-1.3.2\engine/src/math.c:141: }
+                                    156 ;C:\MSXgl-1.3.2\engine/src/math.c:152: u8 Math_Flip(u8 val) __NAKED __PRESERVES(c, d, e, h, l, iyl, iyh)
                                     157 ;	---------------------------------
                                     158 ; Function Math_Flip
                                     159 ; ---------------------------------
     0000004D                        160 _Math_Flip::
-                                    161 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:174: __endasm;
+                                    161 ;C:\MSXgl-1.3.2\engine/src/math.c:174: __endasm;
     0000004D 47               [ 4]  162 	ld	b, a
     0000004E 07               [ 4]  163 	rlca
     0000004F 07               [ 4]  164 	rlca
@@ -174,13 +174,13 @@
     0000005B E6 66            [ 7]  174 	and	#0x66
     0000005D A8               [ 4]  175 	xor	b
     0000005E C9               [10]  176 	ret
-                                    177 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:175: }
-                                    178 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:179: u16 Math_Flip_16b(u16 val) __NAKED __PRESERVES(c, iyl, iyh)
+                                    177 ;C:\MSXgl-1.3.2\engine/src/math.c:175: }
+                                    178 ;C:\MSXgl-1.3.2\engine/src/math.c:179: u16 Math_Flip_16b(u16 val) __NAKED __PRESERVES(c, iyl, iyh)
                                     179 ;	---------------------------------
                                     180 ; Function Math_Flip_16b
                                     181 ; ---------------------------------
     0000005F                        182 _Math_Flip_16b::
-                                    183 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:191: __endasm;
+                                    183 ;C:\MSXgl-1.3.2\engine/src/math.c:191: __endasm;
     0000005F 7C               [ 4]  184 	ld	a, h
     00000060 CDr4Dr00         [17]  185 	call	_Math_Flip
     00000063 5F               [ 4]  186 	ld	e, a
@@ -188,13 +188,13 @@
     00000065 CDr4Dr00         [17]  188 	call	_Math_Flip
     00000068 57               [ 4]  189 	ld	d, a
     00000069 C9               [10]  190 	ret
-                                    191 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:192: }
-                                    192 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:196: i16 Math_Negative16(i16 val) __NAKED __FASTCALL __PRESERVES(b, c, d, e, iyl, iyh)
+                                    191 ;C:\MSXgl-1.3.2\engine/src/math.c:192: }
+                                    192 ;C:\MSXgl-1.3.2\engine/src/math.c:196: i16 Math_Negative16(i16 val) __NAKED __FASTCALL __PRESERVES(b, c, d, e, iyl, iyh)
                                     193 ;	---------------------------------
                                     194 ; Function Math_Negative16
                                     195 ; ---------------------------------
     0000006A                        196 _Math_Negative16::
-                                    197 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:208: __endasm;
+                                    197 ;C:\MSXgl-1.3.2\engine/src/math.c:208: __endasm;
     0000006A AF               [ 4]  198 	xor	a
     0000006B 95               [ 4]  199 	sub	l
     0000006C 6F               [ 4]  200 	ld	l, a
@@ -202,23 +202,23 @@
     0000006E 94               [ 4]  202 	sub	h
     0000006F 67               [ 4]  203 	ld	h, a
     00000070 C9               [10]  204 	ret
-                                    205 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:209: }
-                                    206 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:213: u16 Math_Swap(u16 val) __NAKED __PRESERVES(a, b, c, iyl, iyh)
+                                    205 ;C:\MSXgl-1.3.2\engine/src/math.c:209: }
+                                    206 ;C:\MSXgl-1.3.2\engine/src/math.c:213: u16 Math_Swap(u16 val) __NAKED __PRESERVES(a, b, c, iyl, iyh)
                                     207 ;	---------------------------------
                                     208 ; Function Math_Swap
                                     209 ; ---------------------------------
     00000071                        210 _Math_Swap::
-                                    211 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:221: __endasm;
+                                    211 ;C:\MSXgl-1.3.2\engine/src/math.c:221: __endasm;
     00000071 5C               [ 4]  212 	ld	e, h
     00000072 55               [ 4]  213 	ld	d, l
     00000073 C9               [10]  214 	ret
-                                    215 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:222: }
-                                    216 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:230: void Math_SignedDiv_ASM() __NAKED __PRESERVES(b, c, d, e, h, l, iyl, iyh)
+                                    215 ;C:\MSXgl-1.3.2\engine/src/math.c:222: }
+                                    216 ;C:\MSXgl-1.3.2\engine/src/math.c:230: void Math_SignedDiv_ASM() __NAKED __PRESERVES(b, c, d, e, h, l, iyl, iyh)
                                     217 ;	---------------------------------
                                     218 ; Function Math_SignedDiv_ASM
                                     219 ; ---------------------------------
     00000074                        220 _Math_SignedDiv_ASM::
-                                    221 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:248: __endasm;
+                                    221 ;C:\MSXgl-1.3.2\engine/src/math.c:248: __endasm;
     00000074                        222 	_Math_SignedDiv64::
     00000074 CB 2F            [ 8]  223 	sra	a
     00000076                        224 	_Math_SignedDiv32::
@@ -234,8 +234,8 @@
     00000080 F0               [11]  234 	ret	p
     00000081 3C               [ 4]  235 	inc	a
     00000082 C9               [10]  236 	ret
-                                    237 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:249: }
-                                    238 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:320: void Math_SetRandomSeed8(u8 seed) { g_RandomSeed8 = (u16)seed; }
+                                    237 ;C:\MSXgl-1.3.2\engine/src/math.c:249: }
+                                    238 ;C:\MSXgl-1.3.2\engine/src/math.c:320: void Math_SetRandomSeed8(u8 seed) { g_RandomSeed8 = (u16)seed; }
                                     239 ;	---------------------------------
                                     240 ; Function Math_SetRandomSeed8
                                     241 ; ---------------------------------
@@ -245,12 +245,12 @@
     00000088 FD 71 00         [19]  245 	ld	0 (iy), c
     0000008B FD 36 01 00      [19]  246 	ld	1 (iy), #0x00
     0000008F C9               [10]  247 	ret
-                                    248 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:325: u8 Math_GetRandom8() __NAKED
+                                    248 ;C:\MSXgl-1.3.2\engine/src/math.c:325: u8 Math_GetRandom8() __NAKED
                                     249 ;	---------------------------------
                                     250 ; Function Math_GetRandom8
                                     251 ; ---------------------------------
     00000090                        252 _Math_GetRandom8::
-                                    253 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:350: __endasm;
+                                    253 ;C:\MSXgl-1.3.2\engine/src/math.c:350: __endasm;
     00000090 2Ar00r00         [16]  254 	ld	hl, (_g_RandomSeed8)
     00000093 ED 5F            [ 9]  255 	ld	a, r
     00000095 57               [ 4]  256 	ld	d, a
@@ -262,31 +262,31 @@
     0000009B 6F               [ 4]  262 	ld	l, a
     0000009C 22r00r00         [16]  263 	ld	(_g_RandomSeed8), hl
     0000009F C9               [10]  264 	ret
-                                    265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:351: }
-                                    266 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:415: void Math_SetRandomSeed16(u16 seed)
+                                    265 ;C:\MSXgl-1.3.2\engine/src/math.c:351: }
+                                    266 ;C:\MSXgl-1.3.2\engine/src/math.c:415: void Math_SetRandomSeed16(u16 seed)
                                     267 ;	---------------------------------
                                     268 ; Function Math_SetRandomSeed16
                                     269 ; ---------------------------------
     000000A0                        270 _Math_SetRandomSeed16::
-                                    271 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:417: if (seed)
+                                    271 ;C:\MSXgl-1.3.2\engine/src/math.c:417: if (seed)
     000000A0 7C               [ 4]  272 	ld	a, h
     000000A1 B5               [ 4]  273 	or	a, l
     000000A2 28 04            [12]  274 	jr	Z, 00102$
-                                    275 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:418: g_RandomSeed16 = seed;
+                                    275 ;C:\MSXgl-1.3.2\engine/src/math.c:418: g_RandomSeed16 = seed;
     000000A4 22r02r00         [16]  276 	ld	(_g_RandomSeed16), hl
     000000A7 C9               [10]  277 	ret
     000000A8                        278 00102$:
-                                    279 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:420: g_RandomSeed16 = 0x7FFF;
+                                    279 ;C:\MSXgl-1.3.2\engine/src/math.c:420: g_RandomSeed16 = 0x7FFF;
     000000A8 21 FF 7F         [10]  280 	ld	hl, #0x7fff
     000000AB 22r02r00         [16]  281 	ld	(_g_RandomSeed16), hl
-                                    282 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:421: }
+                                    282 ;C:\MSXgl-1.3.2\engine/src/math.c:421: }
     000000AE C9               [10]  283 	ret
-                                    284 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:434: u16 Math_GetRandom16() __NAKED __FASTCALL
+                                    284 ;C:\MSXgl-1.3.2\engine/src/math.c:434: u16 Math_GetRandom16() __NAKED __FASTCALL
                                     285 ;	---------------------------------
                                     286 ; Function Math_GetRandom16
                                     287 ; ---------------------------------
     000000AF                        288 _Math_GetRandom16::
-                                    289 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:455: __endasm;
+                                    289 ;C:\MSXgl-1.3.2\engine/src/math.c:455: __endasm;
     000000AF                        290 	xrnd:
     000000AF 2Ar02r00         [16]  291 	ld	hl, (_g_RandomSeed16)
     000000B2 7C               [ 4]  292 	ld	a, h
@@ -305,7 +305,7 @@
     000000BF 67               [ 4]  305 	ld	h, a
     000000C0 22r02r00         [16]  306 	ld	(_g_RandomSeed16), hl
     000000C3 C9               [10]  307 	ret
-                                    308 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/math.c:461: }
+                                    308 ;C:\MSXgl-1.3.2\engine/src/math.c:461: }
                                     309 	.area _CODE
                                     310 	.area _INITIALIZER
     00000000                        311 __xinit__g_RandomSeed8:
