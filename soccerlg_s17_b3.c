@@ -150,7 +150,7 @@ void AssignGoalKickTargets() {
 	if (RestartType == RESTART_GKSAVE) {
 		SwSprite[14].ly = RestartSideY + (dir_y * 4); // Palla visibile in mano
 		SwSprite[14].frame = SPR_BALL_SIZE_1; // Dimensione 1 per proporzione realistica
-		SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
+		SwSprite[gk].frame = (team_to_kick == TEAM_1) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_NORTH_1;
 	} else {
 		SwSprite[14].frame = SPR_BALL_SIZE_1; 
 	}

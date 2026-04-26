@@ -122,8 +122,8 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				}
 				
 				GK->anim++;
-				const u8 walk_seq[4] = {0, 1, 2, 1};
-				GK->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, gk, GK->dx, GK->dy, walk_seq[(GK->anim / 3) % 4]);
+			GK->frame = (gk == 0) ? (((GK->anim / 6) % 2 == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_SOUTH_2) :
+			                         (((GK->anim / 6) % 2 == 0) ? SPR_GK_PLAYER_NORTH_1 : SPR_GK_PLAYER_NORTH_2);
 			} else {
 				// IL RINVIO: lancio immediato verso il centrocampo
 				u8 target = (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2;
@@ -174,12 +174,9 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				if (do_kick) *wait_secs = 0; // Trigger premuto: inizia subito la rincorsa!
 			}
 			
-			// Il portiere fissa la palla
+			// Il portiere aspetta nella posa di difesa porta
 			if (RestartType != RESTART_GKSAVE) {
-				i8 look_dx = (Ball->lx > GK->lx) ? 1 : ((Ball->lx < GK->lx) ? -1 : 0);
-				i8 look_dy = (Ball->ly > GK->ly) ? 1 : ((Ball->ly < GK->ly) ? -1 : 0);
-				if (look_dx == 0 && look_dy == 0) look_dy = (gk == 0) ? 1 : -1;
-				GK->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, gk, look_dx, look_dy);
+				GK->frame = (gk == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_NORTH_1;
 			}
 		}
 	}

@@ -101,7 +101,7 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 						p->frame = (RestartSideX < 128) ? SPR_T2_PLAYER_THROWIN_FROM_WEST_1 : SPR_T2_PLAYER_THROWIN_FROM_EAST_1;
 					}
 				} else if (RestartType == RESTART_GKSAVE && i == ((RestartSideY < 256) ? 0 : 7)) {
-					p->frame = (i == 0) ? SPR_GK_PLAYER_SOUTH_WITH_BALL : SPR_GK_PLAYER_NORTH_WITH_BALL;
+					p->frame = (i == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_NORTH_1;
 				} else {
 					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
 				}
