@@ -224,7 +224,7 @@ u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __n
 	
 	ld	c, a
 	ld	a, (#(_g_Bank0Segment + 6) + 0)					; u8 _old = GET_BANK_SEGMENT(3);
-	ld	-1 (ix), a
+	ex  af,af
 	xor	a,a
 	ld	(#0x7ffe),a
 	ld	a, c											;	SET_BANK_SEGMENT(3, segment);
@@ -243,7 +243,7 @@ u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __n
 
 	xor	a,a
 	ld	(#0x7ffe),a
-	ld	a, -1 (ix)
+	ex  af,af
 	ld	((_g_Bank0Segment + 6)), a						; g_Bank0Segment[b] = s;
 	ld	(#0xb000), a
 

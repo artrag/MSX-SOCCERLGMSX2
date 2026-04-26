@@ -2084,7 +2084,7 @@ _CallFnc_U16_P3::
 	dec	sp
 	ld	c, a
 	ld	a, (#(_g_Bank0Segment + 6) + 0) ; u8 _old = GET_BANK_SEGMENT(3);
-	ld	-1 (ix), a
+	ex	af,af
 	xor	a,a
 	ld	(#0x7ffe),a
 	ld	a, c ; SET_BANK_SEGMENT(3, segment);
@@ -2101,7 +2101,7 @@ _CallFnc_U16_P3::
 	call	___sdcc_call_iy
 	xor	a,a
 	ld	(#0x7ffe),a
-	ld	a, -1 (ix)
+	ex	af,af
 	ld	((_g_Bank0Segment + 6)), a ; g_Bank0Segment[b] = s;
 	ld	(#0xb000), a
 	inc	sp

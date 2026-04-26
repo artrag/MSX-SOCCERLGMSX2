@@ -2084,1648 +2084,1648 @@
     00000686 3B               [ 6] 2084 	dec	sp
     00000687 4F               [ 4] 2085 	ld	c, a
     00000688 3Ar06r00         [13] 2086 	ld	a, (#(_g_Bank0Segment + 6) + 0) ; u8 _old = GET_BANK_SEGMENT(3);
-    0000068B DD 77 FF         [19] 2087 	ld	-1 (ix), a
-    0000068E AF               [ 4] 2088 	xor	a,a
-    0000068F 32 FE 7F         [13] 2089 	ld	(#0x7ffe),a
-    00000692 79               [ 4] 2090 	ld	a, c ; SET_BANK_SEGMENT(3, segment);
-    00000693 32r06r00         [13] 2091 	ld	((_g_Bank0Segment + 6)), a ; g_Bank0Segment[b] = s;
-    00000696 32 00 B0         [13] 2092 	ld	(#0xb000), a
+    0000068B 08               [ 4] 2087 	ex	af,af
+    0000068C AF               [ 4] 2088 	xor	a,a
+    0000068D 32 FE 7F         [13] 2089 	ld	(#0x7ffe),a
+    00000690 79               [ 4] 2090 	ld	a, c ; SET_BANK_SEGMENT(3, segment);
+    00000691 32r06r00         [13] 2091 	ld	((_g_Bank0Segment + 6)), a ; g_Bank0Segment[b] = s;
+    00000694 32 00 B0         [13] 2092 	ld	(#0xb000), a
                                    2093 ;	_res = func(p1, p2, p3);
-    00000699 DD 7E 06         [19] 2094 	ld	a, 6 (ix)
-    0000069C F5               [11] 2095 	push	af
-    0000069D 33               [ 6] 2096 	inc	sp
-    0000069E DD 6E 05         [19] 2097 	ld	l, 5 (ix)
-    000006A1 DD 7E 04         [19] 2098 	ld	a, 4 (ix)
-    000006A4 D5               [11] 2099 	push	de
-    000006A5 FD E1            [14] 2100 	pop	iy
-    000006A7 CDr00r00         [17] 2101 	call	___sdcc_call_iy
-    000006AA AF               [ 4] 2102 	xor	a,a
-    000006AB 32 FE 7F         [13] 2103 	ld	(#0x7ffe),a
-    000006AE DD 7E FF         [19] 2104 	ld	a, -1 (ix)
-    000006B1 32r06r00         [13] 2105 	ld	((_g_Bank0Segment + 6)), a ; g_Bank0Segment[b] = s;
-    000006B4 32 00 B0         [13] 2106 	ld	(#0xb000), a
-    000006B7 33               [ 6] 2107 	inc	sp
-    000006B8 DD E1            [14] 2108 	pop	ix
-    000006BA E1               [10] 2109 	pop	hl
-    000006BB F1               [10] 2110 	pop	af
-    000006BC 33               [ 6] 2111 	inc	sp
-    000006BD E9               [ 4] 2112 	jp	(hl)
+    00000697 DD 7E 06         [19] 2094 	ld	a, 6 (ix)
+    0000069A F5               [11] 2095 	push	af
+    0000069B 33               [ 6] 2096 	inc	sp
+    0000069C DD 6E 05         [19] 2097 	ld	l, 5 (ix)
+    0000069F DD 7E 04         [19] 2098 	ld	a, 4 (ix)
+    000006A2 D5               [11] 2099 	push	de
+    000006A3 FD E1            [14] 2100 	pop	iy
+    000006A5 CDr00r00         [17] 2101 	call	___sdcc_call_iy
+    000006A8 AF               [ 4] 2102 	xor	a,a
+    000006A9 32 FE 7F         [13] 2103 	ld	(#0x7ffe),a
+    000006AC 08               [ 4] 2104 	ex	af,af
+    000006AD 32r06r00         [13] 2105 	ld	((_g_Bank0Segment + 6)), a ; g_Bank0Segment[b] = s;
+    000006B0 32 00 B0         [13] 2106 	ld	(#0xb000), a
+    000006B3 33               [ 6] 2107 	inc	sp
+    000006B4 DD E1            [14] 2108 	pop	ix
+    000006B6 E1               [10] 2109 	pop	hl
+    000006B7 F1               [10] 2110 	pop	af
+    000006B8 33               [ 6] 2111 	inc	sp
+    000006B9 E9               [ 4] 2112 	jp	(hl)
                                    2113 ;./soccerlg.c:263: }
                                    2114 ;./soccerlg.c:265: u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3, u8 p4) {
                                    2115 ;	---------------------------------
                                    2116 ; Function CallFnc_U16_P4
                                    2117 ; ---------------------------------
-    000006BE                       2118 _CallFnc_U16_P4::
-    000006BE DD E5            [15] 2119 	push	ix
-    000006C0 DD 21 00 00      [14] 2120 	ld	ix,#0
-    000006C4 DD 39            [15] 2121 	add	ix,sp
-    000006C6 3B               [ 6] 2122 	dec	sp
-    000006C7 4F               [ 4] 2123 	ld	c, a
+    000006BA                       2118 _CallFnc_U16_P4::
+    000006BA DD E5            [15] 2119 	push	ix
+    000006BC DD 21 00 00      [14] 2120 	ld	ix,#0
+    000006C0 DD 39            [15] 2121 	add	ix,sp
+    000006C2 3B               [ 6] 2122 	dec	sp
+    000006C3 4F               [ 4] 2123 	ld	c, a
                                    2124 ;./soccerlg.c:267: u8 _old = GET_BANK_SEGMENT(3);
-    000006C8 2Ar06r00         [16] 2125 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    000006CB DD 75 FF         [19] 2126 	ld	-1 (ix), l
+    000006C4 2Ar06r00         [16] 2125 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    000006C7 DD 75 FF         [19] 2126 	ld	-1 (ix), l
                                    2127 ;./soccerlg.c:268: SET_BANK_SEGMENT(3, segment);
-    000006CE 06 00            [ 7] 2128 	ld	b, #0x00
+    000006CA 06 00            [ 7] 2128 	ld	b, #0x00
                                    2129 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    000006D0 ED 43r06r00      [20] 2130 	ld	((_g_Bank0Segment + 6)), bc
+    000006CC ED 43r06r00      [20] 2130 	ld	((_g_Bank0Segment + 6)), bc
                                    2131 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    000006D4 69               [ 4] 2132 	ld	l, c
-    000006D5 60               [ 4] 2133 	ld	h, b
-    000006D6 CB 3C            [ 8] 2134 	srl	h
-    000006D8 CB 1D            [ 8] 2135 	rr	l
-    000006DA CB 3C            [ 8] 2136 	srl	h
-    000006DC CB 1D            [ 8] 2137 	rr	l
-    000006DE 7D               [ 4] 2138 	ld	a, l
-    000006DF E6 C0            [ 7] 2139 	and	a, #0xc0
+    000006D0 69               [ 4] 2132 	ld	l, c
+    000006D1 60               [ 4] 2133 	ld	h, b
+    000006D2 CB 3C            [ 8] 2134 	srl	h
+    000006D4 CB 1D            [ 8] 2135 	rr	l
+    000006D6 CB 3C            [ 8] 2136 	srl	h
+    000006D8 CB 1D            [ 8] 2137 	rr	l
+    000006DA 7D               [ 4] 2138 	ld	a, l
+    000006DB E6 C0            [ 7] 2139 	and	a, #0xc0
                                    2140 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000006E1 32 FE 7F         [13] 2141 	ld	(#0x7ffe),a
+    000006DD 32 FE 7F         [13] 2141 	ld	(#0x7ffe),a
                                    2142 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2143 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000006E4 21 00 B0         [10] 2144 	ld	hl, #0xb000
-    000006E7 71               [ 7] 2145 	ld	(hl), c
+    000006E0 21 00 B0         [10] 2144 	ld	hl, #0xb000
+    000006E3 71               [ 7] 2145 	ld	(hl), c
                                    2146 ;./soccerlg.c:269: _res = func(p1, p2, p3, p4);
-    000006E8 DD 66 07         [19] 2147 	ld	h, 7 (ix)
-    000006EB DD 6E 06         [19] 2148 	ld	l, 6 (ix)
-    000006EE E5               [11] 2149 	push	hl
-    000006EF DD 6E 05         [19] 2150 	ld	l, 5 (ix)
+    000006E4 DD 66 07         [19] 2147 	ld	h, 7 (ix)
+    000006E7 DD 6E 06         [19] 2148 	ld	l, 6 (ix)
+    000006EA E5               [11] 2149 	push	hl
+    000006EB DD 6E 05         [19] 2150 	ld	l, 5 (ix)
                                    2151 ;	spillPairReg hl
                                    2152 ;	spillPairReg hl
-    000006F2 DD 7E 04         [19] 2153 	ld	a, 4 (ix)
-    000006F5 D5               [11] 2154 	push	de
-    000006F6 FD E1            [14] 2155 	pop	iy
-    000006F8 CDr00r00         [17] 2156 	call	___sdcc_call_iy
+    000006EE DD 7E 04         [19] 2153 	ld	a, 4 (ix)
+    000006F1 D5               [11] 2154 	push	de
+    000006F2 FD E1            [14] 2155 	pop	iy
+    000006F4 CDr00r00         [17] 2156 	call	___sdcc_call_iy
                                    2157 ;./soccerlg.c:270: SET_BANK_SEGMENT(3, _old);
-    000006FB DD 4E FF         [19] 2158 	ld	c, -1 (ix)
-    000006FE 06 00            [ 7] 2159 	ld	b, #0x00
+    000006F7 DD 4E FF         [19] 2158 	ld	c, -1 (ix)
+    000006FA 06 00            [ 7] 2159 	ld	b, #0x00
                                    2160 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000700 ED 43r06r00      [20] 2161 	ld	((_g_Bank0Segment + 6)), bc
+    000006FC ED 43r06r00      [20] 2161 	ld	((_g_Bank0Segment + 6)), bc
                                    2162 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000704 69               [ 4] 2163 	ld	l, c
-    00000705 60               [ 4] 2164 	ld	h, b
-    00000706 CB 3C            [ 8] 2165 	srl	h
-    00000708 CB 1D            [ 8] 2166 	rr	l
-    0000070A CB 3C            [ 8] 2167 	srl	h
-    0000070C CB 1D            [ 8] 2168 	rr	l
-    0000070E 7D               [ 4] 2169 	ld	a, l
-    0000070F E6 C0            [ 7] 2170 	and	a, #0xc0
+    00000700 69               [ 4] 2163 	ld	l, c
+    00000701 60               [ 4] 2164 	ld	h, b
+    00000702 CB 3C            [ 8] 2165 	srl	h
+    00000704 CB 1D            [ 8] 2166 	rr	l
+    00000706 CB 3C            [ 8] 2167 	srl	h
+    00000708 CB 1D            [ 8] 2168 	rr	l
+    0000070A 7D               [ 4] 2169 	ld	a, l
+    0000070B E6 C0            [ 7] 2170 	and	a, #0xc0
                                    2171 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000711 32 FE 7F         [13] 2172 	ld	(#0x7ffe),a
+    0000070D 32 FE 7F         [13] 2172 	ld	(#0x7ffe),a
                                    2173 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2174 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000714 21 00 B0         [10] 2175 	ld	hl, #0xb000
-    00000717 71               [ 7] 2176 	ld	(hl), c
+    00000710 21 00 B0         [10] 2175 	ld	hl, #0xb000
+    00000713 71               [ 7] 2176 	ld	(hl), c
                                    2177 ;./soccerlg.c:271: return _res;
                                    2178 ;./soccerlg.c:272: }
-    00000718 33               [ 6] 2179 	inc	sp
-    00000719 DD E1            [14] 2180 	pop	ix
-    0000071B E1               [10] 2181 	pop	hl
-    0000071C F1               [10] 2182 	pop	af
-    0000071D F1               [10] 2183 	pop	af
-    0000071E E9               [ 4] 2184 	jp	(hl)
+    00000714 33               [ 6] 2179 	inc	sp
+    00000715 DD E1            [14] 2180 	pop	ix
+    00000717 E1               [10] 2181 	pop	hl
+    00000718 F1               [10] 2182 	pop	af
+    00000719 F1               [10] 2183 	pop	af
+    0000071A E9               [ 4] 2184 	jp	(hl)
                                    2185 ;./soccerlg.c:274: u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3, i8 p4) {
                                    2186 ;	---------------------------------
                                    2187 ; Function CallFnc_U16_P4B
                                    2188 ; ---------------------------------
-    0000071F                       2189 _CallFnc_U16_P4B::
-    0000071F DD E5            [15] 2190 	push	ix
-    00000721 DD 21 00 00      [14] 2191 	ld	ix,#0
-    00000725 DD 39            [15] 2192 	add	ix,sp
-    00000727 3B               [ 6] 2193 	dec	sp
-    00000728 4F               [ 4] 2194 	ld	c, a
+    0000071B                       2189 _CallFnc_U16_P4B::
+    0000071B DD E5            [15] 2190 	push	ix
+    0000071D DD 21 00 00      [14] 2191 	ld	ix,#0
+    00000721 DD 39            [15] 2192 	add	ix,sp
+    00000723 3B               [ 6] 2193 	dec	sp
+    00000724 4F               [ 4] 2194 	ld	c, a
                                    2195 ;./soccerlg.c:276: u8 _old = GET_BANK_SEGMENT(3);
-    00000729 2Ar06r00         [16] 2196 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    0000072C DD 75 FF         [19] 2197 	ld	-1 (ix), l
+    00000725 2Ar06r00         [16] 2196 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    00000728 DD 75 FF         [19] 2197 	ld	-1 (ix), l
                                    2198 ;./soccerlg.c:277: SET_BANK_SEGMENT(3, segment);
-    0000072F 06 00            [ 7] 2199 	ld	b, #0x00
+    0000072B 06 00            [ 7] 2199 	ld	b, #0x00
                                    2200 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000731 ED 43r06r00      [20] 2201 	ld	((_g_Bank0Segment + 6)), bc
+    0000072D ED 43r06r00      [20] 2201 	ld	((_g_Bank0Segment + 6)), bc
                                    2202 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000735 69               [ 4] 2203 	ld	l, c
-    00000736 60               [ 4] 2204 	ld	h, b
-    00000737 CB 3C            [ 8] 2205 	srl	h
-    00000739 CB 1D            [ 8] 2206 	rr	l
-    0000073B CB 3C            [ 8] 2207 	srl	h
-    0000073D CB 1D            [ 8] 2208 	rr	l
-    0000073F 7D               [ 4] 2209 	ld	a, l
-    00000740 E6 C0            [ 7] 2210 	and	a, #0xc0
+    00000731 69               [ 4] 2203 	ld	l, c
+    00000732 60               [ 4] 2204 	ld	h, b
+    00000733 CB 3C            [ 8] 2205 	srl	h
+    00000735 CB 1D            [ 8] 2206 	rr	l
+    00000737 CB 3C            [ 8] 2207 	srl	h
+    00000739 CB 1D            [ 8] 2208 	rr	l
+    0000073B 7D               [ 4] 2209 	ld	a, l
+    0000073C E6 C0            [ 7] 2210 	and	a, #0xc0
                                    2211 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000742 32 FE 7F         [13] 2212 	ld	(#0x7ffe),a
+    0000073E 32 FE 7F         [13] 2212 	ld	(#0x7ffe),a
                                    2213 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2214 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000745 21 00 B0         [10] 2215 	ld	hl, #0xb000
-    00000748 71               [ 7] 2216 	ld	(hl), c
+    00000741 21 00 B0         [10] 2215 	ld	hl, #0xb000
+    00000744 71               [ 7] 2216 	ld	(hl), c
                                    2217 ;./soccerlg.c:278: _res = func(p1, p2, p3, p4);
-    00000749 DD 66 07         [19] 2218 	ld	h, 7 (ix)
-    0000074C DD 6E 06         [19] 2219 	ld	l, 6 (ix)
-    0000074F E5               [11] 2220 	push	hl
-    00000750 DD 6E 05         [19] 2221 	ld	l, 5 (ix)
+    00000745 DD 66 07         [19] 2218 	ld	h, 7 (ix)
+    00000748 DD 6E 06         [19] 2219 	ld	l, 6 (ix)
+    0000074B E5               [11] 2220 	push	hl
+    0000074C DD 6E 05         [19] 2221 	ld	l, 5 (ix)
                                    2222 ;	spillPairReg hl
                                    2223 ;	spillPairReg hl
-    00000753 DD 7E 04         [19] 2224 	ld	a, 4 (ix)
-    00000756 D5               [11] 2225 	push	de
-    00000757 FD E1            [14] 2226 	pop	iy
-    00000759 CDr00r00         [17] 2227 	call	___sdcc_call_iy
+    0000074F DD 7E 04         [19] 2224 	ld	a, 4 (ix)
+    00000752 D5               [11] 2225 	push	de
+    00000753 FD E1            [14] 2226 	pop	iy
+    00000755 CDr00r00         [17] 2227 	call	___sdcc_call_iy
                                    2228 ;./soccerlg.c:279: SET_BANK_SEGMENT(3, _old);
-    0000075C DD 4E FF         [19] 2229 	ld	c, -1 (ix)
-    0000075F 06 00            [ 7] 2230 	ld	b, #0x00
+    00000758 DD 4E FF         [19] 2229 	ld	c, -1 (ix)
+    0000075B 06 00            [ 7] 2230 	ld	b, #0x00
                                    2231 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000761 ED 43r06r00      [20] 2232 	ld	((_g_Bank0Segment + 6)), bc
+    0000075D ED 43r06r00      [20] 2232 	ld	((_g_Bank0Segment + 6)), bc
                                    2233 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000765 69               [ 4] 2234 	ld	l, c
-    00000766 60               [ 4] 2235 	ld	h, b
-    00000767 CB 3C            [ 8] 2236 	srl	h
-    00000769 CB 1D            [ 8] 2237 	rr	l
-    0000076B CB 3C            [ 8] 2238 	srl	h
-    0000076D CB 1D            [ 8] 2239 	rr	l
-    0000076F 7D               [ 4] 2240 	ld	a, l
-    00000770 E6 C0            [ 7] 2241 	and	a, #0xc0
+    00000761 69               [ 4] 2234 	ld	l, c
+    00000762 60               [ 4] 2235 	ld	h, b
+    00000763 CB 3C            [ 8] 2236 	srl	h
+    00000765 CB 1D            [ 8] 2237 	rr	l
+    00000767 CB 3C            [ 8] 2238 	srl	h
+    00000769 CB 1D            [ 8] 2239 	rr	l
+    0000076B 7D               [ 4] 2240 	ld	a, l
+    0000076C E6 C0            [ 7] 2241 	and	a, #0xc0
                                    2242 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000772 32 FE 7F         [13] 2243 	ld	(#0x7ffe),a
+    0000076E 32 FE 7F         [13] 2243 	ld	(#0x7ffe),a
                                    2244 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2245 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000775 21 00 B0         [10] 2246 	ld	hl, #0xb000
-    00000778 71               [ 7] 2247 	ld	(hl), c
+    00000771 21 00 B0         [10] 2246 	ld	hl, #0xb000
+    00000774 71               [ 7] 2247 	ld	(hl), c
                                    2248 ;./soccerlg.c:280: return _res;
                                    2249 ;./soccerlg.c:281: }
-    00000779 33               [ 6] 2250 	inc	sp
-    0000077A DD E1            [14] 2251 	pop	ix
-    0000077C E1               [10] 2252 	pop	hl
-    0000077D F1               [10] 2253 	pop	af
-    0000077E F1               [10] 2254 	pop	af
-    0000077F E9               [ 4] 2255 	jp	(hl)
+    00000775 33               [ 6] 2250 	inc	sp
+    00000776 DD E1            [14] 2251 	pop	ix
+    00000778 E1               [10] 2252 	pop	hl
+    00000779 F1               [10] 2253 	pop	af
+    0000077A F1               [10] 2254 	pop	af
+    0000077B E9               [ 4] 2255 	jp	(hl)
                                    2256 ;./soccerlg.c:283: u8 CallFnc_U8_P2(u8 segment, u8 (*func)(u8, u8), u8 p1, u8 p2) {
                                    2257 ;	---------------------------------
                                    2258 ; Function CallFnc_U8_P2
                                    2259 ; ---------------------------------
-    00000780                       2260 _CallFnc_U8_P2::
-    00000780 DD E5            [15] 2261 	push	ix
-    00000782 DD 21 00 00      [14] 2262 	ld	ix,#0
-    00000786 DD 39            [15] 2263 	add	ix,sp
-    00000788 3B               [ 6] 2264 	dec	sp
-    00000789 4F               [ 4] 2265 	ld	c, a
+    0000077C                       2260 _CallFnc_U8_P2::
+    0000077C DD E5            [15] 2261 	push	ix
+    0000077E DD 21 00 00      [14] 2262 	ld	ix,#0
+    00000782 DD 39            [15] 2263 	add	ix,sp
+    00000784 3B               [ 6] 2264 	dec	sp
+    00000785 4F               [ 4] 2265 	ld	c, a
                                    2266 ;./soccerlg.c:285: u8 _old = GET_BANK_SEGMENT(3);
-    0000078A 2Ar06r00         [16] 2267 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    0000078D DD 75 FF         [19] 2268 	ld	-1 (ix), l
+    00000786 2Ar06r00         [16] 2267 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    00000789 DD 75 FF         [19] 2268 	ld	-1 (ix), l
                                    2269 ;./soccerlg.c:286: SET_BANK_SEGMENT(3, segment);
-    00000790 06 00            [ 7] 2270 	ld	b, #0x00
+    0000078C 06 00            [ 7] 2270 	ld	b, #0x00
                                    2271 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000792 ED 43r06r00      [20] 2272 	ld	((_g_Bank0Segment + 6)), bc
+    0000078E ED 43r06r00      [20] 2272 	ld	((_g_Bank0Segment + 6)), bc
                                    2273 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000796 69               [ 4] 2274 	ld	l, c
-    00000797 60               [ 4] 2275 	ld	h, b
-    00000798 CB 3C            [ 8] 2276 	srl	h
-    0000079A CB 1D            [ 8] 2277 	rr	l
-    0000079C CB 3C            [ 8] 2278 	srl	h
-    0000079E CB 1D            [ 8] 2279 	rr	l
-    000007A0 7D               [ 4] 2280 	ld	a, l
-    000007A1 E6 C0            [ 7] 2281 	and	a, #0xc0
+    00000792 69               [ 4] 2274 	ld	l, c
+    00000793 60               [ 4] 2275 	ld	h, b
+    00000794 CB 3C            [ 8] 2276 	srl	h
+    00000796 CB 1D            [ 8] 2277 	rr	l
+    00000798 CB 3C            [ 8] 2278 	srl	h
+    0000079A CB 1D            [ 8] 2279 	rr	l
+    0000079C 7D               [ 4] 2280 	ld	a, l
+    0000079D E6 C0            [ 7] 2281 	and	a, #0xc0
                                    2282 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000007A3 32 FE 7F         [13] 2283 	ld	(#0x7ffe),a
+    0000079F 32 FE 7F         [13] 2283 	ld	(#0x7ffe),a
                                    2284 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2285 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000007A6 21 00 B0         [10] 2286 	ld	hl, #0xb000
-    000007A9 71               [ 7] 2287 	ld	(hl), c
+    000007A2 21 00 B0         [10] 2286 	ld	hl, #0xb000
+    000007A5 71               [ 7] 2287 	ld	(hl), c
                                    2288 ;./soccerlg.c:287: _res = func(p1,p2);
-    000007AA DD 6E 05         [19] 2289 	ld	l, 5 (ix)
+    000007A6 DD 6E 05         [19] 2289 	ld	l, 5 (ix)
                                    2290 ;	spillPairReg hl
                                    2291 ;	spillPairReg hl
-    000007AD DD 7E 04         [19] 2292 	ld	a, 4 (ix)
-    000007B0 D5               [11] 2293 	push	de
-    000007B1 FD E1            [14] 2294 	pop	iy
-    000007B3 CDr00r00         [17] 2295 	call	___sdcc_call_iy
-    000007B6 4F               [ 4] 2296 	ld	c, a
+    000007A9 DD 7E 04         [19] 2292 	ld	a, 4 (ix)
+    000007AC D5               [11] 2293 	push	de
+    000007AD FD E1            [14] 2294 	pop	iy
+    000007AF CDr00r00         [17] 2295 	call	___sdcc_call_iy
+    000007B2 4F               [ 4] 2296 	ld	c, a
                                    2297 ;./soccerlg.c:288: SET_BANK_SEGMENT(3, _old);
-    000007B7 DD 5E FF         [19] 2298 	ld	e, -1 (ix)
-    000007BA 16 00            [ 7] 2299 	ld	d, #0x00
+    000007B3 DD 5E FF         [19] 2298 	ld	e, -1 (ix)
+    000007B6 16 00            [ 7] 2299 	ld	d, #0x00
                                    2300 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    000007BC ED 53r06r00      [20] 2301 	ld	((_g_Bank0Segment + 6)), de
+    000007B8 ED 53r06r00      [20] 2301 	ld	((_g_Bank0Segment + 6)), de
                                    2302 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    000007C0 43               [ 4] 2303 	ld	b, e
-    000007C1 6A               [ 4] 2304 	ld	l, d
+    000007BC 43               [ 4] 2303 	ld	b, e
+    000007BD 6A               [ 4] 2304 	ld	l, d
                                    2305 ;	spillPairReg hl
                                    2306 ;	spillPairReg hl
-    000007C2 CB 3D            [ 8] 2307 	srl	l
-    000007C4 CB 18            [ 8] 2308 	rr	b
-    000007C6 CB 3D            [ 8] 2309 	srl	l
-    000007C8 CB 18            [ 8] 2310 	rr	b
-    000007CA 78               [ 4] 2311 	ld	a, b
-    000007CB E6 C0            [ 7] 2312 	and	a, #0xc0
+    000007BE CB 3D            [ 8] 2307 	srl	l
+    000007C0 CB 18            [ 8] 2308 	rr	b
+    000007C2 CB 3D            [ 8] 2309 	srl	l
+    000007C4 CB 18            [ 8] 2310 	rr	b
+    000007C6 78               [ 4] 2311 	ld	a, b
+    000007C7 E6 C0            [ 7] 2312 	and	a, #0xc0
                                    2313 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000007CD 32 FE 7F         [13] 2314 	ld	(#0x7ffe),a
+    000007C9 32 FE 7F         [13] 2314 	ld	(#0x7ffe),a
                                    2315 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2316 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000007D0 21 00 B0         [10] 2317 	ld	hl, #0xb000
-    000007D3 73               [ 7] 2318 	ld	(hl), e
+    000007CC 21 00 B0         [10] 2317 	ld	hl, #0xb000
+    000007CF 73               [ 7] 2318 	ld	(hl), e
                                    2319 ;./soccerlg.c:289: return _res;
-    000007D4 79               [ 4] 2320 	ld	a, c
+    000007D0 79               [ 4] 2320 	ld	a, c
                                    2321 ;./soccerlg.c:290: }
-    000007D5 33               [ 6] 2322 	inc	sp
-    000007D6 DD E1            [14] 2323 	pop	ix
-    000007D8 E1               [10] 2324 	pop	hl
-    000007D9 C1               [10] 2325 	pop	bc
-    000007DA E9               [ 4] 2326 	jp	(hl)
+    000007D1 33               [ 6] 2322 	inc	sp
+    000007D2 DD E1            [14] 2323 	pop	ix
+    000007D4 E1               [10] 2324 	pop	hl
+    000007D5 C1               [10] 2325 	pop	bc
+    000007D6 E9               [ 4] 2326 	jp	(hl)
                                    2327 ;./soccerlg.c:292: bool CallFnc_BOOL(u8 segment, bool (*func)()) {
                                    2328 ;	---------------------------------
                                    2329 ; Function CallFnc_BOOL
                                    2330 ; ---------------------------------
-    000007DB                       2331 _CallFnc_BOOL::
-    000007DB DD E5            [15] 2332 	push	ix
-    000007DD DD 21 00 00      [14] 2333 	ld	ix,#0
-    000007E1 DD 39            [15] 2334 	add	ix,sp
-    000007E3 3B               [ 6] 2335 	dec	sp
-    000007E4 4F               [ 4] 2336 	ld	c, a
+    000007D7                       2331 _CallFnc_BOOL::
+    000007D7 DD E5            [15] 2332 	push	ix
+    000007D9 DD 21 00 00      [14] 2333 	ld	ix,#0
+    000007DD DD 39            [15] 2334 	add	ix,sp
+    000007DF 3B               [ 6] 2335 	dec	sp
+    000007E0 4F               [ 4] 2336 	ld	c, a
                                    2337 ;./soccerlg.c:294: u8 _old = GET_BANK_SEGMENT(3);
-    000007E5 2Ar06r00         [16] 2338 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    000007E8 DD 75 FF         [19] 2339 	ld	-1 (ix), l
+    000007E1 2Ar06r00         [16] 2338 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    000007E4 DD 75 FF         [19] 2339 	ld	-1 (ix), l
                                    2340 ;./soccerlg.c:295: SET_BANK_SEGMENT(3, segment);
-    000007EB 06 00            [ 7] 2341 	ld	b, #0x00
+    000007E7 06 00            [ 7] 2341 	ld	b, #0x00
                                    2342 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    000007ED ED 43r06r00      [20] 2343 	ld	((_g_Bank0Segment + 6)), bc
+    000007E9 ED 43r06r00      [20] 2343 	ld	((_g_Bank0Segment + 6)), bc
                                    2344 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    000007F1 69               [ 4] 2345 	ld	l, c
-    000007F2 60               [ 4] 2346 	ld	h, b
-    000007F3 CB 3C            [ 8] 2347 	srl	h
-    000007F5 CB 1D            [ 8] 2348 	rr	l
-    000007F7 CB 3C            [ 8] 2349 	srl	h
-    000007F9 CB 1D            [ 8] 2350 	rr	l
-    000007FB 7D               [ 4] 2351 	ld	a, l
-    000007FC E6 C0            [ 7] 2352 	and	a, #0xc0
+    000007ED 69               [ 4] 2345 	ld	l, c
+    000007EE 60               [ 4] 2346 	ld	h, b
+    000007EF CB 3C            [ 8] 2347 	srl	h
+    000007F1 CB 1D            [ 8] 2348 	rr	l
+    000007F3 CB 3C            [ 8] 2349 	srl	h
+    000007F5 CB 1D            [ 8] 2350 	rr	l
+    000007F7 7D               [ 4] 2351 	ld	a, l
+    000007F8 E6 C0            [ 7] 2352 	and	a, #0xc0
                                    2353 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000007FE 32 FE 7F         [13] 2354 	ld	(#0x7ffe),a
+    000007FA 32 FE 7F         [13] 2354 	ld	(#0x7ffe),a
                                    2355 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2356 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000801 21 00 B0         [10] 2357 	ld	hl, #0xb000
-    00000804 71               [ 7] 2358 	ld	(hl), c
+    000007FD 21 00 B0         [10] 2357 	ld	hl, #0xb000
+    00000800 71               [ 7] 2358 	ld	(hl), c
                                    2359 ;./soccerlg.c:296: _res = func();
-    00000805 EB               [ 4] 2360 	ex	de, hl
-    00000806 CDr00r00         [17] 2361 	call	___sdcc_call_hl
-    00000809 4F               [ 4] 2362 	ld	c, a
+    00000801 EB               [ 4] 2360 	ex	de, hl
+    00000802 CDr00r00         [17] 2361 	call	___sdcc_call_hl
+    00000805 4F               [ 4] 2362 	ld	c, a
                                    2363 ;./soccerlg.c:297: SET_BANK_SEGMENT(3, _old);
-    0000080A DD 5E FF         [19] 2364 	ld	e, -1 (ix)
-    0000080D 16 00            [ 7] 2365 	ld	d, #0x00
+    00000806 DD 5E FF         [19] 2364 	ld	e, -1 (ix)
+    00000809 16 00            [ 7] 2365 	ld	d, #0x00
                                    2366 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    0000080F ED 53r06r00      [20] 2367 	ld	((_g_Bank0Segment + 6)), de
+    0000080B ED 53r06r00      [20] 2367 	ld	((_g_Bank0Segment + 6)), de
                                    2368 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000813 43               [ 4] 2369 	ld	b, e
-    00000814 6A               [ 4] 2370 	ld	l, d
+    0000080F 43               [ 4] 2369 	ld	b, e
+    00000810 6A               [ 4] 2370 	ld	l, d
                                    2371 ;	spillPairReg hl
                                    2372 ;	spillPairReg hl
-    00000815 CB 3D            [ 8] 2373 	srl	l
-    00000817 CB 18            [ 8] 2374 	rr	b
-    00000819 CB 3D            [ 8] 2375 	srl	l
-    0000081B CB 18            [ 8] 2376 	rr	b
-    0000081D 78               [ 4] 2377 	ld	a, b
-    0000081E E6 C0            [ 7] 2378 	and	a, #0xc0
+    00000811 CB 3D            [ 8] 2373 	srl	l
+    00000813 CB 18            [ 8] 2374 	rr	b
+    00000815 CB 3D            [ 8] 2375 	srl	l
+    00000817 CB 18            [ 8] 2376 	rr	b
+    00000819 78               [ 4] 2377 	ld	a, b
+    0000081A E6 C0            [ 7] 2378 	and	a, #0xc0
                                    2379 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000820 32 FE 7F         [13] 2380 	ld	(#0x7ffe),a
+    0000081C 32 FE 7F         [13] 2380 	ld	(#0x7ffe),a
                                    2381 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2382 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000823 21 00 B0         [10] 2383 	ld	hl, #0xb000
-    00000826 73               [ 7] 2384 	ld	(hl), e
+    0000081F 21 00 B0         [10] 2383 	ld	hl, #0xb000
+    00000822 73               [ 7] 2384 	ld	(hl), e
                                    2385 ;./soccerlg.c:298: return _res;
-    00000827 79               [ 4] 2386 	ld	a, c
+    00000823 79               [ 4] 2386 	ld	a, c
                                    2387 ;./soccerlg.c:299: }
-    00000828 33               [ 6] 2388 	inc	sp
-    00000829 DD E1            [14] 2389 	pop	ix
-    0000082B C9               [10] 2390 	ret
+    00000824 33               [ 6] 2388 	inc	sp
+    00000825 DD E1            [14] 2389 	pop	ix
+    00000827 C9               [10] 2390 	ret
                                    2391 ;./soccerlg.c:301: bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
                                    2392 ;	---------------------------------
                                    2393 ; Function CallFnc_BOOL_P1
                                    2394 ; ---------------------------------
-    0000082C                       2395 _CallFnc_BOOL_P1::
-    0000082C DD E5            [15] 2396 	push	ix
-    0000082E DD 21 00 00      [14] 2397 	ld	ix,#0
-    00000832 DD 39            [15] 2398 	add	ix,sp
-    00000834 3B               [ 6] 2399 	dec	sp
-    00000835 4F               [ 4] 2400 	ld	c, a
+    00000828                       2395 _CallFnc_BOOL_P1::
+    00000828 DD E5            [15] 2396 	push	ix
+    0000082A DD 21 00 00      [14] 2397 	ld	ix,#0
+    0000082E DD 39            [15] 2398 	add	ix,sp
+    00000830 3B               [ 6] 2399 	dec	sp
+    00000831 4F               [ 4] 2400 	ld	c, a
                                    2401 ;./soccerlg.c:303: u8 _old = GET_BANK_SEGMENT(3);
-    00000836 2Ar06r00         [16] 2402 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    00000839 DD 75 FF         [19] 2403 	ld	-1 (ix), l
+    00000832 2Ar06r00         [16] 2402 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    00000835 DD 75 FF         [19] 2403 	ld	-1 (ix), l
                                    2404 ;./soccerlg.c:304: SET_BANK_SEGMENT(3, segment);
-    0000083C 06 00            [ 7] 2405 	ld	b, #0x00
+    00000838 06 00            [ 7] 2405 	ld	b, #0x00
                                    2406 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    0000083E ED 43r06r00      [20] 2407 	ld	((_g_Bank0Segment + 6)), bc
+    0000083A ED 43r06r00      [20] 2407 	ld	((_g_Bank0Segment + 6)), bc
                                    2408 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000842 69               [ 4] 2409 	ld	l, c
-    00000843 60               [ 4] 2410 	ld	h, b
-    00000844 CB 3C            [ 8] 2411 	srl	h
-    00000846 CB 1D            [ 8] 2412 	rr	l
-    00000848 CB 3C            [ 8] 2413 	srl	h
-    0000084A CB 1D            [ 8] 2414 	rr	l
-    0000084C 7D               [ 4] 2415 	ld	a, l
-    0000084D E6 C0            [ 7] 2416 	and	a, #0xc0
+    0000083E 69               [ 4] 2409 	ld	l, c
+    0000083F 60               [ 4] 2410 	ld	h, b
+    00000840 CB 3C            [ 8] 2411 	srl	h
+    00000842 CB 1D            [ 8] 2412 	rr	l
+    00000844 CB 3C            [ 8] 2413 	srl	h
+    00000846 CB 1D            [ 8] 2414 	rr	l
+    00000848 7D               [ 4] 2415 	ld	a, l
+    00000849 E6 C0            [ 7] 2416 	and	a, #0xc0
                                    2417 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    0000084F 32 FE 7F         [13] 2418 	ld	(#0x7ffe),a
+    0000084B 32 FE 7F         [13] 2418 	ld	(#0x7ffe),a
                                    2419 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2420 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000852 21 00 B0         [10] 2421 	ld	hl, #0xb000
-    00000855 71               [ 7] 2422 	ld	(hl), c
+    0000084E 21 00 B0         [10] 2421 	ld	hl, #0xb000
+    00000851 71               [ 7] 2422 	ld	(hl), c
                                    2423 ;./soccerlg.c:305: _res = func(p1);
-    00000856 DD 7E 04         [19] 2424 	ld	a, 4 (ix)
-    00000859 EB               [ 4] 2425 	ex	de, hl
-    0000085A CDr00r00         [17] 2426 	call	___sdcc_call_hl
-    0000085D 4F               [ 4] 2427 	ld	c, a
+    00000852 DD 7E 04         [19] 2424 	ld	a, 4 (ix)
+    00000855 EB               [ 4] 2425 	ex	de, hl
+    00000856 CDr00r00         [17] 2426 	call	___sdcc_call_hl
+    00000859 4F               [ 4] 2427 	ld	c, a
                                    2428 ;./soccerlg.c:306: SET_BANK_SEGMENT(3, _old);
-    0000085E DD 5E FF         [19] 2429 	ld	e, -1 (ix)
-    00000861 16 00            [ 7] 2430 	ld	d, #0x00
+    0000085A DD 5E FF         [19] 2429 	ld	e, -1 (ix)
+    0000085D 16 00            [ 7] 2430 	ld	d, #0x00
                                    2431 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000863 ED 53r06r00      [20] 2432 	ld	((_g_Bank0Segment + 6)), de
+    0000085F ED 53r06r00      [20] 2432 	ld	((_g_Bank0Segment + 6)), de
                                    2433 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000867 43               [ 4] 2434 	ld	b, e
-    00000868 6A               [ 4] 2435 	ld	l, d
+    00000863 43               [ 4] 2434 	ld	b, e
+    00000864 6A               [ 4] 2435 	ld	l, d
                                    2436 ;	spillPairReg hl
                                    2437 ;	spillPairReg hl
-    00000869 CB 3D            [ 8] 2438 	srl	l
-    0000086B CB 18            [ 8] 2439 	rr	b
-    0000086D CB 3D            [ 8] 2440 	srl	l
-    0000086F CB 18            [ 8] 2441 	rr	b
-    00000871 78               [ 4] 2442 	ld	a, b
-    00000872 E6 C0            [ 7] 2443 	and	a, #0xc0
+    00000865 CB 3D            [ 8] 2438 	srl	l
+    00000867 CB 18            [ 8] 2439 	rr	b
+    00000869 CB 3D            [ 8] 2440 	srl	l
+    0000086B CB 18            [ 8] 2441 	rr	b
+    0000086D 78               [ 4] 2442 	ld	a, b
+    0000086E E6 C0            [ 7] 2443 	and	a, #0xc0
                                    2444 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000874 32 FE 7F         [13] 2445 	ld	(#0x7ffe),a
+    00000870 32 FE 7F         [13] 2445 	ld	(#0x7ffe),a
                                    2446 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2447 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000877 21 00 B0         [10] 2448 	ld	hl, #0xb000
-    0000087A 73               [ 7] 2449 	ld	(hl), e
+    00000873 21 00 B0         [10] 2448 	ld	hl, #0xb000
+    00000876 73               [ 7] 2449 	ld	(hl), e
                                    2450 ;./soccerlg.c:307: return _res;
-    0000087B 79               [ 4] 2451 	ld	a, c
+    00000877 79               [ 4] 2451 	ld	a, c
                                    2452 ;./soccerlg.c:308: }
-    0000087C 33               [ 6] 2453 	inc	sp
-    0000087D DD E1            [14] 2454 	pop	ix
-    0000087F E1               [10] 2455 	pop	hl
-    00000880 33               [ 6] 2456 	inc	sp
-    00000881 E9               [ 4] 2457 	jp	(hl)
+    00000878 33               [ 6] 2453 	inc	sp
+    00000879 DD E1            [14] 2454 	pop	ix
+    0000087B E1               [10] 2455 	pop	hl
+    0000087C 33               [ 6] 2456 	inc	sp
+    0000087D E9               [ 4] 2457 	jp	(hl)
                                    2458 ;./soccerlg.c:311: void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
                                    2459 ;	---------------------------------
                                    2460 ; Function CallFnc_VOID_U8U8
                                    2461 ; ---------------------------------
-    00000882                       2462 _CallFnc_VOID_U8U8::
-    00000882 DD E5            [15] 2463 	push	ix
-    00000884 DD 21 00 00      [14] 2464 	ld	ix,#0
-    00000888 DD 39            [15] 2465 	add	ix,sp
-    0000088A 3B               [ 6] 2466 	dec	sp
-    0000088B 4F               [ 4] 2467 	ld	c, a
+    0000087E                       2462 _CallFnc_VOID_U8U8::
+    0000087E DD E5            [15] 2463 	push	ix
+    00000880 DD 21 00 00      [14] 2464 	ld	ix,#0
+    00000884 DD 39            [15] 2465 	add	ix,sp
+    00000886 3B               [ 6] 2466 	dec	sp
+    00000887 4F               [ 4] 2467 	ld	c, a
                                    2468 ;./soccerlg.c:312: u8 _old = GET_BANK_SEGMENT(3);
-    0000088C 2Ar06r00         [16] 2469 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    0000088F DD 75 FF         [19] 2470 	ld	-1 (ix), l
+    00000888 2Ar06r00         [16] 2469 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    0000088B DD 75 FF         [19] 2470 	ld	-1 (ix), l
                                    2471 ;./soccerlg.c:313: SET_BANK_SEGMENT(3, segment);
-    00000892 06 00            [ 7] 2472 	ld	b, #0x00
+    0000088E 06 00            [ 7] 2472 	ld	b, #0x00
                                    2473 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000894 ED 43r06r00      [20] 2474 	ld	((_g_Bank0Segment + 6)), bc
+    00000890 ED 43r06r00      [20] 2474 	ld	((_g_Bank0Segment + 6)), bc
                                    2475 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000898 69               [ 4] 2476 	ld	l, c
-    00000899 60               [ 4] 2477 	ld	h, b
-    0000089A CB 3C            [ 8] 2478 	srl	h
-    0000089C CB 1D            [ 8] 2479 	rr	l
-    0000089E CB 3C            [ 8] 2480 	srl	h
-    000008A0 CB 1D            [ 8] 2481 	rr	l
-    000008A2 7D               [ 4] 2482 	ld	a, l
-    000008A3 E6 C0            [ 7] 2483 	and	a, #0xc0
+    00000894 69               [ 4] 2476 	ld	l, c
+    00000895 60               [ 4] 2477 	ld	h, b
+    00000896 CB 3C            [ 8] 2478 	srl	h
+    00000898 CB 1D            [ 8] 2479 	rr	l
+    0000089A CB 3C            [ 8] 2480 	srl	h
+    0000089C CB 1D            [ 8] 2481 	rr	l
+    0000089E 7D               [ 4] 2482 	ld	a, l
+    0000089F E6 C0            [ 7] 2483 	and	a, #0xc0
                                    2484 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000008A5 32 FE 7F         [13] 2485 	ld	(#0x7ffe),a
+    000008A1 32 FE 7F         [13] 2485 	ld	(#0x7ffe),a
                                    2486 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2487 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000008A8 21 00 B0         [10] 2488 	ld	hl, #0xb000
-    000008AB 71               [ 7] 2489 	ld	(hl), c
+    000008A4 21 00 B0         [10] 2488 	ld	hl, #0xb000
+    000008A7 71               [ 7] 2489 	ld	(hl), c
                                    2490 ;./soccerlg.c:314: func(p1,p2);
-    000008AC DD 6E 05         [19] 2491 	ld	l, 5 (ix)
+    000008A8 DD 6E 05         [19] 2491 	ld	l, 5 (ix)
                                    2492 ;	spillPairReg hl
                                    2493 ;	spillPairReg hl
-    000008AF DD 7E 04         [19] 2494 	ld	a, 4 (ix)
-    000008B2 D5               [11] 2495 	push	de
-    000008B3 FD E1            [14] 2496 	pop	iy
-    000008B5 CDr00r00         [17] 2497 	call	___sdcc_call_iy
+    000008AB DD 7E 04         [19] 2494 	ld	a, 4 (ix)
+    000008AE D5               [11] 2495 	push	de
+    000008AF FD E1            [14] 2496 	pop	iy
+    000008B1 CDr00r00         [17] 2497 	call	___sdcc_call_iy
                                    2498 ;./soccerlg.c:315: SET_BANK_SEGMENT(3, _old);
-    000008B8 DD 4E FF         [19] 2499 	ld	c, -1 (ix)
-    000008BB 06 00            [ 7] 2500 	ld	b, #0x00
+    000008B4 DD 4E FF         [19] 2499 	ld	c, -1 (ix)
+    000008B7 06 00            [ 7] 2500 	ld	b, #0x00
                                    2501 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    000008BD ED 43r06r00      [20] 2502 	ld	((_g_Bank0Segment + 6)), bc
+    000008B9 ED 43r06r00      [20] 2502 	ld	((_g_Bank0Segment + 6)), bc
                                    2503 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    000008C1 59               [ 4] 2504 	ld	e, c
-    000008C2 50               [ 4] 2505 	ld	d, b
-    000008C3 CB 3A            [ 8] 2506 	srl	d
-    000008C5 CB 1B            [ 8] 2507 	rr	e
-    000008C7 CB 3A            [ 8] 2508 	srl	d
-    000008C9 CB 1B            [ 8] 2509 	rr	e
-    000008CB 7B               [ 4] 2510 	ld	a, e
-    000008CC E6 C0            [ 7] 2511 	and	a, #0xc0
+    000008BD 59               [ 4] 2504 	ld	e, c
+    000008BE 50               [ 4] 2505 	ld	d, b
+    000008BF CB 3A            [ 8] 2506 	srl	d
+    000008C1 CB 1B            [ 8] 2507 	rr	e
+    000008C3 CB 3A            [ 8] 2508 	srl	d
+    000008C5 CB 1B            [ 8] 2509 	rr	e
+    000008C7 7B               [ 4] 2510 	ld	a, e
+    000008C8 E6 C0            [ 7] 2511 	and	a, #0xc0
                                    2512 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000008CE 32 FE 7F         [13] 2513 	ld	(#0x7ffe),a
+    000008CA 32 FE 7F         [13] 2513 	ld	(#0x7ffe),a
                                    2514 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
                                    2515 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000008D1 21 00 B0         [10] 2516 	ld	hl, #0xb000
-    000008D4 71               [ 7] 2517 	ld	(hl), c
+    000008CD 21 00 B0         [10] 2516 	ld	hl, #0xb000
+    000008D0 71               [ 7] 2517 	ld	(hl), c
                                    2518 ;./soccerlg.c:315: SET_BANK_SEGMENT(3, _old);
                                    2519 ;./soccerlg.c:316: }
-    000008D5 33               [ 6] 2520 	inc	sp
-    000008D6 DD E1            [14] 2521 	pop	ix
-    000008D8 E1               [10] 2522 	pop	hl
-    000008D9 F1               [10] 2523 	pop	af
-    000008DA E9               [ 4] 2524 	jp	(hl)
+    000008D1 33               [ 6] 2520 	inc	sp
+    000008D2 DD E1            [14] 2521 	pop	ix
+    000008D4 E1               [10] 2522 	pop	hl
+    000008D5 F1               [10] 2523 	pop	af
+    000008D6 E9               [ 4] 2524 	jp	(hl)
                                    2525 ;./soccerlg.c:322: void SetTeamColors(u8 team, const struct TeamColors* colors)
                                    2526 ;	---------------------------------
                                    2527 ; Function SetTeamColors
                                    2528 ; ---------------------------------
-    000008DB                       2529 _SetTeamColors::
+    000008D7                       2529 _SetTeamColors::
                                    2530 ;./soccerlg.c:324: if (team == TEAM_1)
-    000008DB 4F               [ 4] 2531 	ld	c, a
-    000008DC B7               [ 4] 2532 	or	a, a
-    000008DD 20 2B            [12] 2533 	jr	NZ, 00104$
+    000008D7 4F               [ 4] 2531 	ld	c, a
+    000008D8 B7               [ 4] 2532 	or	a, a
+    000008D9 20 2B            [12] 2533 	jr	NZ, 00104$
                                    2534 ;./soccerlg.c:326: VDP_SetPaletteEntry(10, colors->Stripes); // [A] Righe Squadra 1
-    000008DF 4B               [ 4] 2535 	ld	c, e
-    000008E0 42               [ 4] 2536 	ld	b, d
-    000008E1 21 04 00         [10] 2537 	ld	hl, #4
-    000008E4 09               [11] 2538 	add	hl, bc
-    000008E5 4E               [ 7] 2539 	ld	c, (hl)
-    000008E6 23               [ 6] 2540 	inc	hl
-    000008E7 46               [ 7] 2541 	ld	b, (hl)
-    000008E8 D5               [11] 2542 	push	de
-    000008E9 59               [ 4] 2543 	ld	e, c
-    000008EA 50               [ 4] 2544 	ld	d, b
-    000008EB 3E 0A            [ 7] 2545 	ld	a, #0x0a
-    000008ED CDr00r00         [17] 2546 	call	_VDP_SetPaletteEntry
-    000008F0 D1               [10] 2547 	pop	de
+    000008DB 4B               [ 4] 2535 	ld	c, e
+    000008DC 42               [ 4] 2536 	ld	b, d
+    000008DD 21 04 00         [10] 2537 	ld	hl, #4
+    000008E0 09               [11] 2538 	add	hl, bc
+    000008E1 4E               [ 7] 2539 	ld	c, (hl)
+    000008E2 23               [ 6] 2540 	inc	hl
+    000008E3 46               [ 7] 2541 	ld	b, (hl)
+    000008E4 D5               [11] 2542 	push	de
+    000008E5 59               [ 4] 2543 	ld	e, c
+    000008E6 50               [ 4] 2544 	ld	d, b
+    000008E7 3E 0A            [ 7] 2545 	ld	a, #0x0a
+    000008E9 CDr00r00         [17] 2546 	call	_VDP_SetPaletteEntry
+    000008EC D1               [10] 2547 	pop	de
                                    2548 ;./soccerlg.c:327: VDP_SetPaletteEntry(11, colors->Shirt);   // [B] Maglietta Squadra 1
-    000008F1 6B               [ 4] 2549 	ld	l, e
-    000008F2 62               [ 4] 2550 	ld	h, d
-    000008F3 4E               [ 7] 2551 	ld	c, (hl)
-    000008F4 23               [ 6] 2552 	inc	hl
-    000008F5 46               [ 7] 2553 	ld	b, (hl)
-    000008F6 D5               [11] 2554 	push	de
-    000008F7 59               [ 4] 2555 	ld	e, c
-    000008F8 50               [ 4] 2556 	ld	d, b
-    000008F9 3E 0B            [ 7] 2557 	ld	a, #0x0b
-    000008FB CDr00r00         [17] 2558 	call	_VDP_SetPaletteEntry
-    000008FE D1               [10] 2559 	pop	de
+    000008ED 6B               [ 4] 2549 	ld	l, e
+    000008EE 62               [ 4] 2550 	ld	h, d
+    000008EF 4E               [ 7] 2551 	ld	c, (hl)
+    000008F0 23               [ 6] 2552 	inc	hl
+    000008F1 46               [ 7] 2553 	ld	b, (hl)
+    000008F2 D5               [11] 2554 	push	de
+    000008F3 59               [ 4] 2555 	ld	e, c
+    000008F4 50               [ 4] 2556 	ld	d, b
+    000008F5 3E 0B            [ 7] 2557 	ld	a, #0x0b
+    000008F7 CDr00r00         [17] 2558 	call	_VDP_SetPaletteEntry
+    000008FA D1               [10] 2559 	pop	de
                                    2560 ;./soccerlg.c:328: VDP_SetPaletteEntry(13, colors->Shorts);  // [D] Pantaloncini Squadra 1
-    000008FF EB               [ 4] 2561 	ex	de, hl
-    00000900 23               [ 6] 2562 	inc	hl
-    00000901 23               [ 6] 2563 	inc	hl
-    00000902 5E               [ 7] 2564 	ld	e, (hl)
-    00000903 23               [ 6] 2565 	inc	hl
-    00000904 56               [ 7] 2566 	ld	d, (hl)
-    00000905 3E 0D            [ 7] 2567 	ld	a, #0x0d
-    00000907 C3r00r00         [10] 2568 	jp	_VDP_SetPaletteEntry
-    0000090A                       2569 00104$:
+    000008FB EB               [ 4] 2561 	ex	de, hl
+    000008FC 23               [ 6] 2562 	inc	hl
+    000008FD 23               [ 6] 2563 	inc	hl
+    000008FE 5E               [ 7] 2564 	ld	e, (hl)
+    000008FF 23               [ 6] 2565 	inc	hl
+    00000900 56               [ 7] 2566 	ld	d, (hl)
+    00000901 3E 0D            [ 7] 2567 	ld	a, #0x0d
+    00000903 C3r00r00         [10] 2568 	jp	_VDP_SetPaletteEntry
+    00000906                       2569 00104$:
                                    2570 ;./soccerlg.c:330: else if (team == TEAM_2)
-    0000090A 0D               [ 4] 2571 	dec	c
-    0000090B C0               [11] 2572 	ret	NZ
+    00000906 0D               [ 4] 2571 	dec	c
+    00000907 C0               [11] 2572 	ret	NZ
                                    2573 ;./soccerlg.c:332: VDP_SetPaletteEntry(12, colors->Stripes); // [C] Righe Squadra 2
-    0000090C D5               [11] 2574 	push	de
-    0000090D FD E1            [14] 2575 	pop	iy
-    0000090F FD 6E 04         [19] 2576 	ld	l, 4 (iy)
+    00000908 D5               [11] 2574 	push	de
+    00000909 FD E1            [14] 2575 	pop	iy
+    0000090B FD 6E 04         [19] 2576 	ld	l, 4 (iy)
                                    2577 ;	spillPairReg hl
-    00000912 FD 66 05         [19] 2578 	ld	h, 5 (iy)
+    0000090E FD 66 05         [19] 2578 	ld	h, 5 (iy)
                                    2579 ;	spillPairReg hl
-    00000915 EB               [ 4] 2580 	ex	de, hl
-    00000916 E5               [11] 2581 	push	hl
-    00000917 3E 0C            [ 7] 2582 	ld	a, #0x0c
-    00000919 CDr00r00         [17] 2583 	call	_VDP_SetPaletteEntry
-    0000091C D1               [10] 2584 	pop	de
+    00000911 EB               [ 4] 2580 	ex	de, hl
+    00000912 E5               [11] 2581 	push	hl
+    00000913 3E 0C            [ 7] 2582 	ld	a, #0x0c
+    00000915 CDr00r00         [17] 2583 	call	_VDP_SetPaletteEntry
+    00000918 D1               [10] 2584 	pop	de
                                    2585 ;./soccerlg.c:333: VDP_SetPaletteEntry(5,  colors->Shirt);   // [5] Maglietta Squadra 2
-    0000091D 6B               [ 4] 2586 	ld	l, e
-    0000091E 62               [ 4] 2587 	ld	h, d
-    0000091F 4E               [ 7] 2588 	ld	c, (hl)
-    00000920 23               [ 6] 2589 	inc	hl
-    00000921 46               [ 7] 2590 	ld	b, (hl)
-    00000922 D5               [11] 2591 	push	de
-    00000923 59               [ 4] 2592 	ld	e, c
-    00000924 50               [ 4] 2593 	ld	d, b
-    00000925 3E 05            [ 7] 2594 	ld	a, #0x05
-    00000927 CDr00r00         [17] 2595 	call	_VDP_SetPaletteEntry
-    0000092A D1               [10] 2596 	pop	de
+    00000919 6B               [ 4] 2586 	ld	l, e
+    0000091A 62               [ 4] 2587 	ld	h, d
+    0000091B 4E               [ 7] 2588 	ld	c, (hl)
+    0000091C 23               [ 6] 2589 	inc	hl
+    0000091D 46               [ 7] 2590 	ld	b, (hl)
+    0000091E D5               [11] 2591 	push	de
+    0000091F 59               [ 4] 2592 	ld	e, c
+    00000920 50               [ 4] 2593 	ld	d, b
+    00000921 3E 05            [ 7] 2594 	ld	a, #0x05
+    00000923 CDr00r00         [17] 2595 	call	_VDP_SetPaletteEntry
+    00000926 D1               [10] 2596 	pop	de
                                    2597 ;./soccerlg.c:334: VDP_SetPaletteEntry(9,  colors->Shorts);  // [9] Pantaloncini Squadra 2
-    0000092B EB               [ 4] 2598 	ex	de, hl
-    0000092C 23               [ 6] 2599 	inc	hl
-    0000092D 23               [ 6] 2600 	inc	hl
-    0000092E 5E               [ 7] 2601 	ld	e, (hl)
-    0000092F 23               [ 6] 2602 	inc	hl
-    00000930 56               [ 7] 2603 	ld	d, (hl)
-    00000931 3E 09            [ 7] 2604 	ld	a, #0x09
+    00000927 EB               [ 4] 2598 	ex	de, hl
+    00000928 23               [ 6] 2599 	inc	hl
+    00000929 23               [ 6] 2600 	inc	hl
+    0000092A 5E               [ 7] 2601 	ld	e, (hl)
+    0000092B 23               [ 6] 2602 	inc	hl
+    0000092C 56               [ 7] 2603 	ld	d, (hl)
+    0000092D 3E 09            [ 7] 2604 	ld	a, #0x09
                                    2605 ;./soccerlg.c:336: }
-    00000933 C3r00r00         [10] 2606 	jp	_VDP_SetPaletteEntry
+    0000092F C3r00r00         [10] 2606 	jp	_VDP_SetPaletteEntry
                                    2607 ;./soccerlg.c:338: void AddLines(struct ObjectInfo* Field) 
                                    2608 ;	---------------------------------
                                    2609 ; Function AddLines
                                    2610 ; ---------------------------------
-    00000936                       2611 _AddLines::
-    00000936 DD E5            [15] 2612 	push	ix
-    00000938 DD 21 00 00      [14] 2613 	ld	ix,#0
-    0000093C DD 39            [15] 2614 	add	ix,sp
-    0000093E FD 21 F5 FF      [14] 2615 	ld	iy, #-11
-    00000942 FD 39            [15] 2616 	add	iy, sp
-    00000944 FD F9            [10] 2617 	ld	sp, iy
+    00000932                       2611 _AddLines::
+    00000932 DD E5            [15] 2612 	push	ix
+    00000934 DD 21 00 00      [14] 2613 	ld	ix,#0
+    00000938 DD 39            [15] 2614 	add	ix,sp
+    0000093A FD 21 F5 FF      [14] 2615 	ld	iy, #-11
+    0000093E FD 39            [15] 2616 	add	iy, sp
+    00000940 FD F9            [10] 2617 	ld	sp, iy
                                    2618 ;./soccerlg.c:342: if (Field->dy==0) return;
-    00000946 DD 75 FD         [19] 2619 	ld	-3 (ix), l
-    00000949 DD 74 FE         [19] 2620 	ld	-2 (ix), h
-    0000094C 01 12 00         [10] 2621 	ld	bc,#18
-    0000094F 09               [11] 2622 	add	hl,bc
-    00000950 7E               [ 7] 2623 	ld	a, (hl)
-    00000951 DD 77 FF         [19] 2624 	ld	-1 (ix), a
-    00000954 B7               [ 4] 2625 	or	a, a
-    00000955 CAr4Br0B         [10] 2626 	jp	Z,00120$
+    00000942 DD 75 FD         [19] 2619 	ld	-3 (ix), l
+    00000945 DD 74 FE         [19] 2620 	ld	-2 (ix), h
+    00000948 01 12 00         [10] 2621 	ld	bc,#18
+    0000094B 09               [11] 2622 	add	hl,bc
+    0000094C 7E               [ 7] 2623 	ld	a, (hl)
+    0000094D DD 77 FF         [19] 2624 	ld	-1 (ix), a
+    00000950 B7               [ 4] 2625 	or	a, a
+    00000951 CAr47r0B         [10] 2626 	jp	Z,00120$
                                    2627 ;./soccerlg.c:345: for(i8 i=Field->dy; i>0; i--) {
-    00000958 DD 7E FD         [19] 2628 	ld	a, -3 (ix)
-    0000095B C6 04            [ 7] 2629 	add	a, #0x04
-    0000095D DD 77 FB         [19] 2630 	ld	-5 (ix), a
-    00000960 DD 7E FE         [19] 2631 	ld	a, -2 (ix)
-    00000963 CE 00            [ 7] 2632 	adc	a, #0x00
-    00000965 DD 77 FC         [19] 2633 	ld	-4 (ix), a
+    00000954 DD 7E FD         [19] 2628 	ld	a, -3 (ix)
+    00000957 C6 04            [ 7] 2629 	add	a, #0x04
+    00000959 DD 77 FB         [19] 2630 	ld	-5 (ix), a
+    0000095C DD 7E FE         [19] 2631 	ld	a, -2 (ix)
+    0000095F CE 00            [ 7] 2632 	adc	a, #0x00
+    00000961 DD 77 FC         [19] 2633 	ld	-4 (ix), a
                                    2634 ;./soccerlg.c:344: if (Field->dy>0) {
-    00000968 AF               [ 4] 2635 	xor	a, a
-    00000969 DD 96 FF         [19] 2636 	sub	a, -1 (ix)
-    0000096C E2r71r09         [10] 2637 	jp	PO, 00154$
-    0000096F EE 80            [ 7] 2638 	xor	a, #0x80
-    00000971                       2639 00154$:
-    00000971 F2r55r0A         [10] 2640 	jp	P, 00106$
+    00000964 AF               [ 4] 2635 	xor	a, a
+    00000965 DD 96 FF         [19] 2636 	sub	a, -1 (ix)
+    00000968 E2r6Dr09         [10] 2637 	jp	PO, 00154$
+    0000096B EE 80            [ 7] 2638 	xor	a, #0x80
+    0000096D                       2639 00154$:
+    0000096D F2r51r0A         [10] 2640 	jp	P, 00106$
                                    2641 ;./soccerlg.c:345: for(i8 i=Field->dy; i>0; i--) {
-    00000974                       2642 00115$:
-    00000974 AF               [ 4] 2643 	xor	a, a
-    00000975 DD 96 FF         [19] 2644 	sub	a, -1 (ix)
-    00000978 E2r7Dr09         [10] 2645 	jp	PO, 00155$
-    0000097B EE 80            [ 7] 2646 	xor	a, #0x80
-    0000097D                       2647 00155$:
-    0000097D F2r4Br0B         [10] 2648 	jp	P, 00120$
+    00000970                       2642 00115$:
+    00000970 AF               [ 4] 2643 	xor	a, a
+    00000971 DD 96 FF         [19] 2644 	sub	a, -1 (ix)
+    00000974 E2r79r09         [10] 2645 	jp	PO, 00155$
+    00000977 EE 80            [ 7] 2646 	xor	a, #0x80
+    00000979                       2647 00155$:
+    00000979 F2r47r0B         [10] 2648 	jp	P, 00120$
                                    2649 ;./soccerlg.c:346: v = (Field->ly + 192 - i) & 511;
-    00000980 DD 6E FB         [19] 2650 	ld	l, -5 (ix)
-    00000983 DD 66 FC         [19] 2651 	ld	h, -4 (ix)
-    00000986 7E               [ 7] 2652 	ld	a, (hl)
-    00000987 DD 77 F9         [19] 2653 	ld	-7 (ix), a
-    0000098A 23               [ 6] 2654 	inc	hl
-    0000098B 7E               [ 7] 2655 	ld	a, (hl)
-    0000098C DD 77 FA         [19] 2656 	ld	-6 (ix), a
-    0000098F DD 4E F9         [19] 2657 	ld	c, -7 (ix)
-    00000992 DD 46 FA         [19] 2658 	ld	b, -6 (ix)
-    00000995 21 C0 00         [10] 2659 	ld	hl, #0x00c0
-    00000998 09               [11] 2660 	add	hl, bc
-    00000999 DD 7E FF         [19] 2661 	ld	a, -1 (ix)
-    0000099C 4F               [ 4] 2662 	ld	c, a
-    0000099D 07               [ 4] 2663 	rlca
-    0000099E 9F               [ 4] 2664 	sbc	a, a
-    0000099F 47               [ 4] 2665 	ld	b, a
-    000009A0 BF               [ 4] 2666 	cp	a, a
-    000009A1 ED 42            [15] 2667 	sbc	hl, bc
-    000009A3 EB               [ 4] 2668 	ex	de, hl
-    000009A4 7A               [ 4] 2669 	ld	a, d
-    000009A5 E6 01            [ 7] 2670 	and	a, #0x01
-    000009A7 57               [ 4] 2671 	ld	d, a
+    0000097C DD 6E FB         [19] 2650 	ld	l, -5 (ix)
+    0000097F DD 66 FC         [19] 2651 	ld	h, -4 (ix)
+    00000982 7E               [ 7] 2652 	ld	a, (hl)
+    00000983 DD 77 F9         [19] 2653 	ld	-7 (ix), a
+    00000986 23               [ 6] 2654 	inc	hl
+    00000987 7E               [ 7] 2655 	ld	a, (hl)
+    00000988 DD 77 FA         [19] 2656 	ld	-6 (ix), a
+    0000098B DD 4E F9         [19] 2657 	ld	c, -7 (ix)
+    0000098E DD 46 FA         [19] 2658 	ld	b, -6 (ix)
+    00000991 21 C0 00         [10] 2659 	ld	hl, #0x00c0
+    00000994 09               [11] 2660 	add	hl, bc
+    00000995 DD 7E FF         [19] 2661 	ld	a, -1 (ix)
+    00000998 4F               [ 4] 2662 	ld	c, a
+    00000999 07               [ 4] 2663 	rlca
+    0000099A 9F               [ 4] 2664 	sbc	a, a
+    0000099B 47               [ 4] 2665 	ld	b, a
+    0000099C BF               [ 4] 2666 	cp	a, a
+    0000099D ED 42            [15] 2667 	sbc	hl, bc
+    0000099F EB               [ 4] 2668 	ex	de, hl
+    000009A0 7A               [ 4] 2669 	ld	a, d
+    000009A1 E6 01            [ 7] 2670 	and	a, #0x01
+    000009A3 57               [ 4] 2671 	ld	d, a
                                    2672 ;./soccerlg.c:347: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);	
-    000009A8 7B               [ 4] 2673 	ld	a, e
-    000009A9 DD 77 F7         [19] 2674 	ld	-9 (ix), a
-    000009AC DD 36 F8 00      [19] 2675 	ld	-8 (ix), #0x00
-    000009B0 4F               [ 4] 2676 	ld	c, a
-    000009B1 06 00            [ 7] 2677 	ld	b, #0x00
-    000009B3 21r4Fr00         [10] 2678 	ld	hl, #_FieldMap
-    000009B6 19               [11] 2679 	add	hl, de
-    000009B7 DD 75 F9         [19] 2680 	ld	-7 (ix), l
-    000009BA DD 74 FA         [19] 2681 	ld	-6 (ix), h
-    000009BD 5E               [ 7] 2682 	ld	e, (hl)
+    000009A4 7B               [ 4] 2673 	ld	a, e
+    000009A5 DD 77 F7         [19] 2674 	ld	-9 (ix), a
+    000009A8 DD 36 F8 00      [19] 2675 	ld	-8 (ix), #0x00
+    000009AC 4F               [ 4] 2676 	ld	c, a
+    000009AD 06 00            [ 7] 2677 	ld	b, #0x00
+    000009AF 21r4Fr00         [10] 2678 	ld	hl, #_FieldMap
+    000009B2 19               [11] 2679 	add	hl, de
+    000009B3 DD 75 F9         [19] 2680 	ld	-7 (ix), l
+    000009B6 DD 74 FA         [19] 2681 	ld	-6 (ix), h
+    000009B9 5E               [ 7] 2682 	ld	e, (hl)
                                    2683 ;	spillPairReg hl
                                    2684 ;	spillPairReg hl
-    000009BE AF               [ 4] 2685 	xor	a, a
-    000009BF C6 03            [ 7] 2686 	add	a, #0x03
-    000009C1 57               [ 4] 2687 	ld	d, a
+    000009BA AF               [ 4] 2685 	xor	a, a
+    000009BB C6 03            [ 7] 2686 	add	a, #0x03
+    000009BD 57               [ 4] 2687 	ld	d, a
                                    2688 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    000009C2 ED 53r02r00      [20] 2689 	ld	((_g_VDP_Command + 2)), de
+    000009BE ED 53r02r00      [20] 2689 	ld	((_g_VDP_Command + 2)), de
                                    2690 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    000009C6 21 00 00         [10] 2691 	ld	hl, #0x0000
-    000009C9 22r04r00         [16] 2692 	ld	((_g_VDP_Command + 4)), hl
+    000009C2 21 00 00         [10] 2691 	ld	hl, #0x0000
+    000009C5 22r04r00         [16] 2692 	ld	((_g_VDP_Command + 4)), hl
                                    2693 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    000009CC ED 43r06r00      [20] 2694 	ld	((_g_VDP_Command + 6)), bc
+    000009C8 ED 43r06r00      [20] 2694 	ld	((_g_VDP_Command + 6)), bc
                                    2695 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    000009D0 2E 01            [ 7] 2696 	ld	l, #0x01
-    000009D2 22r0Ar00         [16] 2697 	ld	((_g_VDP_Command + 10)), hl
+    000009CC 2E 01            [ 7] 2696 	ld	l, #0x01
+    000009CE 22r0Ar00         [16] 2697 	ld	((_g_VDP_Command + 10)), hl
                                    2698 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    000009D5 21r0Dr00         [10] 2699 	ld	hl, #(_g_VDP_Command + 13)
-    000009D8 36 00            [10] 2700 	ld	(hl), #0x00
+    000009D1 21r0Dr00         [10] 2699 	ld	hl, #(_g_VDP_Command + 13)
+    000009D4 36 00            [10] 2700 	ld	(hl), #0x00
                                    2701 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    000009DA 21r0Er00         [10] 2702 	ld	hl, #(_g_VDP_Command + 14)
-    000009DD 36 E0            [10] 2703 	ld	(hl), #0xe0
+    000009D6 21r0Er00         [10] 2702 	ld	hl, #(_g_VDP_Command + 14)
+    000009D9 36 E0            [10] 2703 	ld	(hl), #0xe0
                                    2704 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    000009DF CDr00r00         [17] 2705 	call	_VPD_CommandSetupR32
+    000009DB CDr00r00         [17] 2705 	call	_VPD_CommandSetupR32
                                    2706 ;./soccerlg.c:348: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);	
-    000009E2 DD 4E F7         [19] 2707 	ld	c, -9 (ix)
-    000009E5 DD 7E F8         [19] 2708 	ld	a, -8 (ix)
-    000009E8 3C               [ 4] 2709 	inc	a
-    000009E9 47               [ 4] 2710 	ld	b, a
-    000009EA DD 6E F9         [19] 2711 	ld	l, -7 (ix)
-    000009ED DD 66 FA         [19] 2712 	ld	h, -6 (ix)
-    000009F0 7E               [ 7] 2713 	ld	a, (hl)
-    000009F1 16 00            [ 7] 2714 	ld	d, #0x00
-    000009F3 5F               [ 4] 2715 	ld	e, a
-    000009F4 7A               [ 4] 2716 	ld	a, d
-    000009F5 C6 03            [ 7] 2717 	add	a, #0x03
-    000009F7 57               [ 4] 2718 	ld	d, a
+    000009DE DD 4E F7         [19] 2707 	ld	c, -9 (ix)
+    000009E1 DD 7E F8         [19] 2708 	ld	a, -8 (ix)
+    000009E4 3C               [ 4] 2709 	inc	a
+    000009E5 47               [ 4] 2710 	ld	b, a
+    000009E6 DD 6E F9         [19] 2711 	ld	l, -7 (ix)
+    000009E9 DD 66 FA         [19] 2712 	ld	h, -6 (ix)
+    000009EC 7E               [ 7] 2713 	ld	a, (hl)
+    000009ED 16 00            [ 7] 2714 	ld	d, #0x00
+    000009EF 5F               [ 4] 2715 	ld	e, a
+    000009F0 7A               [ 4] 2716 	ld	a, d
+    000009F1 C6 03            [ 7] 2717 	add	a, #0x03
+    000009F3 57               [ 4] 2718 	ld	d, a
                                    2719 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    000009F8 ED 53r02r00      [20] 2720 	ld	((_g_VDP_Command + 2)), de
+    000009F4 ED 53r02r00      [20] 2720 	ld	((_g_VDP_Command + 2)), de
                                    2721 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    000009FC 21 00 00         [10] 2722 	ld	hl, #0x0000
-    000009FF 22r04r00         [16] 2723 	ld	((_g_VDP_Command + 4)), hl
+    000009F8 21 00 00         [10] 2722 	ld	hl, #0x0000
+    000009FB 22r04r00         [16] 2723 	ld	((_g_VDP_Command + 4)), hl
                                    2724 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    00000A02 ED 43r06r00      [20] 2725 	ld	((_g_VDP_Command + 6)), bc
+    000009FE ED 43r06r00      [20] 2725 	ld	((_g_VDP_Command + 6)), bc
                                    2726 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    00000A06 2E 01            [ 7] 2727 	ld	l, #0x01
-    00000A08 22r0Ar00         [16] 2728 	ld	((_g_VDP_Command + 10)), hl
+    00000A02 2E 01            [ 7] 2727 	ld	l, #0x01
+    00000A04 22r0Ar00         [16] 2728 	ld	((_g_VDP_Command + 10)), hl
                                    2729 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    00000A0B 21r0Dr00         [10] 2730 	ld	hl, #(_g_VDP_Command + 13)
-    00000A0E 36 00            [10] 2731 	ld	(hl), #0x00
+    00000A07 21r0Dr00         [10] 2730 	ld	hl, #(_g_VDP_Command + 13)
+    00000A0A 36 00            [10] 2731 	ld	(hl), #0x00
                                    2732 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    00000A10 21r0Er00         [10] 2733 	ld	hl, #(_g_VDP_Command + 14)
-    00000A13 36 E0            [10] 2734 	ld	(hl), #0xe0
+    00000A0C 21r0Er00         [10] 2733 	ld	hl, #(_g_VDP_Command + 14)
+    00000A0F 36 E0            [10] 2734 	ld	(hl), #0xe0
                                    2735 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    00000A15 CDr00r00         [17] 2736 	call	_VPD_CommandSetupR32
+    00000A11 CDr00r00         [17] 2736 	call	_VPD_CommandSetupR32
                                    2737 ;./soccerlg.c:349: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);	
-    00000A18 DD 4E F7         [19] 2738 	ld	c, -9 (ix)
-    00000A1B DD 7E F8         [19] 2739 	ld	a, -8 (ix)
-    00000A1E C6 02            [ 7] 2740 	add	a, #0x02
-    00000A20 47               [ 4] 2741 	ld	b, a
-    00000A21 DD 6E F9         [19] 2742 	ld	l, -7 (ix)
-    00000A24 DD 66 FA         [19] 2743 	ld	h, -6 (ix)
-    00000A27 5E               [ 7] 2744 	ld	e, (hl)
-    00000A28 16 00            [ 7] 2745 	ld	d, #0x00
-    00000A2A 21 00 03         [10] 2746 	ld	hl, #0x0300
-    00000A2D 19               [11] 2747 	add	hl, de
-    00000A2E EB               [ 4] 2748 	ex	de, hl
+    00000A14 DD 4E F7         [19] 2738 	ld	c, -9 (ix)
+    00000A17 DD 7E F8         [19] 2739 	ld	a, -8 (ix)
+    00000A1A C6 02            [ 7] 2740 	add	a, #0x02
+    00000A1C 47               [ 4] 2741 	ld	b, a
+    00000A1D DD 6E F9         [19] 2742 	ld	l, -7 (ix)
+    00000A20 DD 66 FA         [19] 2743 	ld	h, -6 (ix)
+    00000A23 5E               [ 7] 2744 	ld	e, (hl)
+    00000A24 16 00            [ 7] 2745 	ld	d, #0x00
+    00000A26 21 00 03         [10] 2746 	ld	hl, #0x0300
+    00000A29 19               [11] 2747 	add	hl, de
+    00000A2A EB               [ 4] 2748 	ex	de, hl
                                    2749 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    00000A2F ED 53r02r00      [20] 2750 	ld	((_g_VDP_Command + 2)), de
+    00000A2B ED 53r02r00      [20] 2750 	ld	((_g_VDP_Command + 2)), de
                                    2751 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    00000A33 21 00 00         [10] 2752 	ld	hl, #0x0000
-    00000A36 22r04r00         [16] 2753 	ld	((_g_VDP_Command + 4)), hl
+    00000A2F 21 00 00         [10] 2752 	ld	hl, #0x0000
+    00000A32 22r04r00         [16] 2753 	ld	((_g_VDP_Command + 4)), hl
                                    2754 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    00000A39 ED 43r06r00      [20] 2755 	ld	((_g_VDP_Command + 6)), bc
+    00000A35 ED 43r06r00      [20] 2755 	ld	((_g_VDP_Command + 6)), bc
                                    2756 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    00000A3D 2E 01            [ 7] 2757 	ld	l, #0x01
-    00000A3F 22r0Ar00         [16] 2758 	ld	((_g_VDP_Command + 10)), hl
+    00000A39 2E 01            [ 7] 2757 	ld	l, #0x01
+    00000A3B 22r0Ar00         [16] 2758 	ld	((_g_VDP_Command + 10)), hl
                                    2759 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    00000A42 21r0Dr00         [10] 2760 	ld	hl, #(_g_VDP_Command + 13)
-    00000A45 36 00            [10] 2761 	ld	(hl), #0x00
+    00000A3E 21r0Dr00         [10] 2760 	ld	hl, #(_g_VDP_Command + 13)
+    00000A41 36 00            [10] 2761 	ld	(hl), #0x00
                                    2762 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    00000A47 21r0Er00         [10] 2763 	ld	hl, #(_g_VDP_Command + 14)
-    00000A4A 36 E0            [10] 2764 	ld	(hl), #0xe0
+    00000A43 21r0Er00         [10] 2763 	ld	hl, #(_g_VDP_Command + 14)
+    00000A46 36 E0            [10] 2764 	ld	(hl), #0xe0
                                    2765 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    00000A4C CDr00r00         [17] 2766 	call	_VPD_CommandSetupR32
+    00000A48 CDr00r00         [17] 2766 	call	_VPD_CommandSetupR32
                                    2767 ;./soccerlg.c:345: for(i8 i=Field->dy; i>0; i--) {
-    00000A4F DD 35 FF         [23] 2768 	dec	-1 (ix)
-    00000A52 C3r74r09         [10] 2769 	jp	00115$
-    00000A55                       2770 00106$:
+    00000A4B DD 35 FF         [23] 2768 	dec	-1 (ix)
+    00000A4E C3r70r09         [10] 2769 	jp	00115$
+    00000A51                       2770 00106$:
                                    2771 ;./soccerlg.c:353: for(i8 i=-Field->dy; i>0; i--) {
-    00000A55 AF               [ 4] 2772 	xor	a, a
-    00000A56 DD 96 FF         [19] 2773 	sub	a, -1 (ix)
-    00000A59 DD 77 FF         [19] 2774 	ld	-1 (ix), a
-    00000A5C DD 7E FB         [19] 2775 	ld	a, -5 (ix)
-    00000A5F DD 77 F5         [19] 2776 	ld	-11 (ix), a
-    00000A62 DD 7E FC         [19] 2777 	ld	a, -4 (ix)
-    00000A65 DD 77 F6         [19] 2778 	ld	-10 (ix), a
-    00000A68                       2779 00118$:
-    00000A68 AF               [ 4] 2780 	xor	a, a
-    00000A69 DD 96 FF         [19] 2781 	sub	a, -1 (ix)
-    00000A6C E2r71r0A         [10] 2782 	jp	PO, 00156$
-    00000A6F EE 80            [ 7] 2783 	xor	a, #0x80
-    00000A71                       2784 00156$:
-    00000A71 F2r4Br0B         [10] 2785 	jp	P, 00120$
+    00000A51 AF               [ 4] 2772 	xor	a, a
+    00000A52 DD 96 FF         [19] 2773 	sub	a, -1 (ix)
+    00000A55 DD 77 FF         [19] 2774 	ld	-1 (ix), a
+    00000A58 DD 7E FB         [19] 2775 	ld	a, -5 (ix)
+    00000A5B DD 77 F5         [19] 2776 	ld	-11 (ix), a
+    00000A5E DD 7E FC         [19] 2777 	ld	a, -4 (ix)
+    00000A61 DD 77 F6         [19] 2778 	ld	-10 (ix), a
+    00000A64                       2779 00118$:
+    00000A64 AF               [ 4] 2780 	xor	a, a
+    00000A65 DD 96 FF         [19] 2781 	sub	a, -1 (ix)
+    00000A68 E2r6Dr0A         [10] 2782 	jp	PO, 00156$
+    00000A6B EE 80            [ 7] 2783 	xor	a, #0x80
+    00000A6D                       2784 00156$:
+    00000A6D F2r47r0B         [10] 2785 	jp	P, 00120$
                                    2786 ;./soccerlg.c:354: v = (Field->ly + i - 1) & 511;
-    00000A74 E1               [10] 2787 	pop	hl
-    00000A75 E5               [11] 2788 	push	hl
-    00000A76 4E               [ 7] 2789 	ld	c, (hl)
-    00000A77 23               [ 6] 2790 	inc	hl
-    00000A78 46               [ 7] 2791 	ld	b, (hl)
-    00000A79 DD 7E FF         [19] 2792 	ld	a, -1 (ix)
-    00000A7C 6F               [ 4] 2793 	ld	l, a
+    00000A70 E1               [10] 2787 	pop	hl
+    00000A71 E5               [11] 2788 	push	hl
+    00000A72 4E               [ 7] 2789 	ld	c, (hl)
+    00000A73 23               [ 6] 2790 	inc	hl
+    00000A74 46               [ 7] 2791 	ld	b, (hl)
+    00000A75 DD 7E FF         [19] 2792 	ld	a, -1 (ix)
+    00000A78 6F               [ 4] 2793 	ld	l, a
                                    2794 ;	spillPairReg hl
                                    2795 ;	spillPairReg hl
-    00000A7D 07               [ 4] 2796 	rlca
-    00000A7E 9F               [ 4] 2797 	sbc	a, a
-    00000A7F 67               [ 4] 2798 	ld	h, a
+    00000A79 07               [ 4] 2796 	rlca
+    00000A7A 9F               [ 4] 2797 	sbc	a, a
+    00000A7B 67               [ 4] 2798 	ld	h, a
                                    2799 ;	spillPairReg hl
                                    2800 ;	spillPairReg hl
-    00000A80 09               [11] 2801 	add	hl, bc
-    00000A81 EB               [ 4] 2802 	ex	de, hl
-    00000A82 1B               [ 6] 2803 	dec	de
-    00000A83 7A               [ 4] 2804 	ld	a, d
-    00000A84 E6 01            [ 7] 2805 	and	a, #0x01
-    00000A86 57               [ 4] 2806 	ld	d, a
+    00000A7C 09               [11] 2801 	add	hl, bc
+    00000A7D EB               [ 4] 2802 	ex	de, hl
+    00000A7E 1B               [ 6] 2803 	dec	de
+    00000A7F 7A               [ 4] 2804 	ld	a, d
+    00000A80 E6 01            [ 7] 2805 	and	a, #0x01
+    00000A82 57               [ 4] 2806 	ld	d, a
                                    2807 ;./soccerlg.c:355: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) +   0,1,0);	
-    00000A87 7B               [ 4] 2808 	ld	a, e
-    00000A88 DD 77 F7         [19] 2809 	ld	-9 (ix), a
-    00000A8B DD 36 F8 00      [19] 2810 	ld	-8 (ix), #0x00
-    00000A8F 4F               [ 4] 2811 	ld	c, a
-    00000A90 06 00            [ 7] 2812 	ld	b, #0x00
-    00000A92 21r4Fr00         [10] 2813 	ld	hl, #_FieldMap
-    00000A95 19               [11] 2814 	add	hl, de
-    00000A96 DD 75 F9         [19] 2815 	ld	-7 (ix), l
-    00000A99 DD 74 FA         [19] 2816 	ld	-6 (ix), h
-    00000A9C 5E               [ 7] 2817 	ld	e, (hl)
+    00000A83 7B               [ 4] 2808 	ld	a, e
+    00000A84 DD 77 F7         [19] 2809 	ld	-9 (ix), a
+    00000A87 DD 36 F8 00      [19] 2810 	ld	-8 (ix), #0x00
+    00000A8B 4F               [ 4] 2811 	ld	c, a
+    00000A8C 06 00            [ 7] 2812 	ld	b, #0x00
+    00000A8E 21r4Fr00         [10] 2813 	ld	hl, #_FieldMap
+    00000A91 19               [11] 2814 	add	hl, de
+    00000A92 DD 75 F9         [19] 2815 	ld	-7 (ix), l
+    00000A95 DD 74 FA         [19] 2816 	ld	-6 (ix), h
+    00000A98 5E               [ 7] 2817 	ld	e, (hl)
                                    2818 ;	spillPairReg hl
                                    2819 ;	spillPairReg hl
-    00000A9D AF               [ 4] 2820 	xor	a, a
-    00000A9E C6 03            [ 7] 2821 	add	a, #0x03
-    00000AA0 57               [ 4] 2822 	ld	d, a
+    00000A99 AF               [ 4] 2820 	xor	a, a
+    00000A9A C6 03            [ 7] 2821 	add	a, #0x03
+    00000A9C 57               [ 4] 2822 	ld	d, a
                                    2823 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    00000AA1 ED 53r02r00      [20] 2824 	ld	((_g_VDP_Command + 2)), de
+    00000A9D ED 53r02r00      [20] 2824 	ld	((_g_VDP_Command + 2)), de
                                    2825 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    00000AA5 21 00 00         [10] 2826 	ld	hl, #0x0000
-    00000AA8 22r04r00         [16] 2827 	ld	((_g_VDP_Command + 4)), hl
+    00000AA1 21 00 00         [10] 2826 	ld	hl, #0x0000
+    00000AA4 22r04r00         [16] 2827 	ld	((_g_VDP_Command + 4)), hl
                                    2828 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    00000AAB ED 43r06r00      [20] 2829 	ld	((_g_VDP_Command + 6)), bc
+    00000AA7 ED 43r06r00      [20] 2829 	ld	((_g_VDP_Command + 6)), bc
                                    2830 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    00000AAF 2E 01            [ 7] 2831 	ld	l, #0x01
-    00000AB1 22r0Ar00         [16] 2832 	ld	((_g_VDP_Command + 10)), hl
+    00000AAB 2E 01            [ 7] 2831 	ld	l, #0x01
+    00000AAD 22r0Ar00         [16] 2832 	ld	((_g_VDP_Command + 10)), hl
                                    2833 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    00000AB4 01r0Dr00         [10] 2834 	ld	bc, #_g_VDP_Command + 13
-    00000AB7 AF               [ 4] 2835 	xor	a, a
-    00000AB8 02               [ 7] 2836 	ld	(bc), a
+    00000AB0 01r0Dr00         [10] 2834 	ld	bc, #_g_VDP_Command + 13
+    00000AB3 AF               [ 4] 2835 	xor	a, a
+    00000AB4 02               [ 7] 2836 	ld	(bc), a
                                    2837 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    00000AB9 21r0Er00         [10] 2838 	ld	hl, #(_g_VDP_Command + 14)
-    00000ABC 36 E0            [10] 2839 	ld	(hl), #0xe0
+    00000AB5 21r0Er00         [10] 2838 	ld	hl, #(_g_VDP_Command + 14)
+    00000AB8 36 E0            [10] 2839 	ld	(hl), #0xe0
                                    2840 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    00000ABE C5               [11] 2841 	push	bc
-    00000ABF CDr00r00         [17] 2842 	call	_VPD_CommandSetupR32
-    00000AC2 C1               [10] 2843 	pop	bc
+    00000ABA C5               [11] 2841 	push	bc
+    00000ABB CDr00r00         [17] 2842 	call	_VPD_CommandSetupR32
+    00000ABE C1               [10] 2843 	pop	bc
                                    2844 ;./soccerlg.c:356: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 256,1,0);	
-    00000AC3 DD 5E F7         [19] 2845 	ld	e, -9 (ix)
-    00000AC6 DD 7E F8         [19] 2846 	ld	a, -8 (ix)
-    00000AC9 3C               [ 4] 2847 	inc	a
-    00000ACA DD 73 FB         [19] 2848 	ld	-5 (ix), e
-    00000ACD DD 77 FC         [19] 2849 	ld	-4 (ix), a
-    00000AD0 DD 6E F9         [19] 2850 	ld	l, -7 (ix)
-    00000AD3 DD 66 FA         [19] 2851 	ld	h, -6 (ix)
-    00000AD6 7E               [ 7] 2852 	ld	a, (hl)
-    00000AD7 16 00            [ 7] 2853 	ld	d, #0x00
-    00000AD9 5F               [ 4] 2854 	ld	e, a
-    00000ADA 7A               [ 4] 2855 	ld	a, d
-    00000ADB C6 03            [ 7] 2856 	add	a, #0x03
-    00000ADD 57               [ 4] 2857 	ld	d, a
+    00000ABF DD 5E F7         [19] 2845 	ld	e, -9 (ix)
+    00000AC2 DD 7E F8         [19] 2846 	ld	a, -8 (ix)
+    00000AC5 3C               [ 4] 2847 	inc	a
+    00000AC6 DD 73 FB         [19] 2848 	ld	-5 (ix), e
+    00000AC9 DD 77 FC         [19] 2849 	ld	-4 (ix), a
+    00000ACC DD 6E F9         [19] 2850 	ld	l, -7 (ix)
+    00000ACF DD 66 FA         [19] 2851 	ld	h, -6 (ix)
+    00000AD2 7E               [ 7] 2852 	ld	a, (hl)
+    00000AD3 16 00            [ 7] 2853 	ld	d, #0x00
+    00000AD5 5F               [ 4] 2854 	ld	e, a
+    00000AD6 7A               [ 4] 2855 	ld	a, d
+    00000AD7 C6 03            [ 7] 2856 	add	a, #0x03
+    00000AD9 57               [ 4] 2857 	ld	d, a
                                    2858 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    00000ADE ED 53r02r00      [20] 2859 	ld	((_g_VDP_Command + 2)), de
+    00000ADA ED 53r02r00      [20] 2859 	ld	((_g_VDP_Command + 2)), de
                                    2860 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    00000AE2 21 00 00         [10] 2861 	ld	hl, #0x0000
-    00000AE5 22r04r00         [16] 2862 	ld	((_g_VDP_Command + 4)), hl
+    00000ADE 21 00 00         [10] 2861 	ld	hl, #0x0000
+    00000AE1 22r04r00         [16] 2862 	ld	((_g_VDP_Command + 4)), hl
                                    2863 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    00000AE8 21r06r00         [10] 2864 	ld	hl, #(_g_VDP_Command + 6)
-    00000AEB DD 7E FB         [19] 2865 	ld	a, -5 (ix)
-    00000AEE 77               [ 7] 2866 	ld	(hl), a
-    00000AEF 23               [ 6] 2867 	inc	hl
-    00000AF0 DD 7E FC         [19] 2868 	ld	a, -4 (ix)
-    00000AF3 77               [ 7] 2869 	ld	(hl), a
+    00000AE4 21r06r00         [10] 2864 	ld	hl, #(_g_VDP_Command + 6)
+    00000AE7 DD 7E FB         [19] 2865 	ld	a, -5 (ix)
+    00000AEA 77               [ 7] 2866 	ld	(hl), a
+    00000AEB 23               [ 6] 2867 	inc	hl
+    00000AEC DD 7E FC         [19] 2868 	ld	a, -4 (ix)
+    00000AEF 77               [ 7] 2869 	ld	(hl), a
                                    2870 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    00000AF4 21 01 00         [10] 2871 	ld	hl, #0x0001
-    00000AF7 22r0Ar00         [16] 2872 	ld	((_g_VDP_Command + 10)), hl
+    00000AF0 21 01 00         [10] 2871 	ld	hl, #0x0001
+    00000AF3 22r0Ar00         [16] 2872 	ld	((_g_VDP_Command + 10)), hl
                                    2873 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    00000AFA AF               [ 4] 2874 	xor	a, a
-    00000AFB 02               [ 7] 2875 	ld	(bc), a
+    00000AF6 AF               [ 4] 2874 	xor	a, a
+    00000AF7 02               [ 7] 2875 	ld	(bc), a
                                    2876 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    00000AFC 21r0Er00         [10] 2877 	ld	hl, #(_g_VDP_Command + 14)
-    00000AFF 36 E0            [10] 2878 	ld	(hl), #0xe0
+    00000AF8 21r0Er00         [10] 2877 	ld	hl, #(_g_VDP_Command + 14)
+    00000AFB 36 E0            [10] 2878 	ld	(hl), #0xe0
                                    2879 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    00000B01 C5               [11] 2880 	push	bc
-    00000B02 CDr00r00         [17] 2881 	call	_VPD_CommandSetupR32
-    00000B05 C1               [10] 2882 	pop	bc
+    00000AFD C5               [11] 2880 	push	bc
+    00000AFE CDr00r00         [17] 2881 	call	_VPD_CommandSetupR32
+    00000B01 C1               [10] 2882 	pop	bc
                                    2883 ;./soccerlg.c:357: VDP_CommandYMMM(FieldMap[v]+768,0,(v&255) + 512,1,0);	
-    00000B06 DD 5E F7         [19] 2884 	ld	e, -9 (ix)
-    00000B09 DD 7E F8         [19] 2885 	ld	a, -8 (ix)
-    00000B0C C6 02            [ 7] 2886 	add	a, #0x02
-    00000B0E 57               [ 4] 2887 	ld	d, a
-    00000B0F DD 6E F9         [19] 2888 	ld	l, -7 (ix)
-    00000B12 DD 66 FA         [19] 2889 	ld	h, -6 (ix)
-    00000B15 6E               [ 7] 2890 	ld	l, (hl)
+    00000B02 DD 5E F7         [19] 2884 	ld	e, -9 (ix)
+    00000B05 DD 7E F8         [19] 2885 	ld	a, -8 (ix)
+    00000B08 C6 02            [ 7] 2886 	add	a, #0x02
+    00000B0A 57               [ 4] 2887 	ld	d, a
+    00000B0B DD 6E F9         [19] 2888 	ld	l, -7 (ix)
+    00000B0E DD 66 FA         [19] 2889 	ld	h, -6 (ix)
+    00000B11 6E               [ 7] 2890 	ld	l, (hl)
                                    2891 ;	spillPairReg hl
                                    2892 ;	spillPairReg hl
                                    2893 ;	spillPairReg hl
-    00000B16 AF               [ 4] 2894 	xor	a, a
-    00000B17 C6 03            [ 7] 2895 	add	a, #0x03
-    00000B19 67               [ 4] 2896 	ld	h, a
+    00000B12 AF               [ 4] 2894 	xor	a, a
+    00000B13 C6 03            [ 7] 2895 	add	a, #0x03
+    00000B15 67               [ 4] 2896 	ld	h, a
                                    2897 ;	spillPairReg hl
                                    2898 ;	spillPairReg hl
-    00000B1A DD 75 FB         [19] 2899 	ld	-5 (ix), l
-    00000B1D DD 74 FC         [19] 2900 	ld	-4 (ix), h
+    00000B16 DD 75 FB         [19] 2899 	ld	-5 (ix), l
+    00000B19 DD 74 FC         [19] 2900 	ld	-4 (ix), h
                                    2901 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:65: g_VDP_Command.SY = sy;
-    00000B20 21r02r00         [10] 2902 	ld	hl, #(_g_VDP_Command + 2)
-    00000B23 DD 7E FB         [19] 2903 	ld	a, -5 (ix)
-    00000B26 77               [ 7] 2904 	ld	(hl), a
-    00000B27 23               [ 6] 2905 	inc	hl
-    00000B28 DD 7E FC         [19] 2906 	ld	a, -4 (ix)
-    00000B2B 77               [ 7] 2907 	ld	(hl), a
+    00000B1C 21r02r00         [10] 2902 	ld	hl, #(_g_VDP_Command + 2)
+    00000B1F DD 7E FB         [19] 2903 	ld	a, -5 (ix)
+    00000B22 77               [ 7] 2904 	ld	(hl), a
+    00000B23 23               [ 6] 2905 	inc	hl
+    00000B24 DD 7E FC         [19] 2906 	ld	a, -4 (ix)
+    00000B27 77               [ 7] 2907 	ld	(hl), a
                                    2908 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:66: g_VDP_Command.DX = dx;
-    00000B2C 21 00 00         [10] 2909 	ld	hl, #0x0000
-    00000B2F 22r04r00         [16] 2910 	ld	((_g_VDP_Command + 4)), hl
+    00000B28 21 00 00         [10] 2909 	ld	hl, #0x0000
+    00000B2B 22r04r00         [16] 2910 	ld	((_g_VDP_Command + 4)), hl
                                    2911 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:67: g_VDP_Command.DY = dy;
-    00000B32 ED 53r06r00      [20] 2912 	ld	((_g_VDP_Command + 6)), de
+    00000B2E ED 53r06r00      [20] 2912 	ld	((_g_VDP_Command + 6)), de
                                    2913 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:68: g_VDP_Command.NY = ny;
-    00000B36 2E 01            [ 7] 2914 	ld	l, #0x01
-    00000B38 22r0Ar00         [16] 2915 	ld	((_g_VDP_Command + 10)), hl
+    00000B32 2E 01            [ 7] 2914 	ld	l, #0x01
+    00000B34 22r0Ar00         [16] 2915 	ld	((_g_VDP_Command + 10)), hl
                                    2916 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:69: g_VDP_Command.ARG = dir; 
-    00000B3B AF               [ 4] 2917 	xor	a, a
-    00000B3C 02               [ 7] 2918 	ld	(bc), a
+    00000B37 AF               [ 4] 2917 	xor	a, a
+    00000B38 02               [ 7] 2918 	ld	(bc), a
                                    2919 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:70: g_VDP_Command.CMD = VDP_CMD_YMMM;
-    00000B3D 21r0Er00         [10] 2920 	ld	hl, #(_g_VDP_Command + 14)
-    00000B40 36 E0            [10] 2921 	ld	(hl), #0xe0
+    00000B39 21r0Er00         [10] 2920 	ld	hl, #(_g_VDP_Command + 14)
+    00000B3C 36 E0            [10] 2921 	ld	(hl), #0xe0
                                    2922 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:71: VPD_CommandSetupR32();
-    00000B42 CDr00r00         [17] 2923 	call	_VPD_CommandSetupR32
+    00000B3E CDr00r00         [17] 2923 	call	_VPD_CommandSetupR32
                                    2924 ;./soccerlg.c:353: for(i8 i=-Field->dy; i>0; i--) {
-    00000B45 DD 35 FF         [23] 2925 	dec	-1 (ix)
-    00000B48 C3r68r0A         [10] 2926 	jp	00118$
-    00000B4B                       2927 00120$:
+    00000B41 DD 35 FF         [23] 2925 	dec	-1 (ix)
+    00000B44 C3r64r0A         [10] 2926 	jp	00118$
+    00000B47                       2927 00120$:
                                    2928 ;./soccerlg.c:360: }
-    00000B4B DD F9            [10] 2929 	ld	sp, ix
-    00000B4D DD E1            [14] 2930 	pop	ix
-    00000B4F C9               [10] 2931 	ret
+    00000B47 DD F9            [10] 2929 	ld	sp, ix
+    00000B49 DD E1            [14] 2930 	pop	ix
+    00000B4B C9               [10] 2931 	ret
                                    2932 ;./soccerlg.c:362: void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
                                    2933 ;	---------------------------------
                                    2934 ; Function CallSpriteFrame
                                    2935 ; ---------------------------------
-    00000B50                       2936 _CallSpriteFrame::
+    00000B4C                       2936 _CallSpriteFrame::
                                    2937 ;./soccerlg.c:438: __endasm;
                          00007FFF  2938 	ENAR	.equ 0x7FFF ; enable register interface
                          00007FFE  2939 	OFFR	.equ 0x7FFE ; offset register (more on this later)
                          00007FFD  2940 	CFGR	.equ 0x7FFD ; configuration bits
-    00000B50 47               [ 4] 2941 	ld	b,a ; b = x , de = y
-    00000B51 F1               [10] 2942 	pop	af ; pop return
-    00000B52 E1               [10] 2943 	pop	hl ; hl = frame
-    00000B53 F5               [11] 2944 	push	af ; push return
-    00000B54 3E C0            [ 7] 2945 	ld	a,#(768>>2) & #$%11000000
-    00000B56 32 FE 7F         [13] 2946 	ld	(OFFR),a ; Data offset
-    00000B59 3Ar06r00         [13] 2947 	ld	a,(#(_g_Bank0Segment + 6) + 0)
-    00000B5C F5               [11] 2948 	push	af ; save the current mapper page (!!) has to be < 256
-    00000B5D CDr6Cr0B         [17] 2949 	call	SpriteFrame
-    00000B60 AF               [ 4] 2950 	xor	a,a ; lower 2MB
-    00000B61 32 FE 7F         [13] 2951 	ld	(OFFR),a
-    00000B64 F1               [10] 2952 	pop	af
-    00000B65 32 00 B0         [13] 2953 	ld	(#0xB000),a ; restore the mapper page
-    00000B68 32r06r00         [13] 2954 	ld	(#(_g_Bank0Segment + 6) + 0),a
-    00000B6B C9               [10] 2955 	ret
-    00000B6C                       2956 	SpriteFrame::
-    00000B6C 7D               [ 4] 2957 	ld	a,l
-    00000B6D E6 03            [ 7] 2958 	and	#3 ; 4 sprite per pagina
-    00000B6F 87               [ 4] 2959 	add	a,a
-    00000B70 87               [ 4] 2960 	add	a,a
-    00000B71 4F               [ 4] 2961 	ld	c,a ; in c the low address of the function to be called
-    00000B72 CB 3C            [ 8] 2962 	srl	h ; page = 768 + frame / 4
-    00000B74 CB 1D            [ 8] 2963 	rr	l
-    00000B76 CB 3C            [ 8] 2964 	srl	h
-    00000B78 CB 1D            [ 8] 2965 	rr	l
-    00000B7A 3E 00            [ 7] 2966 	ld	a,#768
-    00000B7C 85               [ 4] 2967 	add	a,l ; segments in the current offset (!)
-    00000B7D 32 00 B0         [13] 2968 	ld	(#0xB000),a
-    00000B80 32r06r00         [13] 2969 	ld	(#(_g_Bank0Segment + 6) + 0),a ; prevent future possible issues on the ISR
-    00000B83 62               [ 4] 2970 	ld	h,d ; HLB = y*256+X = 2 * VRAM_address
-    00000B84 6B               [ 4] 2971 	ld	l,e
-    00000B85 29               [11] 2972 	add	hl,hl ; in h 3 bit di indirizzo per R14
-    00000B86 7C               [ 4] 2973 	ld	a,h
-    00000B87 E6 01            [ 7] 2974 	and	#1
-    00000B89 FD                    2975 	.db	#0xFD
-    00000B8A 6F               [ 4] 2976 	ld	l,a ;ld iyl,a ; save R14 in iyl
-    00000B8B 7C               [ 4] 2977 	ld	a,h
-    00000B8C E6 06            [ 7] 2978 	and	#6
-    00000B8E FD                    2979 	.db	#0xFD
-    00000B8F 67               [ 4] 2980 	ld	h,a ;ld iyh,a ; save vram page in iyh
-    00000B90 CB 3A            [ 8] 2981 	srl	d
-    00000B92 CB 1B            [ 8] 2982 	rr	e
-    00000B94 CB 18            [ 8] 2983 	rr	b
-    00000B96 53               [ 4] 2984 	ld	d,e
-    00000B97 58               [ 4] 2985 	ld	e,b ; DE = (x + y*256)/2 & 0xFFFF
-    00000B98 69               [ 4] 2986 	ld	l,c
-    00000B99 26 A0            [ 7] 2987 	ld	h,#0xA000/256
-    00000B9B 7A               [ 4] 2988 	ld	a,d
-    00000B9C F6 C0            [ 7] 2989 	or	#0xC0
-    00000B9E 57               [ 4] 2990 	ld	d,a
-    00000B9F E9               [ 4] 2991 	jp	(hl)
+    00000B4C 47               [ 4] 2941 	ld	b,a ; b = x , de = y
+    00000B4D F1               [10] 2942 	pop	af ; pop return
+    00000B4E E1               [10] 2943 	pop	hl ; hl = frame
+    00000B4F F5               [11] 2944 	push	af ; push return
+    00000B50 3E C0            [ 7] 2945 	ld	a,#(768>>2) & #$%11000000
+    00000B52 32 FE 7F         [13] 2946 	ld	(OFFR),a ; Data offset
+    00000B55 3Ar06r00         [13] 2947 	ld	a,(#(_g_Bank0Segment + 6) + 0)
+    00000B58 F5               [11] 2948 	push	af ; save the current mapper page (!!) has to be < 256
+    00000B59 CDr68r0B         [17] 2949 	call	SpriteFrame
+    00000B5C AF               [ 4] 2950 	xor	a,a ; lower 2MB
+    00000B5D 32 FE 7F         [13] 2951 	ld	(OFFR),a
+    00000B60 F1               [10] 2952 	pop	af
+    00000B61 32 00 B0         [13] 2953 	ld	(#0xB000),a ; restore the mapper page
+    00000B64 32r06r00         [13] 2954 	ld	(#(_g_Bank0Segment + 6) + 0),a
+    00000B67 C9               [10] 2955 	ret
+    00000B68                       2956 	SpriteFrame::
+    00000B68 7D               [ 4] 2957 	ld	a,l
+    00000B69 E6 03            [ 7] 2958 	and	#3 ; 4 sprite per pagina
+    00000B6B 87               [ 4] 2959 	add	a,a
+    00000B6C 87               [ 4] 2960 	add	a,a
+    00000B6D 4F               [ 4] 2961 	ld	c,a ; in c the low address of the function to be called
+    00000B6E CB 3C            [ 8] 2962 	srl	h ; page = 768 + frame / 4
+    00000B70 CB 1D            [ 8] 2963 	rr	l
+    00000B72 CB 3C            [ 8] 2964 	srl	h
+    00000B74 CB 1D            [ 8] 2965 	rr	l
+    00000B76 3E 00            [ 7] 2966 	ld	a,#768
+    00000B78 85               [ 4] 2967 	add	a,l ; segments in the current offset (!)
+    00000B79 32 00 B0         [13] 2968 	ld	(#0xB000),a
+    00000B7C 32r06r00         [13] 2969 	ld	(#(_g_Bank0Segment + 6) + 0),a ; prevent future possible issues on the ISR
+    00000B7F 62               [ 4] 2970 	ld	h,d ; HLB = y*256+X = 2 * VRAM_address
+    00000B80 6B               [ 4] 2971 	ld	l,e
+    00000B81 29               [11] 2972 	add	hl,hl ; in h 3 bit di indirizzo per R14
+    00000B82 7C               [ 4] 2973 	ld	a,h
+    00000B83 E6 01            [ 7] 2974 	and	#1
+    00000B85 FD                    2975 	.db	#0xFD
+    00000B86 6F               [ 4] 2976 	ld	l,a ;ld iyl,a ; save R14 in iyl
+    00000B87 7C               [ 4] 2977 	ld	a,h
+    00000B88 E6 06            [ 7] 2978 	and	#6
+    00000B8A FD                    2979 	.db	#0xFD
+    00000B8B 67               [ 4] 2980 	ld	h,a ;ld iyh,a ; save vram page in iyh
+    00000B8C CB 3A            [ 8] 2981 	srl	d
+    00000B8E CB 1B            [ 8] 2982 	rr	e
+    00000B90 CB 18            [ 8] 2983 	rr	b
+    00000B92 53               [ 4] 2984 	ld	d,e
+    00000B93 58               [ 4] 2985 	ld	e,b ; DE = (x + y*256)/2 & 0xFFFF
+    00000B94 69               [ 4] 2986 	ld	l,c
+    00000B95 26 A0            [ 7] 2987 	ld	h,#0xA000/256
+    00000B97 7A               [ 4] 2988 	ld	a,d
+    00000B98 F6 C0            [ 7] 2989 	or	#0xC0
+    00000B9A 57               [ 4] 2990 	ld	d,a
+    00000B9B E9               [ 4] 2991 	jp	(hl)
                                    2992 ;./soccerlg.c:439: }
                                    2993 ;./soccerlg.c:451: void VSyncCallback()
                                    2994 ;	---------------------------------
                                    2995 ; Function VSyncCallback
                                    2996 ; ---------------------------------
-    00000BA0                       2997 _VSyncCallback::
+    00000B9C                       2997 _VSyncCallback::
                                    2998 ;./soccerlg.c:453: g_VSynch = TRUE;
-    00000BA0 21r39r00         [10] 2999 	ld	hl, #_g_VSynch
-    00000BA3 36 01            [10] 3000 	ld	(hl), #0x01
+    00000B9C 21r39r00         [10] 2999 	ld	hl, #_g_VSynch
+    00000B9F 36 01            [10] 3000 	ld	(hl), #0x01
                                    3001 ;./soccerlg.c:455: Frms--;
-    00000BA5 FD 21r00r00      [14] 3002 	ld	iy, #_Frms
-    00000BA9 FD 35 00         [23] 3003 	dec	0 (iy)
+    00000BA1 FD 21r00r00      [14] 3002 	ld	iy, #_Frms
+    00000BA5 FD 35 00         [23] 3003 	dec	0 (iy)
                                    3004 ;./soccerlg.c:456: if (Frms==0) {
-    00000BAC 3Ar00r00         [13] 3005 	ld	a, (_Frms+0)
-    00000BAF B7               [ 4] 3006 	or	a, a
-    00000BB0 C0               [11] 3007 	ret	NZ
+    00000BA8 3Ar00r00         [13] 3005 	ld	a, (_Frms+0)
+    00000BAB B7               [ 4] 3006 	or	a, a
+    00000BAC C0               [11] 3007 	ret	NZ
                                    3008 ;./soccerlg.c:457: Frms = 60;
-    00000BB1 FD 36 00 3C      [19] 3009 	ld	0 (iy), #0x3c
+    00000BAD FD 36 00 3C      [19] 3009 	ld	0 (iy), #0x3c
                                    3010 ;./soccerlg.c:458: if (TimerEnabled) {
-    00000BB5 3Ar18r00         [13] 3011 	ld	a, (_TimerEnabled+0)
-    00000BB8 B7               [ 4] 3012 	or	a, a
-    00000BB9 C8               [11] 3013 	ret	Z
+    00000BB1 3Ar18r00         [13] 3011 	ld	a, (_TimerEnabled+0)
+    00000BB4 B7               [ 4] 3012 	or	a, a
+    00000BB5 C8               [11] 3013 	ret	Z
                                    3014 ;./soccerlg.c:459: if (Mins > 0 || Secs > 0) {
-    00000BBA 3Ar02r00         [13] 3015 	ld	a, (_Mins+0)
-    00000BBD B7               [ 4] 3016 	or	a, a
-    00000BBE 20 05            [12] 3017 	jr	NZ, 00104$
-    00000BC0 3Ar01r00         [13] 3018 	ld	a, (_Secs+0)
-    00000BC3 B7               [ 4] 3019 	or	a, a
-    00000BC4 C8               [11] 3020 	ret	Z
-    00000BC5                       3021 00104$:
+    00000BB6 3Ar02r00         [13] 3015 	ld	a, (_Mins+0)
+    00000BB9 B7               [ 4] 3016 	or	a, a
+    00000BBA 20 05            [12] 3017 	jr	NZ, 00104$
+    00000BBC 3Ar01r00         [13] 3018 	ld	a, (_Secs+0)
+    00000BBF B7               [ 4] 3019 	or	a, a
+    00000BC0 C8               [11] 3020 	ret	Z
+    00000BC1                       3021 00104$:
                                    3022 ;./soccerlg.c:460: if (Secs==0) {
-    00000BC5 3Ar01r00         [13] 3023 	ld	a, (_Secs+0)
-    00000BC8 B7               [ 4] 3024 	or	a, a
-    00000BC9 20 0A            [12] 3025 	jr	NZ, 00102$
+    00000BC1 3Ar01r00         [13] 3023 	ld	a, (_Secs+0)
+    00000BC4 B7               [ 4] 3024 	or	a, a
+    00000BC5 20 0A            [12] 3025 	jr	NZ, 00102$
                                    3026 ;./soccerlg.c:461: Secs = 59;
-    00000BCB 21r01r00         [10] 3027 	ld	hl, #_Secs
-    00000BCE 36 3B            [10] 3028 	ld	(hl), #0x3b
+    00000BC7 21r01r00         [10] 3027 	ld	hl, #_Secs
+    00000BCA 36 3B            [10] 3028 	ld	(hl), #0x3b
                                    3029 ;./soccerlg.c:462: Mins--;
-    00000BD0 21r02r00         [10] 3030 	ld	hl, #_Mins
-    00000BD3 35               [11] 3031 	dec	(hl)
-    00000BD4 C9               [10] 3032 	ret
-    00000BD5                       3033 00102$:
+    00000BCC 21r02r00         [10] 3030 	ld	hl, #_Mins
+    00000BCF 35               [11] 3031 	dec	(hl)
+    00000BD0 C9               [10] 3032 	ret
+    00000BD1                       3033 00102$:
                                    3034 ;./soccerlg.c:464: Secs--;
-    00000BD5 21r01r00         [10] 3035 	ld	hl, #_Secs
-    00000BD8 35               [11] 3036 	dec	(hl)
+    00000BD1 21r01r00         [10] 3035 	ld	hl, #_Secs
+    00000BD4 35               [11] 3036 	dec	(hl)
                                    3037 ;./soccerlg.c:469: }
-    00000BD9 C9               [10] 3038 	ret
+    00000BD5 C9               [10] 3038 	ret
                                    3039 ;./soccerlg.c:471: void WaitForVBlank(){
                                    3040 ;	---------------------------------
                                    3041 ; Function WaitForVBlank
                                    3042 ; ---------------------------------
-    00000BDA                       3043 _WaitForVBlank::
+    00000BD6                       3043 _WaitForVBlank::
                                    3044 ;./soccerlg.c:472: while(!g_VSynch) {}
-    00000BDA                       3045 00101$:
-    00000BDA 3Ar39r00         [13] 3046 	ld	a, (_g_VSynch+0)
-    00000BDD B7               [ 4] 3047 	or	a, a
-    00000BDE 28 FA            [12] 3048 	jr	Z, 00101$
+    00000BD6                       3045 00101$:
+    00000BD6 3Ar39r00         [13] 3046 	ld	a, (_g_VSynch+0)
+    00000BD9 B7               [ 4] 3047 	or	a, a
+    00000BDA 28 FA            [12] 3048 	jr	Z, 00101$
                                    3049 ;./soccerlg.c:473: g_VSynch = FALSE;
-    00000BE0 21r39r00         [10] 3050 	ld	hl, #_g_VSynch
-    00000BE3 36 00            [10] 3051 	ld	(hl), #0x00
+    00000BDC 21r39r00         [10] 3050 	ld	hl, #_g_VSynch
+    00000BDF 36 00            [10] 3051 	ld	(hl), #0x00
                                    3052 ;./soccerlg.c:474: }
-    00000BE5 C9               [10] 3053 	ret
+    00000BE1 C9               [10] 3053 	ret
                                    3054 ;./soccerlg.c:476: void LoadField(u8 vdp_page)
                                    3055 ;	---------------------------------
                                    3056 ; Function LoadField
                                    3057 ; ---------------------------------
-    00000BE6                       3058 _LoadField::
-    00000BE6 DD E5            [15] 3059 	push	ix
-    00000BE8 DD 21 00 00      [14] 3060 	ld	ix,#0
-    00000BEC DD 39            [15] 3061 	add	ix,sp
-    00000BEE 21 FA FF         [10] 3062 	ld	hl, #-6
-    00000BF1 39               [11] 3063 	add	hl, sp
-    00000BF2 F9               [ 6] 3064 	ld	sp, hl
-    00000BF3 5F               [ 4] 3065 	ld	e, a
+    00000BE2                       3058 _LoadField::
+    00000BE2 DD E5            [15] 3059 	push	ix
+    00000BE4 DD 21 00 00      [14] 3060 	ld	ix,#0
+    00000BE8 DD 39            [15] 3061 	add	ix,sp
+    00000BEA 21 FA FF         [10] 3062 	ld	hl, #-6
+    00000BED 39               [11] 3063 	add	hl, sp
+    00000BEE F9               [ 6] 3064 	ld	sp, hl
+    00000BEF 5F               [ 4] 3065 	ld	e, a
                                    3066 ;./soccerlg.c:478: u32 base     = (u32)vdp_page * 0x8000;
-    00000BF4 16 00            [ 7] 3067 	ld	d, #0x00
-    00000BF6 21 00 00         [10] 3068 	ld	hl, #0x0000
-    00000BF9 65               [ 4] 3069 	ld	h, l
+    00000BF0 16 00            [ 7] 3067 	ld	d, #0x00
+    00000BF2 21 00 00         [10] 3068 	ld	hl, #0x0000
+    00000BF5 65               [ 4] 3069 	ld	h, l
                                    3070 ;	spillPairReg hl
                                    3071 ;	spillPairReg hl
-    00000BFA 6A               [ 4] 3072 	ld	l, d
+    00000BF6 6A               [ 4] 3072 	ld	l, d
                                    3073 ;	spillPairReg hl
                                    3074 ;	spillPairReg hl
-    00000BFB 53               [ 4] 3075 	ld	d, e
-    00000BFC 1E 00            [ 7] 3076 	ld	e, #0x00
-    00000BFE 06 07            [ 7] 3077 	ld	b, #0x07
-    00000C00                       3078 00168$:
-    00000C00 CB 22            [ 8] 3079 	sla	d
-    00000C02 ED 6A            [15] 3080 	adc	hl, hl
-    00000C04 10 FA            [13] 3081 	djnz	00168$
-    00000C06 33               [ 6] 3082 	inc	sp
-    00000C07 33               [ 6] 3083 	inc	sp
-    00000C08 D5               [11] 3084 	push	de
-    00000C09 DD 75 FC         [19] 3085 	ld	-4 (ix), l
-    00000C0C DD 74 FD         [19] 3086 	ld	-3 (ix), h
+    00000BF7 53               [ 4] 3075 	ld	d, e
+    00000BF8 1E 00            [ 7] 3076 	ld	e, #0x00
+    00000BFA 06 07            [ 7] 3077 	ld	b, #0x07
+    00000BFC                       3078 00168$:
+    00000BFC CB 22            [ 8] 3079 	sla	d
+    00000BFE ED 6A            [15] 3080 	adc	hl, hl
+    00000C00 10 FA            [13] 3081 	djnz	00168$
+    00000C02 33               [ 6] 3082 	inc	sp
+    00000C03 33               [ 6] 3083 	inc	sp
+    00000C04 D5               [11] 3084 	push	de
+    00000C05 DD 75 FC         [19] 3085 	ld	-4 (ix), l
+    00000C08 DD 74 FD         [19] 3086 	ld	-3 (ix), h
                                    3087 ;./soccerlg.c:479: u8  u = GET_BANK_SEGMENT_HIGH(3);
-    00000C0F 2Ar06r00         [16] 3088 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    00000C12 DD 74 FE         [19] 3089 	ld	-2 (ix), h
+    00000C0B 2Ar06r00         [16] 3088 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    00000C0E DD 74 FE         [19] 3089 	ld	-2 (ix), h
                                    3090 ;./soccerlg.c:480: u8  v = GET_BANK_SEGMENT_LOW(3);
-    00000C15 DD 75 FF         [19] 3091 	ld	-1 (ix), l
+    00000C11 DD 75 FF         [19] 3091 	ld	-1 (ix), l
                                    3092 ;./soccerlg.c:482: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
-    00000C18 0E 00            [ 7] 3093 	ld	c, #0x00
-    00000C1A                       3094 00145$:
-    00000C1A 79               [ 4] 3095 	ld	a, c
-    00000C1B D6 04            [ 7] 3096 	sub	a, #0x04
-    00000C1D 30 5A            [12] 3097 	jr	NC, 00101$
+    00000C14 0E 00            [ 7] 3093 	ld	c, #0x00
+    00000C16                       3094 00145$:
+    00000C16 79               [ 4] 3095 	ld	a, c
+    00000C17 D6 04            [ 7] 3096 	sub	a, #0x04
+    00000C19 30 5A            [12] 3097 	jr	NC, 00101$
                                    3098 ;./soccerlg.c:484: u32 addr    = base + (u32)i * 8192;
-    00000C1F 59               [ 4] 3099 	ld	e, c
-    00000C20 AF               [ 4] 3100 	xor	a, a
-    00000C21 6F               [ 4] 3101 	ld	l, a
+    00000C1B 59               [ 4] 3099 	ld	e, c
+    00000C1C AF               [ 4] 3100 	xor	a, a
+    00000C1D 6F               [ 4] 3101 	ld	l, a
                                    3102 ;	spillPairReg hl
                                    3103 ;	spillPairReg hl
-    00000C22 53               [ 4] 3104 	ld	d, e
-    00000C23 67               [ 4] 3105 	ld	h, a
+    00000C1E 53               [ 4] 3104 	ld	d, e
+    00000C1F 67               [ 4] 3105 	ld	h, a
                                    3106 ;	spillPairReg hl
                                    3107 ;	spillPairReg hl
-    00000C24 1E 00            [ 7] 3108 	ld	e, #0x00
-    00000C26 06 05            [ 7] 3109 	ld	b, #0x05
-    00000C28                       3110 00170$:
-    00000C28 CB 22            [ 8] 3111 	sla	d
-    00000C2A ED 6A            [15] 3112 	adc	hl, hl
-    00000C2C 10 FA            [13] 3113 	djnz	00170$
-    00000C2E 7B               [ 4] 3114 	ld	a, e
-    00000C2F DD 86 FA         [19] 3115 	add	a, -6 (ix)
-    00000C32 5F               [ 4] 3116 	ld	e, a
-    00000C33 7A               [ 4] 3117 	ld	a, d
-    00000C34 DD 8E FB         [19] 3118 	adc	a, -5 (ix)
-    00000C37 57               [ 4] 3119 	ld	d, a
-    00000C38 7D               [ 4] 3120 	ld	a, l
-    00000C39 DD 8E FC         [19] 3121 	adc	a, -4 (ix)
-    00000C3C 6F               [ 4] 3122 	ld	l, a
+    00000C20 1E 00            [ 7] 3108 	ld	e, #0x00
+    00000C22 06 05            [ 7] 3109 	ld	b, #0x05
+    00000C24                       3110 00170$:
+    00000C24 CB 22            [ 8] 3111 	sla	d
+    00000C26 ED 6A            [15] 3112 	adc	hl, hl
+    00000C28 10 FA            [13] 3113 	djnz	00170$
+    00000C2A 7B               [ 4] 3114 	ld	a, e
+    00000C2B DD 86 FA         [19] 3115 	add	a, -6 (ix)
+    00000C2E 5F               [ 4] 3116 	ld	e, a
+    00000C2F 7A               [ 4] 3117 	ld	a, d
+    00000C30 DD 8E FB         [19] 3118 	adc	a, -5 (ix)
+    00000C33 57               [ 4] 3119 	ld	d, a
+    00000C34 7D               [ 4] 3120 	ld	a, l
+    00000C35 DD 8E FC         [19] 3121 	adc	a, -4 (ix)
+    00000C38 6F               [ 4] 3122 	ld	l, a
                                    3123 ;	spillPairReg hl
                                    3124 ;	spillPairReg hl
-    00000C3D 7C               [ 4] 3125 	ld	a, h
-    00000C3E DD 8E FD         [19] 3126 	adc	a, -3 (ix)
-    00000C41 67               [ 4] 3127 	ld	h, a
+    00000C39 7C               [ 4] 3125 	ld	a, h
+    00000C3A DD 8E FD         [19] 3126 	adc	a, -3 (ix)
+    00000C3D 67               [ 4] 3127 	ld	h, a
                                    3128 ;	spillPairReg hl
                                    3129 ;	spillPairReg hl
-    00000C42 D5               [11] 3130 	push	de
-    00000C43 FD E1            [14] 3131 	pop	iy
-    00000C45 EB               [ 4] 3132 	ex	de, hl
+    00000C3E D5               [11] 3130 	push	de
+    00000C3F FD E1            [14] 3131 	pop	iy
+    00000C41 EB               [ 4] 3132 	ex	de, hl
                                    3133 ;./soccerlg.c:486: SET_BANK_SEGMENT_LOW (3, (FIELD_BIN_SEG + i) & 255);
-    00000C46 79               [ 4] 3134 	ld	a, c
-    00000C47 C6 FC            [ 7] 3135 	add	a, #0xfc
+    00000C42 79               [ 4] 3134 	ld	a, c
+    00000C43 C6 FC            [ 7] 3135 	add	a, #0xfc
                                    3136 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:199: Poke((u16)&g_Bank0Segment[b] + 0, s);
                                    3137 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C49 32r06r00         [13] 3138 	ld	(#(_g_Bank0Segment + 6)),a
-    00000C4C 32 00 B0         [13] 3139 	ld	(#0xb000),a
+    00000C45 32r06r00         [13] 3138 	ld	(#(_g_Bank0Segment + 6)),a
+    00000C48 32 00 B0         [13] 3139 	ld	(#0xb000),a
                                    3140 ;./soccerlg.c:487: SET_BANK_SEGMENT_HIGH(3, (FIELD_BIN_SEG + i) >>8);
-    00000C4F 79               [ 4] 3141 	ld	a, c
-    00000C50 26 00            [ 7] 3142 	ld	h, #0x00
+    00000C4B 79               [ 4] 3141 	ld	a, c
+    00000C4C 26 00            [ 7] 3142 	ld	h, #0x00
                                    3143 ;	spillPairReg hl
                                    3144 ;	spillPairReg hl
-    00000C52 C6 FC            [ 7] 3145 	add	a, #0xfc
+    00000C4E C6 FC            [ 7] 3145 	add	a, #0xfc
                                    3146 ;	spillPairReg hl
                                    3147 ;	spillPairReg hl
-    00000C54 30 01            [12] 3148 	jr	NC, 00172$
-    00000C56 24               [ 4] 3149 	inc	h
-    00000C57                       3150 00172$:
-    00000C57 7C               [ 4] 3151 	ld	a, h
+    00000C50 30 01            [12] 3148 	jr	NC, 00172$
+    00000C52 24               [ 4] 3149 	inc	h
+    00000C53                       3150 00172$:
+    00000C53 7C               [ 4] 3151 	ld	a, h
                                    3152 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:207: Poke((u16)&g_Bank0Segment[b] + 1, s);
-    00000C58 21r06r00         [10] 3153 	ld	hl, #(_g_Bank0Segment + 6)
-    00000C5B 23               [ 6] 3154 	inc	hl
+    00000C54 21r06r00         [10] 3153 	ld	hl, #(_g_Bank0Segment + 6)
+    00000C57 23               [ 6] 3154 	inc	hl
                                    3155 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C5C 77               [ 7] 3156 	ld	(hl), a
+    00000C58 77               [ 7] 3156 	ld	(hl), a
                                    3157 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:208: Poke(YAMANOOTO_OFFR, s << 6);
-    00000C5D 0F               [ 4] 3158 	rrca
-    00000C5E 0F               [ 4] 3159 	rrca
-    00000C5F E6 C0            [ 7] 3160 	and	a, #0xc0
+    00000C59 0F               [ 4] 3158 	rrca
+    00000C5A 0F               [ 4] 3159 	rrca
+    00000C5B E6 C0            [ 7] 3160 	and	a, #0xc0
                                    3161 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C61 32 FE 7F         [13] 3162 	ld	(#0x7ffe),a
+    00000C5D 32 FE 7F         [13] 3162 	ld	(#0x7ffe),a
                                    3163 ;./soccerlg.c:488: VDP_WriteVRAM_128K((u8*)BANK3_BASE, (addr & 0xFFFF), (addr >> 16), 8192);
-    00000C64 7B               [ 4] 3164 	ld	a, e
-    00000C65 FD E5            [15] 3165 	push	iy
-    00000C67 D1               [10] 3166 	pop	de
-    00000C68 C5               [11] 3167 	push	bc
-    00000C69 21 00 20         [10] 3168 	ld	hl, #0x2000
-    00000C6C E5               [11] 3169 	push	hl
-    00000C6D F5               [11] 3170 	push	af
-    00000C6E 33               [ 6] 3171 	inc	sp
-    00000C6F 26 A0            [ 7] 3172 	ld	h, #0xa0
-    00000C71 CDr00r00         [17] 3173 	call	_VDP_WriteVRAM_128K
-    00000C74 C1               [10] 3174 	pop	bc
+    00000C60 7B               [ 4] 3164 	ld	a, e
+    00000C61 FD E5            [15] 3165 	push	iy
+    00000C63 D1               [10] 3166 	pop	de
+    00000C64 C5               [11] 3167 	push	bc
+    00000C65 21 00 20         [10] 3168 	ld	hl, #0x2000
+    00000C68 E5               [11] 3169 	push	hl
+    00000C69 F5               [11] 3170 	push	af
+    00000C6A 33               [ 6] 3171 	inc	sp
+    00000C6B 26 A0            [ 7] 3172 	ld	h, #0xa0
+    00000C6D CDr00r00         [17] 3173 	call	_VDP_WriteVRAM_128K
+    00000C70 C1               [10] 3174 	pop	bc
                                    3175 ;./soccerlg.c:482: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
-    00000C75 0C               [ 4] 3176 	inc	c
-    00000C76 C3r1Ar0C         [10] 3177 	jp	00145$
-    00000C79                       3178 00101$:
+    00000C71 0C               [ 4] 3176 	inc	c
+    00000C72 C3r16r0C         [10] 3177 	jp	00145$
+    00000C75                       3178 00101$:
                                    3179 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:207: Poke((u16)&g_Bank0Segment[b] + 1, s);
-    00000C79 01r06r00         [10] 3180 	ld	bc, #(_g_Bank0Segment + 6)
-    00000C7C 03               [ 6] 3181 	inc	bc
+    00000C75 01r06r00         [10] 3180 	ld	bc, #(_g_Bank0Segment + 6)
+    00000C78 03               [ 6] 3181 	inc	bc
                                    3182 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C7D DD 7E FE         [19] 3183 	ld	a, -2 (ix)
-    00000C80 02               [ 7] 3184 	ld	(bc), a
+    00000C79 DD 7E FE         [19] 3183 	ld	a, -2 (ix)
+    00000C7C 02               [ 7] 3184 	ld	(bc), a
                                    3185 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:208: Poke(YAMANOOTO_OFFR, s << 6);
-    00000C81 DD 7E FE         [19] 3186 	ld	a, -2 (ix)
-    00000C84 0F               [ 4] 3187 	rrca
-    00000C85 0F               [ 4] 3188 	rrca
-    00000C86 E6 C0            [ 7] 3189 	and	a, #0xc0
+    00000C7D DD 7E FE         [19] 3186 	ld	a, -2 (ix)
+    00000C80 0F               [ 4] 3187 	rrca
+    00000C81 0F               [ 4] 3188 	rrca
+    00000C82 E6 C0            [ 7] 3189 	and	a, #0xc0
                                    3190 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C88 32 FE 7F         [13] 3191 	ld	(#0x7ffe),a
+    00000C84 32 FE 7F         [13] 3191 	ld	(#0x7ffe),a
                                    3192 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:199: Poke((u16)&g_Bank0Segment[b] + 0, s);
                                    3193 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000C8B 01r06r00         [10] 3194 	ld	bc, #(_g_Bank0Segment + 6)
-    00000C8E DD 7E FF         [19] 3195 	ld	a, -1 (ix)
-    00000C91 02               [ 7] 3196 	ld	(bc), a
-    00000C92 21 00 B0         [10] 3197 	ld	hl, #0xb000
-    00000C95 DD 7E FF         [19] 3198 	ld	a, -1 (ix)
-    00000C98 77               [ 7] 3199 	ld	(hl), a
+    00000C87 01r06r00         [10] 3194 	ld	bc, #(_g_Bank0Segment + 6)
+    00000C8A DD 7E FF         [19] 3195 	ld	a, -1 (ix)
+    00000C8D 02               [ 7] 3196 	ld	(bc), a
+    00000C8E 21 00 B0         [10] 3197 	ld	hl, #0xb000
+    00000C91 DD 7E FF         [19] 3198 	ld	a, -1 (ix)
+    00000C94 77               [ 7] 3199 	ld	(hl), a
                                    3200 ;./soccerlg.c:492: SET_BANK_SEGMENT_LOW (3, v);
                                    3201 ;./soccerlg.c:493: }
-    00000C99 DD F9            [10] 3202 	ld	sp, ix
-    00000C9B DD E1            [14] 3203 	pop	ix
-    00000C9D C9               [10] 3204 	ret
+    00000C95 DD F9            [10] 3202 	ld	sp, ix
+    00000C97 DD E1            [14] 3203 	pop	ix
+    00000C99 C9               [10] 3204 	ret
                                    3205 ;./soccerlg.c:500: void main()
                                    3206 ;	---------------------------------
                                    3207 ; Function main
                                    3208 ; ---------------------------------
-    00000C9E                       3209 _main::
+    00000C9A                       3209 _main::
                                    3210 ;C:/MSXgl-1.3.2/engine/src/system.h:193: inline u8 Sys_GetMSXVersion() { return g_MSXVER; } 
-    00000C9E 3A 2D 00         [13] 3211 	ld	a, (_g_MSXVER+0)
+    00000C9A 3A 2D 00         [13] 3211 	ld	a, (_g_MSXVER+0)
                                    3212 ;./soccerlg.c:503: if (Sys_GetMSXVersion() == MSXVER_1)
-    00000CA1 B7               [ 4] 3213 	or	a, a
-    00000CA2 20 16            [12] 3214 	jr	NZ, 00102$
+    00000C9D B7               [ 4] 3213 	or	a, a
+    00000C9E 20 16            [12] 3214 	jr	NZ, 00102$
                                    3215 ;./soccerlg.c:505: Bios_ClearScreen();
-    00000CA4 CDr00r00         [17] 3216 	call	_Bios_ClearScreen
+    00000CA0 CDr00r00         [17] 3216 	call	_Bios_ClearScreen
                                    3217 ;./soccerlg.c:506: Bios_TextPrintSting("This game need MSX2 or above");
-    00000CA7 01r70r0F         [10] 3218 	ld	bc, #___str_0+0
+    00000CA3 01r6Cr0F         [10] 3218 	ld	bc, #___str_0+0
                                    3219 ;C:/MSXgl-1.3.2/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
-    00000CAA                       3220 00104$:
-    00000CAA 0A               [ 7] 3221 	ld	a, (bc)
-    00000CAB B7               [ 4] 3222 	or	a, a
-    00000CAC CA 9F 00         [10] 3223 	jp	Z,0x009f
-    00000CAF 03               [ 6] 3224 	inc	bc
-    00000CB0 5F               [ 4] 3225 	ld	e, a
+    00000CA6                       3220 00104$:
+    00000CA6 0A               [ 7] 3221 	ld	a, (bc)
+    00000CA7 B7               [ 4] 3222 	or	a, a
+    00000CA8 CA 9F 00         [10] 3223 	jp	Z,0x009f
+    00000CAB 03               [ 6] 3224 	inc	bc
+    00000CAC 5F               [ 4] 3225 	ld	e, a
                                    3226 ;C:/MSXgl-1.3.2/engine/src/bios.h:339: inline void Bios_TextPrintChar(c8 chr) { ((void(*)(u8))R_CHPUT)(chr); }
-    00000CB1 C5               [11] 3227 	push	bc
-    00000CB2 7B               [ 4] 3228 	ld	a, e
-    00000CB3 CD A2 00         [17] 3229 	call	0x00a2
-    00000CB6 C1               [10] 3230 	pop	bc
+    00000CAD C5               [11] 3227 	push	bc
+    00000CAE 7B               [ 4] 3228 	ld	a, e
+    00000CAF CD A2 00         [17] 3229 	call	0x00a2
+    00000CB2 C1               [10] 3230 	pop	bc
                                    3231 ;C:/MSXgl-1.3.2/engine/src/bios.h:343: inline void Bios_TextPrintString(const c8* str) { while (*str) Bios_TextPrintChar(*str++); }
                                    3232 ;./soccerlg.c:506: Bios_TextPrintSting("This game need MSX2 or above");
                                    3233 ;C:/MSXgl-1.3.2/engine/src/bios.h:331: inline c8 Bios_GetCharacter() { return ((u8(*)(void))R_CHGET)(); }
                                    3234 ;./soccerlg.c:508: return;
-    00000CB7 C3rAAr0C         [10] 3235 	jp	00104$
-    00000CBA                       3236 00102$:
+    00000CB3 C3rA6r0C         [10] 3235 	jp	00104$
+    00000CB6                       3236 00102$:
                                    3237 ;./soccerlg.c:511: DEBUG_INIT();
-    00000CBA CDr00r00         [17] 3238 	call	_DEBUG_INIT
+    00000CB6 CDr00r00         [17] 3238 	call	_DEBUG_INIT
                                    3239 ;C:/MSXgl-1.3.2/engine/src/bios.h:64: inline void Bios_SetKeyClick(bool enable) { g_CLIKSW = enable; }
-    00000CBD 21 DB F3         [10] 3240 	ld	hl, #_g_CLIKSW
-    00000CC0 36 00            [10] 3241 	ld	(hl), #0x00
+    00000CB9 21 DB F3         [10] 3240 	ld	hl, #_g_CLIKSW
+    00000CBC 36 00            [10] 3241 	ld	(hl), #0x00
                                    3242 ;./soccerlg.c:513: VDP_SetMode(VDP_MODE_SCREEN5);
-    00000CC2 3E 06            [ 7] 3243 	ld	a, #0x06
-    00000CC4 CDr00r00         [17] 3244 	call	_VDP_SetMode
+    00000CBE 3E 06            [ 7] 3243 	ld	a, #0x06
+    00000CC0 CDr00r00         [17] 3244 	call	_VDP_SetMode
                                    3245 ;C:/MSXgl-1.3.2/engine/src/vdp.h:756: inline void VDP_EnableTransparency(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_TP, !enable ? R08_TP : 0); }
-    00000CC7 3E 20            [ 7] 3246 	ld	a, #0x20
-    00000CC9 F5               [11] 3247 	push	af
-    00000CCA 33               [ 6] 3248 	inc	sp
-    00000CCB 2E DF            [ 7] 3249 	ld	l, #0xdf
+    00000CC3 3E 20            [ 7] 3246 	ld	a, #0x20
+    00000CC5 F5               [11] 3247 	push	af
+    00000CC6 33               [ 6] 3248 	inc	sp
+    00000CC7 2E DF            [ 7] 3249 	ld	l, #0xdf
                                    3250 ;	spillPairReg hl
                                    3251 ;	spillPairReg hl
-    00000CCD 3E 08            [ 7] 3252 	ld	a, #0x08
-    00000CCF CDr00r00         [17] 3253 	call	_VDP_RegWriteBakMask
+    00000CC9 3E 08            [ 7] 3252 	ld	a, #0x08
+    00000CCB CDr00r00         [17] 3253 	call	_VDP_RegWriteBakMask
                                    3254 ;./soccerlg.c:515: VDP_SetPalette(g_Palette);
-    00000CD2 21r4Fr02         [10] 3255 	ld	hl, #_g_Palette
-    00000CD5 CDr00r00         [17] 3256 	call	_VDP_SetPalette
+    00000CCE 21r4Fr02         [10] 3255 	ld	hl, #_g_Palette
+    00000CD1 CDr00r00         [17] 3256 	call	_VDP_SetPalette
                                    3257 ;C:/MSXgl-1.3.2/engine/src/vdp.h:719: inline void VDP_SetColor(u8 color) { VDP_RegWrite(7, color); }
-    00000CD8 2E 01            [ 7] 3258 	ld	l, #0x01
+    00000CD4 2E 01            [ 7] 3258 	ld	l, #0x01
                                    3259 ;	spillPairReg hl
                                    3260 ;	spillPairReg hl
-    00000CDA 3E 07            [ 7] 3261 	ld	a, #0x07
-    00000CDC CDr00r00         [17] 3262 	call	_VDP_RegWrite
+    00000CD6 3E 07            [ 7] 3261 	ld	a, #0x07
+    00000CD8 CDr00r00         [17] 3262 	call	_VDP_RegWrite
                                    3263 ;C:/MSXgl-1.3.2/engine/src/vdp.h:834: inline void VDP_SetLineCount(u8 lines) { VDP_RegWriteBakMask(9, (u8)~R09_LN, lines); }
-    00000CDF AF               [ 4] 3264 	xor	a, a
-    00000CE0 F5               [11] 3265 	push	af
-    00000CE1 33               [ 6] 3266 	inc	sp
-    00000CE2 2E 7F            [ 7] 3267 	ld	l, #0x7f
+    00000CDB AF               [ 4] 3264 	xor	a, a
+    00000CDC F5               [11] 3265 	push	af
+    00000CDD 33               [ 6] 3266 	inc	sp
+    00000CDE 2E 7F            [ 7] 3267 	ld	l, #0x7f
                                    3268 ;	spillPairReg hl
                                    3269 ;	spillPairReg hl
-    00000CE4 3E 09            [ 7] 3270 	ld	a, #0x09
-    00000CE6 CDr00r00         [17] 3271 	call	_VDP_RegWriteBakMask
+    00000CE0 3E 09            [ 7] 3270 	ld	a, #0x09
+    00000CE2 CDr00r00         [17] 3271 	call	_VDP_RegWriteBakMask
                                    3272 ;C:/MSXgl-1.3.2/engine/src/vdp.h:745: inline void VDP_EnableSprite(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_SPD, !enable ? R08_SPD : 0); }
-    00000CE9 3E 02            [ 7] 3273 	ld	a, #0x02
-    00000CEB F5               [11] 3274 	push	af
-    00000CEC 33               [ 6] 3275 	inc	sp
-    00000CED 2E FD            [ 7] 3276 	ld	l, #0xfd
+    00000CE5 3E 02            [ 7] 3273 	ld	a, #0x02
+    00000CE7 F5               [11] 3274 	push	af
+    00000CE8 33               [ 6] 3275 	inc	sp
+    00000CE9 2E FD            [ 7] 3276 	ld	l, #0xfd
                                    3277 ;	spillPairReg hl
                                    3278 ;	spillPairReg hl
-    00000CEF 3E 08            [ 7] 3279 	ld	a, #0x08
-    00000CF1 CDr00r00         [17] 3280 	call	_VDP_RegWriteBakMask
+    00000CEB 3E 08            [ 7] 3279 	ld	a, #0x08
+    00000CED CDr00r00         [17] 3280 	call	_VDP_RegWriteBakMask
                                    3281 ;./soccerlg.c:519: VDP_ClearVRAM();
-    00000CF4 CDr00r00         [17] 3282 	call	_VDP_ClearVRAM
+    00000CF0 CDr00r00         [17] 3282 	call	_VDP_ClearVRAM
                                    3283 ;./soccerlg.c:520: VDP_FillVRAM(0x77, 0x0000, 0, 0x8000);
-    00000CF7 21 00 80         [10] 3284 	ld	hl, #0x8000
-    00000CFA E5               [11] 3285 	push	hl
-    00000CFB AF               [ 4] 3286 	xor	a, a
-    00000CFC F5               [11] 3287 	push	af
-    00000CFD 33               [ 6] 3288 	inc	sp
-    00000CFE 11 00 00         [10] 3289 	ld	de, #0x0000
-    00000D01 3E 77            [ 7] 3290 	ld	a, #0x77
-    00000D03 CDr00r00         [17] 3291 	call	_VDP_FillVRAM_128K
+    00000CF3 21 00 80         [10] 3284 	ld	hl, #0x8000
+    00000CF6 E5               [11] 3285 	push	hl
+    00000CF7 AF               [ 4] 3286 	xor	a, a
+    00000CF8 F5               [11] 3287 	push	af
+    00000CF9 33               [ 6] 3288 	inc	sp
+    00000CFA 11 00 00         [10] 3289 	ld	de, #0x0000
+    00000CFD 3E 77            [ 7] 3290 	ld	a, #0x77
+    00000CFF CDr00r00         [17] 3291 	call	_VDP_FillVRAM_128K
                                    3292 ;./soccerlg.c:525: LoadField(3);
-    00000D06 3E 03            [ 7] 3293 	ld	a, #0x03
-    00000D08 CDrE6r0B         [17] 3294 	call	_LoadField
+    00000D02 3E 03            [ 7] 3293 	ld	a, #0x03
+    00000D04 CDrE2r0B         [17] 3294 	call	_LoadField
                                    3295 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
-    00000D0B 21 00 00         [10] 3296 	ld	hl, #0x0000
-    00000D0E 22r04r00         [16] 3297 	ld	((_g_VDP_Command + 4)), hl
+    00000D07 21 00 00         [10] 3296 	ld	hl, #0x0000
+    00000D0A 22r04r00         [16] 3297 	ld	((_g_VDP_Command + 4)), hl
                                    3298 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
-    00000D11 26 03            [ 7] 3299 	ld	h, #0x03
-    00000D13 22r06r00         [16] 3300 	ld	((_g_VDP_Command + 6)), hl
+    00000D0D 26 03            [ 7] 3299 	ld	h, #0x03
+    00000D0F 22r06r00         [16] 3300 	ld	((_g_VDP_Command + 6)), hl
                                    3301 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
-    00000D16 21 08 00         [10] 3302 	ld	hl, #0x0008
-    00000D19 22r08r00         [16] 3303 	ld	((_g_VDP_Command + 8)), hl
+    00000D12 21 08 00         [10] 3302 	ld	hl, #0x0008
+    00000D15 22r08r00         [16] 3303 	ld	((_g_VDP_Command + 8)), hl
                                    3304 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
-    00000D1C 2E D4            [ 7] 3305 	ld	l, #0xd4
-    00000D1E 22r0Ar00         [16] 3306 	ld	((_g_VDP_Command + 10)), hl
+    00000D18 2E D4            [ 7] 3305 	ld	l, #0xd4
+    00000D1A 22r0Ar00         [16] 3306 	ld	((_g_VDP_Command + 10)), hl
                                    3307 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
-    00000D21 21r0Cr00         [10] 3308 	ld	hl, #(_g_VDP_Command + 12)
-    00000D24 36 77            [10] 3309 	ld	(hl), #0x77
+    00000D1D 21r0Cr00         [10] 3308 	ld	hl, #(_g_VDP_Command + 12)
+    00000D20 36 77            [10] 3309 	ld	(hl), #0x77
                                    3310 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
-    00000D26 01r0Dr00         [10] 3311 	ld	bc, #_g_VDP_Command + 13
-    00000D29 AF               [ 4] 3312 	xor	a, a
-    00000D2A 02               [ 7] 3313 	ld	(bc), a
+    00000D22 01r0Dr00         [10] 3311 	ld	bc, #_g_VDP_Command + 13
+    00000D25 AF               [ 4] 3312 	xor	a, a
+    00000D26 02               [ 7] 3313 	ld	(bc), a
                                    3314 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
-    00000D2B 21r0Er00         [10] 3315 	ld	hl, #(_g_VDP_Command + 14)
-    00000D2E 36 C0            [10] 3316 	ld	(hl), #0xc0
+    00000D27 21r0Er00         [10] 3315 	ld	hl, #(_g_VDP_Command + 14)
+    00000D2A 36 C0            [10] 3316 	ld	(hl), #0xc0
                                    3317 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:174: VPD_CommandSetupR36();
-    00000D30 C5               [11] 3318 	push	bc
-    00000D31 CDr00r00         [17] 3319 	call	_VPD_CommandSetupR36
-    00000D34 C1               [10] 3320 	pop	bc
+    00000D2C C5               [11] 3318 	push	bc
+    00000D2D CDr00r00         [17] 3319 	call	_VPD_CommandSetupR36
+    00000D30 C1               [10] 3320 	pop	bc
                                    3321 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
-    00000D35 21 00 00         [10] 3322 	ld	hl, #0x0000
-    00000D38 22r04r00         [16] 3323 	ld	((_g_VDP_Command + 4)), hl
+    00000D31 21 00 00         [10] 3322 	ld	hl, #0x0000
+    00000D34 22r04r00         [16] 3323 	ld	((_g_VDP_Command + 4)), hl
                                    3324 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
-    00000D3B 26 03            [ 7] 3325 	ld	h, #0x03
-    00000D3D 22r06r00         [16] 3326 	ld	((_g_VDP_Command + 6)), hl
+    00000D37 26 03            [ 7] 3325 	ld	h, #0x03
+    00000D39 22r06r00         [16] 3326 	ld	((_g_VDP_Command + 6)), hl
                                    3327 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
-    00000D40 21 08 00         [10] 3328 	ld	hl, #0x0008
-    00000D43 22r08r00         [16] 3329 	ld	((_g_VDP_Command + 8)), hl
+    00000D3C 21 08 00         [10] 3328 	ld	hl, #0x0008
+    00000D3F 22r08r00         [16] 3329 	ld	((_g_VDP_Command + 8)), hl
                                    3330 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
-    00000D46 2E D4            [ 7] 3331 	ld	l, #0xd4
-    00000D48 22r0Ar00         [16] 3332 	ld	((_g_VDP_Command + 10)), hl
+    00000D42 2E D4            [ 7] 3331 	ld	l, #0xd4
+    00000D44 22r0Ar00         [16] 3332 	ld	((_g_VDP_Command + 10)), hl
                                    3333 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
-    00000D4B 21r0Cr00         [10] 3334 	ld	hl, #(_g_VDP_Command + 12)
-    00000D4E 36 77            [10] 3335 	ld	(hl), #0x77
+    00000D47 21r0Cr00         [10] 3334 	ld	hl, #(_g_VDP_Command + 12)
+    00000D4A 36 77            [10] 3335 	ld	(hl), #0x77
                                    3336 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
-    00000D50 AF               [ 4] 3337 	xor	a, a
-    00000D51 02               [ 7] 3338 	ld	(bc), a
+    00000D4C AF               [ 4] 3337 	xor	a, a
+    00000D4D 02               [ 7] 3338 	ld	(bc), a
                                    3339 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
-    00000D52 21r0Er00         [10] 3340 	ld	hl, #(_g_VDP_Command + 14)
-    00000D55 36 C0            [10] 3341 	ld	(hl), #0xc0
+    00000D4E 21r0Er00         [10] 3340 	ld	hl, #(_g_VDP_Command + 14)
+    00000D51 36 C0            [10] 3341 	ld	(hl), #0xc0
                                    3342 ;C:/MSXgl-1.3.2/engine/src/vdp_inl.h:174: VPD_CommandSetupR36();
-    00000D57 CDr00r00         [17] 3343 	call	_VPD_CommandSetupR36
+    00000D53 CDr00r00         [17] 3343 	call	_VPD_CommandSetupR36
                                    3344 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000D5A 21 04 00         [10] 3345 	ld	hl, #0x0004
-    00000D5D 22r06r00         [16] 3346 	ld	((_g_Bank0Segment + 6)), hl
+    00000D56 21 04 00         [10] 3345 	ld	hl, #0x0004
+    00000D59 22r06r00         [16] 3346 	ld	((_g_Bank0Segment + 6)), hl
                                    3347 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000D60 3E 01            [ 7] 3348 	ld	a, #0x01
-    00000D62 E6 C0            [ 7] 3349 	and	a, #0xc0
+    00000D5C 3E 01            [ 7] 3348 	ld	a, #0x01
+    00000D5E E6 C0            [ 7] 3349 	and	a, #0xc0
                                    3350 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000D64 32 FE 7F         [13] 3351 	ld	(#0x7ffe),a
+    00000D60 32 FE 7F         [13] 3351 	ld	(#0x7ffe),a
                                    3352 ;C:/MSXgl-1.3.2/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-    00000D67 3E 04            [ 7] 3353 	ld	a, #0x04
+    00000D63 3E 04            [ 7] 3353 	ld	a, #0x04
                                    3354 ;C:/MSXgl-1.3.2/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000D69 32 00 B0         [13] 3355 	ld	(#0xb000),a
+    00000D65 32 00 B0         [13] 3355 	ld	(#0xb000),a
                                    3356 ;./soccerlg.c:531: Print_SetBitmapFont(g_Fonts);
-    00000D6C 21r00r00         [10] 3357 	ld	hl, #_g_Fonts
-    00000D6F CDr00r00         [17] 3358 	call	_Print_SetBitmapFont
+    00000D68 21r00r00         [10] 3357 	ld	hl, #_g_Fonts
+    00000D6B CDr00r00         [17] 3358 	call	_Print_SetBitmapFont
                                    3359 ;./soccerlg.c:532: Print_SetColor(4, 7);
-    00000D72 2E 07            [ 7] 3360 	ld	l, #0x07
+    00000D6E 2E 07            [ 7] 3360 	ld	l, #0x07
                                    3361 ;	spillPairReg hl
                                    3362 ;	spillPairReg hl
-    00000D74 3E 04            [ 7] 3363 	ld	a, #0x04
-    00000D76 CDr00r00         [17] 3364 	call	_Print_SetColor
+    00000D70 3E 04            [ 7] 3363 	ld	a, #0x04
+    00000D72 CDr00r00         [17] 3364 	call	_Print_SetColor
                                    3365 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000D79 01r05r00         [10] 3366 	ld	bc, #_g_PrintData + 5
-    00000D7C AF               [ 4] 3367 	xor	a, a
-    00000D7D 02               [ 7] 3368 	ld	(bc), a
+    00000D75 01r05r00         [10] 3366 	ld	bc, #_g_PrintData + 5
+    00000D78 AF               [ 4] 3367 	xor	a, a
+    00000D79 02               [ 7] 3368 	ld	(bc), a
                                    3369 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000D7E 21 08 03         [10] 3370 	ld	hl, #0x0308
-    00000D81 22r06r00         [16] 3371 	ld	((_g_PrintData + 6)), hl
+    00000D7A 21 08 03         [10] 3370 	ld	hl, #0x0308
+    00000D7D 22r06r00         [16] 3371 	ld	((_g_PrintData + 6)), hl
                                    3372 ;./soccerlg.c:534: Print_SetPosition(0,  8+768);Print_DrawText("A");
-    00000D84 C5               [11] 3373 	push	bc
-    00000D85 21r8Dr0F         [10] 3374 	ld	hl, #___str_1
-    00000D88 CDr00r00         [17] 3375 	call	_Print_DrawText
-    00000D8B C1               [10] 3376 	pop	bc
+    00000D80 C5               [11] 3373 	push	bc
+    00000D81 21r89r0F         [10] 3374 	ld	hl, #___str_1
+    00000D84 CDr00r00         [17] 3375 	call	_Print_DrawText
+    00000D87 C1               [10] 3376 	pop	bc
                                    3377 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000D8C AF               [ 4] 3378 	xor	a, a
-    00000D8D 02               [ 7] 3379 	ld	(bc), a
+    00000D88 AF               [ 4] 3378 	xor	a, a
+    00000D89 02               [ 7] 3379 	ld	(bc), a
                                    3380 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000D8E 21 10 03         [10] 3381 	ld	hl, #0x0310
-    00000D91 22r06r00         [16] 3382 	ld	((_g_PrintData + 6)), hl
+    00000D8A 21 10 03         [10] 3381 	ld	hl, #0x0310
+    00000D8D 22r06r00         [16] 3382 	ld	((_g_PrintData + 6)), hl
                                    3383 ;./soccerlg.c:535: Print_SetPosition(0,  16+768);Print_DrawText("U");
-    00000D94 C5               [11] 3384 	push	bc
-    00000D95 21r8Fr0F         [10] 3385 	ld	hl, #___str_2
-    00000D98 CDr00r00         [17] 3386 	call	_Print_DrawText
-    00000D9B C1               [10] 3387 	pop	bc
+    00000D90 C5               [11] 3384 	push	bc
+    00000D91 21r8Br0F         [10] 3385 	ld	hl, #___str_2
+    00000D94 CDr00r00         [17] 3386 	call	_Print_DrawText
+    00000D97 C1               [10] 3387 	pop	bc
                                    3388 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000D9C AF               [ 4] 3389 	xor	a, a
-    00000D9D 02               [ 7] 3390 	ld	(bc), a
+    00000D98 AF               [ 4] 3389 	xor	a, a
+    00000D99 02               [ 7] 3390 	ld	(bc), a
                                    3391 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000D9E 21 18 03         [10] 3392 	ld	hl, #0x0318
-    00000DA1 22r06r00         [16] 3393 	ld	((_g_PrintData + 6)), hl
+    00000D9A 21 18 03         [10] 3392 	ld	hl, #0x0318
+    00000D9D 22r06r00         [16] 3393 	ld	((_g_PrintData + 6)), hl
                                    3394 ;./soccerlg.c:536: Print_SetPosition(0,  24+768);Print_DrawText("S");
-    00000DA4 C5               [11] 3395 	push	bc
-    00000DA5 21r91r0F         [10] 3396 	ld	hl, #___str_3
-    00000DA8 CDr00r00         [17] 3397 	call	_Print_DrawText
-    00000DAB C1               [10] 3398 	pop	bc
+    00000DA0 C5               [11] 3395 	push	bc
+    00000DA1 21r8Dr0F         [10] 3396 	ld	hl, #___str_3
+    00000DA4 CDr00r00         [17] 3397 	call	_Print_DrawText
+    00000DA7 C1               [10] 3398 	pop	bc
                                    3399 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DAC AF               [ 4] 3400 	xor	a, a
-    00000DAD 02               [ 7] 3401 	ld	(bc), a
+    00000DA8 AF               [ 4] 3400 	xor	a, a
+    00000DA9 02               [ 7] 3401 	ld	(bc), a
                                    3402 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DAE 21 20 03         [10] 3403 	ld	hl, #0x0320
-    00000DB1 22r06r00         [16] 3404 	ld	((_g_PrintData + 6)), hl
+    00000DAA 21 20 03         [10] 3403 	ld	hl, #0x0320
+    00000DAD 22r06r00         [16] 3404 	ld	((_g_PrintData + 6)), hl
                                    3405 ;./soccerlg.c:537: Print_SetPosition(0,  32+768);Print_DrawText(" ");
-    00000DB4 C5               [11] 3406 	push	bc
-    00000DB5 21r93r0F         [10] 3407 	ld	hl, #___str_4
-    00000DB8 CDr00r00         [17] 3408 	call	_Print_DrawText
-    00000DBB C1               [10] 3409 	pop	bc
+    00000DB0 C5               [11] 3406 	push	bc
+    00000DB1 21r8Fr0F         [10] 3407 	ld	hl, #___str_4
+    00000DB4 CDr00r00         [17] 3408 	call	_Print_DrawText
+    00000DB7 C1               [10] 3409 	pop	bc
                                    3410 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DBC AF               [ 4] 3411 	xor	a, a
-    00000DBD 02               [ 7] 3412 	ld	(bc), a
+    00000DB8 AF               [ 4] 3411 	xor	a, a
+    00000DB9 02               [ 7] 3412 	ld	(bc), a
                                    3413 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DBE 21 28 03         [10] 3414 	ld	hl, #0x0328
-    00000DC1 22r06r00         [16] 3415 	ld	((_g_PrintData + 6)), hl
+    00000DBA 21 28 03         [10] 3414 	ld	hl, #0x0328
+    00000DBD 22r06r00         [16] 3415 	ld	((_g_PrintData + 6)), hl
                                    3416 ;./soccerlg.c:538: Print_SetPosition(0,  40+768);Print_DrawText("0");
-    00000DC4 C5               [11] 3417 	push	bc
-    00000DC5 21r95r0F         [10] 3418 	ld	hl, #___str_5
-    00000DC8 CDr00r00         [17] 3419 	call	_Print_DrawText
-    00000DCB C1               [10] 3420 	pop	bc
+    00000DC0 C5               [11] 3417 	push	bc
+    00000DC1 21r91r0F         [10] 3418 	ld	hl, #___str_5
+    00000DC4 CDr00r00         [17] 3419 	call	_Print_DrawText
+    00000DC7 C1               [10] 3420 	pop	bc
                                    3421 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DCC AF               [ 4] 3422 	xor	a, a
-    00000DCD 02               [ 7] 3423 	ld	(bc), a
+    00000DC8 AF               [ 4] 3422 	xor	a, a
+    00000DC9 02               [ 7] 3423 	ld	(bc), a
                                    3424 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DCE 21 38 03         [10] 3425 	ld	hl, #0x0338
-    00000DD1 22r06r00         [16] 3426 	ld	((_g_PrintData + 6)), hl
+    00000DCA 21 38 03         [10] 3425 	ld	hl, #0x0338
+    00000DCD 22r06r00         [16] 3426 	ld	((_g_PrintData + 6)), hl
                                    3427 ;./soccerlg.c:540: Print_SetPosition(0,  56+768);Print_DrawText("I");
-    00000DD4 C5               [11] 3428 	push	bc
-    00000DD5 21r97r0F         [10] 3429 	ld	hl, #___str_6
-    00000DD8 CDr00r00         [17] 3430 	call	_Print_DrawText
-    00000DDB C1               [10] 3431 	pop	bc
+    00000DD0 C5               [11] 3428 	push	bc
+    00000DD1 21r93r0F         [10] 3429 	ld	hl, #___str_6
+    00000DD4 CDr00r00         [17] 3430 	call	_Print_DrawText
+    00000DD7 C1               [10] 3431 	pop	bc
                                    3432 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DDC AF               [ 4] 3433 	xor	a, a
-    00000DDD 02               [ 7] 3434 	ld	(bc), a
+    00000DD8 AF               [ 4] 3433 	xor	a, a
+    00000DD9 02               [ 7] 3434 	ld	(bc), a
                                    3435 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DDE 21 40 03         [10] 3436 	ld	hl, #0x0340
-    00000DE1 22r06r00         [16] 3437 	ld	((_g_PrintData + 6)), hl
+    00000DDA 21 40 03         [10] 3436 	ld	hl, #0x0340
+    00000DDD 22r06r00         [16] 3437 	ld	((_g_PrintData + 6)), hl
                                    3438 ;./soccerlg.c:541: Print_SetPosition(0,  64+768);Print_DrawText("T");
-    00000DE4 C5               [11] 3439 	push	bc
-    00000DE5 21r99r0F         [10] 3440 	ld	hl, #___str_7
-    00000DE8 CDr00r00         [17] 3441 	call	_Print_DrawText
-    00000DEB C1               [10] 3442 	pop	bc
+    00000DE0 C5               [11] 3439 	push	bc
+    00000DE1 21r95r0F         [10] 3440 	ld	hl, #___str_7
+    00000DE4 CDr00r00         [17] 3441 	call	_Print_DrawText
+    00000DE7 C1               [10] 3442 	pop	bc
                                    3443 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DEC AF               [ 4] 3444 	xor	a, a
-    00000DED 02               [ 7] 3445 	ld	(bc), a
+    00000DE8 AF               [ 4] 3444 	xor	a, a
+    00000DE9 02               [ 7] 3445 	ld	(bc), a
                                    3446 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DEE 21 48 03         [10] 3447 	ld	hl, #0x0348
-    00000DF1 22r06r00         [16] 3448 	ld	((_g_PrintData + 6)), hl
+    00000DEA 21 48 03         [10] 3447 	ld	hl, #0x0348
+    00000DED 22r06r00         [16] 3448 	ld	((_g_PrintData + 6)), hl
                                    3449 ;./soccerlg.c:542: Print_SetPosition(0,  72+768);Print_DrawText("A");
-    00000DF4 C5               [11] 3450 	push	bc
-    00000DF5 21r8Dr0F         [10] 3451 	ld	hl, #___str_1
-    00000DF8 CDr00r00         [17] 3452 	call	_Print_DrawText
-    00000DFB C1               [10] 3453 	pop	bc
+    00000DF0 C5               [11] 3450 	push	bc
+    00000DF1 21r89r0F         [10] 3451 	ld	hl, #___str_1
+    00000DF4 CDr00r00         [17] 3452 	call	_Print_DrawText
+    00000DF7 C1               [10] 3453 	pop	bc
                                    3454 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000DFC AF               [ 4] 3455 	xor	a, a
-    00000DFD 02               [ 7] 3456 	ld	(bc), a
+    00000DF8 AF               [ 4] 3455 	xor	a, a
+    00000DF9 02               [ 7] 3456 	ld	(bc), a
                                    3457 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000DFE 21 50 03         [10] 3458 	ld	hl, #0x0350
-    00000E01 22r06r00         [16] 3459 	ld	((_g_PrintData + 6)), hl
+    00000DFA 21 50 03         [10] 3458 	ld	hl, #0x0350
+    00000DFD 22r06r00         [16] 3459 	ld	((_g_PrintData + 6)), hl
                                    3460 ;./soccerlg.c:543: Print_SetPosition(0,  80+768);Print_DrawText(" ");
-    00000E04 C5               [11] 3461 	push	bc
-    00000E05 21r93r0F         [10] 3462 	ld	hl, #___str_4
-    00000E08 CDr00r00         [17] 3463 	call	_Print_DrawText
-    00000E0B C1               [10] 3464 	pop	bc
+    00000E00 C5               [11] 3461 	push	bc
+    00000E01 21r8Fr0F         [10] 3462 	ld	hl, #___str_4
+    00000E04 CDr00r00         [17] 3463 	call	_Print_DrawText
+    00000E07 C1               [10] 3464 	pop	bc
                                    3465 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E0C AF               [ 4] 3466 	xor	a, a
-    00000E0D 02               [ 7] 3467 	ld	(bc), a
+    00000E08 AF               [ 4] 3466 	xor	a, a
+    00000E09 02               [ 7] 3467 	ld	(bc), a
                                    3468 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E0E 21 58 03         [10] 3469 	ld	hl, #0x0358
-    00000E11 22r06r00         [16] 3470 	ld	((_g_PrintData + 6)), hl
+    00000E0A 21 58 03         [10] 3469 	ld	hl, #0x0358
+    00000E0D 22r06r00         [16] 3470 	ld	((_g_PrintData + 6)), hl
                                    3471 ;./soccerlg.c:544: Print_SetPosition(0,  88+768);Print_DrawText("0");
-    00000E14 C5               [11] 3472 	push	bc
-    00000E15 21r95r0F         [10] 3473 	ld	hl, #___str_5
-    00000E18 CDr00r00         [17] 3474 	call	_Print_DrawText
-    00000E1B C1               [10] 3475 	pop	bc
+    00000E10 C5               [11] 3472 	push	bc
+    00000E11 21r91r0F         [10] 3473 	ld	hl, #___str_5
+    00000E14 CDr00r00         [17] 3474 	call	_Print_DrawText
+    00000E17 C1               [10] 3475 	pop	bc
                                    3476 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E1C 3E F8            [ 7] 3477 	ld	a, #0xf8
-    00000E1E 02               [ 7] 3478 	ld	(bc), a
+    00000E18 3E F8            [ 7] 3477 	ld	a, #0xf8
+    00000E1A 02               [ 7] 3478 	ld	(bc), a
                                    3479 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E1F 21 08 03         [10] 3480 	ld	hl, #0x0308
-    00000E22 22r06r00         [16] 3481 	ld	((_g_PrintData + 6)), hl
+    00000E1B 21 08 03         [10] 3480 	ld	hl, #0x0308
+    00000E1E 22r06r00         [16] 3481 	ld	((_g_PrintData + 6)), hl
                                    3482 ;./soccerlg.c:547: Print_SetPosition(248,  8+768);Print_DrawText("T");
-    00000E25 C5               [11] 3483 	push	bc
-    00000E26 21r99r0F         [10] 3484 	ld	hl, #___str_7
-    00000E29 CDr00r00         [17] 3485 	call	_Print_DrawText
-    00000E2C C1               [10] 3486 	pop	bc
+    00000E21 C5               [11] 3483 	push	bc
+    00000E22 21r95r0F         [10] 3484 	ld	hl, #___str_7
+    00000E25 CDr00r00         [17] 3485 	call	_Print_DrawText
+    00000E28 C1               [10] 3486 	pop	bc
                                    3487 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E2D 3E F8            [ 7] 3488 	ld	a, #0xf8
-    00000E2F 02               [ 7] 3489 	ld	(bc), a
+    00000E29 3E F8            [ 7] 3488 	ld	a, #0xf8
+    00000E2B 02               [ 7] 3489 	ld	(bc), a
                                    3490 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E30 21 10 03         [10] 3491 	ld	hl, #0x0310
-    00000E33 22r06r00         [16] 3492 	ld	((_g_PrintData + 6)), hl
+    00000E2C 21 10 03         [10] 3491 	ld	hl, #0x0310
+    00000E2F 22r06r00         [16] 3492 	ld	((_g_PrintData + 6)), hl
                                    3493 ;./soccerlg.c:548: Print_SetPosition(248,  16+768);Print_DrawText("I");
-    00000E36 C5               [11] 3494 	push	bc
-    00000E37 21r97r0F         [10] 3495 	ld	hl, #___str_6
-    00000E3A CDr00r00         [17] 3496 	call	_Print_DrawText
-    00000E3D C1               [10] 3497 	pop	bc
+    00000E32 C5               [11] 3494 	push	bc
+    00000E33 21r93r0F         [10] 3495 	ld	hl, #___str_6
+    00000E36 CDr00r00         [17] 3496 	call	_Print_DrawText
+    00000E39 C1               [10] 3497 	pop	bc
                                    3498 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E3E 3E F8            [ 7] 3499 	ld	a, #0xf8
-    00000E40 02               [ 7] 3500 	ld	(bc), a
+    00000E3A 3E F8            [ 7] 3499 	ld	a, #0xf8
+    00000E3C 02               [ 7] 3500 	ld	(bc), a
                                    3501 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E41 21 18 03         [10] 3502 	ld	hl, #0x0318
-    00000E44 22r06r00         [16] 3503 	ld	((_g_PrintData + 6)), hl
+    00000E3D 21 18 03         [10] 3502 	ld	hl, #0x0318
+    00000E40 22r06r00         [16] 3503 	ld	((_g_PrintData + 6)), hl
                                    3504 ;./soccerlg.c:549: Print_SetPosition(248,  24+768);Print_DrawText("M");
-    00000E47 C5               [11] 3505 	push	bc
-    00000E48 21r9Br0F         [10] 3506 	ld	hl, #___str_8
-    00000E4B CDr00r00         [17] 3507 	call	_Print_DrawText
-    00000E4E C1               [10] 3508 	pop	bc
+    00000E43 C5               [11] 3505 	push	bc
+    00000E44 21r97r0F         [10] 3506 	ld	hl, #___str_8
+    00000E47 CDr00r00         [17] 3507 	call	_Print_DrawText
+    00000E4A C1               [10] 3508 	pop	bc
                                    3509 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E4F 3E F8            [ 7] 3510 	ld	a, #0xf8
-    00000E51 02               [ 7] 3511 	ld	(bc), a
+    00000E4B 3E F8            [ 7] 3510 	ld	a, #0xf8
+    00000E4D 02               [ 7] 3511 	ld	(bc), a
                                    3512 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E52 21 20 03         [10] 3513 	ld	hl, #0x0320
-    00000E55 22r06r00         [16] 3514 	ld	((_g_PrintData + 6)), hl
+    00000E4E 21 20 03         [10] 3513 	ld	hl, #0x0320
+    00000E51 22r06r00         [16] 3514 	ld	((_g_PrintData + 6)), hl
                                    3515 ;./soccerlg.c:550: Print_SetPosition(248,  32+768);Print_DrawText("E");
-    00000E58 C5               [11] 3516 	push	bc
-    00000E59 21r9Dr0F         [10] 3517 	ld	hl, #___str_9
-    00000E5C CDr00r00         [17] 3518 	call	_Print_DrawText
-    00000E5F C1               [10] 3519 	pop	bc
+    00000E54 C5               [11] 3516 	push	bc
+    00000E55 21r99r0F         [10] 3517 	ld	hl, #___str_9
+    00000E58 CDr00r00         [17] 3518 	call	_Print_DrawText
+    00000E5B C1               [10] 3519 	pop	bc
                                    3520 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E60 3E F8            [ 7] 3521 	ld	a, #0xf8
-    00000E62 02               [ 7] 3522 	ld	(bc), a
+    00000E5C 3E F8            [ 7] 3521 	ld	a, #0xf8
+    00000E5E 02               [ 7] 3522 	ld	(bc), a
                                    3523 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E63 21 30 03         [10] 3524 	ld	hl, #0x0330
-    00000E66 22r06r00         [16] 3525 	ld	((_g_PrintData + 6)), hl
+    00000E5F 21 30 03         [10] 3524 	ld	hl, #0x0330
+    00000E62 22r06r00         [16] 3525 	ld	((_g_PrintData + 6)), hl
                                    3526 ;./soccerlg.c:552: Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);//Print_DrawText("3");	
-    00000E69 3Ar02r00         [13] 3527 	ld	a, (_Mins+0)
-    00000E6C 5F               [ 4] 3528 	ld	e, a
-    00000E6D 16 00            [ 7] 3529 	ld	d, #0x00
-    00000E6F C5               [11] 3530 	push	bc
-    00000E70 D5               [11] 3531 	push	de
-    00000E71 21r9Fr0F         [10] 3532 	ld	hl, #___str_10
-    00000E74 E5               [11] 3533 	push	hl
-    00000E75 CDr00r00         [17] 3534 	call	_Print_DrawFormat
-    00000E78 F1               [10] 3535 	pop	af
-    00000E79 F1               [10] 3536 	pop	af
-    00000E7A C1               [10] 3537 	pop	bc
+    00000E65 3Ar02r00         [13] 3527 	ld	a, (_Mins+0)
+    00000E68 5F               [ 4] 3528 	ld	e, a
+    00000E69 16 00            [ 7] 3529 	ld	d, #0x00
+    00000E6B C5               [11] 3530 	push	bc
+    00000E6C D5               [11] 3531 	push	de
+    00000E6D 21r9Br0F         [10] 3532 	ld	hl, #___str_10
+    00000E70 E5               [11] 3533 	push	hl
+    00000E71 CDr00r00         [17] 3534 	call	_Print_DrawFormat
+    00000E74 F1               [10] 3535 	pop	af
+    00000E75 F1               [10] 3536 	pop	af
+    00000E76 C1               [10] 3537 	pop	bc
                                    3538 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E7B 3E F8            [ 7] 3539 	ld	a, #0xf8
-    00000E7D 02               [ 7] 3540 	ld	(bc), a
+    00000E77 3E F8            [ 7] 3539 	ld	a, #0xf8
+    00000E79 02               [ 7] 3540 	ld	(bc), a
                                    3541 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E7E 21 3C 03         [10] 3542 	ld	hl, #0x033c
-    00000E81 22r06r00         [16] 3543 	ld	((_g_PrintData + 6)), hl
+    00000E7A 21 3C 03         [10] 3542 	ld	hl, #0x033c
+    00000E7D 22r06r00         [16] 3543 	ld	((_g_PrintData + 6)), hl
                                    3544 ;./soccerlg.c:553: Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
-    00000E84 3Ar01r00         [13] 3545 	ld	a, (_Secs+0)
-    00000E87 6F               [ 4] 3546 	ld	l, a
+    00000E80 3Ar01r00         [13] 3545 	ld	a, (_Secs+0)
+    00000E83 6F               [ 4] 3546 	ld	l, a
                                    3547 ;	spillPairReg hl
                                    3548 ;	spillPairReg hl
-    00000E88 26 00            [ 7] 3549 	ld	h, #0x00
+    00000E84 26 00            [ 7] 3549 	ld	h, #0x00
                                    3550 ;	spillPairReg hl
                                    3551 ;	spillPairReg hl
-    00000E8A C5               [11] 3552 	push	bc
-    00000E8B 11 0A 00         [10] 3553 	ld	de, #0x000a
-    00000E8E CDr00r00         [17] 3554 	call	__divsint
-    00000E91 D5               [11] 3555 	push	de
-    00000E92 21r9Fr0F         [10] 3556 	ld	hl, #___str_10
-    00000E95 E5               [11] 3557 	push	hl
-    00000E96 CDr00r00         [17] 3558 	call	_Print_DrawFormat
-    00000E99 F1               [10] 3559 	pop	af
-    00000E9A F1               [10] 3560 	pop	af
-    00000E9B C1               [10] 3561 	pop	bc
+    00000E86 C5               [11] 3552 	push	bc
+    00000E87 11 0A 00         [10] 3553 	ld	de, #0x000a
+    00000E8A CDr00r00         [17] 3554 	call	__divsint
+    00000E8D D5               [11] 3555 	push	de
+    00000E8E 21r9Br0F         [10] 3556 	ld	hl, #___str_10
+    00000E91 E5               [11] 3557 	push	hl
+    00000E92 CDr00r00         [17] 3558 	call	_Print_DrawFormat
+    00000E95 F1               [10] 3559 	pop	af
+    00000E96 F1               [10] 3560 	pop	af
+    00000E97 C1               [10] 3561 	pop	bc
                                    3562 ;C:/MSXgl-1.3.2/engine/src/print.h:223: g_PrintData.CursorX = x;
-    00000E9C 3E F8            [ 7] 3563 	ld	a, #0xf8
-    00000E9E 02               [ 7] 3564 	ld	(bc), a
+    00000E98 3E F8            [ 7] 3563 	ld	a, #0xf8
+    00000E9A 02               [ 7] 3564 	ld	(bc), a
                                    3565 ;C:/MSXgl-1.3.2/engine/src/print.h:224: g_PrintData.CursorY = y;
-    00000E9F 21 44 03         [10] 3566 	ld	hl, #0x0344
-    00000EA2 22r06r00         [16] 3567 	ld	((_g_PrintData + 6)), hl
+    00000E9B 21 44 03         [10] 3566 	ld	hl, #0x0344
+    00000E9E 22r06r00         [16] 3567 	ld	((_g_PrintData + 6)), hl
                                    3568 ;./soccerlg.c:554: Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);	
-    00000EA5 3Ar01r00         [13] 3569 	ld	a, (_Secs+0)
-    00000EA8 4F               [ 4] 3570 	ld	c, a
-    00000EA9 06 00            [ 7] 3571 	ld	b, #0x00
-    00000EAB C5               [11] 3572 	push	bc
-    00000EAC 11 0A 00         [10] 3573 	ld	de, #0x000a
-    00000EAF 69               [ 4] 3574 	ld	l, c
+    00000EA1 3Ar01r00         [13] 3569 	ld	a, (_Secs+0)
+    00000EA4 4F               [ 4] 3570 	ld	c, a
+    00000EA5 06 00            [ 7] 3571 	ld	b, #0x00
+    00000EA7 C5               [11] 3572 	push	bc
+    00000EA8 11 0A 00         [10] 3573 	ld	de, #0x000a
+    00000EAB 69               [ 4] 3574 	ld	l, c
                                    3575 ;	spillPairReg hl
                                    3576 ;	spillPairReg hl
-    00000EB0 60               [ 4] 3577 	ld	h, b
+    00000EAC 60               [ 4] 3577 	ld	h, b
                                    3578 ;	spillPairReg hl
                                    3579 ;	spillPairReg hl
-    00000EB1 CDr00r00         [17] 3580 	call	__divsint
-    00000EB4 C1               [10] 3581 	pop	bc
-    00000EB5 6B               [ 4] 3582 	ld	l, e
-    00000EB6 62               [ 4] 3583 	ld	h, d
-    00000EB7 29               [11] 3584 	add	hl, hl
-    00000EB8 29               [11] 3585 	add	hl, hl
-    00000EB9 19               [11] 3586 	add	hl, de
-    00000EBA 29               [11] 3587 	add	hl, hl
-    00000EBB 79               [ 4] 3588 	ld	a, c
-    00000EBC 95               [ 4] 3589 	sub	a, l
-    00000EBD 4F               [ 4] 3590 	ld	c, a
-    00000EBE 78               [ 4] 3591 	ld	a, b
-    00000EBF 9C               [ 4] 3592 	sbc	a, h
-    00000EC0 47               [ 4] 3593 	ld	b, a
-    00000EC1 C5               [11] 3594 	push	bc
-    00000EC2 21r9Fr0F         [10] 3595 	ld	hl, #___str_10
-    00000EC5 E5               [11] 3596 	push	hl
-    00000EC6 CDr00r00         [17] 3597 	call	_Print_DrawFormat
-    00000EC9 F1               [10] 3598 	pop	af
-    00000ECA F1               [10] 3599 	pop	af
+    00000EAD CDr00r00         [17] 3580 	call	__divsint
+    00000EB0 C1               [10] 3581 	pop	bc
+    00000EB1 6B               [ 4] 3582 	ld	l, e
+    00000EB2 62               [ 4] 3583 	ld	h, d
+    00000EB3 29               [11] 3584 	add	hl, hl
+    00000EB4 29               [11] 3585 	add	hl, hl
+    00000EB5 19               [11] 3586 	add	hl, de
+    00000EB6 29               [11] 3587 	add	hl, hl
+    00000EB7 79               [ 4] 3588 	ld	a, c
+    00000EB8 95               [ 4] 3589 	sub	a, l
+    00000EB9 4F               [ 4] 3590 	ld	c, a
+    00000EBA 78               [ 4] 3591 	ld	a, b
+    00000EBB 9C               [ 4] 3592 	sbc	a, h
+    00000EBC 47               [ 4] 3593 	ld	b, a
+    00000EBD C5               [11] 3594 	push	bc
+    00000EBE 21r9Br0F         [10] 3595 	ld	hl, #___str_10
+    00000EC1 E5               [11] 3596 	push	hl
+    00000EC2 CDr00r00         [17] 3597 	call	_Print_DrawFormat
+    00000EC5 F1               [10] 3598 	pop	af
+    00000EC6 F1               [10] 3599 	pop	af
                                    3600 ;./soccerlg.c:563: Field.dy = 1;
-    00000ECB 21r99r03         [10] 3601 	ld	hl, #(_Field + 18)
-    00000ECE 36 01            [10] 3602 	ld	(hl), #0x01
+    00000EC7 21r99r03         [10] 3601 	ld	hl, #(_Field + 18)
+    00000ECA 36 01            [10] 3602 	ld	(hl), #0x01
                                    3603 ;./soccerlg.c:564: Field.ly = 0;
-    00000ED0 21 00 00         [10] 3604 	ld	hl, #0x0000
-    00000ED3 22r8Br03         [16] 3605 	ld	((_Field + 4)), hl
+    00000ECC 21 00 00         [10] 3604 	ld	hl, #0x0000
+    00000ECF 22r8Br03         [16] 3605 	ld	((_Field + 4)), hl
                                    3606 ;./soccerlg.c:566: ScoreBoardLeft.lx = 0;
-    00000ED6 21r9Er03         [10] 3607 	ld	hl, #_ScoreBoardLeft
-    00000ED9 36 00            [10] 3608 	ld	(hl), #0x00
+    00000ED2 21r9Er03         [10] 3607 	ld	hl, #_ScoreBoardLeft
+    00000ED5 36 00            [10] 3608 	ld	(hl), #0x00
                                    3609 ;./soccerlg.c:567: ScoreBoardLeft.ly = Field.ly;
-    00000EDB ED 4Br8Br03      [20] 3610 	ld	bc, (#(_Field + 4) + 0)
-    00000EDF ED 43rA2r03      [20] 3611 	ld	((_ScoreBoardLeft + 4)), bc
+    00000ED7 ED 4Br8Br03      [20] 3610 	ld	bc, (#(_Field + 4) + 0)
+    00000EDB ED 43rA2r03      [20] 3611 	ld	((_ScoreBoardLeft + 4)), bc
                                    3612 ;./soccerlg.c:569: ScoreBoardRight.lx = 248;
-    00000EE3 21rB5r03         [10] 3613 	ld	hl, #_ScoreBoardRight
-    00000EE6 36 F8            [10] 3614 	ld	(hl), #0xf8
+    00000EDF 21rB5r03         [10] 3613 	ld	hl, #_ScoreBoardRight
+    00000EE2 36 F8            [10] 3614 	ld	(hl), #0xf8
                                    3615 ;./soccerlg.c:570: ScoreBoardRight.ly = Field.ly;
-    00000EE8 ED 4Br8Br03      [20] 3616 	ld	bc, (#(_Field + 4) + 0)
-    00000EEC ED 43rB9r03      [20] 3617 	ld	((_ScoreBoardRight + 4)), bc
+    00000EE4 ED 4Br8Br03      [20] 3616 	ld	bc, (#(_Field + 4) + 0)
+    00000EE8 ED 43rB9r03      [20] 3617 	ld	((_ScoreBoardRight + 4)), bc
                                    3618 ;C:/MSXgl-1.3.2/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
-    00000EF0 AF               [ 4] 3619 	xor	a, a
-    00000EF1 F5               [11] 3620 	push	af
-    00000EF2 33               [ 6] 3621 	inc	sp
-    00000EF3 2E BF            [ 7] 3622 	ld	l, #0xbf
+    00000EEC AF               [ 4] 3619 	xor	a, a
+    00000EED F5               [11] 3620 	push	af
+    00000EEE 33               [ 6] 3621 	inc	sp
+    00000EEF 2E BF            [ 7] 3622 	ld	l, #0xbf
                                    3623 ;	spillPairReg hl
                                    3624 ;	spillPairReg hl
-    00000EF5 3E 01            [ 7] 3625 	ld	a, #0x01
-    00000EF7 CDr00r00         [17] 3626 	call	_VDP_RegWriteBakMask
+    00000EF1 3E 01            [ 7] 3625 	ld	a, #0x01
+    00000EF3 CDr00r00         [17] 3626 	call	_VDP_RegWriteBakMask
                                    3627 ;./soccerlg.c:573: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-    00000EFA 2Ar8Br03         [16] 3628 	ld	hl, (#(_Field + 4) + 0)
-    00000EFD 11 00 00         [10] 3629 	ld	de, #0x0000
-    00000F00 D5               [11] 3630 	push	de
-    00000F01 E5               [11] 3631 	push	hl
-    00000F02 11r00r00         [10] 3632 	ld	de, #_PlotField
-    00000F05 3E 05            [ 7] 3633 	ld	a, #0x05
-    00000F07 CDr1Br05         [17] 3634 	call	_CallFnc_VOID_16_P2
+    00000EF6 2Ar8Br03         [16] 3628 	ld	hl, (#(_Field + 4) + 0)
+    00000EF9 11 00 00         [10] 3629 	ld	de, #0x0000
+    00000EFC D5               [11] 3630 	push	de
+    00000EFD E5               [11] 3631 	push	hl
+    00000EFE 11r00r00         [10] 3632 	ld	de, #_PlotField
+    00000F01 3E 05            [ 7] 3633 	ld	a, #0x05
+    00000F03 CDr1Br05         [17] 3634 	call	_CallFnc_VOID_16_P2
                                    3635 ;./soccerlg.c:574: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-    00000F0A 2Ar8Br03         [16] 3636 	ld	hl, (#(_Field + 4) + 0)
-    00000F0D 11 00 01         [10] 3637 	ld	de, #0x0100
-    00000F10 D5               [11] 3638 	push	de
-    00000F11 E5               [11] 3639 	push	hl
-    00000F12 11r00r00         [10] 3640 	ld	de, #_PlotField
-    00000F15 3E 05            [ 7] 3641 	ld	a, #0x05
-    00000F17 CDr1Br05         [17] 3642 	call	_CallFnc_VOID_16_P2
+    00000F06 2Ar8Br03         [16] 3636 	ld	hl, (#(_Field + 4) + 0)
+    00000F09 11 00 01         [10] 3637 	ld	de, #0x0100
+    00000F0C D5               [11] 3638 	push	de
+    00000F0D E5               [11] 3639 	push	hl
+    00000F0E 11r00r00         [10] 3640 	ld	de, #_PlotField
+    00000F11 3E 05            [ 7] 3641 	ld	a, #0x05
+    00000F13 CDr1Br05         [17] 3642 	call	_CallFnc_VOID_16_P2
                                    3643 ;./soccerlg.c:575: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
-    00000F1A 2Ar8Br03         [16] 3644 	ld	hl, (#(_Field + 4) + 0)
-    00000F1D 11 00 02         [10] 3645 	ld	de, #0x0200
-    00000F20 D5               [11] 3646 	push	de
-    00000F21 E5               [11] 3647 	push	hl
-    00000F22 11r00r00         [10] 3648 	ld	de, #_PlotField
-    00000F25 3E 05            [ 7] 3649 	ld	a, #0x05
-    00000F27 CDr1Br05         [17] 3650 	call	_CallFnc_VOID_16_P2
+    00000F16 2Ar8Br03         [16] 3644 	ld	hl, (#(_Field + 4) + 0)
+    00000F19 11 00 02         [10] 3645 	ld	de, #0x0200
+    00000F1C D5               [11] 3646 	push	de
+    00000F1D E5               [11] 3647 	push	hl
+    00000F1E 11r00r00         [10] 3648 	ld	de, #_PlotField
+    00000F21 3E 05            [ 7] 3649 	ld	a, #0x05
+    00000F23 CDr1Br05         [17] 3650 	call	_CallFnc_VOID_16_P2
                                    3651 ;./soccerlg.c:585: Bios_SetHookCallback(H_TIMI, VSyncCallback);
-    00000F2A 11rA0r0B         [10] 3652 	ld	de, #_VSyncCallback
-    00000F2D 21 9F FD         [10] 3653 	ld	hl, #0xfd9f
-    00000F30 CDr00r00         [17] 3654 	call	_Bios_SetHookCallback
+    00000F26 11r9Cr0B         [10] 3652 	ld	de, #_VSyncCallback
+    00000F29 21 9F FD         [10] 3653 	ld	hl, #0xfd9f
+    00000F2C CDr00r00         [17] 3654 	call	_Bios_SetHookCallback
                                    3655 ;./soccerlg.c:587: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
-    00000F33 01r9Fr03         [10] 3656 	ld	bc, #_ScoreBoardLeft + 1
-    00000F36 3Ar9Er03         [13] 3657 	ld	a, (#_ScoreBoardLeft + 0)
-    00000F39 02               [ 7] 3658 	ld	(bc), a
+    00000F2F 01r9Fr03         [10] 3656 	ld	bc, #_ScoreBoardLeft + 1
+    00000F32 3Ar9Er03         [13] 3657 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F35 02               [ 7] 3658 	ld	(bc), a
                                    3659 ;./soccerlg.c:588: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
-    00000F3A 01rA0r03         [10] 3660 	ld	bc, #_ScoreBoardLeft + 2
-    00000F3D 3Ar9Er03         [13] 3661 	ld	a, (#_ScoreBoardLeft + 0)
-    00000F40 02               [ 7] 3662 	ld	(bc), a
+    00000F36 01rA0r03         [10] 3660 	ld	bc, #_ScoreBoardLeft + 2
+    00000F39 3Ar9Er03         [13] 3661 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F3C 02               [ 7] 3662 	ld	(bc), a
                                    3663 ;./soccerlg.c:589: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
-    00000F41 01rA1r03         [10] 3664 	ld	bc, #_ScoreBoardLeft + 3
-    00000F44 3Ar9Er03         [13] 3665 	ld	a, (#_ScoreBoardLeft + 0)
-    00000F47 02               [ 7] 3666 	ld	(bc), a
+    00000F3D 01rA1r03         [10] 3664 	ld	bc, #_ScoreBoardLeft + 3
+    00000F40 3Ar9Er03         [13] 3665 	ld	a, (#_ScoreBoardLeft + 0)
+    00000F43 02               [ 7] 3666 	ld	(bc), a
                                    3667 ;./soccerlg.c:591: ScoreBoardRight.x0 = ScoreBoardRight.lx;
-    00000F48 01rB6r03         [10] 3668 	ld	bc, #_ScoreBoardRight + 1
-    00000F4B 3ArB5r03         [13] 3669 	ld	a, (#_ScoreBoardRight + 0)
-    00000F4E 02               [ 7] 3670 	ld	(bc), a
+    00000F44 01rB6r03         [10] 3668 	ld	bc, #_ScoreBoardRight + 1
+    00000F47 3ArB5r03         [13] 3669 	ld	a, (#_ScoreBoardRight + 0)
+    00000F4A 02               [ 7] 3670 	ld	(bc), a
                                    3671 ;./soccerlg.c:592: ScoreBoardRight.x1 = ScoreBoardRight.lx;
-    00000F4F 01rB7r03         [10] 3672 	ld	bc, #_ScoreBoardRight + 2
-    00000F52 3ArB5r03         [13] 3673 	ld	a, (#_ScoreBoardRight + 0)
-    00000F55 02               [ 7] 3674 	ld	(bc), a
+    00000F4B 01rB7r03         [10] 3672 	ld	bc, #_ScoreBoardRight + 2
+    00000F4E 3ArB5r03         [13] 3673 	ld	a, (#_ScoreBoardRight + 0)
+    00000F51 02               [ 7] 3674 	ld	(bc), a
                                    3675 ;./soccerlg.c:593: ScoreBoardRight.x2 = ScoreBoardRight.lx;
-    00000F56 01rB8r03         [10] 3676 	ld	bc, #_ScoreBoardRight + 3
-    00000F59 3ArB5r03         [13] 3677 	ld	a, (#_ScoreBoardRight + 0)
-    00000F5C 02               [ 7] 3678 	ld	(bc), a
+    00000F52 01rB8r03         [10] 3676 	ld	bc, #_ScoreBoardRight + 3
+    00000F55 3ArB5r03         [13] 3677 	ld	a, (#_ScoreBoardRight + 0)
+    00000F58 02               [ 7] 3678 	ld	(bc), a
                                    3679 ;C:/MSXgl-1.3.2/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
-    00000F5D 3E 40            [ 7] 3680 	ld	a, #0x40
-    00000F5F F5               [11] 3681 	push	af
-    00000F60 33               [ 6] 3682 	inc	sp
-    00000F61 2E BF            [ 7] 3683 	ld	l, #0xbf
+    00000F59 3E 40            [ 7] 3680 	ld	a, #0x40
+    00000F5B F5               [11] 3681 	push	af
+    00000F5C 33               [ 6] 3682 	inc	sp
+    00000F5D 2E BF            [ 7] 3683 	ld	l, #0xbf
                                    3684 ;	spillPairReg hl
                                    3685 ;	spillPairReg hl
-    00000F63 3E 01            [ 7] 3686 	ld	a, #0x01
-    00000F65 CDr00r00         [17] 3687 	call	_VDP_RegWriteBakMask
+    00000F5F 3E 01            [ 7] 3686 	ld	a, #0x01
+    00000F61 CDr00r00         [17] 3687 	call	_VDP_RegWriteBakMask
                                    3688 ;./soccerlg.c:598: CallFnc_VOID(4,MainLoop);
-    00000F68 11r00r00         [10] 3689 	ld	de, #_MainLoop
-    00000F6B 3E 04            [ 7] 3690 	ld	a, #0x04
+    00000F64 11r00r00         [10] 3689 	ld	de, #_MainLoop
+    00000F67 3E 04            [ 7] 3690 	ld	a, #0x04
                                    3691 ;./soccerlg.c:600: }
-    00000F6D C3r00r00         [10] 3692 	jp	_CallFnc_VOID
-    00000F70                       3693 ___str_0:
-    00000F70 54 68 69 73 20 67 61  3694 	.ascii "This game need MSX2 or above"
+    00000F69 C3r00r00         [10] 3692 	jp	_CallFnc_VOID
+    00000F6C                       3693 ___str_0:
+    00000F6C 54 68 69 73 20 67 61  3694 	.ascii "This game need MSX2 or above"
              6D 65 20 6E 65 65 64
              20 4D 53 58 32 20 6F
              72 20 61 62 6F 76 65
-    00000F8C 00                    3695 	.db 0x00
-    00000F8D                       3696 ___str_1:
-    00000F8D 41                    3697 	.ascii "A"
-    00000F8E 00                    3698 	.db 0x00
-    00000F8F                       3699 ___str_2:
-    00000F8F 55                    3700 	.ascii "U"
-    00000F90 00                    3701 	.db 0x00
-    00000F91                       3702 ___str_3:
-    00000F91 53                    3703 	.ascii "S"
-    00000F92 00                    3704 	.db 0x00
-    00000F93                       3705 ___str_4:
-    00000F93 20                    3706 	.ascii " "
-    00000F94 00                    3707 	.db 0x00
-    00000F95                       3708 ___str_5:
-    00000F95 30                    3709 	.ascii "0"
-    00000F96 00                    3710 	.db 0x00
-    00000F97                       3711 ___str_6:
-    00000F97 49                    3712 	.ascii "I"
-    00000F98 00                    3713 	.db 0x00
-    00000F99                       3714 ___str_7:
-    00000F99 54                    3715 	.ascii "T"
-    00000F9A 00                    3716 	.db 0x00
-    00000F9B                       3717 ___str_8:
-    00000F9B 4D                    3718 	.ascii "M"
-    00000F9C 00                    3719 	.db 0x00
-    00000F9D                       3720 ___str_9:
-    00000F9D 45                    3721 	.ascii "E"
-    00000F9E 00                    3722 	.db 0x00
-    00000F9F                       3723 ___str_10:
-    00000F9F 25 69                 3724 	.ascii "%i"
-    00000FA1 00                    3725 	.db 0x00
+    00000F88 00                    3695 	.db 0x00
+    00000F89                       3696 ___str_1:
+    00000F89 41                    3697 	.ascii "A"
+    00000F8A 00                    3698 	.db 0x00
+    00000F8B                       3699 ___str_2:
+    00000F8B 55                    3700 	.ascii "U"
+    00000F8C 00                    3701 	.db 0x00
+    00000F8D                       3702 ___str_3:
+    00000F8D 53                    3703 	.ascii "S"
+    00000F8E 00                    3704 	.db 0x00
+    00000F8F                       3705 ___str_4:
+    00000F8F 20                    3706 	.ascii " "
+    00000F90 00                    3707 	.db 0x00
+    00000F91                       3708 ___str_5:
+    00000F91 30                    3709 	.ascii "0"
+    00000F92 00                    3710 	.db 0x00
+    00000F93                       3711 ___str_6:
+    00000F93 49                    3712 	.ascii "I"
+    00000F94 00                    3713 	.db 0x00
+    00000F95                       3714 ___str_7:
+    00000F95 54                    3715 	.ascii "T"
+    00000F96 00                    3716 	.db 0x00
+    00000F97                       3717 ___str_8:
+    00000F97 4D                    3718 	.ascii "M"
+    00000F98 00                    3719 	.db 0x00
+    00000F99                       3720 ___str_9:
+    00000F99 45                    3721 	.ascii "E"
+    00000F9A 00                    3722 	.db 0x00
+    00000F9B                       3723 ___str_10:
+    00000F9B 25 69                 3724 	.ascii "%i"
+    00000F9D 00                    3725 	.db 0x00
                                    3726 	.area _CODE
                                    3727 	.area _INITIALIZER
     00000000                       3728 __xinit__Frms:
