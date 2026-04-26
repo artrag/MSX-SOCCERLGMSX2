@@ -34,7 +34,7 @@ Symbol Table
   0 _CallFnc_VOID_U8U8                                              000008A1 GR
   0 _CallSpriteFrame                                                00000B6F GR
     _DEBUG_INIT                                                     ******** GX
-  1 _Field                                                          00000359 GR
+  1 _Field                                                          00000387 GR
   0 _FieldMap                                                       0000004F R
   2 _Frms                                                           00000000 GR
   2 _GameMode                                                       00000013 GR
@@ -56,8 +56,8 @@ Symbol Table
   2 _RestartSideX                                                   0000001C GR
   2 _RestartSideY                                                   0000001D GR
   2 _RestartType                                                    0000001B GR
-  1 _ScoreBoardLeft                                                 00000370 GR
-  1 _ScoreBoardRight                                                00000387 GR
+  1 _ScoreBoardLeft                                                 0000039E GR
+  1 _ScoreBoardRight                                                000003B5 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
@@ -161,7 +161,7 @@ Symbol Table
     _g_ASPCT2                                                   =   0000F40D G
     _g_ATRBYT                                                   =   0000F3F2 G
     _g_AVCSAV                                                   =   0000FAF7 G
-  1 _g_ActiveStats                                                  0000039E GR
+  1 _g_ActiveStats                                                  000003CC GR
     _g_BAKCLR                                                   =   0000F3EA G
     _g_BASROM                                                   =   0000FBB1 G
     _g_BASRVN                                                   =   0000002B G
@@ -452,7 +452,7 @@ Hexadecimal [32-Bits]
 Area Table
 
    0 _CODE                                      size      FC9   flags    0
-   1 _DATA                                      size      3AC   flags    0
+   1 _DATA                                      size      3DA   flags    0
    2 _INITIALIZED                               size       3A   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0

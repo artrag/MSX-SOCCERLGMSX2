@@ -14,6 +14,9 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 
 	if (*game_state >= 12 && *game_state <= 14) { // --- RIGORI ---
 		
+		// Dischetto del rigore sempre visibile in area nord durante la serie dei rigori
+		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+
 		struct ObjectInfo* Ball = &SwSprite[14];
 		u8 keeper_idx = (g_penalty_team == TEAM_1) ? 7 : 0; // Il portiere che deve parare
 

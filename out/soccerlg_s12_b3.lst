@@ -363,7 +363,7 @@
     00000031 7E               [ 7]  363 	ld	a, (hl)
     00000032 DD 77 FF         [19]  364 	ld	-1 (ix), a
     00000035 B7               [ 4]  365 	or	a, a
-    00000036 CArB9r1E         [10]  366 	jp	Z, 00410$
+    00000036 CArC9r1E         [10]  366 	jp	Z, 00410$
                                     367 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:16: if (*start_sec < Frms) { // Frms wrapped from 1 to 60
     00000039 DD 7E 04         [19]  368 	ld	a, 4 (ix)
     0000003C DD 77 EE         [19]  369 	ld	-18 (ix), a
@@ -725,7 +725,7 @@
     000002B1 0E 0F            [ 7]  725 	ld	c, #0x0f
     000002B3                        726 00377$:
     000002B3 79               [ 4]  727 	ld	a, c
-    000002B4 D6 25            [ 7]  728 	sub	a, #0x25
+    000002B4 D6 27            [ 7]  728 	sub	a, #0x27
     000002B6 30 79            [12]  729 	jr	NC, 00381$
     000002B8 06 00            [ 7]  730 	ld	b, #0x00
     000002BA 69               [ 4]  731 	ld	l, c
@@ -815,7 +815,7 @@
     00000341 0E 00            [ 7]  815 	ld	c, #0x00
     00000343                        816 00383$:
     00000343 79               [ 4]  817 	ld	a, c
-    00000344 D6 25            [ 7]  818 	sub	a, #0x25
+    00000344 D6 27            [ 7]  818 	sub	a, #0x27
     00000346 30 7B            [12]  819 	jr	NC, 00119$
                                     820 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:60: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
     00000348 06 00            [ 7]  821 	ld	b, #0x00
@@ -969,7 +969,7 @@
     00000452 DD 66 EF         [19]  969 	ld	h, -17 (ix)
     00000455 3Ar00r00         [13]  970 	ld	a, (_Frms+0)
     00000458 77               [ 7]  971 	ld	(hl), a
-    00000459 C3rB9r1E         [10]  972 	jp	00410$
+    00000459 C3rC9r1E         [10]  972 	jp	00410$
     0000045C                        973 00367$:
                                     974 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:77: } else if (*game_state == 5) {
     0000045C DD 7E FF         [19]  975 	ld	a, -1 (ix)
@@ -981,7 +981,7 @@
     0000046A 4E               [ 7]  981 	ld	c, (hl)
     0000046B 79               [ 4]  982 	ld	a, c
     0000046C B7               [ 4]  983 	or	a, a
-    0000046D CArB9r1E         [10]  984 	jp	Z, 00410$
+    0000046D CArC9r1E         [10]  984 	jp	Z, 00410$
                                     985 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:80: if (*start_sec < Frms) { // Frms wrapped from 1 to 60
     00000470 DD 5E 04         [19]  986 	ld	e, 4 (ix)
     00000473 DD 56 05         [19]  987 	ld	d, 5 (ix)
@@ -1053,7 +1053,7 @@
                                    1053 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:99: *start_sec = Frms;
     000004E7 3Ar00r00         [13] 1054 	ld	a, (_Frms+0)
     000004EA 12               [ 7] 1055 	ld	(de), a
-    000004EB C3rB9r1E         [10] 1056 	jp	00410$
+    000004EB C3rC9r1E         [10] 1056 	jp	00410$
     000004EE                       1057 00364$:
                                    1058 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:101: } else if (*game_state == 6) {
     000004EE DD 7E FF         [19] 1059 	ld	a, -1 (ix)
@@ -1065,7 +1065,7 @@
     000004FC 4E               [ 7] 1065 	ld	c, (hl)
     000004FD 79               [ 4] 1066 	ld	a, c
     000004FE B7               [ 4] 1067 	or	a, a
-    000004FF CArB9r1E         [10] 1068 	jp	Z, 00410$
+    000004FF CArC9r1E         [10] 1068 	jp	Z, 00410$
                                    1069 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:104: if (*start_sec < Frms) { // Frms wrapped from 1 to 60
     00000502 DD 7E 04         [19] 1070 	ld	a, 4 (ix)
     00000505 DD 77 F1         [19] 1071 	ld	-15 (ix), a
@@ -1446,7 +1446,7 @@
     000007AF 0E 0F            [ 7] 1446 	ld	c, #0x0f
     000007B1                       1447 00389$:
     000007B1 79               [ 4] 1448 	ld	a, c
-    000007B2 D6 25            [ 7] 1449 	sub	a, #0x25
+    000007B2 D6 27            [ 7] 1449 	sub	a, #0x27
     000007B4 30 7A            [12] 1450 	jr	NC, 00393$
     000007B6 06 00            [ 7] 1451 	ld	b, #0x00
     000007B8 69               [ 4] 1452 	ld	l, c
@@ -1538,7 +1538,7 @@
     00000841 DD 36 FF 00      [19] 1538 	ld	-1 (ix), #0x00
     00000845                       1539 00395$:
     00000845 DD 7E FF         [19] 1540 	ld	a, -1 (ix)
-    00000848 D6 25            [ 7] 1541 	sub	a, #0x25
+    00000848 D6 27            [ 7] 1541 	sub	a, #0x27
     0000084A 30 6E            [12] 1542 	jr	NC, 00178$
                                    1543 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:154: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
     0000084C DD 4E FF         [19] 1544 	ld	c, -1 (ix)
@@ -1855,7 +1855,7 @@
     00000A79 DD 36 FF 00      [19] 1855 	ld	-1 (ix), #0x00
     00000A7D                       1856 00398$:
     00000A7D DD 7E FF         [19] 1857 	ld	a, -1 (ix)
-    00000A80 D6 25            [ 7] 1858 	sub	a, #0x25
+    00000A80 D6 27            [ 7] 1858 	sub	a, #0x27
     00000A82 D2r6Br0B         [10] 1859 	jp	NC, 00182$
                                    1860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:177: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
     00000A85 DD 4E FF         [19] 1861 	ld	c, -1 (ix)
@@ -1976,7 +1976,7 @@
     00000B85 DD 66 F2         [19] 1976 	ld	h, -14 (ix)
     00000B88 3Ar00r00         [13] 1977 	ld	a, (_Frms+0)
     00000B8B 77               [ 7] 1978 	ld	(hl), a
-    00000B8C C3rB9r1E         [10] 1979 	jp	00410$
+    00000B8C C3rC9r1E         [10] 1979 	jp	00410$
     00000B8F                       1980 00361$:
                                    1981 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:188: } else if (*game_state == 9) {
     00000B8F DD 7E FF         [19] 1982 	ld	a, -1 (ix)
@@ -2028,7 +2028,7 @@
     00000BE4 AF               [ 4] 2028 	xor	a, a
     00000BE5 12               [ 7] 2029 	ld	(de), a
                                    2030 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:199: return;
-    00000BE6 C3rB9r1E         [10] 2031 	jp	00410$
+    00000BE6 C3rC9r1E         [10] 2031 	jp	00410$
     00000BE9                       2032 00194$:
                                    2033 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:202: *start_sec = Frms;
     00000BE9 3Ar00r00         [13] 2034 	ld	a, (_Frms+0)
@@ -2761,7 +2761,7 @@
     00001109 CDr00r00         [17] 2761 	call	_CallFnc_U16_P3
     0000110C ED 53r65r02      [20] 2762 	ld	((_SwSprite + 613)), de
                                    2763 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:264: return;
-    00001110 C3rB9r1E         [10] 2764 	jp	00410$
+    00001110 C3rC9r1E         [10] 2764 	jp	00410$
     00001113                       2765 00358$:
                                    2766 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:265: } else if (*game_state == 10) {
     00001113 DD 7E FF         [19] 2767 	ld	a, -1 (ix)
@@ -3719,16 +3719,16 @@
                                    3719 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:347: if (time_up && all_offscreen) {
     000018CC DD 7E E4         [19] 3720 	ld	a, -28 (ix)
     000018CF B7               [ 4] 3721 	or	a, a
-    000018D0 CArB9r1E         [10] 3722 	jp	Z,00410$
+    000018D0 CArC9r1E         [10] 3722 	jp	Z,00410$
     000018D3 DD 7E E7         [19] 3723 	ld	a, -25 (ix)
     000018D6 B7               [ 4] 3724 	or	a, a
-    000018D7 CArB9r1E         [10] 3725 	jp	Z,00410$
+    000018D7 CArC9r1E         [10] 3725 	jp	Z,00410$
                                    3726 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:348: CallFnc_VOID(SEG_MENU, ShowMenu);
     000018DA 11r00r00         [10] 3727 	ld	de, #_ShowMenu
     000018DD 3E 0E            [ 7] 3728 	ld	a, #0x0e
     000018DF CDr00r00         [17] 3729 	call	_CallFnc_VOID
                                    3730 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:350: return;
-    000018E2 C3rB9r1E         [10] 3731 	jp	00410$
+    000018E2 C3rC9r1E         [10] 3731 	jp	00410$
     000018E5                       3732 00355$:
                                    3733 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:351: } else if (*game_state == 11) {
     000018E5 DD 7E FF         [19] 3734 	ld	a, -1 (ix)
@@ -3926,7 +3926,7 @@
     00001A0E 3Ar00r00         [13] 3926 	ld	a, (_Frms+0)
     00001A11 02               [ 7] 3927 	ld	(bc), a
                                    3928 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:387: return;
-    00001A12 C3rB9r1E         [10] 3929 	jp	00410$
+    00001A12 C3rC9r1E         [10] 3929 	jp	00410$
     00001A15                       3930 00301$:
                                    3931 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:390: bool all_in_position = TRUE;
     00001A15 DD 36 E8 01      [19] 3932 	ld	-24 (ix), #0x01
@@ -4465,12 +4465,12 @@
                                    4465 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:435: if (all_in_position) *game_state = 12; // Va in Loop infinito dei Rigori
     00001E0B DD 7E E8         [19] 4466 	ld	a, -24 (ix)
     00001E0E B7               [ 4] 4467 	or	a, a
-    00001E0F CArB9r1E         [10] 4468 	jp	Z,00410$
+    00001E0F CArC9r1E         [10] 4468 	jp	Z,00410$
     00001E12 DD 6E FD         [19] 4469 	ld	l, -3 (ix)
     00001E15 DD 66 FE         [19] 4470 	ld	h, -2 (ix)
     00001E18 36 0C            [10] 4471 	ld	(hl), #0x0c
                                    4472 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:436: return;
-    00001E1A C3rB9r1E         [10] 4473 	jp	00410$
+    00001E1A C3rC9r1E         [10] 4473 	jp	00410$
     00001E1D                       4474 00352$:
                                    4475 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:437: } else if (*game_state >= 12 && *game_state <= 14) {
     00001E1D DD 7E FF         [19] 4476 	ld	a, -1 (ix)
@@ -4512,263 +4512,270 @@
     00001E4A 3E 10            [ 7] 4512 	ld	a, #0x10
     00001E4C CDr00r00         [17] 4513 	call	_CallFnc_VOID_3PTR_U16
                                    4514 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:439: return;
-    00001E4F C3rB9r1E         [10] 4515 	jp	00410$
+    00001E4F C3rC9r1E         [10] 4515 	jp	00410$
     00001E52                       4516 00348$:
                                    4517 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:440: } else if (*game_state >= 15 && *game_state <= 17) {
     00001E52 DD 7E FF         [19] 4518 	ld	a, -1 (ix)
     00001E55 D6 0F            [ 7] 4519 	sub	a, #0x0f
-    00001E57 38 2E            [12] 4520 	jr	C, 00344$
+    00001E57 38 3E            [12] 4520 	jr	C, 00344$
     00001E59 3E 11            [ 7] 4521 	ld	a, #0x11
     00001E5B DD 96 FF         [19] 4522 	sub	a, -1 (ix)
-    00001E5E 38 27            [12] 4523 	jr	C, 00344$
-                                   4524 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:441: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
-    00001E60 DD 6E 06         [19] 4525 	ld	l, 6 (ix)
-                                   4526 ;	spillPairReg hl
-                                   4527 ;	spillPairReg hl
-    00001E63 DD 66 07         [19] 4528 	ld	h, 7 (ix)
-                                   4529 ;	spillPairReg hl
-                                   4530 ;	spillPairReg hl
-    00001E66 E5               [11] 4531 	push	hl
-    00001E67 DD 6E 04         [19] 4532 	ld	l, 4 (ix)
+    00001E5E 38 37            [12] 4523 	jr	C, 00344$
+                                   4524 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:442: SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+    00001E60 21r6Ar03         [10] 4525 	ld	hl, #(_SwSprite + 874)
+    00001E63 36 78            [10] 4526 	ld	(hl), #0x78
+    00001E65 21 4A 00         [10] 4527 	ld	hl, #0x004a
+    00001E68 22r6Er03         [16] 4528 	ld	((_SwSprite + 878)), hl
+    00001E6B 2E 6D            [ 7] 4529 	ld	l, #0x6d
+    00001E6D 22r79r03         [16] 4530 	ld	((_SwSprite + 889)), hl
+                                   4531 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:443: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
+    00001E70 DD 6E 06         [19] 4532 	ld	l, 6 (ix)
                                    4533 ;	spillPairReg hl
                                    4534 ;	spillPairReg hl
-    00001E6A DD 66 05         [19] 4535 	ld	h, 5 (ix)
+    00001E73 DD 66 07         [19] 4535 	ld	h, 7 (ix)
                                    4536 ;	spillPairReg hl
                                    4537 ;	spillPairReg hl
-    00001E6D E5               [11] 4538 	push	hl
-    00001E6E DD 6E FB         [19] 4539 	ld	l, -5 (ix)
+    00001E76 E5               [11] 4538 	push	hl
+    00001E77 DD 6E 04         [19] 4539 	ld	l, 4 (ix)
                                    4540 ;	spillPairReg hl
                                    4541 ;	spillPairReg hl
-    00001E71 DD 66 FC         [19] 4542 	ld	h, -4 (ix)
+    00001E7A DD 66 05         [19] 4542 	ld	h, 5 (ix)
                                    4543 ;	spillPairReg hl
                                    4544 ;	spillPairReg hl
-    00001E74 E5               [11] 4545 	push	hl
-    00001E75 DD 6E FD         [19] 4546 	ld	l, -3 (ix)
+    00001E7D E5               [11] 4545 	push	hl
+    00001E7E DD 6E FB         [19] 4546 	ld	l, -5 (ix)
                                    4547 ;	spillPairReg hl
                                    4548 ;	spillPairReg hl
-    00001E78 DD 66 FE         [19] 4549 	ld	h, -2 (ix)
+    00001E81 DD 66 FC         [19] 4549 	ld	h, -4 (ix)
                                    4550 ;	spillPairReg hl
                                    4551 ;	spillPairReg hl
-    00001E7B E5               [11] 4552 	push	hl
-    00001E7C 11r00r00         [10] 4553 	ld	de, #_UpdateGameState_Penalties_End
-    00001E7F 3E 0F            [ 7] 4554 	ld	a, #0x0f
-    00001E81 CDr00r00         [17] 4555 	call	_CallFnc_VOID_3PTR_U16
-                                   4556 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:442: return;
-    00001E84 C3rB9r1E         [10] 4557 	jp	00410$
-    00001E87                       4558 00344$:
-                                   4559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:443: } else if (*game_state == 7 || *game_state == 8) {
-    00001E87 DD 7E FF         [19] 4560 	ld	a, -1 (ix)
-    00001E8A D6 07            [ 7] 4561 	sub	a, #0x07
-    00001E8C 28 07            [12] 4562 	jr	Z, 00340$
-    00001E8E DD 7E FF         [19] 4563 	ld	a, -1 (ix)
-    00001E91 D6 08            [ 7] 4564 	sub	a, #0x08
-    00001E93 20 24            [12] 4565 	jr	NZ, 00410$
-    00001E95                       4566 00340$:
-                                   4567 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:444: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);
-    00001E95 DD 6E 06         [19] 4568 	ld	l, 6 (ix)
-                                   4569 ;	spillPairReg hl
-                                   4570 ;	spillPairReg hl
-    00001E98 DD 66 07         [19] 4571 	ld	h, 7 (ix)
-                                   4572 ;	spillPairReg hl
-                                   4573 ;	spillPairReg hl
-    00001E9B E5               [11] 4574 	push	hl
-    00001E9C DD 6E 04         [19] 4575 	ld	l, 4 (ix)
+    00001E84 E5               [11] 4552 	push	hl
+    00001E85 DD 6E FD         [19] 4553 	ld	l, -3 (ix)
+                                   4554 ;	spillPairReg hl
+                                   4555 ;	spillPairReg hl
+    00001E88 DD 66 FE         [19] 4556 	ld	h, -2 (ix)
+                                   4557 ;	spillPairReg hl
+                                   4558 ;	spillPairReg hl
+    00001E8B E5               [11] 4559 	push	hl
+    00001E8C 11r00r00         [10] 4560 	ld	de, #_UpdateGameState_Penalties_End
+    00001E8F 3E 0F            [ 7] 4561 	ld	a, #0x0f
+    00001E91 CDr00r00         [17] 4562 	call	_CallFnc_VOID_3PTR_U16
+                                   4563 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:444: return;
+    00001E94 C3rC9r1E         [10] 4564 	jp	00410$
+    00001E97                       4565 00344$:
+                                   4566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:445: } else if (*game_state == 7 || *game_state == 8) {
+    00001E97 DD 7E FF         [19] 4567 	ld	a, -1 (ix)
+    00001E9A D6 07            [ 7] 4568 	sub	a, #0x07
+    00001E9C 28 07            [12] 4569 	jr	Z, 00340$
+    00001E9E DD 7E FF         [19] 4570 	ld	a, -1 (ix)
+    00001EA1 D6 08            [ 7] 4571 	sub	a, #0x08
+    00001EA3 20 24            [12] 4572 	jr	NZ, 00410$
+    00001EA5                       4573 00340$:
+                                   4574 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:446: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);
+    00001EA5 DD 6E 06         [19] 4575 	ld	l, 6 (ix)
                                    4576 ;	spillPairReg hl
                                    4577 ;	spillPairReg hl
-    00001E9F DD 66 05         [19] 4578 	ld	h, 5 (ix)
+    00001EA8 DD 66 07         [19] 4578 	ld	h, 7 (ix)
                                    4579 ;	spillPairReg hl
                                    4580 ;	spillPairReg hl
-    00001EA2 E5               [11] 4581 	push	hl
-    00001EA3 DD 6E FB         [19] 4582 	ld	l, -5 (ix)
+    00001EAB E5               [11] 4581 	push	hl
+    00001EAC DD 6E 04         [19] 4582 	ld	l, 4 (ix)
                                    4583 ;	spillPairReg hl
                                    4584 ;	spillPairReg hl
-    00001EA6 DD 66 FC         [19] 4585 	ld	h, -4 (ix)
+    00001EAF DD 66 05         [19] 4585 	ld	h, 5 (ix)
                                    4586 ;	spillPairReg hl
                                    4587 ;	spillPairReg hl
-    00001EA9 E5               [11] 4588 	push	hl
-    00001EAA DD 6E FD         [19] 4589 	ld	l, -3 (ix)
+    00001EB2 E5               [11] 4588 	push	hl
+    00001EB3 DD 6E FB         [19] 4589 	ld	l, -5 (ix)
                                    4590 ;	spillPairReg hl
                                    4591 ;	spillPairReg hl
-    00001EAD DD 66 FE         [19] 4592 	ld	h, -2 (ix)
+    00001EB6 DD 66 FC         [19] 4592 	ld	h, -4 (ix)
                                    4593 ;	spillPairReg hl
                                    4594 ;	spillPairReg hl
-    00001EB0 E5               [11] 4595 	push	hl
-    00001EB1 11r00r00         [10] 4596 	ld	de, #_UpdateGameState_SetPieces
-    00001EB4 3E 0F            [ 7] 4597 	ld	a, #0x0f
-    00001EB6 CDr00r00         [17] 4598 	call	_CallFnc_VOID_3PTR_U16
-                                   4599 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:445: return;
-    00001EB9                       4600 00410$:
-                                   4601 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:447: }
-    00001EB9 DD F9            [10] 4602 	ld	sp, ix
-    00001EBB DD E1            [14] 4603 	pop	ix
-    00001EBD E1               [10] 4604 	pop	hl
-    00001EBE F1               [10] 4605 	pop	af
-    00001EBF F1               [10] 4606 	pop	af
-    00001EC0 E9               [ 4] 4607 	jp	(hl)
-                         0000F380  4608 _g_RDPRIM	=	0xf380
-                         0000F385  4609 _g_WRPRIM	=	0xf385
-                         0000F38C  4610 _g_CLPRIM	=	0xf38c
-                         0000F39A  4611 _g_USRTAB	=	0xf39a
-                         0000F3DE  4612 _g_CNSDFG	=	0xf3de
-                         0000F3DF  4613 _g_RG0SAV	=	0xf3df
-                         0000F3E0  4614 _g_RG1SAV	=	0xf3e0
-                         0000F3E1  4615 _g_RG2SAV	=	0xf3e1
-                         0000F3E2  4616 _g_RG3SAV	=	0xf3e2
-                         0000F3E3  4617 _g_RG4SAV	=	0xf3e3
-                         0000F3E4  4618 _g_RG5SAV	=	0xf3e4
-                         0000F3E5  4619 _g_RG6SAV	=	0xf3e5
-                         0000F3E6  4620 _g_RG7SAV	=	0xf3e6
-                         0000F3E7  4621 _g_STATFL	=	0xf3e7
-                         0000F3E8  4622 _g_TRGFLG	=	0xf3e8
-                         0000F3EC  4623 _g_MAXUPD	=	0xf3ec
-                         0000F3EF  4624 _g_MINUPD	=	0xf3ef
-                         0000F3F3  4625 _g_QUEUES	=	0xf3f3
-                         0000F3F5  4626 _g_FRCNEW	=	0xf3f5
-                         0000F3F6  4627 _g_SCNCNT	=	0xf3f6
-                         0000F3F7  4628 _g_REPCNT	=	0xf3f7
-                         0000F3F8  4629 _g_PUTPNT	=	0xf3f8
-                         0000F3FA  4630 _g_GETPNT	=	0xf3fa
-                         0000F3FC  4631 _g_CS120	=	0xf3fc
-                         0000F401  4632 _g_CS240	=	0xf401
-                         0000F406  4633 _g_LOW	=	0xf406
-                         0000F408  4634 _g_HIGH	=	0xf408
-                         0000F40A  4635 _g_HEADER	=	0xf40a
-                         0000F40B  4636 _g_ASPCT1	=	0xf40b
-                         0000F40D  4637 _g_ASPCT2	=	0xf40d
-                         0000F959  4638 _g_QUETAB	=	0xf959
-                         0000F971  4639 _g_QUEBAK	=	0xf971
-                         0000F975  4640 _g_VOICAQ	=	0xf975
-                         0000F9F5  4641 _g_VOICBQ	=	0xf9f5
-                         0000FA75  4642 _g_VOICCQ	=	0xfa75
-                         0000FAF5  4643 _g_RS2IQ	=	0xfaf5
-                         0000FAF5  4644 _g_DPPAGE	=	0xfaf5
-                         0000FAF6  4645 _g_ACPAGE	=	0xfaf6
-                         0000FAF7  4646 _g_AVCSAV	=	0xfaf7
-                         0000FAF8  4647 _g_EXBRSA	=	0xfaf8
-                         0000FAF9  4648 _g_CHRCNT	=	0xfaf9
-                         0000FAFA  4649 _g_ROMA	=	0xfafa
-                         0000FAFC  4650 _g_MODE	=	0xfafc
-                         0000FAFD  4651 _g_NORUSE	=	0xfafd
-                         0000FAFE  4652 _g_XSAVE	=	0xfafe
-                         0000FB00  4653 _g_YSAVE	=	0xfb00
-                         0000FB03  4654 _g_RSTMP	=	0xfb03
-                         0000FB03  4655 _g_TOCNT	=	0xfb03
-                         0000FB04  4656 _g_RSFCB	=	0xfb04
-                         0000FB06  4657 _g_RSIQLN	=	0xfb06
-                         0000FB07  4658 _g_MEXBIh	=	0xfb07
-                         0000FB0C  4659 _g_OLDSTT	=	0xfb0c
-                         0000FB0C  4660 _g_OLDINT	=	0xfb0c
-                         0000FB16  4661 _g_DEVNUM	=	0xfb16
-                         0000FB17  4662 _g_DATCNT	=	0xfb17
-                         0000FB1A  4663 _g_ERRORS	=	0xfb1a
-                         0000FB1B  4664 _g_FLAGS	=	0xfb1b
-                         0000FB1C  4665 _g_ESTBLS	=	0xfb1c
-                         0000FB1D  4666 _g_COMMSK	=	0xfb1d
-                         0000FB1E  4667 _g_LSTCOM	=	0xfb1e
-                         0000FB1F  4668 _g_LSTMOD	=	0xfb1f
-                         0000FB35  4669 _g_PRSCNT	=	0xfb35
-                         0000FB36  4670 _g_SAVSP	=	0xfb36
-                         0000FB38  4671 _g_VOICEN	=	0xfb38
-                         0000FB39  4672 _g_SAVVOL	=	0xfb39
-                         0000FB3B  4673 _g_MCLLEN	=	0xfb3b
-                         0000FB3C  4674 _g_MCLPTR	=	0xfb3c
-                         0000FB3E  4675 _g_QUEUEN	=	0xfb3e
-                         0000FB3F  4676 _g_MUSICF	=	0xfb3f
-                         0000FB40  4677 _g_PLYCNT	=	0xfb40
-                         0000FB41  4678 _g_VCBA	=	0xfb41
-                         0000FB66  4679 _g_VCBB	=	0xfb66
-                         0000FB8B  4680 _g_VCBC	=	0xfb8b
-                         0000FBB0  4681 _g_ENSTOP	=	0xfbb0
-                         0000FBB1  4682 _g_BASROM	=	0xfbb1
-                         0000FBB2  4683 _g_LINTTB	=	0xfbb2
-                         0000FBCA  4684 _g_FSTPOS	=	0xfbca
-                         0000FBCC  4685 _g_CODSAV	=	0xfbcc
-                         0000FBCD  4686 _g_FNKSWI	=	0xfbcd
-                         0000FBCE  4687 _g_FNKFLG	=	0xfbce
-                         0000FBD8  4688 _g_ONGSBF	=	0xfbd8
-                         0000FBD9  4689 _g_CLIKFL	=	0xfbd9
-                         0000FBDA  4690 _g_OLDKEY	=	0xfbda
-                         0000FBE5  4691 _g_NEWKEY	=	0xfbe5
-                         0000FBF0  4692 _g_KEYBUF	=	0xfbf0
-                         0000FC18  4693 _g_LINWRK	=	0xfc18
-                         0000FC40  4694 _g_PATWRK	=	0xfc40
-                         0000FC48  4695 _g_BOTTOM	=	0xfc48
-                         0000FC4A  4696 _g_HIMEM	=	0xfc4a
-                         0000FC4C  4697 _g_TRPTBL	=	0xfc4c
-                         0000FC9A  4698 _g_RTYCNT	=	0xfc9a
-                         0000FC9B  4699 _g_INTFLG	=	0xfc9b
-                         0000FC9C  4700 _g_PADY	=	0xfc9c
-                         0000FC9D  4701 _g_PADX	=	0xfc9d
-                         0000FC9E  4702 _g_JIFFY	=	0xfc9e
-                         0000FCA0  4703 _g_INTVAL	=	0xfca0
-                         0000FCA2  4704 _g_INTCNT	=	0xfca2
-                         0000FCA4  4705 _g_LOWLIM	=	0xfca4
-                         0000FCA5  4706 _g_WINWID	=	0xfca5
-                         0000FCA6  4707 _g_GRPHED	=	0xfca6
-                         0000FCA7  4708 _g_ESCCNT	=	0xfca7
-                         0000FCA8  4709 _g_INSFLG	=	0xfca8
-                         0000FCA9  4710 _g_CSRSW	=	0xfca9
-                         0000FCAA  4711 _g_CSTYLE	=	0xfcaa
-                         0000FCAB  4712 _g_CAPST	=	0xfcab
-                         0000FCAC  4713 _g_KANAST	=	0xfcac
-                         0000FCAD  4714 _g_KANAMD	=	0xfcad
-                         0000FCAE  4715 _g_FLBMEM	=	0xfcae
-                         0000FCAF  4716 _g_SCRMOD	=	0xfcaf
-                         0000FCB0  4717 _g_OLDSCR	=	0xfcb0
-                         0000FCB1  4718 _g_CASPRV	=	0xfcb1
-                         0000FCB2  4719 _g_BRDATR	=	0xfcb2
-                         0000FCB3  4720 _g_GXPOS	=	0xfcb3
-                         0000FCB5  4721 _g_GYPOS	=	0xfcb5
-                         0000FCBB  4722 _g_DRWFLG	=	0xfcbb
-                         0000FCBC  4723 _g_DRWSCL	=	0xfcbc
-                         0000FCBD  4724 _g_DRWANG	=	0xfcbd
-                         0000FCC1  4725 _g_MNROM	=	0xfcc1
-                         0000FCC1  4726 _g_EXPTBL	=	0xfcc1
-                         0000FCC5  4727 _g_SLTTBL	=	0xfcc5
-                         0000FCC9  4728 _g_SLTATR	=	0xfcc9
-                         0000FD09  4729 _g_SLTWRK	=	0xfd09
-                         0000FD89  4730 _g_PROCNM	=	0xfd89
-                         0000FFE7  4731 _g_RG08SAV	=	0xffe7
-                         0000FFE8  4732 _g_RG09SAV	=	0xffe8
-                         0000FFE9  4733 _g_RG10SAV	=	0xffe9
-                         0000FFEA  4734 _g_RG11SAV	=	0xffea
-                         0000FFEB  4735 _g_RG12SAV	=	0xffeb
-                         0000FFEC  4736 _g_RG13SAV	=	0xffec
-                         0000FFED  4737 _g_RG14SAV	=	0xffed
-                         0000FFEE  4738 _g_RG15SAV	=	0xffee
-                         0000FFEF  4739 _g_RG16SAV	=	0xffef
-                         0000FFF0  4740 _g_RG17SAV	=	0xfff0
-                         0000FFF1  4741 _g_RG18SAV	=	0xfff1
-                         0000FFF2  4742 _g_RG19SAV	=	0xfff2
-                         0000FFF3  4743 _g_RG20SAV	=	0xfff3
-                         0000FFF4  4744 _g_RG21SAV	=	0xfff4
-                         0000FFF5  4745 _g_RG22SAV	=	0xfff5
-                         0000FFF6  4746 _g_RG23SAV	=	0xfff6
-                         0000FFF7  4747 _g_MINROM	=	0xfff7
-                         0000FFF8  4748 _g_SVFFF8	=	0xfff8
-                         0000FFFA  4749 _g_RG25SAV	=	0xfffa
-                         0000FFFB  4750 _g_RG26SAV	=	0xfffb
-                         0000FFFC  4751 _g_RG27SAV	=	0xfffc
-                         0000FFFD  4752 _g_SVFFFD	=	0xfffd
-                         00000004  4753 _g_CGTABL	=	0x0004
-                         00000006  4754 _g_VDP_DR	=	0x0006
-                         00000007  4755 _g_VDP_DW	=	0x0007
-                         0000002B  4756 _g_BASRVN	=	0x002b
-                         0000002B  4757 _g_ROMVersion	=	0x002b
-                         0000002D  4758 _g_MSXVER	=	0x002d
-                         0000002E  4759 _g_MSXMID	=	0x002e
-                         00000034  4760 _g_CHAR_16	=	0x0034
-                         00000000  4761 _g_SUBRID	=	0x0000
-                         00000002  4762 _g_STRSRC	=	0x0002
-                         0000F30F  4763 _g_KANJTABLE	=	0xf30f
-                         0000F323  4764 _g_DISKVE	=	0xf323
-                         0000F325  4765 _g_BREAKV	=	0xf325
-                         0000F341  4766 _g_RAMAD0	=	0xf341
-                         0000F342  4767 _g_RAMAD1	=	0xf342
-                         0000F343  4768 _g_RAMAD2	=	0xf343
-                         0000F344  4769 _g_RAMAD3	=	0xf344
-                         0000F348  4770 _g_MASTER	=	0xf348
-                         0000F37D  4771 _g_BDOS	=	0xf37d
-                                   4772 	.area _SEG12
-                                   4773 	.area _INITIALIZER
-                                   4774 	.area _CABS (ABS)
+    00001EB9 E5               [11] 4595 	push	hl
+    00001EBA DD 6E FD         [19] 4596 	ld	l, -3 (ix)
+                                   4597 ;	spillPairReg hl
+                                   4598 ;	spillPairReg hl
+    00001EBD DD 66 FE         [19] 4599 	ld	h, -2 (ix)
+                                   4600 ;	spillPairReg hl
+                                   4601 ;	spillPairReg hl
+    00001EC0 E5               [11] 4602 	push	hl
+    00001EC1 11r00r00         [10] 4603 	ld	de, #_UpdateGameState_SetPieces
+    00001EC4 3E 0F            [ 7] 4604 	ld	a, #0x0f
+    00001EC6 CDr00r00         [17] 4605 	call	_CallFnc_VOID_3PTR_U16
+                                   4606 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:447: return;
+    00001EC9                       4607 00410$:
+                                   4608 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:449: }
+    00001EC9 DD F9            [10] 4609 	ld	sp, ix
+    00001ECB DD E1            [14] 4610 	pop	ix
+    00001ECD E1               [10] 4611 	pop	hl
+    00001ECE F1               [10] 4612 	pop	af
+    00001ECF F1               [10] 4613 	pop	af
+    00001ED0 E9               [ 4] 4614 	jp	(hl)
+                         0000F380  4615 _g_RDPRIM	=	0xf380
+                         0000F385  4616 _g_WRPRIM	=	0xf385
+                         0000F38C  4617 _g_CLPRIM	=	0xf38c
+                         0000F39A  4618 _g_USRTAB	=	0xf39a
+                         0000F3DE  4619 _g_CNSDFG	=	0xf3de
+                         0000F3DF  4620 _g_RG0SAV	=	0xf3df
+                         0000F3E0  4621 _g_RG1SAV	=	0xf3e0
+                         0000F3E1  4622 _g_RG2SAV	=	0xf3e1
+                         0000F3E2  4623 _g_RG3SAV	=	0xf3e2
+                         0000F3E3  4624 _g_RG4SAV	=	0xf3e3
+                         0000F3E4  4625 _g_RG5SAV	=	0xf3e4
+                         0000F3E5  4626 _g_RG6SAV	=	0xf3e5
+                         0000F3E6  4627 _g_RG7SAV	=	0xf3e6
+                         0000F3E7  4628 _g_STATFL	=	0xf3e7
+                         0000F3E8  4629 _g_TRGFLG	=	0xf3e8
+                         0000F3EC  4630 _g_MAXUPD	=	0xf3ec
+                         0000F3EF  4631 _g_MINUPD	=	0xf3ef
+                         0000F3F3  4632 _g_QUEUES	=	0xf3f3
+                         0000F3F5  4633 _g_FRCNEW	=	0xf3f5
+                         0000F3F6  4634 _g_SCNCNT	=	0xf3f6
+                         0000F3F7  4635 _g_REPCNT	=	0xf3f7
+                         0000F3F8  4636 _g_PUTPNT	=	0xf3f8
+                         0000F3FA  4637 _g_GETPNT	=	0xf3fa
+                         0000F3FC  4638 _g_CS120	=	0xf3fc
+                         0000F401  4639 _g_CS240	=	0xf401
+                         0000F406  4640 _g_LOW	=	0xf406
+                         0000F408  4641 _g_HIGH	=	0xf408
+                         0000F40A  4642 _g_HEADER	=	0xf40a
+                         0000F40B  4643 _g_ASPCT1	=	0xf40b
+                         0000F40D  4644 _g_ASPCT2	=	0xf40d
+                         0000F959  4645 _g_QUETAB	=	0xf959
+                         0000F971  4646 _g_QUEBAK	=	0xf971
+                         0000F975  4647 _g_VOICAQ	=	0xf975
+                         0000F9F5  4648 _g_VOICBQ	=	0xf9f5
+                         0000FA75  4649 _g_VOICCQ	=	0xfa75
+                         0000FAF5  4650 _g_RS2IQ	=	0xfaf5
+                         0000FAF5  4651 _g_DPPAGE	=	0xfaf5
+                         0000FAF6  4652 _g_ACPAGE	=	0xfaf6
+                         0000FAF7  4653 _g_AVCSAV	=	0xfaf7
+                         0000FAF8  4654 _g_EXBRSA	=	0xfaf8
+                         0000FAF9  4655 _g_CHRCNT	=	0xfaf9
+                         0000FAFA  4656 _g_ROMA	=	0xfafa
+                         0000FAFC  4657 _g_MODE	=	0xfafc
+                         0000FAFD  4658 _g_NORUSE	=	0xfafd
+                         0000FAFE  4659 _g_XSAVE	=	0xfafe
+                         0000FB00  4660 _g_YSAVE	=	0xfb00
+                         0000FB03  4661 _g_RSTMP	=	0xfb03
+                         0000FB03  4662 _g_TOCNT	=	0xfb03
+                         0000FB04  4663 _g_RSFCB	=	0xfb04
+                         0000FB06  4664 _g_RSIQLN	=	0xfb06
+                         0000FB07  4665 _g_MEXBIh	=	0xfb07
+                         0000FB0C  4666 _g_OLDSTT	=	0xfb0c
+                         0000FB0C  4667 _g_OLDINT	=	0xfb0c
+                         0000FB16  4668 _g_DEVNUM	=	0xfb16
+                         0000FB17  4669 _g_DATCNT	=	0xfb17
+                         0000FB1A  4670 _g_ERRORS	=	0xfb1a
+                         0000FB1B  4671 _g_FLAGS	=	0xfb1b
+                         0000FB1C  4672 _g_ESTBLS	=	0xfb1c
+                         0000FB1D  4673 _g_COMMSK	=	0xfb1d
+                         0000FB1E  4674 _g_LSTCOM	=	0xfb1e
+                         0000FB1F  4675 _g_LSTMOD	=	0xfb1f
+                         0000FB35  4676 _g_PRSCNT	=	0xfb35
+                         0000FB36  4677 _g_SAVSP	=	0xfb36
+                         0000FB38  4678 _g_VOICEN	=	0xfb38
+                         0000FB39  4679 _g_SAVVOL	=	0xfb39
+                         0000FB3B  4680 _g_MCLLEN	=	0xfb3b
+                         0000FB3C  4681 _g_MCLPTR	=	0xfb3c
+                         0000FB3E  4682 _g_QUEUEN	=	0xfb3e
+                         0000FB3F  4683 _g_MUSICF	=	0xfb3f
+                         0000FB40  4684 _g_PLYCNT	=	0xfb40
+                         0000FB41  4685 _g_VCBA	=	0xfb41
+                         0000FB66  4686 _g_VCBB	=	0xfb66
+                         0000FB8B  4687 _g_VCBC	=	0xfb8b
+                         0000FBB0  4688 _g_ENSTOP	=	0xfbb0
+                         0000FBB1  4689 _g_BASROM	=	0xfbb1
+                         0000FBB2  4690 _g_LINTTB	=	0xfbb2
+                         0000FBCA  4691 _g_FSTPOS	=	0xfbca
+                         0000FBCC  4692 _g_CODSAV	=	0xfbcc
+                         0000FBCD  4693 _g_FNKSWI	=	0xfbcd
+                         0000FBCE  4694 _g_FNKFLG	=	0xfbce
+                         0000FBD8  4695 _g_ONGSBF	=	0xfbd8
+                         0000FBD9  4696 _g_CLIKFL	=	0xfbd9
+                         0000FBDA  4697 _g_OLDKEY	=	0xfbda
+                         0000FBE5  4698 _g_NEWKEY	=	0xfbe5
+                         0000FBF0  4699 _g_KEYBUF	=	0xfbf0
+                         0000FC18  4700 _g_LINWRK	=	0xfc18
+                         0000FC40  4701 _g_PATWRK	=	0xfc40
+                         0000FC48  4702 _g_BOTTOM	=	0xfc48
+                         0000FC4A  4703 _g_HIMEM	=	0xfc4a
+                         0000FC4C  4704 _g_TRPTBL	=	0xfc4c
+                         0000FC9A  4705 _g_RTYCNT	=	0xfc9a
+                         0000FC9B  4706 _g_INTFLG	=	0xfc9b
+                         0000FC9C  4707 _g_PADY	=	0xfc9c
+                         0000FC9D  4708 _g_PADX	=	0xfc9d
+                         0000FC9E  4709 _g_JIFFY	=	0xfc9e
+                         0000FCA0  4710 _g_INTVAL	=	0xfca0
+                         0000FCA2  4711 _g_INTCNT	=	0xfca2
+                         0000FCA4  4712 _g_LOWLIM	=	0xfca4
+                         0000FCA5  4713 _g_WINWID	=	0xfca5
+                         0000FCA6  4714 _g_GRPHED	=	0xfca6
+                         0000FCA7  4715 _g_ESCCNT	=	0xfca7
+                         0000FCA8  4716 _g_INSFLG	=	0xfca8
+                         0000FCA9  4717 _g_CSRSW	=	0xfca9
+                         0000FCAA  4718 _g_CSTYLE	=	0xfcaa
+                         0000FCAB  4719 _g_CAPST	=	0xfcab
+                         0000FCAC  4720 _g_KANAST	=	0xfcac
+                         0000FCAD  4721 _g_KANAMD	=	0xfcad
+                         0000FCAE  4722 _g_FLBMEM	=	0xfcae
+                         0000FCAF  4723 _g_SCRMOD	=	0xfcaf
+                         0000FCB0  4724 _g_OLDSCR	=	0xfcb0
+                         0000FCB1  4725 _g_CASPRV	=	0xfcb1
+                         0000FCB2  4726 _g_BRDATR	=	0xfcb2
+                         0000FCB3  4727 _g_GXPOS	=	0xfcb3
+                         0000FCB5  4728 _g_GYPOS	=	0xfcb5
+                         0000FCBB  4729 _g_DRWFLG	=	0xfcbb
+                         0000FCBC  4730 _g_DRWSCL	=	0xfcbc
+                         0000FCBD  4731 _g_DRWANG	=	0xfcbd
+                         0000FCC1  4732 _g_MNROM	=	0xfcc1
+                         0000FCC1  4733 _g_EXPTBL	=	0xfcc1
+                         0000FCC5  4734 _g_SLTTBL	=	0xfcc5
+                         0000FCC9  4735 _g_SLTATR	=	0xfcc9
+                         0000FD09  4736 _g_SLTWRK	=	0xfd09
+                         0000FD89  4737 _g_PROCNM	=	0xfd89
+                         0000FFE7  4738 _g_RG08SAV	=	0xffe7
+                         0000FFE8  4739 _g_RG09SAV	=	0xffe8
+                         0000FFE9  4740 _g_RG10SAV	=	0xffe9
+                         0000FFEA  4741 _g_RG11SAV	=	0xffea
+                         0000FFEB  4742 _g_RG12SAV	=	0xffeb
+                         0000FFEC  4743 _g_RG13SAV	=	0xffec
+                         0000FFED  4744 _g_RG14SAV	=	0xffed
+                         0000FFEE  4745 _g_RG15SAV	=	0xffee
+                         0000FFEF  4746 _g_RG16SAV	=	0xffef
+                         0000FFF0  4747 _g_RG17SAV	=	0xfff0
+                         0000FFF1  4748 _g_RG18SAV	=	0xfff1
+                         0000FFF2  4749 _g_RG19SAV	=	0xfff2
+                         0000FFF3  4750 _g_RG20SAV	=	0xfff3
+                         0000FFF4  4751 _g_RG21SAV	=	0xfff4
+                         0000FFF5  4752 _g_RG22SAV	=	0xfff5
+                         0000FFF6  4753 _g_RG23SAV	=	0xfff6
+                         0000FFF7  4754 _g_MINROM	=	0xfff7
+                         0000FFF8  4755 _g_SVFFF8	=	0xfff8
+                         0000FFFA  4756 _g_RG25SAV	=	0xfffa
+                         0000FFFB  4757 _g_RG26SAV	=	0xfffb
+                         0000FFFC  4758 _g_RG27SAV	=	0xfffc
+                         0000FFFD  4759 _g_SVFFFD	=	0xfffd
+                         00000004  4760 _g_CGTABL	=	0x0004
+                         00000006  4761 _g_VDP_DR	=	0x0006
+                         00000007  4762 _g_VDP_DW	=	0x0007
+                         0000002B  4763 _g_BASRVN	=	0x002b
+                         0000002B  4764 _g_ROMVersion	=	0x002b
+                         0000002D  4765 _g_MSXVER	=	0x002d
+                         0000002E  4766 _g_MSXMID	=	0x002e
+                         00000034  4767 _g_CHAR_16	=	0x0034
+                         00000000  4768 _g_SUBRID	=	0x0000
+                         00000002  4769 _g_STRSRC	=	0x0002
+                         0000F30F  4770 _g_KANJTABLE	=	0xf30f
+                         0000F323  4771 _g_DISKVE	=	0xf323
+                         0000F325  4772 _g_BREAKV	=	0xf325
+                         0000F341  4773 _g_RAMAD0	=	0xf341
+                         0000F342  4774 _g_RAMAD1	=	0xf342
+                         0000F343  4775 _g_RAMAD2	=	0xf343
+                         0000F344  4776 _g_RAMAD3	=	0xf344
+                         0000F348  4777 _g_MASTER	=	0xf348
+                         0000F37D  4778 _g_BDOS	=	0xf37d
+                                   4779 	.area _SEG12
+                                   4780 	.area _INITIALIZER
+                                   4781 	.area _CABS (ABS)

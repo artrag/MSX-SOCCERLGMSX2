@@ -438,6 +438,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_6, UpdateGameState_Penalties, game_state, wait_secs, start_sec, target_ly);
 		return;
 	} else if (*game_state >= 15 && *game_state <= 17) {
+		// Dischetto rigore visibile anche durante il volo palla e la risoluzione rigore
+		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
 		return;
 	} else if (*game_state == 7 || *game_state == 8) {

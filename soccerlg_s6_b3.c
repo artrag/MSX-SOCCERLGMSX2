@@ -30,7 +30,12 @@ void PlayerAI(u8 i)
 	if (Ball->anim == 5 && i == LastTouchPlayer) {
 		SwSprite[i].dx = 0; SwSprite[i].dy = 0;
 		if (i == 0 || i == 7) {
-			SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_SHOT_TO_SOUTH : SPR_GK_PLAYER_SHOT_TO_NORTH;
+			// Mostra il frame del tiro per i primi 5 frame, poi torna alla posa normale
+			if (Ball->count <= 5) {
+				SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_SHOT_TO_SOUTH : SPR_GK_PLAYER_SHOT_TO_NORTH;
+			} else {
+				SwSprite[i].frame = (i == 0) ? SPR_GK_PLAYER_FACE_TO_SOUTH : SPR_GK_PLAYER_FACE_TO_NORTH;
+			}
 		} else {
 		i8 look_dx = (Ball->lx > SwSprite[i].lx) ? 1 : ((Ball->lx < SwSprite[i].lx) ? -1 : 0);
 		i8 look_dy = (Ball->ly > SwSprite[i].ly) ? 1 : ((Ball->ly < SwSprite[i].ly) ? -1 : 0);

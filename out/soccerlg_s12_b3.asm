@@ -725,7 +725,7 @@ _UpdateGameState_Restarts::
 	ld	c, #0x0f
 00377$:
 	ld	a, c
-	sub	a, #0x25
+	sub	a, #0x27
 	jr	NC, 00381$
 	ld	b, #0x00
 	ld	l, c
@@ -815,7 +815,7 @@ _UpdateGameState_Restarts::
 	ld	c, #0x00
 00383$:
 	ld	a, c
-	sub	a, #0x25
+	sub	a, #0x27
 	jr	NC, 00119$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:60: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
 	ld	b, #0x00
@@ -1446,7 +1446,7 @@ _UpdateGameState_Restarts::
 	ld	c, #0x0f
 00389$:
 	ld	a, c
-	sub	a, #0x25
+	sub	a, #0x27
 	jr	NC, 00393$
 	ld	b, #0x00
 	ld	l, c
@@ -1538,7 +1538,7 @@ _UpdateGameState_Restarts::
 	ld	-1 (ix), #0x00
 00395$:
 	ld	a, -1 (ix)
-	sub	a, #0x25
+	sub	a, #0x27
 	jr	NC, 00178$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:154: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
 	ld	c, -1 (ix)
@@ -1855,7 +1855,7 @@ _UpdateGameState_Restarts::
 	ld	-1 (ix), #0x00
 00398$:
 	ld	a, -1 (ix)
-	sub	a, #0x25
+	sub	a, #0x27
 	jp	NC, 00182$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:177: SwSprite[i].x0 = SwSprite[i].x1 = SwSprite[i].x2 = SwSprite[i].lx;
 	ld	c, -1 (ix)
@@ -4521,7 +4521,14 @@ _UpdateGameState_Restarts::
 	ld	a, #0x11
 	sub	a, -1 (ix)
 	jr	C, 00344$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:441: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:442: SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+	ld	hl, #(_SwSprite + 874)
+	ld	(hl), #0x78
+	ld	hl, #0x004a
+	ld	((_SwSprite + 878)), hl
+	ld	l, #0x6d
+	ld	((_SwSprite + 889)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:443: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_Penalties_End, game_state, wait_secs, start_sec, target_ly);
 	ld	l, 6 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -4553,10 +4560,10 @@ _UpdateGameState_Restarts::
 	ld	de, #_UpdateGameState_Penalties_End
 	ld	a, #0x0f
 	call	_CallFnc_VOID_3PTR_U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:442: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:444: return;
 	jp	00410$
 00344$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:443: } else if (*game_state == 7 || *game_state == 8) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:445: } else if (*game_state == 7 || *game_state == 8) {
 	ld	a, -1 (ix)
 	sub	a, #0x07
 	jr	Z, 00340$
@@ -4564,7 +4571,7 @@ _UpdateGameState_Restarts::
 	sub	a, #0x08
 	jr	NZ, 00410$
 00340$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:444: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:446: CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_5, UpdateGameState_SetPieces, game_state, wait_secs, start_sec, target_ly);
 	ld	l, 6 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -4596,9 +4603,9 @@ _UpdateGameState_Restarts::
 	ld	de, #_UpdateGameState_SetPieces
 	ld	a, #0x0f
 	call	_CallFnc_VOID_3PTR_U16
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:445: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:447: return;
 00410$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:447: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:449: }
 	ld	sp, ix
 	pop	ix
 	pop	hl

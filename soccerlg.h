@@ -267,6 +267,7 @@ struct TeamStats {
 #define SPR_MENU_SELECTOR							306
 #define SPR_BIG_ARROW_TOP						    108
 #define SPR_BIG_ARROW_BOTTOM						107
+#define SPR_BIG_PENALTY_DISH						109
 #define SPR_T1_O                                    47
 #define SPR_T1_X                                    22
 #define SPR_T2_O                                    159
@@ -324,6 +325,10 @@ struct TeamStats {
 #define BALL_START_X                                120
 #define BALL_START_Y                                256
 
+#define PENALTY_NORTH_Y                              74
+#define PENALTY_SOUTH_Y                             434
+#define PENALTY_DISH_X                              120
+
 #define SCREEN_LINES            212     // righe visibili Screen 5
 #define BANK3_BASE              0xA000
 #define FIELD_SEG_COUNT         4
@@ -347,7 +352,7 @@ struct TeamStats {
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
-#define NumSprite	(37)
+#define NumSprite	(39)
 
 #define SCOREBOARD_NX_LEFT 8
 #define SCOREBOARD_NY_LEFT 212
