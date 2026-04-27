@@ -50,14 +50,13 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			u8 shooter_role = 1 + (g_penalty_shot_count[g_penalty_team] % 6);
 			g_penalty_shooter_idx = (g_penalty_team == TEAM_1) ? shooter_role : shooter_role + 7;
 
-			// FIX: La palla DEVE stare a Y=80 per rispettare l'allineamento 16x16 del ripristino 
-			// hardware VDP. Spostarla a 76 causava la duplicazione del dischetto del rigore!
-			Ball->lx = 120; Ball->ty = 80; Ball->tx = 120; Ball->ly = 80;
+			// La palla va posizionata sul dischetto del rigore (PENALTY_NORTH_Y)
+			Ball->lx = PENALTY_DISH_X; Ball->ty = PENALTY_NORTH_Y; Ball->tx = PENALTY_DISH_X; Ball->ly = PENALTY_NORTH_Y;
 			Ball->anim = 0; Ball->frame = SPR_BALL_SIZE_1;
 
 			// Imposta le posizioni target
-			SwSprite[g_penalty_shooter_idx].tx = 120;     // Tiratore dietro la palla
-			SwSprite[g_penalty_shooter_idx].ty = 96;      // 80 + 16
+			SwSprite[g_penalty_shooter_idx].tx = PENALTY_DISH_X;  // Tiratore dietro la palla
+			SwSprite[g_penalty_shooter_idx].ty = PENALTY_NORTH_Y + 16; // 16px dietro il dischetto
 			SwSprite[keeper_idx].tx = 120;                // Portiere al centro della porta
 			SwSprite[keeper_idx].ty = 32;
 			SwSprite[26].tx = 62;                         // Arbitro a lato dell'area
@@ -140,8 +139,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			// Logica tiratore
 			if(is_shooter_human) {
 				u8 dir = g_player_input[g_penalty_team].direction;
-				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 2;
-				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 0;
+				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 0;
+				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 2;
 				else shot_dir = 1;
 
 				if(g_player_input[g_penalty_team].trigger_pressed) do_shot = TRUE; // Impedisce tiri accidentali

@@ -134,12 +134,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 
 		// Aggiorna il bersaglio del passaggio in base alla direzione dello sguardo
 		// Mostra il bersaglio SOLO se la propria squadra ha il possesso della palla (o è palla contesa iniziale)
-			if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 0xFF, g_last_dx[1], g_last_dy[1]);
-		else T2_Receiver = 0xFF;
+if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
+					if (T2_Receiver == 0xFF || (Frms % 8) == 0) // Throttle: evita il cambio repentino di destinatario
+						T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 0xFF, g_last_dx[1], g_last_dy[1]);
+				} else T2_Receiver = 0xFF;
 		
 		if (GameMode == GAMEMODE_P1_VS_P2) {
-				if (min_dist_t1 <= 24 && (LastTouchTeam == TEAM_1 || LastTouchTeam == 0xFF)) T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 0xFF, g_last_dx[0], g_last_dy[0]);
-			else T1_Receiver = 0xFF;
+					if (min_dist_t1 <= 24 && (LastTouchTeam == TEAM_1 || LastTouchTeam == 0xFF)) {
+						if (T1_Receiver == 0xFF || (Frms % 8) == 0) // Throttle: evita il cambio repentino di destinatario
+							T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 0xFF, g_last_dx[0], g_last_dy[0]);
+					} else T1_Receiver = 0xFF;
 		}
 
 		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
@@ -443,7 +447,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						// invece di teletrasportarsi, evitando uscite dal campo accidentali.
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
-						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
+if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
@@ -454,7 +458,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						Ball->ly = (u16)(((i16)Ball->ly + ideal_y) / 2) & 511;
 						
 						if (Carrier->dx != 0 || Carrier->dy != 0) {
-							Ball->anim = 2; // Riavvia l'animazione di dribbling dolcemente
+							Ball->anim = (c_dx != 0 && c_dy != 0) ? 1 : 2; // Tocco cortissimo in diagonale, normale in rettilineo
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						} else {
 							Ball->anim = 0;
@@ -465,13 +469,13 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						if (Ball->anim == 0) {
 							i8 off_x = 0; i8 off_y = 6;
 							if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
-							if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
+						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else if (c_dy < 0) off_y = -2;
 							// Snap esatto alla posizione corretta, poi calcio
 							Ball->lx = (u8)((i16)Carrier->lx + off_x);
 							Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;
 							Ball->dx = c_dx; Ball->dy = c_dy;
 							if (Carrier->dx != 0 || Carrier->dy != 0) {
-								Ball->anim = 4; // 4 frames = 14px di rotolamento visibile prima del re-aggancio
+							Ball->anim = (c_dx != 0 && c_dy != 0) ? 2 : 4; // Tocco corto in diagonale, lungo in rettilineo
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 							}
 						}

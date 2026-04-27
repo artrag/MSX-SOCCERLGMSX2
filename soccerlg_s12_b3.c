@@ -75,7 +75,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 			*start_sec = Frms;
 		}
 	} else if (*game_state == 5) {
-		// Pausa di fine partita
+		// Pausa di fine partita: nessun focus durante il messaggio TIMEUP
+		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
 		if (*wait_secs > 0) {
 			if (*start_sec < Frms) { // Frms wrapped from 1 to 60
 				(*wait_secs)--;

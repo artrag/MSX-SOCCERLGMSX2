@@ -74,6 +74,15 @@
         "/^cmd /c build\\.bat$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^cmd /c build\\.bat > build_output\\.txt 2>&1 ; \\$exit = \\$LASTEXITCODE ; Select-String -Path build_output\\.txt -Pattern \"SEG09\\|SEG12\\|SEG15\\|error\\|Error\" \\| Select-Object -First 20 ; Write-Host \"Exit: \\$exit\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "Test-Path": true,
+        "/^cmd /c build\\.bat > build_output\\.txt 2>&1 ; \\$exit = \\$LASTEXITCODE ; Write-Host \"Exit: \\$exit\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

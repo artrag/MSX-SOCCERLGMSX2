@@ -352,6 +352,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 			}
 		}
 		else if (*game_state == 17) { // STATO 17: Vittoria Rigori e Uscita Sconfitti
+			T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF; // Nessun focus durante i festeggiamenti
 			u8 winning_team = (ScoreTeam1 > ScoreTeam2) ? TEAM_1 : TEAM_2;
 			u8 losing_team = (winning_team == TEAM_1) ? TEAM_2 : TEAM_1;
 			bool losers_offscreen = TRUE;

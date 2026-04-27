@@ -314,10 +314,9 @@ void PlayerAI(u8 i)
 					if (d_bx + d_by <= 26 && Ball->anim == 0) {
 						bool action_taken = FALSE;
 						
-					// Tiro in porta: solo quando il campo è completamente scrollato verso la porta avversaria
-					// (stesso vincolo del tiro umano: Field.ly == FIELD_HEIGHT - 192)
-					// La freccia non è visibile in P1vsCPU ma l'oscillazione di g_h_arrow_x è calcolata ugualmente
-					if (Field.ly == (FIELD_HEIGHT - 192)) {
+					// Tiro in porta: valuta probabilità di tiro in base alla posizione del giocatore
+					// (rimosso vincolo fotocamera: le fasce di shot_prob coprono già le zone valide)
+					if (Player->ly > 258) {
 						u8 rand_shot = (Player->lx + Frms) % 100;
 						u8 shot_prob = 0;
 						if (Player->ly > 380) {
