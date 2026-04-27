@@ -349,6 +349,7 @@ struct TeamStats {
 #define SEG_GAMESTATE_7 17
 #define SEG_GAMESTATE_8 18
 #define SEG_GAMESTATE_9 19
+#define SEG_HELPERS     20
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -489,6 +490,8 @@ void HideSpriteMessage();
 // +++ SEGMENT SEG_LOGIC (6) +++
 void PlayerAI(u8 i);
 void SetBallSprite(u8 height);
+
+// +++ SEGMENT SEG_HELPERS (20) +++
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
 
 // +++ SEGMENT SEG_INPUT (7) +++

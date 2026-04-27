@@ -1474,7 +1474,7 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:149: T1_Carrier = 3; // Giocatore a sinistra della palla
 	ld	hl, #_T1_Carrier
 	ld	(hl), #0x03
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:150: T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:150: T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
 	push	bc
 	ld	a, #0x01
 	push	af
@@ -1487,7 +1487,7 @@ _UpdateGameState_Init::
 	push	af
 	inc	sp
 	ld	de, #_FindReceiver
-	ld	a, #0x06
+	ld	a, #0x14
 	call	_CallFnc_U16_P4B
 	pop	bc
 	ld	a, e
@@ -1501,7 +1501,7 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:153: T2_Carrier = 11; // Giocatore a destra della palla
 	ld	hl, #_T2_Carrier
 	ld	(hl), #0x0b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:154: T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:154: T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
 	push	bc
 	ld	a, #0xff
 	push	af
@@ -1514,7 +1514,7 @@ _UpdateGameState_Init::
 	push	af
 	inc	sp
 	ld	de, #_FindReceiver
-	ld	a, #0x06
+	ld	a, #0x14
 	call	_CallFnc_U16_P4B
 	pop	bc
 	ld	a, e

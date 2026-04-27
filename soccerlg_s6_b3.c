@@ -260,8 +260,8 @@ void PlayerAI(u8 i)
 			target_x = Ball->lx;
 			target_y = Ball->ly;
 			
-			// Decide se tentare la scivolata (SOLO in orizzontale e solo se vicino all'avversario)
-			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 12 && b_dist_x > 14 && Player->count == 0 && RestartType == 0) {
+			// Decide se tentare la scivolata (orizzontale o laterale quando si insegue di fianco)
+			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 20 && b_dist_x > 14 && Player->count == 0 && RestartType == 0) {
 				u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
 				if ((Frms + i * 7) % 100 < slide_chance) {
 					Player->count = 8; // durata scivolata (corta e chirurgica)
@@ -272,10 +272,19 @@ void PlayerAI(u8 i)
 			}
 
 			// Furto della palla / raccolta palla libera
-			// steal_dist più generoso per palla libera (non portata e non avversario attivo)
+			// steal_dist stretto per palla portata (richiede contatto reale), generoso per palla libera
 			bool is_free_ball = (!g_is_ball_carried && (LastTouchTeam == 0xFF || LastTouchTeam == team));
-			u8 steal_dist = g_is_ball_carried ? 14 : (is_free_ball ? 20 : 14); 
-			if (b_dist_x <= steal_dist && b_dist_y <= steal_dist && Ball->count == 0 && RestartType == 0) {
+			u8 steal_dist = g_is_ball_carried ? 10 : (is_free_ball ? 20 : 10);
+			// Per portatore in moto E/W puro la palla ha un offset Y visivo: controlla distanza dal portatore
+			u16 steal_b_dist_y = b_dist_y;
+			u8 steal_dist_y = steal_dist;
+			if (g_is_ball_carried && LastTouchPlayer != 0xFF && SwSprite[LastTouchPlayer].dy == 0) {
+				steal_dist_y = 9;
+				steal_b_dist_y = (Player->ly >= SwSprite[LastTouchPlayer].ly) ?
+					(u16)(Player->ly - SwSprite[LastTouchPlayer].ly) :
+					(u16)(SwSprite[LastTouchPlayer].ly - Player->ly);
+			}
+			if (b_dist_x <= steal_dist && steal_b_dist_y <= steal_dist_y && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera: non trasferire possesso tra compagni
 					// Immunità breve per palla libera (nessun avversario da proteggere), lunga per furto da avversario
 					Ball->count = is_free_ball ? 2 : 16;
@@ -354,7 +363,7 @@ void PlayerAI(u8 i)
 								// mai passare all'indietro indipendentemente da dove si stava muovendo
 								i8 pass_dx = (ai_last_dx[i] > 0) ? 1 : ((ai_last_dx[i] < 0) ? -1 : 0);
 								i8 pass_dy = 1; // TEAM_1 attacca sempre verso Sud
-								u8 receiver = FindReceiver(i, 0xFF, pass_dx, pass_dy);
+								u8 receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, i, 0xFF, pass_dx, pass_dy);
 								if (receiver != 0xFF) {
 									// Verifica che il ricevitore sia effettivamente davanti (a Sud) - mai passare indietro
 									if (SwSprite[receiver].ly > Player->ly - 16) {
@@ -468,39 +477,4 @@ void PlayerAI(u8 i)
 		}
 		Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
 	}
-}
-
-// Trova il compagno più vicino nella direzione di attacco
-u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy) 
-{
-	u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
-	u8 end_idx = start_idx + 6;
-	u8 best_match = 0xFF;
-	u16 min_dist = 0xFFFF;
-
-	if (c_dx == 0 && c_dy == 0) {
-		c_dy = (carrier < 7) ? 1 : -1;
-	}
-
-	for (u8 i = start_idx; i < end_idx; i++) {
-		if (i == carrier || i == ignore_player) continue; 
-
-		u16 dx = (SwSprite[i].lx > SwSprite[carrier].lx) ? (SwSprite[i].lx - SwSprite[carrier].lx) : (SwSprite[carrier].lx - SwSprite[i].lx);
-		u16 dy = (SwSprite[i].ly > SwSprite[carrier].ly) ? (SwSprite[i].ly - SwSprite[carrier].ly) : (SwSprite[carrier].ly - SwSprite[i].ly);
-		u16 dist = dx + dy; 
-
-		// Filtro cono visivo direzionale:
-		if (c_dx > 0 && SwSprite[i].lx < SwSprite[carrier].lx) continue; 
-		if (c_dx < 0 && SwSprite[i].lx > SwSprite[carrier].lx) continue; 
-		
-		if (c_dy > 0 && SwSprite[i].ly < SwSprite[carrier].ly) continue; 
-		if (c_dy < 0 && SwSprite[i].ly > SwSprite[carrier].ly) continue; 
-
-		if (dist < min_dist) {
-			min_dist = dist;
-			best_match = i;
-		}
-	}
-
-	return best_match;
 }

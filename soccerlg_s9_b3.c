@@ -134,11 +134,11 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 
 		// Aggiorna il bersaglio del passaggio in base alla direzione dello sguardo
 		// Mostra il bersaglio SOLO se la propria squadra ha il possesso della palla (o è palla contesa iniziale)
-		if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 0xFF, g_last_dx[1], g_last_dy[1]);
+			if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 0xFF, g_last_dx[1], g_last_dy[1]);
 		else T2_Receiver = 0xFF;
 		
 		if (GameMode == GAMEMODE_P1_VS_P2) {
-			if (min_dist_t1 <= 24 && (LastTouchTeam == TEAM_1 || LastTouchTeam == 0xFF)) T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 0xFF, g_last_dx[0], g_last_dy[0]);
+				if (min_dist_t1 <= 24 && (LastTouchTeam == TEAM_1 || LastTouchTeam == 0xFF)) T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 0xFF, g_last_dx[0], g_last_dy[0]);
 			else T1_Receiver = 0xFF;
 		}
 
@@ -301,8 +301,22 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 			
 			bool is_immune = (Ball->count > 0 && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
 
+			// Per portatore in moto E/W puro la palla ha un offset Y visivo: controlla distanza dal portatore
+			u16 eff_dist_y = dist_y;
+			u8 touch_dist_y = touch_dist;
+			if (g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team && SwSprite[LastTouchPlayer].dy == 0) {
+				touch_dist_y = 9;
+				eff_dist_y = (Carrier->ly >= SwSprite[LastTouchPlayer].ly) ?
+					(u16)(Carrier->ly - SwSprite[LastTouchPlayer].ly) :
+					(u16)(SwSprite[LastTouchPlayer].ly - Carrier->ly);
+			}
+			// Il contatto con la palla portata attivamente dall'avversario richiede un'azione esplicita
+			// (trigger per il giocatore umano, scivolata/tackle per la CPU via PlayerAI).
+			// Senza questo blocco, basta passarci vicino per rubare palla al momento del cambio direzione.
+			bool actively_carried_by_opp = (g_is_ball_carried && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
+
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && dist_y <= touch_dist && Ball->anim < 5 && !is_immune && RestartType == 0) {
+			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && Ball->anim < 5 && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
 					// Controllo Fuorigioco (memorizzato al momento del passaggio)
 					bool offside = FALSE;
 					if (LastTouchTeam != 0xFF && LastTouchTeam == carrier_team && LastTouchPlayer != carrier) {
@@ -341,7 +355,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						c_dx = (g_last_dx[i] > 0) ? 1 : ((g_last_dx[i] < 0) ? -1 : 0);
 						c_dy = (g_last_dy[i] > 0) ? 1 : ((g_last_dy[i] < 0) ? -1 : 0);
 					}
-					receivers[i] = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, carrier, 0xFF, c_dx, c_dy);
+				receivers[i] = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, carrier, 0xFF, c_dx, c_dy);
 					
 					// AZIONE DEL GIOCATORE: Passaggio o Dribbling
 					bool action_taken = FALSE;
@@ -428,7 +442,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						// Cambio direzione fluido: la palla si riavvicina dolcemente ai piedi
 						// invece di teletrasportarsi, evitando uscite dal campo accidentali.
 						i8 off_x = 0; i8 off_y = 6;
-						if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
+						if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
 						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
@@ -450,7 +464,7 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						// Quando anim>0, UpdateBallPhysics gestisce il rotolamento; non sovrascrivere.
 						if (Ball->anim == 0) {
 							i8 off_x = 0; i8 off_y = 6;
-							if (c_dx > 0) off_x = 8; else if (c_dx < 0) off_x = -8;
+							if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
 							if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 28 : 13) : 8; else if (c_dy < 0) off_y = -2;
 							// Snap esatto alla posizione corretta, poi calcio
 							Ball->lx = (u8)((i16)Carrier->lx + off_x);
@@ -473,15 +487,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 						}
 						
 						if (opponent_has_ball) {
-							if (dist_x <= 16 && dist_y <= 16) {
-								// Rubare palla da vicino restando in piedi (es. inseguimento o incrocio stretto)
+						if (dist_x <= 18 && dist_y <= 22) {
+							// Rubare palla da vicino restando in piedi (inseguimento frontale/incrocio)
 								if (LastTouchTeam != carrier_team) Ball->count = 16; // Immunità
 								LastTouchTeam = carrier_team;
 								LastTouchPlayer = carrier;
 								if (Ball->anim > 3) Ball->anim = 3;
 								Ball->frame = SPR_BALL_SIZE_1;
-							} else if (dist_x <= 36 && dist_y <= 12) {
-								// Tackle orizzontale solo se allineati sulla Y e a distanza realistica (max 36px)
+						} else if (dist_x <= 36 && dist_y <= 20) {
+							// Tackle orizzontale: anche quando si insegue lateralmente (dist_y fino a 20px)
 								Carrier->count = 8; // 8 frames di scivolata (più corta e netta)
 								Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
 								Carrier->dy = 0; // Movimento rigorosamente orizzontale

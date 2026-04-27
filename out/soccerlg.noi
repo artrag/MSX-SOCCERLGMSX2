@@ -30,6 +30,7 @@ DEF l__INITIALIZED 0x57
 DEF l__INITIALIZER 0x57
 DEF l__SEG11 0xC6
 DEF l__SEG7 0x262
+DEF l__SEG20 0x266
 DEF l__DATA 0x45C
 DEF l__SEG10 0x530
 DEF l__SEG13 0x84C
@@ -39,10 +40,10 @@ DEF l__SEG16 0xCBB
 DEF l__SEG5 0xDC9
 DEF l__SEG4 0xE45
 DEF l__SEG17 0x1962
-DEF l__SEG9 0x1CA5
 DEF l__SEG15 0x1D4B
+DEF l__SEG6 0x1DF3
+DEF l__SEG9 0x1E64
 DEF l__SEG12 0x1ED1
-DEF l__SEG6 0x1F90
 DEF l__CODE 0x2A07
 DEF s__CODE 0x4000
 DEF s__HOME 0x6A07
@@ -264,6 +265,7 @@ DEF s__SEG16 0x10A000
 DEF s__SEG17 0x11A000
 DEF s__SEG18 0x12A000
 DEF s__SEG19 0x13A000
+DEF s__SEG20 0x14A000
 DEF _g_FirstAddr 0x4000
 DEF _g_HeaderAddr 0x4000
 DEF crt0_rom_header 0x4000
@@ -526,7 +528,6 @@ DEF _IsBallForeground 0x5AA70
 DEF _ShowSpriteMessage 0x5ABCD
 DEF _HideSpriteMessage 0x5ADA7
 DEF _PlayerAI 0x6A000
-DEF _FindReceiver 0x6BD2A
 DEF _IsTeamJoystickTriggerPressed 0x7A000
 DEF _GetJoystickDirection 0x7A031
 DEF _UpdateAllInputs 0x7A1E1
@@ -562,4 +563,5 @@ DEF _UpdateBallPhysics 0x12A000
 DEF _UpdateReferee 0x12A772
 DEF _GetPlayerAnimFrame 0x13A000
 DEF _GetPlayerIdleFrame 0x13A6C2
+DEF _FindReceiver 0x14A000
 LOAD E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/out/soccerlg.ihx

@@ -147,11 +147,11 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 			// Assegna Carrier e Receiver per il Kickoff
 			if (KickOffTeam == TEAM_1) {
 				T1_Carrier = 3; // Giocatore a sinistra della palla
-				T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
+						T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
 				T2_Carrier = T2_Receiver = 0xFF; // Difesa senza palla
 			} else {
 				T2_Carrier = 11; // Giocatore a destra della palla
-				T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
+						T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
 				T1_Carrier = T1_Receiver = 0xFF; // Difesa senza palla
 			}
 			

@@ -1474,7 +1474,7 @@
                                    1474 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:149: T1_Carrier = 3; // Giocatore a sinistra della palla
     000007D7 21r00r00         [10] 1475 	ld	hl, #_T1_Carrier
     000007DA 36 03            [10] 1476 	ld	(hl), #0x03
-                                   1477 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:150: T1_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
+                                   1477 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:150: T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
     000007DC C5               [11] 1478 	push	bc
     000007DD 3E 01            [ 7] 1479 	ld	a, #0x01
     000007DF F5               [11] 1480 	push	af
@@ -1487,7 +1487,7 @@
     000007E8 F5               [11] 1487 	push	af
     000007E9 33               [ 6] 1488 	inc	sp
     000007EA 11r00r00         [10] 1489 	ld	de, #_FindReceiver
-    000007ED 3E 06            [ 7] 1490 	ld	a, #0x06
+    000007ED 3E 14            [ 7] 1490 	ld	a, #0x14
     000007EF CDr00r00         [17] 1491 	call	_CallFnc_U16_P4B
     000007F2 C1               [10] 1492 	pop	bc
     000007F3 7B               [ 4] 1493 	ld	a, e
@@ -1501,7 +1501,7 @@
                                    1501 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:153: T2_Carrier = 11; // Giocatore a destra della palla
     00000802 21r00r00         [10] 1502 	ld	hl, #_T2_Carrier
     00000805 36 0B            [10] 1503 	ld	(hl), #0x0b
-                                   1504 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:154: T2_Receiver = (u8)CallFnc_U16_P4B(SEG_LOGIC, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
+                                   1504 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:154: T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
     00000807 C5               [11] 1505 	push	bc
     00000808 3E FF            [ 7] 1506 	ld	a, #0xff
     0000080A F5               [11] 1507 	push	af
@@ -1514,7 +1514,7 @@
     00000813 F5               [11] 1514 	push	af
     00000814 33               [ 6] 1515 	inc	sp
     00000815 11r00r00         [10] 1516 	ld	de, #_FindReceiver
-    00000818 3E 06            [ 7] 1517 	ld	a, #0x06
+    00000818 3E 14            [ 7] 1517 	ld	a, #0x14
     0000081A CDr00r00         [17] 1518 	call	_CallFnc_U16_P4B
     0000081D C1               [10] 1519 	pop	bc
     0000081E 7B               [ 4] 1520 	ld	a, e
