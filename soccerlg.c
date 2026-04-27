@@ -217,9 +217,16 @@ u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __n
 {
 	segment;func;p1;p2;p3;
 	__asm
-	push	ix
-	ld	ix,#0
-	add	ix,sp
+	
+; de  	->*func
+; a   	->segment
+;(sp-2) ->p1
+;(sp-3) ->p2
+;(sp-4) ->p3
+; (sp)	->return
+
+	ld	hl,#6
+	add	hl,sp
 	dec	sp
 	
 	ld	c, a
@@ -231,12 +238,14 @@ u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __n
 	ld	((_g_Bank0Segment + 6)), a						;   g_Bank0Segment[b] = s;
 	ld	(#0xb000), a
 
-; _res = func(p1, p2, p3);
-	ld	a, 6 (ix)
+	ld	a, (hl)										; _res = func(p1, p2, p3);
 	push	af
 	inc	sp
-	ld	l, 5 (ix)
-	ld	a, 4 (ix)
+	dec		hl
+	ld	c, (hl)
+	dec		hl
+	ld	a, (hl)
+	ld	l,c
 	push	de
 	pop		iy
 	call	___sdcc_call_iy
@@ -248,11 +257,12 @@ u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __n
 	ld	(#0xb000), a
 
 	inc	sp
-	pop	ix
+
 	pop	hl
 	pop	af
 	inc	sp
 	jp	(hl)
+	
 	__endasm;
 //	u16 _res;
 //	u8 _old = GET_BANK_SEGMENT(3);
