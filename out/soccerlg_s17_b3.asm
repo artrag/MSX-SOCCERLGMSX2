@@ -1985,22 +1985,16 @@ _AssignGoalKickTargets::
 	ld	a, -18 (ix)
 	or	a, a
 	jr	NZ, 00178$
-	ld	-2 (ix), #0x01
-	ld	-1 (ix), #0
+	ld	bc, #0x0001
 	jp	00179$
 00178$:
-	ld	-2 (ix), #0x08
-	ld	-1 (ix), #0
+	ld	bc, #0x0008
 00179$:
-	ld	a, -2 (ix)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:169: g_throw_rec_1 = start_t + 4; // Attaccante Sx (ruolo 5)
-	ld	-1 (ix), a
-	ld	c, a
-	add	a, #0x04
-	ld	(_g_throw_rec_1+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:170: g_throw_rec_2 = start_t + 5; // Attaccante Dx (ruolo 6)
 	ld	a, c
-	add	a, #0x05
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:169: g_throw_rec_1 = start_t;     // Difensore Sx (ruolo 1)
+	ld	(_g_throw_rec_1+0), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:170: g_throw_rec_2 = start_t + 1; // Difensore Dx (ruolo 2)
+	inc	a
 	ld	(_g_throw_rec_2+0), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:171: g_selected_rec = 0;
 	ld	hl, #_g_selected_rec
@@ -2124,7 +2118,7 @@ _AssignGoalKickTargets::
 	ld	e, -15 (ix)
 	ld	d, -14 (ix)
 00185$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:191: if (role == 1 || role == 2) base_y = rel_kick + 36;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:191: if (role == 1 || role == 2) base_y = rel_kick + 96; // Più avanti di almeno 60px
 	ld	a, c
 	or	a, a
 	jr	NZ, 00129$
@@ -2132,13 +2126,13 @@ _AssignGoalKickTargets::
 	sub	a, #0x02
 	jr	NZ, 00130$
 00129$:
-	ld	hl, #0x0024
+	ld	hl, #0x0060
 	add	hl, de
 	ld	-2 (ix), l
 	ld	-1 (ix), h
 	jp	00143$
 00130$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:192: else if (role == 3 || role == 4) base_y = rel_kick + 84;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:192: else if (role == 3 || role == 4) base_y = rel_kick + 144;
 	ld	a, -1 (ix)
 	sub	a, #0x03
 	jr	Z, 00125$
@@ -2146,20 +2140,20 @@ _AssignGoalKickTargets::
 	sub	a, #0x04
 	jr	NZ, 00126$
 00125$:
-	ld	hl, #0x0054
+	ld	hl, #0x0090
 	add	hl, de
 	ld	-2 (ix), l
 	ld	-1 (ix), h
 	jp	00143$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:193: else base_y = rel_kick + 140; // Attaccanti visibili nello schermo per la selezione
-	ld	hl, #0x008c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:193: else base_y = rel_kick + 200; // Attaccanti
+	ld	hl, #0x00c8
 	add	hl, de
 	ld	-2 (ix), l
 	ld	-1 (ix), h
 	jp	00143$
 00142$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:195: if (role == 1 || role == 2) base_y = 280; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:195: if (role == 1 || role == 2) base_y = 340; 
 	ld	a, c
 	or	a, a
 	jr	NZ, 00137$
@@ -2167,11 +2161,11 @@ _AssignGoalKickTargets::
 	sub	a, #0x02
 	jr	NZ, 00138$
 00137$:
-	ld	-2 (ix), #0x18
+	ld	-2 (ix), #0x54
 	ld	-1 (ix), #0x01
 	jp	00143$
 00138$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:196: else if (role == 3 || role == 4) base_y = 200; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:196: else if (role == 3 || role == 4) base_y = 260; 
 	ld	a, -1 (ix)
 	sub	a, #0x03
 	jr	Z, 00133$
@@ -2179,12 +2173,12 @@ _AssignGoalKickTargets::
 	sub	a, #0x04
 	jr	NZ, 00134$
 00133$:
-	ld	-2 (ix), #0xc8
-	ld	-1 (ix), #0
+	ld	-2 (ix), #0x04
+	ld	-1 (ix), #0x01
 	jp	00143$
 00134$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:197: else base_y = 120; 
-	ld	-2 (ix), #0x78
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:197: else base_y = 150; // Attaccanti avversari più indietro dei difensori avversari
+	ld	-2 (ix), #0x96
 	ld	-1 (ix), #0
 00143$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s17_b3.c:201: if (team_to_kick == TEAM_2) {

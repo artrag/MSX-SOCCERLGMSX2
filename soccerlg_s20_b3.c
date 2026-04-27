@@ -11,28 +11,41 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 	u8 start_idx = (carrier < 7) ? 1 : 8; // Esclude i portieri
 	u8 end_idx = start_idx + 6;
 	u8 best_match = 0xFF;
-	u16 min_dist = 0xFFFF;
+	u16 min_score = 0xFFFF;
 
-	if (c_dx == 0 && c_dy == 0) {
-		c_dy = (carrier < 7) ? 1 : -1;
+	i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
+	i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
+
+	if (sdx == 0 && sdy == 0) {
+		sdy = (carrier < 7) ? 1 : -1;
 	}
 
 	for (u8 i = start_idx; i < end_idx; i++) {
 		if (i == carrier || i == ignore_player) continue; 
 
-		u16 dx = (SwSprite[i].lx > SwSprite[carrier].lx) ? (SwSprite[i].lx - SwSprite[carrier].lx) : (SwSprite[carrier].lx - SwSprite[i].lx);
-		u16 dy = (SwSprite[i].ly > SwSprite[carrier].ly) ? (SwSprite[i].ly - SwSprite[carrier].ly) : (SwSprite[carrier].ly - SwSprite[i].ly);
-		u16 dist = dx + dy; 
-
-		// Filtro cono visivo direzionale:
-		if (c_dx > 0 && SwSprite[i].lx < SwSprite[carrier].lx) continue; 
-		if (c_dx < 0 && SwSprite[i].lx > SwSprite[carrier].lx) continue; 
+		i16 rx = (i16)SwSprite[i].lx - (i16)SwSprite[carrier].lx;
+		i16 ry = (i16)SwSprite[i].ly - (i16)SwSprite[carrier].ly;
 		
-		if (c_dy > 0 && SwSprite[i].ly < SwSprite[carrier].ly) continue; 
-		if (c_dy < 0 && SwSprite[i].ly > SwSprite[carrier].ly) continue; 
+		// Proiezione sul vettore di movimento (distanza in avanti)
+		i16 fwd_dist = (rx * sdx) + (ry * sdy);
+		
+		if (fwd_dist <= 0) continue; // Esclude categoricamente chiunque si trovi alle spalle!
+		
+		// Proiezione ortogonale (distanza laterale)
+		i16 side_dist = (rx * sdy) - (ry * sdx);
+		if (side_dist < 0) side_dist = -side_dist;
 
-		if (dist < min_dist) {
-			min_dist = dist;
+		u16 score;
+		if (side_dist <= fwd_dist * 2) {
+			// Tier 1: Cono visivo ideale (~126 gradi). Priorità massima all'allineamento.
+			score = (u16)fwd_dist + (u16)(side_dist * 2);
+		} else {
+			// Tier 2: Davanti ma molto defilato.
+			score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
+		}
+
+		if (score < min_score) {
+			min_score = score;
 			best_match = i;
 		}
 	}

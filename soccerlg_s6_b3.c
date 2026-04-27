@@ -67,8 +67,18 @@ void PlayerAI(u8 i)
 		// Controllo furto durante la scivolata
 		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
-		if (b_dist_x <= 12 && b_dist_y <= 12 && Ball->anim < 5 && RestartType == 0) {
-			if (LastTouchTeam != team) Ball->count = 16; // Immunità dopo il furto
+		
+		bool can_steal = (b_dist_x <= 12 && b_dist_y <= 12);
+		if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
+			u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
+			if (b_dist_x <= 16 && c_dist_y <= 5) can_steal = TRUE;
+		}
+
+		if (can_steal && Ball->anim < 5 && RestartType == 0) {
+			if (LastTouchTeam != team) {
+				Ball->count = 16; // Immunità dopo il furto
+				g_pass_receiver = 0xFF;
+			}
 			LastTouchTeam = team;
 			LastTouchPlayer = i;
 			if (Ball->anim > 3) Ball->anim = 3;
@@ -261,7 +271,7 @@ void PlayerAI(u8 i)
 			target_y = Ball->ly;
 			
 			// Decide se tentare la scivolata (orizzontale o laterale quando si insegue di fianco)
-			if (g_is_ball_carried && b_dist_x <= 36 && b_dist_y <= 20 && b_dist_x > 14 && Player->count == 0 && RestartType == 0) {
+			if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 48 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0) {
 				u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
 				if ((Frms + i * 7) % 100 < slide_chance) {
 					Player->count = 8; // durata scivolata (corta e chirurgica)
@@ -284,15 +294,20 @@ void PlayerAI(u8 i)
 					(u16)(Player->ly - SwSprite[LastTouchPlayer].ly) :
 					(u16)(SwSprite[LastTouchPlayer].ly - Player->ly);
 			}
-			if (b_dist_x <= steal_dist && steal_b_dist_y <= steal_dist_y && Ball->count == 0 && RestartType == 0) {
+			
+			bool actively_carried_by_opp = (g_is_ball_carried && LastTouchTeam != team && LastTouchTeam != 0xFF);
+
+			if (!actively_carried_by_opp && b_dist_x <= steal_dist && steal_b_dist_y <= steal_dist_y && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera: non trasferire possesso tra compagni
 					// Immunità breve per palla libera (nessun avversario da proteggere), lunga per furto da avversario
 					Ball->count = is_free_ball ? 2 : 16;
 					LastTouchTeam = team;
 					LastTouchPlayer = i;
+					g_pass_receiver = 0xFF;
 				} else if (is_free_ball && LastTouchTeam == team && LastTouchPlayer != i) {
 					// Palla libera già reclamata dalla squadra ma non portata: aggiorna il portatore
 					LastTouchPlayer = i;
+					g_pass_receiver = 0xFF;
 				}
 				if (Ball->anim > 3) Ball->anim = 3; 
 				Ball->frame = SPR_BALL_SIZE_1; 
