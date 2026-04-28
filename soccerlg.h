@@ -350,6 +350,7 @@ struct TeamStats {
 #define SEG_GAMESTATE_8 18
 #define SEG_GAMESTATE_9 19
 #define SEG_HELPERS     20
+#define SEG_LOGIC_2     21
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -552,3 +553,6 @@ u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();
 void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec);
+
+// +++ SEGMENT SEG_LOGIC_2 (21) +++
+void PlayerAI_Movement(u8 i);

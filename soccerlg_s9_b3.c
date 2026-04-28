@@ -238,7 +238,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 		if (LastTouchPlayer != 0xFF && Ball->anim < 5) {
 			u16 c_dist_x = (SwSprite[LastTouchPlayer].lx > Ball->lx) ? (SwSprite[LastTouchPlayer].lx - Ball->lx) : (Ball->lx - SwSprite[LastTouchPlayer].lx);
 			u16 c_dist_y = (SwSprite[LastTouchPlayer].ly > Ball->ly) ? (SwSprite[LastTouchPlayer].ly - Ball->ly) : (Ball->ly - SwSprite[LastTouchPlayer].ly);
-			if (c_dist_x <= 20 && c_dist_y <= 20) g_is_ball_carried = TRUE;
+			if (c_dist_x <= 24 && c_dist_y <= 24) g_is_ball_carried = TRUE;
 		}
 
 		// 2. Gestione portatori (Player 1 e Player 2)
@@ -503,18 +503,8 @@ if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else 
 						bool opponent_has_ball = (g_is_ball_carried && LastTouchTeam != carrier_team);
 						
 						if (opponent_has_ball) {
-						if (dist_x <= 18 && dist_y <= 22) {
-							// Rubare palla da vicino restando in piedi (inseguimento frontale/incrocio)
-								if (LastTouchTeam != carrier_team) {
-									Ball->count = 16; // Immunità
-									g_pass_receiver = 0xFF;
-								}
-								LastTouchTeam = carrier_team;
-								LastTouchPlayer = carrier;
-								if (Ball->anim > 3) Ball->anim = 3;
-								Ball->frame = SPR_BALL_SIZE_1;
-						} else if (dist_x <= 48 && dist_y <= 24) {
-							// Tackle orizzontale: anche quando si insegue lateralmente
+							if (dist_x <= 48 && dist_y <= 24) {
+								// Tackle orizzontale: anche quando si insegue lateralmente
 								Carrier->count = 8; // 8 frames di scivolata (più corta e netta)
 								Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
 								Carrier->dy = 0; // Movimento rigorosamente orizzontale
