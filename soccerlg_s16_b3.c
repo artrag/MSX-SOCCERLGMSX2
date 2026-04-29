@@ -114,7 +114,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			if (all_in_position) {
 				CallFnc_VOID(SEG_EVENTS, EventPenaltyWhistle);
 				*wait_secs = 5; *start_sec = Frms;
-				SwSprite[keeper_idx].dx = 1; // Resetta scelta tuffo al centro
+				SwSprite[keeper_idx].dx = ((Frms % 2) == 0) ? 0 : 2; // Default casuale (sx o dx) per il portiere
+				SwSprite[g_penalty_shooter_idx].dx = ((Frms % 2) == 0) ? 0 : 2; // Default casuale (sx o dx) per il tiratore
 				*game_state = 14;
 			}
 		}
@@ -124,7 +125,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			bool is_keeper_human = (keeper_team_idx == TEAM_2) || (keeper_team_idx == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2);
 			bool is_shooter_human = (g_penalty_team == TEAM_2) || (g_penalty_team == TEAM_1 && GameMode == GAMEMODE_P1_VS_P2);
 			bool do_shot = FALSE;
-			u8 shot_dir = 1; // 0=sx, 1=centro, 2=dx
+			u8 shot_dir = 0; // 0=sx, 2=dx
 
 			// Togli la freccia
 			SwSprite[25].ly = 1000;
@@ -132,16 +133,18 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			// Memorizza in tempo reale la scelta del portiere per non costringerlo a tenere premuto al momento esatto
 			if(is_keeper_human) {
 				u8 k_dir = g_player_input[keeper_team_idx].direction;
-				if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 2; 
-				else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 0; 
+				if(k_dir == DIRECTION_LEFT || k_dir == DIRECTION_UP_LEFT || k_dir == DIRECTION_DOWN_LEFT) Keeper->dx = 0; // Sinistra del tiratore (Ovest)
+				else if (k_dir == DIRECTION_RIGHT || k_dir == DIRECTION_UP_RIGHT || k_dir == DIRECTION_DOWN_RIGHT) Keeper->dx = 2; // Destra del tiratore (Est)
 			}
 
 			// Logica tiratore
+			struct ObjectInfo* Shooter = &SwSprite[g_penalty_shooter_idx];
 			if(is_shooter_human) {
 				u8 dir = g_player_input[g_penalty_team].direction;
-				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) shot_dir = 0;
-				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) shot_dir = 2;
-				else shot_dir = 1;
+				if(dir == DIRECTION_LEFT || dir == DIRECTION_UP_LEFT || dir == DIRECTION_DOWN_LEFT) Shooter->dx = 0; // Sinistra
+				else if(dir == DIRECTION_RIGHT || dir == DIRECTION_UP_RIGHT || dir == DIRECTION_DOWN_RIGHT) Shooter->dx = 2; // Destra
+
+				shot_dir = Shooter->dx;
 
 				if(g_player_input[g_penalty_team].trigger_pressed) do_shot = TRUE; // Impedisce tiri accidentali
 			} else { // CPU Shooter
@@ -149,17 +152,17 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				u8 target_wait = 2 + (Frms % 3); // random tra 2, 3 o 4 (pari a 3s, 2s, 1s di attesa)
 				if(*wait_secs <= target_wait) {
 					do_shot = TRUE;
-					shot_dir = Frms % 3; // CPU sceglie a caso
+					shot_dir = ((Frms % 2) == 0) ? 0 : 2; // CPU sceglie a caso tra sx e dx
 				}
 			}
 
 			if (*start_sec < Frms) { if (*wait_secs > 0) (*wait_secs)--; }
 			*start_sec = Frms;
 
-			// Se scadono i 5 secondi, il player tira a caso (Time-Out)
+			// Se scadono i 5 secondi, il player tira (Time-Out) nella direzione attualmente selezionata
 			if (*wait_secs == 0) {
 				do_shot = TRUE;
-				if (is_shooter_human) shot_dir = Frms % 3;
+				if (is_shooter_human) shot_dir = Shooter->dx;
 			}
 
 			if(do_shot) {
@@ -173,10 +176,10 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				Ball->anim = 5; Ball->count = 1;
 
 				// Animazione tiro
-				SwSprite[g_penalty_shooter_idx].frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, g_penalty_shooter_idx, 0, (i8)-1);
+				Shooter->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, g_penalty_shooter_idx, 0, (i8)-1);
 
 				// Logica tuffo portiere al momento del tiro
-				u8 dive_dir; // 0=sx, 1=fermo, 2=dx
+				u8 dive_dir; // 0=sx, 2=dx
 				if(is_keeper_human) {
 					dive_dir = Keeper->dx; // Usa la direzione memorizzata
 				} else { // CPU
@@ -185,8 +188,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					if ((Frms % 100) < skill_chance) {
 						dive_dir = shot_dir; // Il portiere intuisce la direzione corretta!
 					} else {
-						// Se sbaglia a intuire, sceglie a caso tra le due direzioni rimanenti
-						dive_dir = (shot_dir + 1 + (Frms % 2)) % 3;
+						// Se sbaglia a intuire, sceglie la direzione opposta
+						dive_dir = (shot_dir == 0) ? 2 : 0;
 					}
 				}
 
@@ -199,19 +202,11 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH; // Est = Tuffo a Destra
 					Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
 				}
-				else { // Parata centrale
-					Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale
-					Keeper->lx = 120;
-				}
 
 				// Controlla se il portiere para
 				if(dive_dir == shot_dir) {
 					g_pass_max_frames = 10; // Tiro smorzato
-					if (shot_dir == 1) {
-						g_pass_target_y = 40;   // Fermiamo la palla prima per farla fermare sul petto
-					} else {
-						g_pass_target_y = 32;   // Tuffo laterale, manteniamo 32
-					}
+					g_pass_target_y = 32;   // Tuffo laterale, manteniamo 32
 				}
 
 				*game_state = 15;

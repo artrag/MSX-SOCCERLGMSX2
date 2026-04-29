@@ -29,7 +29,8 @@ void PlayerAI_Movement(u8 i)
 
 	// INTERCETTO PALLA LIBERA: qualsiasi giocatore entro 48px va direttamente sulla palla
 	// senza passare per la logica tattica. Bypassa tutti i target role-based.
-	bool ball_free_nearby = (!g_is_ball_carried && Ball->anim < 5 && b_dist_x <= 48 && b_dist_y <= 48);
+	bool ball_free_nearby = (!g_is_ball_carried && b_dist_x <= 48 && b_dist_y <= 48);
+	if (Ball->anim == 5 && LastTouchTeam == team) ball_free_nearby = FALSE; // Non disturbare i propri passaggi
 	if (ball_free_nearby) {
 		target_x = Ball->lx;
 		target_y = Ball->ly;
@@ -49,12 +50,17 @@ void PlayerAI_Movement(u8 i)
 			if (offside_line > 256) offside_line = 256;
 		}
 
-		if (role >= 5) { // Attaccanti molto avanti
+		if (role >= 5) { // Attaccanti (Ali)
 			target_y = Ball->ly + ((team == TEAM_1) ? (60 + run_dist) : -(60 + run_dist));
-			target_x = (role == 5) ? 76 : 148; // Più centrali e meno larghi
-		} else if (role >= 3) { // Centrocampisti a supporto largo
+			// Ali larghe, mantengono maggiormente la posizione laterale per dare un riferimento di passaggio
+			if (role == 5) {
+				target_x = (Ball->lx > 180) ? 100 : 36; // Ala Sx (si accentra solo se palla a estrema dx)
+			} else {
+				target_x = (Ball->lx < 76) ? 156 : 220; // Ala Dx (si accentra solo se palla a estrema sx)
+			}
+		} else if (role >= 3) { // Centrocampisti a supporto
 			target_y = Ball->ly + ((team == TEAM_1) ? 24 : -24);
-			target_x = Ball->lx + ((role == 3) ? -wide_dist : wide_dist);
+			target_x = (role == 3) ? 64 : 192; // Più larghi per coprire le fasce
 		} else { // Difensori rimangono dietro
 			target_y = Ball->ly + ((team == TEAM_1) ? -64 : 64);
 			target_x = (role == 1) ? 80 : 144;
@@ -155,7 +161,7 @@ void PlayerAI_Movement(u8 i)
 
 	// Intervento attivo: SOLO il compagno più vicino va sulla palla (se avversari o palla libera)
 	// Usa b_dist_x/b_dist_y già calcolati all'inizio
-	if ((ball_free_nearby || LastTouchTeam != team || (!g_is_ball_carried && Ball->anim < 5)) && i == closest_mate) {
+	if ((ball_free_nearby || (LastTouchTeam != team) || (!g_is_ball_carried && (Ball->anim < 5 || LastTouchTeam != team))) && i == closest_mate) {
 		// Raggio di pressing dinamico basato sull'aggressività
 		u16 press_radius = 24 + (g_ActiveStats[team].aggro_defense * 8);
 		if (LastTouchTeam == 0xFF || !g_is_ball_carried) press_radius = 500; // Palla libera o non controllata: vai a prenderla!
@@ -232,19 +238,27 @@ void PlayerAI_Movement(u8 i)
 				}
 			}
 
-			if (can_steal_standing && Ball->count == 0 && RestartType == 0) {
+			// Modifica: consentire il furto in piedi anche dei passaggi (anim == 5)
+			bool is_flying_pass = (Ball->anim == 5);
+			if (can_steal_standing && (Ball->anim < 5 || (is_flying_pass && LastTouchTeam != team)) && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera
 					Ball->count = is_free_ball ? 2 : 16;
 					LastTouchTeam = team;
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
+					if (is_flying_pass) {
+						Ball->anim = 3; // Blocca la palla a terra
+						Ball->dx = 0; Ball->dy = 0;
+						CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0);
+					} else if (Ball->anim > 3) Ball->anim = 3; 
+					Ball->frame = SPR_BALL_SIZE_1;
 				} else if (is_free_ball && LastTouchTeam == team && LastTouchPlayer != i) {
 					// Palla libera già reclamata dalla squadra ma non portata: aggiorna il portatore
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
+					if (Ball->anim > 3) Ball->anim = 3; 
+					Ball->frame = SPR_BALL_SIZE_1;
 				}
-				if (Ball->anim > 3) Ball->anim = 3; 
-				Ball->frame = SPR_BALL_SIZE_1; 
 			}
 		}
 	}

@@ -314,7 +314,7 @@ _FindReceiver::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	iy, #-22
+	ld	iy, #-23
 	add	iy, sp
 	ld	sp, iy
 	ld	c, a
@@ -326,83 +326,93 @@ _FindReceiver::
 	rla
 	ld	-3 (ix), a
 	or	a, a
-	jr	Z, 00122$
+	jr	Z, 00127$
 	ld	de, #0x0001
-	jp	00123$
-00122$:
+	jp	00128$
+00127$:
 	ld	de, #0x0008
-00123$:
+00128$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:12: u8 end_idx = start_idx + 6;
 	ld	-2 (ix), e
 	ld	a, e
 	add	a, #0x06
-	ld	-22 (ix), a
+	ld	-23 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:13: u8 best_match = 0xFF;
-	ld	-21 (ix), #0xff
+	ld	-22 (ix), #0xff
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:14: u16 min_score = 0xFFFF;
+	ld	-21 (ix), #0xff
 	ld	-20 (ix), #0xff
-	ld	-19 (ix), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:16: i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:16: u8 current_rec = (carrier < 7) ? T1_Receiver : T2_Receiver;
+	ld	a, -3 (ix)
+	or	a, a
+	jr	Z, 00129$
+	ld	a, (_T1_Receiver+0)
+	jp	00130$
+00129$:
+	ld	a, (_T2_Receiver+0)
+00130$:
+	ld	-19 (ix), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:18: i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
 	xor	a, a
 	sub	a, 4 (ix)
-	jp	PO, 00215$
+	jp	PO, 00237$
 	xor	a, #0x80
-00215$:
-	jp	P, 00124$
+00237$:
+	jp	P, 00131$
 	ld	a, #0x01
-	jp	00125$
-00124$:
+	jp	00132$
+00131$:
 	bit	7, 4 (ix)
-	jr	Z, 00126$
+	jr	Z, 00133$
 	ld	-5 (ix), #0xff
 	ld	-4 (ix), #0xff
-	jp	00127$
-00126$:
+	jp	00134$
+00133$:
 	xor	a, a
 	ld	-5 (ix), a
 	ld	-4 (ix), a
-00127$:
+00134$:
 	ld	a, -5 (ix)
-00125$:
+00132$:
 	ld	-18 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:17: i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:19: i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
 	xor	a, a
 	sub	a, 5 (ix)
-	jp	PO, 00216$
+	jp	PO, 00238$
 	xor	a, #0x80
-00216$:
-	jp	P, 00128$
+00238$:
+	jp	P, 00135$
 	ld	de, #0x0001
-	jp	00129$
-00128$:
+	jp	00136$
+00135$:
 	bit	7, 5 (ix)
-	jr	Z, 00130$
+	jr	Z, 00137$
 	ld	de, #0xffff
-	jp	00131$
-00130$:
+	jp	00138$
+00137$:
 	ld	de, #0x0000
-00131$:
-00129$:
+00138$:
+00136$:
 	ld	-17 (ix), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:19: if (sdx == 0 && sdy == 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:21: if (sdx == 0 && sdy == 0) {
 	ld	a, -18 (ix)
 	or	a, a
-	jr	NZ, 00149$
+	jr	NZ, 00159$
 	ld	a, -17 (ix)
 	or	a, a
-	jr	NZ, 00149$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:20: sdy = (carrier < 7) ? 1 : -1;
+	jr	NZ, 00159$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:22: sdy = (carrier < 7) ? 1 : -1;
 	ld	a, -3 (ix)
 	or	a, a
-	jr	Z, 00132$
+	jr	Z, 00139$
 	ld	de, #0x0001
-	jp	00133$
-00132$:
+	jp	00140$
+00139$:
 	ld	de, #0xffff
-00133$:
+00140$:
 	ld	-17 (ix), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:23: for (u8 i = start_idx; i < end_idx; i++) {
-00149$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:25: for (u8 i = start_idx; i < end_idx; i++) {
+00159$:
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -425,18 +435,18 @@ _FindReceiver::
 	ld	a, (hl)
 	ld	-14 (ix), a
 	ld	b, -2 (ix)
-00119$:
+00124$:
 	ld	a, b
-	sub	a, -22 (ix)
-	jp	NC, 00117$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:24: if (i == carrier || i == ignore_player) continue; 
+	sub	a, -23 (ix)
+	jp	NC, 00122$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:26: if (i == carrier || i == ignore_player) continue; 
 	ld	a, c
 	sub	a, b
-	jp	Z,00116$
+	jp	Z,00121$
 	ld	a, -1 (ix)
 	sub	a, b
-	jp	Z,00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:26: i16 rx = (i16)SwSprite[i].lx - (i16)SwSprite[carrier].lx;
+	jp	Z,00121$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:28: i16 rx = (i16)SwSprite[i].lx - (i16)SwSprite[carrier].lx;
 	ld	e, b
 	ld	d, #0x00
 	ld	l, e
@@ -462,7 +472,7 @@ _FindReceiver::
 	sbc	hl, de
 	ld	-13 (ix), l
 	ld	-12 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:27: i16 ry = (i16)SwSprite[i].ly - (i16)SwSprite[carrier].ly;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:29: i16 ry = (i16)SwSprite[i].ly - (i16)SwSprite[carrier].ly;
 	ld	l, 4 (iy)
 ;	spillPairReg hl
 	ld	h, 5 (iy)
@@ -473,7 +483,7 @@ _FindReceiver::
 	sbc	hl, de
 	ld	-11 (ix), l
 	ld	-10 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:30: i16 fwd_dist = (rx * sdx) + (ry * sdy);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:32: i16 fwd_dist = (rx * sdx) + (ry * sdy);
 	ld	a, -18 (ix)
 	ld	-9 (ix), a
 	rlca
@@ -512,7 +522,7 @@ _FindReceiver::
 	add	hl, de
 	ld	-5 (ix), l
 	ld	-4 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:32: if (fwd_dist <= 0) continue; // Esclude categoricamente chiunque si trovi alle spalle!
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:34: if (fwd_dist <= 0) continue; // Esclude categoricamente chiunque si trovi alle spalle!
 	ld	a, -5 (ix)
 	ld	-3 (ix), a
 	ld	a, -4 (ix)
@@ -520,11 +530,11 @@ _FindReceiver::
 	xor	a, a
 	cp	a, -3 (ix)
 	sbc	a, -2 (ix)
-	jp	PO, 00219$
+	jp	PO, 00241$
 	xor	a, #0x80
-00219$:
-	jp	P, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:35: i16 side_dist = (rx * sdy) - (ry * sdx);
+00241$:
+	jp	P, 00121$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:37: i16 side_dist = (rx * sdy) - (ry * sdx);
 	push	bc
 	ld	e, -7 (ix)
 	ld	d, -6 (ix)
@@ -553,7 +563,7 @@ _FindReceiver::
 	cp	a, a
 	sbc	hl, de
 	ld	d, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:36: if (side_dist < 0) side_dist = -side_dist;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:38: if (side_dist < 0) side_dist = -side_dist;
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	e,h
@@ -568,13 +578,13 @@ _FindReceiver::
 	sub	a, e
 	ld	e, a
 00110$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:39: if (side_dist <= fwd_dist * 2) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: if (side_dist <= fwd_dist * 2) {
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	add	hl, hl
 	ld	-7 (ix), d
 	ld	-6 (ix), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: score = (u16)fwd_dist + (u16)(side_dist * 2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:43: score = (u16)fwd_dist + (u16)(side_dist * 2);
 	ld	a, -5 (ix)
 	ld	-3 (ix), a
 	ld	a, -4 (ix)
@@ -585,16 +595,16 @@ _FindReceiver::
 	rl	e
 	ld	-5 (ix), a
 	ld	-4 (ix), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:39: if (side_dist <= fwd_dist * 2) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: if (side_dist <= fwd_dist * 2) {
 	ld	a, l
 	sub	a, -7 (ix)
 	ld	a, h
 	sbc	a, -6 (ix)
-	jp	PO, 00221$
+	jp	PO, 00243$
 	xor	a, #0x80
-00221$:
+00243$:
 	jp	M, 00112$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: score = (u16)fwd_dist + (u16)(side_dist * 2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:43: score = (u16)fwd_dist + (u16)(side_dist * 2);
 	ld	a, -5 (ix)
 	add	a, -3 (ix)
 	ld	e, a
@@ -603,7 +613,7 @@ _FindReceiver::
 	ld	d, a
 	jp	00113$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:44: score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:46: score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
 	ld	e, -3 (ix)
 	ld	d, -2 (ix)
 	ld	hl, #0x2710
@@ -613,26 +623,48 @@ _FindReceiver::
 	add	hl, de
 	ex	de, hl
 00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:47: if (score < min_score) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:50: if (i == current_rec) {
+	ld	a, -19 (ix)
+	sub	a, b
+	jr	NZ, 00118$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:51: if (score < 10000) {
 	ld	a, e
-	sub	a, -20 (ix)
+	sub	a, #0x10
 	ld	a, d
-	sbc	a, -19 (ix)
-	jr	NC, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:48: min_score = score;
-	ld	-20 (ix), e
-	ld	-19 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:49: best_match = i;
-	ld	-21 (ix), b
-00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:23: for (u8 i = start_idx; i < end_idx; i++) {
+	sbc	a, #0x27
+	jr	NC, 00115$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:52: score = 0; // Se è ancora nel Tier 1 (entro ~63 gradi), mantieni il focus assoluto
+	ld	de, #0x0000
+	jp	00118$
+00115$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:54: score -= 2000; // Piccolo sconto nel Tier 2 per evitare sfarfallii ai limiti
+	ld	a, e
+	add	a, #0x30
+	ld	e, a
+	ld	a, d
+	adc	a, #0xf8
+	ld	d, a
+00118$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:58: if (score < min_score) {
+	ld	a, e
+	sub	a, -21 (ix)
+	ld	a, d
+	sbc	a, -20 (ix)
+	jr	NC, 00121$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:59: min_score = score;
+	ld	-21 (ix), e
+	ld	-20 (ix), d
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:60: best_match = i;
+	ld	-22 (ix), b
+00121$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:25: for (u8 i = start_idx; i < end_idx; i++) {
 	inc	b
-	jp	00119$
-00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:53: return best_match;
-	ld	e, -21 (ix)
+	jp	00124$
+00122$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:64: return best_match;
+	ld	e, -22 (ix)
 	ld	d, #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:54: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:65: }
 	ld	sp, ix
 	pop	ix
 	pop	hl

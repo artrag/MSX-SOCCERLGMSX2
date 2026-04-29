@@ -314,7 +314,7 @@
     00000000 DD E5            [15]  314 	push	ix
     00000002 DD 21 00 00      [14]  315 	ld	ix,#0
     00000006 DD 39            [15]  316 	add	ix,sp
-    00000008 FD 21 EA FF      [14]  317 	ld	iy, #-22
+    00000008 FD 21 E9 FF      [14]  317 	ld	iy, #-23
     0000000C FD 39            [15]  318 	add	iy, sp
     0000000E FD F9            [10]  319 	ld	sp, iy
     00000010 4F               [ 4]  320 	ld	c, a
@@ -326,482 +326,514 @@
     00000019 17               [ 4]  326 	rla
     0000001A DD 77 FD         [19]  327 	ld	-3 (ix), a
     0000001D B7               [ 4]  328 	or	a, a
-    0000001E 28 06            [12]  329 	jr	Z, 00122$
+    0000001E 28 06            [12]  329 	jr	Z, 00127$
     00000020 11 01 00         [10]  330 	ld	de, #0x0001
-    00000023 C3r29r00         [10]  331 	jp	00123$
-    00000026                        332 00122$:
+    00000023 C3r29r00         [10]  331 	jp	00128$
+    00000026                        332 00127$:
     00000026 11 08 00         [10]  333 	ld	de, #0x0008
-    00000029                        334 00123$:
+    00000029                        334 00128$:
                                     335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:12: u8 end_idx = start_idx + 6;
     00000029 DD 73 FE         [19]  336 	ld	-2 (ix), e
     0000002C 7B               [ 4]  337 	ld	a, e
     0000002D C6 06            [ 7]  338 	add	a, #0x06
-    0000002F DD 77 EA         [19]  339 	ld	-22 (ix), a
+    0000002F DD 77 E9         [19]  339 	ld	-23 (ix), a
                                     340 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:13: u8 best_match = 0xFF;
-    00000032 DD 36 EB FF      [19]  341 	ld	-21 (ix), #0xff
+    00000032 DD 36 EA FF      [19]  341 	ld	-22 (ix), #0xff
                                     342 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:14: u16 min_score = 0xFFFF;
-    00000036 DD 36 EC FF      [19]  343 	ld	-20 (ix), #0xff
-    0000003A DD 36 ED FF      [19]  344 	ld	-19 (ix), #0xff
-                                    345 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:16: i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
-    0000003E AF               [ 4]  346 	xor	a, a
-    0000003F DD 96 04         [19]  347 	sub	a, 4 (ix)
-    00000042 E2r47r00         [10]  348 	jp	PO, 00215$
-    00000045 EE 80            [ 7]  349 	xor	a, #0x80
-    00000047                        350 00215$:
-    00000047 F2r4Fr00         [10]  351 	jp	P, 00124$
-    0000004A 3E 01            [ 7]  352 	ld	a, #0x01
-    0000004C C3r6Ar00         [10]  353 	jp	00125$
-    0000004F                        354 00124$:
-    0000004F DD CB 04 7E      [20]  355 	bit	7, 4 (ix)
-    00000053 28 0B            [12]  356 	jr	Z, 00126$
-    00000055 DD 36 FB FF      [19]  357 	ld	-5 (ix), #0xff
-    00000059 DD 36 FC FF      [19]  358 	ld	-4 (ix), #0xff
-    0000005D C3r67r00         [10]  359 	jp	00127$
-    00000060                        360 00126$:
-    00000060 AF               [ 4]  361 	xor	a, a
-    00000061 DD 77 FB         [19]  362 	ld	-5 (ix), a
-    00000064 DD 77 FC         [19]  363 	ld	-4 (ix), a
-    00000067                        364 00127$:
-    00000067 DD 7E FB         [19]  365 	ld	a, -5 (ix)
-    0000006A                        366 00125$:
-    0000006A DD 77 EE         [19]  367 	ld	-18 (ix), a
-                                    368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:17: i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
-    0000006D AF               [ 4]  369 	xor	a, a
-    0000006E DD 96 05         [19]  370 	sub	a, 5 (ix)
-    00000071 E2r76r00         [10]  371 	jp	PO, 00216$
-    00000074 EE 80            [ 7]  372 	xor	a, #0x80
-    00000076                        373 00216$:
-    00000076 F2r7Fr00         [10]  374 	jp	P, 00128$
-    00000079 11 01 00         [10]  375 	ld	de, #0x0001
-    0000007C C3r8Er00         [10]  376 	jp	00129$
-    0000007F                        377 00128$:
-    0000007F DD CB 05 7E      [20]  378 	bit	7, 5 (ix)
-    00000083 28 06            [12]  379 	jr	Z, 00130$
-    00000085 11 FF FF         [10]  380 	ld	de, #0xffff
-    00000088 C3r8Er00         [10]  381 	jp	00131$
-    0000008B                        382 00130$:
-    0000008B 11 00 00         [10]  383 	ld	de, #0x0000
-    0000008E                        384 00131$:
-    0000008E                        385 00129$:
-    0000008E DD 73 EF         [19]  386 	ld	-17 (ix), e
-                                    387 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:19: if (sdx == 0 && sdy == 0) {
-    00000091 DD 7E EE         [19]  388 	ld	a, -18 (ix)
-    00000094 B7               [ 4]  389 	or	a, a
-    00000095 20 18            [12]  390 	jr	NZ, 00149$
-    00000097 DD 7E EF         [19]  391 	ld	a, -17 (ix)
-    0000009A B7               [ 4]  392 	or	a, a
-    0000009B 20 12            [12]  393 	jr	NZ, 00149$
-                                    394 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:20: sdy = (carrier < 7) ? 1 : -1;
-    0000009D DD 7E FD         [19]  395 	ld	a, -3 (ix)
-    000000A0 B7               [ 4]  396 	or	a, a
-    000000A1 28 06            [12]  397 	jr	Z, 00132$
-    000000A3 11 01 00         [10]  398 	ld	de, #0x0001
-    000000A6 C3rACr00         [10]  399 	jp	00133$
-    000000A9                        400 00132$:
-    000000A9 11 FF FF         [10]  401 	ld	de, #0xffff
-    000000AC                        402 00133$:
-    000000AC DD 73 EF         [19]  403 	ld	-17 (ix), e
-                                    404 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:23: for (u8 i = start_idx; i < end_idx; i++) {
-    000000AF                        405 00149$:
-    000000AF 06 00            [ 7]  406 	ld	b, #0x00
-    000000B1 69               [ 4]  407 	ld	l, c
-    000000B2 60               [ 4]  408 	ld	h, b
-    000000B3 29               [11]  409 	add	hl, hl
-    000000B4 29               [11]  410 	add	hl, hl
-    000000B5 09               [11]  411 	add	hl, bc
-    000000B6 29               [11]  412 	add	hl, hl
-    000000B7 09               [11]  413 	add	hl, bc
-    000000B8 29               [11]  414 	add	hl, hl
-    000000B9 09               [11]  415 	add	hl, bc
-    000000BA 11r00r00         [10]  416 	ld	de, #_SwSprite
-    000000BD 19               [11]  417 	add	hl, de
-    000000BE 7E               [ 7]  418 	ld	a, (hl)
-    000000BF DD 77 F0         [19]  419 	ld	-16 (ix), a
-    000000C2 11 04 00         [10]  420 	ld	de, #0x0004
-    000000C5 19               [11]  421 	add	hl, de
-    000000C6 7E               [ 7]  422 	ld	a, (hl)
-    000000C7 DD 77 F1         [19]  423 	ld	-15 (ix), a
-    000000CA 23               [ 6]  424 	inc	hl
-    000000CB 7E               [ 7]  425 	ld	a, (hl)
-    000000CC DD 77 F2         [19]  426 	ld	-14 (ix), a
-    000000CF DD 46 FE         [19]  427 	ld	b, -2 (ix)
-    000000D2                        428 00119$:
-    000000D2 78               [ 4]  429 	ld	a, b
-    000000D3 DD 96 EA         [19]  430 	sub	a, -22 (ix)
-    000000D6 D2r23r02         [10]  431 	jp	NC, 00117$
-                                    432 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:24: if (i == carrier || i == ignore_player) continue; 
-    000000D9 79               [ 4]  433 	ld	a, c
-    000000DA 90               [ 4]  434 	sub	a, b
-    000000DB CAr1Fr02         [10]  435 	jp	Z,00116$
-    000000DE DD 7E FF         [19]  436 	ld	a, -1 (ix)
-    000000E1 90               [ 4]  437 	sub	a, b
-    000000E2 CAr1Fr02         [10]  438 	jp	Z,00116$
-                                    439 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:26: i16 rx = (i16)SwSprite[i].lx - (i16)SwSprite[carrier].lx;
-    000000E5 58               [ 4]  440 	ld	e, b
-    000000E6 16 00            [ 7]  441 	ld	d, #0x00
-    000000E8 6B               [ 4]  442 	ld	l, e
-    000000E9 62               [ 4]  443 	ld	h, d
-    000000EA 29               [11]  444 	add	hl, hl
-    000000EB 29               [11]  445 	add	hl, hl
-    000000EC 19               [11]  446 	add	hl, de
-    000000ED 29               [11]  447 	add	hl, hl
-    000000EE 19               [11]  448 	add	hl, de
-    000000EF 29               [11]  449 	add	hl, hl
-    000000F0 19               [11]  450 	add	hl, de
-    000000F1 EB               [ 4]  451 	ex	de, hl
-    000000F2 FD 21r00r00      [14]  452 	ld	iy, #_SwSprite
-    000000F6 FD 19            [15]  453 	add	iy, de
-    000000F8 FD 6E 00         [19]  454 	ld	l, 0 (iy)
-                                    455 ;	spillPairReg hl
-    000000FB 26 00            [ 7]  456 	ld	h, #0x00
-                                    457 ;	spillPairReg hl
-                                    458 ;	spillPairReg hl
-    000000FD DD 5E F0         [19]  459 	ld	e, -16 (ix)
-    00000100 16 00            [ 7]  460 	ld	d, #0x00
-    00000102 BF               [ 4]  461 	cp	a, a
-    00000103 ED 52            [15]  462 	sbc	hl, de
-    00000105 DD 75 F3         [19]  463 	ld	-13 (ix), l
-    00000108 DD 74 F4         [19]  464 	ld	-12 (ix), h
-                                    465 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:27: i16 ry = (i16)SwSprite[i].ly - (i16)SwSprite[carrier].ly;
-    0000010B FD 6E 04         [19]  466 	ld	l, 4 (iy)
+    00000036 DD 36 EB FF      [19]  343 	ld	-21 (ix), #0xff
+    0000003A DD 36 EC FF      [19]  344 	ld	-20 (ix), #0xff
+                                    345 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:16: u8 current_rec = (carrier < 7) ? T1_Receiver : T2_Receiver;
+    0000003E DD 7E FD         [19]  346 	ld	a, -3 (ix)
+    00000041 B7               [ 4]  347 	or	a, a
+    00000042 28 06            [12]  348 	jr	Z, 00129$
+    00000044 3Ar00r00         [13]  349 	ld	a, (_T1_Receiver+0)
+    00000047 C3r4Dr00         [10]  350 	jp	00130$
+    0000004A                        351 00129$:
+    0000004A 3Ar00r00         [13]  352 	ld	a, (_T2_Receiver+0)
+    0000004D                        353 00130$:
+    0000004D DD 77 ED         [19]  354 	ld	-19 (ix), a
+                                    355 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:18: i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
+    00000050 AF               [ 4]  356 	xor	a, a
+    00000051 DD 96 04         [19]  357 	sub	a, 4 (ix)
+    00000054 E2r59r00         [10]  358 	jp	PO, 00237$
+    00000057 EE 80            [ 7]  359 	xor	a, #0x80
+    00000059                        360 00237$:
+    00000059 F2r61r00         [10]  361 	jp	P, 00131$
+    0000005C 3E 01            [ 7]  362 	ld	a, #0x01
+    0000005E C3r7Cr00         [10]  363 	jp	00132$
+    00000061                        364 00131$:
+    00000061 DD CB 04 7E      [20]  365 	bit	7, 4 (ix)
+    00000065 28 0B            [12]  366 	jr	Z, 00133$
+    00000067 DD 36 FB FF      [19]  367 	ld	-5 (ix), #0xff
+    0000006B DD 36 FC FF      [19]  368 	ld	-4 (ix), #0xff
+    0000006F C3r79r00         [10]  369 	jp	00134$
+    00000072                        370 00133$:
+    00000072 AF               [ 4]  371 	xor	a, a
+    00000073 DD 77 FB         [19]  372 	ld	-5 (ix), a
+    00000076 DD 77 FC         [19]  373 	ld	-4 (ix), a
+    00000079                        374 00134$:
+    00000079 DD 7E FB         [19]  375 	ld	a, -5 (ix)
+    0000007C                        376 00132$:
+    0000007C DD 77 EE         [19]  377 	ld	-18 (ix), a
+                                    378 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:19: i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
+    0000007F AF               [ 4]  379 	xor	a, a
+    00000080 DD 96 05         [19]  380 	sub	a, 5 (ix)
+    00000083 E2r88r00         [10]  381 	jp	PO, 00238$
+    00000086 EE 80            [ 7]  382 	xor	a, #0x80
+    00000088                        383 00238$:
+    00000088 F2r91r00         [10]  384 	jp	P, 00135$
+    0000008B 11 01 00         [10]  385 	ld	de, #0x0001
+    0000008E C3rA0r00         [10]  386 	jp	00136$
+    00000091                        387 00135$:
+    00000091 DD CB 05 7E      [20]  388 	bit	7, 5 (ix)
+    00000095 28 06            [12]  389 	jr	Z, 00137$
+    00000097 11 FF FF         [10]  390 	ld	de, #0xffff
+    0000009A C3rA0r00         [10]  391 	jp	00138$
+    0000009D                        392 00137$:
+    0000009D 11 00 00         [10]  393 	ld	de, #0x0000
+    000000A0                        394 00138$:
+    000000A0                        395 00136$:
+    000000A0 DD 73 EF         [19]  396 	ld	-17 (ix), e
+                                    397 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:21: if (sdx == 0 && sdy == 0) {
+    000000A3 DD 7E EE         [19]  398 	ld	a, -18 (ix)
+    000000A6 B7               [ 4]  399 	or	a, a
+    000000A7 20 18            [12]  400 	jr	NZ, 00159$
+    000000A9 DD 7E EF         [19]  401 	ld	a, -17 (ix)
+    000000AC B7               [ 4]  402 	or	a, a
+    000000AD 20 12            [12]  403 	jr	NZ, 00159$
+                                    404 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:22: sdy = (carrier < 7) ? 1 : -1;
+    000000AF DD 7E FD         [19]  405 	ld	a, -3 (ix)
+    000000B2 B7               [ 4]  406 	or	a, a
+    000000B3 28 06            [12]  407 	jr	Z, 00139$
+    000000B5 11 01 00         [10]  408 	ld	de, #0x0001
+    000000B8 C3rBEr00         [10]  409 	jp	00140$
+    000000BB                        410 00139$:
+    000000BB 11 FF FF         [10]  411 	ld	de, #0xffff
+    000000BE                        412 00140$:
+    000000BE DD 73 EF         [19]  413 	ld	-17 (ix), e
+                                    414 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:25: for (u8 i = start_idx; i < end_idx; i++) {
+    000000C1                        415 00159$:
+    000000C1 06 00            [ 7]  416 	ld	b, #0x00
+    000000C3 69               [ 4]  417 	ld	l, c
+    000000C4 60               [ 4]  418 	ld	h, b
+    000000C5 29               [11]  419 	add	hl, hl
+    000000C6 29               [11]  420 	add	hl, hl
+    000000C7 09               [11]  421 	add	hl, bc
+    000000C8 29               [11]  422 	add	hl, hl
+    000000C9 09               [11]  423 	add	hl, bc
+    000000CA 29               [11]  424 	add	hl, hl
+    000000CB 09               [11]  425 	add	hl, bc
+    000000CC 11r00r00         [10]  426 	ld	de, #_SwSprite
+    000000CF 19               [11]  427 	add	hl, de
+    000000D0 7E               [ 7]  428 	ld	a, (hl)
+    000000D1 DD 77 F0         [19]  429 	ld	-16 (ix), a
+    000000D4 11 04 00         [10]  430 	ld	de, #0x0004
+    000000D7 19               [11]  431 	add	hl, de
+    000000D8 7E               [ 7]  432 	ld	a, (hl)
+    000000D9 DD 77 F1         [19]  433 	ld	-15 (ix), a
+    000000DC 23               [ 6]  434 	inc	hl
+    000000DD 7E               [ 7]  435 	ld	a, (hl)
+    000000DE DD 77 F2         [19]  436 	ld	-14 (ix), a
+    000000E1 DD 46 FE         [19]  437 	ld	b, -2 (ix)
+    000000E4                        438 00124$:
+    000000E4 78               [ 4]  439 	ld	a, b
+    000000E5 DD 96 E9         [19]  440 	sub	a, -23 (ix)
+    000000E8 D2r51r02         [10]  441 	jp	NC, 00122$
+                                    442 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:26: if (i == carrier || i == ignore_player) continue; 
+    000000EB 79               [ 4]  443 	ld	a, c
+    000000EC 90               [ 4]  444 	sub	a, b
+    000000ED CAr4Dr02         [10]  445 	jp	Z,00121$
+    000000F0 DD 7E FF         [19]  446 	ld	a, -1 (ix)
+    000000F3 90               [ 4]  447 	sub	a, b
+    000000F4 CAr4Dr02         [10]  448 	jp	Z,00121$
+                                    449 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:28: i16 rx = (i16)SwSprite[i].lx - (i16)SwSprite[carrier].lx;
+    000000F7 58               [ 4]  450 	ld	e, b
+    000000F8 16 00            [ 7]  451 	ld	d, #0x00
+    000000FA 6B               [ 4]  452 	ld	l, e
+    000000FB 62               [ 4]  453 	ld	h, d
+    000000FC 29               [11]  454 	add	hl, hl
+    000000FD 29               [11]  455 	add	hl, hl
+    000000FE 19               [11]  456 	add	hl, de
+    000000FF 29               [11]  457 	add	hl, hl
+    00000100 19               [11]  458 	add	hl, de
+    00000101 29               [11]  459 	add	hl, hl
+    00000102 19               [11]  460 	add	hl, de
+    00000103 EB               [ 4]  461 	ex	de, hl
+    00000104 FD 21r00r00      [14]  462 	ld	iy, #_SwSprite
+    00000108 FD 19            [15]  463 	add	iy, de
+    0000010A FD 6E 00         [19]  464 	ld	l, 0 (iy)
+                                    465 ;	spillPairReg hl
+    0000010D 26 00            [ 7]  466 	ld	h, #0x00
                                     467 ;	spillPairReg hl
-    0000010E FD 66 05         [19]  468 	ld	h, 5 (iy)
-                                    469 ;	spillPairReg hl
-    00000111 DD 5E F1         [19]  470 	ld	e, -15 (ix)
-    00000114 DD 56 F2         [19]  471 	ld	d, -14 (ix)
-    00000117 BF               [ 4]  472 	cp	a, a
-    00000118 ED 52            [15]  473 	sbc	hl, de
-    0000011A DD 75 F5         [19]  474 	ld	-11 (ix), l
-    0000011D DD 74 F6         [19]  475 	ld	-10 (ix), h
-                                    476 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:30: i16 fwd_dist = (rx * sdx) + (ry * sdy);
-    00000120 DD 7E EE         [19]  477 	ld	a, -18 (ix)
-    00000123 DD 77 F7         [19]  478 	ld	-9 (ix), a
-    00000126 07               [ 4]  479 	rlca
-    00000127 9F               [ 4]  480 	sbc	a, a
-    00000128 DD 77 F8         [19]  481 	ld	-8 (ix), a
-    0000012B C5               [11]  482 	push	bc
-    0000012C DD 5E F7         [19]  483 	ld	e, -9 (ix)
-    0000012F DD 56 F8         [19]  484 	ld	d, -8 (ix)
-    00000132 DD 6E F3         [19]  485 	ld	l, -13 (ix)
-                                    486 ;	spillPairReg hl
-                                    487 ;	spillPairReg hl
-    00000135 DD 66 F4         [19]  488 	ld	h, -12 (ix)
-                                    489 ;	spillPairReg hl
-                                    490 ;	spillPairReg hl
-    00000138 CDr00r00         [17]  491 	call	__mulint
-    0000013B EB               [ 4]  492 	ex	de, hl
-    0000013C C1               [10]  493 	pop	bc
-    0000013D DD 7E EF         [19]  494 	ld	a, -17 (ix)
-    00000140 DD 77 F9         [19]  495 	ld	-7 (ix), a
-    00000143 07               [ 4]  496 	rlca
-    00000144 9F               [ 4]  497 	sbc	a, a
-    00000145 DD 77 FA         [19]  498 	ld	-6 (ix), a
-    00000148 E5               [11]  499 	push	hl
-    00000149 C5               [11]  500 	push	bc
-    0000014A DD 5E F9         [19]  501 	ld	e, -7 (ix)
-    0000014D DD 56 FA         [19]  502 	ld	d, -6 (ix)
-    00000150 DD 6E F5         [19]  503 	ld	l, -11 (ix)
-                                    504 ;	spillPairReg hl
-                                    505 ;	spillPairReg hl
-    00000153 DD 66 F6         [19]  506 	ld	h, -10 (ix)
-                                    507 ;	spillPairReg hl
-                                    508 ;	spillPairReg hl
-    00000156 CDr00r00         [17]  509 	call	__mulint
-    00000159 C1               [10]  510 	pop	bc
-    0000015A E1               [10]  511 	pop	hl
-    0000015B 19               [11]  512 	add	hl, de
-    0000015C DD 75 FB         [19]  513 	ld	-5 (ix), l
-    0000015F DD 74 FC         [19]  514 	ld	-4 (ix), h
-                                    515 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:32: if (fwd_dist <= 0) continue; // Esclude categoricamente chiunque si trovi alle spalle!
-    00000162 DD 7E FB         [19]  516 	ld	a, -5 (ix)
-    00000165 DD 77 FD         [19]  517 	ld	-3 (ix), a
-    00000168 DD 7E FC         [19]  518 	ld	a, -4 (ix)
-    0000016B DD 77 FE         [19]  519 	ld	-2 (ix), a
-    0000016E AF               [ 4]  520 	xor	a, a
-    0000016F DD BE FD         [19]  521 	cp	a, -3 (ix)
-    00000172 DD 9E FE         [19]  522 	sbc	a, -2 (ix)
-    00000175 E2r7Ar01         [10]  523 	jp	PO, 00219$
-    00000178 EE 80            [ 7]  524 	xor	a, #0x80
-    0000017A                        525 00219$:
-    0000017A F2r1Fr02         [10]  526 	jp	P, 00116$
-                                    527 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:35: i16 side_dist = (rx * sdy) - (ry * sdx);
-    0000017D C5               [11]  528 	push	bc
-    0000017E DD 5E F9         [19]  529 	ld	e, -7 (ix)
-    00000181 DD 56 FA         [19]  530 	ld	d, -6 (ix)
-    00000184 DD 6E F3         [19]  531 	ld	l, -13 (ix)
-                                    532 ;	spillPairReg hl
-                                    533 ;	spillPairReg hl
-    00000187 DD 66 F4         [19]  534 	ld	h, -12 (ix)
-                                    535 ;	spillPairReg hl
-                                    536 ;	spillPairReg hl
-    0000018A CDr00r00         [17]  537 	call	__mulint
-    0000018D EB               [ 4]  538 	ex	de, hl
-    0000018E C1               [10]  539 	pop	bc
-    0000018F E5               [11]  540 	push	hl
-    00000190 C5               [11]  541 	push	bc
-    00000191 DD 5E F7         [19]  542 	ld	e, -9 (ix)
-    00000194 DD 56 F8         [19]  543 	ld	d, -8 (ix)
-    00000197 DD 6E F5         [19]  544 	ld	l, -11 (ix)
+                                    468 ;	spillPairReg hl
+    0000010F DD 5E F0         [19]  469 	ld	e, -16 (ix)
+    00000112 16 00            [ 7]  470 	ld	d, #0x00
+    00000114 BF               [ 4]  471 	cp	a, a
+    00000115 ED 52            [15]  472 	sbc	hl, de
+    00000117 DD 75 F3         [19]  473 	ld	-13 (ix), l
+    0000011A DD 74 F4         [19]  474 	ld	-12 (ix), h
+                                    475 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:29: i16 ry = (i16)SwSprite[i].ly - (i16)SwSprite[carrier].ly;
+    0000011D FD 6E 04         [19]  476 	ld	l, 4 (iy)
+                                    477 ;	spillPairReg hl
+    00000120 FD 66 05         [19]  478 	ld	h, 5 (iy)
+                                    479 ;	spillPairReg hl
+    00000123 DD 5E F1         [19]  480 	ld	e, -15 (ix)
+    00000126 DD 56 F2         [19]  481 	ld	d, -14 (ix)
+    00000129 BF               [ 4]  482 	cp	a, a
+    0000012A ED 52            [15]  483 	sbc	hl, de
+    0000012C DD 75 F5         [19]  484 	ld	-11 (ix), l
+    0000012F DD 74 F6         [19]  485 	ld	-10 (ix), h
+                                    486 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:32: i16 fwd_dist = (rx * sdx) + (ry * sdy);
+    00000132 DD 7E EE         [19]  487 	ld	a, -18 (ix)
+    00000135 DD 77 F7         [19]  488 	ld	-9 (ix), a
+    00000138 07               [ 4]  489 	rlca
+    00000139 9F               [ 4]  490 	sbc	a, a
+    0000013A DD 77 F8         [19]  491 	ld	-8 (ix), a
+    0000013D C5               [11]  492 	push	bc
+    0000013E DD 5E F7         [19]  493 	ld	e, -9 (ix)
+    00000141 DD 56 F8         [19]  494 	ld	d, -8 (ix)
+    00000144 DD 6E F3         [19]  495 	ld	l, -13 (ix)
+                                    496 ;	spillPairReg hl
+                                    497 ;	spillPairReg hl
+    00000147 DD 66 F4         [19]  498 	ld	h, -12 (ix)
+                                    499 ;	spillPairReg hl
+                                    500 ;	spillPairReg hl
+    0000014A CDr00r00         [17]  501 	call	__mulint
+    0000014D EB               [ 4]  502 	ex	de, hl
+    0000014E C1               [10]  503 	pop	bc
+    0000014F DD 7E EF         [19]  504 	ld	a, -17 (ix)
+    00000152 DD 77 F9         [19]  505 	ld	-7 (ix), a
+    00000155 07               [ 4]  506 	rlca
+    00000156 9F               [ 4]  507 	sbc	a, a
+    00000157 DD 77 FA         [19]  508 	ld	-6 (ix), a
+    0000015A E5               [11]  509 	push	hl
+    0000015B C5               [11]  510 	push	bc
+    0000015C DD 5E F9         [19]  511 	ld	e, -7 (ix)
+    0000015F DD 56 FA         [19]  512 	ld	d, -6 (ix)
+    00000162 DD 6E F5         [19]  513 	ld	l, -11 (ix)
+                                    514 ;	spillPairReg hl
+                                    515 ;	spillPairReg hl
+    00000165 DD 66 F6         [19]  516 	ld	h, -10 (ix)
+                                    517 ;	spillPairReg hl
+                                    518 ;	spillPairReg hl
+    00000168 CDr00r00         [17]  519 	call	__mulint
+    0000016B C1               [10]  520 	pop	bc
+    0000016C E1               [10]  521 	pop	hl
+    0000016D 19               [11]  522 	add	hl, de
+    0000016E DD 75 FB         [19]  523 	ld	-5 (ix), l
+    00000171 DD 74 FC         [19]  524 	ld	-4 (ix), h
+                                    525 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:34: if (fwd_dist <= 0) continue; // Esclude categoricamente chiunque si trovi alle spalle!
+    00000174 DD 7E FB         [19]  526 	ld	a, -5 (ix)
+    00000177 DD 77 FD         [19]  527 	ld	-3 (ix), a
+    0000017A DD 7E FC         [19]  528 	ld	a, -4 (ix)
+    0000017D DD 77 FE         [19]  529 	ld	-2 (ix), a
+    00000180 AF               [ 4]  530 	xor	a, a
+    00000181 DD BE FD         [19]  531 	cp	a, -3 (ix)
+    00000184 DD 9E FE         [19]  532 	sbc	a, -2 (ix)
+    00000187 E2r8Cr01         [10]  533 	jp	PO, 00241$
+    0000018A EE 80            [ 7]  534 	xor	a, #0x80
+    0000018C                        535 00241$:
+    0000018C F2r4Dr02         [10]  536 	jp	P, 00121$
+                                    537 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:37: i16 side_dist = (rx * sdy) - (ry * sdx);
+    0000018F C5               [11]  538 	push	bc
+    00000190 DD 5E F9         [19]  539 	ld	e, -7 (ix)
+    00000193 DD 56 FA         [19]  540 	ld	d, -6 (ix)
+    00000196 DD 6E F3         [19]  541 	ld	l, -13 (ix)
+                                    542 ;	spillPairReg hl
+                                    543 ;	spillPairReg hl
+    00000199 DD 66 F4         [19]  544 	ld	h, -12 (ix)
                                     545 ;	spillPairReg hl
                                     546 ;	spillPairReg hl
-    0000019A DD 66 F6         [19]  547 	ld	h, -10 (ix)
-                                    548 ;	spillPairReg hl
-                                    549 ;	spillPairReg hl
-    0000019D CDr00r00         [17]  550 	call	__mulint
-    000001A0 C1               [10]  551 	pop	bc
-    000001A1 E1               [10]  552 	pop	hl
-    000001A2 BF               [ 4]  553 	cp	a, a
-    000001A3 ED 52            [15]  554 	sbc	hl, de
-    000001A5 55               [ 4]  555 	ld	d, l
-                                    556 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:36: if (side_dist < 0) side_dist = -side_dist;
-                                    557 ;	spillPairReg hl
+    0000019C CDr00r00         [17]  547 	call	__mulint
+    0000019F EB               [ 4]  548 	ex	de, hl
+    000001A0 C1               [10]  549 	pop	bc
+    000001A1 E5               [11]  550 	push	hl
+    000001A2 C5               [11]  551 	push	bc
+    000001A3 DD 5E F7         [19]  552 	ld	e, -9 (ix)
+    000001A6 DD 56 F8         [19]  553 	ld	d, -8 (ix)
+    000001A9 DD 6E F5         [19]  554 	ld	l, -11 (ix)
+                                    555 ;	spillPairReg hl
+                                    556 ;	spillPairReg hl
+    000001AC DD 66 F6         [19]  557 	ld	h, -10 (ix)
                                     558 ;	spillPairReg hl
-    000001A6 5C               [ 4]  559 	ld	e,h
-                                    560 ;	spillPairReg hl
-                                    561 ;	spillPairReg hl
-    000001A7 CB 7C            [ 8]  562 	bit	7, h
-    000001A9 28 06            [12]  563 	jr	Z, 00110$
-    000001AB AF               [ 4]  564 	xor	a, a
-    000001AC 92               [ 4]  565 	sub	a, d
-    000001AD 57               [ 4]  566 	ld	d, a
-    000001AE 9F               [ 4]  567 	sbc	a, a
-    000001AF 93               [ 4]  568 	sub	a, e
-    000001B0 5F               [ 4]  569 	ld	e, a
-    000001B1                        570 00110$:
-                                    571 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:39: if (side_dist <= fwd_dist * 2) {
-    000001B1 DD 6E FD         [19]  572 	ld	l, -3 (ix)
-    000001B4 DD 66 FE         [19]  573 	ld	h, -2 (ix)
-    000001B7 29               [11]  574 	add	hl, hl
-    000001B8 DD 72 F9         [19]  575 	ld	-7 (ix), d
-    000001BB DD 73 FA         [19]  576 	ld	-6 (ix), e
-                                    577 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: score = (u16)fwd_dist + (u16)(side_dist * 2);
-    000001BE DD 7E FB         [19]  578 	ld	a, -5 (ix)
-    000001C1 DD 77 FD         [19]  579 	ld	-3 (ix), a
-    000001C4 DD 7E FC         [19]  580 	ld	a, -4 (ix)
-    000001C7 DD 77 FE         [19]  581 	ld	-2 (ix), a
-    000001CA DD 7E F9         [19]  582 	ld	a, -7 (ix)
-    000001CD DD 5E FA         [19]  583 	ld	e, -6 (ix)
-    000001D0 87               [ 4]  584 	add	a, a
-    000001D1 CB 13            [ 8]  585 	rl	e
-    000001D3 DD 77 FB         [19]  586 	ld	-5 (ix), a
-    000001D6 DD 73 FC         [19]  587 	ld	-4 (ix), e
-                                    588 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:39: if (side_dist <= fwd_dist * 2) {
-    000001D9 7D               [ 4]  589 	ld	a, l
-    000001DA DD 96 F9         [19]  590 	sub	a, -7 (ix)
-    000001DD 7C               [ 4]  591 	ld	a, h
-    000001DE DD 9E FA         [19]  592 	sbc	a, -6 (ix)
-    000001E1 E2rE6r01         [10]  593 	jp	PO, 00221$
-    000001E4 EE 80            [ 7]  594 	xor	a, #0x80
-    000001E6                        595 00221$:
-    000001E6 FArFAr01         [10]  596 	jp	M, 00112$
-                                    597 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: score = (u16)fwd_dist + (u16)(side_dist * 2);
-    000001E9 DD 7E FB         [19]  598 	ld	a, -5 (ix)
-    000001EC DD 86 FD         [19]  599 	add	a, -3 (ix)
-    000001EF 5F               [ 4]  600 	ld	e, a
-    000001F0 DD 7E FC         [19]  601 	ld	a, -4 (ix)
-    000001F3 DD 8E FE         [19]  602 	adc	a, -2 (ix)
-    000001F6 57               [ 4]  603 	ld	d, a
-    000001F7 C3r0Cr02         [10]  604 	jp	00113$
-    000001FA                        605 00112$:
-                                    606 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:44: score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
-    000001FA DD 5E FD         [19]  607 	ld	e, -3 (ix)
-    000001FD DD 56 FE         [19]  608 	ld	d, -2 (ix)
-    00000200 21 10 27         [10]  609 	ld	hl, #0x2710
-    00000203 19               [11]  610 	add	hl, de
-    00000204 DD 5E FB         [19]  611 	ld	e, -5 (ix)
-    00000207 DD 56 FC         [19]  612 	ld	d, -4 (ix)
-    0000020A 19               [11]  613 	add	hl, de
-    0000020B EB               [ 4]  614 	ex	de, hl
-    0000020C                        615 00113$:
-                                    616 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:47: if (score < min_score) {
-    0000020C 7B               [ 4]  617 	ld	a, e
-    0000020D DD 96 EC         [19]  618 	sub	a, -20 (ix)
-    00000210 7A               [ 4]  619 	ld	a, d
-    00000211 DD 9E ED         [19]  620 	sbc	a, -19 (ix)
-    00000214 30 09            [12]  621 	jr	NC, 00116$
-                                    622 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:48: min_score = score;
-    00000216 DD 73 EC         [19]  623 	ld	-20 (ix), e
-    00000219 DD 72 ED         [19]  624 	ld	-19 (ix), d
-                                    625 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:49: best_match = i;
-    0000021C DD 70 EB         [19]  626 	ld	-21 (ix), b
-    0000021F                        627 00116$:
-                                    628 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:23: for (u8 i = start_idx; i < end_idx; i++) {
-    0000021F 04               [ 4]  629 	inc	b
-    00000220 C3rD2r00         [10]  630 	jp	00119$
-    00000223                        631 00117$:
-                                    632 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:53: return best_match;
-    00000223 DD 5E EB         [19]  633 	ld	e, -21 (ix)
-    00000226 16 00            [ 7]  634 	ld	d, #0x00
-                                    635 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:54: }
-    00000228 DD F9            [10]  636 	ld	sp, ix
-    0000022A DD E1            [14]  637 	pop	ix
-    0000022C E1               [10]  638 	pop	hl
-    0000022D F1               [10]  639 	pop	af
-    0000022E E9               [ 4]  640 	jp	(hl)
-                         0000F380   641 _g_RDPRIM	=	0xf380
-                         0000F385   642 _g_WRPRIM	=	0xf385
-                         0000F38C   643 _g_CLPRIM	=	0xf38c
-                         0000F39A   644 _g_USRTAB	=	0xf39a
-                         0000F3DE   645 _g_CNSDFG	=	0xf3de
-                         0000F3DF   646 _g_RG0SAV	=	0xf3df
-                         0000F3E0   647 _g_RG1SAV	=	0xf3e0
-                         0000F3E1   648 _g_RG2SAV	=	0xf3e1
-                         0000F3E2   649 _g_RG3SAV	=	0xf3e2
-                         0000F3E3   650 _g_RG4SAV	=	0xf3e3
-                         0000F3E4   651 _g_RG5SAV	=	0xf3e4
-                         0000F3E5   652 _g_RG6SAV	=	0xf3e5
-                         0000F3E6   653 _g_RG7SAV	=	0xf3e6
-                         0000F3E7   654 _g_STATFL	=	0xf3e7
-                         0000F3E8   655 _g_TRGFLG	=	0xf3e8
-                         0000F3EC   656 _g_MAXUPD	=	0xf3ec
-                         0000F3EF   657 _g_MINUPD	=	0xf3ef
-                         0000F3F3   658 _g_QUEUES	=	0xf3f3
-                         0000F3F5   659 _g_FRCNEW	=	0xf3f5
-                         0000F3F6   660 _g_SCNCNT	=	0xf3f6
-                         0000F3F7   661 _g_REPCNT	=	0xf3f7
-                         0000F3F8   662 _g_PUTPNT	=	0xf3f8
-                         0000F3FA   663 _g_GETPNT	=	0xf3fa
-                         0000F3FC   664 _g_CS120	=	0xf3fc
-                         0000F401   665 _g_CS240	=	0xf401
-                         0000F406   666 _g_LOW	=	0xf406
-                         0000F408   667 _g_HIGH	=	0xf408
-                         0000F40A   668 _g_HEADER	=	0xf40a
-                         0000F40B   669 _g_ASPCT1	=	0xf40b
-                         0000F40D   670 _g_ASPCT2	=	0xf40d
-                         0000F959   671 _g_QUETAB	=	0xf959
-                         0000F971   672 _g_QUEBAK	=	0xf971
-                         0000F975   673 _g_VOICAQ	=	0xf975
-                         0000F9F5   674 _g_VOICBQ	=	0xf9f5
-                         0000FA75   675 _g_VOICCQ	=	0xfa75
-                         0000FAF5   676 _g_RS2IQ	=	0xfaf5
-                         0000FAF5   677 _g_DPPAGE	=	0xfaf5
-                         0000FAF6   678 _g_ACPAGE	=	0xfaf6
-                         0000FAF7   679 _g_AVCSAV	=	0xfaf7
-                         0000FAF8   680 _g_EXBRSA	=	0xfaf8
-                         0000FAF9   681 _g_CHRCNT	=	0xfaf9
-                         0000FAFA   682 _g_ROMA	=	0xfafa
-                         0000FAFC   683 _g_MODE	=	0xfafc
-                         0000FAFD   684 _g_NORUSE	=	0xfafd
-                         0000FAFE   685 _g_XSAVE	=	0xfafe
-                         0000FB00   686 _g_YSAVE	=	0xfb00
-                         0000FB03   687 _g_RSTMP	=	0xfb03
-                         0000FB03   688 _g_TOCNT	=	0xfb03
-                         0000FB04   689 _g_RSFCB	=	0xfb04
-                         0000FB06   690 _g_RSIQLN	=	0xfb06
-                         0000FB07   691 _g_MEXBIh	=	0xfb07
-                         0000FB0C   692 _g_OLDSTT	=	0xfb0c
-                         0000FB0C   693 _g_OLDINT	=	0xfb0c
-                         0000FB16   694 _g_DEVNUM	=	0xfb16
-                         0000FB17   695 _g_DATCNT	=	0xfb17
-                         0000FB1A   696 _g_ERRORS	=	0xfb1a
-                         0000FB1B   697 _g_FLAGS	=	0xfb1b
-                         0000FB1C   698 _g_ESTBLS	=	0xfb1c
-                         0000FB1D   699 _g_COMMSK	=	0xfb1d
-                         0000FB1E   700 _g_LSTCOM	=	0xfb1e
-                         0000FB1F   701 _g_LSTMOD	=	0xfb1f
-                         0000FB35   702 _g_PRSCNT	=	0xfb35
-                         0000FB36   703 _g_SAVSP	=	0xfb36
-                         0000FB38   704 _g_VOICEN	=	0xfb38
-                         0000FB39   705 _g_SAVVOL	=	0xfb39
-                         0000FB3B   706 _g_MCLLEN	=	0xfb3b
-                         0000FB3C   707 _g_MCLPTR	=	0xfb3c
-                         0000FB3E   708 _g_QUEUEN	=	0xfb3e
-                         0000FB3F   709 _g_MUSICF	=	0xfb3f
-                         0000FB40   710 _g_PLYCNT	=	0xfb40
-                         0000FB41   711 _g_VCBA	=	0xfb41
-                         0000FB66   712 _g_VCBB	=	0xfb66
-                         0000FB8B   713 _g_VCBC	=	0xfb8b
-                         0000FBB0   714 _g_ENSTOP	=	0xfbb0
-                         0000FBB1   715 _g_BASROM	=	0xfbb1
-                         0000FBB2   716 _g_LINTTB	=	0xfbb2
-                         0000FBCA   717 _g_FSTPOS	=	0xfbca
-                         0000FBCC   718 _g_CODSAV	=	0xfbcc
-                         0000FBCD   719 _g_FNKSWI	=	0xfbcd
-                         0000FBCE   720 _g_FNKFLG	=	0xfbce
-                         0000FBD8   721 _g_ONGSBF	=	0xfbd8
-                         0000FBD9   722 _g_CLIKFL	=	0xfbd9
-                         0000FBDA   723 _g_OLDKEY	=	0xfbda
-                         0000FBE5   724 _g_NEWKEY	=	0xfbe5
-                         0000FBF0   725 _g_KEYBUF	=	0xfbf0
-                         0000FC18   726 _g_LINWRK	=	0xfc18
-                         0000FC40   727 _g_PATWRK	=	0xfc40
-                         0000FC48   728 _g_BOTTOM	=	0xfc48
-                         0000FC4A   729 _g_HIMEM	=	0xfc4a
-                         0000FC4C   730 _g_TRPTBL	=	0xfc4c
-                         0000FC9A   731 _g_RTYCNT	=	0xfc9a
-                         0000FC9B   732 _g_INTFLG	=	0xfc9b
-                         0000FC9C   733 _g_PADY	=	0xfc9c
-                         0000FC9D   734 _g_PADX	=	0xfc9d
-                         0000FC9E   735 _g_JIFFY	=	0xfc9e
-                         0000FCA0   736 _g_INTVAL	=	0xfca0
-                         0000FCA2   737 _g_INTCNT	=	0xfca2
-                         0000FCA4   738 _g_LOWLIM	=	0xfca4
-                         0000FCA5   739 _g_WINWID	=	0xfca5
-                         0000FCA6   740 _g_GRPHED	=	0xfca6
-                         0000FCA7   741 _g_ESCCNT	=	0xfca7
-                         0000FCA8   742 _g_INSFLG	=	0xfca8
-                         0000FCA9   743 _g_CSRSW	=	0xfca9
-                         0000FCAA   744 _g_CSTYLE	=	0xfcaa
-                         0000FCAB   745 _g_CAPST	=	0xfcab
-                         0000FCAC   746 _g_KANAST	=	0xfcac
-                         0000FCAD   747 _g_KANAMD	=	0xfcad
-                         0000FCAE   748 _g_FLBMEM	=	0xfcae
-                         0000FCAF   749 _g_SCRMOD	=	0xfcaf
-                         0000FCB0   750 _g_OLDSCR	=	0xfcb0
-                         0000FCB1   751 _g_CASPRV	=	0xfcb1
-                         0000FCB2   752 _g_BRDATR	=	0xfcb2
-                         0000FCB3   753 _g_GXPOS	=	0xfcb3
-                         0000FCB5   754 _g_GYPOS	=	0xfcb5
-                         0000FCBB   755 _g_DRWFLG	=	0xfcbb
-                         0000FCBC   756 _g_DRWSCL	=	0xfcbc
-                         0000FCBD   757 _g_DRWANG	=	0xfcbd
-                         0000FCC1   758 _g_MNROM	=	0xfcc1
-                         0000FCC1   759 _g_EXPTBL	=	0xfcc1
-                         0000FCC5   760 _g_SLTTBL	=	0xfcc5
-                         0000FCC9   761 _g_SLTATR	=	0xfcc9
-                         0000FD09   762 _g_SLTWRK	=	0xfd09
-                         0000FD89   763 _g_PROCNM	=	0xfd89
-                         0000FFE7   764 _g_RG08SAV	=	0xffe7
-                         0000FFE8   765 _g_RG09SAV	=	0xffe8
-                         0000FFE9   766 _g_RG10SAV	=	0xffe9
-                         0000FFEA   767 _g_RG11SAV	=	0xffea
-                         0000FFEB   768 _g_RG12SAV	=	0xffeb
-                         0000FFEC   769 _g_RG13SAV	=	0xffec
-                         0000FFED   770 _g_RG14SAV	=	0xffed
-                         0000FFEE   771 _g_RG15SAV	=	0xffee
-                         0000FFEF   772 _g_RG16SAV	=	0xffef
-                         0000FFF0   773 _g_RG17SAV	=	0xfff0
-                         0000FFF1   774 _g_RG18SAV	=	0xfff1
-                         0000FFF2   775 _g_RG19SAV	=	0xfff2
-                         0000FFF3   776 _g_RG20SAV	=	0xfff3
-                         0000FFF4   777 _g_RG21SAV	=	0xfff4
-                         0000FFF5   778 _g_RG22SAV	=	0xfff5
-                         0000FFF6   779 _g_RG23SAV	=	0xfff6
-                         0000FFF7   780 _g_MINROM	=	0xfff7
-                         0000FFF8   781 _g_SVFFF8	=	0xfff8
-                         0000FFFA   782 _g_RG25SAV	=	0xfffa
-                         0000FFFB   783 _g_RG26SAV	=	0xfffb
-                         0000FFFC   784 _g_RG27SAV	=	0xfffc
-                         0000FFFD   785 _g_SVFFFD	=	0xfffd
-                         00000004   786 _g_CGTABL	=	0x0004
-                         00000006   787 _g_VDP_DR	=	0x0006
-                         00000007   788 _g_VDP_DW	=	0x0007
-                         0000002B   789 _g_BASRVN	=	0x002b
-                         0000002B   790 _g_ROMVersion	=	0x002b
-                         0000002D   791 _g_MSXVER	=	0x002d
-                         0000002E   792 _g_MSXMID	=	0x002e
-                         00000034   793 _g_CHAR_16	=	0x0034
-                         00000000   794 _g_SUBRID	=	0x0000
-                         00000002   795 _g_STRSRC	=	0x0002
-                         0000F30F   796 _g_KANJTABLE	=	0xf30f
-                         0000F323   797 _g_DISKVE	=	0xf323
-                         0000F325   798 _g_BREAKV	=	0xf325
-                         0000F341   799 _g_RAMAD0	=	0xf341
-                         0000F342   800 _g_RAMAD1	=	0xf342
-                         0000F343   801 _g_RAMAD2	=	0xf343
-                         0000F344   802 _g_RAMAD3	=	0xf344
-                         0000F348   803 _g_MASTER	=	0xf348
-                         0000F37D   804 _g_BDOS	=	0xf37d
-                                    805 	.area _SEG20
-                                    806 	.area _INITIALIZER
-                                    807 	.area _CABS (ABS)
+                                    559 ;	spillPairReg hl
+    000001AF CDr00r00         [17]  560 	call	__mulint
+    000001B2 C1               [10]  561 	pop	bc
+    000001B3 E1               [10]  562 	pop	hl
+    000001B4 BF               [ 4]  563 	cp	a, a
+    000001B5 ED 52            [15]  564 	sbc	hl, de
+    000001B7 55               [ 4]  565 	ld	d, l
+                                    566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:38: if (side_dist < 0) side_dist = -side_dist;
+                                    567 ;	spillPairReg hl
+                                    568 ;	spillPairReg hl
+    000001B8 5C               [ 4]  569 	ld	e,h
+                                    570 ;	spillPairReg hl
+                                    571 ;	spillPairReg hl
+    000001B9 CB 7C            [ 8]  572 	bit	7, h
+    000001BB 28 06            [12]  573 	jr	Z, 00110$
+    000001BD AF               [ 4]  574 	xor	a, a
+    000001BE 92               [ 4]  575 	sub	a, d
+    000001BF 57               [ 4]  576 	ld	d, a
+    000001C0 9F               [ 4]  577 	sbc	a, a
+    000001C1 93               [ 4]  578 	sub	a, e
+    000001C2 5F               [ 4]  579 	ld	e, a
+    000001C3                        580 00110$:
+                                    581 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: if (side_dist <= fwd_dist * 2) {
+    000001C3 DD 6E FD         [19]  582 	ld	l, -3 (ix)
+    000001C6 DD 66 FE         [19]  583 	ld	h, -2 (ix)
+    000001C9 29               [11]  584 	add	hl, hl
+    000001CA DD 72 F9         [19]  585 	ld	-7 (ix), d
+    000001CD DD 73 FA         [19]  586 	ld	-6 (ix), e
+                                    587 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:43: score = (u16)fwd_dist + (u16)(side_dist * 2);
+    000001D0 DD 7E FB         [19]  588 	ld	a, -5 (ix)
+    000001D3 DD 77 FD         [19]  589 	ld	-3 (ix), a
+    000001D6 DD 7E FC         [19]  590 	ld	a, -4 (ix)
+    000001D9 DD 77 FE         [19]  591 	ld	-2 (ix), a
+    000001DC DD 7E F9         [19]  592 	ld	a, -7 (ix)
+    000001DF DD 5E FA         [19]  593 	ld	e, -6 (ix)
+    000001E2 87               [ 4]  594 	add	a, a
+    000001E3 CB 13            [ 8]  595 	rl	e
+    000001E5 DD 77 FB         [19]  596 	ld	-5 (ix), a
+    000001E8 DD 73 FC         [19]  597 	ld	-4 (ix), e
+                                    598 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:41: if (side_dist <= fwd_dist * 2) {
+    000001EB 7D               [ 4]  599 	ld	a, l
+    000001EC DD 96 F9         [19]  600 	sub	a, -7 (ix)
+    000001EF 7C               [ 4]  601 	ld	a, h
+    000001F0 DD 9E FA         [19]  602 	sbc	a, -6 (ix)
+    000001F3 E2rF8r01         [10]  603 	jp	PO, 00243$
+    000001F6 EE 80            [ 7]  604 	xor	a, #0x80
+    000001F8                        605 00243$:
+    000001F8 FAr0Cr02         [10]  606 	jp	M, 00112$
+                                    607 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:43: score = (u16)fwd_dist + (u16)(side_dist * 2);
+    000001FB DD 7E FB         [19]  608 	ld	a, -5 (ix)
+    000001FE DD 86 FD         [19]  609 	add	a, -3 (ix)
+    00000201 5F               [ 4]  610 	ld	e, a
+    00000202 DD 7E FC         [19]  611 	ld	a, -4 (ix)
+    00000205 DD 8E FE         [19]  612 	adc	a, -2 (ix)
+    00000208 57               [ 4]  613 	ld	d, a
+    00000209 C3r1Er02         [10]  614 	jp	00113$
+    0000020C                        615 00112$:
+                                    616 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:46: score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
+    0000020C DD 5E FD         [19]  617 	ld	e, -3 (ix)
+    0000020F DD 56 FE         [19]  618 	ld	d, -2 (ix)
+    00000212 21 10 27         [10]  619 	ld	hl, #0x2710
+    00000215 19               [11]  620 	add	hl, de
+    00000216 DD 5E FB         [19]  621 	ld	e, -5 (ix)
+    00000219 DD 56 FC         [19]  622 	ld	d, -4 (ix)
+    0000021C 19               [11]  623 	add	hl, de
+    0000021D EB               [ 4]  624 	ex	de, hl
+    0000021E                        625 00113$:
+                                    626 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:50: if (i == current_rec) {
+    0000021E DD 7E ED         [19]  627 	ld	a, -19 (ix)
+    00000221 90               [ 4]  628 	sub	a, b
+    00000222 20 16            [12]  629 	jr	NZ, 00118$
+                                    630 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:51: if (score < 10000) {
+    00000224 7B               [ 4]  631 	ld	a, e
+    00000225 D6 10            [ 7]  632 	sub	a, #0x10
+    00000227 7A               [ 4]  633 	ld	a, d
+    00000228 DE 27            [ 7]  634 	sbc	a, #0x27
+    0000022A 30 06            [12]  635 	jr	NC, 00115$
+                                    636 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:52: score = 0; // Se è ancora nel Tier 1 (entro ~63 gradi), mantieni il focus assoluto
+    0000022C 11 00 00         [10]  637 	ld	de, #0x0000
+    0000022F C3r3Ar02         [10]  638 	jp	00118$
+    00000232                        639 00115$:
+                                    640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:54: score -= 2000; // Piccolo sconto nel Tier 2 per evitare sfarfallii ai limiti
+    00000232 7B               [ 4]  641 	ld	a, e
+    00000233 C6 30            [ 7]  642 	add	a, #0x30
+    00000235 5F               [ 4]  643 	ld	e, a
+    00000236 7A               [ 4]  644 	ld	a, d
+    00000237 CE F8            [ 7]  645 	adc	a, #0xf8
+    00000239 57               [ 4]  646 	ld	d, a
+    0000023A                        647 00118$:
+                                    648 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:58: if (score < min_score) {
+    0000023A 7B               [ 4]  649 	ld	a, e
+    0000023B DD 96 EB         [19]  650 	sub	a, -21 (ix)
+    0000023E 7A               [ 4]  651 	ld	a, d
+    0000023F DD 9E EC         [19]  652 	sbc	a, -20 (ix)
+    00000242 30 09            [12]  653 	jr	NC, 00121$
+                                    654 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:59: min_score = score;
+    00000244 DD 73 EB         [19]  655 	ld	-21 (ix), e
+    00000247 DD 72 EC         [19]  656 	ld	-20 (ix), d
+                                    657 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:60: best_match = i;
+    0000024A DD 70 EA         [19]  658 	ld	-22 (ix), b
+    0000024D                        659 00121$:
+                                    660 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:25: for (u8 i = start_idx; i < end_idx; i++) {
+    0000024D 04               [ 4]  661 	inc	b
+    0000024E C3rE4r00         [10]  662 	jp	00124$
+    00000251                        663 00122$:
+                                    664 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:64: return best_match;
+    00000251 DD 5E EA         [19]  665 	ld	e, -22 (ix)
+    00000254 16 00            [ 7]  666 	ld	d, #0x00
+                                    667 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s20_b3.c:65: }
+    00000256 DD F9            [10]  668 	ld	sp, ix
+    00000258 DD E1            [14]  669 	pop	ix
+    0000025A E1               [10]  670 	pop	hl
+    0000025B F1               [10]  671 	pop	af
+    0000025C E9               [ 4]  672 	jp	(hl)
+                         0000F380   673 _g_RDPRIM	=	0xf380
+                         0000F385   674 _g_WRPRIM	=	0xf385
+                         0000F38C   675 _g_CLPRIM	=	0xf38c
+                         0000F39A   676 _g_USRTAB	=	0xf39a
+                         0000F3DE   677 _g_CNSDFG	=	0xf3de
+                         0000F3DF   678 _g_RG0SAV	=	0xf3df
+                         0000F3E0   679 _g_RG1SAV	=	0xf3e0
+                         0000F3E1   680 _g_RG2SAV	=	0xf3e1
+                         0000F3E2   681 _g_RG3SAV	=	0xf3e2
+                         0000F3E3   682 _g_RG4SAV	=	0xf3e3
+                         0000F3E4   683 _g_RG5SAV	=	0xf3e4
+                         0000F3E5   684 _g_RG6SAV	=	0xf3e5
+                         0000F3E6   685 _g_RG7SAV	=	0xf3e6
+                         0000F3E7   686 _g_STATFL	=	0xf3e7
+                         0000F3E8   687 _g_TRGFLG	=	0xf3e8
+                         0000F3EC   688 _g_MAXUPD	=	0xf3ec
+                         0000F3EF   689 _g_MINUPD	=	0xf3ef
+                         0000F3F3   690 _g_QUEUES	=	0xf3f3
+                         0000F3F5   691 _g_FRCNEW	=	0xf3f5
+                         0000F3F6   692 _g_SCNCNT	=	0xf3f6
+                         0000F3F7   693 _g_REPCNT	=	0xf3f7
+                         0000F3F8   694 _g_PUTPNT	=	0xf3f8
+                         0000F3FA   695 _g_GETPNT	=	0xf3fa
+                         0000F3FC   696 _g_CS120	=	0xf3fc
+                         0000F401   697 _g_CS240	=	0xf401
+                         0000F406   698 _g_LOW	=	0xf406
+                         0000F408   699 _g_HIGH	=	0xf408
+                         0000F40A   700 _g_HEADER	=	0xf40a
+                         0000F40B   701 _g_ASPCT1	=	0xf40b
+                         0000F40D   702 _g_ASPCT2	=	0xf40d
+                         0000F959   703 _g_QUETAB	=	0xf959
+                         0000F971   704 _g_QUEBAK	=	0xf971
+                         0000F975   705 _g_VOICAQ	=	0xf975
+                         0000F9F5   706 _g_VOICBQ	=	0xf9f5
+                         0000FA75   707 _g_VOICCQ	=	0xfa75
+                         0000FAF5   708 _g_RS2IQ	=	0xfaf5
+                         0000FAF5   709 _g_DPPAGE	=	0xfaf5
+                         0000FAF6   710 _g_ACPAGE	=	0xfaf6
+                         0000FAF7   711 _g_AVCSAV	=	0xfaf7
+                         0000FAF8   712 _g_EXBRSA	=	0xfaf8
+                         0000FAF9   713 _g_CHRCNT	=	0xfaf9
+                         0000FAFA   714 _g_ROMA	=	0xfafa
+                         0000FAFC   715 _g_MODE	=	0xfafc
+                         0000FAFD   716 _g_NORUSE	=	0xfafd
+                         0000FAFE   717 _g_XSAVE	=	0xfafe
+                         0000FB00   718 _g_YSAVE	=	0xfb00
+                         0000FB03   719 _g_RSTMP	=	0xfb03
+                         0000FB03   720 _g_TOCNT	=	0xfb03
+                         0000FB04   721 _g_RSFCB	=	0xfb04
+                         0000FB06   722 _g_RSIQLN	=	0xfb06
+                         0000FB07   723 _g_MEXBIh	=	0xfb07
+                         0000FB0C   724 _g_OLDSTT	=	0xfb0c
+                         0000FB0C   725 _g_OLDINT	=	0xfb0c
+                         0000FB16   726 _g_DEVNUM	=	0xfb16
+                         0000FB17   727 _g_DATCNT	=	0xfb17
+                         0000FB1A   728 _g_ERRORS	=	0xfb1a
+                         0000FB1B   729 _g_FLAGS	=	0xfb1b
+                         0000FB1C   730 _g_ESTBLS	=	0xfb1c
+                         0000FB1D   731 _g_COMMSK	=	0xfb1d
+                         0000FB1E   732 _g_LSTCOM	=	0xfb1e
+                         0000FB1F   733 _g_LSTMOD	=	0xfb1f
+                         0000FB35   734 _g_PRSCNT	=	0xfb35
+                         0000FB36   735 _g_SAVSP	=	0xfb36
+                         0000FB38   736 _g_VOICEN	=	0xfb38
+                         0000FB39   737 _g_SAVVOL	=	0xfb39
+                         0000FB3B   738 _g_MCLLEN	=	0xfb3b
+                         0000FB3C   739 _g_MCLPTR	=	0xfb3c
+                         0000FB3E   740 _g_QUEUEN	=	0xfb3e
+                         0000FB3F   741 _g_MUSICF	=	0xfb3f
+                         0000FB40   742 _g_PLYCNT	=	0xfb40
+                         0000FB41   743 _g_VCBA	=	0xfb41
+                         0000FB66   744 _g_VCBB	=	0xfb66
+                         0000FB8B   745 _g_VCBC	=	0xfb8b
+                         0000FBB0   746 _g_ENSTOP	=	0xfbb0
+                         0000FBB1   747 _g_BASROM	=	0xfbb1
+                         0000FBB2   748 _g_LINTTB	=	0xfbb2
+                         0000FBCA   749 _g_FSTPOS	=	0xfbca
+                         0000FBCC   750 _g_CODSAV	=	0xfbcc
+                         0000FBCD   751 _g_FNKSWI	=	0xfbcd
+                         0000FBCE   752 _g_FNKFLG	=	0xfbce
+                         0000FBD8   753 _g_ONGSBF	=	0xfbd8
+                         0000FBD9   754 _g_CLIKFL	=	0xfbd9
+                         0000FBDA   755 _g_OLDKEY	=	0xfbda
+                         0000FBE5   756 _g_NEWKEY	=	0xfbe5
+                         0000FBF0   757 _g_KEYBUF	=	0xfbf0
+                         0000FC18   758 _g_LINWRK	=	0xfc18
+                         0000FC40   759 _g_PATWRK	=	0xfc40
+                         0000FC48   760 _g_BOTTOM	=	0xfc48
+                         0000FC4A   761 _g_HIMEM	=	0xfc4a
+                         0000FC4C   762 _g_TRPTBL	=	0xfc4c
+                         0000FC9A   763 _g_RTYCNT	=	0xfc9a
+                         0000FC9B   764 _g_INTFLG	=	0xfc9b
+                         0000FC9C   765 _g_PADY	=	0xfc9c
+                         0000FC9D   766 _g_PADX	=	0xfc9d
+                         0000FC9E   767 _g_JIFFY	=	0xfc9e
+                         0000FCA0   768 _g_INTVAL	=	0xfca0
+                         0000FCA2   769 _g_INTCNT	=	0xfca2
+                         0000FCA4   770 _g_LOWLIM	=	0xfca4
+                         0000FCA5   771 _g_WINWID	=	0xfca5
+                         0000FCA6   772 _g_GRPHED	=	0xfca6
+                         0000FCA7   773 _g_ESCCNT	=	0xfca7
+                         0000FCA8   774 _g_INSFLG	=	0xfca8
+                         0000FCA9   775 _g_CSRSW	=	0xfca9
+                         0000FCAA   776 _g_CSTYLE	=	0xfcaa
+                         0000FCAB   777 _g_CAPST	=	0xfcab
+                         0000FCAC   778 _g_KANAST	=	0xfcac
+                         0000FCAD   779 _g_KANAMD	=	0xfcad
+                         0000FCAE   780 _g_FLBMEM	=	0xfcae
+                         0000FCAF   781 _g_SCRMOD	=	0xfcaf
+                         0000FCB0   782 _g_OLDSCR	=	0xfcb0
+                         0000FCB1   783 _g_CASPRV	=	0xfcb1
+                         0000FCB2   784 _g_BRDATR	=	0xfcb2
+                         0000FCB3   785 _g_GXPOS	=	0xfcb3
+                         0000FCB5   786 _g_GYPOS	=	0xfcb5
+                         0000FCBB   787 _g_DRWFLG	=	0xfcbb
+                         0000FCBC   788 _g_DRWSCL	=	0xfcbc
+                         0000FCBD   789 _g_DRWANG	=	0xfcbd
+                         0000FCC1   790 _g_MNROM	=	0xfcc1
+                         0000FCC1   791 _g_EXPTBL	=	0xfcc1
+                         0000FCC5   792 _g_SLTTBL	=	0xfcc5
+                         0000FCC9   793 _g_SLTATR	=	0xfcc9
+                         0000FD09   794 _g_SLTWRK	=	0xfd09
+                         0000FD89   795 _g_PROCNM	=	0xfd89
+                         0000FFE7   796 _g_RG08SAV	=	0xffe7
+                         0000FFE8   797 _g_RG09SAV	=	0xffe8
+                         0000FFE9   798 _g_RG10SAV	=	0xffe9
+                         0000FFEA   799 _g_RG11SAV	=	0xffea
+                         0000FFEB   800 _g_RG12SAV	=	0xffeb
+                         0000FFEC   801 _g_RG13SAV	=	0xffec
+                         0000FFED   802 _g_RG14SAV	=	0xffed
+                         0000FFEE   803 _g_RG15SAV	=	0xffee
+                         0000FFEF   804 _g_RG16SAV	=	0xffef
+                         0000FFF0   805 _g_RG17SAV	=	0xfff0
+                         0000FFF1   806 _g_RG18SAV	=	0xfff1
+                         0000FFF2   807 _g_RG19SAV	=	0xfff2
+                         0000FFF3   808 _g_RG20SAV	=	0xfff3
+                         0000FFF4   809 _g_RG21SAV	=	0xfff4
+                         0000FFF5   810 _g_RG22SAV	=	0xfff5
+                         0000FFF6   811 _g_RG23SAV	=	0xfff6
+                         0000FFF7   812 _g_MINROM	=	0xfff7
+                         0000FFF8   813 _g_SVFFF8	=	0xfff8
+                         0000FFFA   814 _g_RG25SAV	=	0xfffa
+                         0000FFFB   815 _g_RG26SAV	=	0xfffb
+                         0000FFFC   816 _g_RG27SAV	=	0xfffc
+                         0000FFFD   817 _g_SVFFFD	=	0xfffd
+                         00000004   818 _g_CGTABL	=	0x0004
+                         00000006   819 _g_VDP_DR	=	0x0006
+                         00000007   820 _g_VDP_DW	=	0x0007
+                         0000002B   821 _g_BASRVN	=	0x002b
+                         0000002B   822 _g_ROMVersion	=	0x002b
+                         0000002D   823 _g_MSXVER	=	0x002d
+                         0000002E   824 _g_MSXMID	=	0x002e
+                         00000034   825 _g_CHAR_16	=	0x0034
+                         00000000   826 _g_SUBRID	=	0x0000
+                         00000002   827 _g_STRSRC	=	0x0002
+                         0000F30F   828 _g_KANJTABLE	=	0xf30f
+                         0000F323   829 _g_DISKVE	=	0xf323
+                         0000F325   830 _g_BREAKV	=	0xf325
+                         0000F341   831 _g_RAMAD0	=	0xf341
+                         0000F342   832 _g_RAMAD1	=	0xf342
+                         0000F343   833 _g_RAMAD2	=	0xf343
+                         0000F344   834 _g_RAMAD3	=	0xf344
+                         0000F348   835 _g_MASTER	=	0xf348
+                         0000F37D   836 _g_BDOS	=	0xf37d
+                                    837 	.area _SEG20
+                                    838 	.area _INITIALIZER
+                                    839 	.area _CABS (ABS)

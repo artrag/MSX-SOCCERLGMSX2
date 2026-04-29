@@ -358,9 +358,23 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 			// Senza questo blocco, basta passarci vicino per rubare palla al momento del cambio direzione.
 			bool actively_carried_by_opp = (g_is_ball_carried && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
 
+			// Controlla se può intercettare un passaggio in volo
+			bool can_intercept = FALSE;
+			if (Ball->anim == 5 && carrier != LastTouchPlayer && LastTouchTeam != 0xFF && LastTouchTeam != carrier_team) {
+				if (dist_x <= 12 && eff_dist_y <= 12) can_intercept = TRUE;
+			}
+
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && Ball->anim < 5 && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
-					if (LastTouchTeam != carrier_team) Ball->count = 16; // Immunità
+			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && (Ball->anim < 5 || can_intercept) && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
+					if (LastTouchTeam != carrier_team) {
+						Ball->count = 16; // Immunità
+						if (Ball->anim == 5) {
+							// Se ha intercettato un passaggio in volo, blocca la palla a terra
+							Ball->anim = 3;
+							Ball->dx = 0; Ball->dy = 0;
+							CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); 
+						}
+					}
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
 					Ball->frame = SPR_BALL_SIZE_1; // Assicura che la palla sia a terra quando tra i piedi

@@ -12,6 +12,8 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 	u8 end_idx = start_idx + 6;
 	u8 best_match = 0xFF;
 	u16 min_score = 0xFFFF;
+	
+	u8 current_rec = (carrier < 7) ? T1_Receiver : T2_Receiver;
 
 	i8 sdx = (c_dx > 0) ? 1 : ((c_dx < 0) ? -1 : 0);
 	i8 sdy = (c_dy > 0) ? 1 : ((c_dy < 0) ? -1 : 0);
@@ -42,6 +44,15 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 		} else {
 			// Tier 2: Davanti ma molto defilato.
 			score = 10000 + (u16)fwd_dist + (u16)(side_dist * 2);
+		}
+		
+		// Stickiness: Forte bonus per mantenere il destinatario attuale se ancora valido
+		if (i == current_rec) {
+			if (score < 10000) {
+				score = 0; // Se è ancora nel Tier 1 (entro ~63 gradi), mantieni il focus assoluto
+			} else {
+				score -= 2000; // Piccolo sconto nel Tier 2 per evitare sfarfallii ai limiti
+			}
 		}
 
 		if (score < min_score) {
