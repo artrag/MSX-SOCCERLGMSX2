@@ -120,7 +120,24 @@ void PlayerAI_Movement(u8 i)
 			bool ball_in_own_area = (team == TEAM_1) ? (Ball->ly < 140) : (Ball->ly > 372);
 			bool side_presses = (role == 1) ? (Ball->lx < 128) : (Ball->lx >= 128);
 			
-			if (ball_in_own_area && side_presses) {
+			// NUOVA LOGICA: Pressing aggressivo se l'attaccante punta la porta
+			bool carrier_is_threat = FALSE;
+			if (g_is_ball_carried && LastTouchTeam != team && LastTouchPlayer != 0xFF) {
+				struct ObjectInfo* carrier = &SwSprite[LastTouchPlayer];
+				// Un attaccante è una minaccia se è nella metà campo difensiva e si muove verso la porta
+				if (team == TEAM_1 && carrier->dy < 0 && Ball->ly < 256) { // Team 1 difende Nord (Y<256), attaccante va verso Y basso
+					carrier_is_threat = TRUE;
+				} else if (team == TEAM_2 && carrier->dy > 0 && Ball->ly > 256) { // Team 2 difende Sud (Y>256), attaccante va verso Y alto
+					carrier_is_threat = TRUE;
+				}
+			}
+			
+			// La probabilità che un difensore rompa la linea per pressare dipende dall'aggressività
+			u8 press_chance = g_ActiveStats[team].aggro_defense * 15; // da 15% (stat 1) a 75% (stat 5)
+			if (carrier_is_threat && i != closest_mate && (Frms + i*5) % 100 < press_chance) {
+				target_x = Ball->lx;
+				target_y = Ball->ly;
+			} else if (ball_in_own_area && side_presses) {
 				// Questo difensore esce a pressare l'avversario
 				target_x = Ball->lx;
 				target_y = Ball->ly;
@@ -207,34 +224,24 @@ void PlayerAI_Movement(u8 i)
 			// Furto della palla / raccolta palla libera
 			bool is_free_ball = (!g_is_ball_carried);
 			bool can_steal_standing = FALSE;
-			
-			if (LastTouchTeam == team || is_free_ball) {
+
+			if (is_free_ball || (LastTouchTeam == team && LastTouchPlayer != i)) {
+				// Palla libera o passaggio da ricevere: si può prendere se vicini
 				if (b_dist_x <= 20 && b_dist_y <= 20) can_steal_standing = TRUE;
-			} else if (b_dist_x <= 14 && b_dist_y <= 14) {
+			} else if (LastTouchTeam != team && LastTouchTeam != 0xFF) {
+				// L'avversario ha la palla: si può rubare solo se si è davanti (sul lato della porta da difendere)
 				u8 opp_idx = LastTouchPlayer;
-				if (opp_idx != 0xFF) {
-					i8 opp_dx = SwSprite[opp_idx].dx;
-					i8 opp_dy = SwSprite[opp_idx].dy;
-					
-					if (opp_dx == 0 && opp_dy == 0) {
-						can_steal_standing = TRUE; // Avversario fermo
-					} else {
-						// Scontro frontale
-						bool face_to_face = FALSE;
-						if (opp_dx > 0 && Player->lx > SwSprite[opp_idx].lx) face_to_face = TRUE;
-						if (opp_dx < 0 && Player->lx < SwSprite[opp_idx].lx) face_to_face = TRUE;
-						if (opp_dy > 0 && Player->ly > SwSprite[opp_idx].ly) face_to_face = TRUE;
-						if (opp_dy < 0 && Player->ly < SwSprite[opp_idx].ly) face_to_face = TRUE;
-						
-						// Inseguimento da dietro (superamento)
-						bool overtaking = FALSE;
-						if (opp_dx > 0 && Player->dx > 0 && Player->lx >= Ball->lx - 4) overtaking = TRUE;
-						if (opp_dx < 0 && Player->dx < 0 && Player->lx <= Ball->lx + 4) overtaking = TRUE;
-						if (opp_dy > 0 && Player->dy > 0 && Player->ly >= Ball->ly - 4) overtaking = TRUE;
-						if (opp_dy < 0 && Player->dy < 0 && Player->ly <= Ball->ly + 4) overtaking = TRUE;
-						
-						if (face_to_face || overtaking) can_steal_standing = TRUE;
-					}
+				struct ObjectInfo* Opponent = &SwSprite[opp_idx];
+
+				bool is_in_front = FALSE;
+				if (LastTouchTeam == TEAM_1) { // Avversario (Team 1) attacca verso Sud (Y crescente)
+					if (Player->ly > Opponent->ly - 4) is_in_front = TRUE; // Difensore (Team 2) deve essere "sotto"
+				} else { // Avversario (Team 2) attacca verso Nord (Y decrescente)
+					if (Player->ly < Opponent->ly + 4) is_in_front = TRUE; // Difensore (Team 1) deve essere "sopra"
+				}
+
+				if (is_in_front && b_dist_x <= 14 && b_dist_y <= 14) {
+					can_steal_standing = TRUE;
 				}
 			}
 

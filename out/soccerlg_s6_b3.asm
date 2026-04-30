@@ -1298,11 +1298,11 @@ _PlayerAI::
 	ld	a, -2 (ix)
 	or	a, -3 (ix)
 	jr	NZ, 00217$
-	ld	-3 (ix), #0xf2
+	ld	-3 (ix), #0xf3
 	ld	-2 (ix), #0
 	jp	00218$
 00217$:
-	ld	-3 (ix), #0xf5
+	ld	-3 (ix), #0xf4
 	ld	-2 (ix), #0
 00218$:
 	ld	l, -6 (ix)
@@ -1355,11 +1355,11 @@ _PlayerAI::
 	ld	a, -2 (ix)
 	or	a, -3 (ix)
 	jr	NZ, 00221$
-	ld	-3 (ix), #0xf2
+	ld	-3 (ix), #0xf3
 	ld	-2 (ix), #0
 	jp	00222$
 00221$:
-	ld	-3 (ix), #0xf5
+	ld	-3 (ix), #0xf4
 	ld	-2 (ix), #0
 00222$:
 	ld	l, -6 (ix)

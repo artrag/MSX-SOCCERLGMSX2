@@ -558,11 +558,11 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:46: } else if (Field.ly != target_ly) {
 	ld	a, 6 (ix)
 	sub	a, -9 (ix)
-	jr	NZ, 00618$
+	jr	NZ, 00625$
 	ld	a, 7 (ix)
 	sub	a, -8 (ix)
 	jr	Z, 00109$
-00618$:
+00625$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:47: Field.dy = (i8)(target_ly - Field.ly); Field.ly = target_ly; all_in_position = FALSE;
 	ld	a, 6 (ix)
 	ld	-6 (ix), a
@@ -589,9 +589,9 @@ _UpdateGameState_Init::
 	ld	a, (_RestartType+0)
 	sub	a, #0x04
 	ld	a, #0x01
-	jr	Z, 00620$
+	jr	Z, 00627$
 	xor	a, a
-00620$:
+00627$:
 	ld	b, a
 	bit	0, b
 	jr	NZ, 00210$
@@ -802,11 +802,11 @@ _UpdateGameState_Init::
 ;	spillPairReg hl
 	ld	a, -12 (ix)
 	sub	a, d
-	jr	NZ, 00627$
+	jr	NZ, 00634$
 	ld	a, -11 (ix)
 	sub	a, l
 	jp	Z,00159$
-00627$:
+00634$:
 00158$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:69: all_in_position = FALSE;
 	ld	-20 (ix), #0x00
@@ -1098,9 +1098,9 @@ _UpdateGameState_Init::
 	ld	a, (_RestartType+0)
 	sub	a, #0x04
 	ld	a, #0x01
-	jr	Z, 00631$
+	jr	Z, 00638$
 	xor	a, a
-00631$:
+00638$:
 	ld	-8 (ix), a
 	or	a, a
 	jr	Z, 00235$
@@ -1247,29 +1247,38 @@ _UpdateGameState_Init::
 	ld	a, h
 	sub	a, #0x01
 	jr	NC, 00251$
-	xor	a, a
-	ld	-12 (ix), a
-	ld	-11 (ix), a
+	ld	bc, #0x0000
 	jp	00252$
 00251$:
-	ld	-12 (ix), #0x07
-	ld	-11 (ix), #0
+	ld	bc, #0x0007
 00252$:
-	ld	a, -1 (ix)
-	ld	-10 (ix), a
-	ld	-9 (ix), #0x00
-	ld	a, -12 (ix)
-	sub	a, -10 (ix)
-	jr	NZ, 00151$
-	ld	a, -11 (ix)
-	sub	a, -9 (ix)
+	ld	l, -1 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	cp	a, a
+	sbc	hl, bc
 	jr	NZ, 00151$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:104: p->frame = (i == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_NORTH_1;
+	ld	a, -1 (ix)
+	or	a, a
+	jr	NZ, 00253$
+	ld	-7 (ix), #0xf3
+	ld	-6 (ix), #0
+	jp	00254$
+00253$:
+	ld	-7 (ix), #0xf2
+	ld	-6 (ix), #0
+00254$:
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
-	ld	(hl), #0xf2
+	ld	a, -7 (ix)
+	ld	(hl), a
 	inc	hl
-	ld	(hl), #0x00
+	ld	a, -6 (ix)
+	ld	(hl), a
 	jp	00162$
 00151$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:106: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
@@ -1349,12 +1358,12 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:119: u8 throw_team = (g_thrower_id < 7) ? TEAM_1 : TEAM_2;
 	ld	a, (_g_thrower_id+0)
 	sub	a, #0x07
-	jr	NC, 00253$
+	jr	NC, 00255$
 	xor	a, a
-	jp	00254$
-00253$:
+	jp	00256$
+00255$:
 	ld	a, #0x01
-00254$:
+00256$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:120: bool is_human = FALSE;
 	ld	e, #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:121: if (throw_team == TEAM_2) is_human = TRUE;
@@ -1374,12 +1383,12 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:124: *wait_secs = is_human ? 5 : 1; // 5 secondi per il giocatore, 1 per la CPU
 	ld	a, e
 	or	a, a
-	jr	Z, 00255$
+	jr	Z, 00257$
 	ld	de, #0x0005
-	jp	00256$
-00255$:
+	jp	00258$
+00257$:
 	ld	de, #0x0001
-00256$:
+00258$:
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	(hl), e
@@ -1407,17 +1416,17 @@ _UpdateGameState_Init::
 	ld	hl, (_RestartSideY)
 	ld	a, h
 	sub	a, #0x01
-	jr	NC, 00257$
+	jr	NC, 00259$
 	xor	a, a
-	jp	00258$
-00257$:
+	jp	00260$
+00259$:
 	ld	a, #0x07
-00258$:
+00260$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:133: u8 team_to_kick = (gk == 0) ? TEAM_1 : TEAM_2;
 	or	a,a
-	jr	Z, 00260$
+	jr	Z, 00262$
 	ld	a, #0x01
-00260$:
+00262$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:134: bool is_human = FALSE;
 	ld	e, #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:135: if (team_to_kick == TEAM_2) is_human = TRUE;
@@ -1437,12 +1446,12 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:138: *wait_secs = is_human ? 5 : 1; // 5s per l'umano, 1s per la CPU
 	ld	a, e
 	or	a, a
-	jr	Z, 00261$
+	jr	Z, 00263$
 	ld	de, #0x0005
-	jp	00262$
-00261$:
+	jp	00264$
+00263$:
 	ld	de, #0x0001
-00262$:
+00264$:
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	(hl), e

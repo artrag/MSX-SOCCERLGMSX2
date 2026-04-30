@@ -171,10 +171,10 @@ BuildLibrary = true;
 // CompileComplexity = "Default";
 
 //-- Additionnal compilation options (string)
-// CompileOpt = "";
+//CompileOpt = "";
 
 //-- Skip file if compile data (REL) is newer than the source code (boolean)
-CompileSkipOld = true;
+//CompileSkipOld = true;
 
 //-- Additionnal link options (string)
 // LinkOpt = "";

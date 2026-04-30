@@ -35,7 +35,7 @@ Symbol Table
     _T2_Carrier                                                     ******** GX
     _T2_Receiver                                                    ******** GX
     _TimerEnabled                                                   ******** GX
-  7 _UpdateGameState_Penalties_End                                  00000AB4 GR
+  7 _UpdateGameState_Penalties_End                                  00000A17 GR
   7 _UpdateGameState_SetPieces                                      00000000 GR
     __divsint                                                       ******** GX
     __divuint                                                       ******** GX
@@ -323,7 +323,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG15                                     size     1D5F   flags    0
+   7 _SEG15                                     size     1CC2   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
