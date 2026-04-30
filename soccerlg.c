@@ -110,15 +110,22 @@ const struct TeamStats g_TeamStatsArray[] = {
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
 
+	extern unsigned char g_SplashScreen1[];
+	extern unsigned char g_SplashScreen2[];
+	extern unsigned char g_SplashScreen3[];
+	extern unsigned char g_SplashScreen4[];
+	extern unsigned char g_SplashScreen5[];
+    extern unsigned char g_SplashScreen6[];
+	extern unsigned char g_SplashScreen7[];
 
-struct InputState g_player_input[2];
-struct ObjectInfo SwSprite[NumSprite];
-struct ObjectInfo Field;
-struct ObjectInfo ScoreBoardLeft;
-struct ObjectInfo ScoreBoardRight;
-struct TeamStats g_ActiveStats[2];
+	struct InputState g_player_input[2];
+	struct ObjectInfo SwSprite[NumSprite];
+	struct ObjectInfo Field;
+	struct ObjectInfo ScoreBoardLeft;
+	struct ObjectInfo ScoreBoardRight;
+	struct TeamStats g_ActiveStats[2];
 
-volatile bool g_VSynch=FALSE;
+	volatile bool g_VSynch=FALSE;
 
 
 // -----------------------------
@@ -279,6 +286,52 @@ void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
 // -----------------
 // *** FUNCTIONS ***
 // -----------------
+
+// +++ Splash screen load +++
+void SplashScreenLoad()
+{
+    VDP_SetMode(VDP_MODE_SCREEN8);
+    
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+
+    // Segmento 50
+    SET_BANK_SEGMENT(3, 50);
+    VDP_WriteVRAM_128K(g_SplashScreen1, vram_low, 0, 8192);
+
+    // Segmento 51
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 51);
+    VDP_WriteVRAM_128K(g_SplashScreen2, vram_low, 0, 8192);
+
+    // Segmento 52
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 52);
+    VDP_WriteVRAM_128K(g_SplashScreen3, vram_low, 0, 8192);
+    
+    // Segmento 53
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 53);
+    VDP_WriteVRAM_128K(g_SplashScreen4, vram_low, 0, 8192);
+
+    // Segmento 54
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 54);
+    VDP_WriteVRAM_128K(g_SplashScreen5, vram_low, 0, 8192);
+
+    // Segmento 55
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 55);
+    VDP_WriteVRAM_128K(g_SplashScreen6, vram_low, 0, 8192);
+
+    // Segmento 56
+    vram_low += 8192; 
+    SET_BANK_SEGMENT(3, 56);
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_SplashScreen7, vram_low, 0, 5120);
+
+    DEBUG_BREAK();
+}
 // +++ Set team colors +++
 void SetTeamColors(u8 team, const struct TeamColors* colors)
 {
@@ -472,6 +525,7 @@ void main()
 	
 	DEBUG_INIT();
     Bios_SetKeyClick(FALSE);
+	SplashScreenLoad();
 	VDP_SetMode(VDP_MODE_SCREEN5);
 	VDP_EnableTransparency(FALSE);
     VDP_SetPalette(g_Palette);

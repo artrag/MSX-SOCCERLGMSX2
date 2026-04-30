@@ -446,6 +446,7 @@ extern struct TeamStats g_ActiveStats[2];
 
 // +++ SEGMENT 0 +++
 void main();
+void SplashScreenLoad();
 void VSyncCallback();
 void WaitForVBlank();
 void CallSpriteFrame(u8 x, u16 y, u16 frame);

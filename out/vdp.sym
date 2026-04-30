@@ -7,70 +7,50 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  0 VDP_GetVersionAsm                                               0000049B R
-  0 VDP_IsTMS9918A                                                  000004BA R
-  0 VDP_IsTMS9918A_Wait                                             000004C4 R
-  0 _VDP_ClearVRAM                                                  000000CC GR
-  0 _VDP_CommandWait                                                00000336 GR
-  0 _VDP_DisableSpritesFrom                                         000009B7 GR
-  0 _VDP_FillLayout_GM2                                             00000B1F GR
-  0 _VDP_FillVRAM_128K                                              00000265 GR
-  0 _VDP_FillVRAM_16K                                               0000013E GR
-  0 _VDP_GetVersion                                                 0000049B GR
-  0 _VDP_Initialize                                                 000003D5 GR
-  0 _VDP_LoadColor_GM2                                              00000A3E GR
-  0 _VDP_LoadPattern_GM2                                            000009C8 GR
-  0 _VDP_LoadSpritePattern                                          00000757 GR
-  0 _VDP_Peek_128K                                                  00000313 GR
-  0 _VDP_Peek_16K                                                   00000199 GR
-  0 _VDP_Poke_128K                                                  000002E8 GR
-  0 _VDP_Poke_16K                                                   000001AE GR
-  0 _VDP_ReadDefaultStatus                                          00000528 GR
-  0 _VDP_ReadStatus                                                 000001E6 GR
-  0 _VDP_ReadVRAM_128K                                              000002A0 GR
-  0 _VDP_ReadVRAM_16K                                               00000163 GR
-  0 _VDP_RegWrite                                                   000004EA GR
-  0 _VDP_RegWriteBak                                                000004F6 GR
-  0 _VDP_RegWriteBakMask                                            00000509 GR
-  0 _VDP_SetAdjustOffset                                            000001FA GR
-  0 _VDP_SetColorTable                                              0000059C GR
-  0 _VDP_SetLayoutTable                                             00000539 GR
-  0 _VDP_SetMode                                                    000003F1 GR
+  0 VDP_GetVersionAsm                                               0000046E R
+  0 VDP_IsTMS9918A                                                  0000048D R
+  0 VDP_IsTMS9918A_Wait                                             00000497 R
+  0 _VDP_ClearVRAM                                                  00000096 GR
+  0 _VDP_CommandWait                                                000002FC GR
+  0 _VDP_FillLayout_GM2                                             000007BF GR
+  0 _VDP_FillVRAM_128K                                              0000022B GR
+  0 _VDP_FillVRAM_16K                                               00000108 GR
+  0 _VDP_GetVersion                                                 0000046E GR
+  0 _VDP_Initialize                                                 0000039B GR
+  0 _VDP_LoadColor_GM2                                              000006DE GR
+  0 _VDP_LoadPattern_GM2                                            00000668 GR
+  0 _VDP_Peek_128K                                                  000002D9 GR
+  0 _VDP_Peek_16K                                                   00000163 GR
+  0 _VDP_Poke_128K                                                  000002AE GR
+  0 _VDP_Poke_16K                                                   00000178 GR
+  0 _VDP_ReadDefaultStatus                                          000004FB GR
+  0 _VDP_ReadStatus                                                 000001AC GR
+  0 _VDP_ReadVRAM_128K                                              00000266 GR
+  0 _VDP_ReadVRAM_16K                                               0000012D GR
+  0 _VDP_RegWrite                                                   000004BD GR
+  0 _VDP_RegWriteBak                                                000004C9 GR
+  0 _VDP_RegWriteBakMask                                            000004DC GR
+  0 _VDP_SetAdjustOffset                                            000001C0 GR
+  0 _VDP_SetColorTable                                              0000056F GR
+  0 _VDP_SetLayoutTable                                             0000050C GR
+  0 _VDP_SetMode                                                    000003B7 GR
   0 _VDP_SetModeFlag                                                00000000 GR
-  0 _VDP_SetModeGraphic1                                            00000069 GR
-  0 _VDP_SetModeGraphic2                                            0000009A GR
-  0 _VDP_SetModeGraphic4                                            000001C6 GR
+  0 _VDP_SetModeGraphic1                                            00000057 GR
+  0 _VDP_SetModeGraphic2                                            00000076 GR
+  0 _VDP_SetModeGraphic4                                            00000190 GR
+  0 _VDP_SetModeGraphic7                                            0000019E GR
   0 _VDP_SetModeMultiColor                                          00000040 GR
   0 _VDP_SetModeText1                                               00000029 GR
-  0 _VDP_SetPage                                                    0000052B GR
-  0 _VDP_SetPalette                                                 00000204 GR
-  0 _VDP_SetPaletteEntry                                            00000213 GR
-  0 _VDP_SetPatternTable                                            00000635 GR
-  0 _VDP_SetSprite                                                  000007CA GR
-  0 _VDP_SetSpriteAttributeTable                                    00000695 GR
-  0 _VDP_SetSpriteColorSM1                                          00000946 GR
-  0 _VDP_SetSpriteData                                              0000099B GR
-  0 _VDP_SetSpriteExMultiColor                                      00000805 GR
-  0 _VDP_SetSpriteExUniColor                                        00000869 GR
-  0 _VDP_SetSpriteMultiColor                                        0000097D GR
-  0 _VDP_SetSpritePattern                                           0000092D GR
-  0 _VDP_SetSpritePatternTable                                      00000738 GR
-  0 _VDP_SetSpritePosition                                          000008CA GR
-  0 _VDP_SetSpritePositionX                                         000008FE GR
-  0 _VDP_SetSpritePositionY                                         00000916 GR
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
-Hexadecimal [32-Bits]
-
-Symbol Table
-
-  0 _VDP_SetSpriteSM1                                               00000787 GR
-  0 _VDP_SetSpriteUniColor                                          00000960 GR
-  0 _VDP_WriteLayout_GM2                                            00000AB4 GR
-  0 _VDP_WriteVRAM_128K                                             00000222 GR
-  0 _VDP_WriteVRAM_16K                                              00000107 GR
-  0 _VPD_CommandSetupR32                                            0000034F GR
-  0 _VPD_CommandSetupR36                                            00000382 GR
-  0 _VPD_CommandWriteLoop                                           000003AD GR
+  0 _VDP_SetPage                                                    000004FE GR
+  0 _VDP_SetPalette                                                 000001CA GR
+  0 _VDP_SetPaletteEntry                                            000001D9 GR
+  0 _VDP_SetPatternTable                                            00000608 GR
+  0 _VDP_WriteLayout_GM2                                            00000754 GR
+  0 _VDP_WriteVRAM_128K                                             000001E8 GR
+  0 _VDP_WriteVRAM_16K                                              000000D1 GR
+  0 _VPD_CommandSetupR32                                            00000315 GR
+  0 _VPD_CommandSetupR36                                            00000348 GR
+  0 _VPD_CommandWriteLoop                                           00000373 GR
   7 __xinit__g_VDPInitilized                                        00000000 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -78,6 +58,11 @@ Symbol Table
     _g_ATRBYT                                                   =   0000F3F2 G
     _g_AVCSAV                                                   =   0000FAF7 G
     _g_BAKCLR                                                   =   0000F3EA G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_BASROM                                                   =   0000FBB1 G
     _g_BASRVN                                                   =   0000002B G
     _g_BDRCLR                                                   =   0000F3EB G
@@ -118,11 +103,6 @@ Symbol Table
     _g_EXPTBL                                                   =   0000FCC1 G
     _g_FLAGS                                                    =   0000FB1B G
     _g_FLBMEM                                                   =   0000FCAE G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_FNKFLG                                                   =   0000FBCE G
     _g_FNKSTR                                                   =   0000F87F G
     _g_FNKSWI                                                   =   0000FBCD G
@@ -138,6 +118,11 @@ Symbol Table
     _g_GRPHED                                                   =   0000FCA6 G
     _g_GRPNAM                                                   =   0000F3C7 G
     _g_GRPPAT                                                   =   0000F3CF G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_GXPOS                                                    =   0000FCB3 G
     _g_GYPOS                                                    =   0000FCB5 G
     _g_HEADER                                                   =   0000F40A G
@@ -178,11 +163,6 @@ Symbol Table
     _g_MSXAudio_DataPort2                                       =   000000C3 
     _g_MSXAudio_IndexPort                                       =   000000C0 
     _g_MSXAudio_IndexPort2                                      =   000000C2 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_MSXMID                                                   =   0000002E G
     _g_MSXMusic_DataPort                                        =   0000007D 
     _g_MSXMusic_IndexPort                                       =   0000007C 
@@ -198,6 +178,11 @@ Symbol Table
     _g_PADX                                                     =   0000FC9D G
     _g_PADY                                                     =   0000FC9C G
     _g_PATWRK                                                   =   0000FC40 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_PLYCNT                                                   =   0000FB40 G
     _g_PROCNM                                                   =   0000FD89 G
     _g_PRSCNT                                                   =   0000FB35 G
@@ -238,11 +223,6 @@ Symbol Table
     _g_RG23SAV                                                  =   0000FFF6 G
     _g_RG25SAV                                                  =   0000FFFA G
     _g_RG26SAV                                                  =   0000FFFB G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_RG27SAV                                                  =   0000FFFC G
     _g_RG2SAV                                                   =   0000F3E1 G
     _g_RG3SAV                                                   =   0000F3E2 G
@@ -258,6 +238,11 @@ Symbol Table
     _g_RSTMP                                                    =   0000FB03 G
     _g_RTC_AddrPort                                             =   000000B4 
     _g_RTC_DataPort                                             =   000000B5 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_RTYCNT                                                   =   0000FC9A G
     _g_SAVSP                                                    =   0000FB36 G
     _g_SAVVOL                                                   =   0000FB39 G
@@ -270,18 +255,12 @@ Symbol Table
     _g_STATFL                                                   =   0000F3E7 G
     _g_SVFFF8                                                   =   0000FFF8 G
     _g_SVFFFD                                                   =   0000FFFD G
-  1 _g_ScreenColorHigh                                              0000003E GR
-  1 _g_ScreenColorLow                                               00000033 GR
-  1 _g_ScreenLayoutHigh                                             0000003D GR
-  1 _g_ScreenLayoutLow                                              00000031 GR
-  1 _g_ScreenPatternHigh                                            0000003F GR
-  1 _g_ScreenPatternLow                                             00000035 GR
-  1 _g_SpriteAttributeHigh                                          00000040 GR
-  1 _g_SpriteAttributeLow                                           00000037 GR
-  1 _g_SpriteColorHigh                                              00000042 GR
-  1 _g_SpriteColorLow                                               0000003B GR
-  1 _g_SpritePatternHigh                                            00000041 GR
-  1 _g_SpritePatternLow                                             00000039 GR
+  1 _g_ScreenColorHigh                                              00000034 GR
+  1 _g_ScreenColorLow                                               0000002F GR
+  1 _g_ScreenLayoutHigh                                             00000033 GR
+  1 _g_ScreenLayoutLow                                              0000002D GR
+  1 _g_ScreenPatternHigh                                            00000035 GR
+  1 _g_ScreenPatternLow                                             00000031 GR
     _g_T32ATR                                                   =   0000F3C3 G
     _g_T32CGP                                                   =   0000F3C1 G
     _g_T32COL                                                   =   0000F3BF G
@@ -298,11 +277,6 @@ Symbol Table
     _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
     _g_VCBB                                                     =   0000FB66 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_VCBC                                                     =   0000FB8B G
   2 _g_VDPInitilized                                                00000000 GR
     _g_VDP_AddrPort                                             =   00000099 
@@ -315,7 +289,6 @@ Symbol Table
     _g_VDP_PalPort                                              =   0000009A 
   1 _g_VDP_REGSAV                                                   00000000 GR
     _g_VDP_RegPort                                              =   00000099 
-  1 _g_VDP_Sprite                                                   0000002D GR
     _g_VDP_StatPort                                             =   00000099 
     _g_VOICAQ                                                   =   0000F975 G
     _g_VOICBQ                                                   =   0000F9F5 G
@@ -325,34 +298,38 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
-  0 fll16_loop_end                                                  00000160 R
-  0 fll16_loop_start                                                00000158 R
-  0 fll_loop_end                                                    0000029C R
-  0 fll_loop_start                                                  00000294 R
-  0 rd16_loop_end                                                   00000196 R
-  0 rd16_loop_init                                                  00000187 R
-  0 rd16_loop_start                                                 0000018A R
-  0 rd_loop_end                                                     000002E3 R
-  0 rd_loop_init                                                    000002D4 R
-  0 rd_loop_start                                                   000002D7 R
-  0 wait_vdp_ready                                                  00000336 R
-  0 write_finished                                                  000003CC R
-  0 write_loop                                                      000003C1 R
-  0 wrt16_loop_end                                                  0000013B R
-  0 wrt16_loop_init                                                 0000012C R
-  0 wrt16_loop_start                                                0000012F R
-  0 wrt_loop_end                                                    00000261 R
-  0 wrt_loop_init                                                   00000252 R
-  0 wrt_loop_start                                                  00000255 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
+Hexadecimal [32-Bits]
 
+Symbol Table
+
+  0 fll16_loop_end                                                  0000012A R
+  0 fll16_loop_start                                                00000122 R
+  0 fll_loop_end                                                    00000262 R
+  0 fll_loop_start                                                  0000025A R
+  0 rd16_loop_end                                                   00000160 R
+  0 rd16_loop_init                                                  00000151 R
+  0 rd16_loop_start                                                 00000154 R
+  0 rd_loop_end                                                     000002A9 R
+  0 rd_loop_init                                                    0000029A R
+  0 rd_loop_start                                                   0000029D R
+  0 wait_vdp_ready                                                  000002FC R
+  0 write_finished                                                  00000392 R
+  0 write_loop                                                      00000387 R
+  0 wrt16_loop_end                                                  00000105 R
+  0 wrt16_loop_init                                                 000000F6 R
+  0 wrt16_loop_start                                                000000F9 R
+  0 wrt_loop_end                                                    00000227 R
+  0 wrt_loop_init                                                   00000218 R
+  0 wrt_loop_start                                                  0000021B R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size      B75   flags    0
-   1 _DATA                                      size       43   flags    0
+   0 _CODE                                      size      815   flags    0
+   1 _DATA                                      size       36   flags    0
    2 _INITIALIZED                               size        1   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0

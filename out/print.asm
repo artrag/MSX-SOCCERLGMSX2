@@ -213,6 +213,7 @@
 	.globl _Print_SetColor
 	.globl _Print_SetColorShade
 	.globl _Print_SetBitmapFont
+	.globl _DrawChar_8B
 	.globl _DrawChar_4B
 	.globl _DrawChar_Trans
 	.globl _Print_Clear
@@ -304,11 +305,15 @@ _g_PrintData::
 _Print_MergeColor::
 	ld	c, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-	ld	a, (#_g_VDP_Data + 0)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:126: switch (VDP_GetMode())
-	sub	a, #0x06
-	jr	NZ, 00102$
+	ld	a, (#_g_VDP_Data+0)
+	cp	a,#0x06
+	jr	Z, 00101$
+	sub	a, #0x09
+	jr	Z, 00102$
+	jp	00103$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:129: case VDP_MODE_GRAPHIC4: return (color & 0x0F) << 4 | (color & 0x0F);
+00101$:
 	ld	a, c
 	and	a, #0x0f
 	add	a, a
@@ -320,8 +325,12 @@ _Print_MergeColor::
 	and	a, #0x0f
 	or	a, b
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:140: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:138: case VDP_MODE_GRAPHIC7: return color;
 00102$:
+	ld	a, c
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:140: }
+00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:141: return color;
 	ld	a, c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:142: }
@@ -519,14 +528,16 @@ _Print_Initialize::
 	or	a, a
 	jr	Z, 00101$
 	cp	a, #0x01
-	jr	Z, 00107$
+	jr	Z, 00108$
 	cp	a, #0x02
 	jr	Z, 00103$
 	cp	a, #0x03
 	jr	Z, 00104$
-	sub	a, #0x06
+	cp	a, #0x06
 	jr	Z, 00105$
-	jp	00106$
+	sub	a, #0x09
+	jr	Z, 00106$
+	jp	00107$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:167: case VDP_MODE_TEXT1:		// 40 characters per line of text, one colour for each character
 00101$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
@@ -536,7 +547,7 @@ _Print_Initialize::
 	ld	hl, #0x0028
 	ld	((_g_PrintData + 27)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:170: break;
-	jp	00107$
+	jp	00108$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:177: case VDP_MODE_GRAPHIC1:		// 32 characters per one line of text, the COLOURed character available
 00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
@@ -546,7 +557,7 @@ _Print_Initialize::
 	ld	hl, #0x0020
 	ld	((_g_PrintData + 27)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:180: break;
-	jp	00107$
+	jp	00108$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:183: case VDP_MODE_GRAPHIC2:		// 256 x 192, the colour is specififed for each 8 dots
 00104$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
@@ -556,7 +567,7 @@ _Print_Initialize::
 	ld	hl, #0x0020
 	ld	((_g_PrintData + 27)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:186: break;
-	jp	00107$
+	jp	00108$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:206: case VDP_MODE_GRAPHIC4:		// 256 x 212; 16 colours are available for each dot
 00105$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
@@ -566,14 +577,30 @@ _Print_Initialize::
 	ld	hl, #0x0100
 	ld	((_g_PrintData + 27)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:209: break;
-	jp	00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:231: default:
+	jp	00108$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:225: case VDP_MODE_GRAPHIC7:		// 256 x 212; 256 colours are available for each dot
 00106$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+	ld	hl, #(_g_PrintData + 4)
+	ld	(hl), #0x18
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:227: Print_SetColor(0xFF, 0x0);
+	ld	l, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #0xff
+	call	_Print_SetColor
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:228: g_PrintData.ScreenWidth = 256;
+	ld	hl, #0x0100
+	ld	((_g_PrintData + 27)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:229: break;
+	jp	00108$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:231: default:
+00107$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:233: return FALSE;
 	xor	a, a
 	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:234: }
-00107$:
+00108$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:238: return TRUE;
 	ld	a, #0x01
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:239: }
@@ -594,7 +621,7 @@ _Print_SetMode::
 	and	a,#0x0f
 	jr	Z, 00101$
 	dec	a
-	jr	Z, 00105$
+	jr	Z, 00106$
 	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:250: case PRINT_MODE_BITMAP:
 00101$:
@@ -603,17 +630,27 @@ _Print_SetMode::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:252: switch (VDP_GetMode()) // Screen mode specific initialization
 	cp	a, #0x06
 	jr	Z, 00103$
-	sub	a, #0x08
-	ret	NZ
+	cp	a, #0x08
+	jr	Z, 00103$
+	sub	a, #0x09
+	jr	Z, 00104$
+	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:261: case VDP_MODE_GRAPHIC6:
 00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:262: g_PrintData.DrawChar = DrawChar_4B;
 	ld	hl, #_DrawChar_4B
 	ld	((_g_PrintData + 24)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:263: break;
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:266: case VDP_MODE_GRAPHIC7:
+00104$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:267: g_PrintData.DrawChar = DrawChar_8B; 
+	ld	hl, #_DrawChar_8B
+	ld	((_g_PrintData + 24)), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:271: break;
 	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:274: case PRINT_MODE_BITMAP_TRANS:
-00105$:
+00106$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:276: g_PrintData.DrawChar = DrawChar_Trans;
 	ld	hl, #_DrawChar_Trans
 	ld	((_g_PrintData + 24)), hl
@@ -800,8 +837,13 @@ _Print_InitColorBuffer::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
 	ld	a, (#_g_VDP_Data + 0)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:336: switch (VDP_GetMode())
-	sub	a, #0x06
-	ret	NZ
+	cp	a, #0x06
+	jr	Z, 00101$
+	sub	a, #0x09
+	jr	Z, 00102$
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:339: case VDP_MODE_GRAPHIC4:
+00101$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:345: g_PrintData.Buffer[0] = (b << 4) | b;	// [ 0, 0 ]
 	ld	a, b
 	add	a, a
@@ -812,12 +854,10 @@ _Print_InitColorBuffer::
 	or	a, b
 	ld	(#(_g_PrintData + 33)),a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:346: g_PrintData.Buffer[1] = (b << 4) | t;	// [ 0, 1 ]
-	ld	hl, #_g_PrintData + 34
 	ld	a, e
 	or	a, c
-	ld	(hl), a
+	ld	(#(_g_PrintData + 34)),a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:347: g_PrintData.Buffer[2] = (t << 4) | b;	// [ 1, 0 ]
-	ld	hl, #_g_PrintData + 35
 	ld	a, c
 	add	a, a
 	add	a, a
@@ -825,12 +865,39 @@ _Print_InitColorBuffer::
 	add	a, a
 	ld	e, a
 	or	a, b
-	ld	(hl), a
+	ld	(#(_g_PrintData + 35)),a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:348: g_PrintData.Buffer[3] = (t << 4) | t;	// [ 1, 1 ]
-	ld	hl, #_g_PrintData + 36
 	ld	a, e
 	or	a, c
-	ld	(hl), a
+	ld	(#(_g_PrintData + 36)),a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:349: break;
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:372: case VDP_MODE_GRAPHIC7:
+00102$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:373: g_PrintData.Buffer[0] = b;	// [ 0, 0 ]
+	ld	hl, #(_g_PrintData + 33)
+	ld	(hl), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:374: g_PrintData.Buffer[1] = b;
+	ld	hl, #(_g_PrintData + 34)
+	ld	(hl), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:375: g_PrintData.Buffer[2] = b;	// [ 0, 1 ]
+	ld	hl, #(_g_PrintData + 35)
+	ld	(hl), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:376: g_PrintData.Buffer[3] = t;
+	ld	hl, #(_g_PrintData + 36)
+	ld	(hl), c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:377: g_PrintData.Buffer[4] = t;	// [ 1, 0 ]
+	ld	hl, #(_g_PrintData + 37)
+	ld	(hl), c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:378: g_PrintData.Buffer[5] = b;
+	ld	hl, #(_g_PrintData + 38)
+	ld	(hl), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:379: g_PrintData.Buffer[6] = t;	// [ 1, 1 ]
+	ld	hl, #(_g_PrintData + 39)
+	ld	(hl), c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:380: g_PrintData.Buffer[7] = t;
+	ld	hl, #(_g_PrintData + 40)
+	ld	(hl), c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:383: }	
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:384: }
 	ret
@@ -938,6 +1005,226 @@ _Print_SetBitmapFont::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:577: Print_Initialize();
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:578: }
 	jp	_Print_Initialize
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:584: void DrawChar_8B(u8 chr)
+;	---------------------------------
+; Function DrawChar_8B
+; ---------------------------------
+_DrawChar_8B::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl, #-6
+	add	hl, sp
+	ld	sp, hl
+	ld	e, a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:586: const u8* patterns = g_PrintData.FontAddr + chr * PRINT_H(g_PrintData.PatternY); // Get character patterns' base address
+	ld	bc, (#_g_PrintData + 31)
+	ld	a, (#(_g_PrintData + 1) + 0)
+	push	bc
+	ld	h, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, #0x00
+	ld	d, l
+	ld	b, #0x08
+00120$:
+	add	hl, hl
+	jr	NC, 00121$
+	add	hl, de
+00121$:
+	djnz	00120$
+	pop	bc
+	add	hl, bc
+	ex	(sp), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:590: u16* l = (u16*)g_HeapStartAddress;
+	ld	hl, (_g_HeapStartAddress)
+	ld	-4 (ix), l
+	ld	-3 (ix), h
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:591: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+	ld	-1 (ix), #0x00
+00105$:
+	ld	hl, #(_g_PrintData + 1)
+	ld	b, (hl)
+	ld	a, -1 (ix)
+	sub	a, b
+	jp	NC, 00101$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:594: Print_InitColorBuffer(g_PrintData.TextColor[j], g_PrintData.BGColor);
+	ld	hl, #_g_PrintData + 20
+	ld	c, (hl)
+	ld	a, #<((_g_PrintData + 8))
+	add	a, -1 (ix)
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #>((_g_PrintData + 8))
+	adc	a, #0x00
+	ld	h, a
+	ld	b, (hl)
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, b
+	call	_Print_InitColorBuffer
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:596: u8 f = patterns[j];
+	ld	a, -6 (ix)
+	add	a, -1 (ix)
+	ld	c, a
+	ld	a, -5 (ix)
+	adc	a, #0x00
+	ld	b, a
+	ld	a, (bc)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:597: *l++ = ((u16*)g_PrintData.Buffer)[f >> 6];
+	ld	-2 (ix), a
+	rlca
+	rlca
+	and	a, #0x03
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, a
+	add	hl, hl
+	ld	de, #(_g_PrintData + 33)
+	add	hl, de
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
+	pop	de
+	pop	hl
+	push	hl
+	push	de
+	ld	(hl), c
+	inc	hl
+	ld	(hl), b
+	ld	c, -4 (ix)
+	ld	b, -3 (ix)
+	inc	bc
+	inc	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:598: *l++ = ((u16*)g_PrintData.Buffer)[(f >> 4) & 0x03];
+	ld	a, -2 (ix)
+	rlca
+	rlca
+	rlca
+	rlca
+	and	a, #0x3
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #(_g_PrintData + 33)
+	add	hl, de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, c
+	ld	h, b
+	ld	(hl), e
+	inc	hl
+	ld	(hl), d
+	inc	bc
+	inc	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:599: *l++ = ((u16*)g_PrintData.Buffer)[(f >> 2) & 0x03];
+	ld	a, -2 (ix)
+	rrca
+	rrca
+	and	a, #0x3
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #(_g_PrintData + 33)
+	add	hl, de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, c
+	ld	h, b
+	ld	(hl), e
+	inc	hl
+	ld	(hl), d
+	inc	bc
+	inc	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:601: *l++ = ((u16*)g_PrintData.Buffer)[f & 0x03];
+	ld	a, -2 (ix)
+	and	a, #0x03
+	ld	l, a
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	add	hl, hl
+	ld	de, #(_g_PrintData + 33)
+	add	hl, de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, c
+	ld	h, b
+	ld	(hl), e
+	inc	hl
+	ld	(hl), d
+	inc	bc
+	inc	bc
+	ld	-4 (ix), c
+	ld	-3 (ix), b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:591: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+	inc	-1 (ix)
+	jp	00105$
+00101$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:604: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
+	ld	-4 (ix), b
+	ld	-3 (ix), #0x00
+	ld	bc, (#_g_PrintData + 6)
+	ld	a, (#_g_PrintData + 5)
+	ld	-2 (ix), a
+	ld	-1 (ix), #0x00
+	ld	de, (_g_HeapStartAddress)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:23: g_VDP_Command.DX = dx;
+	ld	hl, #(_g_VDP_Command + 4)
+	ld	a, -2 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -1 (ix)
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:24: g_VDP_Command.DY = dy;
+	ld	((_g_VDP_Command + 6)), bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:25: g_VDP_Command.NX = nx;
+	ld	hl, #0x0008
+	ld	((_g_VDP_Command + 8)), hl
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:26: g_VDP_Command.NY = ny;
+	ld	hl, #(_g_VDP_Command + 10)
+	ld	a, -4 (ix)
+	ld	(hl), a
+	inc	hl
+	ld	a, -3 (ix)
+	ld	(hl), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:27: g_VDP_Command.CLR = *addr;
+	ld	a, (de)
+	ld	(#(_g_VDP_Command + 12)),a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:28: g_VDP_Command.ARG = arg; 
+	ld	hl, #(_g_VDP_Command + 13)
+	ld	(hl), #0x00
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:29: g_VDP_Command.CMD = VDP_CMD_HMMC;
+	ld	hl, #(_g_VDP_Command + 14)
+	ld	(hl), #0xf0
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:30: VPD_CommandSetupR36();
+	push	de
+	call	_VPD_CommandSetupR36
+	pop	de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:31: VPD_CommandWriteLoop(addr);
+	ex	de, hl
+	call	_VPD_CommandWriteLoop
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:604: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:605: }
+	ld	sp, ix
+	pop	ix
+	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:613: void DrawChar_4B(u8 chr)
 ;	---------------------------------
 ; Function DrawChar_4B

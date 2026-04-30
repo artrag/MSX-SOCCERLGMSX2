@@ -9,19 +9,12 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _g_VDPInitilized
-	.globl _g_SpriteColorHigh
-	.globl _g_SpritePatternHigh
-	.globl _g_SpriteAttributeHigh
 	.globl _g_ScreenPatternHigh
 	.globl _g_ScreenColorHigh
 	.globl _g_ScreenLayoutHigh
-	.globl _g_SpriteColorLow
-	.globl _g_SpritePatternLow
-	.globl _g_SpriteAttributeLow
 	.globl _g_ScreenPatternLow
 	.globl _g_ScreenColorLow
 	.globl _g_ScreenLayoutLow
-	.globl _g_VDP_Sprite
 	.globl _g_VDP_Command
 	.globl _g_VDP_Data
 	.globl _g_VDP_REGSAV
@@ -229,6 +222,7 @@
 	.globl _VDP_Peek_16K
 	.globl _VDP_Poke_16K
 	.globl _VDP_SetModeGraphic4
+	.globl _VDP_SetModeGraphic7
 	.globl _VDP_ReadStatus
 	.globl _VDP_SetAdjustOffset
 	.globl _VDP_SetPalette
@@ -253,22 +247,6 @@
 	.globl _VDP_SetLayoutTable
 	.globl _VDP_SetColorTable
 	.globl _VDP_SetPatternTable
-	.globl _VDP_SetSpriteAttributeTable
-	.globl _VDP_SetSpritePatternTable
-	.globl _VDP_LoadSpritePattern
-	.globl _VDP_SetSpriteSM1
-	.globl _VDP_SetSprite
-	.globl _VDP_SetSpriteExMultiColor
-	.globl _VDP_SetSpriteExUniColor
-	.globl _VDP_SetSpritePosition
-	.globl _VDP_SetSpritePositionX
-	.globl _VDP_SetSpritePositionY
-	.globl _VDP_SetSpritePattern
-	.globl _VDP_SetSpriteColorSM1
-	.globl _VDP_SetSpriteUniColor
-	.globl _VDP_SetSpriteMultiColor
-	.globl _VDP_SetSpriteData
-	.globl _VDP_DisableSpritesFrom
 	.globl _VDP_LoadPattern_GM2
 	.globl _VDP_LoadColor_GM2
 	.globl _VDP_WriteLayout_GM2
@@ -349,31 +327,17 @@ _g_VDP_Data::
 	.ds 2
 _g_VDP_Command::
 	.ds 15
-_g_VDP_Sprite::
-	.ds 4
 _g_ScreenLayoutLow::
 	.ds 2
 _g_ScreenColorLow::
 	.ds 2
 _g_ScreenPatternLow::
 	.ds 2
-_g_SpriteAttributeLow::
-	.ds 2
-_g_SpritePatternLow::
-	.ds 2
-_g_SpriteColorLow::
-	.ds 2
 _g_ScreenLayoutHigh::
 	.ds 1
 _g_ScreenColorHigh::
 	.ds 1
 _g_ScreenPatternHigh::
-	.ds 1
-_g_SpriteAttributeHigh::
-	.ds 1
-_g_SpritePatternHigh::
-	.ds 1
-_g_SpriteColorHigh::
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -633,16 +597,8 @@ _VDP_SetModeMultiColor::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:203: VDP_SetPatternTable(VDP_MC_ADDR_PT);
 	ld	de, #0x0000
 	ld	hl, #0x0000
-	call	_VDP_SetPatternTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:205: VDP_SetSpriteAttributeTable(VDP_MC_ADDR_SAT);
-	ld	de, #0x1b00
-	ld	hl, #0x0000
-	call	_VDP_SetSpriteAttributeTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:206: VDP_SetSpritePatternTable(VDP_MC_ADDR_SPT);
-	ld	de, #0x3800
-	ld	hl, #0x0000
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:208: }
-	jp	_VDP_SetSpritePatternTable
+	jp	_VDP_SetPatternTable
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:214: void VDP_SetModeGraphic1()
 ;	---------------------------------
 ; Function VDP_SetModeGraphic1
@@ -662,16 +618,8 @@ _VDP_SetModeGraphic1::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:219: VDP_SetPatternTable(VDP_G1_ADDR_PT);
 	ld	de, #0x0000
 	ld	hl, #0x0000
-	call	_VDP_SetPatternTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:221: VDP_SetSpriteAttributeTable(VDP_G1_ADDR_SAT);
-	ld	de, #0x1b00
-	ld	hl, #0x0000
-	call	_VDP_SetSpriteAttributeTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:222: VDP_SetSpritePatternTable(VDP_G1_ADDR_SPT);
-	ld	de, #0x3800
-	ld	hl, #0x0000
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:224: }
-	jp	_VDP_SetSpritePatternTable
+	jp	_VDP_SetPatternTable
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:230: void VDP_SetModeGraphic2()
 ;	---------------------------------
 ; Function VDP_SetModeGraphic2
@@ -691,16 +639,8 @@ _VDP_SetModeGraphic2::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:235: VDP_SetPatternTable(VDP_G2_ADDR_PT);
 	ld	de, #0x0000
 	ld	hl, #0x0000
-	call	_VDP_SetPatternTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:237: VDP_SetSpriteAttributeTable(VDP_G2_ADDR_SAT);
-	ld	de, #0x1b00
-	ld	hl, #0x0000
-	call	_VDP_SetSpriteAttributeTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:238: VDP_SetSpritePatternTable(VDP_G2_ADDR_SPT);
-	ld	de, #0x3800
-	ld	hl, #0x0000
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:240: }
-	jp	_VDP_SetSpritePatternTable
+	jp	_VDP_SetPatternTable
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:251: void VDP_ClearVRAM()
 ;	---------------------------------
 ; Function VDP_ClearVRAM
@@ -912,16 +852,21 @@ _VDP_SetModeGraphic4::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:809: VDP_SetLayoutTable(VDP_G4_ADDR_NT);
 	ld	de, #0x0000
 	ld	hl, #0x0000
-	call	_VDP_SetLayoutTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:811: VDP_SetSpriteAttributeTable(VDP_G4_ADDR_SAT);
-	ld	de, #0x7600
-	ld	hl, #0x0000
-	call	_VDP_SetSpriteAttributeTable
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:812: VDP_SetSpritePatternTable(VDP_G4_ADDR_SPT);
-	ld	de, #0x7800
-	ld	hl, #0x0000
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:814: }
-	jp	_VDP_SetSpritePatternTable
+	jp	_VDP_SetLayoutTable
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:848: void VDP_SetModeGraphic7()
+;	---------------------------------
+; Function VDP_SetModeGraphic7
+; ---------------------------------
+_VDP_SetModeGraphic7::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:850: VDP_SetModeFlag(VDP_G7_MODE);
+	ld	a, #0x1c
+	call	_VDP_SetModeFlag
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:851: VDP_SetLayoutTable(VDP_G7_ADDR_NT);
+	ld	de, #0x0000
+	ld	hl, #0x0000
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:856: }
+	jp	_VDP_SetLayoutTable
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:870: u8 VDP_ReadStatus(u8 stat) __NAKED __PRESERVES(b, c, d, e, h, iyl, iyh)
 ;	---------------------------------
 ; Function VDP_ReadStatus
@@ -1356,9 +1301,11 @@ _VDP_SetMode::
 	jr	Z, 00106$
 	cp	a,#0x06
 	jr	Z, 00108$
+	cp	a,#0x09
+	jr	Z, 00109$
 	sub	a, #0x0a
 	jr	Z, 00108$
-	jp	00124$
+	jp	00126$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1512: case VDP_MODE_TEXT1:
 00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1513: VDP_SetModeText1();
@@ -1366,7 +1313,7 @@ _VDP_SetMode::
 	call	_VDP_SetModeText1
 	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1514: break;
-	jp	00124$
+	jp	00126$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1519: case VDP_MODE_MULTICOLOR:
 00104$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1520: VDP_SetModeMultiColor();
@@ -1374,7 +1321,7 @@ _VDP_SetMode::
 	call	_VDP_SetModeMultiColor
 	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1521: break;
-	jp	00124$
+	jp	00126$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1526: case VDP_MODE_GRAPHIC1:
 00105$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1527: VDP_SetModeGraphic1();
@@ -1382,7 +1329,7 @@ _VDP_SetMode::
 	call	_VDP_SetModeGraphic1
 	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1528: break;
-	jp	00124$
+	jp	00126$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1533: case VDP_MODE_GRAPHIC2:
 00106$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1534: VDP_SetModeGraphic2();
@@ -1390,15 +1337,23 @@ _VDP_SetMode::
 	call	_VDP_SetModeGraphic2
 	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1535: break;
-	jp	00124$
+	jp	00126$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1565: case VDP_MODE_SCREEN9_40: // @todo Further setting needed?
 00108$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1566: VDP_SetModeGraphic4();
 	push	bc
 	call	_VDP_SetModeGraphic4
 	pop	bc
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1567: break;
+	jp	00126$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1587: case VDP_MODE_GRAPHIC7:		
+00109$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1588: VDP_SetModeGraphic7();
+	push	bc
+	call	_VDP_SetModeGraphic7
+	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
-00124$:
+00126$:
 	push	bc
 	ld	a, #0x40
 	push	af
@@ -1416,7 +1371,7 @@ _VDP_SetMode::
 ;	spillPairReg hl
 	ld	a, #0x01
 	call	_VDP_RegWriteBakMask
-	xor	a, a
+	ld	a, #0x02
 	push	af
 	inc	sp
 	ld	l, #0xfd
@@ -1432,7 +1387,7 @@ _VDP_SetMode::
 	rla
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1632: if (VDP_IsBitmapMode(mode)) // Activate 212 lines for bitmap mode
 	xor	a,#0x01
-	jr	Z, 00111$
+	jr	Z, 00112$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:834: inline void VDP_SetLineCount(u8 lines) { VDP_RegWriteBakMask(9, (u8)~R09_LN, lines); }
 	ld	a, #0x80
 	push	af
@@ -1443,8 +1398,8 @@ _VDP_SetMode::
 	ld	a, #0x09
 	call	_VDP_RegWriteBakMask
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1633: VDP_SetLineCount(VDP_LINE_212);
-	jp	00129$
-00111$:
+	jp	00131$
+00112$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:834: inline void VDP_SetLineCount(u8 lines) { VDP_RegWriteBakMask(9, (u8)~R09_LN, lines); }
 	xor	a, a
 	push	af
@@ -1455,7 +1410,7 @@ _VDP_SetMode::
 	ld	a, #0x09
 	call	_VDP_RegWriteBakMask
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:849: inline void VDP_SetInterlace(bool enable) { VDP_RegWriteBakMask(9, (u8)~R09_IL, enable ? R09_IL : 0); }
-00129$:
+00131$:
 	xor	a, a
 	push	af
 	inc	sp
@@ -1901,724 +1856,6 @@ _VDP_SetPatternTable::
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1927: void VDP_SetSpriteAttributeTable(VADDR addr)
-;	---------------------------------
-; Function VDP_SetSpriteAttributeTable
-; ---------------------------------
-_VDP_SetSpriteAttributeTable::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	push	af
-	push	af
-	ld	c, l
-	ld	b, h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1929: g_SpriteAttributeLow = (u16)addr;
-	ld	(_g_SpriteAttributeLow), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1932: reg = (u8)(addr >> 7);
-	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, d
-;	spillPairReg hl
-;	spillPairReg hl
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	srl	h
-	rr	l
-	ld	-1 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1934: switch (g_VDP_Data.Mode)
-	ld	a, (#_g_VDP_Data + 0)
-	cp	a, #0x05
-	jr	Z, 00108$
-	cp	a, #0x06
-	jr	Z, 00108$
-	cp	a, #0x07
-	jr	Z, 00108$
-	cp	a, #0x08
-	jr	Z, 00108$
-	cp	a, #0x09
-	jr	Z, 00108$
-	cp	a, #0x0f
-	jr	Z, 00108$
-	cp	a, #0x10
-	jr	Z, 00108$
-	sub	a, #0x11
-	jr	NZ, 00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1949: case VDP_MODE_GRAPHIC3_MIRROR_02:
-00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1951: reg |= 0b111;
-	ld	a, -1 (ix)
-	or	a, #0x07
-	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1953: };
-00109$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1955: VDP_RegWrite(5, reg);
-	ld	l, -1 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, #0x05
-	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1958: reg = (u8)(addr >> 15);
-	ld	-4 (ix), d
-	ld	-3 (ix), c
-	ld	-2 (ix), b
-	ld	-1 (ix), #0x00
-	ld	a, #0x07
-00156$:
-	srl	-2 (ix)
-	rr	-3 (ix)
-	rr	-4 (ix)
-	dec	a
-	jr	NZ, 00156$
-	ld	l, -4 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1959: VDP_RegWrite(11, reg);
-	ld	a, #0x0b
-	call	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1961: g_SpriteAttributeHigh = addr >> 16;
-	ld	hl, #_g_SpriteAttributeHigh
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1964: addr -= 0x200;
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	l, e
-	ld	a,d
-	add	a,#0xfe
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, c
-	adc	a, #0xff
-	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1965: g_SpriteColorLow = (u16)addr;
-	ld	(_g_SpriteColorLow), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1967: g_SpriteColorHigh = addr >> 16;
-	ld	hl, #_g_SpriteColorHigh
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1969: }
-	ld	sp, ix
-	pop	ix
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1975: void VDP_SetSpritePatternTable(VADDR addr)
-;	---------------------------------
-; Function VDP_SetSpritePatternTable
-; ---------------------------------
-_VDP_SetSpritePatternTable::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1977: g_SpritePatternLow  = (u16)addr;
-	ld	(_g_SpritePatternLow), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1979: g_SpritePatternHigh = addr >> 16;
-	ld	iy, #_g_SpritePatternHigh
-	ld	0 (iy), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1982: u8 reg = (u8)(addr >> 11);
-	ld	e, h
-	ld	h, l
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	l, d
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	d, #0x00
-	ld	b, #0x03
-00103$:
-	srl	e
-	rr	h
-	rr	l
-	djnz	00103$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1983: VDP_RegWrite(6, reg);
-	ld	a, #0x06
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1985: }
-	jp	_VDP_RegWrite
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1989: void VDP_LoadSpritePattern(const u8* addr, u8 index, u8 count)
-;	---------------------------------
-; Function VDP_LoadSpritePattern
-; ---------------------------------
-_VDP_LoadSpritePattern::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	c, l
-	ld	b, h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1991: u16 low = g_SpritePatternLow;
-	ld	de, (_g_SpritePatternLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1992: low += (index * 8);
-	ld	l, 4 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1993: VDP_WriteVRAM(addr, low, g_SpritePatternHigh, count * 8);
-	ld	l, 5 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	push	hl
-	ld	a, (_g_SpritePatternHigh+0)
-	push	af
-	inc	sp
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, b
-;	spillPairReg hl
-;	spillPairReg hl
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1994: }
-	pop	ix
-	pop	hl
-	pop	af
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:1998: void VDP_SetSpriteSM1(u8 index, u8 x, u8 y, u8 shape, u8 color)
-;	---------------------------------
-; Function VDP_SetSpriteSM1
-; ---------------------------------
-_VDP_SetSpriteSM1::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	e, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2000: g_VDP_Sprite.Y = y;				// Y coordinate on screen (all lower priority sprite will be disable if equal to 216 or 0xD0)
-	ld	hl, #_g_VDP_Sprite
-	ld	a, 4 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2001: g_VDP_Sprite.X = x;				// X coordinate of the sprite
-	ld	hl, #(_g_VDP_Sprite + 1)
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2002: g_VDP_Sprite.Pattern = shape;	// Pattern index
-	ld	hl, #(_g_VDP_Sprite + 2)
-	ld	a, 5 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2003: g_VDP_Sprite.Color = color;		// Color index (Sprite Mode 1 only) + Early clock
-	ld	hl, #(_g_VDP_Sprite + 3)
-	ld	a, 6 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2005: u16 low = g_SpriteAttributeLow;
-	ld	bc, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2006: low += (index * 4);
-	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, bc
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2007: VDP_WriteVRAM((u8*)&g_VDP_Sprite, low, g_SpriteAttributeHigh, 4);
-	ld	hl, #0x0004
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	hl, #_g_VDP_Sprite
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2008: }
-	pop	ix
-	pop	hl
-	pop	af
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2012: void VDP_SetSprite(u8 index, u8 x, u8 y, u8 shape)
-;	---------------------------------
-; Function VDP_SetSprite
-; ---------------------------------
-_VDP_SetSprite::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	e, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2014: g_VDP_Sprite.Y = y;				// Y coordinate on screen (all lower priority sprite will be disable if equal to 216 or 0xD0)
-	ld	hl, #_g_VDP_Sprite
-	ld	a, 4 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2015: g_VDP_Sprite.X = x;				// X coordinate of the sprite
-	ld	hl, #(_g_VDP_Sprite + 1)
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2016: g_VDP_Sprite.Pattern = shape;	// Pattern index
-	ld	hl, #(_g_VDP_Sprite + 2)
-	ld	a, 5 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2018: u16 low = g_SpriteAttributeLow;
-	ld	bc, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2019: low += (index * 4);
-	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, bc
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2020: VDP_WriteVRAM((u8*)&g_VDP_Sprite, low, g_SpriteAttributeHigh, 3);
-	ld	hl, #0x0003
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	hl, #_g_VDP_Sprite
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2021: }
-	pop	ix
-	pop	hl
-	pop	af
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2026: void VDP_SetSpriteExMultiColor(u8 index, u8 x, u8 y, u8 shape, const u8* ram)
-;	---------------------------------
-; Function VDP_SetSpriteExMultiColor
-; ---------------------------------
-_VDP_SetSpriteExMultiColor::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	dec	sp
-	ld	c, a
-	ld	-1 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2028: u16 col = g_SpriteColorLow;
-	ld	de, (_g_SpriteColorLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2029: col += (index * 16);
-	ld	b, #0x00
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2030: VDP_WriteVRAM(ram, col, g_SpriteColorHigh, VDP_SPRITE_COLORS);
-	push	bc
-	ex	de, hl
-	ld	hl, #0x0010
-	push	hl
-	ld	a, (_g_SpriteColorHigh+0)
-	push	af
-	inc	sp
-	ld	l, 6 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, 7 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	call	_VDP_WriteVRAM_128K
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2032: g_VDP_Sprite.X = x;				// Y coordinate on screen (all lower priority sprite will be disable if equal to 216 or 0xD0)
-	ld	hl, #(_g_VDP_Sprite + 1)
-	ld	a, -1 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2033: g_VDP_Sprite.Y = y;				// X coordinate of the sprite
-	ld	hl, #_g_VDP_Sprite
-	ld	a, 4 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2034: g_VDP_Sprite.Pattern = shape;	// Pattern index
-	ld	hl, #(_g_VDP_Sprite + 2)
-	ld	a, 5 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2035: u16 attr = g_SpriteAttributeLow;
-	ld	de, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2036: attr += (index * 4);
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2037: VDP_WriteVRAM((u8*)&g_VDP_Sprite, attr, g_SpriteAttributeHigh, 3);
-	ld	hl, #0x0003
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	hl, #_g_VDP_Sprite
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2038: }
-	inc	sp
-	pop	ix
-	pop	hl
-	pop	af
-	pop	af
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2042: void VDP_SetSpriteExUniColor(u8 index, u8 x, u8 y, u8 shape, u8 color)
-;	---------------------------------
-; Function VDP_SetSpriteExUniColor
-; ---------------------------------
-_VDP_SetSpriteExUniColor::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	dec	sp
-	ld	c, a
-	ld	-1 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2044: u16 col = g_SpriteColorLow;
-	ld	de, (_g_SpriteColorLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2045: col += (index * 16);
-	ld	b, #0x00
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2046: VDP_FillVRAM(color, col, g_SpriteColorHigh, VDP_SPRITE_COLORS);
-	push	bc
-	ex	de, hl
-	ld	hl, #0x0010
-	push	hl
-	ld	a, (_g_SpriteColorHigh+0)
-	push	af
-	inc	sp
-	ld	a, 6 (ix)
-	call	_VDP_FillVRAM_128K
-	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2048: g_VDP_Sprite.X = x;				// Y coordinate on screen (all lower priority sprite will be disable if equal to 216 or 0xD0)
-	ld	hl, #(_g_VDP_Sprite + 1)
-	ld	a, -1 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2049: g_VDP_Sprite.Y = y;				// X coordinate of the sprite
-	ld	hl, #_g_VDP_Sprite
-	ld	a, 4 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2050: g_VDP_Sprite.Pattern = shape;	// Pattern index
-	ld	hl, #(_g_VDP_Sprite + 2)
-	ld	a, 5 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2051: u16 attr = g_SpriteAttributeLow;
-	ld	de, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2052: attr += (index * 4);
-	ld	l, c
-	ld	h, b
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2053: VDP_WriteVRAM((u8*)&g_VDP_Sprite, attr, g_SpriteAttributeHigh, 3);
-	ld	hl, #0x0003
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	hl, #_g_VDP_Sprite
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2054: }
-	inc	sp
-	pop	ix
-	pop	hl
-	pop	af
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2059: void VDP_SetSpritePosition(u8 index, u8 x, u8 y)
-;	---------------------------------
-; Function VDP_SetSpritePosition
-; ---------------------------------
-_VDP_SetSpritePosition::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	e, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2061: g_VDP_Sprite.Y = y;				// Y coordinate on screen (all lower priority sprite will be disable if equal to 216 or 0xD0)
-	ld	hl, #_g_VDP_Sprite
-	ld	a, 4 (ix)
-	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2062: g_VDP_Sprite.X = x;				// X coordinate of the sprite
-	ld	hl, #(_g_VDP_Sprite + 1)
-	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2064: u16 low = g_SpriteAttributeLow;
-	ld	bc, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2065: low += (index * 4);
-	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, bc
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2066: VDP_WriteVRAM((u8*)&g_VDP_Sprite, low, g_SpriteAttributeHigh, 2);
-	ld	hl, #0x0002
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	hl, #_g_VDP_Sprite
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2067: }
-	pop	ix
-	pop	hl
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2071: void VDP_SetSpritePositionX(u8 index, u8 x)
-;	---------------------------------
-; Function VDP_SetSpritePositionX
-; ---------------------------------
-_VDP_SetSpritePositionX::
-	ld	b, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2073: u16 low = g_SpriteAttributeLow;
-	ld	de, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2074: low += (index * 4);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2075: VDP_Poke(x, ++low, g_SpriteAttributeHigh);
-	inc	de
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	a, c
-	call	_VDP_Poke_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2076: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2080: void VDP_SetSpritePositionY(u8 index, u8 y)
-;	---------------------------------
-; Function VDP_SetSpritePositionY
-; ---------------------------------
-_VDP_SetSpritePositionY::
-	ld	b, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2082: u16 low = g_SpriteAttributeLow;
-	ld	de, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2083: low += (index * 4);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2084: VDP_Poke(y, low, g_SpriteAttributeHigh);
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	a, c
-	call	_VDP_Poke_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2085: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2089: void VDP_SetSpritePattern(u8 index, u8 shape)
-;	---------------------------------
-; Function VDP_SetSpritePattern
-; ---------------------------------
-_VDP_SetSpritePattern::
-	ld	b, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2091: u16 low = g_SpriteAttributeLow + 2;
-	ld	de, (_g_SpriteAttributeLow)
-	inc	de
-	inc	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2092: low += (index * 4);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2093: VDP_Poke(shape, low, g_SpriteAttributeHigh);
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	a, c
-	call	_VDP_Poke_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2094: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2098: void VDP_SetSpriteColorSM1(u8 index, u8 color)
-;	---------------------------------
-; Function VDP_SetSpriteColorSM1
-; ---------------------------------
-_VDP_SetSpriteColorSM1::
-	ld	b, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2100: u16 low = g_SpriteAttributeLow + 3;
-	ld	de, (_g_SpriteAttributeLow)
-	inc	de
-	inc	de
-	inc	de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2101: low += (index * 4);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2102: VDP_Poke(color, low, g_SpriteAttributeHigh);
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	a, c
-	call	_VDP_Poke_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2103: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2108: void VDP_SetSpriteUniColor(u8 index, u8 color)
-;	---------------------------------
-; Function VDP_SetSpriteUniColor
-; ---------------------------------
-_VDP_SetSpriteUniColor::
-	ld	b, a
-	ld	c, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2110: u16 col = g_SpriteColorLow;
-	ld	de, (_g_SpriteColorLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2111: col += (index * 16);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2112: VDP_FillVRAM(color, col, g_SpriteColorHigh, VDP_SPRITE_COLORS);
-	ld	hl, #0x0010
-	push	hl
-	ld	a, (_g_SpriteColorHigh+0)
-	push	af
-	inc	sp
-	ld	a, c
-	call	_VDP_FillVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2113: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2117: void VDP_SetSpriteMultiColor(u8 index, const u8* ram)
-;	---------------------------------
-; Function VDP_SetSpriteMultiColor
-; ---------------------------------
-_VDP_SetSpriteMultiColor::
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	c, e
-	ld	b, d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2119: u16 col = g_SpriteColorLow;
-	ld	de, (_g_SpriteColorLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2120: col += (index * 16);
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2121: VDP_WriteVRAM(ram, col, g_SpriteColorHigh, VDP_SPRITE_COLORS);	
-	ld	hl, #0x0010
-	push	hl
-	ld	a, (_g_SpriteColorHigh+0)
-	push	af
-	inc	sp
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, b
-;	spillPairReg hl
-;	spillPairReg hl
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2122: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2126: void VDP_SetSpriteData(u8 index, const u8* data)
-;	---------------------------------
-; Function VDP_SetSpriteData
-; ---------------------------------
-_VDP_SetSpriteData::
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	c, e
-	ld	b, d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2128: u16 low = g_SpriteAttributeLow;
-	ld	de, (_g_SpriteAttributeLow)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2129: low += (index * 4);
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
-	add	hl, hl
-	add	hl, hl
-	add	hl, de
-	ex	de, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2130: VDP_WriteVRAM(data, low, g_SpriteAttributeHigh, 3);
-	ld	hl, #0x0003
-	push	hl
-	ld	a, (_g_SpriteAttributeHigh+0)
-	push	af
-	inc	sp
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, b
-;	spillPairReg hl
-;	spillPairReg hl
-	call	_VDP_WriteVRAM_128K
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2131: }
-	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2136: void VDP_DisableSpritesFrom(u8 index)
-;	---------------------------------
-; Function VDP_DisableSpritesFrom
-; ---------------------------------
-_VDP_DisableSpritesFrom::
-	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2138: u8 y = VDP_SPRITE_DISABLE_SM1;
-	ld	b, #0xd0
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2140: if (g_VDP_Data.Mode >= VDP_MODE_MSX2) // MSX2 modes
-	ld	a, (#_g_VDP_Data + 0)
-	sub	a, #0x04
-	jr	C, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2141: y = VDP_SPRITE_DISABLE_SM2;
-	ld	b, #0xd8
-00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2143: VDP_SetSpritePositionY(index, y);
-	ld	l, b
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2144: }
-	jp	_VDP_SetSpritePositionY
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.c:2210: void VDP_LoadPattern_GM2(const u8* src, u8 count, u8 offset)
 ;	---------------------------------
 ; Function VDP_LoadPattern_GM2

@@ -6618,7 +6618,7 @@ and can be found in your processor header file. Example for
 PIC16F88:
 
 #include <pic16f88.h> //Contains config addresses and options
-#include <stdint.h> //Needed for uint16_t
+ //Needed for uint16_t
 
 static __code uint16_t __at (_CONFIG1) configword1 = _INTRC_IO &
   _CP_ALL & _WDT_OFF & [...];

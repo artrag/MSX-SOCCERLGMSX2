@@ -13,7 +13,7 @@ Symbol Table
     _Joystick_Read                                                  ******** GX
     _Keyboard_IsKeyPressed                                          ******** GX
   7 _UpdateAllInputs                                                000001E1 GR
-  1 _UpdateAllInputs_s_prev_trigger_state_65536_803                 00000000 R
+  1 _UpdateAllInputs_s_prev_trigger_state_65536_772                 00000000 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
