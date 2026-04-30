@@ -904,12 +904,12 @@ _PlayerAI::
 	sbc	a, -2 (ix)
 	ld	-6 (ix), a
 00205$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
 	ld	a, -5 (ix)
 	ld	-10 (ix), a
 	ld	a, -4 (ix)
 	ld	-9 (ix), a
-	ld	a, #0x10
+	ld	a, #0x18
 	cp	a, -10 (ix)
 	ld	a, #0x00
 	sbc	a, -9 (ix)
@@ -918,7 +918,7 @@ _PlayerAI::
 	ld	-5 (ix), a
 	ld	a, -6 (ix)
 	ld	-4 (ix), a
-	ld	a, #0x10
+	ld	a, #0x18
 	cp	a, -5 (ix)
 	ld	a, #0x00
 	sbc	a, -4 (ix)
@@ -997,13 +997,13 @@ _PlayerAI::
 	ld	-3 (ix), a
 	ld	a, -4 (ix)
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
-	ld	a, #0x14
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
+	ld	a, #0x1c
 	cp	a, -10 (ix)
 	ld	a, #0x00
 	sbc	a, -9 (ix)
 	jr	C, 00137$
-	ld	a, #0x0c
+	ld	a, #0x10
 	cp	a, -3 (ix)
 	ld	a, #0x00
 	sbc	a, -2 (ix)

@@ -904,12 +904,12 @@
     0000048F DD 9E FE         [19]  904 	sbc	a, -2 (ix)
     00000492 DD 77 FA         [19]  905 	ld	-6 (ix), a
     00000495                        906 00205$:
-                                    907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
+                                    907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
     00000495 DD 7E FB         [19]  908 	ld	a, -5 (ix)
     00000498 DD 77 F6         [19]  909 	ld	-10 (ix), a
     0000049B DD 7E FC         [19]  910 	ld	a, -4 (ix)
     0000049E DD 77 F7         [19]  911 	ld	-9 (ix), a
-    000004A1 3E 10            [ 7]  912 	ld	a, #0x10
+    000004A1 3E 18            [ 7]  912 	ld	a, #0x18
     000004A3 DD BE F6         [19]  913 	cp	a, -10 (ix)
     000004A6 3E 00            [ 7]  914 	ld	a, #0x00
     000004A8 DD 9E F7         [19]  915 	sbc	a, -9 (ix)
@@ -918,7 +918,7 @@
     000004B0 DD 77 FB         [19]  918 	ld	-5 (ix), a
     000004B3 DD 7E FA         [19]  919 	ld	a, -6 (ix)
     000004B6 DD 77 FC         [19]  920 	ld	-4 (ix), a
-    000004B9 3E 10            [ 7]  921 	ld	a, #0x10
+    000004B9 3E 18            [ 7]  921 	ld	a, #0x18
     000004BB DD BE FB         [19]  922 	cp	a, -5 (ix)
     000004BE 3E 00            [ 7]  923 	ld	a, #0x00
     000004C0 DD 9E FC         [19]  924 	sbc	a, -4 (ix)
@@ -997,13 +997,13 @@
     00000564 DD 77 FD         [19]  997 	ld	-3 (ix), a
     00000567 DD 7E FC         [19]  998 	ld	a, -4 (ix)
     0000056A DD 77 FE         [19]  999 	ld	-2 (ix), a
-                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
-    0000056D 3E 14            [ 7] 1001 	ld	a, #0x14
+                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
+    0000056D 3E 1C            [ 7] 1001 	ld	a, #0x1c
     0000056F DD BE F6         [19] 1002 	cp	a, -10 (ix)
     00000572 3E 00            [ 7] 1003 	ld	a, #0x00
     00000574 DD 9E F7         [19] 1004 	sbc	a, -9 (ix)
     00000577 38 10            [12] 1005 	jr	C, 00137$
-    00000579 3E 0C            [ 7] 1006 	ld	a, #0x0c
+    00000579 3E 10            [ 7] 1006 	ld	a, #0x10
     0000057B DD BE FD         [19] 1007 	cp	a, -3 (ix)
     0000057E 3E 00            [ 7] 1008 	ld	a, #0x00
     00000580 DD 9E FE         [19] 1009 	sbc	a, -2 (ix)

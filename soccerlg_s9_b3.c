@@ -282,13 +282,13 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 				u16 b_dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
 				u16 b_dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 				
-				bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
+				bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
 				if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team) {
 					u16 c_dist_y = (Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly);
-					if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
+					if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
 				}
 
-				if (can_steal && Ball->anim < 5 && RestartType == 0 && Ball->count == 0) {
+				if (can_steal && Ball->anim < 5 && RestartType == 0) {
 					if (LastTouchTeam != carrier_team) {
 						Ball->count = 16; // Immunità
 						g_pass_receiver = 0xFF; // Intercetto: disinnesca fuorigioco

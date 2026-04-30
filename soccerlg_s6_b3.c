@@ -65,10 +65,10 @@ void PlayerAI(u8 i)
 		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
 		
-		bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
+		bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
 		if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
 			u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
-			if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
+			if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
 		}
 
 		if (can_steal && Ball->anim < 5 && RestartType == 0) {

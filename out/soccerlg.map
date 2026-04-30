@@ -54,7 +54,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000194E  l__SEG17                        
      00001A9C  l__SEG21                        
      00001D5F  l__SEG15                        
-     00001E2A  l__SEG9                         
+     00001E22  l__SEG9                         
      00002A07  l__CODE                         
      00004000  s__CODE                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -738,7 +738,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001E2A =        7722. bytes (REL,CON)
+_SEG9                               0009A000    00001E22 =        7714. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
