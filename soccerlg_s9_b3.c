@@ -13,8 +13,10 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 	if (*game_state < 3) {
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_4, UpdateGameState_Init, game_state, wait_secs, start_sec, target_ly);
 		// Dischetti visibili fin dallo scrolling di presentazione
-		SwSprite[37].lx = PENALTY_DISH_X; SwSprite[37].ly = PENALTY_SOUTH_Y; SwSprite[37].frame = SPR_BIG_PENALTY_DISH;
-		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+		SwSprite[37].lx = PENALTY_DISH_X; SwSprite[37].frame = SPR_BIG_PENALTY_DISH;
+		SwSprite[37].ly = (SwSprite[14].lx == PENALTY_DISH_X && SwSprite[14].ly == PENALTY_SOUTH_Y) ? 1000 : PENALTY_SOUTH_Y;
+		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+		SwSprite[38].ly = (SwSprite[14].lx == PENALTY_DISH_X && SwSprite[14].ly == PENALTY_NORTH_Y) ? 1000 : PENALTY_NORTH_Y;
 	} else if (*game_state == 3) {
 		// Gestione cambio tempo
 		if (Mins == 0 && Secs == 0) {
@@ -68,13 +70,15 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 		// Freccia in basso (per Team 2 che attacca verso l'alto)
 		SwSprite[25].lx = (u8)g_h_arrow_x; SwSprite[25].ly = 50; SwSprite[25].frame = SPR_BIG_ARROW_TOP;
 
-		// Dischetti rigore visibili in entrambe le aree durante il gioco
-		SwSprite[37].lx = PENALTY_DISH_X; SwSprite[37].ly = PENALTY_SOUTH_Y; SwSprite[37].frame = SPR_BIG_PENALTY_DISH;
-		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].ly = PENALTY_NORTH_Y; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+		struct ObjectInfo* Ball = &SwSprite[14];
 
+		// Dischetti rigore visibili in entrambe le aree durante il gioco
+		SwSprite[37].lx = PENALTY_DISH_X; SwSprite[37].frame = SPR_BIG_PENALTY_DISH;
+		SwSprite[37].ly = (Ball->lx == PENALTY_DISH_X && Ball->ly == PENALTY_SOUTH_Y) ? 1000 : PENALTY_SOUTH_Y;
+		SwSprite[38].lx = PENALTY_DISH_X; SwSprite[38].frame = SPR_BIG_PENALTY_DISH;
+		SwSprite[38].ly = (Ball->lx == PENALTY_DISH_X && Ball->ly == PENALTY_NORTH_Y) ? 1000 : PENALTY_NORTH_Y;
 
 		// --- AGGIORNAMENTO POSSESSO E FOCUS UMANO ---
-		struct ObjectInfo* Ball = &SwSprite[14];
 		
 		u8 closest_t1 = 1; u16 min_dist_t1 = 0xFFFF;
 		u8 closest_t2 = 8; u16 min_dist_t2 = 0xFFFF;
