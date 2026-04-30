@@ -681,14 +681,14 @@ _UpdateBallPhysics::
 00111$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:53: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
 	ld	a, l
-	sub	a, #0x98
+	sub	a, #0x8e
 	ld	a, h
 	rla
 	ccf
 	rra
 	sbc	a, #0x80
 	jp	C, 00122$
-	ld	a, #0xa0
+	ld	a, #0x96
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h
@@ -766,14 +766,14 @@ _UpdateBallPhysics::
 00116$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s18_b3.c:61: (cross_x >= goal_right - 4 && cross_x <= goal_right + 4)) {
 	ld	a, l
-	sub	a, #0x98
+	sub	a, #0x8e
 	ld	a, h
 	rla
 	ccf
 	rra
 	sbc	a, #0x80
 	jr	C, 00122$
-	ld	a, #0xa0
+	ld	a, #0x96
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h

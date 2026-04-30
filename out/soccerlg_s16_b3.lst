@@ -1760,10 +1760,10 @@
     00000B33 DD 6E FB         [19] 1760 	ld	l, -5 (ix)
     00000B36 DD 66 FC         [19] 1761 	ld	h, -4 (ix)
     00000B39 36 00            [10] 1762 	ld	(hl), #0x00
-                                   1763 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: u8 target_x_pos[] = {92, 120, 148};
+                                   1763 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: u8 target_x_pos[] = {92, 120, 140};
     00000B3B DD 36 E1 5C      [19] 1764 	ld	-31 (ix), #0x5c
     00000B3F DD 36 E2 78      [19] 1765 	ld	-30 (ix), #0x78
-    00000B43 DD 36 E3 94      [19] 1766 	ld	-29 (ix), #0x94
+    00000B43 DD 36 E3 8C      [19] 1766 	ld	-29 (ix), #0x8c
                                    1767 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:175: g_pass_start_x = Ball->lx; g_pass_start_y = Ball->ly;
     00000B47 3Ar42r01         [13] 1768 	ld	a, (#(_SwSprite + 322) + 0)
     00000B4A DD 77 FF         [19] 1769 	ld	-1 (ix), a
@@ -1975,7 +1975,7 @@
     00000CEC 36 64            [10] 1975 	ld	(hl), #0x64
     00000CEE C3r2Er0D         [10] 1976 	jp	00218$
     00000CF1                       1977 00217$:
-                                   1978 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:206: else if(dive_dir == 2) { // Tuffo a Destra (X=148)
+                                   1978 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:206: else if(dive_dir == 2) { // Tuffo a Destra (X=140)
     00000CF1 DD 7E FF         [19] 1979 	ld	a, -1 (ix)
     00000CF4 D6 02            [ 7] 1980 	sub	a, #0x02
     00000CF6 20 11            [12] 1981 	jr	NZ, 00214$
@@ -1985,10 +1985,10 @@
     00000CFB 13               [ 6] 1985 	inc	de
     00000CFC AF               [ 4] 1986 	xor	a, a
     00000CFD 12               [ 7] 1987 	ld	(de), a
-                                   1988 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:208: Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
+                                   1988 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:208: Keeper->lx = 132; // Sposta il body a 132, mani della maglietta a 140
     00000CFE DD 6E F0         [19] 1989 	ld	l, -16 (ix)
     00000D01 DD 66 F1         [19] 1990 	ld	h, -15 (ix)
-    00000D04 36 8C            [10] 1991 	ld	(hl), #0x8c
+    00000D04 36 84            [10] 1991 	ld	(hl), #0x84
     00000D06 C3r2Er0D         [10] 1992 	jp	00218$
     00000D09                       1993 00214$:
                                    1994 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:211: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

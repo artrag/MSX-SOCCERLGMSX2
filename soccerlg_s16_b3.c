@@ -171,7 +171,7 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			if(do_shot) {
 				*wait_secs = 0; // Prepara il timer per lo stato 15
 
-				u8 target_x_pos[] = {92, 120, 148};
+				u8 target_x_pos[] = {92, 120, 140};
 				g_pass_start_x = Ball->lx; g_pass_start_y = Ball->ly;
 				g_pass_target_x = target_x_pos[shot_dir]; g_pass_target_y = 16;
 				g_pass_max_frames = 15; g_pass_max_height = 1; // Tiro basso e veloce (dimensione 1)
@@ -203,9 +203,9 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					Keeper->frame = SPR_GK_PLAYER_DOWN_WEST_NORTH; // Ovest = Tuffo a Sinistra
 					Keeper->lx = 100; // Sposta il body a 100, mani della maglietta a 92
 				}
-				else if(dive_dir == 2) { // Tuffo a Destra (X=148)
+				else if(dive_dir == 2) { // Tuffo a Destra (X=140)
 					Keeper->frame = SPR_GK_PLAYER_DOWN_EAST_NORTH; // Est = Tuffo a Destra
-					Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
+					Keeper->lx = 132; // Sposta il body a 132, mani della maglietta a 140
 				}
 				else { // Parata centrale
 					Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

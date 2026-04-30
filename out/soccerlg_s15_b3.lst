@@ -2021,7 +2021,7 @@
     00000BD1 11r00r00         [10] 2021 	ld	de, #_SetBallSprite
     00000BD4 3E 05            [ 7] 2022 	ld	a, #0x05
     00000BD6 CDr00r00         [17] 2023 	call	_CallFnc_VOID_P1
-                                   2024 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:211: if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 156) {
+                                   2024 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:211: if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 146) {
     00000BD9 21r46r01         [10] 2025 	ld	hl, #(_SwSprite + 326)
     00000BDC 7E               [ 7] 2026 	ld	a, (hl)
     00000BDD DD 77 F9         [19] 2027 	ld	-7 (ix), a
@@ -2038,7 +2038,7 @@
     00000BF5 79               [ 4] 2038 	ld	a, c
     00000BF6 D6 52            [ 7] 2039 	sub	a, #0x52
     00000BF8 38 1E            [12] 2040 	jr	C, 00109$
-    00000BFA 3E 9C            [ 7] 2041 	ld	a, #0x9c
+    00000BFA 3E 92            [ 7] 2041 	ld	a, #0x92
     00000BFC 91               [ 4] 2042 	sub	a, c
     00000BFD 38 19            [12] 2043 	jr	C, 00109$
                                    2044 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:212: if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;

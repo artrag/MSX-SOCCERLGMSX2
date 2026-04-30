@@ -857,7 +857,7 @@
     00000277 DD 7E F7         [19]  857 	ld	a, -9 (ix)
     0000027A D6 52            [ 7]  858 	sub	a, #0x52
     0000027C DAr0Br03         [10]  859 	jp	C, 00115$
-    0000027F 3E 9C            [ 7]  860 	ld	a, #0x9c
+    0000027F 3E 92            [ 7]  860 	ld	a, #0x92
     00000281 DD 96 F7         [19]  861 	sub	a, -9 (ix)
     00000284 DAr0Br03         [10]  862 	jp	C, 00115$
                                     863 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
@@ -943,7 +943,7 @@
     0000031F DD 7E F7         [19]  943 	ld	a, -9 (ix)
     00000322 D6 52            [ 7]  944 	sub	a, #0x52
     00000324 DArB3r03         [10]  945 	jp	C, 00121$
-    00000327 3E 9C            [ 7]  946 	ld	a, #0x9c
+    00000327 3E 92            [ 7]  946 	ld	a, #0x92
     00000329 DD 96 F7         [19]  947 	sub	a, -9 (ix)
     0000032C DArB3r03         [10]  948 	jp	C, 00121$
                                     949 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:84: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {

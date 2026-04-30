@@ -904,12 +904,12 @@ _PlayerAI::
 	sbc	a, -2 (ix)
 	ld	-6 (ix), a
 00205$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 12 && b_dist_y <= 12);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
 	ld	a, -5 (ix)
 	ld	-10 (ix), a
 	ld	a, -4 (ix)
 	ld	-9 (ix), a
-	ld	a, #0x0c
+	ld	a, #0x10
 	cp	a, -10 (ix)
 	ld	a, #0x00
 	sbc	a, -9 (ix)
@@ -918,7 +918,7 @@ _PlayerAI::
 	ld	-5 (ix), a
 	ld	a, -6 (ix)
 	ld	-4 (ix), a
-	ld	a, #0x0c
+	ld	a, #0x10
 	cp	a, -5 (ix)
 	ld	a, #0x00
 	sbc	a, -4 (ix)
@@ -997,13 +997,13 @@ _PlayerAI::
 	ld	-3 (ix), a
 	ld	a, -4 (ix)
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 16 && c_dist_y <= 5) can_steal = TRUE;
-	ld	a, #0x10
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
+	ld	a, #0x14
 	cp	a, -10 (ix)
 	ld	a, #0x00
 	sbc	a, -9 (ix)
 	jr	C, 00137$
-	ld	a, #0x05
+	ld	a, #0x0c
 	cp	a, -3 (ix)
 	ld	a, #0x00
 	sbc	a, -2 (ix)
@@ -1149,15 +1149,15 @@ _PlayerAI::
 	ld	-9 (ix), #0x58
 	ld	-8 (ix), #0
 00159$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:100: if (target_x > 150) target_x = 150;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:100: if (target_x > 140) target_x = 140;
 	ld	c, -9 (ix)
 	ld	b, -8 (ix)
-	ld	a, #0x96
+	ld	a, #0x8c
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
 	jr	NC, 00161$
-	ld	-9 (ix), #0x96
+	ld	-9 (ix), #0x8c
 	ld	-8 (ix), #0
 00161$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:102: target_y = (team == TEAM_1) ? 32 : 452;

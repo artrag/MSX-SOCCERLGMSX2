@@ -238,22 +238,17 @@ void PlayerAI_Movement(u8 i)
 				}
 			}
 
-			// Modifica: consentire il furto in piedi anche dei passaggi (anim == 5)
-			bool is_flying_pass = (Ball->anim == 5);
-			if (can_steal_standing && (Ball->anim < 5 || (is_flying_pass && LastTouchTeam != team)) && Ball->count == 0 && RestartType == 0) {
+			if (can_steal_standing && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera
 					Ball->count = is_free_ball ? 2 : 16;
 					LastTouchTeam = team;
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
-					if (is_flying_pass) {
-						Ball->anim = 3; // Blocca la palla a terra
-						Ball->dx = 0; Ball->dy = 0;
-						CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0);
-					} else if (Ball->anim > 3) Ball->anim = 3; 
+					if (Ball->anim > 3) Ball->anim = 3; 
 					Ball->frame = SPR_BALL_SIZE_1;
 				} else if (is_free_ball && LastTouchTeam == team && LastTouchPlayer != i) {
 					// Palla libera già reclamata dalla squadra ma non portata: aggiorna il portatore
+					Ball->count = 16; // Immunità alla ricezione
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
 					if (Ball->anim > 3) Ball->anim = 3; 
@@ -386,7 +381,7 @@ void PlayerAI_Movement(u8 i)
 								} else {
 									// Diagonale: kick corto (anim=2 = 5px per asse, rimane entro soglia 26px)
 									Ball->dx = move_dx; Ball->dy = 1;
-									Ball->anim = 2; Ball->count = 0;
+									Ball->anim = 2; Ball->count = 12; // Immunità durante il cambio di direzione
 									CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 								}
 							}

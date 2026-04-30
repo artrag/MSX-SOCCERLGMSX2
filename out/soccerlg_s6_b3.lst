@@ -904,12 +904,12 @@
     0000048F DD 9E FE         [19]  904 	sbc	a, -2 (ix)
     00000492 DD 77 FA         [19]  905 	ld	-6 (ix), a
     00000495                        906 00205$:
-                                    907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 12 && b_dist_y <= 12);
+                                    907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:68: bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
     00000495 DD 7E FB         [19]  908 	ld	a, -5 (ix)
     00000498 DD 77 F6         [19]  909 	ld	-10 (ix), a
     0000049B DD 7E FC         [19]  910 	ld	a, -4 (ix)
     0000049E DD 77 F7         [19]  911 	ld	-9 (ix), a
-    000004A1 3E 0C            [ 7]  912 	ld	a, #0x0c
+    000004A1 3E 10            [ 7]  912 	ld	a, #0x10
     000004A3 DD BE F6         [19]  913 	cp	a, -10 (ix)
     000004A6 3E 00            [ 7]  914 	ld	a, #0x00
     000004A8 DD 9E F7         [19]  915 	sbc	a, -9 (ix)
@@ -918,7 +918,7 @@
     000004B0 DD 77 FB         [19]  918 	ld	-5 (ix), a
     000004B3 DD 7E FA         [19]  919 	ld	a, -6 (ix)
     000004B6 DD 77 FC         [19]  920 	ld	-4 (ix), a
-    000004B9 3E 0C            [ 7]  921 	ld	a, #0x0c
+    000004B9 3E 10            [ 7]  921 	ld	a, #0x10
     000004BB DD BE FB         [19]  922 	cp	a, -5 (ix)
     000004BE 3E 00            [ 7]  923 	ld	a, #0x00
     000004C0 DD 9E FC         [19]  924 	sbc	a, -4 (ix)
@@ -997,13 +997,13 @@
     00000564 DD 77 FD         [19]  997 	ld	-3 (ix), a
     00000567 DD 7E FC         [19]  998 	ld	a, -4 (ix)
     0000056A DD 77 FE         [19]  999 	ld	-2 (ix), a
-                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 16 && c_dist_y <= 5) can_steal = TRUE;
-    0000056D 3E 10            [ 7] 1001 	ld	a, #0x10
+                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:71: if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
+    0000056D 3E 14            [ 7] 1001 	ld	a, #0x14
     0000056F DD BE F6         [19] 1002 	cp	a, -10 (ix)
     00000572 3E 00            [ 7] 1003 	ld	a, #0x00
     00000574 DD 9E F7         [19] 1004 	sbc	a, -9 (ix)
     00000577 38 10            [12] 1005 	jr	C, 00137$
-    00000579 3E 05            [ 7] 1006 	ld	a, #0x05
+    00000579 3E 0C            [ 7] 1006 	ld	a, #0x0c
     0000057B DD BE FD         [19] 1007 	cp	a, -3 (ix)
     0000057E 3E 00            [ 7] 1008 	ld	a, #0x00
     00000580 DD 9E FE         [19] 1009 	sbc	a, -2 (ix)
@@ -1149,15 +1149,15 @@
     000006A7 DD 36 F7 58      [19] 1149 	ld	-9 (ix), #0x58
     000006AB DD 36 F8 00      [19] 1150 	ld	-8 (ix), #0
     000006AF                       1151 00159$:
-                                   1152 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:100: if (target_x > 150) target_x = 150;
+                                   1152 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:100: if (target_x > 140) target_x = 140;
     000006AF DD 4E F7         [19] 1153 	ld	c, -9 (ix)
     000006B2 DD 46 F8         [19] 1154 	ld	b, -8 (ix)
-    000006B5 3E 96            [ 7] 1155 	ld	a, #0x96
+    000006B5 3E 8C            [ 7] 1155 	ld	a, #0x8c
     000006B7 B9               [ 4] 1156 	cp	a, c
     000006B8 3E 00            [ 7] 1157 	ld	a, #0x00
     000006BA 98               [ 4] 1158 	sbc	a, b
     000006BB 30 08            [12] 1159 	jr	NC, 00161$
-    000006BD DD 36 F7 96      [19] 1160 	ld	-9 (ix), #0x96
+    000006BD DD 36 F7 8C      [19] 1160 	ld	-9 (ix), #0x8c
     000006C1 DD 36 F8 00      [19] 1161 	ld	-8 (ix), #0
     000006C5                       1162 00161$:
                                    1163 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:102: target_y = (team == TEAM_1) ? 32 : 452;

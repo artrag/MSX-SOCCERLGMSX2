@@ -282,13 +282,13 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 				u16 b_dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
 				u16 b_dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
 				
-				bool can_steal = (b_dist_x <= 12 && b_dist_y <= 12);
+				bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
 				if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team) {
 					u16 c_dist_y = (Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly);
-					if (b_dist_x <= 16 && c_dist_y <= 5) can_steal = TRUE;
+					if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
 				}
 
-				if (can_steal && Ball->anim < 5 && RestartType == 0) {
+				if (can_steal && Ball->anim < 5 && RestartType == 0 && Ball->count == 0) {
 					if (LastTouchTeam != carrier_team) {
 						Ball->count = 16; // Immunità
 						g_pass_receiver = 0xFF; // Intercetto: disinnesca fuorigioco
@@ -362,22 +362,12 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 			// Senza questo blocco, basta passarci vicino per rubare palla al momento del cambio direzione.
 			bool actively_carried_by_opp = (g_is_ball_carried && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
 
-			// Controlla se può intercettare un passaggio in volo
-			bool can_intercept = FALSE;
-			if (Ball->anim == 5 && carrier != LastTouchPlayer && LastTouchTeam != 0xFF && LastTouchTeam != carrier_team) {
-				if (dist_x <= 12 && eff_dist_y <= 12) can_intercept = TRUE;
-			}
-
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
-			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && (Ball->anim < 5 || can_intercept) && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
+			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && Ball->anim < 5 && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
 					if (LastTouchTeam != carrier_team) {
 						Ball->count = 16; // Immunità
-						if (Ball->anim == 5) {
-							// Se ha intercettato un passaggio in volo, blocca la palla a terra
-							Ball->anim = 3;
-							Ball->dx = 0; Ball->dy = 0;
-							CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); 
-						}
+					} else if (LastTouchPlayer != carrier) {
+						Ball->count = 16; // Immunità alla ricezione del passaggio
 					}
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
@@ -480,6 +470,8 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 					if (!action_taken && (Ball->dx != c_dx || Ball->dy != c_dy)) {
 						// Cambio direzione fluido: la palla si riavvicina dolcemente ai piedi
 						// invece di teletrasportarsi, evitando uscite dal campo accidentali.
+						bool is_180_turn = (Ball->dx == -c_dx && Ball->dy == -c_dy && (c_dx != 0 || c_dy != 0));
+
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
 if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else if (c_dy < 0) off_y = -2;
@@ -494,6 +486,7 @@ if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else 
 						
 						if (Carrier->dx != 0 || Carrier->dy != 0) {
 							Ball->anim = (c_dx != 0 && c_dy != 0) ? 1 : 2; // Tocco cortissimo in diagonale, normale in rettilineo
+							Ball->count = is_180_turn ? 0 : 12; // Nessuna immunità se torna indietro di 180 gradi
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 						} else {
 							Ball->anim = 0;

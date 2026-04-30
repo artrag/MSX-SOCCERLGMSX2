@@ -1760,10 +1760,10 @@ _UpdateGameState_Penalties::
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: u8 target_x_pos[] = {92, 120, 148};
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:174: u8 target_x_pos[] = {92, 120, 140};
 	ld	-31 (ix), #0x5c
 	ld	-30 (ix), #0x78
-	ld	-29 (ix), #0x94
+	ld	-29 (ix), #0x8c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:175: g_pass_start_x = Ball->lx; g_pass_start_y = Ball->ly;
 	ld	a, (#(_SwSprite + 322) + 0)
 	ld	-1 (ix), a
@@ -1975,7 +1975,7 @@ _UpdateGameState_Penalties::
 	ld	(hl), #0x64
 	jp	00218$
 00217$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:206: else if(dive_dir == 2) { // Tuffo a Destra (X=148)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:206: else if(dive_dir == 2) { // Tuffo a Destra (X=140)
 	ld	a, -1 (ix)
 	sub	a, #0x02
 	jr	NZ, 00214$
@@ -1985,10 +1985,10 @@ _UpdateGameState_Penalties::
 	inc	de
 	xor	a, a
 	ld	(de), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:208: Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:208: Keeper->lx = 132; // Sposta il body a 132, mani della maglietta a 140
 	ld	l, -16 (ix)
 	ld	h, -15 (ix)
-	ld	(hl), #0x8c
+	ld	(hl), #0x84
 	jp	00218$
 00214$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:211: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

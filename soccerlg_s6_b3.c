@@ -65,10 +65,10 @@ void PlayerAI(u8 i)
 		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
 		
-		bool can_steal = (b_dist_x <= 12 && b_dist_y <= 12);
+		bool can_steal = (b_dist_x <= 16 && b_dist_y <= 16);
 		if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
 			u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
-			if (b_dist_x <= 16 && c_dist_y <= 5) can_steal = TRUE;
+			if (b_dist_x <= 20 && c_dist_y <= 12) can_steal = TRUE;
 		}
 
 		if (can_steal && Ball->anim < 5 && RestartType == 0) {
@@ -95,9 +95,9 @@ void PlayerAI(u8 i)
 		else if (Ball->lx < Player->lx - 4) target_x = Player->lx - 2;
 		else target_x = Ball->lx;
 		
-		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 156)
+		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 146)
 		if (target_x < 88) target_x = 88;
-		if (target_x > 150) target_x = 150;
+		if (target_x > 140) target_x = 140;
 		
 		target_y = (team == TEAM_1) ? 32 : 452;
 		
