@@ -144,11 +144,11 @@ void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 targ
 			if (RestartType == RESTART_KICKOFF_SCROLL) RestartType = 0;
 			
 			// --- INIZIO DEBUG RIGORI ---
-			*game_state = 11;
-			CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
-			*wait_secs = 2;
-			*start_sec = Frms;
-			return;
+			//*game_state = 11;
+			//CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
+			//*wait_secs = 2;
+			//*start_sec = Frms;
+			//return;
 			// --- FINE DEBUG RIGORI ---
 
 			*game_state = 3;

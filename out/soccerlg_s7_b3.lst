@@ -286,7 +286,7 @@
                          0000FCB7   286 _g_GRPACX	=	0xfcb7
                          0000FCB9   287 _g_GRPACY	=	0xfcb9
                          0000FFFF   288 _g_SLTSL	=	0xffff
-    00000000                        289 _UpdateAllInputs_s_prev_trigger_state_65536_801:
+    00000000                        289 _UpdateAllInputs_s_prev_trigger_state_65536_802:
     00000000                        290 	.ds 2
                                     291 ;--------------------------------------------------------
                                     292 ; ram data
@@ -304,7 +304,7 @@
                                     304 	.area _GSFINAL
                                     305 	.area _GSINIT
                                     306 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:152: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
-    00000000 01r00r00         [10]  307 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_801+0
+    00000000 01r00r00         [10]  307 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_802+0
     00000003 AF               [ 4]  308 	xor	a, a
     00000004 02               [ 7]  309 	ld	(bc), a
     00000005 03               [ 6]  310 	inc	bc
@@ -900,7 +900,7 @@
     000001F9 7B               [ 4]  900 	ld	a, e
     000001FA B7               [ 4]  901 	or	a, a
     000001FB 28 06            [12]  902 	jr	Z, 00106$
-    000001FD 3Ar01r00         [13]  903 	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_801 + 1) + 0)
+    000001FD 3Ar01r00         [13]  903 	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_802 + 1) + 0)
     00000200 B7               [ 4]  904 	or	a, a
     00000201 28 04            [12]  905 	jr	Z, 00107$
     00000203                        906 00106$:
@@ -914,8 +914,8 @@
     0000020A 21r05r00         [10]  914 	ld	hl, #(_g_player_input + 5)
     0000020D 73               [ 7]  915 	ld	(hl), e
                                     916 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:160: s_prev_trigger_state[1] = p1_trigger_down;
-    0000020E 01r00r00         [10]  917 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_801+0
-    00000211 21r01r00         [10]  918 	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_801 + 1)
+    0000020E 01r00r00         [10]  917 	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_802+0
+    00000211 21r01r00         [10]  918 	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_802 + 1)
     00000214 73               [ 7]  919 	ld	(hl), e
                                     920 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
                                     921 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;

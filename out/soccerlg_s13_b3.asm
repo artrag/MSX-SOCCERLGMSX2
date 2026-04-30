@@ -10,10 +10,11 @@
 ;--------------------------------------------------------
 	.globl _GetPlayerAnimFrame
 	.globl _AssignKickOffTargets
+	.globl _EventKickOffReady
 	.globl _EventPlayerFirstPresentationStarted
-	.globl _ShowSpriteMessage
+	.globl _FindReceiver
+	.globl _CallFnc_U16_P4B
 	.globl _CallFnc_U16_P4
-	.globl _CallFnc_VOID_16_P1
 	.globl _CallFnc_VOID
 	.globl _g_SLTSL
 	.globl _g_GRPACY
@@ -555,11 +556,11 @@ _UpdateGameState_Init::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:46: } else if (Field.ly != target_ly) {
 	ld	a, 6 (ix)
 	sub	a, -9 (ix)
-	jr	NZ, 00613$
+	jr	NZ, 00618$
 	ld	a, 7 (ix)
 	sub	a, -8 (ix)
 	jr	Z, 00109$
-00613$:
+00618$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:47: Field.dy = (i8)(target_ly - Field.ly); Field.ly = target_ly; all_in_position = FALSE;
 	ld	a, 6 (ix)
 	ld	-6 (ix), a
@@ -586,9 +587,9 @@ _UpdateGameState_Init::
 	ld	a, (_RestartType+0)
 	sub	a, #0x04
 	ld	a, #0x01
-	jr	Z, 00615$
+	jr	Z, 00620$
 	xor	a, a
-00615$:
+00620$:
 	ld	b, a
 	bit	0, b
 	jr	NZ, 00210$
@@ -799,11 +800,11 @@ _UpdateGameState_Init::
 ;	spillPairReg hl
 	ld	a, -12 (ix)
 	sub	a, d
-	jr	NZ, 00622$
+	jr	NZ, 00627$
 	ld	a, -11 (ix)
 	sub	a, l
 	jp	Z,00159$
-00622$:
+00627$:
 00158$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:69: all_in_position = FALSE;
 	ld	-20 (ix), #0x00
@@ -1095,9 +1096,9 @@ _UpdateGameState_Init::
 	ld	a, (_RestartType+0)
 	sub	a, #0x04
 	ld	a, #0x01
-	jr	Z, 00626$
+	jr	Z, 00631$
 	xor	a, a
-00626$:
+00631$:
 	ld	-8 (ix), a
 	or	a, a
 	jr	Z, 00235$
@@ -1462,27 +1463,81 @@ _UpdateGameState_Init::
 	ld	hl, #_RestartType
 	ld	(hl), #0x00
 00186$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:147: *game_state = 11;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:154: *game_state = 3;
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
-	ld	(hl), #0x0b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:148: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
+	ld	(hl), #0x03
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:157: if (KickOffTeam == TEAM_1) {
+	ld	a, (_KickOffTeam+0)
+	or	a, a
+	jr	NZ, 00188$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:158: T1_Carrier = 3; // Giocatore a sinistra della palla
+	ld	hl, #_T1_Carrier
+	ld	(hl), #0x03
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:159: T1_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T1_Carrier, 4, 0, 1); // Ignora il compagno (4)
 	push	bc
-	ld	hl, #0x0149
+	ld	a, #0x01
+	push	af
+	inc	sp
+	xor	a, a
+	ld	h, a
+	ld	l, #0x04
 	push	hl
-	ld	de, #_ShowSpriteMessage
-	ld	a, #0x05
-	call	_CallFnc_VOID_16_P1
+	ld	a, #0x03
+	push	af
+	inc	sp
+	ld	de, #_FindReceiver
+	ld	a, #0x14
+	call	_CallFnc_U16_P4B
 	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:149: *wait_secs = 2;
+	ld	a, e
+	ld	(#_T1_Receiver), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:160: T2_Carrier = T2_Receiver = 0xFF; // Difesa senza palla
+	ld	a,#0xff
+	ld	(#_T2_Receiver),a
+	ld	(#_T2_Carrier), a
+	jp	00189$
+00188$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:162: T2_Carrier = 11; // Giocatore a destra della palla
+	ld	hl, #_T2_Carrier
+	ld	(hl), #0x0b
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:163: T2_Receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, T2_Carrier, 10, 0, -1); // Ignora il compagno (10)
+	push	bc
+	ld	a, #0xff
+	push	af
+	inc	sp
+	xor	a, a
+	ld	h, a
+	ld	l, #0x0a
+	push	hl
+	ld	a, #0x0b
+	push	af
+	inc	sp
+	ld	de, #_FindReceiver
+	ld	a, #0x14
+	call	_CallFnc_U16_P4B
+	pop	bc
+	ld	a, e
+	ld	(#_T2_Receiver), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:164: T1_Carrier = T1_Receiver = 0xFF; // Difesa senza palla
+	ld	a,#0xff
+	ld	(#_T1_Receiver),a
+	ld	(#_T1_Carrier), a
+00189$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:167: LastTouchTeam = KickOffTeam; // Assegna possesso fittizio al team che batte per far allargare i compagni
+	ld	a, (_KickOffTeam+0)
+	ld	(_LastTouchTeam+0), a
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:169: *wait_secs = 2;
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	(hl), #0x02
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:150: *start_sec = Frms;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:170: *start_sec = Frms;
 	ld	a, (_Frms+0)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:151: return;
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:171: CallFnc_VOID(SEG_EVENTS, EventKickOffReady);
+	ld	de, #_EventKickOffReady
+	ld	a, #0x08
+	call	_CallFnc_VOID
 00205$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:174: }
 	ld	sp, ix
