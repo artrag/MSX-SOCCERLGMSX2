@@ -8,7 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _UpdateGameState_Celebrations
 	.globl _GetPlayerIdleFrame
 	.globl _GetPlayerAnimFrame
 	.globl _ShowMenu
@@ -219,6 +218,7 @@
 	.globl _g_CLPRIM
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
+	.globl _UpdateGameState_Celebrations
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
