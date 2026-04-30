@@ -8,6 +8,7 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
+	.globl _GetPlayerIdleFrame
 	.globl _GetPlayerAnimFrame
 	.globl _AssignKickOffTargets
 	.globl _EventKickOffReady
@@ -15,6 +16,7 @@
 	.globl _FindReceiver
 	.globl _CallFnc_U16_P4B
 	.globl _CallFnc_U16_P4
+	.globl _CallFnc_U16_P3
 	.globl _CallFnc_VOID
 	.globl _g_SLTSL
 	.globl _g_GRPACY
@@ -1270,19 +1272,16 @@ _UpdateGameState_Init::
 	ld	(hl), #0x00
 	jp	00162$
 00151$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:106: p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, dir_x, dir_y, 0); // Posa ferma (0) verso la palla
-	xor	a, a
-	push	af
-	inc	sp
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s13_b3.c:106: p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
 	ld	h, -6 (ix)
 	ld	l, -8 (ix)
 	push	hl
 	ld	a, -1 (ix)
 	push	af
 	inc	sp
-	ld	de, #_GetPlayerAnimFrame
+	ld	de, #_GetPlayerIdleFrame
 	ld	a, #0x13
-	call	_CallFnc_U16_P4
+	call	_CallFnc_U16_P3
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
 	ld	(hl), e

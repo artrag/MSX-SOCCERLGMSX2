@@ -42,7 +42,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000262  l__SEG7                         
      0000045C  l__DATA                         
      00000530  l__SEG10                        
-     0000084C  l__SEG13                        
+     00000849  l__SEG13                        
      000008D0  l__SEG6                         
      00000957  l__SEG19                        
      00000961  l__SEG18                        
@@ -783,7 +783,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG13                              000DA000    0000084C =        2124. bytes (REL,CON)
+_SEG13                              000DA000    00000849 =        2121. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

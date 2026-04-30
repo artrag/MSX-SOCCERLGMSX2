@@ -253,7 +253,7 @@ struct TeamStats {
 #define SPR_REFEREE_FACE_TO_NORTH_EAST       		272
 #define SPR_REFEREE_FACE_TO_NORTH_WEST       		271
 #define SPR_REFEREE_FACE_TO_SOUTH_EAST       		265
-#define SPR_REFEREE_FACE_TO_SOUTH_WEST       		264
+#define SPR_REFEREE_FACE_TO_SOUTH_WEST       		265
 #define SPR_BALL_SIZE_1								96
 #define SPR_BALL_SIZE_2								97
 #define SPR_BALL_SIZE_3								98

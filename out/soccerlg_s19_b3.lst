@@ -1554,7 +1554,7 @@
     00000767 28 0A            [12] 1554 	jr	Z, 00123$
     00000769 CB 7D            [ 8] 1555 	bit	7, l
     0000076B 28 06            [12] 1556 	jr	Z, 00123$
-    0000076D 11 08 01         [10] 1557 	ld	de, #0x0108
+    0000076D 11 09 01         [10] 1557 	ld	de, #0x0109
     00000770 C3r52r09         [10] 1558 	jp	00205$
     00000773                       1559 00123$:
                                    1560 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s19_b3.c:80: return SPR_REFEREE_FACE_TO_SOUTH;

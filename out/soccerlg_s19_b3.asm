@@ -1554,7 +1554,7 @@ _GetPlayerIdleFrame::
 	jr	Z, 00123$
 	bit	7, l
 	jr	Z, 00123$
-	ld	de, #0x0108
+	ld	de, #0x0109
 	jp	00205$
 00123$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s19_b3.c:80: return SPR_REFEREE_FACE_TO_SOUTH;
