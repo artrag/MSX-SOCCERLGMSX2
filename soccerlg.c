@@ -118,6 +118,14 @@ const struct TeamStats g_TeamStatsArray[] = {
     extern unsigned char g_SplashScreen6[];
 	extern unsigned char g_SplashScreen7[];
 
+	extern unsigned char g_MenuColorScreen1[];
+	extern unsigned char g_MenuColorScreen2[];
+	extern unsigned char g_MenuColorScreen3[];
+	extern unsigned char g_MenuColorScreen4[];
+	extern unsigned char g_MenuColorScreen5[];
+    extern unsigned char g_MenuColorScreen6[];
+	extern unsigned char g_MenuColorScreen7[];
+
 	struct InputState g_player_input[2];
 	struct ObjectInfo SwSprite[NumSprite];
 	struct ObjectInfo Field;
@@ -291,7 +299,9 @@ void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
 void SplashScreenLoad()
 {
     VDP_SetMode(VDP_MODE_SCREEN8);
-    
+	VDP_ClearVRAM();
+    VDP_SetPalette(g_Palette);
+    VDP_SetColor(0);
     // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
     u16 vram_low = 0; 
 
@@ -330,8 +340,61 @@ void SplashScreenLoad()
     // Ultimo chunk (256*212 = 54272 byte totali)
     VDP_WriteVRAM_128K(g_SplashScreen7, vram_low, 0, 5120);
 
-    DEBUG_BREAK();
+    // Attesa di 2 secondi (circa 120 VBlank) prima di proseguire
+    for (u8 i = 0; i < 120; i++) {
+        __asm halt __endasm;
+    }
 }
+
+// +++ Menu screen load +++
+void MenuScreenLoad()
+{
+    VDP_SetMode(VDP_MODE_SCREEN8);
+	VDP_ClearVRAM();
+    VDP_SetPalette(g_Palette);
+    VDP_SetColor(0);
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+
+    // Segmento 50
+    SET_BANK_SEGMENT(3, 57);
+    VDP_WriteVRAM_128K(g_MenuColorScreen1, vram_low, 0, 8192);
+
+    // Segmento 51
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 58);
+    VDP_WriteVRAM_128K(g_MenuColorScreen2, vram_low, 0, 8192);
+
+    // Segmento 52
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 59);
+    VDP_WriteVRAM_128K(g_MenuColorScreen3, vram_low, 0, 8192);
+    
+    // Segmento 53
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 60);
+    VDP_WriteVRAM_128K(g_MenuColorScreen4, vram_low, 0, 8192);
+
+    // Segmento 54
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 61);
+    VDP_WriteVRAM_128K(g_MenuColorScreen5, vram_low, 0, 8192);
+
+    // Segmento 55
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 62);
+    VDP_WriteVRAM_128K(g_MenuColorScreen6, vram_low, 0, 8192);
+
+    // Segmento 56
+    vram_low += 8192; 
+    SET_BANK_SEGMENT(3, 63);
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_MenuColorScreen7, vram_low, 0, 5120);
+
+    
+}
+
+
 // +++ Set team colors +++
 void SetTeamColors(u8 team, const struct TeamColors* colors)
 {
@@ -526,6 +589,9 @@ void main()
 	DEBUG_INIT();
     Bios_SetKeyClick(FALSE);
 	SplashScreenLoad();
+	CallFnc_VOID(SEG_MENU,ShowMenu);
+}
+void StartGame(){
 	VDP_SetMode(VDP_MODE_SCREEN5);
 	VDP_EnableTransparency(FALSE);
     VDP_SetPalette(g_Palette);

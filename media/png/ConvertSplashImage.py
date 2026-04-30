@@ -28,7 +28,7 @@ def generate_msx_files(image_path):
     CHUNK_SIZE = 8192
     num_chunks = (len(msx_data) + CHUNK_SIZE - 1) // CHUNK_SIZE
     
-    start_section = 50  # Il valore XX per il nome del file
+    start_section = 57  # Il valore XX per il nome del file
     
     header_text = (
         "// ─────────────────────────────────────────────────────────────────────────────\n"
@@ -43,7 +43,7 @@ def generate_msx_files(image_path):
         file_name = f"soccerlg_s{current_section}_b3.c"
         
         # Nome matrice: g_SplashScreenX (X parte da 1)
-        matrix_name = f"g_SplashScreen{i + 1}"
+        matrix_name = f"g_MenuCOlorScreen{i + 1}"
         
         start_idx = i * CHUNK_SIZE
         end_idx = min(start_idx + CHUNK_SIZE, len(msx_data))

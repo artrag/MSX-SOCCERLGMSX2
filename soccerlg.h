@@ -333,25 +333,26 @@ struct TeamStats {
 #define BANK3_BASE              0xA000
 #define FIELD_SEG_COUNT         4
 
-#define SEG_LOOP 		4
-#define SEG_DRAW 		5
-#define SEG_LOGIC 		6
-#define SEG_INPUT 		7
-#define SEG_EVENTS  	8
-#define SEG_GAMESTATE_1 9
-#define SEG_FIELD		10
-#define SEG_GAMESTATE_2 11
-#define SEG_GAMESTATE_3 12
-#define SEG_GAMESTATE_4 13
-#define SEG_MENU        14
-#define SEG_GAMESTATE_5 15
-#define SEG_GAMESTATE_6 16
-#define SEG_GAMESTATE_7 17
-#define SEG_GAMESTATE_8 18
-#define SEG_GAMESTATE_9 19
-#define SEG_HELPERS     20
-#define SEG_LOGIC_2     21
-#define SEG_GAMESTATE_10 22
+#define SEG_LOOP 		    4
+#define SEG_DRAW 		    5
+#define SEG_LOGIC 		    6
+#define SEG_INPUT 		    7
+#define SEG_EVENTS  	    8
+#define SEG_GAMESTATE_1     9
+#define SEG_FIELD		    10
+#define SEG_GAMESTATE_2     11
+#define SEG_GAMESTATE_3     12
+#define SEG_GAMESTATE_4     13
+#define SEG_MENU            14
+#define SEG_GAMESTATE_5     15
+#define SEG_GAMESTATE_6     16
+#define SEG_GAMESTATE_7     17
+#define SEG_GAMESTATE_8     18
+#define SEG_GAMESTATE_9     19
+#define SEG_HELPERS         20
+#define SEG_LOGIC_2         21
+#define SEG_GAMESTATE_10    22
+
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -471,7 +472,8 @@ u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3,
 u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3, i8 p4);
 void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
-
+void MenuScreenLoad();
+void StartGame();
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
@@ -559,3 +561,4 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec);
 
 // +++ SEGMENT SEG_LOGIC_2 (21) +++
 void PlayerAI_Movement(u8 i);
+
