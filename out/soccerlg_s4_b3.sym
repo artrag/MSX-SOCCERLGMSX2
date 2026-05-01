@@ -21,7 +21,7 @@ Symbol Table
     _LastScoreTeam1                                                 ******** GX
     _LastScoreTeam2                                                 ******** GX
     _LastSecs                                                       ******** GX
-  7 _MainLoop                                                       00000337 GR
+  7 _MainLoop                                                       00000745 GR
     _Mins                                                           ******** GX
     _PrintScoreBoardLeft                                            ******** GX
     _PrintScoreBoardRight                                           ******** GX
@@ -46,7 +46,7 @@ Symbol Table
     _VDP_SetPage                                                    ******** GX
     _VPD_CommandSetupR36                                            ******** GX
     _WaitForVBlank                                                  ******** GX
-  7 ___str_0                                                        00000E42 R
+  7 ___str_0                                                        00001250 R
     __divsint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -108,7 +108,7 @@ Symbol Table
     _g_FORCLR                                                   =   0000F3E9 G
     _g_FRCNEW                                                   =   0000F3F5 G
     _g_FSTPOS                                                   =   0000FBCA G
-  7 _g_Fonts                                                        00000043 GR
+  7 _g_Fonts                                                        00000451 GR
     _g_GETPNT                                                   =   0000F3FA G
     _g_GRPACX                                                   =   0000FCB7 G
     _g_GRPACY                                                   =   0000FCB9 G
@@ -170,6 +170,7 @@ Symbol Table
     _g_MSXMusic_IndexPort                                       =   0000007C 
     _g_MSXVER                                                   =   0000002D G
     _g_MUSICF                                                   =   0000FB3F G
+  7 _g_Menu_Fonts                                                   00000043 GR
     _g_NEWKEY                                                   =   0000FBE5 G
     _g_NORUSE                                                   =   0000FAFD G
     _g_OLDINT                                                   =   0000FB0C G
@@ -177,12 +178,12 @@ Symbol Table
     _g_OLDSCR                                                   =   0000FCB0 G
     _g_OLDSTT                                                   =   0000FB0C G
     _g_ONGSBF                                                   =   0000FBD8 G
-    _g_PADX                                                     =   0000FC9D G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_PADX                                                     =   0000FC9D G
     _g_PADY                                                     =   0000FC9C G
     _g_PATWRK                                                   =   0000FC40 G
     _g_PLYCNT                                                   =   0000FB40 G
@@ -237,12 +238,12 @@ Symbol Table
     _g_RG5SAV                                                   =   0000F3E4 G
     _g_RG6SAV                                                   =   0000F3E5 G
     _g_RG7SAV                                                   =   0000F3E6 G
-    _g_ROMA                                                     =   0000FAFA G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_ROMA                                                     =   0000FAFA G
     _g_ROMVersion                                               =   0000002B G
     _g_RS2IQ                                                    =   0000FAF5 G
     _g_RSFCB                                                    =   0000FB04 G
@@ -297,13 +298,14 @@ Symbol Table
     _g_VOICEN                                                   =   0000FB38 G
     _g_WINWID                                                   =   0000FCA5 G
     _g_WRPRIM                                                   =   0000F385 G
-    _g_XSAVE                                                    =   0000FAFE G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
@@ -317,7 +319,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size      E45   flags    0
+   7 _SEG4                                      size     1253   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

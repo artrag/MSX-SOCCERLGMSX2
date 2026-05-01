@@ -435,7 +435,6 @@ extern  i8  g_h_arrow_dir;
 extern  u8  g_closest_t1;
 extern  u8  g_closest_t2;
 extern  bool g_is_ball_carried;
-
 extern struct InputState g_player_input[2];
 extern struct TeamStats g_ActiveStats[2];
 
@@ -474,6 +473,7 @@ void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
 void MenuScreenLoad();
 void StartGame();
+void ShowMenu();
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
@@ -517,6 +517,7 @@ void EventGoalKick();
 void EventOffside();
 void EventGoal();
 void EventPenaltyWhistle();
+void EventTeamSelected(u8 team_id);
 
 // +++ SEGMENT SEG_GAMESTATE_1 (9) +++
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -537,7 +538,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_MENU (14) +++
-void ShowMenu();
+
 
 // +++ SEGMENT SEG_GAMESTATE_5 (15) +++
 void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -561,4 +562,3 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec);
 
 // +++ SEGMENT SEG_LOGIC_2 (21) +++
 void PlayerAI_Movement(u8 i);
-

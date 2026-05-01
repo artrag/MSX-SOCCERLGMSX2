@@ -8,47 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _MenuScreenLoad
-	.globl _Print_SetBitmapFont
-	.globl _g_SLTSL
-	.globl _g_GRPACY
-	.globl _g_GRPACX
-	.globl _g_LOGOPR
-	.globl _g_CMASK
-	.globl _g_CLOC
-	.globl _g_FNKSTR
-	.globl _g_ATRBYT
-	.globl _g_BDRCLR
-	.globl _g_BAKCLR
-	.globl _g_FORCLR
-	.globl _g_CSRX
-	.globl _g_CSRY
-	.globl _g_CLIKSW
-	.globl _g_MLTPAT
-	.globl _g_MLTATR
-	.globl _g_MLTCGP
-	.globl _g_MLTCOL
-	.globl _g_MLTNAM
-	.globl _g_GRPPAT
-	.globl _g_GRPATR
-	.globl _g_GRPCGP
-	.globl _g_GRPCOL
-	.globl _g_GRPNAM
-	.globl _g_T32PAT
-	.globl _g_T32ATR
-	.globl _g_T32CGP
-	.globl _g_T32COL
-	.globl _g_T32NAM
-	.globl _g_TXTPAT
-	.globl _g_TXTATR
-	.globl _g_TXTCGP
-	.globl _g_TXTCOL
-	.globl _g_TXTNAM
-	.globl _g_CLMLST
-	.globl _g_CRTCNT
-	.globl _g_LINLEN
-	.globl _g_LINL32
-	.globl _g_LINL40
 	.globl _g_BDOS
 	.globl _g_MASTER
 	.globl _g_RAMAD3
@@ -213,7 +172,45 @@
 	.globl _g_CLPRIM
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
-	.globl _ShowMenu
+	.globl _g_SLTSL
+	.globl _g_GRPACY
+	.globl _g_GRPACX
+	.globl _g_LOGOPR
+	.globl _g_CMASK
+	.globl _g_CLOC
+	.globl _g_FNKSTR
+	.globl _g_ATRBYT
+	.globl _g_BDRCLR
+	.globl _g_BAKCLR
+	.globl _g_FORCLR
+	.globl _g_CSRX
+	.globl _g_CSRY
+	.globl _g_CLIKSW
+	.globl _g_MLTPAT
+	.globl _g_MLTATR
+	.globl _g_MLTCGP
+	.globl _g_MLTCOL
+	.globl _g_MLTNAM
+	.globl _g_GRPPAT
+	.globl _g_GRPATR
+	.globl _g_GRPCGP
+	.globl _g_GRPCOL
+	.globl _g_GRPNAM
+	.globl _g_T32PAT
+	.globl _g_T32ATR
+	.globl _g_T32CGP
+	.globl _g_T32COL
+	.globl _g_T32NAM
+	.globl _g_TXTPAT
+	.globl _g_TXTATR
+	.globl _g_TXTCGP
+	.globl _g_TXTCOL
+	.globl _g_TXTNAM
+	.globl _g_CLMLST
+	.globl _g_CRTCNT
+	.globl _g_LINLEN
+	.globl _g_LINL32
+	.globl _g_LINL40
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -308,31 +305,7 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _SEG14
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:12: void ShowMenu()
-;	---------------------------------
-; Function ShowMenu
-; ---------------------------------
-_ShowMenu::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:15: MenuScreenLoad();
-	call	_MenuScreenLoad
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-	ld	hl, #0x0004
-	ld	((_g_Bank0Segment + 6)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-	ld	a, #0x01
-	and	a, #0xc0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-	ld	(#0x7ffe),a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-	ld	a, #0x04
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-	ld	(#0xb000),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:17: Print_SetBitmapFont(g_Fonts);
-	ld	hl, #_g_Fonts
-	call	_Print_SetBitmapFont
-00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s14_b3.c:21: }
-	jp	00120$
+	.area _SEG14
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
 _g_CLPRIM	=	0xf38c
@@ -497,6 +470,5 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-	.area _SEG14
 	.area _INITIALIZER
 	.area _CABS (ABS)

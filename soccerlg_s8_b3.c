@@ -82,3 +82,9 @@ void EventPenaltyWhistle()
 {
 	// Trigger sonoro per fischio rigore
 }
+
+void EventTeamSelected(u8 team_id)
+{
+	// Cambieremo in grigio il colore della squadra scelta
+	(void)team_id;
+}

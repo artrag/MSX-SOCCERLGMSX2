@@ -9,13 +9,3 @@
 #include "vdp.h"
 #include "debug.h"
 
-void ShowMenu()
-{
-	
-	MenuScreenLoad();
-	SET_BANK_SEGMENT(3,4);
-	Print_SetBitmapFont(g_Fonts);
-	//Print_SetPosition(0,  0);
-	//Print_DrawText("TEST");
-	for(;;); // Ciclo infinito provvisorio
-}

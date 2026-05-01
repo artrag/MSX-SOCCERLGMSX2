@@ -37,6 +37,12 @@ const c8 g_Palette[] = {
     0x66, 0x06, // [F]  #D3CACA  Verde oliva acceso (Non usato)
 };
 
+static const c8 s_ScrollText[] =
+    "   2026 MSX WORLD SOCCER  BY FAUSTO PRACEK  -  ASSOCIAZIONE ITALIANA MSX - POWERED BY MSXGL  -  "
+    "SPECIAL THANKS TO ARTURO RAGOZINI FOR HIS HELP WITH SPRITES SOFTWARE AND SOUND EFFECTS  - "
+	"SPECIAL THANKS ALSO TO NICOLA BROGELLI FOR HIS TESTING AND SUPPORT THROUGHOUT THE GAMES' DEVELOPMENT ";
+	
+
 // Teams colours array (Formato MSX2: 0x0GRB)
 const struct TeamColors g_TeamColorsArray[] = {
     { 0x0526, 0x0777, 0x0777 }, // 0: ITA (Shirt: Azzurra, Shorts: Bianchi, Righe: Bianche)
@@ -109,6 +115,8 @@ const struct TeamStats g_TeamStatsArray[] = {
 	u8  g_closest_t1 = 0xFF;
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
+
+	extern  unsigned char g_Menu_Fonts[];
 
 	extern unsigned char g_SplashScreen1[];
 	extern unsigned char g_SplashScreen2[];
@@ -344,6 +352,189 @@ void SplashScreenLoad()
     for (u8 i = 0; i < 120; i++) {
         __asm halt __endasm;
     }
+}
+
+// +++ Show menu +++
+void ShowMenu()
+{
+	
+	
+
+	MenuScreenLoad();
+	SET_BANK_SEGMENT(3,4);
+	Print_SetBitmapFont(g_Menu_Fonts);
+	Print_SetPosition(25,  2);
+	Print_DrawText("TEAM 1 SELECTION (PLAYER)");
+
+	Print_SetColor(0xFF, 0x00); // Testo bianco (0xFF) su sfondo nero (0x00)
+
+	const c8* text_ptr = s_ScrollText;
+	u8 char_width = 8;
+	u8 shift_accum = 8; // Inizializza al massimo per stampare subito il primo carattere
+
+	// Coordinate off-screen per renderizzare il carattere in modo invisibile
+	// Questo previene l'effetto "storto" (tearing) causato dalla lentezza della CPU
+	u8 off_x = 0;
+	u16 off_y = 220; 
+
+	u8 menu_state = 0; // 0=Team1_Joy1, 1=Team2_Joy1(CPU), 2=Team2_Joy2(P2)
+	u8 cursor_id = 0;
+	u8 prev_cursor_id = 0xFF;
+	u8 t1_id = 0;
+	u8 t2_id = 1;
+	u8 prev_dir[2] = {DIRECTION_NONE, DIRECTION_NONE};
+
+	// Posizioni indicative sullo schermo per i 6 Team (modificabili se necessario)
+	static const u8 cursor_pos[6][2] = {
+		{ 30,  95}, {111,  95}, {194,  95},
+		{ 30, 181}, {110, 181}, {200, 181}
+	};
+
+	// Forza GameMode a P1 vs P2 nel menu per poter leggere anche l'input di JOY 2 / Tastiera P2
+	GameMode = GAMEMODE_P1_VS_P2;
+
+	for(;;) {
+		WaitForVBlank();
+
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		
+		u8 joy1_dir = g_player_input[1].direction; // P1 (Joy1)
+		u8 joy2_dir = g_player_input[0].direction; // P2 (Joy2)
+		bool joy1_trig = g_player_input[1].trigger_pressed;
+		bool joy2_trig = g_player_input[0].trigger_pressed;
+
+		bool move_left = FALSE;
+		bool move_right = FALSE;
+		bool move_up = FALSE;
+		bool trig = FALSE;
+
+		if (menu_state == 0) {
+			if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+			if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+			if (joy1_trig) trig = TRUE;
+		} else if (menu_state == 1) {
+			if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+			if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+			if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_up = TRUE;
+			if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_up = TRUE;
+			if (joy1_trig) trig = TRUE;
+		} else if (menu_state == 2) {
+			if (joy2_dir == DIRECTION_LEFT && prev_dir[0] != DIRECTION_LEFT) move_left = TRUE;
+			if (joy2_dir == DIRECTION_RIGHT && prev_dir[0] != DIRECTION_RIGHT) move_right = TRUE;
+			if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_up = TRUE;
+			if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_up = TRUE;
+			if (joy2_trig) trig = TRUE;
+		}
+
+		prev_dir[1] = joy1_dir;
+		prev_dir[0] = joy2_dir;
+
+		if (move_left) {
+			do {
+				cursor_id = (cursor_id == 0) ? 5 : cursor_id - 1;
+			} while (menu_state > 0 && cursor_id == t1_id);
+		}
+		if (move_right) {
+			do {
+				cursor_id = (cursor_id == 5) ? 0 : cursor_id + 1;
+			} while (menu_state > 0 && cursor_id == t1_id);
+		}
+
+		// Cambio modalità di gioco (CPU / JOY2)
+		if (move_up && menu_state > 0) {
+			if (menu_state == 1) {
+				menu_state = 2;
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(0, 2);
+				Print_DrawText("TEAM 2 SELECTION (JOY2) - MOVE TO UP FOR CPU");
+			} else {
+				menu_state = 1;
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(0, 2);
+				Print_DrawText("TEAM 2 SELECTION (CPU) - MOVE TO UP FOR JOY2");
+			}
+		}
+
+		if (prev_cursor_id != cursor_id) {
+			if (prev_cursor_id != 0xFF) {
+				VDP_CommandHMMV(cursor_pos[prev_cursor_id][0], cursor_pos[prev_cursor_id][1], 24, 11, 0x00);
+			}
+			Print_SetPosition(cursor_pos[cursor_id][0], cursor_pos[cursor_id][1]);
+			Print_DrawText("$$$");
+			prev_cursor_id = cursor_id;
+		}
+
+		if (trig) {
+			if (menu_state == 0) {
+				t1_id = cursor_id;
+				Team1Code = t1_id;
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, t1_id);
+
+				menu_state = 1;
+				cursor_id = (t1_id == 0) ? 1 : 0;
+				prev_cursor_id = 0xFF; // Forza il ridisegno nella nuova posizione
+				
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(0, 2);
+				Print_DrawText("TEAM 2 SELECTION (CPU) - MOVE TO UP FOR JOY2");
+			} else {
+				t2_id = cursor_id;
+				Team2Code = t2_id;
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, t2_id);
+				GameMode = (menu_state == 1) ? GAMEMODE_P1_VS_CPU : GAMEMODE_P1_VS_P2;
+
+				// Attesa di 1 secondo mantenendo il testo scorrevole per evidenziare il team 2 prima del break
+				for (u8 wait = 0; wait < 60; wait++) {
+					WaitForVBlank();
+					VDP_CommandHMMM(1, 200, 0, 200, 255, 11);
+					if (shift_accum >= char_width) {
+						shift_accum = 0;
+						if (*text_ptr == '\0') text_ptr = s_ScrollText;
+						c8 str[2] = { *text_ptr, '\0' };
+						VDP_CommandHMMV(off_x, off_y, 8, 11, 0x00);
+						Print_SetPosition(off_x, off_y);
+						Print_DrawText(str);
+						text_ptr++;
+					}
+					VDP_CommandHMMM(off_x + shift_accum, off_y, 255, 200, 1, 11);
+					shift_accum += 1;
+				}
+
+				DEBUG_BREAK();
+				break; // Uscita dal menu ed avvio del gioco vero e proprio
+			}
+		}
+
+		// Scrolla l'area visibile a sinistra di 1 pixel (altezza 11 pixel)
+		VDP_CommandHMMM(1, 200, 0, 200, 255, 11);
+
+		// Se abbiamo finito di scorrere il carattere corrente, ne prepariamo un altro off-screen
+		if (shift_accum >= char_width) {
+			shift_accum = 0;
+			
+			if (*text_ptr == '\0') {
+				text_ptr = s_ScrollText; // Ricomincia il testo
+			}
+			
+			c8 str[2] = { *text_ptr, '\0' };
+			
+			// Pulisce l'area off-screen
+			VDP_CommandHMMV(off_x, off_y, 8, 11, 0x00);
+
+			// Disegna il carattere nell'area off-screen (nessun tearing visibile)
+			Print_SetPosition(off_x, off_y);
+			Print_DrawText(str);
+			
+			text_ptr++;
+		}
+
+		// Copia 1 singola colonna di pixel dall'area off-screen al margine destro dello schermo
+		VDP_CommandHMMM(off_x + shift_accum, off_y, 255, 200, 1, 11);
+
+		shift_accum += 1;
+	}
+	
+	StartGame();
 }
 
 // +++ Menu screen load +++
@@ -589,7 +780,9 @@ void main()
 	DEBUG_INIT();
     Bios_SetKeyClick(FALSE);
 	SplashScreenLoad();
-	CallFnc_VOID(SEG_MENU,ShowMenu);
+	// Installa l'hook del VBlank, essenziale affinché WaitForVBlank() non si blocchi
+	Bios_SetHookCallback(H_TIMI, VSyncCallback);
+	ShowMenu();
 }
 void StartGame(){
 	VDP_SetMode(VDP_MODE_SCREEN5);
@@ -664,7 +857,7 @@ void StartGame(){
     //RemoveScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0,  0);
 
 
-	Bios_SetHookCallback(H_TIMI, VSyncCallback);
+	//Bios_SetHookCallback(H_TIMI, VSyncCallback);
 
 	ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
 	ScoreBoardLeft.x1 = ScoreBoardLeft.lx;

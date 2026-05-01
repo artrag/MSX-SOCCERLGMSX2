@@ -225,6 +225,7 @@
 	.globl _EventOffside
 	.globl _EventGoal
 	.globl _EventPenaltyWhistle
+	.globl _EventTeamSelected
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -602,6 +603,14 @@ _EventGoal::
 ; ---------------------------------
 _EventPenaltyWhistle::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:84: }
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:86: void EventTeamSelected(u8 team_id)
+;	---------------------------------
+; Function EventTeamSelected
+; ---------------------------------
+_EventTeamSelected::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:89: (void)team_id;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:90: }
 	ret
 	.area _SEG8
 	.area _INITIALIZER

@@ -7,33 +7,41 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  0 _DrawChar_4B                                                    000003AB GR
-  0 _DrawChar_8B                                                    0000027C GR
-  0 _DrawChar_Trans                                                 000004B7 GR
-  0 _Print_Backspace                                                000005F6 GR
-  0 _Print_Clear                                                    000005BA GR
-  0 _Print_DrawBin8                                                 0000072E GR
-  0 _Print_DrawChar                                                 000006A7 GR
-  0 _Print_DrawCharX                                                000006B8 GR
-  0 _Print_DrawFormat                                               0000080E GR
-  0 _Print_DrawHex16                                                00000777 GR
-  0 _Print_DrawHex8                                                 00000751 GR
-  0 _Print_DrawInt                                                  00000782 GR
-  0 _Print_DrawText                                                 000006CA GR
-  0 _Print_InitColorBuffer                                          000001C2 GR
+  0 _DrawChar_4B                                                    000003C1 GR
+  0 _DrawChar_8B                                                    00000292 GR
+  0 _DrawChar_Trans                                                 000004CD GR
+  0 _DrawChar_VRAM256                                               0000074A GR
+  0 _Print_Backspace                                                00000843 GR
+  0 _Print_Clear                                                    00000807 GR
+  0 _Print_DrawBin8                                                 0000097B GR
+  0 _Print_DrawChar                                                 000008F4 GR
+  0 _Print_DrawCharX                                                00000905 GR
+  0 _Print_DrawFormat                                               00000A5B GR
+  0 _Print_DrawHex16                                                000009C4 GR
+  0 _Print_DrawHex8                                                 0000099E GR
+  0 _Print_DrawInt                                                  000009CF GR
+  0 _Print_DrawText                                                 00000917 GR
+  0 _Print_InitColorBuffer                                          000001D8 GR
   0 _Print_Initialize                                               00000030 GR
   0 _Print_MergeColor                                               00000000 GR
-  0 _Print_SetBitmapFont                                            00000272 GR
-  0 _Print_SetColor                                                 00000210 GR
-  0 _Print_SetColorShade                                            0000024D GR
-  0 _Print_SetFont                                                  000000E8 GR
+  0 _Print_SetBitmapFont                                            00000288 GR
+  0 _Print_SetColor                                                 00000226 GR
+  0 _Print_SetColorShade                                            00000263 GR
+  0 _Print_SetFont                                                  000000FE GR
   0 _Print_SetMode                                                  000000B1 GR
+  0 _Print_SetVRAMFont                                              000005D0 GR
     _VDP_CommandWait                                                ******** GX
+    _VPD_CommandSetupR32                                            ******** GX
     _VPD_CommandSetupR36                                            ******** GX
     _VPD_CommandWriteLoop                                           ******** GX
     ___sdcc_call_hl                                                 ******** GX
     __divsint                                                       ******** GX
+    __divuchar                                                      ******** GX
+    __divuint                                                       ******** GX
     __modsint                                                       ******** GX
+    __moduchar                                                      ******** GX
+    __moduint                                                       ******** GX
+    __mulint                                                        ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -50,6 +58,11 @@ Symbol Table
     _g_CGTABL                                                   =   00000004 G
     _g_CHAR_16                                                  =   00000034 G
     _g_CHRCNT                                                   =   0000FAF9 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_CLIKFL                                                   =   0000FBD9 G
     _g_CLIKSW                                                   =   0000F3DB G
     _g_CLMLST                                                   =   0000F3B2 G
@@ -58,11 +71,6 @@ Symbol Table
     _g_CMASK                                                    =   0000F92C G
     _g_CNSDFG                                                   =   0000F3DE G
     _g_CODSAV                                                   =   0000FBCC G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
     _g_CS120                                                    =   0000F3FC G
@@ -110,6 +118,11 @@ Symbol Table
     _g_INSFLG                                                   =   0000FCA8 G
     _g_INTCNT                                                   =   0000FCA2 G
     _g_INTFLG                                                   =   0000FC9B G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_INTVAL                                                   =   0000FCA0 G
     _g_JIFFY                                                    =   0000FC9E G
     _g_KANAMD                                                   =   0000FCAD G
@@ -118,11 +131,6 @@ Symbol Table
     _g_LINL32                                                   =   0000F3AF G
     _g_LINL40                                                   =   0000F3AE G
     _g_LINLEN                                                   =   0000F3B0 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_LINTTB                                                   =   0000FBB2 G
     _g_LINWRK                                                   =   0000FC18 G
     _g_LOGOPR                                                   =   0000FB02 G
@@ -170,6 +178,11 @@ Symbol Table
     _g_RG08SAV                                                  =   0000FFE7 G
     _g_RG09SAV                                                  =   0000FFE8 G
     _g_RG0SAV                                                   =   0000F3DF G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_RG10SAV                                                  =   0000FFE9 G
     _g_RG11SAV                                                  =   0000FFEA G
     _g_RG12SAV                                                  =   0000FFEB G
@@ -178,11 +191,6 @@ Symbol Table
     _g_RG15SAV                                                  =   0000FFEE G
     _g_RG16SAV                                                  =   0000FFEF G
     _g_RG17SAV                                                  =   0000FFF0 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_RG18SAV                                                  =   0000FFF1 G
     _g_RG19SAV                                                  =   0000FFF2 G
     _g_RG1SAV                                                   =   0000F3E0 G
@@ -230,6 +238,11 @@ Symbol Table
     _g_TXTCOL                                                   =   0000F3B5 G
     _g_TXTNAM                                                   =   0000F3B3 G
     _g_TXTPAT                                                   =   0000F3BB G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_USRTAB                                                   =   0000F39A G
     _g_VCBA                                                     =   0000FB41 G
     _g_VCBB                                                     =   0000FB66 G
@@ -238,11 +251,6 @@ Symbol Table
     _g_VDP_DR                                                   =   00000006 G
     _g_VDP_DW                                                   =   00000007 G
     _g_VDP_Data                                                     ******** GX
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_VOICAQ                                                   =   0000F975 G
     _g_VOICBQ                                                   =   0000F9F5 G
     _g_VOICCQ                                                   =   0000FA75 G
@@ -252,13 +260,14 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
 
+
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size      B4D   flags    0
-   1 _DATA                                      size       32   flags    0
+   0 _CODE                                      size      D9A   flags    0
+   1 _DATA                                      size       35   flags    0
    2 _INITIALIZED                               size        0   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0
