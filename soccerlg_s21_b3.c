@@ -275,6 +275,28 @@ void PlayerAI_Movement(u8 i)
 					target_x = 128; 
 					target_y = 480; 
 
+					// Rileva pressione avversaria per evasione
+					u8 closest_opp = 0xFF;
+					u16 min_opp_dist = 0xFFFF;
+					for (u8 j = 7; j < 14; j++) {
+						u16 odx = (SwSprite[j].lx > Player->lx) ? (SwSprite[j].lx - Player->lx) : (Player->lx - SwSprite[j].lx);
+						u16 ody = (SwSprite[j].ly > Player->ly) ? (SwSprite[j].ly - Player->ly) : (Player->ly - SwSprite[j].ly);
+						if (odx + ody < min_opp_dist) {
+							min_opp_dist = odx + ody;
+							closest_opp = j;
+						}
+					}
+					bool under_pressure = (min_opp_dist < 40);
+
+					// Evasione: se pressato, scarta per allontanarsi dal difensore!
+					if (under_pressure) {
+						u8 evade_chance = g_ActiveStats[team].dribble_variation * 15; // Da 15% a 75%
+						u8 rand_evade = ((i * 17) + (Frms / 16) * 13) % 100; // Mantiene la stessa decisione (sterzata) per ~0.25 sec
+						if (rand_evade < evade_chance) {
+							target_x = (SwSprite[closest_opp].lx > Player->lx) ? ((Player->lx > 48) ? Player->lx - 48 : 24) : ((Player->lx < 208) ? Player->lx + 48 : 232);
+						}
+					}
+
 					// Scelta tra Tiro, Passaggio e Dribbling
 					if (d_bx + d_by <= 26 && Ball->anim == 0) {
 						bool action_taken = FALSE;
@@ -322,6 +344,12 @@ void PlayerAI_Movement(u8 i)
 							
 							// Propensione passaggi: da 20% (Stat 1) a 60% (Stat 5)
 							u8 pass_prob = 10 + (g_ActiveStats[team].pass_tendency * 10);
+							
+							// Se sotto pressione, la probabilità di liberarsi della palla aumenta notevolmente!
+							if (under_pressure) {
+								pass_prob += 15 + (g_ActiveStats[team].pass_tendency * 5);
+							}
+							
 							if (rand_pass < pass_prob) {
 								// CPU TEAM_1 attacca verso Sud: forza la ricerca in avanti (dy=1)
 								// mai passare all'indietro indipendentemente da dove si stava muovendo
