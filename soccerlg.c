@@ -115,6 +115,7 @@ const struct TeamStats g_TeamStatsArray[] = {
 	u8  g_closest_t1 = 0xFF;
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
+	bool g_help_shown = FALSE;
 
 	extern  unsigned char g_Menu_Fonts[];
 
@@ -141,6 +142,14 @@ const struct TeamStats g_TeamStatsArray[] = {
 	extern unsigned char g_MenuGrayScreen5[];
     extern unsigned char g_MenuGrayScreen6[];
 	extern unsigned char g_MenuGrayScreen7[];
+
+	extern unsigned char g_HelpScreen1[];
+	extern unsigned char g_HelpScreen2[];
+	extern unsigned char g_HelpScreen3[];
+	extern unsigned char g_HelpScreen4[];
+	extern unsigned char g_HelpScreen5[];
+    extern unsigned char g_HelpScreen6[];
+	extern unsigned char g_HelpScreen7[];
 
 	struct InputState g_player_input[2];
 	struct ObjectInfo SwSprite[NumSprite];
@@ -542,7 +551,7 @@ void ShowMenu()
 					shift_accum += 1;
 				}
 
-				DEBUG_BREAK();
+				
 				break; // Uscita dal menu ed avvio del gioco vero e proprio
 			}
 		}
@@ -575,10 +584,43 @@ void ShowMenu()
 
 		shift_accum += 1;
 	}
-	
+	ShowHelpScreen();
 	StartGame();
 }
+void ShowHelpScreen()
+{
+	static bool first_time = TRUE;
+	
+	if (g_help_shown) {
+		return;
+	}
+	g_help_shown = TRUE;
 
+	VDP_SetMode(VDP_MODE_SCREEN8);
+	VDP_ClearVRAM();
+	
+	extern const c8 g_Palette[];
+	VDP_SetPalette(g_Palette);
+	VDP_SetColor(0);
+	VDP_EnableDisplay(TRUE);
+
+	u16 vram_low = 0; 
+	SET_BANK_SEGMENT(3, 71); VDP_WriteVRAM_128K(g_HelpScreen1, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 72); VDP_WriteVRAM_128K(g_HelpScreen2, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 73); VDP_WriteVRAM_128K(g_HelpScreen3, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 74); VDP_WriteVRAM_128K(g_HelpScreen4, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 75); VDP_WriteVRAM_128K(g_HelpScreen5, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 76); VDP_WriteVRAM_128K(g_HelpScreen6, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 77); VDP_WriteVRAM_128K(g_HelpScreen7, vram_low, 0, 5120);
+
+	for (u16 wait = 0; wait < 300; wait++) { // 300 cicli = 5 secondi a 60 FPS
+		WaitForVBlank();
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		if (wait > 30 && (g_player_input[1].trigger_pressed || g_player_input[0].trigger_pressed)) {
+			break;
+		}
+	}
+}
 // +++ Menu screen load +++
 void MenuScreenLoad()
 {
@@ -844,6 +886,19 @@ void main()
 	ShowMenu();
 }
 void StartGame(){
+	ScoreTeam1 = 0;
+	ScoreTeam2 = 0;
+	LastScoreTeam1 = 0;
+	LastScoreTeam2 = 0;
+	Mins = HALF_TIME_MINS;
+	Secs = HALF_TIME_SECS;
+	Half = 1;
+	KickOffTeam = TEAM_2; // P1 (Team 2) batte nel primo tempo
+	g_is_penalty_shootout = FALSE;
+	g_penalty_shot_count[0] = 0;
+	g_penalty_shot_count[1] = 0;
+	TimerEnabled = FALSE;
+
 	VDP_SetMode(VDP_MODE_SCREEN5);
 	VDP_EnableTransparency(FALSE);
     VDP_SetPalette(g_Palette);

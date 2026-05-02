@@ -475,6 +475,7 @@ void MenuScreenLoad();
 void MenuGrayScreenLoad();
 void StartGame();
 void ShowMenu();
+void ShowHelpScreen();
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
