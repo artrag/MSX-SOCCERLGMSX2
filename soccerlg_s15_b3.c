@@ -423,7 +423,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					}
 					*start_sec = Frms;
 				} else {
-					CallFnc_VOID(SEG_MENU, ShowMenu);
+					*game_state = 255;
 				}
 			} else {
 				*wait_secs = 6; // Resetta il timer a 6 finché non sono usciti tutti gli sconfitti

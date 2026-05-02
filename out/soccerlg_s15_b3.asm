@@ -10,7 +10,6 @@
 ;--------------------------------------------------------
 	.globl _GetPlayerIdleFrame
 	.globl _GetPlayerAnimFrame
-	.globl _ShowMenu
 	.globl _ExecuteCornerKick
 	.globl _ExecuteThrowIn
 	.globl _EventBallKicked
@@ -3775,23 +3774,19 @@ _UpdateGameState_Penalties_End::
 	ld	a, -13 (ix)
 	sbc	a, -15 (ix)
 	ld	-11 (ix), a
+	jp	00322$
+00321$:
 	ld	a, -12 (ix)
 	ld	-15 (ix), a
 	ld	a, -11 (ix)
 	ld	-14 (ix), a
-	jp	00322$
-00321$:
 	ld	a, -9 (ix)
-	sub	a, -12 (ix)
-	ld	-15 (ix), a
-	ld	a, -8 (ix)
-	sbc	a, -11 (ix)
-	ld	-14 (ix), a
-00322$:
-	ld	a, -15 (ix)
+	sub	a, -15 (ix)
 	ld	-12 (ix), a
-	ld	a, -14 (ix)
+	ld	a, -8 (ix)
+	sbc	a, -14 (ix)
 	ld	-11 (ix), a
+00322$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:388: u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
 	ld	a, -19 (ix)
 	add	a, #0x04
@@ -3825,16 +3820,10 @@ _UpdateGameState_Penalties_End::
 	ld	-14 (ix), e
 	ld	-13 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:389: u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
-	ld	l, -12 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, -11 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
 	ld	a, #0x64
-	cp	a, l
+	cp	a, -12 (ix)
 	ld	a, #0x00
-	sbc	a, h
+	sbc	a, -11 (ix)
 	jr	C, 00328$
 	ld	e, -14 (ix)
 	ld	d, -13 (ix)
@@ -3849,9 +3838,9 @@ _UpdateGameState_Penalties_End::
 	jp	00326$
 00325$:
 	ld	a, #0x32
-	cp	a, l
+	cp	a, -12 (ix)
 	ld	a, #0x00
-	sbc	a, h
+	sbc	a, -11 (ix)
 	jr	C, 00333$
 	ld	a, #0x32
 	cp	a, e
@@ -4028,17 +4017,24 @@ _UpdateGameState_Penalties_End::
 	ld	h, -18 (ix)
 	ld	de, #0x0013
 	add	hl, de
-	ld	e, (hl)
+	ld	c, (hl)
 	inc	hl
-	ld	d, (hl)
+	ld	b, (hl)
 	dec	hl
-	inc	de
-	ld	(hl), e
+	inc	bc
+	ld	(hl), c
 	inc	hl
-	ld	(hl), d
+	ld	(hl), b
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:396: u8 step = (p->anim / 3) % 4;
-	ex	de, hl
+	ld	-9 (ix), c
+	ld	-8 (ix), b
 	ld	de, #0x0003
+	ld	l, -9 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, -8 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
 	call	__divuint
 	ld	-11 (ix), e
 	ld	-10 (ix), d
@@ -4194,15 +4190,11 @@ _UpdateGameState_Penalties_End::
 	ld	de, #_GetPlayerAnimFrame
 	ld	a, #0x13
 	call	_CallFnc_U16_P4
-	ld	-7 (ix), e
-	ld	-6 (ix), d
 	ld	l, -10 (ix)
 	ld	h, -9 (ix)
-	ld	a, -7 (ix)
-	ld	(hl), a
+	ld	(hl), e
 	inc	hl
-	ld	a, -6 (ix)
-	ld	(hl), a
+	ld	(hl), d
 	jp	00237$
 00223$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:411: p->frame = (team == TEAM_1) ? 
@@ -4291,10 +4283,10 @@ _UpdateGameState_Penalties_End::
 	ld	(de), a
 	jp	00263$
 00242$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:426: CallFnc_VOID(SEG_MENU, ShowMenu);
-	ld	de, #_ShowMenu
-	ld	a, #0x0e
-	call	_CallFnc_VOID
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:426: *game_state = 255;
+	ld	l, -3 (ix)
+	ld	h, -2 (ix)
+	ld	(hl), #0xff
 	jp	00263$
 00245$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s15_b3.c:429: *wait_secs = 6; // Resetta il timer a 6 finché non sono usciti tutti gli sconfitti

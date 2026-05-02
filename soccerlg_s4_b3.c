@@ -2303,6 +2303,7 @@ void MainLoop(){
 		// LOGICA DI AGGIORNAMENTO
 		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		if (game_state == 255) return;
 
 		// vedo 	0
 		VDP_SetPage(0);		
@@ -2357,6 +2358,7 @@ void MainLoop(){
 		// LOGICA DI AGGIORNAMENTO
 		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		if (game_state == 255) return;
 
 		VDP_SetPage(1);		
 		VDP_SetVerticalOffset(ScoreBoardLeft.y1 & 255);
@@ -2410,6 +2412,7 @@ void MainLoop(){
 		// LOGICA DI AGGIORNAMENTO
 		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
 		CallFnc_VOID_3PTR_U16(SEG_GAMESTATE_1, UpdateGameState, &game_state, &wait_secs, &start_sec, target_ly);
+		if (game_state == 255) return;
 
 		VDP_SetPage(2);		
 		VDP_SetVerticalOffset(ScoreBoardLeft.y2 & 255);

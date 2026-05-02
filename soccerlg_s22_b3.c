@@ -172,7 +172,7 @@ void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, 
 
 		// Se il tempo della festa è scaduto e i perdenti sono spariti, va al Menu
 		if (time_up && all_offscreen) {
-			CallFnc_VOID(SEG_MENU, ShowMenu);
+			*game_state = 255;
 		}
 		return;
 	} else if (*game_state == 11) {

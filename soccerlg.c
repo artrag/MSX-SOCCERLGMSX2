@@ -62,6 +62,18 @@ const struct TeamStats g_TeamStatsArray[] = {
     { 4, 4, 5, 4, 3, 4, 3 }, // 4: NLD (Calcio Totale: Passaggi 5, Velocità 4)
     { 3, 3, 5, 3, 3, 3, 3 }  // 5: ESP (Tiki-Taka: Passaggi 5, resto nella media)
 };
+	static const u8 menu_to_team[6] = {
+		TEAM_NLD_COLORS, // 0: NLD
+		TEAM_GER_COLORS, // 1: GER
+		TEAM_ITA_COLORS, // 2: ITA
+		TEAM_BRA_COLORS, // 3: BRA
+		TEAM_FRA_COLORS, // 4: FRA
+		TEAM_ESP_COLORS  // 5: ESP
+	};
+
+const c8* g_TeamNames[6] = {
+    "ITA", "FRA", "BRA", "GER", "NLD", "ESP"
+};
 
 // -----------------
 // *** VARIABLES ***
@@ -519,7 +531,9 @@ void ShowMenu()
 			if (menu_state == 0) {
 				t1_id = cursor_id;
 				Team1Code = t1_id;
-				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, t1_id);
+				Team2Code = menu_to_team[t1_id]; // Il Player 1 controlla TEAM_2 nel gioco (Sud)
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, Team2Code);
+
 
 				menu_state = 1;
 				cursor_id = (t1_id == 0) ? 1 : 0;
@@ -530,8 +544,8 @@ void ShowMenu()
 				Print_DrawText("TEAM 2 SELECTION (^CPU_)");
 			} else {
 				t2_id = cursor_id;
-				Team2Code = t2_id;
-				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, t2_id);
+				Team1Code = menu_to_team[t2_id]; // La CPU o P2 controlla TEAM_1 nel gioco (Nord)
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, Team1Code);
 				GameMode = (menu_state == 1) ? GAMEMODE_P1_VS_CPU : GAMEMODE_P1_VS_P2;
 
 				// Attesa di 1 secondo mantenendo il testo scorrevole per evidenziare il team 2 prima del break
@@ -883,7 +897,10 @@ void main()
 	SplashScreenLoad();
 	// Installa l'hook del VBlank, essenziale affinché WaitForVBlank() non si blocchi
 	Bios_SetHookCallback(H_TIMI, VSyncCallback);
-	ShowMenu();
+	for (;;) {
+		ShowMenu();
+		StartGame();
+	}
 }
 void StartGame(){
 	ScoreTeam1 = 0;
@@ -898,6 +915,9 @@ void StartGame(){
 	g_penalty_shot_count[0] = 0;
 	g_penalty_shot_count[1] = 0;
 	TimerEnabled = FALSE;
+
+	g_ActiveStats[0] = g_TeamStatsArray[Team1Code];
+	g_ActiveStats[1] = g_TeamStatsArray[Team2Code];
 
 	VDP_SetMode(VDP_MODE_SCREEN5);
 	VDP_EnableTransparency(FALSE);
@@ -920,15 +940,20 @@ void StartGame(){
 	Print_SetBitmapFont(g_Fonts);
 	Print_SetColor(4, 7);
 
-	Print_SetPosition(0,  8+768);Print_DrawText("A");
-    Print_SetPosition(0,  16+768);Print_DrawText("U");
-    Print_SetPosition(0,  24+768);Print_DrawText("S");
+	c8 str[2];
+	str[1] = '\0';
+	
+	// Team 2 (P1 in basso)
+	str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
     Print_SetPosition(0,  32+768);Print_DrawText(" ");
     Print_SetPosition(0,  40+768);Print_DrawText("0");
 
-	Print_SetPosition(0,  56+768);Print_DrawText("I");
-    Print_SetPosition(0,  64+768);Print_DrawText("T");
-    Print_SetPosition(0,  72+768);Print_DrawText("A");
+	// Team 1 (CPU/P2 in alto)
+	str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
     Print_SetPosition(0,  80+768);Print_DrawText(" ");
     Print_SetPosition(0,  88+768);Print_DrawText("0");
 
