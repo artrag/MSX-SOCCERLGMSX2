@@ -10,8 +10,8 @@ Symbol Table
     CFGR                                                        =   00007FFD 
     ENAR                                                        =   00007FFF 
     OFFR                                                        =   00007FFE 
-  0 SpriteFrame                                                     0000147B GR
-  0 _AddLines                                                       00001245 GR
+  0 SpriteFrame                                                     000014E8 GR
+  0 _AddLines                                                       000012B2 GR
     _Bios_ClearScreen                                               ******** GX
     _Bios_SetHookCallback                                           ******** GX
   0 _CallFnc_BOOL                                                   0000091A GR
@@ -32,7 +32,7 @@ Symbol Table
   0 _CallFnc_VOID_P2                                                00000589 GR
   0 _CallFnc_VOID_U8U16U16                                          0000051D GR
   0 _CallFnc_VOID_U8U8                                              000009C1 GR
-  0 _CallSpriteFrame                                                0000145F GR
+  0 _CallSpriteFrame                                                000014CC GR
     _DEBUG_BREAK                                                    ******** GX
     _DEBUG_INIT                                                     ******** GX
     _EventTeamSelected                                              ******** GX
@@ -47,9 +47,9 @@ Symbol Table
   2 _LastSecs                                                       00000003 GR
   2 _LastTouchPlayer                                                0000001A GR
   2 _LastTouchTeam                                                  00000019 GR
-  0 _LoadField                                                      000014FD GR
+  0 _LoadField                                                      0000156A GR
     _MainLoop                                                       ******** GX
-  0 _MenuScreenLoad                                                 000010E6 GR
+  0 _MenuScreenLoad                                                 00001153 GR
   2 _Mins                                                           00000002 GR
     _PlotField                                                      ******** GX
     _Print_DrawFormat                                               ******** GX
@@ -69,11 +69,11 @@ Symbol Table
   2 _ScoreTeam1                                                     00000005 GR
   2 _ScoreTeam2                                                     00000006 GR
   2 _Secs                                                           00000001 GR
-  0 _SetTeamColors                                                  000011EA GR
+  0 _SetTeamColors                                                  00001257 GR
   0 _ShowMenu                                                       00000B26 GR
-  0 _ShowMenu_cursor_pos_65537_1628                                 00001062 R
+  0 _ShowMenu_cursor_pos_65537_1628                                 000010F6 R
   0 _SplashScreenLoad                                               00000A1A GR
-  0 _StartGame                                                      00001605 GR
+  0 _StartGame                                                      00001672 GR
   1 _SwSprite                                                       00000006 GR
   2 _T1_Carrier                                                     00000014 GR
   2 _T1_Receiver                                                    00000015 GR
@@ -93,25 +93,25 @@ Symbol Table
     _VDP_WriteVRAM_128K                                             ******** GX
     _VPD_CommandSetupR32                                            ******** GX
     _VPD_CommandSetupR36                                            ******** GX
-  0 _VSyncCallback                                                  000014AF GR
-  0 _WaitForVBlank                                                  000014F1 GR
+  0 _VSyncCallback                                                  0000151C GR
+  0 _WaitForVBlank                                                  0000155E GR
     ___sdcc_call_hl                                                 ******** GX
     ___sdcc_call_iy                                                 ******** GX
-  0 ___str_1                                                        0000106E R
-  0 ___str_10                                                       000018B2 R
-  0 ___str_11                                                       000018B4 R
-  0 ___str_12                                                       000018B6 R
-  0 ___str_13                                                       000018B8 R
-  0 ___str_14                                                       000018BA R
-  0 ___str_15                                                       000018BC R
-  0 ___str_2                                                        00001088 R
-  0 ___str_3                                                        000010B5 R
-  0 ___str_4                                                        000010E2 R
-  0 ___str_5                                                        000015E8 R
-  0 ___str_6                                                        000018AA R
-  0 ___str_7                                                        000018AC R
-  0 ___str_8                                                        000018AE R
-  0 ___str_9                                                        000018B0 R
+  0 ___str_1                                                        00001102 R
+  0 ___str_10                                                       0000191F R
+  0 ___str_11                                                       00001921 R
+  0 ___str_12                                                       00001923 R
+  0 ___str_13                                                       00001925 R
+  0 ___str_14                                                       00001927 R
+  0 ___str_15                                                       00001929 R
+  0 ___str_2                                                        0000111C R
+  0 ___str_3                                                        00001136 R
+  0 ___str_4                                                        0000114F R
+  0 ___str_5                                                        00001655 R
+  0 ___str_6                                                        00001917 R
+  0 ___str_7                                                        00001919 R
+  0 ___str_8                                                        0000191B R
+  0 ___str_9                                                        0000191D R
     __divsint                                                       ******** GX
   7 __xinit__Frms                                                   00000000 R
   7 __xinit__GameMode                                               00000013 R
@@ -167,7 +167,7 @@ Symbol Table
   7 __xinit__g_throw_rec_1                                          0000001F R
   7 __xinit__g_throw_rec_2                                          00000020 R
   7 __xinit__g_thrower_id                                           00000022 R
-  0 _dummy                                                          000014E9 GR
+  0 _dummy                                                          00001556 GR
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -470,7 +470,7 @@ Symbol Table
   2 _g_throw_rec_1                                                  0000001F GR
   2 _g_throw_rec_2                                                  00000020 GR
   2 _g_thrower_id                                                   00000022 GR
-  0 _main                                                           000015B5 GR
+  0 _main                                                           00001622 GR
   0 _s_ScrollText                                                   0000026F R
 
 
@@ -479,7 +479,7 @@ Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size     18BF   flags    0
+   0 _CODE                                      size     192C   flags    0
    1 _DATA                                      size      3DA   flags    0
    2 _INITIALIZED                               size       3A   flags    0
    3 _DABS                                      size        0   flags    8

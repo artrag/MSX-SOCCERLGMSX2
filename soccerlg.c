@@ -134,6 +134,14 @@ const struct TeamStats g_TeamStatsArray[] = {
     extern unsigned char g_MenuColorScreen6[];
 	extern unsigned char g_MenuColorScreen7[];
 
+	extern unsigned char g_MenuGrayScreen1[];
+	extern unsigned char g_MenuGrayScreen2[];
+	extern unsigned char g_MenuGrayScreen3[];
+	extern unsigned char g_MenuGrayScreen4[];
+	extern unsigned char g_MenuGrayScreen5[];
+    extern unsigned char g_MenuGrayScreen6[];
+	extern unsigned char g_MenuGrayScreen7[];
+
 	struct InputState g_player_input[2];
 	struct ObjectInfo SwSprite[NumSprite];
 	struct ObjectInfo Field;
@@ -383,11 +391,12 @@ void ShowMenu()
 	u8 t1_id = 0;
 	u8 t2_id = 1;
 	u8 prev_dir[2] = {DIRECTION_NONE, DIRECTION_NONE};
+	u8 input_delay = 0;
 
 	// Posizioni indicative sullo schermo per i 6 Team (modificabili se necessario)
 	static const u8 cursor_pos[6][2] = {
 		{ 30,  95}, {111,  95}, {194,  95},
-		{ 30, 181}, {110, 181}, {200, 181}
+		{ 30, 181}, {110, 181}, {194, 181}
 	};
 
 	// Forza GameMode a P1 vs P2 nel menu per poter leggere anche l'input di JOY 2 / Tastiera P2
@@ -405,29 +414,45 @@ void ShowMenu()
 
 		bool move_left = FALSE;
 		bool move_right = FALSE;
-		bool move_up = FALSE;
+		bool move_toggle = FALSE;
 		bool trig = FALSE;
 
+		if (input_delay > 0) {
+			input_delay--;
+		} else {
+			if (menu_state == 0) {
+				if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+			} else if (menu_state == 1) {
+				if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+				if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy1_dir == DIRECTION_DOWN && prev_dir[1] != DIRECTION_DOWN) move_toggle = TRUE;
+			} else if (menu_state == 2) {
+				if (joy2_dir == DIRECTION_LEFT && prev_dir[0] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy2_dir == DIRECTION_RIGHT && prev_dir[0] != DIRECTION_RIGHT) move_right = TRUE;
+				if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy1_dir == DIRECTION_DOWN && prev_dir[1] != DIRECTION_DOWN) move_toggle = TRUE;
+				if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy2_dir == DIRECTION_DOWN && prev_dir[0] != DIRECTION_DOWN) move_toggle = TRUE;
+			}
+			
+			// Aggiorna lo stato precedente solo al di fuori del periodo di debounce
+			prev_dir[1] = joy1_dir;
+			prev_dir[0] = joy2_dir;
+		}
+
 		if (menu_state == 0) {
-			if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
-			if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
 			if (joy1_trig) trig = TRUE;
 		} else if (menu_state == 1) {
-			if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
-			if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
-			if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_up = TRUE;
-			if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_up = TRUE;
 			if (joy1_trig) trig = TRUE;
 		} else if (menu_state == 2) {
-			if (joy2_dir == DIRECTION_LEFT && prev_dir[0] != DIRECTION_LEFT) move_left = TRUE;
-			if (joy2_dir == DIRECTION_RIGHT && prev_dir[0] != DIRECTION_RIGHT) move_right = TRUE;
-			if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_up = TRUE;
-			if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_up = TRUE;
 			if (joy2_trig) trig = TRUE;
 		}
 
-		prev_dir[1] = joy1_dir;
-		prev_dir[0] = joy2_dir;
+		if (move_left || move_right || move_toggle) {
+			input_delay = 12; // Circa 200ms di debounce per evitare input sporchi o movimenti doppi
+		}
 
 		if (move_left) {
 			do {
@@ -441,17 +466,17 @@ void ShowMenu()
 		}
 
 		// Cambio modalità di gioco (CPU / JOY2)
-		if (move_up && menu_state > 0) {
+		if (move_toggle && menu_state > 0) {
 			if (menu_state == 1) {
 				menu_state = 2;
 				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
-				Print_SetPosition(0, 2);
-				Print_DrawText("TEAM 2 SELECTION (JOY2) - MOVE TO UP FOR CPU");
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^JOY2_)");
 			} else {
 				menu_state = 1;
 				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
-				Print_SetPosition(0, 2);
-				Print_DrawText("TEAM 2 SELECTION (CPU) - MOVE TO UP FOR JOY2");
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^CPU_)");
 			}
 		}
 
@@ -475,8 +500,8 @@ void ShowMenu()
 				prev_cursor_id = 0xFF; // Forza il ridisegno nella nuova posizione
 				
 				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
-				Print_SetPosition(0, 2);
-				Print_DrawText("TEAM 2 SELECTION (CPU) - MOVE TO UP FOR JOY2");
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^CPU_)");
 			} else {
 				t2_id = cursor_id;
 				Team2Code = t2_id;
