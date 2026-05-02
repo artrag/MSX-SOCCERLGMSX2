@@ -487,7 +487,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 
 						i8 off_x = 0; i8 off_y = 6;
 						if (c_dx > 0) off_x = (c_dy > 0) ? 3 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -3 : -8;
-						if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+						if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
@@ -510,7 +510,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 						if (Ball->anim == 0) {
 							i8 off_x = 0; i8 off_y = 6;
 							if (c_dx > 0) off_x = (c_dy > 0) ? 3 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -3 : -8;
-							if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+							if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
 							// Snap esatto alla posizione corretta, poi calcio
 							Ball->lx = (u8)((i16)Carrier->lx + off_x);
 							Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;

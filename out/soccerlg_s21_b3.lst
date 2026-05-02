@@ -3169,11 +3169,11 @@
     00001539                       3169 00363$:
                                    3170 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:376: i8 off_x = 0;
     00001539 DD 36 FC 00      [19] 3171 	ld	-4 (ix), #0x00
-                                   3172 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:377: i8 off_y = (move_dx != 0) ? 9 : 8;
+                                   3172 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:377: i8 off_y = (move_dx != 0) ? 11 : 8;
     0000153D DD 7E FB         [19] 3173 	ld	a, -5 (ix)
     00001540 B7               [ 4] 3174 	or	a, a
     00001541 28 06            [12] 3175 	jr	Z, 00524$
-    00001543 01 09 00         [10] 3176 	ld	bc, #0x0009
+    00001543 01 0B 00         [10] 3176 	ld	bc, #0x000b
     00001546 C3r4Cr15         [10] 3177 	jp	00525$
     00001549                       3178 00524$:
     00001549 01 08 00         [10] 3179 	ld	bc, #0x0008

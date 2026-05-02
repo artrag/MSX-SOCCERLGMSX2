@@ -3169,11 +3169,11 @@ _PlayerAI_Movement::
 00363$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:376: i8 off_x = 0;
 	ld	-4 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:377: i8 off_y = (move_dx != 0) ? 9 : 8;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:377: i8 off_y = (move_dx != 0) ? 11 : 8;
 	ld	a, -5 (ix)
 	or	a, a
 	jr	Z, 00524$
-	ld	bc, #0x0009
+	ld	bc, #0x000b
 	jp	00525$
 00524$:
 	ld	bc, #0x0008

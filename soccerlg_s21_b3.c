@@ -374,7 +374,7 @@ void PlayerAI_Movement(u8 i)
 								Ball->anim = 0;
 							} else {
 								i8 off_x = 0;
-								i8 off_y = (move_dx != 0) ? 9 : 8;
+								i8 off_y = (move_dx != 0) ? 11 : 8;
 								if (move_dx > 0) off_x = 3; else if (move_dx < 0) off_x = -3;
 								
 								Ball->lx = (u8)((i16)Player->lx + off_x);

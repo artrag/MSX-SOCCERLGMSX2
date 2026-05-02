@@ -4088,14 +4088,14 @@
     00001BBA                       4088 00572$:
     00001BBA DD 77 F8         [19] 4089 	ld	-8 (ix), a
     00001BBD                       4090 00344$:
-                                   4091 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:490: if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+                                   4091 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:490: if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
     00001BBD DD 7E F6         [19] 4092 	ld	a, -10 (ix)
     00001BC0 B7               [ 4] 4093 	or	a, a
     00001BC1 28 22            [12] 4094 	jr	Z, 00348$
     00001BC3 DD 7E F9         [19] 4095 	ld	a, -7 (ix)
     00001BC6 B7               [ 4] 4096 	or	a, a
     00001BC7 28 0B            [12] 4097 	jr	Z, 00573$
-    00001BC9 DD 36 F6 09      [19] 4098 	ld	-10 (ix), #0x09
+    00001BC9 DD 36 F6 0B      [19] 4098 	ld	-10 (ix), #0x0b
     00001BCD DD 36 F7 00      [19] 4099 	ld	-9 (ix), #0
     00001BD1 C3rDCr1B         [10] 4100 	jp	00574$
     00001BD4                       4101 00573$:
@@ -4331,14 +4331,14 @@
     00001DDC 0E F8            [ 7] 4331 	ld	c, #0xf8
     00001DDE                       4332 00587$:
     00001DDE                       4333 00358$:
-                                   4334 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:513: if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+                                   4334 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:513: if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
     00001DDE DD 7E F6         [19] 4335 	ld	a, -10 (ix)
     00001DE1 B7               [ 4] 4336 	or	a, a
     00001DE2 28 15            [12] 4337 	jr	Z, 00362$
     00001DE4 DD 7E F9         [19] 4338 	ld	a, -7 (ix)
     00001DE7 B7               [ 4] 4339 	or	a, a
     00001DE8 28 06            [12] 4340 	jr	Z, 00588$
-    00001DEA 11 09 00         [10] 4341 	ld	de, #0x0009
+    00001DEA 11 0B 00         [10] 4341 	ld	de, #0x000b
     00001DED C3rF3r1D         [10] 4342 	jp	00589$
     00001DF0                       4343 00588$:
     00001DF0 11 08 00         [10] 4344 	ld	de, #0x0008

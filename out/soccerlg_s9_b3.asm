@@ -4088,14 +4088,14 @@ _UpdateGameState::
 00572$:
 	ld	-8 (ix), a
 00344$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:490: if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:490: if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
 	ld	a, -10 (ix)
 	or	a, a
 	jr	Z, 00348$
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00573$
-	ld	-10 (ix), #0x09
+	ld	-10 (ix), #0x0b
 	ld	-9 (ix), #0
 	jp	00574$
 00573$:
@@ -4331,14 +4331,14 @@ _UpdateGameState::
 	ld	c, #0xf8
 00587$:
 00358$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:513: if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s9_b3.c:513: if (c_dy > 0) off_y = (c_dx != 0) ? 11 : 8; else if (c_dy < 0) off_y = -2;
 	ld	a, -10 (ix)
 	or	a, a
 	jr	Z, 00362$
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00588$
-	ld	de, #0x0009
+	ld	de, #0x000b
 	jp	00589$
 00588$:
 	ld	de, #0x0008
