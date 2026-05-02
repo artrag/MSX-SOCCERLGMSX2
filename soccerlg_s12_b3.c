@@ -18,6 +18,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
 					
+					VDP_EnableDisplay(FALSE); // Disattiva il video per nascondere il glitch di ridisegno
+					
 					// Inizia il secondo tempo
 					Half = 2;
 					Mins = HALF_TIME_MINS; Secs = HALF_TIME_SECS;
@@ -69,6 +71,8 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 256);
 					CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardLeft, ScoreBoardLeft.lx, Field.ly, 512);
 					CallFnc_VOID_U8U16U16(SEG_DRAW, PrintScoreBoardRight, ScoreBoardRight.lx, Field.ly, 512);
+					
+					VDP_EnableDisplay(TRUE); // Riattiva il video a campo ricostruito
 					
 					*game_state = 2;
 				}
