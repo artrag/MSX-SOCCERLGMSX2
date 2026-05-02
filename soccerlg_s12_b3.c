@@ -177,6 +177,16 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, Ball->x0, Ball->y0, 0);
 						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, Ball->x1, Ball->y1, 256);
 						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, Ball->x2, Ball->y2, 512);
+
+						// Cancella anche le frecce di mira che altrimenti rimarrebbero "stampate" sul prato
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[24].x0, SwSprite[24].y0, 0);
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[24].x1, SwSprite[24].y1, 256);
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[24].x2, SwSprite[24].y2, 512);
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[25].x0, SwSprite[25].y0, 0);
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[25].x1, SwSprite[25].y1, 256);
+						CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[25].x2, SwSprite[25].y2, 512);
+
+						
 						CallSpriteFrame(Ball->lx, (Ball->ly & 255) + 0,   Ball->frame);
 						CallSpriteFrame(Ball->lx, (Ball->ly & 255) + 256, Ball->frame);
 						CallSpriteFrame(Ball->lx, (Ball->ly & 255) + 512, Ball->frame);

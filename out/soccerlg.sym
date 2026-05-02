@@ -71,10 +71,10 @@ Symbol Table
   2 _Secs                                                           0000000D GR
   0 _SetTeamColors                                                  00001592 GR
   0 _ShowHelpScreen                                                 00001244 GR
-  1 _ShowHelpScreen_first_time_65536_1774                           000003DA R
+  1 _ShowHelpScreen_first_time_65536_1800                           000003DA R
   0 _ShowMenu                                                       00000B37 GR
-  0 _ShowMenu_cursor_pos_65537_1631                                 000011CF R
-  0 _ShowMenu_team_box_65537_1631                                   000011DB R
+  0 _ShowMenu_cursor_pos_65537_1657                                 000011CF R
+  0 _ShowMenu_team_box_65537_1657                                   000011DB R
   0 _SplashScreenLoad                                               00000A20 GR
   0 _StartGame                                                      000019B3 GR
   1 _SwSprite                                                       00000006 GR

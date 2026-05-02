@@ -12,6 +12,8 @@
 #include "debug.h"
 #include "soccerlg_rawdef.h"
 #include "bin/FieldMap.h"
+#include "ayfx/ayfx_player.h"
+#include "libs/yscc/yscc_player.h"
 
 // -----------------
 // *** CONSTANTS ***
