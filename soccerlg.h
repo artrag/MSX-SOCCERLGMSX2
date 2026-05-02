@@ -472,6 +472,7 @@ u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3
 void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
 void MenuScreenLoad();
+void MenuGrayScreenLoad();
 void StartGame();
 void ShowMenu();
 

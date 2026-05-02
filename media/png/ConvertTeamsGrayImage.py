@@ -61,4 +61,4 @@ def generate_msx_files(image_path):
         print(f"Creato: {file_name} con matrice {matrix_name}")
 
 # Esecuzione
-generate_msx_files('Teams.png')
+generate_msx_files('Teams_gray.png')

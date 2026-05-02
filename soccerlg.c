@@ -369,6 +369,7 @@ void ShowMenu()
 	
 
 	MenuScreenLoad();
+	MenuGrayScreenLoad();
 	SET_BANK_SEGMENT(3,4);
 	Print_SetBitmapFont(g_Menu_Fonts);
 	Print_SetPosition(25,  2);
@@ -397,6 +398,16 @@ void ShowMenu()
 	static const u8 cursor_pos[6][2] = {
 		{ 30,  95}, {111,  95}, {194,  95},
 		{ 30, 181}, {110, 181}, {194, 181}
+	};
+
+	// Posizioni e dimensioni dei riquadri delle squadre (X, Y, Larghezza, Altezza)
+	static const u8 team_box[6][4] = {
+		{  6,  16, 80, 86}, // NLD
+		{ 86,  16, 80, 86}, // GER
+		{168,  16, 80, 86}, // ITA
+		{  6, 104, 80, 86}, // BRA
+		{ 86, 104, 80, 86}, // FRA
+		{168, 104, 80, 86}  // ESP
 	};
 
 	// Forza GameMode a P1 vs P2 nel menu per poter leggere anche l'input di JOY 2 / Tastiera P2
@@ -490,6 +501,12 @@ void ShowMenu()
 		}
 
 		if (trig) {
+				// 1. Cancella i caratteri "$$$" della squadra selezionata
+			VDP_CommandHMMV(cursor_pos[cursor_id][0], cursor_pos[cursor_id][1], 24, 11, 0x00);
+			
+			// 2. "Fotocopia" il riquadro grigio dalla pagina nascosta (Y+256) allo schermo visibile (Y)
+			VDP_CommandHMMM(team_box[cursor_id][0], team_box[cursor_id][1] + 256, team_box[cursor_id][0], team_box[cursor_id][1], team_box[cursor_id][2], team_box[cursor_id][3]);
+
 			if (menu_state == 0) {
 				t1_id = cursor_id;
 				Team1Code = t1_id;
@@ -609,7 +626,24 @@ void MenuScreenLoad()
 
     
 }
+// +++ Menu gray screen load +++
+void MenuGrayScreenLoad()
+{
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+    u8 vram_high = 1; // Scrive a partire dall'indirizzo VRAM 0x10000, che corrisponde a Y=256 (Pagina nascosta)
 
+    SET_BANK_SEGMENT(3, 64); VDP_WriteVRAM_128K(g_MenuGrayScreen1, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 65); VDP_WriteVRAM_128K(g_MenuGrayScreen2, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 66); VDP_WriteVRAM_128K(g_MenuGrayScreen3, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 67); VDP_WriteVRAM_128K(g_MenuGrayScreen4, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 68); VDP_WriteVRAM_128K(g_MenuGrayScreen5, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 69); VDP_WriteVRAM_128K(g_MenuGrayScreen6, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 70); 
+    
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_MenuGrayScreen7, vram_low, vram_high, 5120);
+}
 
 // +++ Set team colors +++
 void SetTeamColors(u8 team, const struct TeamColors* colors)
