@@ -266,38 +266,51 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 			// --- GESTIONE SCIVOLATA UMANA ---
 			if (Carrier->count > 0) {
 				Carrier->count--;
-				Carrier->lx += Carrier->dx;
-				Carrier->ly += Carrier->dy;
-				
-				if (Carrier->lx < 16) Carrier->lx = 16;
-				if (Carrier->lx > 224) Carrier->lx = 224;
-				if (Carrier->ly < 24) Carrier->ly = 24;
-				if (Carrier->ly > 488) Carrier->ly = 488;
 
-				Carrier->frame = (Carrier->dx > 0) ? 
-							((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
-							((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
+				if (Carrier->count >= 20) {
+					Carrier->lx += Carrier->dx;
+					Carrier->ly += Carrier->dy;
+					
+					if (Carrier->lx < 16) Carrier->lx = 16;
+					if (Carrier->lx > 224) Carrier->lx = 224;
+					if (Carrier->ly < 24) Carrier->ly = 24;
+					if (Carrier->ly > 488) Carrier->ly = 488;
 
-				// Controllo furto durante la scivolata
-				u16 b_dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
-				u16 b_dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
-				
-				bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
-				if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team) {
-					u16 c_dist_y = (Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly);
-					if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
-				}
+					Carrier->frame = (Carrier->dx > 0) ? 
+								((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
+								((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
 
-				if (can_steal && Ball->anim < 5 && RestartType == 0) {
-					if (LastTouchTeam != carrier_team) {
-						Ball->count = 16; // Immunità
-						g_pass_receiver = 0xFF; // Intercetto: disinnesca fuorigioco
+					// Controllo furto durante la scivolata
+					u16 b_dist_x = (Carrier->lx > Ball->lx) ? (Carrier->lx - Ball->lx) : (Ball->lx - Carrier->lx);
+					u16 b_dist_y = (Carrier->ly > Ball->ly) ? (Carrier->ly - Ball->ly) : (Ball->ly - Carrier->ly);
+					
+					bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
+					if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team) {
+						u16 c_dist_y = (Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly);
+						if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
 					}
-					LastTouchTeam = carrier_team;
-					LastTouchPlayer = carrier;
-					if (Ball->anim > 3) Ball->anim = 3;
-					Ball->frame = SPR_BALL_SIZE_1;
-					Carrier->count = 0; // Ferma la scivolata appena ruba palla
+
+					bool is_immune_tackle = (Ball->count > 0 && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
+
+					if (can_steal && Ball->anim < 5 && RestartType == 0 && !is_immune_tackle) {
+						if (LastTouchTeam != carrier_team) {
+							Ball->count = 30; // Immunità aumentata
+							g_pass_receiver = 0xFF; // Intercetto: disinnesca fuorigioco
+						}
+						LastTouchTeam = carrier_team;
+						LastTouchPlayer = carrier;
+						if (Ball->anim > 3) Ball->anim = 3;
+						Ball->frame = SPR_BALL_SIZE_1;
+						Carrier->count = 0; // Ferma la scivolata appena ruba palla
+					}
+				} else {
+					if (Carrier->count >= 10) {
+						Carrier->frame = (Carrier->dx > 0) ? 
+									((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
+									((carrier_team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
+					} else {
+						Carrier->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, carrier, 0, (carrier_team == TEAM_1) ? 1 : -1);
+					}
 				}
 				continue; // Salta il resto dei comandi e dell'animazione
 			}
@@ -365,9 +378,9 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 			// Se il giocatore tocca fisicamente la palla (e non è in volo)
 			if (dist_x <= touch_dist && eff_dist_y <= touch_dist_y && Ball->anim < 5 && !is_immune && RestartType == 0 && !actively_carried_by_opp) {
 					if (LastTouchTeam != carrier_team) {
-						Ball->count = 16; // Immunità
+						Ball->count = 30; // Immunità aumentata
 					} else if (LastTouchPlayer != carrier) {
-						Ball->count = 16; // Immunità alla ricezione del passaggio
+						Ball->count = 20; // Immunità alla ricezione del passaggio
 					}
 					LastTouchTeam = (carrier < 7) ? TEAM_1 : TEAM_2;
 					LastTouchPlayer = carrier;
@@ -473,8 +486,8 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 						bool is_180_turn = (Ball->dx == -c_dx && Ball->dy == -c_dy && (c_dx != 0 || c_dy != 0));
 
 						i8 off_x = 0; i8 off_y = 6;
-						if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
-if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else if (c_dy < 0) off_y = -2;
+						if (c_dx > 0) off_x = (c_dy > 0) ? 3 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -3 : -8;
+						if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
 						
 						Ball->dx = c_dx;
 						Ball->dy = c_dy;
@@ -496,8 +509,8 @@ if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else 
 						// Quando anim>0, UpdateBallPhysics gestisce il rotolamento; non sovrascrivere.
 						if (Ball->anim == 0) {
 							i8 off_x = 0; i8 off_y = 6;
-							if (c_dx > 0) off_x = (c_dy > 0) ? 4 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -4 : -8;
-						if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else if (c_dy < 0) off_y = -2;
+							if (c_dx > 0) off_x = (c_dy > 0) ? 3 : 8; else if (c_dx < 0) off_x = (c_dy > 0) ? -3 : -8;
+							if (c_dy > 0) off_y = (c_dx != 0) ? 9 : 8; else if (c_dy < 0) off_y = -2;
 							// Snap esatto alla posizione corretta, poi calcio
 							Ball->lx = (u8)((i16)Carrier->lx + off_x);
 							Ball->ly = (u16)((i16)Carrier->ly + off_y) & 511;
@@ -510,13 +523,13 @@ if (c_dy > 0) off_y = (c_dx != 0) ? (carrier_team == TEAM_1 ? 16 : 9) : 8; else 
 					}
 				} else {
 					// Non ha la palla: innesco della scivolata o furto ravvicinato su comando!
-					if (trigger_pressed && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF && Carrier->count == 0 && RestartType == 0) {
+					if (trigger_pressed && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF && Carrier->count == 0 && RestartType == 0 && Ball->count == 0) {
 						bool opponent_has_ball = (g_is_ball_carried && LastTouchTeam != carrier_team);
 						
 						if (opponent_has_ball) {
-							if (dist_x <= 48 && dist_y <= 24) {
+							if (dist_x <= 32 && dist_y <= 16) {
 								// Tackle orizzontale: anche quando si insegue lateralmente
-								Carrier->count = 8; // 8 frames di scivolata (più corta e netta)
+								Carrier->count = 30; // Scivolata + Cooldown per penalità miss
 								Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
 								Carrier->dy = 0; // Movimento rigorosamente orizzontale
 							}

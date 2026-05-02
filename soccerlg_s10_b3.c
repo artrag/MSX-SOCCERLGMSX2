@@ -9,7 +9,14 @@
 void UpdateFieldCamera()
 {
 	struct ObjectInfo* Ball = &SwSprite[14];
+	struct ObjectInfo* Target = Ball;
 	
+	// Se la palla è portata da un giocatore, agganciamo la telecamera al giocatore 
+	// per ignorare i micro-scatti dovuti all'animazione del pallone in dribbling.
+	if (g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchPlayer < 14) {
+		Target = &SwSprite[LastTouchPlayer];
+	}
+
 	i16 camera_dy = 0;
 	
 	// Calcolo dinamico dei margini per anticipare lo scrolling verso le porte.
@@ -18,20 +25,20 @@ void UpdateFieldCamera()
 	u16 top_margin = 64;
 	u16 bottom_margin = 64;
 	
-	if (Ball->ly < 256) {
-		top_margin = 64 + (256 - Ball->ly) / 2;
+	if (Target->ly < 256) {
+		top_margin = 64 + (256 - Target->ly) / 2;
 		if (top_margin > 140) top_margin = 140;
-	} else if (Ball->ly > 256) {
-		bottom_margin = 64 + (Ball->ly - 256) / 2;
+	} else if (Target->ly > 256) {
+		bottom_margin = 64 + (Target->ly - 256) / 2;
 		if (bottom_margin > 140) bottom_margin = 140;
 	}
 
 	// Margini di scorrimento: la telecamera si aggancia se la palla supera i limiti dinamici
-	if (Ball->ly < Field.ly + top_margin && Field.ly > 0) {
-		i16 diff = (i16)(Field.ly + top_margin) - (i16)Ball->ly;
-		if (diff > 5) {
-			camera_dy = -(5 + diff / 16); // Accelera dolcemente se è molto indietro
-			if (camera_dy < -8) camera_dy = -8; // Velocità massima di recupero (fluida)
+	if (Target->ly < Field.ly + top_margin && Field.ly > 0) {
+		i16 diff = (i16)(Field.ly + top_margin) - (i16)Target->ly;
+		if (diff > 4) {
+			camera_dy = -(4 + diff / 8); // Accelera in modo fluido
+			if (camera_dy < -8) camera_dy = -8;
 		} else {
 			camera_dy = -diff;
 		}
@@ -41,11 +48,11 @@ void UpdateFieldCamera()
 			camera_dy = -(i16)Field.ly;
 		}
 	}
-	else if (Ball->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
-		i16 diff = (i16)Ball->ly - (i16)(Field.ly + 192 - bottom_margin);
-		if (diff > 5) {
-			camera_dy = 5 + diff / 16; // Accelera dolcemente
-			if (camera_dy > 8) camera_dy = 8; // Velocità massima di recupero
+	else if (Target->ly > Field.ly + 192 - bottom_margin && Field.ly < (FIELD_HEIGHT - 192)) {
+		i16 diff = (i16)Target->ly - (i16)(Field.ly + 192 - bottom_margin);
+		if (diff > 4) {
+			camera_dy = 4 + diff / 8; // Accelera in modo fluido
+			if (camera_dy > 8) camera_dy = 8;
 		} else {
 			camera_dy = diff;
 		}

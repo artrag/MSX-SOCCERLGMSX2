@@ -211,10 +211,10 @@ void PlayerAI_Movement(u8 i)
 			target_y = Ball->ly;
 			
 			// Decide se tentare la scivolata (orizzontale o laterale quando si insegue di fianco)
-			if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 48 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0) {
+			if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
 				u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
 				if ((Frms + i * 7) % 100 < slide_chance) {
-					Player->count = 8; // durata scivolata (corta e chirurgica)
+					Player->count = 30; // durata scivolata + cooldown per penalità se manca la palla
 					Player->dx = (Ball->lx > Player->lx) ? 4 : -4;
 					Player->dy = 0; // Solo scivolata orizzontale
 					return; // Esce e inizia la scivolata dal prossimo frame
@@ -247,7 +247,7 @@ void PlayerAI_Movement(u8 i)
 
 			if (can_steal_standing && Ball->anim < 5 && Ball->count == 0 && RestartType == 0) {
 				if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera
-					Ball->count = is_free_ball ? 2 : 16;
+					Ball->count = is_free_ball ? 10 : 30;
 					LastTouchTeam = team;
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
@@ -255,7 +255,7 @@ void PlayerAI_Movement(u8 i)
 					Ball->frame = SPR_BALL_SIZE_1;
 				} else if (is_free_ball && LastTouchTeam == team && LastTouchPlayer != i) {
 					// Palla libera già reclamata dalla squadra ma non portata: aggiorna il portatore
-					Ball->count = 16; // Immunità alla ricezione
+					Ball->count = 20; // Immunità alla ricezione
 					LastTouchPlayer = i;
 					g_pass_receiver = 0xFF;
 					if (Ball->anim > 3) Ball->anim = 3; 
@@ -374,8 +374,8 @@ void PlayerAI_Movement(u8 i)
 								Ball->anim = 0;
 							} else {
 								i8 off_x = 0;
-								i8 off_y = (move_dx != 0) ? 13 : 8;
-								if (move_dx > 0) off_x = 8; else if (move_dx < 0) off_x = -8;
+								i8 off_y = (move_dx != 0) ? 9 : 8;
+								if (move_dx > 0) off_x = 3; else if (move_dx < 0) off_x = -3;
 								
 								Ball->lx = (u8)((i16)Player->lx + off_x);
 								Ball->ly = (u16)((i16)Player->ly + off_y) & 511;

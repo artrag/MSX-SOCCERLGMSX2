@@ -40,15 +40,15 @@ void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, 
 				u16 center_x = 128;
 				u16 center_y = Field.ly + 96;
 				
-				u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
-				u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
+				u16 t_x = center_x - 80 + ((i * 31 + Frms * 2) % 160);
+				u16 t_y = center_y - 50 + ((i * 47 + Frms) % 100);
 				
 				u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
 				u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
-				u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
+				u8 speed = (dist_x > 20 || dist_y > 20) ? 2 : 1;
 				
-				if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
-				if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
+				if (p->lx < t_x) p->dx = speed; else if (p->lx > t_x) p->dx = -speed; else p->dx = 0;
+				if (p->ly < t_y) p->dy = speed; else if (p->ly > t_y) p->dy = -speed; else p->dy = 0;
 				
 				p->lx += p->dx; p->ly += p->dy; 
 				p->anim++;
@@ -107,7 +107,7 @@ void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, 
 		u8 losing_team = (winning_team == TEAM_1) ? TEAM_2 : TEAM_1;
 		bool all_offscreen = TRUE;
 
-		i8 exit_dy = (Field.ly < 256) ? -3 : 3; // Escono velocemente verso il bordo schermo più vicino
+		i8 exit_dy = (Field.ly < 256) ? 3 : -3; // Escono verso la porta più lontana (non visibile)
 
 		for (u8 i = 0; i <= 26; i++) {
 			if (i >= 15 && i < 26) continue; // Salta UI e Frecce
@@ -120,32 +120,31 @@ void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, 
 				u16 center_x = 128;
 				u16 center_y = Field.ly + 96;
 				
-				u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
-				u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
+				u16 t_x = center_x - 80 + ((i * 31 + Frms * 2) % 160);
+				u16 t_y = center_y - 50 + ((i * 47 + Frms) % 100);
 				
 				u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
 				u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
-				u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
+				u8 speed = (dist_x > 20 || dist_y > 20) ? 2 : 1;
 				
-				if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
-				if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
+				if (p->lx < t_x) p->dx = speed; else if (p->lx > t_x) p->dx = -speed; else p->dx = 0;
+				if (p->ly < t_y) p->dy = speed; else if (p->ly > t_y) p->dy = -speed; else p->dy = 0;
 				
 				p->lx += p->dx; p->ly += p->dy; p->anim++;
 				
 				u8 step = (p->anim / 3) % 4;
 				if (step == 3) step = 1;
 				
-				if (p->dy < 0 || (p->dy == 0 && (Frms % 64) < 32)) { 
-					if (i == 0 || i == 7) {
-						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
-					} else {
+				// Saltello
+				if ((p->anim % 8) < 4) p->ly -= 1; else p->ly += 1; 
+				
+				if (i == 0 || i == 7) {
+					p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
+				} else {
+					if (i % 2 == 0) {
 						p->frame = (team == TEAM_1) ? 
 							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
 							((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
-					}
-				} else {
-					if (i == 0 || i == 7) {
-						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, step);
 					} else {
 						p->frame = (team == TEAM_1) ? 
 							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
@@ -155,17 +154,20 @@ void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, 
 			} 
 			else if (team == losing_team || i == 26 || i == 14) {
 				// Sconfitti, Arbitro e Palla abbandonano il campo
-				if (OnScreen(p->ly)) {
-					all_offscreen = FALSE; 
+				if (p->ly < 512) {
 					p->dy = exit_dy; p->dx = 0;
 					p->ly = (p->ly + p->dy) & 511; // Evita l'underflow matematico
-					if (i != 14) { // Anima i giocatori e l'arbitro (non la palla)
-						p->anim++;
-						const u8 walk_seq[4] = {0, 1, 2, 1};
-						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+					
+					if (!OnScreen(p->ly)) {
+						p->ly = 1000; // Nascondi definitivamente appena escono dallo schermo
+					} else {
+						all_offscreen = FALSE; 
+						if (i != 14) { // Anima i giocatori e l'arbitro (non la palla)
+							p->anim++;
+							const u8 walk_seq[4] = {0, 1, 2, 1};
+							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+						}
 					}
-				} else {
-					p->ly = 1000; // Nascondi del tutto quando fuori visuale
 				}
 			}
 		}

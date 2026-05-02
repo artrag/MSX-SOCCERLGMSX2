@@ -8,7 +8,7 @@ Symbol Table
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
     _CallFnc_VOID                                                   ******** GX
-  7 _CheckFieldBoundaries                                           00000206 GR
+  7 _CheckFieldBoundaries                                           00000228 GR
     _EventCornerKick                                                ******** GX
     _EventGoal                                                      ******** GX
     _EventGoalKick                                                  ******** GX
@@ -277,7 +277,9 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_is_ball_carried                                              ******** GX
     _g_is_penalty_shootout                                          ******** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
@@ -291,7 +293,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG10                                     size      530   flags    0
+   7 _SEG10                                     size      552   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

@@ -808,16 +808,16 @@ _GetPlayerAnimFrame::
 	ld	a, 5 (ix)
 	or	a, a
 	jr	NZ, 00308$
-	ld	de, #0x003c
+	ld	de, #0x002e
 	jp	00221$
 00308$:
 	ld	a, 5 (ix)
 	dec	a
 	jr	NZ, 00310$
-	ld	de, #0x003d
+	ld	de, #0x002d
 	jp	00221$
 00310$:
-	ld	de, #0x003e
+	ld	de, #0x002c
 	jp	00221$
 00156$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s19_b3.c:42: if (dy < 0 && dx == 0) return (step==0) ? SPR_T1_PLAYER_NORTH_DIRECTION_1 : (step==1) ? SPR_T1_PLAYER_NORTH_DIRECTION_2 : SPR_T1_PLAYER_NORTH_DIRECTION_3;

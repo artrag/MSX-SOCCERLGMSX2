@@ -255,39 +255,63 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					}
 
 					g_penalty_shot_count[g_penalty_team]++;
+					
+					// Determina se la serie è finita (Vittoria matematica o Sudden Death conclusa)
+					bool match_over = FALSE;
+					if (g_penalty_shot_count[0] == g_penalty_shot_count[1] && g_penalty_shot_count[0] >= 5) {
+						if (ScoreTeam1 != ScoreTeam2) {
+							match_over = TRUE;
+						} else if (g_penalty_shot_count[0] == 5) {
+							// Inizia la Sudden Death (Oltranza): nascondi i pallini
+							for (u8 i = 27; i < 37; i++) SwSprite[i].ly = 1000;
+						}
+					} else if (g_penalty_shot_count[0] <= 5 && g_penalty_shot_count[1] <= 5) {
+						u8 rem1 = 5 - g_penalty_shot_count[0];
+						u8 rem2 = 5 - g_penalty_shot_count[1];
+						if (ScoreTeam1 > ScoreTeam2 + rem2) match_over = TRUE;
+						if (ScoreTeam2 > ScoreTeam1 + rem1) match_over = TRUE;
+					}
+
 					g_penalty_team = (g_penalty_team == TEAM_1) ? TEAM_2 : TEAM_1;
 					
 					// Nascondi la palla in modo assoluto
 					Ball->ly = 1000;
 
-					// Calcola le posizioni di attesa a centrocampo per Shooter e Keeper
-					u8 p_idx = g_penalty_shooter_idx;
-					u8 role = (p_idx < 7) ? p_idx : p_idx - 7;
-					u8 t_cx = (p_idx < 7) ? 64 : 192;
-					i8 off_x = 0; i8 off_y = 0;
-					switch(role) {
-						case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
-						case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
-						case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
-						case 6: off_x = -10; off_y =  22; break;
+					if (match_over) {
+						*game_state = 17; // Vittoria rigori
+						*wait_secs = 6;
+						*start_sec = Frms;
+						g_is_penalty_shootout = FALSE; // Turn off to allow generic behavior
+					} else {
+						// Calcola le posizioni di attesa a centrocampo per Shooter e Keeper
+						u8 p_idx = g_penalty_shooter_idx;
+						u8 role = (p_idx < 7) ? p_idx : p_idx - 7;
+						u8 t_cx = (p_idx < 7) ? 64 : 192;
+						i8 off_x = 0; i8 off_y = 0;
+						switch(role) {
+							case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
+							case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
+							case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
+							case 6: off_x = -10; off_y =  22; break;
+						}
+						SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
+
+						p_idx = keeper_idx;
+						role = (p_idx < 7) ? p_idx : p_idx - 7;
+						t_cx = (p_idx < 7) ? 64 : 192;
+						switch(role) {
+							case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
+							case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
+							case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
+							case 6: off_x = -10; off_y =  22; break;
+						}
+						SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
+
+						// Arbitro in disparte al limite del cerchio
+						SwSprite[26].tx = (u8)(128 + 24); SwSprite[26].ty = (u16)(256 - 24);
+
+						*game_state = 16; // Prepara ritorno a centrocampo
 					}
-					SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
-
-					p_idx = keeper_idx;
-					role = (p_idx < 7) ? p_idx : p_idx - 7;
-					t_cx = (p_idx < 7) ? 64 : 192;
-					switch(role) {
-						case 0: off_x = -18; off_y = -18; break; case 1: off_x =   2; off_y = -18; break;
-						case 2: off_x =  22; off_y = -18; break; case 3: off_x = -22; off_y =   2; break;
-						case 4: off_x =  -2; off_y =   2; break; case 5: off_x =  18; off_y =   2; break;
-						case 6: off_x = -10; off_y =  22; break;
-					}
-					SwSprite[p_idx].tx = (u8)(t_cx + off_x); SwSprite[p_idx].ty = (u16)(256 + off_y);
-
-					// Arbitro in disparte al limite del cerchio
-					SwSprite[26].tx = (u8)(128 + 24); SwSprite[26].ty = (u16)(256 - 24);
-
-					*game_state = 16; // Prepara ritorno a centrocampo
 				}
 			}
 		}
@@ -320,7 +344,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					const u8 walk_seq[4] = {0, 1, 2, 1};
 					
 					// Se ha segnato, esulta tornando verso centrocampo
-					if (RestartType == RESTART_GOAL && actor_idx == g_penalty_shooter_idx && p->dy > 0) {
+					if (RestartType == RESTART_GOAL && actor_idx == g_penalty_shooter_idx) {
 						u8 step = walk_seq[(p->anim / 3) % 4];
 						p->frame = (actor_idx < 7) ? 
 							((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :
@@ -357,6 +381,13 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 			u8 losing_team = (winning_team == TEAM_1) ? TEAM_2 : TEAM_1;
 			bool losers_offscreen = TRUE;
 
+			// Focus camera sull'area di rigore Nord
+			u16 cam_target = 0; 
+			if (Field.ly > cam_target + 3) { Field.dy = -4; Field.ly += Field.dy; }
+			else if (Field.ly + 3 < cam_target) { Field.dy = 4; Field.ly += Field.dy; }
+			else if (Field.ly != cam_target) { Field.dy = (i8)(cam_target - Field.ly); Field.ly = cam_target; }
+			else { Field.dy = 0; }
+
 			for (u8 i = 0; i <= 26; i++) {
 				if (i >= 14 && i < 26) continue; // Salta Palla e UI
 				
@@ -364,49 +395,51 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 				u8 team = (i < 7) ? TEAM_1 : ((i < 14) ? TEAM_2 : 0xFF);
 				
 				if (team == losing_team || i == 26) {
-					// Sconfitti e arbitro escono dal campo
-					if (OnScreen(p->ly)) {
-						losers_offscreen = FALSE;
+					// Sconfitti e arbitro escono dal campo verso sud
+					if (p->ly < 512) { 
 						p->dy = 3; p->dx = 0;
-						p->ly = (p->ly + p->dy) & 511; // Evita l'underflow matematico
-						p->anim++;
-						const u8 walk_seq[4] = {0, 1, 2, 1};
-						p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+						p->ly = (p->ly + p->dy); 
+						if (!OnScreen(p->ly) || p->ly > 511) {
+							p->ly = 1000; // Nascondi definitivamente appena escono dallo schermo
+						} else {
+							losers_offscreen = FALSE;
+							p->anim++;
+							const u8 walk_seq[4] = {0, 1, 2, 1};
+							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]);
+						}
 					} else {
 						p->ly = 1000;
 					}
 				} else if (team == winning_team) {
-					// Vincenti festeggiano convergendo al centro
-					u16 center_x = 128;
-					u16 center_y = Field.ly + 96;
+					// Vincenti convergono verso l'area di rigore Nord
+					u16 center_x = 120;
+					u16 center_y = 74;
 					
-					// Aggiungiamo caos controllato per farli correre in modo arioso nel campo visibile
-					u16 t_x = center_x - 80 + ((i * 31 + Frms) % 160);
-					u16 t_y = center_y - 60 + ((i * 47 + Frms) % 120);
+					u16 t_x = center_x - 80 + ((i * 31 + Frms * 2) % 160);
+					u16 t_y = center_y - 50 + ((i * 47 + Frms) % 100);
 					
 					u16 dist_x = (p->lx > t_x) ? (p->lx - t_x) : (t_x - p->lx);
 					u16 dist_y = (p->ly > t_y) ? (p->ly - t_y) : (t_y - p->ly);
-					u8 speed = (dist_x > 100 || dist_y > 100) ? 6 : ((dist_x > 50 || dist_y > 50) ? 4 : 2);
-					
-					if (p->lx < t_x - speed) p->dx = speed; else if (p->lx > t_x + speed) p->dx = -speed; else p->dx = 0;
-					if (p->ly < t_y - speed) p->dy = speed; else if (p->ly > t_y + speed) p->dy = -speed; else p->dy = 0;
+
+					u8 speed = (dist_x > 20 || dist_y > 20) ? 2 : 1;
+					if (p->lx < t_x) p->dx = speed; else if (p->lx > t_x) p->dx = -speed; else p->dx = 0;
+					if (p->ly < t_y) p->dy = speed; else if (p->ly > t_y) p->dy = -speed; else p->dy = 0;
 					
 					p->lx += p->dx; p->ly += p->dy; p->anim++;
 					
 					u8 step = (p->anim / 3) % 4;
 					if (step == 3) step = 1;
 					
-					if (p->dy < 0 || (p->dy == 0 && (Frms % 64) < 32)) { 
-						if (i == 0 || i == 7) {
-							p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
-						} else {
+					// Festeggiamento saltellante in movimento
+					if ((p->anim % 8) < 4) p->ly -= 1; else p->ly += 1; 
+					
+					if (i == 0 || i == 7) {
+						p->frame = (step == 0) ? SPR_GK_PLAYER_HAPPY_1 : ((step == 1) ? SPR_GK_PLAYER_HAPPY_2 : SPR_GK_PLAYER_HAPPY_3);
+					} else {
+						if (i % 2 == 0) {
 							p->frame = (team == TEAM_1) ? 
 								((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_NORTH_2 : SPR_T1_PLAYER_HAPPY_TO_NORTH_3)) :
 								((step == 0) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_1 : ((step == 1) ? SPR_T2_PLAYER_HAPPY_TO_NORTH_2 : SPR_T2_PLAYER_HAPPY_TO_NORTH_3));
-						}
-					} else {
-						if (i == 0 || i == 7) {
-							p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, p->dx, p->dy, step);
 						} else {
 							p->frame = (team == TEAM_1) ? 
 								((step == 0) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_1 : ((step == 1) ? SPR_T1_PLAYER_HAPPY_TO_SOUTH_2 : SPR_T1_PLAYER_HAPPY_TO_SOUTH_3)) :

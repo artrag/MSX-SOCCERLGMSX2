@@ -339,6 +339,9 @@ void SplashScreenLoad()
 	VDP_ClearVRAM();
     VDP_SetPalette(g_Palette);
     VDP_SetColor(0);
+	VDP_SetVerticalOffset(0);
+    VDP_SetPage(0);
+
     // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
     u16 vram_low = 0; 
 
@@ -599,7 +602,7 @@ void ShowMenu()
 		shift_accum += 1;
 	}
 	ShowHelpScreen();
-	StartGame();
+
 }
 void ShowHelpScreen()
 {
@@ -642,6 +645,8 @@ void MenuScreenLoad()
 	VDP_ClearVRAM();
     VDP_SetPalette(g_Palette);
     VDP_SetColor(0);
+	VDP_SetVerticalOffset(0);
+    VDP_SetPage(0);
     // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
     u16 vram_low = 0; 
 

@@ -49,38 +49,51 @@ void PlayerAI(u8 i)
 	// --- GESTIONE SCIVOLATA (Tackle) ---
 	if (Player->count > 0 && !is_gk) {
 		Player->count--;
-		Player->lx += Player->dx;
-		Player->ly += Player->dy;
-		
-		if (Player->lx < 16) Player->lx = 16;
-		if (Player->lx > 224) Player->lx = 224;
-		if (Player->ly < 24) Player->ly = 24;
-		if (Player->ly > 478) Player->ly = 478;
 
-		Player->frame = (Player->dx > 0) ? 
-					((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
-					((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
+		if (Player->count >= 20) {
+			Player->lx += Player->dx;
+			Player->ly += Player->dy;
+			
+			if (Player->lx < 16) Player->lx = 16;
+			if (Player->lx > 224) Player->lx = 224;
+			if (Player->ly < 24) Player->ly = 24;
+			if (Player->ly > 478) Player->ly = 478;
 
-		// Controllo furto durante la scivolata
-		u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
-		u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
-		
-		bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
-		if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
-			u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
-			if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
-		}
+			Player->frame = (Player->dx > 0) ? 
+						((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
+						((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
 
-		if (can_steal && Ball->anim < 5 && RestartType == 0) {
-			if (LastTouchTeam != team) {
-				Ball->count = 16; // Immunità dopo il furto
-				g_pass_receiver = 0xFF;
+			// Controllo furto durante la scivolata
+			u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
+			u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
+			
+			bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
+			if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
+				u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
+				if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
 			}
-			LastTouchTeam = team;
-			LastTouchPlayer = i;
-			if (Ball->anim > 3) Ball->anim = 3;
-			Ball->frame = SPR_BALL_SIZE_1;
-			Player->count = 0; // Ferma la scivolata appena ruba palla
+
+			bool is_immune_tackle = (Ball->count > 0 && LastTouchTeam != team && LastTouchTeam != 0xFF);
+
+			if (can_steal && Ball->anim < 5 && RestartType == 0 && !is_immune_tackle) {
+				if (LastTouchTeam != team) {
+					Ball->count = 30; // Immunità dopo il furto (aumentata)
+					g_pass_receiver = 0xFF;
+				}
+				LastTouchTeam = team;
+				LastTouchPlayer = i;
+				if (Ball->anim > 3) Ball->anim = 3;
+				Ball->frame = SPR_BALL_SIZE_1;
+				Player->count = 0; // Ferma la scivolata appena ruba palla
+			}
+		} else {
+			if (Player->count >= 10) {
+				Player->frame = (Player->dx > 0) ? 
+							((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_WEST : SPR_T2_PLAYER_TACKLE_FROM_WEST) :
+							((team == TEAM_1) ? SPR_T1_PLAYER_TACKLE_FROM_EAST : SPR_T2_PLAYER_TACKLE_FROM_EAST);
+			} else {
+				Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, 0, (team == TEAM_1) ? 1 : -1);
+			}
 		}
 		return; // Salta il resto della logica finché è in scivolata
 	}

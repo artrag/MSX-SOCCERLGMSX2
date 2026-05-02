@@ -23,29 +23,6 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 		if(*game_state == 12) { // STATO 12: Setup del prossimo rigore
 			g_is_penalty_shootout = TRUE; // Attiva la modalità rigori
 
-			// Determina se la serie è finita (Vittoria matematica o Sudden Death conclusa)
-			bool match_over = FALSE;
-			if (g_penalty_shot_count[0] == g_penalty_shot_count[1] && g_penalty_shot_count[0] >= 5) {
-				if (ScoreTeam1 != ScoreTeam2) {
-					match_over = TRUE;
-				} else if (g_penalty_shot_count[0] == 5) {
-					// Inizia la Sudden Death (Oltranza): nascondi i pallini
-					for (u8 i = 27; i < 37; i++) SwSprite[i].ly = 1000;
-				}
-			} else if (g_penalty_shot_count[0] <= 5 && g_penalty_shot_count[1] <= 5) {
-				u8 rem1 = 5 - g_penalty_shot_count[0];
-				u8 rem2 = 5 - g_penalty_shot_count[1];
-				if (ScoreTeam1 > ScoreTeam2 + rem2) match_over = TRUE;
-				if (ScoreTeam2 > ScoreTeam1 + rem1) match_over = TRUE;
-			}
-
-			if (match_over) {
-				*game_state = 17; // Vittoria rigori
-				*wait_secs = 6; *start_sec = Frms;
-				g_is_penalty_shootout = FALSE; // Turn off to allow generic behavior if needed
-				return;
-			}
-
 			// Determina il prossimo tiratore (5 per squadra, poi a oltranza)
 			u8 shooter_role = 1 + (g_penalty_shot_count[g_penalty_team] % 6);
 			g_penalty_shooter_idx = (g_penalty_team == TEAM_1) ? shooter_role : shooter_role + 7;
@@ -107,7 +84,12 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					p->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, actor_idx, p->dx, p->dy, walk_seq[(p->anim / 3) % 4]); 
 				} else {
 					p->dx = 0; p->dy = 0;
-					p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, actor_idx, 0, (i8)((actor_idx == keeper_idx) ? 1 : -1));
+					if (actor_idx == keeper_idx) {
+						p->anim++;
+						p->frame = ((p->anim / 15) % 2 == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_SOUTH_2;
+					} else {
+						p->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, actor_idx, 0, (i8)-1);
+					}
 				}
 			}
 
@@ -166,6 +148,12 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			if (*wait_secs == 0) {
 				do_shot = TRUE;
 				if (is_shooter_human) shot_dir = Shooter->dx;
+			}
+
+			// Animazione di attesa mollegiante del portiere prima del tiro
+			if (!do_shot) {
+				Keeper->anim++;
+				Keeper->frame = ((Keeper->anim / 15) % 2 == 0) ? SPR_GK_PLAYER_SOUTH_1 : SPR_GK_PLAYER_SOUTH_2;
 			}
 
 			if(do_shot) {

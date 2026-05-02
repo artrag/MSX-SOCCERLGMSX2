@@ -106,9 +106,9 @@ struct TeamStats {
 #define SPR_T1_PLAYER_SHOT_TO_NORTH_WEST 			38
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_EAST        	42
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_WEST        	41
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_1        		60
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_2        		61
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_3        		62
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_1        		46
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_2        		45
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_3        		44
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_1        		92
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_2        		93
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_3        		94
