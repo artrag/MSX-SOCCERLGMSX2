@@ -334,6 +334,18 @@ void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
 // *** FUNCTIONS ***
 // -----------------
 
+void PlaySCC(u16 start_seg, u32 byte_size) {
+	YSCC_Play(start_seg, byte_size);
+}
+
+void PlaySounds(){
+		YSCC_Decode();
+		//u8 currentSegment = GET_BANK_SEGMENT(3);
+		//SET_BANK_SEGMENT(3, 69);
+		//ayFX_Update();
+		//PSG_Apply();
+		//SET_BANK_SEGMENT(3, currentSegment);
+}
 // +++ Splash screen load +++
 void SplashScreenLoad()
 {
@@ -748,7 +760,7 @@ void AddLines(struct ObjectInfo* Field)
 		}
 	}
 }
-
+// +++ Sprite showing +++
 void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 {
 	x;			// A
@@ -778,23 +790,23 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	// ld		(ENAR),a		; <- !!! potrebbe causare problemi a MSXGL ma senza ci sono altri problemi nel codice @ 0x7FFF
 	pop 	af
 	ld	(#0xB000),a							; restore the mapper page
-	ld	(#(_g_Bank0Segment + 6) + 0),a		
+	ld	(#(_g_Bank0Segment + 6) + 0),a
 	ret
 
 SpriteFrame::
 	ld	a,l
 	and #3		; 4 sprite per pagina
 	add a,a
-	add a,a			
+	add a,a
 	ld	c,a		; in c the low address of the function to be called
-	
+
 	srl h		; page = SPRITES_BIN_SEG + frame / 4
 	rr  l
 	srl h
 	rr  l
 	ld	a,#SPRITES_BIN_SEG
 	add a,l		; segments in the current offset (!)
-	ld	(#0xB000),a		
+	ld	(#0xB000),a
 	ld	(#(_g_Bank0Segment + 6) + 0),a		; prevent future possible issues on the ISR
 
 	ld	h,d			; HLB  = y*256+X = 2 * VRAM_address
@@ -857,6 +869,7 @@ void VSyncCallback()
 			}
 		}
 	}
+	PlaySounds();
 }
 
 void WaitForVBlank(){
@@ -900,6 +913,7 @@ void main()
 	}
 	
 	DEBUG_INIT();
+	YSCC_Init();
     Bios_SetKeyClick(FALSE);
 	SplashScreenLoad();
 	// Installa l'hook del VBlank, essenziale affinché WaitForVBlank() non si blocchi

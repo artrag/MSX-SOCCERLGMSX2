@@ -9,6 +9,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "soccerlg_rawdef.h"
 #include "debug.h"
 #include "input.h"
 
@@ -35,6 +36,7 @@ void EventPlayerFirstPresentationStarted()
 void EventKickOffReady()
 {
 	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
+	PlaySCC(KICK_OFF_BIN_SEG, KICK_OFF_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 }
 

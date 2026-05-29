@@ -63,3 +63,9 @@ u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy)
 
 	return best_match;
 }
+
+void UpdateGameState_Carriers(u16 flags)
+{
+	(void)flags; // Evita il warning 85 per parametro non utilizzato
+	// TODO: Add your logic for Carrier movement here
+}

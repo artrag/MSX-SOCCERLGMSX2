@@ -30,7 +30,7 @@ ProjModules = [ ProjName ];
 LibModules = [  "system", "input", "vdp", "print", "memory", "debug", "math", "bios" ];
 
 //-- Additional sources to be compiled and linked with the project (array)
-AddSources = [  ];
+AddSources = [ "libs/yscc/yscc_player.c" ];
 
 //-- Target MSX machine version (string)
 //   - 1        MSX1
@@ -106,7 +106,8 @@ BankedCall = false;
 //-- List of raw data files to be added to final binary (array). Each entry must be in the following format: { offset:0x0000, file:"myfile.bin" }
 RawFiles = [
     { segment:768, file:"bin/sprites.bin" },
-    { segment:252, file:"bin/field.bin" }
+    { segment:252, file:"bin/field.bin" },
+    { segment:150, file:"bin/kick_off.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)
@@ -174,7 +175,7 @@ BuildLibrary = true;
 //CompileOpt = "";
 
 //-- Skip file if compile data (REL) is newer than the source code (boolean)
-CompileSkipOld = true;
+//CompileSkipOld = true;
 
 //-- Additionnal link options (string)
 // LinkOpt = "";

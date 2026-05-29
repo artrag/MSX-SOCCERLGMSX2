@@ -15,15 +15,18 @@ static bool  s_YSCC_Paused;        // TRUE = riproduzione in pausa
 
 
 // INTERNAL Wave SCC table SCC reset and channels deactivating
+// NOTE: uses DJNZ direct-write loop instead of LDIR trick to avoid
+// reading from SCC hardware registers during ISR context.
 static void _YSCC_Silence() {
     __asm
         xor  a
         ld   (0x988F), a        ; CH_ENABLE = 0 (tutti i canali off)
+        ld   b, #0x80           ; 128 bytes (0x9800-0x987F)
         ld   hl, #0x9800
-        ld   de, #0x9801
-        ld   bc, #0x007F
-        ld   (hl), a            ; 0x9800 = 0
-        ldir                    ; 0x9801-0x987F = 0
+    _YSCC_Silence_fill:
+        ld   (hl), a            ; write 0 from register A (no SCC read)
+        inc  hl
+        djnz _YSCC_Silence_fill
     __endasm;
 }
 
@@ -128,8 +131,9 @@ bool YSCC_Decode() {
     if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
         return FALSE;
 
+    _YSCC_CopyPCMBlock();
+
     __asm
-        call __YSCC_CopyPCMBlock
         ld   a, #0x0F
         ld   (0x988F), a        ; abilita canali 1-4
     __endasm;
@@ -146,8 +150,14 @@ bool YSCC_Decode() {
             if(!s_YSCC_Loop){
                 g_currentSCCPlayingSegment=0xFFFF;
             }
-             
-            _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+            // Disable channels only; wave table will be zeroed by YSCC_Stop
+            // at next YSCC_Play call. Calling _YSCC_Silence() from inside the
+            // VBlank ISR (DJNZ loop over 128 bytes) was causing a HALT at
+            // end-of-song due to context/timing issues.
+            __asm
+                xor  a
+                ld   (0x988F), a    ; CH_ENABLE = 0 (tutti i canali off)
+            __endasm;
         }
         return TRUE;            // segnala fine ciclo al chiamante
     }
@@ -157,7 +167,18 @@ bool YSCC_Decode() {
 // INTERNAL Copy block
 void _YSCC_CopyPCMBlock() {
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
-    SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
+    // Write bank3 directly WITHOUT touching OFFR (0x7FFE).
+    // SET_BANK_SEGMENT would overwrite OFFR, corrupting sprite rendering
+    // that may be in progress in the main loop with OFFR = 0xC0.
+    // Audio segments are always < 256 so OFFR = 0 is assumed (not written).
+    __asm
+        ld   a, (_g_YSCC_SamplePage)
+        ld   ((_g_Bank0Segment + 6)), a   ; cache LOW = audio seg
+        xor  a
+        ld   ((_g_Bank0Segment + 7)), a   ; cache HIGH = 0
+        ld   a, (_g_YSCC_SamplePage)
+        ld   (#0xB000), a                  ; hardware bank3 (no OFFR write)
+    __endasm;
 
     __asm
         ; HL = 0xA000 + g_YSCC_SamplePos  (sorgente diretta in Bank3)
@@ -231,7 +252,13 @@ void _YSCC_CopyPCMBlock() {
         ldir
     __endasm;
 
-    SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
+    // Restore bank3 directly WITHOUT touching OFFR (same reason as above).
+    __asm
+        ld   de, (_s_YSCC_SavedSeg3)
+        ld   ((_g_Bank0Segment + 6)), de   ; restore full u16 cache
+        ld   a, e                           ; low byte of saved segment
+        ld   (#0xB000), a                   ; hardware bank3 (no OFFR write)
+    __endasm;
 
     g_YSCC_SamplePos += 128;
     if (g_YSCC_SamplePos >= (u16)0x2000) {
