@@ -107,7 +107,12 @@ BankedCall = false;
 RawFiles = [
     { segment:768, file:"bin/sprites.bin" },
     { segment:252, file:"bin/field.bin" },
-    { segment:150, file:"bin/kick_off.bin" }
+    { segment:150, file:"bin/kick_off.bin" },
+    { segment:152, file:"bin/goal_kick.bin" },
+    { segment:154, file:"bin/offside.bin" },
+    { segment:156, file:"bin/corner_kick.bin" },
+    { segment:158, file:"bin/throw_in.bin" },
+    { segment:160, file:"bin/presentation.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)
@@ -175,7 +180,7 @@ BuildLibrary = true;
 //CompileOpt = "";
 
 //-- Skip file if compile data (REL) is newer than the source code (boolean)
-//CompileSkipOld = true;
+CompileSkipOld = true;
 
 //-- Additionnal link options (string)
 // LinkOpt = "";

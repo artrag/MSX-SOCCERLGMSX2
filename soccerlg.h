@@ -447,6 +447,7 @@ extern struct TeamStats g_ActiveStats[2];
 // +++ SEGMENT 0 +++
 void main();
 void PlaySCC(u16 start_seg, u32 byte_size);
+void PlaySCCLoop(u16 start_seg, u32 byte_size);
 void SplashScreenLoad();
 void VSyncCallback();
 void WaitForVBlank();

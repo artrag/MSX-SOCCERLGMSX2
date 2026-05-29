@@ -10,6 +10,7 @@
 ;--------------------------------------------------------
 	.globl _ShowSpriteMessage
 	.globl _CallFnc_VOID_16_P1
+	.globl _PlaySCCLoop
 	.globl _PlaySCC
 	.globl _g_SLTSL
 	.globl _g_GRPACY
@@ -497,6 +498,13 @@ _g_BDOS	=	0xf37d
 ; Function EventStartPresentationScrollig
 ; ---------------------------------
 _EventStartPresentationScrollig::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: PlaySCCLoop(PRESENTATION_BIN_SEG, PRESENTATION_BIN_SIZE);
+	ld	hl, #0x0004
+	push	hl
+	ld	hl, #0x9900
+	push	hl
+	ld	hl, #0x00a0
+	call	_PlaySCCLoop
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:29: }
 	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:31: void EventPlayerFirstPresentationStarted()
@@ -545,6 +553,13 @@ _EventTimeUp::
 ; Function EventThrowIn
 ; ---------------------------------
 _EventThrowIn::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:55: PlaySCC(THROW_IN_BIN_SEG, THROW_IN_BIN_SIZE);
+	ld	hl, #0x0000
+	push	hl
+	ld	h, #0x1f
+	push	hl
+	ld	hl, #0x009e
+	call	_PlaySCC
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:56: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 	ld	hl, #0x0129
 	push	hl
@@ -558,6 +573,13 @@ _EventThrowIn::
 ; Function EventCornerKick
 ; ---------------------------------
 _EventCornerKick::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:61: PlaySCC(CORNER_KICK_BIN_SEG, CORNER_KICK_BIN_SIZE);
+	ld	hl, #0x0000
+	push	hl
+	ld	h, #0x27
+	push	hl
+	ld	hl, #0x009c
+	call	_PlaySCC
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:62: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 	ld	hl, #0x0130
 	push	hl
@@ -571,6 +593,13 @@ _EventCornerKick::
 ; Function EventGoalKick
 ; ---------------------------------
 _EventGoalKick::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:67: PlaySCC(GOAL_KICK_BIN_SEG, GOAL_KICK_BIN_SIZE);
+	ld	hl, #0x0000
+	push	hl
+	ld	hl, #0x2380
+	push	hl
+	ld	hl, #0x0098
+	call	_PlaySCC
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:68: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 	ld	hl, #0x0124
 	push	hl
@@ -584,6 +613,13 @@ _EventGoalKick::
 ; Function EventOffside
 ; ---------------------------------
 _EventOffside::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:73: PlaySCC(OFFSIDE_BIN_SEG, OFFSIDE_BIN_SIZE);
+	ld	hl, #0x0000
+	push	hl
+	ld	h, #0x21
+	push	hl
+	ld	hl, #0x009a
+	call	_PlaySCC
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:74: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 	ld	hl, #0x00f8
 	push	hl

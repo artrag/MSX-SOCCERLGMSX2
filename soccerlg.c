@@ -338,6 +338,10 @@ void PlaySCC(u16 start_seg, u32 byte_size) {
 	YSCC_Play(start_seg, byte_size);
 }
 
+void PlaySCCLoop(u16 start_seg, u32 byte_size) {
+	YSCC_PlayLoop(start_seg, byte_size);
+}
+
 void PlaySounds(){
 		YSCC_Decode();
 		//u8 currentSegment = GET_BANK_SEGMENT(3);

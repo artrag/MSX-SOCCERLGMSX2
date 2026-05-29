@@ -25,7 +25,7 @@ void EventBallKicked()
 }
 void EventStartPresentationScrollig()
 {
-	// Trigger sonoro per l'inizio dello scrolling di presentazione
+	PlaySCCLoop(PRESENTATION_BIN_SEG, PRESENTATION_BIN_SIZE);
 }
 
 void EventPlayerFirstPresentationStarted()
@@ -52,25 +52,25 @@ void EventTimeUp()
 
 void EventThrowIn()
 {
-	// Trigger sonoro per rimessa laterale
+	PlaySCC(THROW_IN_BIN_SEG, THROW_IN_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 }
 
 void EventCornerKick()
 {
-	// Trigger sonoro per calcio d'angolo
+	PlaySCC(CORNER_KICK_BIN_SEG, CORNER_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 }
 
 void EventGoalKick()
 {
-	// Trigger sonoro per rinvio dal fondo
+	PlaySCC(GOAL_KICK_BIN_SEG, GOAL_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 }
 
 void EventOffside()
 {
-	// Trigger sonoro per fischio fuorigioco
+	PlaySCC(OFFSIDE_BIN_SEG, OFFSIDE_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 }
 
