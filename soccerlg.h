@@ -448,6 +448,8 @@ extern struct TeamStats g_ActiveStats[2];
 void main();
 void PlaySCC(u16 start_seg, u32 byte_size);
 void PlaySCCLoop(u16 start_seg, u32 byte_size);
+void PlaySCCThenCrowd(u16 start_seg, u32 byte_size);
+void PlaySCCEvent(u16 start_seg, u32 byte_size);
 void SplashScreenLoad();
 void VSyncCallback();
 void WaitForVBlank();

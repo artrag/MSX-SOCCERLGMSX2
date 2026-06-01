@@ -10,7 +10,16 @@ typedef struct {
     bool Loop;               // TRUE = infinite loop mode
 } YSCC_State;
 
+// Tracked OFFR value — updated by CallSpriteFrame each time OFFR changes.
+// _YSCC_CopyPCMBlock uses this to save/restore OFFR around audio access.
+extern volatile u8 g_YSCC_CurrentOFFR;
+
 void YSCC_Init();
+// Call from main-loop context only (never from ISR).
+// Sets OFFR (0x7FFE) to match the current audio segment before WaitForVBlank,
+// then call YSCC_RestoreOFFR after WaitForVBlank to put OFFR back to 0.
+void YSCC_SetOFFRForAudio();
+void YSCC_RestoreOFFR();
 void YSCC_Play(u16 start_seg, u32 byte_size);
 void YSCC_PlayLoop(u16 start_seg, u32 byte_size);
 void YSCC_Stop();

@@ -174,6 +174,13 @@ const c8* g_TeamNames[6] = {
 
 	volatile bool g_VSynch=FALSE;
 
+#define SCC_AFTER_NONE         0
+#define SCC_AFTER_START_CROWD  1
+#define SCC_AFTER_RESUME_CROWD 2
+
+static u8         s_scc_after_action = SCC_AFTER_NONE;
+static YSCC_State s_crowd_state;
+
 
 // -----------------------------
 // *** TRAMPOLINES FUNCTIONS ***
@@ -342,8 +349,26 @@ void PlaySCCLoop(u16 start_seg, u32 byte_size) {
 	YSCC_PlayLoop(start_seg, byte_size);
 }
 
+// Play one-shot audio then automatically start crowd loop
+void PlaySCCThenCrowd(u16 start_seg, u32 byte_size) {
+	s_scc_after_action = SCC_AFTER_START_CROWD;
+	YSCC_Play(start_seg, byte_size);
+}
+
+// Save crowd loop state, play event audio, then resume crowd from saved position
+void PlaySCCEvent(u16 start_seg, u32 byte_size) {
+	if (s_scc_after_action != SCC_AFTER_RESUME_CROWD) {
+		YSCC_SaveState(&s_crowd_state);
+	}
+	s_scc_after_action = SCC_AFTER_RESUME_CROWD;
+	YSCC_Play(start_seg, byte_size);
+}
+
 void PlaySounds(){
+		YSCC_SetOFFRForAudio();   // set OFFR before decode (no-op if seg < 256)
 		YSCC_Decode();
+		// RestoreOFFR NOT called here: writing 0 to 0x7FFE from ISR crashes
+		// the Yamanooto mapper. Restoration is done in WaitForVBlank (main loop).
 		//u8 currentSegment = GET_BANK_SEGMENT(3);
 		//SET_BANK_SEGMENT(3, 69);
 		//ayFX_Update();
@@ -407,11 +432,9 @@ void SplashScreenLoad()
 // +++ Show menu +++
 void ShowMenu()
 {
-	
-	
-
 	MenuScreenLoad();
 	MenuGrayScreenLoad();
+	PlaySCCLoop(MENU_BIN_SEG, MENU_BIN_SIZE);
 	SET_BANK_SEGMENT(3,4);
 	Print_SetBitmapFont(g_Menu_Fonts);
 	Print_SetPosition(25,  2);
@@ -873,12 +896,28 @@ void VSyncCallback()
 			}
 		}
 	}
-	PlaySounds();
+	// PlaySounds() rimossa dall'ISR: ora chiamata in WaitForVBlank (main loop)
+	// per evitare corruzione bank3 con MENU_BIN_SEG=256 (OFFR=0x40 non puo'
+	// essere ripristinato a 0 dall'ISR senza crash sul mapper Yamanooto)
 }
 
 void WaitForVBlank(){
     while(!g_VSynch) {}
     g_VSynch = FALSE;
+    // Decode audio dal main loop: sicuro per OFFR (anche per MENU_BIN_SEG=256)
+    // YSCC_SetOFFRForAudio setta OFFR=0x40 se seg>=256; dopo Decode bank3 e' temporaneamente
+    // sbagliato ma YSCC_RestoreOFFR lo corregge subito prima di qualsiasi accesso a bank3.
+    PlaySounds();
+    YSCC_RestoreOFFR();   // ripristina OFFR=0 immediatamente dopo il decode (dal main loop, sicuro)
+    if (s_scc_after_action != SCC_AFTER_NONE && !YSCC_IsPlaying()) {
+        if (s_scc_after_action == SCC_AFTER_START_CROWD) {
+            s_scc_after_action = SCC_AFTER_NONE;
+            YSCC_PlayLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
+        } else {
+            s_scc_after_action = SCC_AFTER_NONE;
+            YSCC_LoadState(&s_crowd_state);
+        }
+    }
 }
 
 void LoadField(u8 vdp_page)
@@ -928,6 +967,8 @@ void main()
 	}
 }
 void StartGame(){
+	YSCC_Stop();
+	s_scc_after_action = SCC_AFTER_NONE;
 	ScoreTeam1 = 0;
 	ScoreTeam2 = 0;
 	LastScoreTeam1 = 0;

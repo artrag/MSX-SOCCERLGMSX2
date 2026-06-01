@@ -107,12 +107,14 @@ BankedCall = false;
 RawFiles = [
     { segment:768, file:"bin/sprites.bin" },
     { segment:252, file:"bin/field.bin" },
-    { segment:150, file:"bin/kick_off.bin" },
-    { segment:152, file:"bin/goal_kick.bin" },
-    { segment:154, file:"bin/offside.bin" },
-    { segment:156, file:"bin/corner_kick.bin" },
-    { segment:158, file:"bin/throw_in.bin" },
-    { segment:160, file:"bin/presentation.bin" }
+    { segment:106, file:"bin/presentation.bin" },
+    { segment:143, file:"bin/match.bin" },
+    { segment:237, file:"bin/kick_off.bin" },
+    { segment:239, file:"bin/goal_kick.bin" },
+    { segment:241, file:"bin/offside.bin" },
+    { segment:243, file:"bin/corner_kick.bin" },
+    { segment:245, file:"bin/throw_in.bin" },
+    { segment:256, file:"bin/menu.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)

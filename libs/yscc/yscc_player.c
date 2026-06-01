@@ -7,6 +7,9 @@ u16          g_YSCC_SamplePage;
 volatile u16 g_YSCC_NumBlocksToPlay;
 u16          g_YSCC_Period;
 static u16   s_YSCC_SavedSeg3;
+static u8    s_YSCC_SavedOFFR;
+volatile u8  g_YSCC_CurrentOFFR = 0;
+static u8    s_YSCC_OFFRSet = 0;
 u16           g_currentSCCPlayingSegment=0xFFFF;
 static u16   s_YSCC_StartSeg;      // start segment (for loop/restart)
 static u16   s_YSCC_TotalBlocks;   // Blocks amount (for loop/restart)
@@ -27,6 +30,42 @@ static void _YSCC_Silence() {
         ld   (hl), a            ; write 0 from register A (no SCC read)
         inc  hl
         djnz _YSCC_Silence_fill
+    __endasm;
+}
+
+// Set OFFR for audio segments >= 256 — call from main loop BEFORE WaitForVBlank spin.
+// No-op when current audio segment < 256 (OFFR already 0, no write to 0x7FFE).
+// Sets OFFR when audio segment >= 256, records if a write happened.
+// Safe to call from ISR: no write when segment < 256 (OFFR already 0).
+void YSCC_SetOFFRForAudio() {
+    __asm
+        ld   a, (_g_YSCC_SamplePage + 1)    ; high byte of SamplePage
+        or   a
+        jr   z, _YSCC_SetOFFR_skip           ; < 256: no write needed
+        rrca
+        rrca
+        and  #0xC0                           ; audio OFFR
+        ld   (#0x7FFE), a                    ; set OFFR (from ISR: only non-zero value)
+        ld   a, #1
+        ld   (_s_YSCC_OFFRSet), a            ; mark changed
+        jr   _YSCC_SetOFFR_done
+    _YSCC_SetOFFR_skip:
+        xor  a
+        ld   (_s_YSCC_OFFRSet), a            ; mark not changed
+    _YSCC_SetOFFR_done:
+    __endasm;
+}
+
+// Restores OFFR to 0 only if YSCC_SetOFFRForAudio actually wrote it.
+// Safe to call from ISR: write 0 only follows a prior non-zero write.
+void YSCC_RestoreOFFR() {
+    __asm
+        ld   a, (_s_YSCC_OFFRSet)
+        or   a
+        jr   z, _YSCC_RestoreOFFR_skip       ; was not changed, skip write-0
+        xor  a
+        ld   (#0x7FFE), a                    ; restore OFFR = 0
+    _YSCC_RestoreOFFR_skip:
     __endasm;
 }
 
@@ -167,17 +206,17 @@ bool YSCC_Decode() {
 // INTERNAL Copy block
 void _YSCC_CopyPCMBlock() {
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
-    // Write bank3 directly WITHOUT touching OFFR (0x7FFE).
-    // SET_BANK_SEGMENT would overwrite OFFR, corrupting sprite rendering
-    // that may be in progress in the main loop with OFFR = 0xC0.
-    // Audio segments are always < 256 so OFFR = 0 is assumed (not written).
+    // All audio segments are < 256 (OFFR = 0 always).  Writing to 0x7FFE
+    // from ISR context causes a HALT on the Yamanooto mapper, so OFFR is
+    // never touched here.  Limitation: when OFFR = 0xC0 (sprite rendering),
+    // audio is read from wrong segment for one frame — brief glitch only.
     __asm
         ld   a, (_g_YSCC_SamplePage)
         ld   ((_g_Bank0Segment + 6)), a   ; cache LOW = audio seg
         xor  a
         ld   ((_g_Bank0Segment + 7)), a   ; cache HIGH = 0
         ld   a, (_g_YSCC_SamplePage)
-        ld   (#0xB000), a                  ; hardware bank3 (no OFFR write)
+        ld   (#0xB000), a                  ; hardware bank3
     __endasm;
 
     __asm
@@ -252,12 +291,11 @@ void _YSCC_CopyPCMBlock() {
         ldir
     __endasm;
 
-    // Restore bank3 directly WITHOUT touching OFFR (same reason as above).
     __asm
         ld   de, (_s_YSCC_SavedSeg3)
         ld   ((_g_Bank0Segment + 6)), de   ; restore full u16 cache
         ld   a, e                           ; low byte of saved segment
-        ld   (#0xB000), a                   ; hardware bank3 (no OFFR write)
+        ld   (#0xB000), a                   ; restore hardware bank3 (no OFFR write)
     __endasm;
 
     g_YSCC_SamplePos += 128;

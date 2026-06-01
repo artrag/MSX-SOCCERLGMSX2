@@ -35,42 +35,39 @@ void EventPlayerFirstPresentationStarted()
 
 void EventKickOffReady()
 {
-	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
-	PlaySCC(KICK_OFF_BIN_SEG, KICK_OFF_BIN_SIZE);
+	PlaySCCThenCrowd(KICK_OFF_BIN_SEG, KICK_OFF_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 }
 
 void EventHalfTime()
 {
-	// Trigger sonoro per la fine del primo tempo
 }
 
 void EventTimeUp()
 {
-	// Trigger sonoro per la fine della partita
 }
 
 void EventThrowIn()
 {
-	PlaySCC(THROW_IN_BIN_SEG, THROW_IN_BIN_SIZE);
+	PlaySCCEvent(THROW_IN_BIN_SEG, THROW_IN_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 }
 
 void EventCornerKick()
 {
-	PlaySCC(CORNER_KICK_BIN_SEG, CORNER_KICK_BIN_SIZE);
+	PlaySCCEvent(CORNER_KICK_BIN_SEG, CORNER_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 }
 
 void EventGoalKick()
 {
-	PlaySCC(GOAL_KICK_BIN_SEG, GOAL_KICK_BIN_SIZE);
+	PlaySCCEvent(GOAL_KICK_BIN_SEG, GOAL_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 }
 
 void EventOffside()
 {
-	PlaySCC(OFFSIDE_BIN_SEG, OFFSIDE_BIN_SIZE);
+	PlaySCCEvent(OFFSIDE_BIN_SEG, OFFSIDE_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 }
 
