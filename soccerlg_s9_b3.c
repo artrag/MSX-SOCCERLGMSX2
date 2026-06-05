@@ -210,30 +210,56 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 		CallFnc_VOID(SEG_GAMESTATE_8, UpdateBallPhysics);
 
 		// --- CONTROLLO OFFSIDE GLOBALE (CPU e UMANI) ---
-		if ((g_pass_receiver & 0x80) && Ball->anim < 5) {
+		// Rilevamento immediato quando la palla è in volo (anim==5): il fuorigioco si
+		// fischia al momento del passaggio, prima che il ricevitore si allontani.
+		// Il loop principale chiama UpdateGameState 3x per VBlank (triple-buffer), quindi
+		// la fisica della palla va 3x più veloce e il ricevitore si sposta molto prima
+		// che la palla atterra: il vecchio check post-atterraggio (anim<5, dist<=20)
+		// fallisce quasi sempre perché il ricevitore si è già allontanato di >20px.
+		if (g_pass_receiver & 0x80) {
 			u8 rec = g_pass_receiver & 0x7F;
-			u8 pass_team = (rec < 7) ? TEAM_1 : TEAM_2;
-			
-			if (LastTouchTeam != 0xFF && LastTouchTeam != pass_team) {
-				g_pass_receiver = 0xFF; // Intercettata dagli avversari
+			if (rec >= 14) {
+				// Sentinel 0xFF (nessun ricevitore): reset sicuro per evitare SwSprite[127]
+				g_pass_receiver = 0xFF;
 			} else {
-				u16 dist_x = (SwSprite[rec].lx > Ball->lx) ? (SwSprite[rec].lx - Ball->lx) : (Ball->lx - SwSprite[rec].lx);
-				u16 dist_y = (SwSprite[rec].ly > Ball->ly) ? (SwSprite[rec].ly - Ball->ly) : (Ball->ly - SwSprite[rec].ly);
-				
-				// Se il destinatario (in offside) tocca la palla
-				if (dist_x <= 20 && dist_y <= 20) {
-					*game_state = 6; 
-					RestartType = RESTART_OFFSIDE; 
-					RestartSideX = SwSprite[rec].lx; 
-					RestartSideY = SwSprite[rec].ly;
+				u8 pass_team = (rec < 7) ? TEAM_1 : TEAM_2;
+
+				if (LastTouchTeam != 0xFF && LastTouchTeam != pass_team) {
+					g_pass_receiver = 0xFF; // Intercettata dagli avversari: annulla offside
+				} else if (Ball->anim == 5) {
+					// Palla in volo verso ricevitore in fuorigioco: fischia subito
+					*game_state = 6;
+					RestartType = RESTART_OFFSIDE;
+					RestartSideX = (u8)g_pass_target_x;
+					RestartSideY = g_pass_target_y;
 					CallFnc_VOID(SEG_EVENTS, EventOffside);
 					Ball->anim = Ball->dx = Ball->dy = 0;
-					Ball->frame = SPR_BALL_SIZE_1; 
+					Ball->lx = g_pass_target_x;
+					Ball->ly = g_pass_target_y;
+					Ball->frame = SPR_BALL_SIZE_1;
 					T1_Carrier = T2_Carrier = 0xFF;
-					g_pass_receiver = 0xFF; 
+					g_pass_receiver = 0xFF;
 					TimerEnabled = FALSE;
 					*wait_secs = 2; *start_sec = Frms;
-					return; // Interrompe il frame e passa allo stato restart
+					return;
+				} else if (Ball->anim < 5) {
+					// Palla a terra (sicurezza): verifica se il ricevitore la tocca
+					u16 dist_x = (SwSprite[rec].lx > Ball->lx) ? (SwSprite[rec].lx - Ball->lx) : (Ball->lx - SwSprite[rec].lx);
+					u16 dist_y = (SwSprite[rec].ly > Ball->ly) ? (SwSprite[rec].ly - Ball->ly) : (Ball->ly - SwSprite[rec].ly);
+					if (dist_x <= 20 && dist_y <= 20) {
+						*game_state = 6;
+						RestartType = RESTART_OFFSIDE;
+						RestartSideX = SwSprite[rec].lx;
+						RestartSideY = SwSprite[rec].ly;
+						CallFnc_VOID(SEG_EVENTS, EventOffside);
+						Ball->anim = Ball->dx = Ball->dy = 0;
+						Ball->frame = SPR_BALL_SIZE_1;
+						T1_Carrier = T2_Carrier = 0xFF;
+						g_pass_receiver = 0xFF;
+						TimerEnabled = FALSE;
+						*wait_secs = 2; *start_sec = Frms;
+						return;
+					}
 				}
 			}
 		}

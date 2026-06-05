@@ -75,9 +75,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000176A  l__SEG97                        
      0000177A  l__SEG17                        
      00001CA5  l__SEG21                        
-     00001D41  l__SEG15                        
+     00001D4F  l__SEG15                        
      00001DB0  l__SEG95                        
-     00001F60  l__SEG9                         
+     00001FE8  l__SEG9                         
      00002000  l__SEG100                       
      00002000  l__SEG102                       
      00002000  l__SEG50                        
@@ -871,7 +871,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001F60 =        8032. bytes (REL,CON)
+_SEG9                               0009A000    00001FE8 =        8168. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -927,12 +927,12 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG15                              000FA000    00001D41 =        7489. bytes (REL,CON)
+_SEG15                              000FA000    00001D4F =        7503. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      000FA000  _UpdateGameState_SetPieces         soccerlg_s15_b3
-     000FAA17  _UpdateGameState_Penalties_End     soccerlg_s15_b3
+     000FAA25  _UpdateGameState_Penalties_End     soccerlg_s15_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 30.
 Hexadecimal  [32-Bits]

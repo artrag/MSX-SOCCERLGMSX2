@@ -57,9 +57,9 @@ DEF l__SEG93 0x15D9
 DEF l__SEG97 0x176A
 DEF l__SEG17 0x177A
 DEF l__SEG21 0x1CA5
-DEF l__SEG15 0x1D41
+DEF l__SEG15 0x1D4F
 DEF l__SEG95 0x1DB0
-DEF l__SEG9 0x1F60
+DEF l__SEG9 0x1FE8
 DEF l__SEG100 0x2000
 DEF l__SEG102 0x2000
 DEF l__SEG50 0x2000
@@ -660,7 +660,7 @@ DEF _AssignKickOffTargets 0xBA000
 DEF _UpdateGameState_Restarts 0xCA000
 DEF _UpdateGameState_Init 0xDA000
 DEF _UpdateGameState_SetPieces 0xFA000
-DEF _UpdateGameState_Penalties_End 0xFAA17
+DEF _UpdateGameState_Penalties_End 0xFAA25
 DEF _UpdateGameState_Penalties 0x10A000
 DEF _AssignThrowInTargets 0x11A000
 DEF _AssignGoalKickTargets 0x11A7FA
