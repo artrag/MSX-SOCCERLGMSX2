@@ -57,6 +57,7 @@ void YSCC_SetOFFRForAudio() {
 }
 
 // Restores OFFR to 0 only if YSCC_SetOFFRForAudio actually wrote it.
+// Clears s_YSCC_OFFRSet so the flag doesn't stay permanently set.
 // Safe to call from ISR: write 0 only follows a prior non-zero write.
 void YSCC_RestoreOFFR() {
     __asm
@@ -65,6 +66,7 @@ void YSCC_RestoreOFFR() {
         jr   z, _YSCC_RestoreOFFR_skip       ; was not changed, skip write-0
         xor  a
         ld   (#0x7FFE), a                    ; restore OFFR = 0
+        ld   (_s_YSCC_OFFRSet), a            ; clear flag
     _YSCC_RestoreOFFR_skip:
     __endasm;
 }
@@ -72,9 +74,9 @@ void YSCC_RestoreOFFR() {
 // Module initialization
 void YSCC_Init() {
     if (_YSCC_GetVdpFrequency() == 0) {
-        g_YSCC_Period = 0x08BD; 
+        g_YSCC_Period = 0x0749;  // 60Hz (NTSC): 3,580,000 / (32 × 1866) ≈ 60 Hz
     } else {
-        g_YSCC_Period = 0x0749; 
+        g_YSCC_Period = 0x08BD;  // 50Hz (PAL):  3,580,000 / (32 × 2238) ≈ 50 Hz
     }
     s_YSCC_Loop    = FALSE;
     s_YSCC_Paused  = FALSE;
@@ -206,17 +208,44 @@ bool YSCC_Decode() {
 // INTERNAL Copy block
 void _YSCC_CopyPCMBlock() {
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
-    // All audio segments are < 256 (OFFR = 0 always).  Writing to 0x7FFE
-    // from ISR context causes a HALT on the Yamanooto mapper, so OFFR is
-    // never touched here.  Limitation: when OFFR = 0xC0 (sprite rendering),
-    // audio is read from wrong segment for one frame — brief glitch only.
+    // Set OFFR for the audio segment, and save/restore any OFFR already active
+    // (e.g. 0xC0 from CallSpriteFrame drawing sprites).  g_YSCC_CurrentOFFR is
+    // maintained by CallSpriteFrame so we always know the "outside" OFFR.
+    // Write OFFR hardware only when it differs from the current saved value to
+    // avoid spurious writes when both are 0 (normal case, no sprites drawing).
+    // CRITICAL ordering at end: restore OFFR hardware BEFORE bank3 hardware,
+    // because bank3's effective segment depends on the current OFFR value.
     __asm
-        ld   a, (_g_YSCC_SamplePage)
-        ld   ((_g_Bank0Segment + 6)), a   ; cache LOW = audio seg
+        ; Save current OFFR (set to 0xC0 by CallSpriteFrame when sprites draw)
+        ld   a, (_g_YSCC_CurrentOFFR)
+        ld   (_s_YSCC_SavedOFFR), a          ; will be restored at end if changed
+
+        ; Compute audio OFFR from SamplePage (0 for segs < 256)
+        ld   a, (_g_YSCC_SamplePage + 1)     ; HIGH byte of SamplePage
+        rrca
+        rrca
+        and  #0xC0                            ; A = audio OFFR (0 for segs < 256)
+        ld   b, a                             ; B = audio OFFR
+
+        ; Write OFFR hardware only if audio OFFR differs from saved OFFR
+        ld   a, (_s_YSCC_SavedOFFR)
+        cp   b                                ; saved OFFR == audio OFFR?
+        jr   z, _CopyPCM_no_offr_write        ; same — no write needed
+        ld   a, b
+        ld   (#0x7FFE), a                     ; write audio OFFR (clears sprite OFFR if needed)
+        ld   a, #1
+        ld   (_s_YSCC_OFFRSet), a            ; mark changed (restored at end)
+        jr   _CopyPCM_setbank
+    _CopyPCM_no_offr_write:
         xor  a
-        ld   ((_g_Bank0Segment + 7)), a   ; cache HIGH = 0
+        ld   (_s_YSCC_OFFRSet), a            ; no change
+    _CopyPCM_setbank:
         ld   a, (_g_YSCC_SamplePage)
-        ld   (#0xB000), a                  ; hardware bank3
+        ld   ((_g_Bank0Segment + 6)), a      ; cache LOW = audio seg
+        xor  a
+        ld   ((_g_Bank0Segment + 7)), a      ; cache HIGH = 0
+        ld   a, (_g_YSCC_SamplePage)
+        ld   (#0xB000), a                    ; hardware bank3
     __endasm;
 
     __asm
@@ -293,9 +322,20 @@ void _YSCC_CopyPCMBlock() {
 
     __asm
         ld   de, (_s_YSCC_SavedSeg3)
-        ld   ((_g_Bank0Segment + 6)), de   ; restore full u16 cache
+        ld   ((_g_Bank0Segment + 6)), de    ; restore full u16 cache
+
+        ; Restore OFFR BEFORE bank3 hardware: bank3's effective segment depends on
+        ; the current OFFR value (e.g. 0xC0 → adds 768 to the segment LOW byte).
+        ld   a, (_s_YSCC_OFFRSet)
+        or   a
+        jr   z, _CopyPCM_done               ; no OFFR change was made, skip restore
+        ld   a, (_s_YSCC_SavedOFFR)         ; original OFFR before this call (0 or 0xC0)
+        ld   (#0x7FFE), a                   ; restore it
+        xor  a
+        ld   (_s_YSCC_OFFRSet), a           ; clear flag
+    _CopyPCM_done:
         ld   a, e                           ; low byte of saved segment
-        ld   (#0xB000), a                   ; restore hardware bank3 (no OFFR write)
+        ld   (#0xB000), a                   ; restore hardware bank3 (OFFR already correct)
     __endasm;
 
     g_YSCC_SamplePos += 128;

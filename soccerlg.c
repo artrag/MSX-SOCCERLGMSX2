@@ -365,15 +365,11 @@ void PlaySCCEvent(u16 start_seg, u32 byte_size) {
 }
 
 void PlaySounds(){
-		YSCC_SetOFFRForAudio();   // set OFFR before decode (no-op if seg < 256)
+		// OFFR is managed entirely inside _YSCC_CopyPCMBlock:
+		// set to audio value before ROM reads, restored to 0 before returning.
+		// This ensures CH_ENABLE write in YSCC_Decode and all post-ISR accesses
+		// see OFFR=0, preventing menu character corruption with MENU_BIN_SEG=256.
 		YSCC_Decode();
-		// RestoreOFFR NOT called here: writing 0 to 0x7FFE from ISR crashes
-		// the Yamanooto mapper. Restoration is done in WaitForVBlank (main loop).
-		//u8 currentSegment = GET_BANK_SEGMENT(3);
-		//SET_BANK_SEGMENT(3, 69);
-		//ayFX_Update();
-		//PSG_Apply();
-		//SET_BANK_SEGMENT(3, currentSegment);
 }
 // +++ Splash screen load +++
 void SplashScreenLoad()
@@ -804,20 +800,49 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	pop hl		; hl = frame
 	push af		; push return
 
-	// ld 		a,#1
-	// ld		(ENAR),a		; <- !!! potrebbe causare problemi a MSXGL ma senza ci sono altri problemi nel codice @ 0x7FFF
-	ld 		a,#(SPRITES_BIN_SEG>>2) & #$%11000000
-	ld		(OFFR),a				; Data offset
-	
-	ld	a,(#(_g_Bank0Segment + 6) + 0)
-	push 	af								; save the current mapper page (!!) has to be < 256
-	call  SpriteFrame
-	xor 	a,a								; lower 2MB
-	ld 		(OFFR),a
-	// ld		(ENAR),a		; <- !!! potrebbe causare problemi a MSXGL ma senza ci sono altri problemi nel codice @ 0x7FFF
-	pop 	af
-	ld	(#0xB000),a							; restore the mapper page
-	ld	(#(_g_Bank0Segment + 6) + 0),a
+	; Ordering is critical for ISR safety (no DI/EI needed):
+	;  1. Save game seg on stack  2. Update g_Bank0Segment to sprite base
+	;  3. Set g_YSCC_CurrentOFFR  4. Set OFFR hardware
+	;  → call sprites →
+	;  5. Clear OFFR hardware  6. Clear g_YSCC_CurrentOFFR + g_Bank0Segment+7
+	;  7. Restore game seg
+	; If ISR fires at any point, _YSCC_CopyPCMBlock reads g_YSCC_CurrentOFFR
+	; to determine what OFFR was active and restores it correctly after audio.
+
+	; Step 1: save game segment before ANY changes to g_Bank0Segment
+	ld	a,(#(_g_Bank0Segment + 6))
+	push	af								; game seg (< 256) on stack
+
+	; Step 2: update g_Bank0Segment to sprite base (768 = 0x0300)
+	; This makes the cache consistent so ISR can restore bank3 correctly.
+	xor	a
+	ld	(#(_g_Bank0Segment + 6)),a			; LOW  = 0  (768 & 0xFF)
+	ld	a,#3
+	ld	(#(_g_Bank0Segment + 7)),a			; HIGH = 3  (768 >> 8)
+
+	; Step 3+4: set tracking var BEFORE hardware write (ISR sees consistent state)
+	ld	a,#(SPRITES_BIN_SEG>>2) & #$%11000000
+	ld	(#_g_YSCC_CurrentOFFR),a			; read by _YSCC_CopyPCMBlock in ISR
+	ld	(OFFR),a							; hardware OFFR = 0xC0
+
+	call	SpriteFrame
+
+	; Step 5+6: restore OFFR=0 and clear tracking var atomically (DI/EI).
+	; Race: ISR between ld(OFFR)=0 and ld(CurrentOFFR)=0 would see stale
+	; CurrentOFFR=0xC0, save it as "previous OFFR", then restore 0xC0 to
+	; hardware — making bank3 map to game_seg+768 instead of game_seg → crash.
+	; DI/EI covers only 2 ld instructions (~7us), negligible vs 16ms VBlank.
+	xor	a,a
+	di
+	ld	(OFFR),a
+	ld	(#_g_YSCC_CurrentOFFR),a
+	ei
+	ld	(#(_g_Bank0Segment + 7)),a
+
+	; Step 7: restore game segment
+	pop	af
+	ld	(#0xB000),a							; restore bank3 hardware
+	ld	(#(_g_Bank0Segment + 6)),a			; restore cache LOW
 	ret
 
 SpriteFrame::
@@ -896,19 +921,17 @@ void VSyncCallback()
 			}
 		}
 	}
-	// PlaySounds() rimossa dall'ISR: ora chiamata in WaitForVBlank (main loop)
-	// per evitare corruzione bank3 con MENU_BIN_SEG=256 (OFFR=0x40 non puo'
-	// essere ripristinato a 0 dall'ISR senza crash sul mapper Yamanooto)
+	// PlaySounds in ISR: garantisce esattamente 1 decode per VBlank (60Hz).
+	// OFFR viene ripristinato a 0 dentro PlaySounds prima che l'ISR ritorni.
+	PlaySounds();
 }
 
 void WaitForVBlank(){
     while(!g_VSynch) {}
     g_VSynch = FALSE;
-    // Decode audio dal main loop: sicuro per OFFR (anche per MENU_BIN_SEG=256)
-    // YSCC_SetOFFRForAudio setta OFFR=0x40 se seg>=256; dopo Decode bank3 e' temporaneamente
-    // sbagliato ma YSCC_RestoreOFFR lo corregge subito prima di qualsiasi accesso a bank3.
-    PlaySounds();
-    YSCC_RestoreOFFR();   // ripristina OFFR=0 immediatamente dopo il decode (dal main loop, sicuro)
+    // OFFR is restored to 0 inside _YSCC_CopyPCMBlock (called from ISR).
+    // Extra safety call in case audio is not currently playing (no-op when flag=0).
+    YSCC_RestoreOFFR();
     if (s_scc_after_action != SCC_AFTER_NONE && !YSCC_IsPlaying()) {
         if (s_scc_after_action == SCC_AFTER_START_CROWD) {
             s_scc_after_action = SCC_AFTER_NONE;

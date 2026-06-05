@@ -109,12 +109,12 @@ RawFiles = [
     { segment:252, file:"bin/field.bin" },
     { segment:106, file:"bin/presentation.bin" },
     { segment:143, file:"bin/match.bin" },
-    { segment:237, file:"bin/kick_off.bin" },
-    { segment:239, file:"bin/goal_kick.bin" },
-    { segment:241, file:"bin/offside.bin" },
-    { segment:243, file:"bin/corner_kick.bin" },
-    { segment:245, file:"bin/throw_in.bin" },
-    { segment:256, file:"bin/menu.bin" }
+    { segment:238, file:"bin/kick_off.bin" },
+    { segment:240, file:"bin/goal_kick.bin" },
+    { segment:242, file:"bin/offside.bin" },
+    { segment:244, file:"bin/corner_kick.bin" },
+    { segment:246, file:"bin/throw_in.bin" },
+    { segment:151, file:"bin/menu.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)

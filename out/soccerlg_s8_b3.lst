@@ -504,7 +504,7 @@
     00000004 E5               [11]  504 	push	hl
     00000005 21 00 99         [10]  505 	ld	hl, #0x9900
     00000008 E5               [11]  506 	push	hl
-    00000009 21 A0 00         [10]  507 	ld	hl, #0x00a0
+    00000009 21 6A 00         [10]  507 	ld	hl, #0x006a
     0000000C CDr00r00         [17]  508 	call	_PlaySCCLoop
                                     509 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:29: }
     0000000F C9               [10]  510 	ret
@@ -525,7 +525,7 @@
     00000014 E5               [11]  525 	push	hl
     00000015 26 21            [ 7]  526 	ld	h, #0x21
     00000017 E5               [11]  527 	push	hl
-    00000018 21 96 00         [10]  528 	ld	hl, #0x0096
+    00000018 21 EE 00         [10]  528 	ld	hl, #0x00ee
     0000001B CDr00r00         [17]  529 	call	_PlaySCCThenCrowd
                                     530 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:39: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
     0000001E 21 20 01         [10]  531 	ld	hl, #0x0120
@@ -559,7 +559,7 @@
     00000030 E5               [11]  559 	push	hl
     00000031 26 1F            [ 7]  560 	ld	h, #0x1f
     00000033 E5               [11]  561 	push	hl
-    00000034 21 9E 00         [10]  562 	ld	hl, #0x009e
+    00000034 21 F6 00         [10]  562 	ld	hl, #0x00f6
     00000037 CDr00r00         [17]  563 	call	_PlaySCCEvent
                                     564 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:53: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
     0000003A 21 29 01         [10]  565 	ld	hl, #0x0129
@@ -579,7 +579,7 @@
     0000004A E5               [11]  579 	push	hl
     0000004B 26 27            [ 7]  580 	ld	h, #0x27
     0000004D E5               [11]  581 	push	hl
-    0000004E 21 9C 00         [10]  582 	ld	hl, #0x009c
+    0000004E 21 F4 00         [10]  582 	ld	hl, #0x00f4
     00000051 CDr00r00         [17]  583 	call	_PlaySCCEvent
                                     584 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:59: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
     00000054 21 30 01         [10]  585 	ld	hl, #0x0130
@@ -599,7 +599,7 @@
     00000064 E5               [11]  599 	push	hl
     00000065 21 80 23         [10]  600 	ld	hl, #0x2380
     00000068 E5               [11]  601 	push	hl
-    00000069 21 98 00         [10]  602 	ld	hl, #0x0098
+    00000069 21 F0 00         [10]  602 	ld	hl, #0x00f0
     0000006C CDr00r00         [17]  603 	call	_PlaySCCEvent
                                     604 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:65: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
     0000006F 21 24 01         [10]  605 	ld	hl, #0x0124
@@ -619,7 +619,7 @@
     0000007F E5               [11]  619 	push	hl
     00000080 26 21            [ 7]  620 	ld	h, #0x21
     00000082 E5               [11]  621 	push	hl
-    00000083 21 9A 00         [10]  622 	ld	hl, #0x009a
+    00000083 21 F2 00         [10]  622 	ld	hl, #0x00f2
     00000086 CDr00r00         [17]  623 	call	_PlaySCCEvent
                                     624 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:71: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
     00000089 21 F8 00         [10]  625 	ld	hl, #0x00f8

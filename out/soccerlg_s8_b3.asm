@@ -504,7 +504,7 @@ _EventStartPresentationScrollig::
 	push	hl
 	ld	hl, #0x9900
 	push	hl
-	ld	hl, #0x00a0
+	ld	hl, #0x006a
 	call	_PlaySCCLoop
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:29: }
 	ret
@@ -525,7 +525,7 @@ _EventKickOffReady::
 	push	hl
 	ld	h, #0x21
 	push	hl
-	ld	hl, #0x0096
+	ld	hl, #0x00ee
 	call	_PlaySCCThenCrowd
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:39: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 	ld	hl, #0x0120
@@ -559,7 +559,7 @@ _EventThrowIn::
 	push	hl
 	ld	h, #0x1f
 	push	hl
-	ld	hl, #0x009e
+	ld	hl, #0x00f6
 	call	_PlaySCCEvent
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:53: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 	ld	hl, #0x0129
@@ -579,7 +579,7 @@ _EventCornerKick::
 	push	hl
 	ld	h, #0x27
 	push	hl
-	ld	hl, #0x009c
+	ld	hl, #0x00f4
 	call	_PlaySCCEvent
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:59: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 	ld	hl, #0x0130
@@ -599,7 +599,7 @@ _EventGoalKick::
 	push	hl
 	ld	hl, #0x2380
 	push	hl
-	ld	hl, #0x0098
+	ld	hl, #0x00f0
 	call	_PlaySCCEvent
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:65: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 	ld	hl, #0x0124
@@ -619,7 +619,7 @@ _EventOffside::
 	push	hl
 	ld	h, #0x21
 	push	hl
-	ld	hl, #0x009a
+	ld	hl, #0x00f2
 	call	_PlaySCCEvent
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:71: CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 	ld	hl, #0x00f8

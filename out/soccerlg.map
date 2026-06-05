@@ -109,13 +109,13 @@ Area                                    Addr        Size        Decimal Bytes (A
      00002000  l__SEG94                        
      00002000  l__SEG96                        
      00002000  l__SEG98                        
-     00003A0F  l__CODE                         
+     00003A66  l__CODE                         
      00004000  s__CODE                         
-     00007A0F  s__HOME                         
-     00007A0F  s__INITIALIZER                  
-     00007A0F  s__RODATA                       
-     00007A78  s__GSINIT                       
-     00007A88  s__GSFINAL                      
+     00007A66  s__HOME                         
+     00007A66  s__INITIALIZER                  
+     00007A66  s__RODATA                       
+     00007ACF  s__GSINIT                       
+     00007ADF  s__GSFINAL                      
      0000C000  s__DATA                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -438,7 +438,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00003A0F =       14863. bytes (REL,CON)
+_CODE                               00004000    00003A66 =       14950. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -473,188 +473,188 @@ _CODE                               00004000    00003A0F =       14863. bytes (R
      00004AE5  _PlaySCCThenCrowd                  soccerlg
      00004B07  _PlaySCCEvent                      soccerlg
      00004B3C  _PlaySounds                        soccerlg
-     00004B42  _SplashScreenLoad                  soccerlg
-     00004C59  _ShowMenu                          soccerlg
-     00005374  _ShowHelpScreen                    soccerlg
-     000054BD  _MenuScreenLoad                    soccerlg
-     000055CC  _MenuGrayScreenLoad                soccerlg
-     000056C2  _SetTeamColors                     soccerlg
-     0000571D  _AddLines                          soccerlg
-     00005937  _CallSpriteFrame                   soccerlg
-     00005953  SpriteFrame                        soccerlg
-     00005987  _VSyncCallback                     soccerlg
-     000059C1  _dummy                             soccerlg
-     000059C9  _WaitForVBlank                     soccerlg
-     00005A0C  _LoadField                         soccerlg
-     00005AC4  _main                              soccerlg
-     00005B1D  _StartGame                         soccerlg
-     00005EF2  _YSCC_SetOFFRForAudio              yscc_player
-     00005F0B  _YSCC_RestoreOFFR                  yscc_player
-     00005F16  _YSCC_Init                         yscc_player
-     00005F87  _YSCC_GetFirstSegmentOfCurrentPl   yscc_player
+     00004B3F  _SplashScreenLoad                  soccerlg
+     00004C56  _ShowMenu                          soccerlg
+     00005371  _ShowHelpScreen                    soccerlg
+     000054BA  _MenuScreenLoad                    soccerlg
+     000055C9  _MenuGrayScreenLoad                soccerlg
+     000056BF  _SetTeamColors                     soccerlg
+     0000571A  _AddLines                          soccerlg
+     00005934  _CallSpriteFrame                   soccerlg
+     00005964  SpriteFrame                        soccerlg
+     00005998  _VSyncCallback                     soccerlg
+     000059E5  _dummy                             soccerlg
+     000059ED  _WaitForVBlank                     soccerlg
+     00005A2D  _LoadField                         soccerlg
+     00005AE5  _main                              soccerlg
+     00005B3E  _StartGame                         soccerlg
+     00005F13  _YSCC_SetOFFRForAudio              yscc_player
+     00005F2C  _YSCC_RestoreOFFR                  yscc_player
+     00005F3A  _YSCC_Init                         yscc_player
+     00005FAB  _YSCC_GetFirstSegmentOfCurrentPl   yscc_player
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00003A0F =       14863. bytes (REL,CON)
+_CODE                               00004000    00003A66 =       14950. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005F8C  _YSCC_Stop                         yscc_player
-     00005FA3  _YSCC_Pause                        yscc_player
-     00005FC0  _YSCC_Resume                       yscc_player
-     00005FC6  _YSCC_IsPlaying                    yscc_player
-     00005FDA  _YSCC_IsPaused                     yscc_player
-     00005FDE  _YSCC_Play                         yscc_player
-     00006037  _YSCC_PlayLoop                     yscc_player
-     0000605C  _YSCC_Decode                       yscc_player
-     000060C2  __YSCC_CopyPCMBlock                yscc_player
-     00006170  _YSCC_SaveState                    yscc_player
-     000061C5  _YSCC_LoadState                    yscc_player
-     0000622C  __YSCC_GetVdpFrequency             yscc_player
-     0000623A  __divuchar                         
-     0000623C  __divu8                            
-     0000623F  __divu16                           
-     0000623F  __divuint                          
-     0000626E  _Print_MergeColor                  print
-     0000628E  _g_HexChar                         print
-     0000629E  _Print_Initialize                  print
-     0000631F  _Print_SetMode                     print
-     00006356  _Print_SetFont                     print
-     00006430  _Print_InitColorBuffer             print
-     0000647E  _Print_SetColor                    print
-     000064BB  _Print_SetColorShade               print
-     000064E0  _Print_SetBitmapFont               print
-     000064EA  _DrawChar_8B                       print
-     00006619  _DrawChar_4B                       print
-     00006725  _DrawChar_Trans                    print
-     00006828  _Print_Clear                       print
-     00006864  _Print_Backspace                   print
-     00006915  _Print_DrawChar                    print
-     00006926  _Print_DrawCharX                   print
-     00006938  _Print_DrawText                    print
-     0000699C  _Print_DrawBin8                    print
-     000069BF  _Print_DrawHex8                    print
-     000069E5  _Print_DrawHex16                   print
-     000069F0  _Print_DrawInt                     print
-     00006A7C  _Print_DrawFormat                  print
-     00006DBB  _VDP_SetModeFlag                   vdp
-     00006DE4  _VDP_SetModeText1                  vdp
-     00006DFB  _VDP_SetModeMultiColor             vdp
-     00006E12  _VDP_SetModeGraphic1               vdp
-     00006E31  _VDP_SetModeGraphic2               vdp
-     00006E51  _VDP_ClearVRAM                     vdp
-     00006E8C  _VDP_WriteVRAM_16K                 vdp
-     00006EC3  _VDP_FillVRAM_16K                  vdp
-     00006EE8  _VDP_ReadVRAM_16K                  vdp
-     00006F1E  _VDP_Peek_16K                      vdp
-     00006F33  _VDP_Poke_16K                      vdp
-     00006F4B  _VDP_SetModeGraphic4               vdp
-     00006F59  _VDP_SetModeGraphic7               vdp
+     00005FB0  _YSCC_Stop                         yscc_player
+     00005FC7  _YSCC_Pause                        yscc_player
+     00005FE4  _YSCC_Resume                       yscc_player
+     00005FEA  _YSCC_IsPlaying                    yscc_player
+     00005FFE  _YSCC_IsPaused                     yscc_player
+     00006002  _YSCC_Play                         yscc_player
+     0000605B  _YSCC_PlayLoop                     yscc_player
+     00006080  _YSCC_Decode                       yscc_player
+     000060E6  __YSCC_CopyPCMBlock                yscc_player
+     000061C7  _YSCC_SaveState                    yscc_player
+     0000621C  _YSCC_LoadState                    yscc_player
+     00006283  __YSCC_GetVdpFrequency             yscc_player
+     00006291  __divuchar                         
+     00006293  __divu8                            
+     00006296  __divu16                           
+     00006296  __divuint                          
+     000062C5  _Print_MergeColor                  print
+     000062E5  _g_HexChar                         print
+     000062F5  _Print_Initialize                  print
+     00006376  _Print_SetMode                     print
+     000063AD  _Print_SetFont                     print
+     00006487  _Print_InitColorBuffer             print
+     000064D5  _Print_SetColor                    print
+     00006512  _Print_SetColorShade               print
+     00006537  _Print_SetBitmapFont               print
+     00006541  _DrawChar_8B                       print
+     00006670  _DrawChar_4B                       print
+     0000677C  _DrawChar_Trans                    print
+     0000687F  _Print_Clear                       print
+     000068BB  _Print_Backspace                   print
+     0000696C  _Print_DrawChar                    print
+     0000697D  _Print_DrawCharX                   print
+     0000698F  _Print_DrawText                    print
+     000069F3  _Print_DrawBin8                    print
+     00006A16  _Print_DrawHex8                    print
+     00006A3C  _Print_DrawHex16                   print
+     00006A47  _Print_DrawInt                     print
+     00006AD3  _Print_DrawFormat                  print
+     00006E12  _VDP_SetModeFlag                   vdp
+     00006E3B  _VDP_SetModeText1                  vdp
+     00006E52  _VDP_SetModeMultiColor             vdp
+     00006E69  _VDP_SetModeGraphic1               vdp
+     00006E88  _VDP_SetModeGraphic2               vdp
+     00006EA8  _VDP_ClearVRAM                     vdp
+     00006EE3  _VDP_WriteVRAM_16K                 vdp
+     00006F1A  _VDP_FillVRAM_16K                  vdp
+     00006F3F  _VDP_ReadVRAM_16K                  vdp
+     00006F75  _VDP_Peek_16K                      vdp
+     00006F8A  _VDP_Poke_16K                      vdp
+     00006FA2  _VDP_SetModeGraphic4               vdp
+     00006FB0  _VDP_SetModeGraphic7               vdp
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00003A0F =       14863. bytes (REL,CON)
+_CODE                               00004000    00003A66 =       14950. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006F67  _VDP_ReadStatus                    vdp
-     00006F7B  _VDP_SetAdjustOffset               vdp
-     00006F85  _VDP_SetPalette                    vdp
-     00006F94  _VDP_SetPaletteEntry               vdp
-     00006FA3  _VDP_WriteVRAM_128K                vdp
-     00006FE6  _VDP_FillVRAM_128K                 vdp
-     00007021  _VDP_ReadVRAM_128K                 vdp
-     00007069  _VDP_Poke_128K                     vdp
-     00007094  _VDP_Peek_128K                     vdp
-     000070B7  _VDP_CommandWait                   vdp
-     000070D0  _VPD_CommandSetupR32               vdp
-     00007103  _VPD_CommandSetupR36               vdp
-     0000712E  _VPD_CommandWriteLoop              vdp
-     00007156  _VDP_Initialize                    vdp
-     00007172  _VDP_SetMode                       vdp
-     00007229  _VDP_GetVersion                    vdp
-     00007278  _VDP_RegWrite                      vdp
-     00007284  _VDP_RegWriteBak                   vdp
-     00007297  _VDP_RegWriteBakMask               vdp
-     000072B6  _VDP_ReadDefaultStatus             vdp
-     000072B9  _VDP_SetPage                       vdp
-     000072C7  _VDP_SetLayoutTable                vdp
-     0000732A  _VDP_SetColorTable                 vdp
-     000073C3  _VDP_SetPatternTable               vdp
-     00007423  _VDP_LoadPattern_GM2               vdp
-     00007499  _VDP_LoadColor_GM2                 vdp
-     0000750F  _VDP_WriteLayout_GM2               vdp
-     0000757A  _VDP_FillLayout_GM2                vdp
-     000075D0  _Input_Detect                      input
-     000075ED  _Joystick_Read                     input
-     00007602  _Keyboard_Read                     input
-     0000760D  _Keyboard_IsKeyPressed             input
-     00007638  _Bios_Exit                         bios
-     00007640  _Bios_SetHookCallback              bios
-     0000765F  _Bios_InterSlotRead                bios
-     00007664  _Bios_InterSlotWrite               bios
-     00007679  _Bios_InterSlotCall                bios
-     0000768B  _Bios_SwitchSlot                   bios
-     00007696  _Bios_WriteVDP                     bios
-     0000769C  _Bios_WriteVRAM                    bios
-     000076AB  _Bios_FillVRAM                     bios
-     000076BC  _Bios_TransfertVRAMtoRAM           bios
-     000076CE  _Bios_TransfertRAMtoVRAM           bios
-     000076E0  _Bios_ChangeColor                  bios
-     000076F9  _Bios_InitScreen0Ex                bios
-     00007729  _Bios_InitScreen1Ex                bios
-     00007774  _Bios_InitScreen2Ex                bios
-     000077BF  _Bios_InitScreen3Ex                bios
-     0000780A  _Bios_GetPatternTableAddress       bios
-     0000780F  _Bios_GetAttributeTableAddress     bios
-     00007814  _Bios_GraphPrintCharEx             bios
+     00006FBE  _VDP_ReadStatus                    vdp
+     00006FD2  _VDP_SetAdjustOffset               vdp
+     00006FDC  _VDP_SetPalette                    vdp
+     00006FEB  _VDP_SetPaletteEntry               vdp
+     00006FFA  _VDP_WriteVRAM_128K                vdp
+     0000703D  _VDP_FillVRAM_128K                 vdp
+     00007078  _VDP_ReadVRAM_128K                 vdp
+     000070C0  _VDP_Poke_128K                     vdp
+     000070EB  _VDP_Peek_128K                     vdp
+     0000710E  _VDP_CommandWait                   vdp
+     00007127  _VPD_CommandSetupR32               vdp
+     0000715A  _VPD_CommandSetupR36               vdp
+     00007185  _VPD_CommandWriteLoop              vdp
+     000071AD  _VDP_Initialize                    vdp
+     000071C9  _VDP_SetMode                       vdp
+     00007280  _VDP_GetVersion                    vdp
+     000072CF  _VDP_RegWrite                      vdp
+     000072DB  _VDP_RegWriteBak                   vdp
+     000072EE  _VDP_RegWriteBakMask               vdp
+     0000730D  _VDP_ReadDefaultStatus             vdp
+     00007310  _VDP_SetPage                       vdp
+     0000731E  _VDP_SetLayoutTable                vdp
+     00007381  _VDP_SetColorTable                 vdp
+     0000741A  _VDP_SetPatternTable               vdp
+     0000747A  _VDP_LoadPattern_GM2               vdp
+     000074F0  _VDP_LoadColor_GM2                 vdp
+     00007566  _VDP_WriteLayout_GM2               vdp
+     000075D1  _VDP_FillLayout_GM2                vdp
+     00007627  _Input_Detect                      input
+     00007644  _Joystick_Read                     input
+     00007659  _Keyboard_Read                     input
+     00007664  _Keyboard_IsKeyPressed             input
+     0000768F  _Bios_Exit                         bios
+     00007697  _Bios_SetHookCallback              bios
+     000076B6  _Bios_InterSlotRead                bios
+     000076BB  _Bios_InterSlotWrite               bios
+     000076D0  _Bios_InterSlotCall                bios
+     000076E2  _Bios_SwitchSlot                   bios
+     000076ED  _Bios_WriteVDP                     bios
+     000076F3  _Bios_WriteVRAM                    bios
+     00007702  _Bios_FillVRAM                     bios
+     00007713  _Bios_TransfertVRAMtoRAM           bios
+     00007725  _Bios_TransfertRAMtoVRAM           bios
+     00007737  _Bios_ChangeColor                  bios
+     00007750  _Bios_InitScreen0Ex                bios
+     00007780  _Bios_InitScreen1Ex                bios
+     000077CB  _Bios_InitScreen2Ex                bios
+     00007816  _Bios_InitScreen3Ex                bios
+     00007861  _Bios_GetPatternTableAddress       bios
+     00007866  _Bios_GetAttributeTableAddress     bios
+     0000786B  _Bios_GraphPrintCharEx             bios
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00003A0F =       14863. bytes (REL,CON)
+_CODE                               00004000    00003A66 =       14950. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000783B  _Bios_WritePSG                     bios
-     00007840  _Bios_HasCharacter                 bios
-     0000784B  _Bios_ClearScreen                  bios
-     00007850  _Bios_SetCursorPosition            bios
-     00007855  __mulint                           
-     00007857  __mul16                            
-     0000786C  _DEBUG_INIT                        debug
-     0000786D  _DEBUG_BREAK                       debug
-     00007872  _DEBUG_ASSERT                      debug
-     00007878  _DEBUG_LOG                         debug
-     00007886  _DEBUG_LOGNUM                      debug
-     000078AC  _DEBUG_PRINT                       debug
-     000078BB  ___sdcc_call_hl                    
-     000078BC  ___sdcc_call_iy                    
-     000078BE  _Sys_GetPageSlot                   system
-     00007911  _Sys_SetPageSlot                   system
-     00007912  _Sys_SetPage0Slot                  system
-     00007957  _Sys_CheckSlot                     system
-     000079BB  __modschar                         
-     000079C3  __modsint                          
-     000079C9  __moduchar                         
-     000079D0  __moduint                          
-     000079D5  __divschar                         
-     000079D7  __div8                             
-     000079DB  __div_signexte                     
-     000079DF  __div16                            
-     000079DF  __divsint                          
-     00007A05  __get_remainder                    
+     00007892  _Bios_WritePSG                     bios
+     00007897  _Bios_HasCharacter                 bios
+     000078A2  _Bios_ClearScreen                  bios
+     000078A7  _Bios_SetCursorPosition            bios
+     000078AC  __mulint                           
+     000078AE  __mul16                            
+     000078C3  _DEBUG_INIT                        debug
+     000078C4  _DEBUG_BREAK                       debug
+     000078C9  _DEBUG_ASSERT                      debug
+     000078CF  _DEBUG_LOG                         debug
+     000078DD  _DEBUG_LOGNUM                      debug
+     00007903  _DEBUG_PRINT                       debug
+     00007912  ___sdcc_call_hl                    
+     00007913  ___sdcc_call_iy                    
+     00007915  _Sys_GetPageSlot                   system
+     00007968  _Sys_SetPageSlot                   system
+     00007969  _Sys_SetPage0Slot                  system
+     000079AE  _Sys_CheckSlot                     system
+     00007A12  __modschar                         
+     00007A1A  __modsint                          
+     00007A20  __moduchar                         
+     00007A27  __moduint                          
+     00007A2C  __divschar                         
+     00007A2E  __div8                             
+     00007A32  __div_signexte                     
+     00007A36  __div16                            
+     00007A36  __divsint                          
+     00007A5C  __get_remainder                    
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        00007A0F    00000069 =         105. bytes (REL,CON)
+_INITIALIZER                        00007A66    00000069 =         105. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -663,7 +663,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSINIT                             00007A78    00000010 =          16. bytes (REL,CON)
+_GSINIT                             00007ACF    00000010 =          16. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -672,11 +672,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00007A88    00000000 =           0. bytes (REL,CON)
+_GSFINAL                            00007ADF    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00007A88  _g_LastAddr                        crt0
+     00007ADF  _g_LastAddr                        crt0
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
