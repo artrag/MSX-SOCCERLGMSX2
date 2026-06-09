@@ -499,12 +499,12 @@
                                     499 ; Function EventStartPresentationScrollig
                                     500 ; ---------------------------------
     00000001                        501 _EventStartPresentationScrollig::
-                                    502 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: PlaySCCLoop(PRESENTATION_BIN_SEG, PRESENTATION_BIN_SIZE);
-    00000001 21 04 00         [10]  503 	ld	hl, #0x0004
+                                    502 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: PlaySCCLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
+    00000001 21 00 00         [10]  503 	ld	hl, #0x0000
     00000004 E5               [11]  504 	push	hl
-    00000005 21 00 99         [10]  505 	ld	hl, #0x9900
+    00000005 21 80 EF         [10]  505 	ld	hl, #0xef80
     00000008 E5               [11]  506 	push	hl
-    00000009 21 6A 00         [10]  507 	ld	hl, #0x006a
+    00000009 21 8F 00         [10]  507 	ld	hl, #0x008f
     0000000C CDr00r00         [17]  508 	call	_PlaySCCLoop
                                     509 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:29: }
     0000000F C9               [10]  510 	ret

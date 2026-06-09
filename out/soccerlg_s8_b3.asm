@@ -499,12 +499,12 @@ _g_BDOS	=	0xf37d
 ; Function EventStartPresentationScrollig
 ; ---------------------------------
 _EventStartPresentationScrollig::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: PlaySCCLoop(PRESENTATION_BIN_SEG, PRESENTATION_BIN_SIZE);
-	ld	hl, #0x0004
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:28: PlaySCCLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
+	ld	hl, #0x0000
 	push	hl
-	ld	hl, #0x9900
+	ld	hl, #0xef80
 	push	hl
-	ld	hl, #0x006a
+	ld	hl, #0x008f
 	call	_PlaySCCLoop
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:29: }
 	ret

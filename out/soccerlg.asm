@@ -5200,12 +5200,12 @@ _WaitForVBlank::
 ;./soccerlg.c:937: s_scc_after_action = SCC_AFTER_NONE;
 	ld	hl, #_s_scc_after_action
 	ld	(hl), #0x00
-;./soccerlg.c:938: YSCC_PlayLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
-	ld	hl, #0x0000
+;./soccerlg.c:938: YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+	ld	hl, #0x000b
 	push	hl
-	ld	hl, #0xef80
+	ld	hl, #0xab00
 	push	hl
-	ld	hl, #0x008f
+	ld	hl, #0x0136
 	call	_YSCC_PlayLoop
 	ret
 00105$:

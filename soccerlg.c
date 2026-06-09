@@ -935,7 +935,7 @@ void WaitForVBlank(){
     if (s_scc_after_action != SCC_AFTER_NONE && !YSCC_IsPlaying()) {
         if (s_scc_after_action == SCC_AFTER_START_CROWD) {
             s_scc_after_action = SCC_AFTER_NONE;
-            YSCC_PlayLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
+            YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
         } else {
             s_scc_after_action = SCC_AFTER_NONE;
             YSCC_LoadState(&s_crowd_state);

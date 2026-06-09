@@ -5247,12 +5247,12 @@
                                    5200 ;./soccerlg.c:937: s_scc_after_action = SCC_AFTER_NONE;
     00001980 21r47r00         [10] 5201 	ld	hl, #_s_scc_after_action
     00001983 36 00            [10] 5202 	ld	(hl), #0x00
-                                   5203 ;./soccerlg.c:938: YSCC_PlayLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
-    00001985 21 00 00         [10] 5204 	ld	hl, #0x0000
+                                   5203 ;./soccerlg.c:938: YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+    00001985 21 0B 00         [10] 5204 	ld	hl, #0x000b
     00001988 E5               [11] 5205 	push	hl
-    00001989 21 80 EF         [10] 5206 	ld	hl, #0xef80
+    00001989 21 00 AB         [10] 5206 	ld	hl, #0xab00
     0000198C E5               [11] 5207 	push	hl
-    0000198D 21 8F 00         [10] 5208 	ld	hl, #0x008f
+    0000198D 21 36 01         [10] 5208 	ld	hl, #0x0136
     00001990 CDr00r00         [17] 5209 	call	_YSCC_PlayLoop
     00001993 C9               [10] 5210 	ret
     00001994                       5211 00105$:

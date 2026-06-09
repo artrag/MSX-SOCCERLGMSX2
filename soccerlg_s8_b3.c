@@ -25,7 +25,7 @@ void EventBallKicked()
 }
 void EventStartPresentationScrollig()
 {
-	PlaySCCLoop(PRESENTATION_BIN_SEG, PRESENTATION_BIN_SIZE);
+	PlaySCCLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
 }
 
 void EventPlayerFirstPresentationStarted()
