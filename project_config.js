@@ -115,7 +115,10 @@ RawFiles = [
     { segment:244, file:"bin/corner_kick.bin" },
     { segment:246, file:"bin/throw_in.bin" },
     { segment:151, file:"bin/menu.bin" },
-    { segment:310, file:"bin/public.bin" }
+    { segment:310, file:"bin/public.bin" },
+    { segment:410, file:"bin/danger_kick.bin" },
+    { segment:460, file:"bin/ingoal.bin" },
+    { segment:560, file:"bin/penalties.bin" },
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)

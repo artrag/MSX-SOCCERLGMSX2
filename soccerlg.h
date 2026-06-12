@@ -437,6 +437,7 @@ extern  u8  g_closest_t2;
 extern  bool g_is_ball_carried;
 extern struct InputState g_player_input[2];
 extern struct TeamStats g_ActiveStats[2];
+extern u8 g_scc_resume_timer;
 
 
 

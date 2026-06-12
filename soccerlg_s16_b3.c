@@ -7,6 +7,7 @@
 #include "soccerlg.h"
 #include "debug.h"
 #include "input.h"
+#include "soccerlg_rawdef.h"
 
 void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly)
 {
@@ -209,6 +210,8 @@ void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16
 						g_pass_target_y = 32;   // Tuffo laterale, manteniamo 32
 					}
 				}
+
+				PlaySCCEvent(DANGER_KICK_BIN_SEG, DANGER_KICK_BIN_SIZE);
 
 				*game_state = 15;
 			}

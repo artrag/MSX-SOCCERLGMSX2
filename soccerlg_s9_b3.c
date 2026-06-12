@@ -7,6 +7,7 @@
 #include "soccerlg.h"
 #include "debug.h"
 #include "input.h"
+#include "soccerlg_rawdef.h"
 
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
 {
@@ -167,6 +168,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 				if(g_is_penalty_shootout) {
 					RestartType = RESTART_GKSAVE; // Segnala la parata per lo stato 15
 					Ball->anim = 0; // Ferma la palla
+					g_scc_resume_timer = 120; // 2 secondi a 60 FPS
 					return;
 				}
 
@@ -201,6 +203,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 				Ball->ly = SwSprite[gk_idx].ly;
 				T1_Carrier = T2_Carrier = 0xFF;
 				TimerEnabled = FALSE;
+				g_scc_resume_timer = 120; // Ripristina l'audio dopo 2 secondi
 				*wait_secs = 1; *start_sec = 0; // start_sec=0: la pausa scade al frame successivo (nessun freeze)
 				return; // Esci dall'update per avviare la routine di pausa e ripresa
 			}
@@ -466,6 +469,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 							
 							Ball->anim = 5;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							PlaySCCEvent(DANGER_KICK_BIN_SEG, DANGER_KICK_BIN_SIZE);
 						} else {
 							// Se non si tira, si passa
 							u8 receiver = receivers[i];

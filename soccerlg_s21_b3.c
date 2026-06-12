@@ -5,6 +5,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "soccerlg_rawdef.h"
 
 static i8 ai_last_dx[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static i8 ai_last_dy[14] = {1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1};
@@ -335,6 +336,7 @@ void PlayerAI_Movement(u8 i)
 								
 								Ball->anim = 5;
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+								PlaySCCEvent(DANGER_KICK_BIN_SEG, DANGER_KICK_BIN_SIZE);
 							}
 						}
 

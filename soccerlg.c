@@ -129,6 +129,7 @@ const c8* g_TeamNames[6] = {
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
 	bool g_help_shown = FALSE;
+	u8  g_scc_resume_timer = 0;
 
 	extern  unsigned char g_Menu_Fonts[];
 
@@ -350,12 +351,14 @@ void PlaySCCLoop(u16 start_seg, u32 byte_size) {
 
 // Play one-shot audio then automatically start crowd loop
 void PlaySCCThenCrowd(u16 start_seg, u32 byte_size) {
+	g_scc_resume_timer = 0; // Azzera il timer in caso sia in corso per evitare tagli non voluti
 	s_scc_after_action = SCC_AFTER_START_CROWD;
 	YSCC_Play(start_seg, byte_size);
 }
 
 // Save crowd loop state, play event audio, then resume crowd from saved position
 void PlaySCCEvent(u16 start_seg, u32 byte_size) {
+	g_scc_resume_timer = 0;
 	if (s_scc_after_action != SCC_AFTER_RESUME_CROWD) {
 		YSCC_SaveState(&s_crowd_state);
 	}
@@ -919,6 +922,18 @@ void VSyncCallback()
 {
 	g_VSynch = TRUE;
 	
+	// Se il timer è attivo, scala il conto alla rovescia
+	if (g_scc_resume_timer > 0) {
+		g_scc_resume_timer--;
+		if (g_scc_resume_timer == 0) {
+			if (s_scc_after_action == SCC_AFTER_RESUME_CROWD) {
+				YSCC_Stop(); // Interrompe il pericolo forzatamente
+				s_scc_after_action = SCC_AFTER_NONE;
+				YSCC_LoadState(&s_crowd_state); // Riprende il tifo
+			}
+		}
+	}
+
 	Frms--;
 	if (Frms==0) {
 		Frms = 60;
