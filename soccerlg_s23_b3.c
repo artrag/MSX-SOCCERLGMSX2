@@ -11,7 +11,7 @@
 #include "libs/yscc/yscc_player.h"
 
 // Prototipo esplicito per garantire la visibilità al compilatore
-extern void UpdateGameState_Carriers(u16 flags);
+// extern void UpdateGameState_Carriers(u16 flags);
 
 void UpdateGameState_Play(u8* game_state, u8* wait_secs, u8* start_sec)
 {
@@ -28,6 +28,7 @@ void UpdateGameState_Play(u8* game_state, u8* wait_secs, u8* start_sec)
 			*wait_secs = 2;
 			*start_sec = Frms;
 			CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_TIMEUP);
+			CallFnc_VOID(SEG_EVENTS, EventTimeUp);
 		}
 		return;
 	}
@@ -257,7 +258,7 @@ void UpdateGameState_Play(u8* game_state, u8* wait_secs, u8* start_sec)
 
 	// 2. Gestione portatori (Player 1 e Player 2)
 	u16 flags = (t1_human ? 1 : 0) | (t2_human ? 2 : 0) | (t1_switched ? 4 : 0) | (t2_switched ? 8 : 0);
-	CallFnc_VOID_16_P1(SEG_HELPERS, UpdateGameState_Carriers, flags);
+	// CallFnc_VOID_16_P1(SEG_HELPERS, UpdateGameState_Carriers, flags);
 
 	// 3. Esegui AI per tutti gli altri giocatori (movimento e tattica senza palla)
 	for (u8 i = 0; i < 14; i++) {

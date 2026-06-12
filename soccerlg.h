@@ -505,6 +505,7 @@ void SetBallSprite(u8 height);
 
 // +++ SEGMENT SEG_HELPERS (20) +++
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
+void UpdateGameState_GlobalChecks(u8* game_state, u8* wait_secs, u8* start_sec);
 
 // +++ SEGMENT SEG_INPUT (7) +++
 bool IsTeamJoystickTriggerPressed(u8 player);

@@ -424,7 +424,7 @@
     000003CC                        424 	.ds 14
     000003DA                        425 _s_crowd_state:
     000003DA                        426 	.ds 13
-    000003E7                        427 _ShowHelpScreen_first_time_65536_2130:
+    000003E7                        427 _ShowHelpScreen_first_time_65536_2131:
     000003E7                        428 	.ds 1
                                     429 ;--------------------------------------------------------
                                     430 ; ram data
@@ -548,7 +548,7 @@
                                     548 	.area _GSFINAL
                                     549 	.area _GSINIT
                                     550 ;./soccerlg.c:648: static bool first_time = TRUE;
-    00000000 FD 21rE7r03      [14]  551 	ld	iy, #_ShowHelpScreen_first_time_65536_2130
+    00000000 FD 21rE7r03      [14]  551 	ld	iy, #_ShowHelpScreen_first_time_65536_2131
     00000004 FD 36 00 01      [19]  552 	ld	0 (iy), #0x01
                                     553 ;--------------------------------------------------------
                                     554 ; Home
@@ -3450,7 +3450,7 @@
     00000EDB 16 00            [ 7] 3412 	ld	d, #0x00
     00000EDD EB               [ 4] 3413 	ex	de, hl
     00000EDE 29               [11] 3414 	add	hl, hl
-    00000EDF 11r7Br12         [10] 3415 	ld	de, #_ShowMenu_cursor_pos_65537_1984
+    00000EDF 11r7Br12         [10] 3415 	ld	de, #_ShowMenu_cursor_pos_65537_1985
     00000EE2 19               [11] 3416 	add	hl, de
                                    3417 ;	spillPairReg hl
                                    3418 ;	spillPairReg hl
@@ -3504,10 +3504,10 @@
                                    3466 ;	spillPairReg hl
     00000F26 29               [11] 3467 	add	hl, hl
     00000F27 7D               [ 4] 3468 	ld	a, l
-    00000F28 C6r7B            [ 7] 3469 	add	a, #<(_ShowMenu_cursor_pos_65537_1984)
+    00000F28 C6r7B            [ 7] 3469 	add	a, #<(_ShowMenu_cursor_pos_65537_1985)
     00000F2A 47               [ 4] 3470 	ld	b, a
     00000F2B 7C               [ 4] 3471 	ld	a, h
-    00000F2C CEs12            [ 7] 3472 	adc	a, #>(_ShowMenu_cursor_pos_65537_1984)
+    00000F2C CEs12            [ 7] 3472 	adc	a, #>(_ShowMenu_cursor_pos_65537_1985)
     00000F2E 68               [ 4] 3473 	ld	l, b
                                    3474 ;	spillPairReg hl
                                    3475 ;	spillPairReg hl
@@ -3548,7 +3548,7 @@
                                    3510 ;	spillPairReg hl
                                    3511 ;	spillPairReg hl
     00000F5E 29               [11] 3512 	add	hl, hl
-    00000F5F 11r7Br12         [10] 3513 	ld	de, #_ShowMenu_cursor_pos_65537_1984
+    00000F5F 11r7Br12         [10] 3513 	ld	de, #_ShowMenu_cursor_pos_65537_1985
     00000F62 19               [11] 3514 	add	hl, de
                                    3515 ;	spillPairReg hl
                                    3516 ;	spillPairReg hl
@@ -3592,7 +3592,7 @@
                                    3554 ;	spillPairReg hl
     00000F98 29               [11] 3555 	add	hl, hl
     00000F99 29               [11] 3556 	add	hl, hl
-    00000F9A 11r87r12         [10] 3557 	ld	de, #_ShowMenu_team_box_65537_1984
+    00000F9A 11r87r12         [10] 3557 	ld	de, #_ShowMenu_team_box_65537_1985
     00000F9D 19               [11] 3558 	add	hl, de
                                    3559 ;	spillPairReg hl
                                    3560 ;	spillPairReg hl
@@ -4044,7 +4044,7 @@
     00001276 DD F9            [10] 4006 	ld	sp, ix
     00001278 DD E1            [14] 4007 	pop	ix
     0000127A C9               [10] 4008 	ret
-    0000127B                       4009 _ShowMenu_cursor_pos_65537_1984:
+    0000127B                       4009 _ShowMenu_cursor_pos_65537_1985:
     0000127B 1E                    4010 	.db #0x1e	; 30
     0000127C 5F                    4011 	.db #0x5f	; 95
     0000127D 6F                    4012 	.db #0x6f	; 111	'o'
@@ -4057,7 +4057,7 @@
     00001284 B5                    4019 	.db #0xb5	; 181
     00001285 C2                    4020 	.db #0xc2	; 194
     00001286 B5                    4021 	.db #0xb5	; 181
-    00001287                       4022 _ShowMenu_team_box_65537_1984:
+    00001287                       4022 _ShowMenu_team_box_65537_1985:
     00001287 06                    4023 	.db #0x06	; 6
     00001288 10                    4024 	.db #0x10	; 16
     00001289 50                    4025 	.db #0x50	; 80	'P'

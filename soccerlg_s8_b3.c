@@ -13,6 +13,8 @@
 #include "debug.h"
 #include "input.h"
 
+static bool s_timeup_played = FALSE;
+
 // -----------------
 // *** FUNCTIONS ***
 // -----------------
@@ -25,6 +27,7 @@ void EventBallKicked()
 }
 void EventStartPresentationScrollig()
 {
+	s_timeup_played = FALSE;
 	PlaySCCLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
 }
 
@@ -47,8 +50,11 @@ void EventHalfTime()
 
 void EventTimeUp()
 {
-		// Trigger sonoro per fischio fine partita
-	PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
+	// Trigger sonoro per fischio fine partita (evita doppioni)
+	if (!s_timeup_played) {
+		PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
+		s_timeup_played = TRUE;
+	}
 }
 
 void EventThrowIn()

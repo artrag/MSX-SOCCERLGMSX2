@@ -137,10 +137,12 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				u16 dist_x = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 				u16 dist_y = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
 				
-				g_pass_max_frames = (dist_x + dist_y) / 4; 
-				if (g_pass_max_frames < 20) g_pass_max_frames = 20;
-				if (g_pass_max_frames > 60) g_pass_max_frames = 60;
-				g_pass_max_height = 7;
+				g_pass_max_frames = (dist_x + dist_y) / 5; 
+				if (g_pass_max_frames < 15) g_pass_max_frames = 15;
+				if (g_pass_max_frames > 45) g_pass_max_frames = 45;
+				g_pass_max_height = (dist_x + dist_y) / 24;
+				if (g_pass_max_height < 2) g_pass_max_height = 2;
+				if (g_pass_max_height > 7) g_pass_max_height = 7;
 				
 				Ball->lx = g_pass_start_x;
 				Ball->ly = g_pass_start_y;

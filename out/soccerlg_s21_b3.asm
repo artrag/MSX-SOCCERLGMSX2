@@ -359,33 +359,33 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:17: u8 team = (i < 7) ? TEAM_1 : TEAM_2;
 	ld	a, -1 (ix)
 	sub	a, #0x07
-	jr	NC, 00419$
+	jr	NC, 00423$
 	ld	bc, #0x0000
-	jp	00420$
-00419$:
+	jp	00424$
+00423$:
 	ld	bc, #0x0001
-00420$:
+00424$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:22: u8 role = (team == TEAM_1) ? i : (i - 7); // 1,2: Dif, 3,4: Cen, 5,6: Att
 	ld	-29 (ix), c
 	ld	a, c
 	or	a, a
-	jr	NZ, 00421$
+	jr	NZ, 00425$
 	ld	a, -1 (ix)
-	jp	00422$
-00421$:
+	jp	00426$
+00425$:
 	ld	a, -1 (ix)
 	add	a, #0xf9
-00422$:
+00426$:
 	ld	-2 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:25: u8 closest_mate = (team == TEAM_1) ? g_closest_t1 : g_closest_t2;
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00423$
+	jr	NZ, 00427$
 	ld	a, (_g_closest_t1+0)
-	jp	00424$
-00423$:
+	jp	00428$
+00427$:
 	ld	a, (_g_closest_t2+0)
-00424$:
+00428$:
 	ld	-28 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:28: u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 	ld	l, -31 (ix)
@@ -400,20 +400,20 @@ _PlayerAI_Movement::
 	ld	-25 (ix), #0x00
 	ld	a, -27 (ix)
 	sub	a, e
-	jr	NC, 00425$
+	jr	NC, 00429$
 	ld	a, c
 	sub	a, -26 (ix)
 	ld	c, a
 	ld	a, b
 	sbc	a, -25 (ix)
-	jp	00426$
-00425$:
+	jp	00430$
+00429$:
 	ld	a, -26 (ix)
 	sub	a, c
 	ld	c, a
 	ld	a, -25 (ix)
 	sbc	a, b
-00426$:
+00430$:
 	ld	-24 (ix), c
 	ld	-23 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:29: u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
@@ -440,46 +440,46 @@ _PlayerAI_Movement::
 	sub	a, -20 (ix)
 	ld	a, -17 (ix)
 	sbc	a, -19 (ix)
-	jr	NC, 00427$
+	jr	NC, 00431$
 	ld	a, -20 (ix)
 	sub	a, -18 (ix)
 	ld	e, a
 	ld	a, -19 (ix)
 	sbc	a, -17 (ix)
-	jp	00428$
-00427$:
+	jp	00432$
+00431$:
 	ld	a, -18 (ix)
 	sub	a, -20 (ix)
 	ld	e, a
 	ld	a, -17 (ix)
 	sbc	a, -19 (ix)
-00428$:
+00432$:
 	ld	-16 (ix), e
 	ld	-15 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:33: bool ball_free_nearby = (!g_is_ball_carried && b_dist_x <= 48 && b_dist_y <= 48);
 	ld	a, (_g_is_ball_carried+0)
 	or	a, a
-	jr	NZ, 00429$
+	jr	NZ, 00433$
 	ld	c, -24 (ix)
 	ld	b, -23 (ix)
 	ld	a, #0x30
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
-	jr	C, 00429$
+	jr	C, 00433$
 	ld	c, -16 (ix)
 	ld	b, -15 (ix)
 	ld	a, #0x30
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
-	jr	NC, 00430$
-00429$:
+	jr	NC, 00434$
+00433$:
 	xor	a, a
-	jp	00431$
-00430$:
+	jp	00435$
+00434$:
 	ld	a, #0x01
-00431$:
+00435$:
 	ld	-14 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:34: if (Ball->anim == 5 && LastTouchTeam == team) ball_free_nearby = FALSE; // Non disturbare i propri passaggi
 	ld	hl, (#(_SwSprite + 341) + 0)
@@ -513,9 +513,9 @@ _PlayerAI_Movement::
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
 	ld	a, #0x01
-	jr	Z, 01790$
+	jr	Z, 01804$
 	xor	a, a
-01790$:
+01804$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:39: if (LastTouchTeam == team) {
 	ld	-3 (ix), a
 	or	a, a
@@ -561,12 +561,12 @@ _PlayerAI_Movement::
 	sub	a, -8 (ix)
 	ld	a, -4 (ix)
 	sbc	a, -7 (ix)
-	jr	NC, 00435$
+	jr	NC, 00439$
 	ld	a, -8 (ix)
 	ld	-5 (ix), a
 	ld	a, -7 (ix)
 	ld	-4 (ix), a
-00435$:
+00439$:
 	ld	a, -5 (ix)
 	ld	-8 (ix), a
 	ld	a, -4 (ix)
@@ -589,10 +589,10 @@ _PlayerAI_Movement::
 	sub	a, e
 	ld	a, b
 	sbc	a, d
-	jr	NC, 00437$
+	jr	NC, 00441$
 	ld	e, c
 	ld	d, b
-00437$:
+00441$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:51: if (offside_line > 256) offside_line = 256;
 	ld	-8 (ix), e
 	ld	-7 (ix), d
@@ -626,20 +626,20 @@ _PlayerAI_Movement::
 	ld	-9 (ix), a
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00439$
+	jr	NZ, 00443$
 	ld	a, -10 (ix)
 	ld	-4 (ix), a
 	ld	a, -9 (ix)
 	ld	-3 (ix), a
-	jp	00440$
-00439$:
+	jp	00444$
+00443$:
 	xor	a, a
 	sub	a, -10 (ix)
 	ld	-4 (ix), a
 	sbc	a, a
 	sub	a, -9 (ix)
 	ld	-3 (ix), a
-00440$:
+00444$:
 	ld	a, -6 (ix)
 	ld	-10 (ix), a
 	ld	a, -5 (ix)
@@ -661,11 +661,11 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:58: target_x = (Ball->lx > 180) ? 100 : 36; // Ala Sx (si accentra solo se palla a estrema dx)
 	ld	a, #0xb4
 	sub	a, -27 (ix)
-	jr	NC, 00441$
+	jr	NC, 00445$
 	ld	-6 (ix), #0x64
 	ld	-5 (ix), #0
 	jp	00125$
-00441$:
+00445$:
 	ld	-6 (ix), #0x24
 	ld	-5 (ix), #0
 	jp	00125$
@@ -673,11 +673,11 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:60: target_x = (Ball->lx < 76) ? 156 : 220; // Ala Dx (si accentra solo se palla a estrema sx)
 	ld	a, -27 (ix)
 	sub	a, #0x4c
-	jr	NC, 00443$
+	jr	NC, 00447$
 	ld	-6 (ix), #0x9c
 	ld	-5 (ix), #0
 	jp	00125$
-00443$:
+00447$:
 	ld	-6 (ix), #0xdc
 	ld	-5 (ix), #0
 	jp	00125$
@@ -693,14 +693,14 @@ _PlayerAI_Movement::
 	ld	-5 (ix), a
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00445$
+	jr	NZ, 00449$
 	ld	-4 (ix), #0x18
 	ld	-3 (ix), #0
-	jp	00446$
-00445$:
+	jp	00450$
+00449$:
 	ld	-4 (ix), #0xe8
 	ld	-3 (ix), #0xff
-00446$:
+00450$:
 	ld	a, -6 (ix)
 	ld	-10 (ix), a
 	ld	a, -5 (ix)
@@ -718,12 +718,12 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:64: target_x = (role == 3) ? 64 : 192; // Più larghi per coprire le fasce
 	ld	a, -2 (ix)
 	sub	a, #0x03
-	jr	NZ, 00447$
+	jr	NZ, 00451$
 	ld	de, #0x0040
-	jp	00448$
-00447$:
+	jp	00452$
+00451$:
 	ld	de, #0x00c0
-00448$:
+00452$:
 	ld	-6 (ix), e
 	ld	-5 (ix), d
 	jp	00125$
@@ -735,14 +735,14 @@ _PlayerAI_Movement::
 	ld	-5 (ix), a
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00449$
+	jr	NZ, 00453$
 	ld	-4 (ix), #0xc0
 	ld	-3 (ix), #0xff
-	jp	00450$
-00449$:
+	jp	00454$
+00453$:
 	ld	-4 (ix), #0x40
 	ld	-3 (ix), #0
-00450$:
+00454$:
 	ld	c, -6 (ix)
 	ld	b, -5 (ix)
 	ld	l, -4 (ix)
@@ -757,12 +757,12 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:67: target_x = (role == 1) ? 80 : 144;
 	ld	a, -2 (ix)
 	dec	a
-	jr	NZ, 00451$
+	jr	NZ, 00455$
 	ld	bc, #0x0050
-	jp	00452$
-00451$:
+	jp	00456$
+00455$:
 	ld	bc, #0x0090
-00452$:
+00456$:
 	ld	-6 (ix), c
 	ld	-5 (ix), b
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:69: if (team == TEAM_1 && target_y > 192) target_y = 192;
@@ -799,9 +799,9 @@ _PlayerAI_Movement::
 	ld	a, -2 (ix)
 	sub	a, #0x06
 	ld	a, #0x01
-	jr	Z, 01800$
+	jr	Z, 01814$
 	xor	a, a
-01800$:
+01814$:
 	ld	-7 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:74: if (team == TEAM_1) {
 	ld	a, -29 (ix)
@@ -809,7 +809,7 @@ _PlayerAI_Movement::
 	jr	NZ, 00135$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:76: u16 max_y = (role == 6 && (Secs % 5) == 0) ? offside_line + 16 : offside_line - 12;
 	bit	0, -7 (ix)
-	jr	Z, 00453$
+	jr	Z, 00457$
 	ld	a, (_Secs+0)
 	ld	l, a
 ;	spillPairReg hl
@@ -823,11 +823,11 @@ _PlayerAI_Movement::
 	pop	bc
 	ld	a, d
 	or	a, e
-	jr	NZ, 00453$
+	jr	NZ, 00457$
 	ld	hl, #0x0010
 	add	hl, bc
-	jp	00454$
-00453$:
+	jp	00458$
+00457$:
 	ld	a, c
 	add	a, #0xf4
 	ld	l, a
@@ -838,7 +838,7 @@ _PlayerAI_Movement::
 	ld	h, a
 ;	spillPairReg hl
 ;	spillPairReg hl
-00454$:
+00458$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:77: if (target_y > max_y) target_y = max_y;
 	ld	a, l
 	sub	a, -4 (ix)
@@ -862,7 +862,7 @@ _PlayerAI_Movement::
 00135$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:81: u16 min_y = (role == 6 && (Secs % 5) == 0) ? offside_line - 16 : offside_line + 12;
 	bit	0, -7 (ix)
-	jr	Z, 00458$
+	jr	Z, 00462$
 	ld	a, (_Secs+0)
 	ld	l, a
 ;	spillPairReg hl
@@ -876,19 +876,19 @@ _PlayerAI_Movement::
 	pop	bc
 	ld	a, d
 	or	a, e
-	jr	NZ, 00458$
+	jr	NZ, 00462$
 	ld	a, c
 	add	a, #0xf0
 	ld	e, a
 	ld	a, b
 	adc	a, #0xff
 	ld	d, a
-	jp	00459$
-00458$:
+	jp	00463$
+00462$:
 	ld	hl, #0x000c
 	add	hl, bc
 	ex	de, hl
-00459$:
+00463$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:82: if (target_y < min_y) target_y = min_y;
 	ld	a, -4 (ix)
 	sub	a, e
@@ -945,20 +945,20 @@ _PlayerAI_Movement::
 	sub	a, l
 	ld	a, -5 (ix)
 	sbc	a, h
-	jr	NC, 00463$
+	jr	NC, 00467$
 	ld	a, e
 	sub	a, -6 (ix)
 	ld	e, a
 	ld	a, d
 	sbc	a, -5 (ix)
-	jp	00464$
-00463$:
+	jp	00468$
+00467$:
 	ld	a, c
 	sub	a, e
 	ld	e, a
 	ld	a, b
 	sbc	a, d
-00464$:
+00468$:
 	ld	-8 (ix), e
 	ld	-7 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:89: u16 dist_c_y = (SwSprite[LastTouchPlayer].ly > target_y) ? (SwSprite[LastTouchPlayer].ly - target_y) : (target_y - SwSprite[LastTouchPlayer].ly);
@@ -973,20 +973,20 @@ _PlayerAI_Movement::
 	sub	a, e
 	ld	a, -3 (ix)
 	sbc	a, d
-	jr	NC, 00465$
+	jr	NC, 00469$
 	ld	a, e
 	sub	a, -4 (ix)
 	ld	e, a
 	ld	a, d
 	sbc	a, -3 (ix)
-	jp	00466$
-00465$:
+	jp	00470$
+00469$:
 	ld	a, -4 (ix)
 	sub	a, e
 	ld	e, a
 	ld	a, -3 (ix)
 	sbc	a, d
-00466$:
+00470$:
 	ld	d, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:90: if (dist_c_x < 48 && dist_c_y < 48) {
 ;	spillPairReg hl
@@ -1009,24 +1009,24 @@ _PlayerAI_Movement::
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
-	jr	NC, 00467$
+	jr	NC, 00471$
 	ld	hl, #0x0030
-	jp	00468$
-00467$:
+	jp	00472$
+00471$:
 	ld	hl, #0xffd0
-00468$:
+00472$:
 	add	hl, bc
 	ld	-6 (ix), l
 	ld	-5 (ix), h
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:92: target_y += (team == TEAM_1) ? 32 : -32; 
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00469$
+	jr	NZ, 00473$
 	ld	hl, #0x0020
-	jp	00470$
-00469$:
+	jp	00474$
+00473$:
 	ld	hl, #0xffe0
-00470$:
+00474$:
 	ld	c, -4 (ix)
 	ld	b, -3 (ix)
 	add	hl, bc
@@ -1042,20 +1042,20 @@ _PlayerAI_Movement::
 	ld	a, b
 	dec	a
 	or	a, e
-	jr	NZ, 00471$
+	jr	NZ, 00475$
 	inc	c
-	jp	00472$
-00471$:
+	jp	00476$
+00475$:
 	dec	c
-00472$:
+00476$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:98: u8 twin_idx = (team == TEAM_1) ? twin_role : twin_role + 7;
 	ld	a, -29 (ix)
 	or	a, a
-	jr	Z, 00474$
+	jr	Z, 00478$
 	ld	a, c
 	add	a, #0x07
 	ld	c, a
-00474$:
+00478$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:99: if (twin_idx != LastTouchPlayer && twin_idx != i) {
 	ld	a, (_LastTouchPlayer+0)
 	sub	a, c
@@ -1090,20 +1090,20 @@ _PlayerAI_Movement::
 	sub	a, -10 (ix)
 	ld	a, -5 (ix)
 	sbc	a, -9 (ix)
-	jr	NC, 00475$
+	jr	NC, 00479$
 	ld	a, e
 	sub	a, -6 (ix)
 	ld	e, a
 	ld	a, d
 	sbc	a, -5 (ix)
-	jp	00476$
-00475$:
+	jp	00480$
+00479$:
 	ld	a, c
 	sub	a, e
 	ld	e, a
 	ld	a, b
 	sbc	a, d
-00476$:
+00480$:
 	ld	d, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:101: u16 d_my = (SwSprite[twin_idx].ly > target_y) ? (SwSprite[twin_idx].ly - target_y) : (target_y - SwSprite[twin_idx].ly);
 	ld	l, -8 (ix)
@@ -1127,22 +1127,22 @@ _PlayerAI_Movement::
 	sub	a, l
 	ld	a, -3 (ix)
 	sbc	a, h
-	jr	NC, 00477$
+	jr	NC, 00481$
 	ld	a, l
 	sub	a, -4 (ix)
 	ld	-8 (ix), a
 	ld	a, h
 	sbc	a, -3 (ix)
 	ld	-7 (ix), a
-	jp	00478$
-00477$:
+	jp	00482$
+00481$:
 	ld	a, -4 (ix)
 	sub	a, l
 	ld	-8 (ix), a
 	ld	a, -3 (ix)
 	sbc	a, h
 	ld	-7 (ix), a
-00478$:
+00482$:
 	ld	l, -8 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1164,12 +1164,12 @@ _PlayerAI_Movement::
 	sub	a, -6 (ix)
 	ld	a, -9 (ix)
 	sbc	a, -5 (ix)
-	jr	NC, 00479$
+	jr	NC, 00483$
 	ld	hl, #0x0018
-	jp	00480$
-00479$:
+	jp	00484$
+00483$:
 	ld	hl, #0xffe8
-00480$:
+00484$:
 	add	hl, bc
 	ld	-6 (ix), l
 	ld	-5 (ix), h
@@ -1211,14 +1211,14 @@ _PlayerAI_Movement::
 	ld	-5 (ix), a
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00481$
+	jr	NZ, 00485$
 	ld	-4 (ix), #0xd8
 	ld	-3 (ix), #0xff
-	jp	00482$
-00481$:
+	jp	00486$
+00485$:
 	ld	-4 (ix), #0x28
 	ld	-3 (ix), #0
-00482$:
+00486$:
 	ld	a, -6 (ix)
 	ld	-8 (ix), a
 	ld	a, -5 (ix)
@@ -1236,12 +1236,12 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:114: target_x = (role == 5) ? 80 : 144;
 	ld	a, -2 (ix)
 	sub	a, #0x05
-	jr	NZ, 00483$
+	jr	NZ, 00487$
 	ld	bc, #0x0050
-	jp	00484$
-00483$:
+	jp	00488$
+00487$:
 	ld	bc, #0x0090
-00484$:
+00488$:
 	ld	-6 (ix), c
 	ld	-5 (ix), b
 	jp	00195$
@@ -1255,26 +1255,26 @@ _PlayerAI_Movement::
 	ld	b, -17 (ix)
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00485$
+	jr	NZ, 00489$
 	ld	hl, #0x0020
-	jp	00486$
-00485$:
+	jp	00490$
+00489$:
 	ld	hl, #0xffe0
-00486$:
+00490$:
 	add	hl, bc
 	ld	-4 (ix), l
 	ld	-3 (ix), h
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:117: target_x = Ball->lx + ((role == 3) ? -32 : 32);
 	ld	a, -2 (ix)
 	sub	a, #0x03
-	jr	NZ, 00487$
+	jr	NZ, 00491$
 	ld	-6 (ix), #0xe0
 	ld	-5 (ix), #0xff
-	jp	00488$
-00487$:
+	jp	00492$
+00491$:
 	ld	-6 (ix), #0x20
 	ld	-5 (ix), #0
-00488$:
+00492$:
 	ld	a, -26 (ix)
 	add	a, -6 (ix)
 	ld	c, a
@@ -1291,7 +1291,7 @@ _PlayerAI_Movement::
 	ld	-5 (ix), a
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00489$
+	jr	NZ, 00493$
 	ld	a, -6 (ix)
 	sub	a, #0x8c
 	ld	a, -5 (ix)
@@ -1299,8 +1299,8 @@ _PlayerAI_Movement::
 	ld	a, #0x00
 	rla
 	ld	-4 (ix), a
-	jp	00490$
-00489$:
+	jp	00494$
+00493$:
 	ld	a, #0x74
 	cp	a, -6 (ix)
 	ld	a, #0x01
@@ -1308,16 +1308,16 @@ _PlayerAI_Movement::
 	ld	a, #0x00
 	rla
 	ld	-4 (ix), a
-00490$:
+00494$:
 	ld	a, -4 (ix)
 	ld	-11 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:122: bool side_presses = (role == 1) ? (Ball->lx < 128) : (Ball->lx >= 128);
 	ld	a, -2 (ix)
 	dec	a
 	ld	a, #0x01
-	jr	Z, 01813$
+	jr	Z, 01827$
 	xor	a, a
-01813$:
+01827$:
 	ld	-10 (ix), a
 	ld	a, -27 (ix)
 	sub	a, #0x80
@@ -1326,11 +1326,11 @@ _PlayerAI_Movement::
 	ld	-2 (ix), a
 	ld	a, -10 (ix)
 	or	a, a
-	jr	NZ, 00492$
+	jr	NZ, 00496$
 	ld	a, -2 (ix)
 	xor	a, #0x01
 	ld	-2 (ix), a
-00492$:
+00496$:
 	ld	a, -2 (ix)
 	ld	-9 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:125: bool carrier_is_threat = FALSE;
@@ -1396,9 +1396,9 @@ _PlayerAI_Movement::
 	ld	c, (hl)
 	xor	a, a
 	sub	a, c
-	jp	PO, 01817$
+	jp	PO, 01831$
 	xor	a, #0x80
-01817$:
+01831$:
 	jp	P, 00163$
 	xor	a, a
 	cp	a, -6 (ix)
@@ -1480,9 +1480,9 @@ _PlayerAI_Movement::
 	sub	a, c
 	ld	a, d
 	sbc	a, b
-	jp	PO, 01819$
+	jp	PO, 01833$
 	xor	a, #0x80
-01819$:
+01833$:
 	jp	P, 00186$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:139: target_x = Ball->lx;
 	ld	a, -27 (ix)
@@ -1520,23 +1520,23 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:147: target_x = (role == 1) ? 80 : 144;
 	ld	a, -10 (ix)
 	or	a, a
-	jr	Z, 00493$
+	jr	Z, 00497$
 	ld	bc, #0x0050
-	jp	00494$
-00493$:
+	jp	00498$
+00497$:
 	ld	bc, #0x0090
-00494$:
+00498$:
 	ld	-6 (ix), c
 	ld	-5 (ix), b
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:148: target_y = (team == TEAM_1) ? 88 : 424;
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00495$
+	jr	NZ, 00499$
 	ld	bc, #0x0058
-	jp	00496$
-00495$:
+	jp	00500$
+00499$:
 	ld	bc, #0x01a8
-00496$:
+00500$:
 	ld	-4 (ix), c
 	ld	-3 (ix), b
 	jp	00195$
@@ -1546,24 +1546,24 @@ _PlayerAI_Movement::
 	ld	b, -17 (ix)
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00497$
+	jr	NZ, 00501$
 	ld	hl, #0x0050
-	jp	00498$
-00497$:
+	jp	00502$
+00501$:
 	ld	hl, #0xffb0
-00498$:
+00502$:
 	add	hl, bc
 	ld	-4 (ix), l
 	ld	-3 (ix), h
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:151: target_x = Ball->lx + ((role == 1) ? -24 : 24);
 	ld	a, -10 (ix)
 	or	a, a
-	jr	Z, 00499$
+	jr	Z, 00503$
 	ld	bc, #0xffe8
-	jp	00500$
-00499$:
+	jp	00504$
+00503$:
 	ld	bc, #0x0018
-00500$:
+00504$:
 	ld	l, -26 (ix)
 	ld	h, -25 (ix)
 	add	hl, bc
@@ -1586,9 +1586,9 @@ _PlayerAI_Movement::
 	ld	a, -29 (ix)
 	dec	a
 	ld	a, #0x01
-	jr	Z, 01821$
+	jr	Z, 01835$
 	xor	a, a
-01821$:
+01835$:
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	l, a
@@ -1661,12 +1661,12 @@ _PlayerAI_Movement::
 	ld	a, c
 	dec	a
 	or	a, b
-	jr	NZ, 00501$
+	jr	NZ, 00505$
 	ld	bc, #0x0050
-	jp	00502$
-00501$:
+	jp	00506$
+00505$:
 	ld	bc, #0x0090
-00502$:
+00506$:
 	ld	-6 (ix), c
 	ld	-5 (ix), b
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:167: target_y = Ball->ly + ((team == TEAM_1) ? -32 : 32);
@@ -1674,12 +1674,12 @@ _PlayerAI_Movement::
 	ld	b, -17 (ix)
 	ld	a, -29 (ix)
 	or	a, a
-	jr	NZ, 00503$
+	jr	NZ, 00507$
 	ld	hl, #0xffe0
-	jp	00504$
-00503$:
+	jp	00508$
+00507$:
 	ld	hl, #0x0020
-00504$:
+00508$:
 	add	hl, bc
 	ld	-4 (ix), l
 	ld	-3 (ix), h
@@ -1742,9 +1742,9 @@ _PlayerAI_Movement::
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
 	ld	a, #0x01
-	jr	Z, 01827$
+	jr	Z, 01841$
 	xor	a, a
-01827$:
+01841$:
 	ld	c, a
 	bit	0, c
 	jr	Z, 00313$
@@ -1793,9 +1793,9 @@ _PlayerAI_Movement::
 	ld	a, (_LastTouchTeam+0)
 	inc	a
 	ld	a, #0x01
-	jr	Z, 01831$
+	jr	Z, 01845$
 	xor	a, a
-01831$:
+01845$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:185: if (LastTouchTeam == 0xFF || !g_is_ball_carried) press_radius = 500; // Palla libera o non controllata: vai a prenderla!
 	ld	-7 (ix), a
 	or	a, a
@@ -1814,9 +1814,9 @@ _PlayerAI_Movement::
 	ld	a, -29 (ix)
 	dec	a
 	ld	a, #0x01
-	jr	Z, 01833$
+	jr	Z, 01847$
 	xor	a, a
-01833$:
+01847$:
 	ld	-2 (ix), a
 	or	a, a
 	jr	Z, 00228$
@@ -2040,9 +2040,9 @@ _PlayerAI_Movement::
 	sub	a, l
 	ld	a, d
 	sbc	a, h
-	jp	PO, 01837$
+	jp	PO, 01851$
 	xor	a, #0x80
-01837$:
+01851$:
 	jp	P, 00258$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:218: Player->count = 30; // durata scivolata + cooldown per penalità se manca la palla
 	ld	a, #0x1e
@@ -2063,12 +2063,12 @@ _PlayerAI_Movement::
 	ld	h, -30 (ix)
 	ld	a, (hl)
 	sub	a, e
-	jr	NC, 00505$
+	jr	NC, 00509$
 	ld	de, #0x0004
-	jp	00506$
-00505$:
+	jp	00510$
+00509$:
 	ld	de, #0xfffc
-00506$:
+00510$:
 	ld	a, e
 	ld	(bc), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:220: Player->dy = 0; // Solo scivolata orizzontale
@@ -2078,7 +2078,7 @@ _PlayerAI_Movement::
 	add	hl, de
 	ld	(hl), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:221: return; // Esce e inizia la scivolata dal prossimo frame
-	jp	00417$
+	jp	00421$
 00258$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:226: bool is_free_ball = (!g_is_ball_carried);
 	ld	a, (_g_is_ball_carried+0)
@@ -2096,9 +2096,9 @@ _PlayerAI_Movement::
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
 	ld	a, #0x01
-	jr	Z, 01839$
+	jr	Z, 01853$
 	xor	a, a
-01839$:
+01853$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:229: if (is_free_ball || (LastTouchTeam == team && LastTouchPlayer != i)) {
 	ld	b, a
 	or	a, a
@@ -2230,9 +2230,9 @@ _PlayerAI_Movement::
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
 	ld	a, #0x01
-	jr	Z, 01842$
+	jr	Z, 01856$
 	xor	a, a
-01842$:
+01856$:
 	ld	c, a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:250: if (LastTouchTeam != team) { // Solo se furto da avversario o palla libera
 	ld	b, c
@@ -2242,12 +2242,12 @@ _PlayerAI_Movement::
 	ld	de, #(_SwSprite + 343)
 	ld	a, -2 (ix)
 	or	a, a
-	jr	Z, 00507$
+	jr	Z, 00511$
 	ld	bc, #0x000a
-	jp	00508$
-00507$:
+	jp	00512$
+00511$:
 	ld	bc, #0x001e
-00508$:
+00512$:
 	ld	a, c
 	ld	(de), a
 	inc	de
@@ -2313,30 +2313,30 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:270: bool is_cpu_team = (GameMode == GAMEMODE_P1_VS_CPU && team == TEAM_1);
 	ld	a, (_GameMode+0)
 	or	a, a
-	jr	NZ, 00509$
+	jr	NZ, 00513$
 	ld	a, -29 (ix)
 	or	a, a
-	jr	Z, 00510$
-00509$:
+	jr	Z, 00514$
+00513$:
 	ld	c, #0x00
-	jp	00511$
-00510$:
+	jp	00515$
+00514$:
 	ld	c, #0x01
-00511$:
+00515$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:271: if (is_cpu_team && i == closest_mate && LastTouchTeam == team && g_is_ball_carried) {
 	ld	-2 (ix), c
 	ld	a, c
 	or	a, a
-	jp	Z, 00383$
+	jp	Z, 00387$
 	ld	a, -28 (ix)
 	sub	a, -1 (ix)
-	jp	NZ,00383$
+	jp	NZ,00387$
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
-	jp	NZ,00383$
+	jp	NZ,00387$
 	ld	a, (_g_is_ball_carried+0)
 	or	a, a
-	jp	Z, 00383$
+	jp	Z, 00387$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:272: u16 d_bx = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
@@ -2352,22 +2352,22 @@ _PlayerAI_Movement::
 	ld	-5 (ix), #0x00
 	ld	a, -4 (ix)
 	sub	a, -20 (ix)
-	jr	NC, 00512$
+	jr	NC, 00516$
 	ld	a, -10 (ix)
 	sub	a, -6 (ix)
 	ld	-3 (ix), a
 	ld	a, -9 (ix)
 	sbc	a, -5 (ix)
 	ld	-2 (ix), a
-	jp	00513$
-00512$:
+	jp	00517$
+00516$:
 	ld	a, -6 (ix)
 	sub	a, -10 (ix)
 	ld	-3 (ix), a
 	ld	a, -5 (ix)
 	sbc	a, -9 (ix)
 	ld	-2 (ix), a
-00513$:
+00517$:
 	ld	a, -3 (ix)
 	ld	-14 (ix), a
 	ld	a, -2 (ix)
@@ -2390,22 +2390,22 @@ _PlayerAI_Movement::
 	sub	a, -8 (ix)
 	ld	a, -2 (ix)
 	sbc	a, -7 (ix)
-	jr	NC, 00514$
+	jr	NC, 00518$
 	ld	a, -8 (ix)
 	sub	a, -3 (ix)
 	ld	-6 (ix), a
 	ld	a, -7 (ix)
 	sbc	a, -2 (ix)
 	ld	-5 (ix), a
-	jp	00515$
-00514$:
+	jp	00519$
+00518$:
 	ld	a, -3 (ix)
 	sub	a, -8 (ix)
 	ld	-6 (ix), a
 	ld	a, -2 (ix)
 	sbc	a, -7 (ix)
 	ld	-5 (ix), a
-00515$:
+00519$:
 	ld	a, -6 (ix)
 	ld	-12 (ix), a
 	ld	a, -5 (ix)
@@ -2425,7 +2425,7 @@ _PlayerAI_Movement::
 	rla
 	ld	-19 (ix), a
 	bit	0, -19 (ix)
-	jp	NZ, 00380$
+	jp	NZ, 00384$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:276: target_x = 128; 
 	ld	-6 (ix), #0x80
 	ld	-5 (ix), #0
@@ -2439,7 +2439,7 @@ _PlayerAI_Movement::
 	ld	-23 (ix), #0xff
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:282: for (u8 j = 7; j < 14; j++) {
 	ld	-2 (ix), #0x07
-00415$:
+00419$:
 	ld	a, -2 (ix)
 	sub	a, #0x0e
 	jp	NC, 00316$
@@ -2470,22 +2470,22 @@ _PlayerAI_Movement::
 	ld	-15 (ix), #0x00
 	ld	a, -20 (ix)
 	sub	a, c
-	jr	NC, 00516$
+	jr	NC, 00520$
 	ld	a, -16 (ix)
 	sub	a, -10 (ix)
 	ld	-14 (ix), a
 	ld	a, -15 (ix)
 	sbc	a, -9 (ix)
 	ld	-13 (ix), a
-	jp	00517$
-00516$:
+	jp	00521$
+00520$:
 	ld	a, -10 (ix)
 	sub	a, -16 (ix)
 	ld	-14 (ix), a
 	ld	a, -9 (ix)
 	sbc	a, -15 (ix)
 	ld	-13 (ix), a
-00517$:
+00521$:
 	ld	a, -14 (ix)
 	ld	-16 (ix), a
 	ld	a, -13 (ix)
@@ -2504,22 +2504,22 @@ _PlayerAI_Movement::
 	sub	a, -14 (ix)
 	ld	a, -7 (ix)
 	sbc	a, -13 (ix)
-	jr	NC, 00518$
+	jr	NC, 00522$
 	ld	a, -14 (ix)
 	sub	a, -8 (ix)
 	ld	-12 (ix), a
 	ld	a, -13 (ix)
 	sbc	a, -7 (ix)
 	ld	-11 (ix), a
-	jp	00519$
-00518$:
+	jp	00523$
+00522$:
 	ld	a, -8 (ix)
 	sub	a, -14 (ix)
 	ld	-12 (ix), a
 	ld	a, -7 (ix)
 	sbc	a, -13 (ix)
 	ld	-11 (ix), a
-00519$:
+00523$:
 	ld	a, -12 (ix)
 	ld	c, -11 (ix)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:285: if (odx + ody < min_opp_dist) {
@@ -2532,7 +2532,7 @@ _PlayerAI_Movement::
 	sub	a, -24 (ix)
 	ld	a, -11 (ix)
 	sbc	a, -23 (ix)
-	jr	NC, 00416$
+	jr	NC, 00420$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:286: min_opp_dist = odx + ody;
 	ld	a, -12 (ix)
 	ld	-24 (ix), a
@@ -2541,10 +2541,10 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:287: closest_opp = j;
 	ld	a, -2 (ix)
 	ld	-18 (ix), a
-00416$:
+00420$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:282: for (u8 j = 7; j < 14; j++) {
 	inc	-2 (ix)
-	jp	00415$
+	jp	00419$
 00316$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:290: bool under_pressure = (min_opp_dist < 40);
 	ld	a, -24 (ix)
@@ -2614,14 +2614,14 @@ _PlayerAI_Movement::
 	ld	a, -13 (ix)
 	ld	-11 (ix), a
 	bit	7, -13 (ix)
-	jr	Z, 00520$
+	jr	Z, 00524$
 	ld	a, -14 (ix)
 	add	a, #0x0f
 	ld	-12 (ix), a
 	ld	a, -13 (ix)
 	adc	a, #0x00
 	ld	-11 (ix), a
-00520$:
+00524$:
 	sra	-11 (ix)
 	rr	-12 (ix)
 	sra	-11 (ix)
@@ -2685,48 +2685,48 @@ _PlayerAI_Movement::
 	ld	h, -11 (ix)
 	ld	a,-20 (ix)
 	sub	a,(hl)
-	jr	NC, 00521$
+	jr	NC, 00525$
 	ld	a, #0x30
 	sub	a, -20 (ix)
-	jr	NC, 00523$
+	jr	NC, 00527$
 	ld	a, -10 (ix)
 	add	a, #0xd0
 	ld	c, a
 	ld	a, -9 (ix)
 	adc	a, #0xff
-	jp	00522$
-00523$:
+	jp	00526$
+00527$:
 	ld	c, #0x18
 	xor	a, a
-	jp	00522$
-00521$:
+	jp	00526$
+00525$:
 	ld	a, -20 (ix)
 	sub	a, #0xd0
-	jr	NC, 00525$
+	jr	NC, 00529$
 	ld	a, -10 (ix)
 	add	a, #0x30
 	ld	-6 (ix), a
 	ld	a, -9 (ix)
 	adc	a, #0x00
 	ld	-5 (ix), a
-	jp	00526$
-00525$:
+	jp	00530$
+00529$:
 	ld	-6 (ix), #0xe8
 	ld	-5 (ix), #0
-00526$:
+00530$:
 	ld	c, -6 (ix)
 	ld	a, -5 (ix)
-00522$:
+00526$:
 	ld	-6 (ix), c
 	ld	-5 (ix), a
 00320$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:302: if (d_bx + d_by <= 26 && Ball->anim == 0) {
 	bit	0, -19 (ix)
-	jp	NZ, 00383$
+	jp	NZ, 00387$
 	ld	hl, (#(_SwSprite + 341) + 0)
 	ld	a, h
 	or	a, l
-	jp	NZ, 00383$
+	jp	NZ, 00387$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:303: bool action_taken = FALSE;
 	ld	-20 (ix), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:307: if (Player->ly > 258 && Field.ly == 320) {
@@ -2911,7 +2911,7 @@ _PlayerAI_Movement::
 	inc	hl
 	ld	a, (hl)
 	sbc	a, 1 (iy)
-	jr	NC, 00527$
+	jr	NC, 00531$
 	ld	hl, #_g_pass_start_x
 	ld	a, (_g_pass_target_x+0)
 	sub	a, (hl)
@@ -2920,8 +2920,8 @@ _PlayerAI_Movement::
 	ld	a, (_g_pass_target_x+1)
 	sbc	a, (hl)
 	ld	d, a
-	jp	00528$
-00527$:
+	jp	00532$
+00531$:
 	ld	hl, #_g_pass_target_x
 	ld	a, (_g_pass_start_x+0)
 	sub	a, (hl)
@@ -2930,7 +2930,7 @@ _PlayerAI_Movement::
 	ld	a, (_g_pass_start_x+1)
 	sbc	a, (hl)
 	ld	d, a
-00528$:
+00532$:
 	ld	-10 (ix), e
 	ld	-9 (ix), d
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:330: u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
@@ -2940,7 +2940,7 @@ _PlayerAI_Movement::
 	sub	a, #0xf0
 	ld	a, (hl)
 	sbc	a, #0x01
-	jr	NC, 00529$
+	jr	NC, 00533$
 	ld	hl, #_g_pass_start_y
 	ld	a, #0xf0
 	sub	a, (hl)
@@ -2949,15 +2949,15 @@ _PlayerAI_Movement::
 	ld	a, #0x01
 	sbc	a, (hl)
 	ld	-7 (ix), a
-	jp	00530$
-00529$:
+	jp	00534$
+00533$:
 	ld	a, (_g_pass_start_y+0)
 	add	a, #0x10
 	ld	-8 (ix), a
 	ld	a, (_g_pass_start_y+1)
 	adc	a, #0xfe
 	ld	-7 (ix), a
-00530$:
+00534$:
 	ld	c, -8 (ix)
 	ld	b, -7 (ix)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:332: g_pass_max_frames = (r_dx + r_dy) / 8; // Tiro potente
@@ -3006,13 +3006,13 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:344: if (!action_taken && Frms % 16 == 0) {
 	ld	a, -20 (ix)
 	or	a, a
-	jp	NZ, 00361$
+	jp	NZ, 00365$
 	ld	a, (_Frms+0)
 	ld	c, a
 	ld	b, #0x00
 	ld	a, c
 	and	a, #0x0f
-	jp	NZ,00361$
+	jp	NZ,00365$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:345: u8 rand_pass = (Player->lx * 5 + Player->ly * 3 + Frms) % 100;
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
@@ -3081,7 +3081,7 @@ _PlayerAI_Movement::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:355: if (rand_pass < pass_prob) {
 	ld	a, -7 (ix)
 	sub	a, e
-	jp	NC, 00361$
+	jp	NC, 00365$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:358: i8 pass_dx = (ai_last_dx[i] > 0) ? 1 : ((ai_last_dx[i] < 0) ? -1 : 0);
 	ld	bc, #_ai_last_dx+0
 	ld	l, -1 (ix)
@@ -3090,21 +3090,21 @@ _PlayerAI_Movement::
 	ld	c, (hl)
 	xor	a, a
 	sub	a, c
-	jp	PO, 01852$
+	jp	PO, 01866$
 	xor	a, #0x80
-01852$:
-	jp	P, 00531$
+01866$:
+	jp	P, 00535$
 	ld	de, #0x0001
-	jp	00532$
-00531$:
+	jp	00536$
+00535$:
 	bit	7, c
-	jr	Z, 00533$
+	jr	Z, 00537$
 	ld	de, #0xffff
-	jp	00534$
-00533$:
+	jp	00538$
+00537$:
 	ld	de, #0x0000
-00534$:
-00532$:
+00538$:
+00536$:
 	ld	a, e
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:360: u8 receiver = (u8)CallFnc_U16_P4B(SEG_HELPERS, FindReceiver, i, 0xFF, pass_dx, pass_dy);
 	ld	h, #0x01
@@ -3125,7 +3125,7 @@ _PlayerAI_Movement::
 	ld	-9 (ix), e
 	ld	a, e
 	inc	a
-	jp	Z,00361$
+	jp	Z,00365$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:363: if (SwSprite[receiver].ly > Player->ly - 16) {
 	ld	c, -9 (ix)
 	ld	b, #0x00
@@ -3181,7 +3181,7 @@ _PlayerAI_Movement::
 	sub	a, -15 (ix)
 	ld	a, -7 (ix)
 	sbc	a, -14 (ix)
-	jp	NC, 00361$
+	jp	NC, 00365$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:364: u16 r_dx = (SwSprite[receiver].lx > Player->lx) ? (SwSprite[receiver].lx - Player->lx) : (Player->lx - SwSprite[receiver].lx);
 	ld	l, -24 (ix)
 	ld	h, -23 (ix)
@@ -3199,22 +3199,22 @@ _PlayerAI_Movement::
 	ld	-7 (ix), #0x00
 	ld	a, -2 (ix)
 	sub	a, -12 (ix)
-	jr	NC, 00535$
+	jr	NC, 00539$
 	ld	a, -11 (ix)
 	sub	a, -8 (ix)
 	ld	-13 (ix), a
 	ld	a, -10 (ix)
 	sbc	a, -7 (ix)
 	ld	-12 (ix), a
-	jp	00536$
-00535$:
+	jp	00540$
+00539$:
 	ld	a, -8 (ix)
 	sub	a, -11 (ix)
 	ld	-13 (ix), a
 	ld	a, -7 (ix)
 	sbc	a, -10 (ix)
 	ld	-12 (ix), a
-00536$:
+00540$:
 	ld	c, -13 (ix)
 	ld	b, -12 (ix)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:365: u16 r_dy = (SwSprite[receiver].ly > Player->ly) ? (SwSprite[receiver].ly - Player->ly) : (Player->ly - SwSprite[receiver].ly);
@@ -3222,20 +3222,20 @@ _PlayerAI_Movement::
 	sub	a, -26 (ix)
 	ld	a, -16 (ix)
 	sbc	a, -25 (ix)
-	jr	NC, 00537$
+	jr	NC, 00541$
 	ld	a, -26 (ix)
 	sub	a, -17 (ix)
 	ld	e, a
 	ld	a, -25 (ix)
 	sbc	a, -16 (ix)
-	jp	00538$
-00537$:
+	jp	00542$
+00541$:
 	ld	a, -17 (ix)
 	sub	a, -26 (ix)
 	ld	e, a
 	ld	a, -16 (ix)
 	sbc	a, -25 (ix)
-00538$:
+00542$:
 	ld	l, e
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3250,7 +3250,7 @@ _PlayerAI_Movement::
 	sub	a, #0x30
 	ld	a, -12 (ix)
 	sbc	a, #0x00
-	jp	C, 00361$
+	jp	C, 00365$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:368: action_taken = TRUE;
 	ld	-20 (ix), #0x01
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:371: bool is_offside = FALSE;
@@ -3276,12 +3276,12 @@ _PlayerAI_Movement::
 	sub	a, -11 (ix)
 	ld	a, -7 (ix)
 	sbc	a, -10 (ix)
-	jr	NC, 00539$
+	jr	NC, 00543$
 	ld	a, -11 (ix)
 	ld	-8 (ix), a
 	ld	a, -10 (ix)
 	ld	-7 (ix), a
-00539$:
+00543$:
 	ld	c, -8 (ix)
 	ld	b, -7 (ix)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:374: if (Player->ly > offside_line) offside_line = Player->ly;
@@ -3316,9 +3316,9 @@ _PlayerAI_Movement::
 	ld	a, -2 (ix)
 	or	a, a
 	ld	a, #0x80
-	jr	NZ, 00542$
+	jr	NZ, 00546$
 	xor	a, a
-00542$:
+00546$:
 	or	a, -9 (ix)
 	ld	(_g_pass_receiver+0), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:380: g_pass_start_x = Player->lx;
@@ -3351,8 +3351,8 @@ _PlayerAI_Movement::
 	ld	(_g_pass_target_y+0), a
 	ld	a, (hl)
 	ld	(_g_pass_target_y+1), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:384: g_pass_max_frames = (r_dx + r_dy) / 5;
-	ld	de, #0x0005
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:385: g_pass_max_frames = (r_dx + r_dy) / 6;
+	ld	de, #0x0006
 	ld	l, -13 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3362,35 +3362,56 @@ _PlayerAI_Movement::
 	call	__divuint
 	ld	iy, #_g_pass_max_frames
 	ld	0 (iy), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:385: if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:386: if (g_pass_max_frames < 6) g_pass_max_frames = 6;
 	ld	a, (_g_pass_max_frames+0)
-	sub	a, #0x08
+	sub	a, #0x06
 	jr	NC, 00349$
-	ld	0 (iy), #0x08
+	ld	0 (iy), #0x06
 00349$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:386: if (g_pass_max_frames > 34) g_pass_max_frames = 34;
-	ld	a, #0x22
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:387: if (g_pass_max_frames > 28) g_pass_max_frames = 28;
+	ld	a, #0x1c
 	ld	iy, #_g_pass_max_frames
 	sub	a, 0 (iy)
 	jr	NC, 00351$
-	ld	0 (iy), #0x22
+	ld	0 (iy), #0x1c
 00351$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:387: g_pass_max_height = 7;
-	ld	hl, #_g_pass_max_height
-	ld	(hl), #0x07
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:389: Ball->anim = 5;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:388: g_pass_max_height = (r_dx + r_dy) / 24;
+	ld	de, #0x0018
+	ld	l, -13 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, -12 (ix)
+;	spillPairReg hl
+;	spillPairReg hl
+	call	__divuint
+	ld	iy, #_g_pass_max_height
+	ld	0 (iy), e
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:389: if (g_pass_max_height < 1) g_pass_max_height = 1;
+	ld	a, (_g_pass_max_height+0)
+	sub	a, #0x01
+	jr	NC, 00353$
+	ld	0 (iy), #0x01
+00353$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:390: if (g_pass_max_height > 7) g_pass_max_height = 7;
+	ld	a, #0x07
+	ld	iy, #_g_pass_max_height
+	sub	a, 0 (iy)
+	jr	NC, 00355$
+	ld	0 (iy), #0x07
+00355$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:392: Ball->anim = 5;
 	ld	hl, #0x0005
 	ld	((_SwSprite + 341)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:390: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:393: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 	ld	de, #_EventBallKicked
 	ld	a, #0x08
 	call	_CallFnc_VOID
-00361$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:398: if (!action_taken) {
+00365$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:401: if (!action_taken) {
 	ld	a, -20 (ix)
 	or	a, a
-	jp	NZ, 00383$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:399: i8 move_dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
+	jp	NZ, 00387$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:402: i8 move_dx = (Player->dx > 0) ? 1 : ((Player->dx < 0) ? -1 : 0);
 	ld	c, -31 (ix)
 	ld	b, -30 (ix)
 	ld	hl, #17
@@ -3398,77 +3419,77 @@ _PlayerAI_Movement::
 	ld	c, (hl)
 	xor	a, a
 	sub	a, c
-	jp	PO, 01854$
+	jp	PO, 01868$
 	xor	a, #0x80
-01854$:
-	jp	P, 00543$
+01868$:
+	jp	P, 00547$
 	ld	de, #0x0001
-	jp	00544$
-00543$:
+	jp	00548$
+00547$:
 	bit	7, c
-	jr	Z, 00545$
+	jr	Z, 00549$
 	ld	de, #0xffff
-	jp	00546$
-00545$:
+	jp	00550$
+00549$:
 	ld	de, #0x0000
-00546$:
-00544$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:402: if (Player->ly > 450) {
+00550$:
+00548$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:405: if (Player->ly > 450) {
 	ld	l, -22 (ix)
 	ld	h, -21 (ix)
 	ld	c, (hl)
 	inc	hl
 	ld	b, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:403: Ball->dx = 0; Ball->dy = 0;
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:402: if (Player->ly > 450) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:406: Ball->dx = 0; Ball->dy = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:405: if (Player->ly > 450) {
 	ld	a, #0xc2
 	cp	a, c
 	ld	a, #0x01
 	sbc	a, b
-	jr	NC, 00372$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:403: Ball->dx = 0; Ball->dy = 0;
+	jr	NC, 00376$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:406: Ball->dx = 0; Ball->dy = 0;
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:404: Ball->anim = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:407: Ball->anim = 0;
 	ld	hl, #0x0000
 	ld	((_SwSprite + 341)), hl
-	jp	00383$
-00372$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:406: i8 off_x = 0;
+	jp	00387$
+00376$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:409: i8 off_x = 0;
 	ld	c, #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:407: i8 off_y = (move_dx != 0) ? 11 : 8;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:410: i8 off_y = (move_dx != 0) ? 11 : 8;
 	ld	a, e
 	or	a, a
-	jr	Z, 00547$
+	jr	Z, 00551$
 	ld	hl, #0x000b
-	jp	00548$
-00547$:
+	jp	00552$
+00551$:
 	ld	hl, #0x0008
-00548$:
+00552$:
 	ld	d, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:408: if (move_dx > 0) off_x = 3; else if (move_dx < 0) off_x = -3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:411: if (move_dx > 0) off_x = 3; else if (move_dx < 0) off_x = -3;
 	xor	a, a
 	sub	a, e
-	jp	PO, 01855$
+	jp	PO, 01869$
 	xor	a, #0x80
-01855$:
-	jp	P, 00366$
+01869$:
+	jp	P, 00370$
 	ld	c, #0x03
-	jp	00367$
-00366$:
+	jp	00371$
+00370$:
 	bit	7, e
-	jr	Z, 00367$
+	jr	Z, 00371$
 	ld	c, #0xfd
-00367$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:410: Ball->lx = (u8)((i16)Player->lx + off_x);
+00371$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:413: Ball->lx = (u8)((i16)Player->lx + off_x);
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	a, (hl)
 	add	a, c
 	ld	(#(_SwSprite + 322)),a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:411: Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:414: Ball->ly = (u16)((i16)Player->ly + off_y) & 511;
 	ld	l, -22 (ix)
 	ld	h, -21 (ix)
 	ld	c, (hl)
@@ -3490,95 +3511,95 @@ _PlayerAI_Movement::
 	ld	b, a
 	ld	((_SwSprite + 326)), bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:413: if (move_dx == 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:416: if (move_dx == 0) {
 	ld	a, e
 	or	a, a
-	jr	NZ, 00369$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:415: Ball->dx = 0; Ball->dy = 1;
+	jr	NZ, 00373$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:418: Ball->dx = 0; Ball->dy = 1;
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), #0x00
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:416: Ball->anim = 4; Ball->count = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:419: Ball->anim = 4; Ball->count = 0;
 	ld	hl, #0x0004
 	ld	((_SwSprite + 341)), hl
 	ld	l, h
 	ld	((_SwSprite + 343)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:417: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:420: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 	ld	de, #_EventBallKicked
 	ld	a, #0x08
 	call	_CallFnc_VOID
-	jp	00383$
-00369$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:420: Ball->dx = move_dx; Ball->dy = 1;
+	jp	00387$
+00373$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:423: Ball->dx = move_dx; Ball->dy = 1;
 	ld	hl, #(_SwSprite + 339)
 	ld	(hl), e
 	ld	hl, #(_SwSprite + 340)
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:421: Ball->anim = 2; Ball->count = 12; // Immunità durante il cambio di direzione
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:424: Ball->anim = 2; Ball->count = 12; // Immunità durante il cambio di direzione
 	ld	hl, #0x0002
 	ld	((_SwSprite + 341)), hl
 	ld	l, #0x0c
 	ld	((_SwSprite + 343)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:422: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:425: CallFnc_VOID(SEG_EVENTS, EventBallKicked);
 	ld	de, #_EventBallKicked
 	ld	a, #0x08
 	call	_CallFnc_VOID
-	jp	00383$
-00380$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:429: target_x = Ball->lx;
+	jp	00387$
+00384$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:432: target_x = Ball->lx;
 	ld	a, -4 (ix)
 	ld	-6 (ix), a
 	ld	-5 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:430: target_y = Ball->ly;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:433: target_y = Ball->ly;
 	ld	a, -3 (ix)
 	ld	c, -2 (ix)
 	ld	-4 (ix), a
 	ld	-3 (ix), c
-00383$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:435: if (target_x < 16) target_x = 16; 
+00387$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:438: if (target_x < 16) target_x = 16; 
 	ld	a, -6 (ix)
 	ld	b, -5 (ix)
 	sub	a, #0x10
 	ld	a, b
 	sbc	a, #0x00
-	jr	NC, 00388$
+	jr	NC, 00392$
 	ld	-6 (ix), #0x10
 	ld	-5 (ix), #0
-00388$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:436: if (target_x > 224) target_x = 224;
+00392$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:439: if (target_x > 224) target_x = 224;
 	ld	c, -6 (ix)
 	ld	b, -5 (ix)
 	ld	a, #0xe0
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
-	jr	NC, 00390$
+	jr	NC, 00394$
 	ld	-6 (ix), #0xe0
 	ld	-5 (ix), #0
-00390$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:437: if (target_y < 24) target_y = 24;
+00394$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:440: if (target_y < 24) target_y = 24;
 	ld	a, -4 (ix)
 	ld	b, -3 (ix)
 	sub	a, #0x18
 	ld	a, b
 	sbc	a, #0x00
-	jr	NC, 00392$
+	jr	NC, 00396$
 	ld	-4 (ix), #0x18
 	ld	-3 (ix), #0
-00392$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:438: if (target_y > 478) target_y = 478;
+00396$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:441: if (target_y > 478) target_y = 478;
 	ld	c, -4 (ix)
 	ld	b, -3 (ix)
 	ld	a, #0xde
 	cp	a, c
 	ld	a, #0x01
 	sbc	a, b
-	jr	NC, 00394$
+	jr	NC, 00398$
 	ld	-4 (ix), #0xde
 	ld	-3 (ix), #0x01
-00394$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:442: u16 dist_x = (target_x > Player->lx) ? (target_x - Player->lx) : (Player->lx - target_x);
+00398$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:445: u16 dist_x = (target_x > Player->lx) ? (target_x - Player->lx) : (Player->lx - target_x);
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	a, (hl)
@@ -3590,7 +3611,7 @@ _PlayerAI_Movement::
 	sub	a, -6 (ix)
 	ld	a, b
 	sbc	a, -5 (ix)
-	jr	NC, 00549$
+	jr	NC, 00553$
 	ld	a, -6 (ix)
 	ld	-12 (ix), a
 	ld	a, -5 (ix)
@@ -3605,8 +3626,8 @@ _PlayerAI_Movement::
 	ld	a, -11 (ix)
 	sbc	a, -9 (ix)
 	ld	-7 (ix), a
-	jp	00550$
-00549$:
+	jp	00554$
+00553$:
 	ld	a, -8 (ix)
 	ld	c, -7 (ix)
 	sub	a, -6 (ix)
@@ -3614,12 +3635,12 @@ _PlayerAI_Movement::
 	ld	a, c
 	sbc	a, -5 (ix)
 	ld	-7 (ix), a
-00550$:
+00554$:
 	ld	a, -8 (ix)
 	ld	-10 (ix), a
 	ld	a, -7 (ix)
 	ld	-9 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:443: u16 dist_y = (target_y > Player->ly) ? (target_y - Player->ly) : (Player->ly - target_y);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:446: u16 dist_y = (target_y > Player->ly) ? (target_y - Player->ly) : (Player->ly - target_y);
 	ld	l, -22 (ix)
 	ld	h, -21 (ix)
 	ld	a, (hl)
@@ -3631,32 +3652,32 @@ _PlayerAI_Movement::
 	sub	a, -4 (ix)
 	ld	a, -11 (ix)
 	sbc	a, -3 (ix)
-	jr	NC, 00551$
+	jr	NC, 00555$
 	ld	a, -4 (ix)
 	sub	a, -12 (ix)
 	ld	-8 (ix), a
 	ld	a, -3 (ix)
 	sbc	a, -11 (ix)
 	ld	-7 (ix), a
-	jp	00552$
-00551$:
+	jp	00556$
+00555$:
 	ld	a, -12 (ix)
 	sub	a, -4 (ix)
 	ld	-8 (ix), a
 	ld	a, -11 (ix)
 	sbc	a, -3 (ix)
 	ld	-7 (ix), a
-00552$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:446: u8 speed = 1;
+00556$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:449: u8 speed = 1;
 	ld	-2 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:448: if (dist_x > 24 || dist_y > 24 || (LastTouchTeam == team && i == closest_mate) || (!g_is_ball_carried && Ball->anim < 5 && i == closest_mate)) speed = 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:451: if (dist_x > 24 || dist_y > 24 || (LastTouchTeam == team && i == closest_mate) || (!g_is_ball_carried && Ball->anim < 5 && i == closest_mate)) speed = 2;
 	ld	c, -10 (ix)
 	ld	b, -9 (ix)
 	ld	a, #0x18
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
-	jr	C, 00395$
+	jr	C, 00399$
 	ld	a, -8 (ix)
 	ld	-12 (ix), a
 	ld	a, -7 (ix)
@@ -3665,17 +3686,17 @@ _PlayerAI_Movement::
 	cp	a, -12 (ix)
 	ld	a, #0x00
 	sbc	a, -11 (ix)
-	jr	C, 00395$
+	jr	C, 00399$
 	ld	a, (_LastTouchTeam+0)
 	sub	a, -29 (ix)
-	jr	NZ, 00402$
+	jr	NZ, 00406$
 	ld	a, -1 (ix)
 	sub	a, -28 (ix)
-	jr	Z, 00395$
-00402$:
+	jr	Z, 00399$
+00406$:
 	ld	a, (_g_is_ball_carried+0)
 	or	a, a
-	jr	NZ, 00396$
+	jr	NZ, 00400$
 	ld	hl, #(_SwSprite + 341)
 	ld	a, (hl)
 	ld	-12 (ix), a
@@ -3686,14 +3707,14 @@ _PlayerAI_Movement::
 	sub	a, #0x05
 	ld	a, -11 (ix)
 	sbc	a, #0x00
-	jr	NC, 00396$
+	jr	NC, 00400$
 	ld	a, -1 (ix)
 	sub	a, -28 (ix)
-	jr	NZ, 00396$
-00395$:
+	jr	NZ, 00400$
+00399$:
 	ld	-2 (ix), #0x02
-00396$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:450: Player->dx = 0; Player->dy = 0;
+00400$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:453: Player->dx = 0; Player->dy = 0;
 	ld	a, -31 (ix)
 	add	a, #0x11
 	ld	-18 (ix), a
@@ -3712,7 +3733,7 @@ _PlayerAI_Movement::
 	ld	l, -16 (ix)
 	ld	h, -15 (ix)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:452: if (dist_x > speed) Player->dx = (target_x > Player->lx) ? speed : -speed;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:455: if (dist_x > speed) Player->dx = (target_x > Player->lx) ? speed : -speed;
 	ld	a, -2 (ix)
 	ld	-14 (ix), a
 	ld	-13 (ix), #0x00
@@ -3720,7 +3741,7 @@ _PlayerAI_Movement::
 	sub	a, -10 (ix)
 	ld	a, -13 (ix)
 	sbc	a, -9 (ix)
-	jr	NC, 00404$
+	jr	NC, 00408$
 	ld	a, -18 (ix)
 	ld	-12 (ix), a
 	ld	a, -17 (ix)
@@ -3735,26 +3756,26 @@ _PlayerAI_Movement::
 	sub	a, -6 (ix)
 	ld	a, -9 (ix)
 	sbc	a, -5 (ix)
-	jr	NC, 00553$
+	jr	NC, 00557$
 	ld	a, -2 (ix)
 	ld	-5 (ix), a
-	jp	00554$
-00553$:
+	jp	00558$
+00557$:
 	xor	a, a
 	sub	a, -2 (ix)
 	ld	-5 (ix), a
-00554$:
+00558$:
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
 	ld	a, -5 (ix)
 	ld	(hl), a
-00404$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:453: if (dist_y > speed) Player->dy = (target_y > Player->ly) ? speed : -speed;
+00408$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:456: if (dist_y > speed) Player->dy = (target_y > Player->ly) ? speed : -speed;
 	ld	a, -14 (ix)
 	sub	a, -8 (ix)
 	ld	a, -13 (ix)
 	sbc	a, -7 (ix)
-	jr	NC, 00406$
+	jr	NC, 00410$
 	ld	a, -16 (ix)
 	ld	-6 (ix), a
 	ld	a, -15 (ix)
@@ -3768,40 +3789,40 @@ _PlayerAI_Movement::
 	sub	a, -4 (ix)
 	ld	a, b
 	sbc	a, -3 (ix)
-	jr	NC, 00555$
+	jr	NC, 00559$
 	ld	a, -2 (ix)
-	jp	00556$
-00555$:
+	jp	00560$
+00559$:
 	xor	a, a
 	sub	a, -2 (ix)
-00556$:
+00560$:
 	ld	l, -6 (ix)
 	ld	h, -5 (ix)
 	ld	(hl), a
-00406$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:455: if (Player->dx != 0 || Player->dy != 0) {
+00410$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:458: if (Player->dx != 0 || Player->dy != 0) {
 	ld	l, -18 (ix)
 	ld	h, -17 (ix)
 	ld	a, (hl)
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:464: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:467: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
 	ld	a, -31 (ix)
 	add	a, #0x0f
 	ld	-3 (ix), a
 	ld	a, -30 (ix)
 	adc	a, #0x00
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:455: if (Player->dx != 0 || Player->dy != 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:458: if (Player->dx != 0 || Player->dy != 0) {
 	ld	a, -4 (ix)
 	or	a, a
-	jr	NZ, 00410$
+	jr	NZ, 00414$
 	ld	l, -16 (ix)
 	ld	h, -15 (ix)
 	ld	a, (hl)
 	or	a, a
-	jp	Z, 00411$
-00410$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:456: ai_last_dx[i] = Player->dx;
+	jp	Z, 00415$
+00414$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:459: ai_last_dx[i] = Player->dx;
 	ld	a, #<(_ai_last_dx)
 	add	a, -1 (ix)
 	ld	-6 (ix), a
@@ -3812,7 +3833,7 @@ _PlayerAI_Movement::
 	ld	h, -5 (ix)
 	ld	a, -4 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:457: ai_last_dy[i] = Player->dy;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:460: ai_last_dy[i] = Player->dy;
 	ld	a, #<(_ai_last_dy)
 	add	a, -1 (ix)
 	ld	c, a
@@ -3823,7 +3844,7 @@ _PlayerAI_Movement::
 	ld	h, -15 (ix)
 	ld	a, (hl)
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:459: Player->lx += Player->dx;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:462: Player->lx += Player->dx;
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	a, (hl)
@@ -3834,7 +3855,7 @@ _PlayerAI_Movement::
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:460: Player->ly += Player->dy;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:463: Player->ly += Player->dy;
 	ld	l, -22 (ix)
 	ld	h, -21 (ix)
 	ld	a, (hl)
@@ -3870,7 +3891,7 @@ _PlayerAI_Movement::
 	inc	hl
 	ld	a, -4 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:462: Player->anim++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:465: Player->anim++;
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	de, #0x0013
@@ -3887,12 +3908,12 @@ _PlayerAI_Movement::
 	inc	hl
 	ld	a, -4 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:463: const u8 walk_seq[4] = {0, 1, 2, 1};
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:466: const u8 walk_seq[4] = {0, 1, 2, 1};
 	ld	-35 (ix), #0x00
 	ld	-34 (ix), #0x01
 	ld	-33 (ix), #0x02
 	ld	-32 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:464: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:467: Player->frame = CallFnc_U16_P4(SEG_GAMESTATE_9, GetPlayerAnimFrame, i, Player->dx, Player->dy, walk_seq[(Player->anim / 3) % 4]);
 	ld	de, #0x0003
 	ld	l, -5 (ix)
 ;	spillPairReg hl
@@ -3938,12 +3959,12 @@ _PlayerAI_Movement::
 	ld	(hl), e
 	inc	hl
 	ld	(hl), d
-	jp	00417$
-00411$:
+	jp	00421$
+00415$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:28: u16 b_dist_x = (Player->lx > Ball->lx) ? (Player->lx - Ball->lx) : (Ball->lx - Player->lx);
 	ld	hl, #(_SwSprite + 322)
 	ld	c, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:467: i8 dir_x = (Ball->lx > Player->lx + 4) ? 1 : ((Ball->lx < Player->lx - 4) ? -1 : 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:470: i8 dir_x = (Ball->lx > Player->lx + 4) ? 1 : ((Ball->lx < Player->lx - 4) ? -1 : 0);
 	ld	l, -31 (ix)
 	ld	h, -30 (ix)
 	ld	a, (hl)
@@ -3959,14 +3980,14 @@ _PlayerAI_Movement::
 	sub	a, -7 (ix)
 	ld	a, h
 	sbc	a, -6 (ix)
-	jp	PO, 01861$
+	jp	PO, 01875$
 	xor	a, #0x80
-01861$:
-	jp	P, 00557$
+01875$:
+	jp	P, 00561$
 	ld	-5 (ix), #0x01
 	ld	-4 (ix), #0
-	jp	00558$
-00557$:
+	jp	00562$
+00561$:
 	ld	a, -9 (ix)
 	add	a, #0xfc
 	ld	-5 (ix), a
@@ -3977,19 +3998,19 @@ _PlayerAI_Movement::
 	sub	a, -5 (ix)
 	ld	a, -6 (ix)
 	sbc	a, -4 (ix)
-	jp	PO, 01862$
+	jp	PO, 01876$
 	xor	a, #0x80
-01862$:
-	jp	P, 00559$
+01876$:
+	jp	P, 00563$
 	ld	-5 (ix), #0xff
 	ld	-4 (ix), #0xff
-	jp	00560$
-00559$:
+	jp	00564$
+00563$:
 	xor	a, a
 	ld	-5 (ix), a
 	ld	-4 (ix), a
-00560$:
-00558$:
+00564$:
+00562$:
 	ld	a, -5 (ix)
 	ld	-6 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:29: u16 b_dist_y = (Player->ly > Ball->ly) ? (Player->ly - Ball->ly) : (Ball->ly - Player->ly);
@@ -3999,7 +4020,7 @@ _PlayerAI_Movement::
 	inc	hl
 	ld	a, (hl)
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:468: i8 dir_y = (Ball->ly > Player->ly + 4) ? 1 : ((Ball->ly < Player->ly - 4) ? -1 : 0);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:471: i8 dir_y = (Ball->ly > Player->ly + 4) ? 1 : ((Ball->ly < Player->ly - 4) ? -1 : 0);
 	ld	l, -22 (ix)
 	ld	h, -21 (ix)
 	ld	a, (hl)
@@ -4021,11 +4042,11 @@ _PlayerAI_Movement::
 	sub	a, -5 (ix)
 	ld	a, -7 (ix)
 	sbc	a, -4 (ix)
-	jr	NC, 00561$
+	jr	NC, 00565$
 	ld	-5 (ix), #0x01
 	ld	-4 (ix), #0
-	jp	00562$
-00561$:
+	jp	00566$
+00565$:
 	ld	a, -10 (ix)
 	add	a, #0xfc
 	ld	-8 (ix), a
@@ -4036,40 +4057,40 @@ _PlayerAI_Movement::
 	sub	a, -8 (ix)
 	ld	a, -4 (ix)
 	sbc	a, -7 (ix)
-	jr	NC, 00563$
+	jr	NC, 00567$
 	ld	-5 (ix), #0xff
 	ld	-4 (ix), #0xff
-	jp	00564$
-00563$:
+	jp	00568$
+00567$:
 	xor	a, a
 	ld	-5 (ix), a
 	ld	-4 (ix), a
-00564$:
-00562$:
-	ld	a, -5 (ix)
-	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:469: if (dir_x == 0 && dir_y == 0) {
-	ld	a, -6 (ix)
-	or	a, a
-	jr	NZ, 00408$
-	ld	a, -4 (ix)
-	or	a, a
-	jr	NZ, 00408$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:470: dir_y = (team == TEAM_1) ? 1 : -1;
-	ld	a, -29 (ix)
-	or	a, a
-	jr	NZ, 00565$
-	ld	-5 (ix), #0x01
-	ld	-4 (ix), #0
-	jp	00566$
-00565$:
-	ld	-5 (ix), #0xff
-	ld	-4 (ix), #0xff
+00568$:
 00566$:
 	ld	a, -5 (ix)
 	ld	-4 (ix), a
-00408$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:472: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:472: if (dir_x == 0 && dir_y == 0) {
+	ld	a, -6 (ix)
+	or	a, a
+	jr	NZ, 00412$
+	ld	a, -4 (ix)
+	or	a, a
+	jr	NZ, 00412$
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:473: dir_y = (team == TEAM_1) ? 1 : -1;
+	ld	a, -29 (ix)
+	or	a, a
+	jr	NZ, 00569$
+	ld	-5 (ix), #0x01
+	ld	-4 (ix), #0
+	jp	00570$
+00569$:
+	ld	-5 (ix), #0xff
+	ld	-4 (ix), #0xff
+00570$:
+	ld	a, -5 (ix)
+	ld	-4 (ix), a
+00412$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:475: Player->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, i, dir_x, dir_y);
 	ld	h, -4 (ix)
 	ld	l, -6 (ix)
 	push	hl
@@ -4088,8 +4109,8 @@ _PlayerAI_Movement::
 	inc	hl
 	ld	a, -4 (ix)
 	ld	(hl), a
-00417$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:474: }
+00421$:
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:477: }
 	ld	sp, ix
 	pop	ix
 	ret

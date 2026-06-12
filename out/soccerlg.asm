@@ -424,7 +424,7 @@ _g_ActiveStats::
 	.ds 14
 _s_crowd_state:
 	.ds 13
-_ShowHelpScreen_first_time_65536_2130:
+_ShowHelpScreen_first_time_65536_2131:
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -548,7 +548,7 @@ _s_scc_after_action:
 	.area _GSFINAL
 	.area _GSINIT
 ;./soccerlg.c:648: static bool first_time = TRUE;
-	ld	iy, #_ShowHelpScreen_first_time_65536_2130
+	ld	iy, #_ShowHelpScreen_first_time_65536_2131
 	ld	0 (iy), #0x01
 ;--------------------------------------------------------
 ; Home
@@ -3412,7 +3412,7 @@ _ShowMenu::
 	ld	d, #0x00
 	ex	de, hl
 	add	hl, hl
-	ld	de, #_ShowMenu_cursor_pos_65537_1984
+	ld	de, #_ShowMenu_cursor_pos_65537_1985
 	add	hl, de
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3466,10 +3466,10 @@ _ShowMenu::
 ;	spillPairReg hl
 	add	hl, hl
 	ld	a, l
-	add	a, #<(_ShowMenu_cursor_pos_65537_1984)
+	add	a, #<(_ShowMenu_cursor_pos_65537_1985)
 	ld	b, a
 	ld	a, h
-	adc	a, #>(_ShowMenu_cursor_pos_65537_1984)
+	adc	a, #>(_ShowMenu_cursor_pos_65537_1985)
 	ld	l, b
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3510,7 +3510,7 @@ _ShowMenu::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	add	hl, hl
-	ld	de, #_ShowMenu_cursor_pos_65537_1984
+	ld	de, #_ShowMenu_cursor_pos_65537_1985
 	add	hl, de
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3554,7 +3554,7 @@ _ShowMenu::
 ;	spillPairReg hl
 	add	hl, hl
 	add	hl, hl
-	ld	de, #_ShowMenu_team_box_65537_1984
+	ld	de, #_ShowMenu_team_box_65537_1985
 	add	hl, de
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -4006,7 +4006,7 @@ _ShowMenu::
 	ld	sp, ix
 	pop	ix
 	ret
-_ShowMenu_cursor_pos_65537_1984:
+_ShowMenu_cursor_pos_65537_1985:
 	.db #0x1e	; 30
 	.db #0x5f	; 95
 	.db #0x6f	; 111	'o'
@@ -4019,7 +4019,7 @@ _ShowMenu_cursor_pos_65537_1984:
 	.db #0xb5	; 181
 	.db #0xc2	; 194
 	.db #0xb5	; 181
-_ShowMenu_team_box_65537_1984:
+_ShowMenu_team_box_65537_1985:
 	.db #0x06	; 6
 	.db #0x10	; 16
 	.db #0x50	; 80	'P'

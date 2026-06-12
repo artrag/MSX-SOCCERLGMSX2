@@ -17,6 +17,7 @@ Symbol Table
     _CheckFieldBoundaries                                           ******** GX
     _EventHalfTime                                                  ******** GX
     _EventOffside                                                   ******** GX
+    _EventTimeUp                                                    ******** GX
     _Field                                                          ******** GX
     _FindReceiver                                                   ******** GX
     _Frms                                                           ******** GX
@@ -41,7 +42,6 @@ Symbol Table
     _TimerEnabled                                                   ******** GX
     _UpdateBallPhysics                                              ******** GX
     _UpdateFieldCamera                                              ******** GX
-    _UpdateGameState_Carriers                                       ******** GX
   7 _UpdateGameState_Play                                           00000000 GR
     _UpdateReferee                                                  ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -320,7 +320,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG23                                     size      CD5   flags    0
+   7 _SEG23                                     size      C4F   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

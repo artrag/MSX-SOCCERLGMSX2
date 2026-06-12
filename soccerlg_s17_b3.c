@@ -286,10 +286,12 @@ void ExecuteThrowIn(u8 thrower, u8 receiver) {
 	u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 	u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
 	
-	g_pass_max_frames = (r_dx + r_dy) / 4; 
-	if (g_pass_max_frames < 10) g_pass_max_frames = 10;
-	if (g_pass_max_frames > 40) g_pass_max_frames = 40;
-	g_pass_max_height = 3; // Altezza ridotta per il fallo laterale
+	g_pass_max_frames = (r_dx + r_dy) / 5; 
+	if (g_pass_max_frames < 8) g_pass_max_frames = 8;
+	if (g_pass_max_frames > 30) g_pass_max_frames = 30;
+	g_pass_max_height = (r_dx + r_dy) / 32; // Altezza molto ridotta
+	if (g_pass_max_height < 1) g_pass_max_height = 1;
+	if (g_pass_max_height > 3) g_pass_max_height = 3;
 	
 	SwSprite[14].lx = g_pass_start_x;
 	SwSprite[14].ly = g_pass_start_y;
@@ -310,10 +312,12 @@ void ExecuteCornerKick(u8 thrower, u8 receiver) {
 	u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 	u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
 	
-	g_pass_max_frames = (r_dx + r_dy) / 3; 
-	if (g_pass_max_frames < 20) g_pass_max_frames = 20;
-	if (g_pass_max_frames > 60) g_pass_max_frames = 60;
-	g_pass_max_height = 7; // Cross alto e a spiovere
+	g_pass_max_frames = (r_dx + r_dy) / 4; 
+	if (g_pass_max_frames < 15) g_pass_max_frames = 15;
+	if (g_pass_max_frames > 45) g_pass_max_frames = 45;
+	g_pass_max_height = (r_dx + r_dy) / 24; 
+	if (g_pass_max_height < 2) g_pass_max_height = 2;
+	if (g_pass_max_height > 7) g_pass_max_height = 7;
 	
 	SwSprite[14].lx = g_pass_start_x; SwSprite[14].ly = g_pass_start_y;
 	SwSprite[14].anim = 5; SwSprite[14].count = 0; 
