@@ -45,7 +45,13 @@ void YSCC_SetOFFRForAudio() {
         rrca
         rrca
         and  #0xC0                           ; audio OFFR
-        ld   (#0x7FFE), a                    ; set OFFR (from ISR: only non-zero value)
+        push af                              ; save OFFR value
+        ld   a, #1
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=1 (enable register writes)
+        pop  af
+        ld   (#0x7FFE), a                    ; set OFFR
+        xor  a
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=0 (restore ROM reads at 7FFE)
         ld   a, #1
         ld   (_s_YSCC_OFFRSet), a            ; mark changed
         jr   _YSCC_SetOFFR_done
@@ -64,9 +70,12 @@ void YSCC_RestoreOFFR() {
         ld   a, (_s_YSCC_OFFRSet)
         or   a
         jr   z, _YSCC_RestoreOFFR_skip       ; was not changed, skip write-0
+        ld   a, #1
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=1
         xor  a
         ld   (#0x7FFE), a                    ; restore OFFR = 0
-        ld   (_s_YSCC_OFFRSet), a            ; clear flag
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=0
+        ld   (_s_YSCC_OFFRSet), a            ; clear flag (A=0)
     _YSCC_RestoreOFFR_skip:
     __endasm;
 }
@@ -231,8 +240,12 @@ void _YSCC_CopyPCMBlock() {
         ld   a, (_s_YSCC_SavedOFFR)
         cp   b                                ; saved OFFR == audio OFFR?
         jr   z, _CopyPCM_no_offr_write        ; same — no write needed
+        ld   a, #1
+        ld   (#0x7FFF), a                     ; ENAR: REGEN=1
         ld   a, b
-        ld   (#0x7FFE), a                     ; write audio OFFR (clears sprite OFFR if needed)
+        ld   (#0x7FFE), a                     ; write audio OFFR
+        xor  a
+        ld   (#0x7FFF), a                     ; ENAR: REGEN=0
         ld   a, #1
         ld   (_s_YSCC_OFFRSet), a            ; mark changed (restored at end)
         jr   _CopyPCM_setbank
@@ -329,10 +342,13 @@ void _YSCC_CopyPCMBlock() {
         ld   a, (_s_YSCC_OFFRSet)
         or   a
         jr   z, _CopyPCM_done               ; no OFFR change was made, skip restore
+        ld   a, #1
+        ld   (#0x7FFF), a                   ; ENAR: REGEN=1
         ld   a, (_s_YSCC_SavedOFFR)         ; original OFFR before this call (0 or 0xC0)
         ld   (#0x7FFE), a                   ; restore it
         xor  a
-        ld   (_s_YSCC_OFFRSet), a           ; clear flag
+        ld   (#0x7FFF), a                   ; ENAR: REGEN=0
+        ld   (_s_YSCC_OFFRSet), a           ; clear flag (A=0)
     _CopyPCM_done:
         ld   a, e                           ; low byte of saved segment
         ld   (#0xB000), a                   ; restore hardware bank3 (OFFR already correct)

@@ -24,7 +24,7 @@ Symbol Table
   7 _SetBallSprite                                                  00000A5C GR
   7 _ShowSpriteMessage                                              00000BEF GR
     _SwSprite                                                       ******** GX
-    _VPD_CommandSetupR32                                            ******** GX
+    _VDP_CommandSetupR32                                            ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G

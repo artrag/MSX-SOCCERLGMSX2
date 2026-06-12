@@ -10,8 +10,8 @@
                                      10 ;--------------------------------------------------------
                                      11 	.globl _Print_InitColorBuffer
                                      12 	.globl _Print_MergeColor
-                                     13 	.globl _VPD_CommandWriteLoop
-                                     14 	.globl _VPD_CommandSetupR36
+                                     13 	.globl _VDP_CommandWriteLoop
+                                     14 	.globl _VDP_CommandSetupR36
                                      15 	.globl _VDP_CommandWait
                                      16 	.globl _g_PrintData
                                      17 	.globl _g_SLTSL
@@ -298,21 +298,21 @@
                                     298 ; code
                                     299 ;--------------------------------------------------------
                                     300 	.area _CODE
-                                    301 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:124: u8 Print_MergeColor(u8 color)
+                                    301 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:129: u8 Print_MergeColor(u8 color)
                                     302 ;	---------------------------------
                                     303 ; Function Print_MergeColor
                                     304 ; ---------------------------------
     00000000                        305 _Print_MergeColor::
     00000000 4F               [ 4]  306 	ld	c, a
-                                    307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-                                    308 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:126: switch (VDP_GetMode())
+                                    307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    308 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:131: switch (VDP_GetMode())
     00000001 3Ar00r00         [13]  309 	ld	a, (#_g_VDP_Data+0)
     00000004 FE 06            [ 7]  310 	cp	a,#0x06
     00000006 28 07            [12]  311 	jr	Z, 00101$
     00000008 D6 09            [ 7]  312 	sub	a, #0x09
     0000000A 28 10            [12]  313 	jr	Z, 00102$
     0000000C C3r1Er00         [10]  314 	jp	00103$
-                                    315 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:129: case VDP_MODE_GRAPHIC4: return (color & 0x0F) << 4 | (color & 0x0F);
+                                    315 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:134: case VDP_MODE_GRAPHIC4: return (color & 0x0F) << 4 | (color & 0x0F);
     0000000F                        316 00101$:
     0000000F 79               [ 4]  317 	ld	a, c
     00000010 E6 0F            [ 7]  318 	and	a, #0x0f
@@ -325,15 +325,15 @@
     00000018 E6 0F            [ 7]  325 	and	a, #0x0f
     0000001A B0               [ 4]  326 	or	a, b
     0000001B C9               [10]  327 	ret
-                                    328 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:138: case VDP_MODE_GRAPHIC7: return color;
+                                    328 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:143: case VDP_MODE_GRAPHIC7: return color;
     0000001C                        329 00102$:
     0000001C 79               [ 4]  330 	ld	a, c
     0000001D C9               [10]  331 	ret
-                                    332 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:140: }
+                                    332 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:145: }
     0000001E                        333 00103$:
-                                    334 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:141: return color;
+                                    334 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:146: return color;
     0000001E 79               [ 4]  335 	ld	a, c
-                                    336 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:142: }
+                                    336 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:147: }
     0000001F C9               [10]  337 	ret
                          0000F380   338 _g_RDPRIM	=	0xf380
                          0000F385   339 _g_WRPRIM	=	0xf385
@@ -505,26 +505,26 @@
     0000002D 44                     505 	.db #0x44	; 68	'D'
     0000002E 45                     506 	.db #0x45	; 69	'E'
     0000002F 46                     507 	.db #0x46	; 70	'F'
-                                    508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:153: bool Print_Initialize()
+                                    508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:158: bool Print_Initialize()
                                     509 ;	---------------------------------
                                     510 ; Function Print_Initialize
                                     511 ; ---------------------------------
     00000030                        512 _Print_Initialize::
-                                    513 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:155: Print_SetColor(0xF, 0x0);
+                                    513 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:160: Print_SetColor(0xF, 0x0);
     00000030 2E 00            [ 7]  514 	ld	l, #0x00
                                     515 ;	spillPairReg hl
                                     516 ;	spillPairReg hl
     00000032 3E 0F            [ 7]  517 	ld	a, #0x0f
     00000034 CDr10r02         [17]  518 	call	_Print_SetColor
-                                    519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:223: g_PrintData.CursorX = x;
+                                    519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:268: PRINT_DATA.CursorX = x;
     00000037 21r05r00         [10]  520 	ld	hl, #(_g_PrintData + 5)
     0000003A 36 00            [10]  521 	ld	(hl), #0x00
-                                    522 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:224: g_PrintData.CursorY = y;
+                                    522 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:269: PRINT_DATA.CursorY = y;
     0000003C 21 00 00         [10]  523 	ld	hl, #0x0000
     0000003F 22r06r00         [16]  524 	ld	((_g_PrintData + 6)), hl
-                                    525 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    525 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
     00000042 3Ar00r00         [13]  526 	ld	a, (#_g_VDP_Data + 0)
-                                    527 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:164: switch (VDP_GetMode()) // Screen mode specific initialization
+                                    527 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:169: switch (VDP_GetMode()) // Screen mode specific initialization
     00000045 B7               [ 4]  528 	or	a, a
     00000046 28 17            [12]  529 	jr	Z, 00101$
     00000048 FE 01            [ 7]  530 	cp	a, #0x01
@@ -538,96 +538,96 @@
     00000058 D6 09            [ 7]  538 	sub	a, #0x09
     0000005A 28 3B            [12]  539 	jr	Z, 00106$
     0000005C C3rACr00         [10]  540 	jp	00107$
-                                    541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:167: case VDP_MODE_TEXT1:		// 40 characters per line of text, one colour for each character
+                                    541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:172: case VDP_MODE_TEXT1:		// 40 characters per line of text, one colour for each character
     0000005F                        542 00101$:
-                                    543 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+                                    543 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:303: inline void Print_SetTabSize(u8 size) { PRINT_DATA.TabSize = size; }
     0000005F 21r04r00         [10]  544 	ld	hl, #(_g_PrintData + 4)
     00000062 36 03            [10]  545 	ld	(hl), #0x03
-                                    546 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:169: g_PrintData.ScreenWidth = 40;
+                                    546 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:174: PRINT_DATA.ScreenWidth = 40;
     00000064 21 28 00         [10]  547 	ld	hl, #0x0028
     00000067 22r1Br00         [16]  548 	ld	((_g_PrintData + 27)), hl
-                                    549 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:170: break;
+                                    549 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:175: break;
     0000006A C3rAEr00         [10]  550 	jp	00108$
-                                    551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:177: case VDP_MODE_GRAPHIC1:		// 32 characters per one line of text, the COLOURed character available
+                                    551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:182: case VDP_MODE_GRAPHIC1:		// 32 characters per one line of text, the COLOURed character available
     0000006D                        552 00103$:
-                                    553 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+                                    553 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:303: inline void Print_SetTabSize(u8 size) { PRINT_DATA.TabSize = size; }
     0000006D 21r04r00         [10]  554 	ld	hl, #(_g_PrintData + 4)
     00000070 36 03            [10]  555 	ld	(hl), #0x03
-                                    556 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:179: g_PrintData.ScreenWidth = 32;
+                                    556 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:184: PRINT_DATA.ScreenWidth = 32;
     00000072 21 20 00         [10]  557 	ld	hl, #0x0020
     00000075 22r1Br00         [16]  558 	ld	((_g_PrintData + 27)), hl
-                                    559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:180: break;
+                                    559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:185: break;
     00000078 C3rAEr00         [10]  560 	jp	00108$
-                                    561 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:183: case VDP_MODE_GRAPHIC2:		// 256 x 192, the colour is specififed for each 8 dots
+                                    561 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:188: case VDP_MODE_GRAPHIC2:		// 256 x 192, the colour is specififed for each 8 dots
     0000007B                        562 00104$:
-                                    563 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+                                    563 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:303: inline void Print_SetTabSize(u8 size) { PRINT_DATA.TabSize = size; }
     0000007B 21r04r00         [10]  564 	ld	hl, #(_g_PrintData + 4)
     0000007E 36 03            [10]  565 	ld	(hl), #0x03
-                                    566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:185: g_PrintData.ScreenWidth = 32;
+                                    566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:190: PRINT_DATA.ScreenWidth = 32;
     00000080 21 20 00         [10]  567 	ld	hl, #0x0020
     00000083 22r1Br00         [16]  568 	ld	((_g_PrintData + 27)), hl
-                                    569 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:186: break;
+                                    569 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:191: break;
     00000086 C3rAEr00         [10]  570 	jp	00108$
-                                    571 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:206: case VDP_MODE_GRAPHIC4:		// 256 x 212; 16 colours are available for each dot
+                                    571 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:211: case VDP_MODE_GRAPHIC4:		// 256 x 212; 16 colours are available for each dot
     00000089                        572 00105$:
-                                    573 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+                                    573 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:303: inline void Print_SetTabSize(u8 size) { PRINT_DATA.TabSize = size; }
     00000089 21r04r00         [10]  574 	ld	hl, #(_g_PrintData + 4)
     0000008C 36 18            [10]  575 	ld	(hl), #0x18
-                                    576 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:208: g_PrintData.ScreenWidth = 256;
+                                    576 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:213: PRINT_DATA.ScreenWidth = 256;
     0000008E 21 00 01         [10]  577 	ld	hl, #0x0100
     00000091 22r1Br00         [16]  578 	ld	((_g_PrintData + 27)), hl
-                                    579 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:209: break;
+                                    579 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:214: break;
     00000094 C3rAEr00         [10]  580 	jp	00108$
-                                    581 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:225: case VDP_MODE_GRAPHIC7:		// 256 x 212; 256 colours are available for each dot
+                                    581 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:230: case VDP_MODE_GRAPHIC7:		// 256 x 212; 256 colours are available for each dot
     00000097                        582 00106$:
-                                    583 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:258: inline void Print_SetTabSize(u8 size) { g_PrintData.TabSize = size; }
+                                    583 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:303: inline void Print_SetTabSize(u8 size) { PRINT_DATA.TabSize = size; }
     00000097 21r04r00         [10]  584 	ld	hl, #(_g_PrintData + 4)
     0000009A 36 18            [10]  585 	ld	(hl), #0x18
-                                    586 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:227: Print_SetColor(0xFF, 0x0);
+                                    586 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:232: Print_SetColor(0xFF, 0x0);
     0000009C 2E 00            [ 7]  587 	ld	l, #0x00
                                     588 ;	spillPairReg hl
                                     589 ;	spillPairReg hl
     0000009E 3E FF            [ 7]  590 	ld	a, #0xff
     000000A0 CDr10r02         [17]  591 	call	_Print_SetColor
-                                    592 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:228: g_PrintData.ScreenWidth = 256;
+                                    592 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:233: PRINT_DATA.ScreenWidth = 256;
     000000A3 21 00 01         [10]  593 	ld	hl, #0x0100
     000000A6 22r1Br00         [16]  594 	ld	((_g_PrintData + 27)), hl
-                                    595 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:229: break;
+                                    595 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:234: break;
     000000A9 C3rAEr00         [10]  596 	jp	00108$
-                                    597 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:231: default:
+                                    597 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:236: default:
     000000AC                        598 00107$:
-                                    599 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:233: return FALSE;
+                                    599 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:238: return FALSE;
     000000AC AF               [ 4]  600 	xor	a, a
     000000AD C9               [10]  601 	ret
-                                    602 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:234: }
+                                    602 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:239: }
     000000AE                        603 00108$:
-                                    604 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:238: return TRUE;
+                                    604 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:243: return TRUE;
     000000AE 3E 01            [ 7]  605 	ld	a, #0x01
-                                    606 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:239: }
+                                    606 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:244: }
     000000B0 C9               [10]  607 	ret
-                                    608 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:243: void Print_SetMode(u8 mode)
+                                    608 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:248: void Print_SetMode(u8 mode)
                                     609 ;	---------------------------------
                                     610 ; Function Print_SetMode
                                     611 ; ---------------------------------
     000000B1                        612 _Print_SetMode::
     000000B1 4F               [ 4]  613 	ld	c, a
-                                    614 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:245: g_PrintData.SourceMode = mode;
+                                    614 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:250: PRINT_DATA.SourceMode = mode;
     000000B2 21r1Ar00         [10]  615 	ld	hl, #_g_PrintData + 26
     000000B5 ED 67            [18]  616 	rrd
     000000B7 79               [ 4]  617 	ld	a, c
     000000B8 ED 6F            [18]  618 	rld
-                                    619 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:247: switch (g_PrintData.SourceMode)
+                                    619 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:252: switch (PRINT_DATA.SourceMode)
     000000BA 7E               [ 7]  620 	ld	a, (hl)
     000000BB E6 0F            [ 7]  621 	and	a,#0x0f
     000000BD 28 04            [12]  622 	jr	Z, 00101$
     000000BF 3D               [ 4]  623 	dec	a
     000000C0 28 1F            [12]  624 	jr	Z, 00106$
     000000C2 C9               [10]  625 	ret
-                                    626 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:250: case PRINT_MODE_BITMAP:
+                                    626 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:255: case PRINT_MODE_BITMAP:
     000000C3                        627 00101$:
-                                    628 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    628 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
     000000C3 3Ar00r00         [13]  629 	ld	a, (#_g_VDP_Data + 0)
-                                    630 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:252: switch (VDP_GetMode()) // Screen mode specific initialization
+                                    630 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:257: switch (VDP_GetMode()) // Screen mode specific initialization
     000000C6 FE 06            [ 7]  631 	cp	a, #0x06
     000000C8 28 09            [12]  632 	jr	Z, 00103$
     000000CA FE 08            [ 7]  633 	cp	a, #0x08
@@ -635,29 +635,29 @@
     000000CE D6 09            [ 7]  635 	sub	a, #0x09
     000000D0 28 08            [12]  636 	jr	Z, 00104$
     000000D2 C9               [10]  637 	ret
-                                    638 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:261: case VDP_MODE_GRAPHIC6:
+                                    638 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:266: case VDP_MODE_GRAPHIC6:
     000000D3                        639 00103$:
-                                    640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:262: g_PrintData.DrawChar = DrawChar_4B;
+                                    640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:267: PRINT_DATA.DrawChar = DrawChar_4B;
     000000D3 21rABr03         [10]  641 	ld	hl, #_DrawChar_4B
     000000D6 22r18r00         [16]  642 	ld	((_g_PrintData + 24)), hl
-                                    643 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:263: break;
+                                    643 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:268: break;
     000000D9 C9               [10]  644 	ret
-                                    645 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:266: case VDP_MODE_GRAPHIC7:
+                                    645 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:271: case VDP_MODE_GRAPHIC7:
     000000DA                        646 00104$:
-                                    647 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:267: g_PrintData.DrawChar = DrawChar_8B; 
+                                    647 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:272: PRINT_DATA.DrawChar = DrawChar_8B; 
     000000DA 21r7Cr02         [10]  648 	ld	hl, #_DrawChar_8B
     000000DD 22r18r00         [16]  649 	ld	((_g_PrintData + 24)), hl
-                                    650 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:271: break;
+                                    650 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:276: break;
     000000E0 C9               [10]  651 	ret
-                                    652 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:274: case PRINT_MODE_BITMAP_TRANS:
+                                    652 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:279: case PRINT_MODE_BITMAP_TRANS:
     000000E1                        653 00106$:
-                                    654 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:276: g_PrintData.DrawChar = DrawChar_Trans;
+                                    654 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:281: PRINT_DATA.DrawChar = DrawChar_Trans;
     000000E1 21rB7r04         [10]  655 	ld	hl, #_DrawChar_Trans
     000000E4 22r18r00         [16]  656 	ld	((_g_PrintData + 24)), hl
-                                    657 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:316: };
-                                    658 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:317: }
+                                    657 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:322: };
+                                    658 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:323: }
     000000E7 C9               [10]  659 	ret
-                                    660 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:322: void Print_SetFont(const u8* font)
+                                    660 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:328: void Print_SetFont(const u8* font)
                                     661 ;	---------------------------------
                                     662 ; Function Print_SetFont
                                     663 ; ---------------------------------
@@ -668,40 +668,40 @@
     000000F0 F5               [11]  668 	push	af
     000000F1 F5               [11]  669 	push	af
     000000F2 EB               [ 4]  670 	ex	de, hl
-                                    671 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:324: if (font == NULL) // Use Bios font (if any)
+                                    671 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:330: if (font == NULL) // Use Bios font (if any)
     000000F3 7A               [ 4]  672 	ld	a, d
     000000F4 B3               [ 4]  673 	or	a, e
     000000F5 20 42            [12]  674 	jr	NZ, 00102$
-                                    675 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:325: Print_SetFontEx(8, 8, 6, 8, 1, 255, (const u8*)g_CGTABL + 8);
+                                    675 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:331: Print_SetFontEx(8, 8, 6, 8, 1, 255, (const u8*)g_CGTABL + 8);
     000000F7 ED 4B 04 00      [20]  676 	ld	bc, (_g_CGTABL)
     000000FB 21 08 00         [10]  677 	ld	hl, #0x0008
     000000FE 09               [11]  678 	add	hl, bc
     000000FF EB               [ 4]  679 	ex	de, hl
-                                    680 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:197: g_PrintData.PatternX     = patternX;
+                                    680 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:242: PRINT_DATA.PatternX     = patternX;
     00000100 21r00r00         [10]  681 	ld	hl, #_g_PrintData
     00000103 36 08            [10]  682 	ld	(hl), #0x08
-                                    683 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:198: g_PrintData.PatternY     = patternY;
+                                    683 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:243: PRINT_DATA.PatternY     = patternY;
     00000105 01r01r00         [10]  684 	ld	bc, #_g_PrintData + 1
     00000108 3E 08            [ 7]  685 	ld	a, #0x08
     0000010A 02               [ 7]  686 	ld	(bc), a
-                                    687 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:199: g_PrintData.UnitX        = sizeX;
+                                    687 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:244: PRINT_DATA.UnitX        = sizeX;
     0000010B 21r02r00         [10]  688 	ld	hl, #(_g_PrintData + 2)
     0000010E 36 06            [10]  689 	ld	(hl), #0x06
-                                    690 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:200: g_PrintData.UnitY        = sizeY;
+                                    690 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:245: PRINT_DATA.UnitY        = sizeY;
     00000110 21r03r00         [10]  691 	ld	hl, #(_g_PrintData + 3)
     00000113 36 08            [10]  692 	ld	(hl), #0x08
-                                    693 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:201: g_PrintData.CharFirst    = firstChr;
+                                    693 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:246: PRINT_DATA.CharFirst    = firstChr;
     00000115 21r15r00         [10]  694 	ld	hl, #(_g_PrintData + 21)
     00000118 36 01            [10]  695 	ld	(hl), #0x01
-                                    696 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:202: g_PrintData.CharLast     = lastChr;
+                                    696 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:247: PRINT_DATA.CharLast     = lastChr;
     0000011A 21r16r00         [10]  697 	ld	hl, #(_g_PrintData + 22)
     0000011D 36 FF            [10]  698 	ld	(hl), #0xff
-                                    699 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:203: g_PrintData.CharCount    = lastChr - firstChr + 1;
+                                    699 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:248: PRINT_DATA.CharCount    = lastChr - firstChr + 1;
     0000011F 21r17r00         [10]  700 	ld	hl, #(_g_PrintData + 23)
     00000122 36 FF            [10]  701 	ld	(hl), #0xff
-                                    702 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:204: g_PrintData.FontPatterns = patterns;
+                                    702 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:249: PRINT_DATA.FontPatterns = patterns;
     00000124 ED 53r1Dr00      [20]  703 	ld	((_g_PrintData + 29)), de
-                                    704 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:205: g_PrintData.FontAddr     = g_PrintData.FontPatterns - (firstChr * g_PrintData.PatternY); // pre-compute address of the virtual index 0 character (used to quick drawing in PutChar_GX functions)
+                                    704 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:250: PRINT_DATA.FontAddr     = PRINT_DATA.FontPatterns - (firstChr * PRINT_DATA.PatternY); // pre-compute address of the virtual index 0 character (used to quick drawing in PutChar_GX functions)
     00000128 0A               [ 7]  705 	ld	a, (bc)
     00000129 4F               [ 4]  706 	ld	c, a
     0000012A 06 00            [ 7]  707 	ld	b, #0x00
@@ -712,10 +712,10 @@
     00000130 98               [ 4]  712 	sbc	a, b
     00000131 47               [ 4]  713 	ld	b, a
     00000132 ED 43r1Fr00      [20]  714 	ld	((_g_PrintData + 31)), bc
-                                    715 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:325: Print_SetFontEx(8, 8, 6, 8, 1, 255, (const u8*)g_CGTABL + 8);
+                                    715 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:331: Print_SetFontEx(8, 8, 6, 8, 1, 255, (const u8*)g_CGTABL + 8);
     00000136 C3rBDr01         [10]  716 	jp	00106$
     00000139                        717 00102$:
-                                    718 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:327: Print_SetFontEx(font[0] >> 4, font[0] & 0x0F, font[1] >> 4, font[1] & 0x0F, font[2], font[3], font+4);
+                                    718 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:333: Print_SetFontEx(font[0] >> 4, font[0] & 0x0F, font[1] >> 4, font[1] & 0x0F, font[2], font[3], font+4);
     00000139 21 04 00         [10]  719 	ld	hl, #0x0004
     0000013C 19               [11]  720 	add	hl, de
     0000013D 4D               [ 4]  721 	ld	c, l
@@ -770,36 +770,36 @@
     0000016D 07               [ 4]  770 	rlca
     0000016E E6 0F            [ 7]  771 	and	a, #0x0f
     00000170 57               [ 4]  772 	ld	d, a
-                                    773 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:197: g_PrintData.PatternX     = patternX;
+                                    773 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:242: PRINT_DATA.PatternX     = patternX;
     00000171 21r00r00         [10]  774 	ld	hl, #_g_PrintData
     00000174 72               [ 7]  775 	ld	(hl), d
-                                    776 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:198: g_PrintData.PatternY     = patternY;
+                                    776 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:243: PRINT_DATA.PatternY     = patternY;
     00000175 21r01r00         [10]  777 	ld	hl, #(_g_PrintData + 1)
     00000178 73               [ 7]  778 	ld	(hl), e
-                                    779 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:199: g_PrintData.UnitX        = sizeX;
+                                    779 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:244: PRINT_DATA.UnitX        = sizeX;
     00000179 21r02r00         [10]  780 	ld	hl, #(_g_PrintData + 2)
     0000017C DD 7E FF         [19]  781 	ld	a, -1 (ix)
     0000017F 77               [ 7]  782 	ld	(hl), a
-                                    783 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:200: g_PrintData.UnitY        = sizeY;
+                                    783 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:245: PRINT_DATA.UnitY        = sizeY;
     00000180 21r03r00         [10]  784 	ld	hl, #(_g_PrintData + 3)
     00000183 DD 7E FE         [19]  785 	ld	a, -2 (ix)
     00000186 77               [ 7]  786 	ld	(hl), a
-                                    787 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:201: g_PrintData.CharFirst    = firstChr;
+                                    787 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:246: PRINT_DATA.CharFirst    = firstChr;
     00000187 21r15r00         [10]  788 	ld	hl, #(_g_PrintData + 21)
     0000018A DD 7E FD         [19]  789 	ld	a, -3 (ix)
     0000018D 77               [ 7]  790 	ld	(hl), a
-                                    791 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:202: g_PrintData.CharLast     = lastChr;
+                                    791 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:247: PRINT_DATA.CharLast     = lastChr;
     0000018E 21r16r00         [10]  792 	ld	hl, #(_g_PrintData + 22)
     00000191 DD 7E FC         [19]  793 	ld	a, -4 (ix)
     00000194 77               [ 7]  794 	ld	(hl), a
-                                    795 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:203: g_PrintData.CharCount    = lastChr - firstChr + 1;
+                                    795 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:248: PRINT_DATA.CharCount    = lastChr - firstChr + 1;
     00000195 DD 7E FC         [19]  796 	ld	a, -4 (ix)
     00000198 DD 96 FD         [19]  797 	sub	a, -3 (ix)
     0000019B 3C               [ 4]  798 	inc	a
     0000019C 32r17r00         [13]  799 	ld	(#(_g_PrintData + 23)),a
-                                    800 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:204: g_PrintData.FontPatterns = patterns;
+                                    800 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:249: PRINT_DATA.FontPatterns = patterns;
     0000019F ED 43r1Dr00      [20]  801 	ld	((_g_PrintData + 29)), bc
-                                    802 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:205: g_PrintData.FontAddr     = g_PrintData.FontPatterns - (firstChr * g_PrintData.PatternY); // pre-compute address of the virtual index 0 character (used to quick drawing in PutChar_GX functions)
+                                    802 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:250: PRINT_DATA.FontAddr     = PRINT_DATA.FontPatterns - (firstChr * PRINT_DATA.PatternY); // pre-compute address of the virtual index 0 character (used to quick drawing in PutChar_GX functions)
     000001A3 C5               [11]  803 	push	bc
     000001A4 DD 66 FD         [19]  804 	ld	h, -3 (ix)
                                     805 ;	spillPairReg hl
@@ -821,30 +821,30 @@
     000001B7 9C               [ 4]  821 	sbc	a, h
     000001B8 47               [ 4]  822 	ld	b, a
     000001B9 ED 43r1Fr00      [20]  823 	ld	((_g_PrintData + 31)), bc
-                                    824 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:327: Print_SetFontEx(font[0] >> 4, font[0] & 0x0F, font[1] >> 4, font[1] & 0x0F, font[2], font[3], font+4);
+                                    824 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:333: Print_SetFontEx(font[0] >> 4, font[0] & 0x0F, font[1] >> 4, font[1] & 0x0F, font[2], font[3], font+4);
     000001BD                        825 00106$:
-                                    826 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:328: }
+                                    826 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:334: }
     000001BD DD F9            [10]  827 	ld	sp, ix
     000001BF DD E1            [14]  828 	pop	ix
     000001C1 C9               [10]  829 	ret
-                                    830 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:333: void Print_InitColorBuffer(u8 t, u8 b)
+                                    830 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:339: void Print_InitColorBuffer(u8 t, u8 b)
                                     831 ;	---------------------------------
                                     832 ; Function Print_InitColorBuffer
                                     833 ; ---------------------------------
     000001C2                        834 _Print_InitColorBuffer::
     000001C2 4F               [ 4]  835 	ld	c, a
     000001C3 45               [ 4]  836 	ld	b, l
-                                    837 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    837 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
     000001C4 3Ar00r00         [13]  838 	ld	a, (#_g_VDP_Data + 0)
-                                    839 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:336: switch (VDP_GetMode())
+                                    839 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:342: switch (VDP_GetMode())
     000001C7 FE 06            [ 7]  840 	cp	a, #0x06
     000001C9 28 05            [12]  841 	jr	Z, 00101$
     000001CB D6 09            [ 7]  842 	sub	a, #0x09
     000001CD 28 20            [12]  843 	jr	Z, 00102$
     000001CF C9               [10]  844 	ret
-                                    845 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:339: case VDP_MODE_GRAPHIC4:
+                                    845 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:345: case VDP_MODE_GRAPHIC4:
     000001D0                        846 00101$:
-                                    847 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:345: g_PrintData.Buffer[0] = (b << 4) | b;	// [ 0, 0 ]
+                                    847 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:351: PRINT_DATA.Buffer[0] = (b << 4) | b;	// [ 0, 0 ]
     000001D0 78               [ 4]  848 	ld	a, b
     000001D1 87               [ 4]  849 	add	a, a
     000001D2 87               [ 4]  850 	add	a, a
@@ -853,11 +853,11 @@
     000001D5 5F               [ 4]  853 	ld	e, a
     000001D6 B0               [ 4]  854 	or	a, b
     000001D7 32r21r00         [13]  855 	ld	(#(_g_PrintData + 33)),a
-                                    856 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:346: g_PrintData.Buffer[1] = (b << 4) | t;	// [ 0, 1 ]
+                                    856 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:352: PRINT_DATA.Buffer[1] = (b << 4) | t;	// [ 0, 1 ]
     000001DA 7B               [ 4]  857 	ld	a, e
     000001DB B1               [ 4]  858 	or	a, c
     000001DC 32r22r00         [13]  859 	ld	(#(_g_PrintData + 34)),a
-                                    860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:347: g_PrintData.Buffer[2] = (t << 4) | b;	// [ 1, 0 ]
+                                    860 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:353: PRINT_DATA.Buffer[2] = (t << 4) | b;	// [ 1, 0 ]
     000001DF 79               [ 4]  861 	ld	a, c
     000001E0 87               [ 4]  862 	add	a, a
     000001E1 87               [ 4]  863 	add	a, a
@@ -866,42 +866,42 @@
     000001E4 5F               [ 4]  866 	ld	e, a
     000001E5 B0               [ 4]  867 	or	a, b
     000001E6 32r23r00         [13]  868 	ld	(#(_g_PrintData + 35)),a
-                                    869 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:348: g_PrintData.Buffer[3] = (t << 4) | t;	// [ 1, 1 ]
+                                    869 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:354: PRINT_DATA.Buffer[3] = (t << 4) | t;	// [ 1, 1 ]
     000001E9 7B               [ 4]  870 	ld	a, e
     000001EA B1               [ 4]  871 	or	a, c
     000001EB 32r24r00         [13]  872 	ld	(#(_g_PrintData + 36)),a
-                                    873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:349: break;
+                                    873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:355: break;
     000001EE C9               [10]  874 	ret
-                                    875 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:372: case VDP_MODE_GRAPHIC7:
+                                    875 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:378: case VDP_MODE_GRAPHIC7:
     000001EF                        876 00102$:
-                                    877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:373: g_PrintData.Buffer[0] = b;	// [ 0, 0 ]
+                                    877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:379: PRINT_DATA.Buffer[0] = b;	// [ 0, 0 ]
     000001EF 21r21r00         [10]  878 	ld	hl, #(_g_PrintData + 33)
     000001F2 70               [ 7]  879 	ld	(hl), b
-                                    880 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:374: g_PrintData.Buffer[1] = b;
+                                    880 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:380: PRINT_DATA.Buffer[1] = b;
     000001F3 21r22r00         [10]  881 	ld	hl, #(_g_PrintData + 34)
     000001F6 70               [ 7]  882 	ld	(hl), b
-                                    883 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:375: g_PrintData.Buffer[2] = b;	// [ 0, 1 ]
+                                    883 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:381: PRINT_DATA.Buffer[2] = b;	// [ 0, 1 ]
     000001F7 21r23r00         [10]  884 	ld	hl, #(_g_PrintData + 35)
     000001FA 70               [ 7]  885 	ld	(hl), b
-                                    886 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:376: g_PrintData.Buffer[3] = t;
+                                    886 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:382: PRINT_DATA.Buffer[3] = t;
     000001FB 21r24r00         [10]  887 	ld	hl, #(_g_PrintData + 36)
     000001FE 71               [ 7]  888 	ld	(hl), c
-                                    889 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:377: g_PrintData.Buffer[4] = t;	// [ 1, 0 ]
+                                    889 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:383: PRINT_DATA.Buffer[4] = t;	// [ 1, 0 ]
     000001FF 21r25r00         [10]  890 	ld	hl, #(_g_PrintData + 37)
     00000202 71               [ 7]  891 	ld	(hl), c
-                                    892 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:378: g_PrintData.Buffer[5] = b;
+                                    892 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:384: PRINT_DATA.Buffer[5] = b;
     00000203 21r26r00         [10]  893 	ld	hl, #(_g_PrintData + 38)
     00000206 70               [ 7]  894 	ld	(hl), b
-                                    895 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:379: g_PrintData.Buffer[6] = t;	// [ 1, 1 ]
+                                    895 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:385: PRINT_DATA.Buffer[6] = t;	// [ 1, 1 ]
     00000207 21r27r00         [10]  896 	ld	hl, #(_g_PrintData + 39)
     0000020A 71               [ 7]  897 	ld	(hl), c
-                                    898 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:380: g_PrintData.Buffer[7] = t;
+                                    898 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:386: PRINT_DATA.Buffer[7] = t;
     0000020B 21r28r00         [10]  899 	ld	hl, #(_g_PrintData + 40)
     0000020E 71               [ 7]  900 	ld	(hl), c
-                                    901 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:383: }	
-                                    902 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:384: }
+                                    901 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:389: }	
+                                    902 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:390: }
     0000020F C9               [10]  903 	ret
-                                    904 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:391: void Print_SetColor(u8 text, u8 bg)
+                                    904 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:397: void Print_SetColor(u8 text, u8 bg)
                                     905 ;	---------------------------------
                                     906 ; Function Print_SetColor
                                     907 ; ---------------------------------
@@ -912,73 +912,73 @@
     00000218 3B               [ 6]  912 	dec	sp
     00000219 4F               [ 4]  913 	ld	c, a
     0000021A DD 75 FF         [19]  914 	ld	-1 (ix), l
-                                    915 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-                                    916 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:494: return mode >= VDP_MODE_GRAPHIC4;
+                                    915 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    916 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:499: return mode >= VDP_MODE_GRAPHIC4;
     0000021D 3Ar00r00         [13]  917 	ld	a, (#_g_VDP_Data+0)
     00000220 D6 06            [ 7]  918 	sub	a, #0x06
     00000222 3E 00            [ 7]  919 	ld	a, #0x00
     00000224 17               [ 4]  920 	rla
-                                    921 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:393: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
+                                    921 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:399: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
     00000225 EE 01            [ 7]  922 	xor	a,#0x01
     00000227 28 20            [12]  923 	jr	Z, 00109$
-                                    924 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:396: u8 t = text;
-                                    925 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:403: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
+                                    924 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:402: u8 t = text;
+                                    925 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:409: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
     00000229 1E 00            [ 7]  926 	ld	e, #0x00
     0000022B                        927 00107$:
     0000022B 7B               [ 4]  928 	ld	a, e
     0000022C D6 0C            [ 7]  929 	sub	a, #0x0c
     0000022E 30 0B            [12]  930 	jr	NC, 00101$
-                                    931 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:405: g_PrintData.TextColor[i] = t;
+                                    931 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:411: PRINT_DATA.TextColor[i] = t;
     00000230 21r08r00         [10]  932 	ld	hl, #(_g_PrintData + 8)
     00000233 16 00            [ 7]  933 	ld	d, #0x00
     00000235 19               [11]  934 	add	hl, de
     00000236 71               [ 7]  935 	ld	(hl), c
-                                    936 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:403: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
+                                    936 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:409: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
     00000237 1C               [ 4]  937 	inc	e
     00000238 C3r2Br02         [10]  938 	jp	00107$
     0000023B                        939 00101$:
-                                    940 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:413: g_PrintData.BGColor = b;
+                                    940 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:419: PRINT_DATA.BGColor = b;
     0000023B 21r14r00         [10]  941 	ld	hl, #(_g_PrintData + 20)
     0000023E DD 7E FF         [19]  942 	ld	a, -1 (ix)
     00000241 77               [ 7]  943 	ld	(hl), a
-                                    944 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:415: Print_InitColorBuffer(t, b);
+                                    944 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:421: Print_InitColorBuffer(t, b);
     00000242 DD 6E FF         [19]  945 	ld	l, -1 (ix)
                                     946 ;	spillPairReg hl
                                     947 ;	spillPairReg hl
     00000245 79               [ 4]  948 	ld	a, c
     00000246 CDrC2r01         [17]  949 	call	_Print_InitColorBuffer
     00000249                        950 00109$:
-                                    951 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:459: }
+                                    951 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:465: }
     00000249 33               [ 6]  952 	inc	sp
     0000024A DD E1            [14]  953 	pop	ix
     0000024C C9               [10]  954 	ret
-                                    955 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:464: void Print_SetColorShade(const u8* shade)
+                                    955 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:470: void Print_SetColorShade(const u8* shade)
                                     956 ;	---------------------------------
                                     957 ; Function Print_SetColorShade
                                     958 ; ---------------------------------
     0000024D                        959 _Print_SetColorShade::
     0000024D EB               [ 4]  960 	ex	de, hl
-                                    961 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-                                    962 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:494: return mode >= VDP_MODE_GRAPHIC4;
+                                    961 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                    962 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:499: return mode >= VDP_MODE_GRAPHIC4;
     0000024E 3Ar00r00         [13]  963 	ld	a, (#_g_VDP_Data+0)
     00000251 D6 06            [ 7]  964 	sub	a, #0x06
     00000253 3E 00            [ 7]  965 	ld	a, #0x00
     00000255 17               [ 4]  966 	rla
-                                    967 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:466: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
+                                    967 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:472: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
     00000256 EE 01            [ 7]  968 	xor	a,#0x01
     00000258 C8               [11]  969 	ret	Z
-                                    970 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:469: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
+                                    970 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:475: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
     00000259 0E 00            [ 7]  971 	ld	c, #0x00
     0000025B                        972 00107$:
     0000025B 79               [ 4]  973 	ld	a, c
     0000025C D6 0C            [ 7]  974 	sub	a, #0x0c
     0000025E D0               [11]  975 	ret	NC
-                                    976 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:471: u8 t = shade[i];
+                                    976 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:477: u8 t = shade[i];
     0000025F 69               [ 4]  977 	ld	l, c
     00000260 26 00            [ 7]  978 	ld	h, #0x00
     00000262 19               [11]  979 	add	hl, de
     00000263 46               [ 7]  980 	ld	b, (hl)
-                                    981 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:475: g_PrintData.TextColor[i] = t;
+                                    981 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:481: PRINT_DATA.TextColor[i] = t;
     00000264 3Er08            [ 7]  982 	ld	a, #<((_g_PrintData + 8))
     00000266 81               [ 4]  983 	add	a, c
     00000267 6F               [ 4]  984 	ld	l, a
@@ -988,24 +988,24 @@
     0000026A CE 00            [ 7]  988 	adc	a, #0x00
     0000026C 67               [ 4]  989 	ld	h, a
     0000026D 70               [ 7]  990 	ld	(hl), b
-                                    991 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:469: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
+                                    991 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:475: for (u8 i = 0; i < PRINT_COLOR_NUM; ++i)
     0000026E 0C               [ 4]  992 	inc	c
-                                    993 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:506: }
+                                    993 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:512: }
     0000026F C3r5Br02         [10]  994 	jp	00107$
-                                    995 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:573: void Print_SetBitmapFont(const u8* font)
+                                    995 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:579: void Print_SetBitmapFont(const u8* font)
                                     996 ;	---------------------------------
                                     997 ; Function Print_SetBitmapFont
                                     998 ; ---------------------------------
     00000272                        999 _Print_SetBitmapFont::
-                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:575: Print_SetFont(font);
+                                   1000 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:581: Print_SetFont(font);
     00000272 CDrE8r00         [17] 1001 	call	_Print_SetFont
-                                   1002 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:576: Print_SetMode(PRINT_MODE_BITMAP);
+                                   1002 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:582: Print_SetMode(PRINT_MODE_BITMAP);
     00000275 AF               [ 4] 1003 	xor	a, a
     00000276 CDrB1r00         [17] 1004 	call	_Print_SetMode
-                                   1005 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:577: Print_Initialize();
-                                   1006 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:578: }
+                                   1005 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:583: Print_Initialize();
+                                   1006 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:584: }
     00000279 C3r30r00         [10] 1007 	jp	_Print_Initialize
-                                   1008 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:584: void DrawChar_8B(u8 chr)
+                                   1008 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:590: void DrawChar_8B(u8 chr)
                                    1009 ;	---------------------------------
                                    1010 ; Function DrawChar_8B
                                    1011 ; ---------------------------------
@@ -1017,7 +1017,7 @@
     00000287 39               [11] 1017 	add	hl, sp
     00000288 F9               [ 6] 1018 	ld	sp, hl
     00000289 5F               [ 4] 1019 	ld	e, a
-                                   1020 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:586: const u8* patterns = g_PrintData.FontAddr + chr * PRINT_H(g_PrintData.PatternY); // Get character patterns' base address
+                                   1020 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:592: const u8* patterns = PRINT_DATA.FontAddr + chr * PRINT_H(PRINT_DATA.PatternY); // Get character patterns' base address
     0000028A ED 4Br1Fr00      [20] 1021 	ld	bc, (#_g_PrintData + 31)
     0000028E 3Ar01r00         [13] 1022 	ld	a, (#(_g_PrintData + 1) + 0)
     00000291 C5               [11] 1023 	push	bc
@@ -1036,11 +1036,11 @@
     0000029E C1               [10] 1036 	pop	bc
     0000029F 09               [11] 1037 	add	hl, bc
     000002A0 E3               [19] 1038 	ex	(sp), hl
-                                   1039 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:590: u16* l = (u16*)g_HeapStartAddress;
+                                   1039 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:596: u16* l = (u16*)g_HeapStartAddress;
     000002A1 2Ar00r00         [16] 1040 	ld	hl, (_g_HeapStartAddress)
     000002A4 DD 75 FC         [19] 1041 	ld	-4 (ix), l
     000002A7 DD 74 FD         [19] 1042 	ld	-3 (ix), h
-                                   1043 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:591: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+                                   1043 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:597: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
     000002AA DD 36 FF 00      [19] 1044 	ld	-1 (ix), #0x00
     000002AE                       1045 00105$:
     000002AE 21r01r00         [10] 1046 	ld	hl, #(_g_PrintData + 1)
@@ -1048,7 +1048,7 @@
     000002B2 DD 7E FF         [19] 1048 	ld	a, -1 (ix)
     000002B5 90               [ 4] 1049 	sub	a, b
     000002B6 D2r54r03         [10] 1050 	jp	NC, 00101$
-                                   1051 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:594: Print_InitColorBuffer(g_PrintData.TextColor[j], g_PrintData.BGColor);
+                                   1051 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:600: Print_InitColorBuffer(PRINT_DATA.TextColor[j], PRINT_DATA.BGColor);
     000002B9 21r14r00         [10] 1052 	ld	hl, #_g_PrintData + 20
     000002BC 4E               [ 7] 1053 	ld	c, (hl)
     000002BD 3Er08            [ 7] 1054 	ld	a, #<((_g_PrintData + 8))
@@ -1065,7 +1065,7 @@
                                    1065 ;	spillPairReg hl
     000002CA 78               [ 4] 1066 	ld	a, b
     000002CB CDrC2r01         [17] 1067 	call	_Print_InitColorBuffer
-                                   1068 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:596: u8 f = patterns[j];
+                                   1068 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:602: u8 f = patterns[j];
     000002CE DD 7E FA         [19] 1069 	ld	a, -6 (ix)
     000002D1 DD 86 FF         [19] 1070 	add	a, -1 (ix)
     000002D4 4F               [ 4] 1071 	ld	c, a
@@ -1073,7 +1073,7 @@
     000002D8 CE 00            [ 7] 1073 	adc	a, #0x00
     000002DA 47               [ 4] 1074 	ld	b, a
     000002DB 0A               [ 7] 1075 	ld	a, (bc)
-                                   1076 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:597: *l++ = ((u16*)g_PrintData.Buffer)[f >> 6];
+                                   1076 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:603: *l++ = ((u16*)PRINT_DATA.Buffer)[f >> 6];
     000002DC DD 77 FE         [19] 1077 	ld	-2 (ix), a
     000002DF 07               [ 4] 1078 	rlca
     000002E0 07               [ 4] 1079 	rlca
@@ -1099,7 +1099,7 @@
     000002F8 DD 46 FD         [19] 1099 	ld	b, -3 (ix)
     000002FB 03               [ 6] 1100 	inc	bc
     000002FC 03               [ 6] 1101 	inc	bc
-                                   1102 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:598: *l++ = ((u16*)g_PrintData.Buffer)[(f >> 4) & 0x03];
+                                   1102 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:604: *l++ = ((u16*)PRINT_DATA.Buffer)[(f >> 4) & 0x03];
     000002FD DD 7E FE         [19] 1103 	ld	a, -2 (ix)
     00000300 07               [ 4] 1104 	rlca
     00000301 07               [ 4] 1105 	rlca
@@ -1125,7 +1125,7 @@
     00000315 72               [ 7] 1125 	ld	(hl), d
     00000316 03               [ 6] 1126 	inc	bc
     00000317 03               [ 6] 1127 	inc	bc
-                                   1128 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:599: *l++ = ((u16*)g_PrintData.Buffer)[(f >> 2) & 0x03];
+                                   1128 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:605: *l++ = ((u16*)PRINT_DATA.Buffer)[(f >> 2) & 0x03];
     00000318 DD 7E FE         [19] 1129 	ld	a, -2 (ix)
     0000031B 0F               [ 4] 1130 	rrca
     0000031C 0F               [ 4] 1131 	rrca
@@ -1149,7 +1149,7 @@
     0000032E 72               [ 7] 1149 	ld	(hl), d
     0000032F 03               [ 6] 1150 	inc	bc
     00000330 03               [ 6] 1151 	inc	bc
-                                   1152 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:601: *l++ = ((u16*)g_PrintData.Buffer)[f & 0x03];
+                                   1152 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:607: *l++ = ((u16*)PRINT_DATA.Buffer)[f & 0x03];
     00000331 DD 7E FE         [19] 1153 	ld	a, -2 (ix)
     00000334 E6 03            [ 7] 1154 	and	a, #0x03
     00000336 6F               [ 4] 1155 	ld	l, a
@@ -1173,11 +1173,11 @@
     00000347 03               [ 6] 1173 	inc	bc
     00000348 DD 71 FC         [19] 1174 	ld	-4 (ix), c
     0000034B DD 70 FD         [19] 1175 	ld	-3 (ix), b
-                                   1176 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:591: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+                                   1176 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:597: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
     0000034E DD 34 FF         [23] 1177 	inc	-1 (ix)
     00000351 C3rAEr02         [10] 1178 	jp	00105$
     00000354                       1179 00101$:
-                                   1180 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:604: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
+                                   1180 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:610: VDP_CommandHMMC((u8*)g_HeapStartAddress, PRINT_DATA.CursorX, PRINT_DATA.CursorY, DATA_LEN, PRINT_H(PRINT_DATA.PatternY));
     00000354 DD 70 FC         [19] 1181 	ld	-4 (ix), b
     00000357 DD 36 FD 00      [19] 1182 	ld	-3 (ix), #0x00
     0000035B ED 4Br06r00      [20] 1183 	ld	bc, (#_g_PrintData + 6)
@@ -1213,19 +1213,19 @@
                                    1213 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:29: g_VDP_Command.CMD = VDP_CMD_HMMC;
     00000398 21r0Er00         [10] 1214 	ld	hl, #(_g_VDP_Command + 14)
     0000039B 36 F0            [10] 1215 	ld	(hl), #0xf0
-                                   1216 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:30: VPD_CommandSetupR36();
+                                   1216 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:30: VDP_CommandSetupR36();
     0000039D D5               [11] 1217 	push	de
-    0000039E CDr00r00         [17] 1218 	call	_VPD_CommandSetupR36
+    0000039E CDr00r00         [17] 1218 	call	_VDP_CommandSetupR36
     000003A1 D1               [10] 1219 	pop	de
-                                   1220 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:31: VPD_CommandWriteLoop(addr);
+                                   1220 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:31: VDP_CommandWriteLoop(addr);
     000003A2 EB               [ 4] 1221 	ex	de, hl
-    000003A3 CDr00r00         [17] 1222 	call	_VPD_CommandWriteLoop
-                                   1223 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:604: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
-                                   1224 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:605: }
+    000003A3 CDr00r00         [17] 1222 	call	_VDP_CommandWriteLoop
+                                   1223 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:610: VDP_CommandHMMC((u8*)g_HeapStartAddress, PRINT_DATA.CursorX, PRINT_DATA.CursorY, DATA_LEN, PRINT_H(PRINT_DATA.PatternY));
+                                   1224 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:611: }
     000003A6 DD F9            [10] 1225 	ld	sp, ix
     000003A8 DD E1            [14] 1226 	pop	ix
     000003AA C9               [10] 1227 	ret
-                                   1228 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:613: void DrawChar_4B(u8 chr)
+                                   1228 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:619: void DrawChar_4B(u8 chr)
                                    1229 ;	---------------------------------
                                    1230 ; Function DrawChar_4B
                                    1231 ; ---------------------------------
@@ -1237,7 +1237,7 @@
     000003B6 39               [11] 1237 	add	hl, sp
     000003B7 F9               [ 6] 1238 	ld	sp, hl
     000003B8 5F               [ 4] 1239 	ld	e, a
-                                   1240 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:615: const u8* patterns = g_PrintData.FontAddr + chr * PRINT_H(g_PrintData.PatternY); // Get character patterns' base address
+                                   1240 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:621: const u8* patterns = PRINT_DATA.FontAddr + chr * PRINT_H(PRINT_DATA.PatternY); // Get character patterns' base address
     000003B9 ED 4Br1Fr00      [20] 1241 	ld	bc, (#_g_PrintData + 31)
     000003BD 3Ar01r00         [13] 1242 	ld	a, (#(_g_PrintData + 1) + 0)
     000003C0 C5               [11] 1243 	push	bc
@@ -1256,11 +1256,11 @@
     000003CD C1               [10] 1256 	pop	bc
     000003CE 09               [11] 1257 	add	hl, bc
     000003CF E3               [19] 1258 	ex	(sp), hl
-                                   1259 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:619: u8* l = (u8*)g_HeapStartAddress;
+                                   1259 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:625: u8* l = (u8*)g_HeapStartAddress;
     000003D0 2Ar00r00         [16] 1260 	ld	hl, (_g_HeapStartAddress)
     000003D3 DD 75 FD         [19] 1261 	ld	-3 (ix), l
     000003D6 DD 74 FE         [19] 1262 	ld	-2 (ix), h
-                                   1263 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:620: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+                                   1263 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:626: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
     000003D9 DD 36 FF 00      [19] 1264 	ld	-1 (ix), #0x00
     000003DD                       1265 00105$:
     000003DD 21r01r00         [10] 1266 	ld	hl, #(_g_PrintData + 1)
@@ -1268,7 +1268,7 @@
     000003E1 DD 7E FF         [19] 1268 	ld	a, -1 (ix)
     000003E4 90               [ 4] 1269 	sub	a, b
     000003E5 30 79            [12] 1270 	jr	NC, 00101$
-                                   1271 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:623: Print_InitColorBuffer(g_PrintData.TextColor[j], g_PrintData.BGColor);
+                                   1271 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:629: Print_InitColorBuffer(PRINT_DATA.TextColor[j], PRINT_DATA.BGColor);
     000003E7 21r14r00         [10] 1272 	ld	hl, #_g_PrintData + 20
     000003EA 4E               [ 7] 1273 	ld	c, (hl)
     000003EB 3Er08            [ 7] 1274 	ld	a, #<((_g_PrintData + 8))
@@ -1285,7 +1285,7 @@
                                    1285 ;	spillPairReg hl
     000003F8 78               [ 4] 1286 	ld	a, b
     000003F9 CDrC2r01         [17] 1287 	call	_Print_InitColorBuffer
-                                   1288 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:625: u8 f = patterns[j];
+                                   1288 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:631: u8 f = patterns[j];
     000003FC DD 7E FB         [19] 1289 	ld	a, -5 (ix)
     000003FF DD 86 FF         [19] 1290 	add	a, -1 (ix)
     00000402 6F               [ 4] 1291 	ld	l, a
@@ -1295,7 +1295,7 @@
     00000406 CE 00            [ 7] 1295 	adc	a, #0x00
     00000408 67               [ 4] 1296 	ld	h, a
     00000409 4E               [ 7] 1297 	ld	c, (hl)
-                                   1298 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:626: *l++ = g_PrintData.Buffer[f >> 6];
+                                   1298 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:632: *l++ = PRINT_DATA.Buffer[f >> 6];
     0000040A 79               [ 4] 1299 	ld	a, c
     0000040B 07               [ 4] 1300 	rlca
     0000040C 07               [ 4] 1301 	rlca
@@ -1313,7 +1313,7 @@
     0000041C DD 5E FD         [19] 1313 	ld	e, -3 (ix)
     0000041F DD 56 FE         [19] 1314 	ld	d, -2 (ix)
     00000422 13               [ 6] 1315 	inc	de
-                                   1316 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:627: *l++ = g_PrintData.Buffer[(f >> 4) & 0x03];
+                                   1316 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:633: *l++ = PRINT_DATA.Buffer[(f >> 4) & 0x03];
     00000423 79               [ 4] 1317 	ld	a, c
     00000424 07               [ 4] 1318 	rlca
     00000425 07               [ 4] 1319 	rlca
@@ -1333,7 +1333,7 @@
     00000433 7E               [ 7] 1333 	ld	a, (hl)
     00000434 12               [ 7] 1334 	ld	(de), a
     00000435 13               [ 6] 1335 	inc	de
-                                   1336 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:628: *l++ = g_PrintData.Buffer[(f >> 2) & 0x03];
+                                   1336 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:634: *l++ = PRINT_DATA.Buffer[(f >> 2) & 0x03];
     00000436 79               [ 4] 1337 	ld	a, c
     00000437 0F               [ 4] 1338 	rrca
     00000438 0F               [ 4] 1339 	rrca
@@ -1353,7 +1353,7 @@
     00000444 7E               [ 7] 1353 	ld	a, (hl)
     00000445 12               [ 7] 1354 	ld	(de), a
     00000446 13               [ 6] 1355 	inc	de
-                                   1356 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:630: *l++ = g_PrintData.Buffer[f & 0x03];
+                                   1356 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:636: *l++ = PRINT_DATA.Buffer[f & 0x03];
     00000447 79               [ 4] 1357 	ld	a, c
     00000448 E6 03            [ 7] 1358 	and	a, #0x03
     0000044A 4F               [ 4] 1359 	ld	c, a
@@ -1365,11 +1365,11 @@
     00000453 13               [ 6] 1365 	inc	de
     00000454 DD 73 FD         [19] 1366 	ld	-3 (ix), e
     00000457 DD 72 FE         [19] 1367 	ld	-2 (ix), d
-                                   1368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:620: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
+                                   1368 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:626: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j) // Unpack each 6/8-bits line to buffer and send it to VRAM
     0000045A DD 34 FF         [23] 1369 	inc	-1 (ix)
     0000045D C3rDDr03         [10] 1370 	jp	00105$
     00000460                       1371 00101$:
-                                   1372 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:633: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
+                                   1372 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:639: VDP_CommandHMMC((u8*)g_HeapStartAddress, PRINT_DATA.CursorX, PRINT_DATA.CursorY, DATA_LEN, PRINT_H(PRINT_DATA.PatternY));
     00000460 DD 70 FC         [19] 1373 	ld	-4 (ix), b
     00000463 DD 36 FD 00      [19] 1374 	ld	-3 (ix), #0x00
     00000467 ED 4Br06r00      [20] 1375 	ld	bc, (#_g_PrintData + 6)
@@ -1405,19 +1405,19 @@
                                    1405 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:29: g_VDP_Command.CMD = VDP_CMD_HMMC;
     000004A4 21r0Er00         [10] 1406 	ld	hl, #(_g_VDP_Command + 14)
     000004A7 36 F0            [10] 1407 	ld	(hl), #0xf0
-                                   1408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:30: VPD_CommandSetupR36();
+                                   1408 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:30: VDP_CommandSetupR36();
     000004A9 D5               [11] 1409 	push	de
-    000004AA CDr00r00         [17] 1410 	call	_VPD_CommandSetupR36
+    000004AA CDr00r00         [17] 1410 	call	_VDP_CommandSetupR36
     000004AD D1               [10] 1411 	pop	de
-                                   1412 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:31: VPD_CommandWriteLoop(addr);
+                                   1412 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:31: VDP_CommandWriteLoop(addr);
     000004AE EB               [ 4] 1413 	ex	de, hl
-    000004AF CDr00r00         [17] 1414 	call	_VPD_CommandWriteLoop
-                                   1415 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:633: VDP_CommandHMMC((u8*)g_HeapStartAddress, g_PrintData.CursorX, g_PrintData.CursorY, DATA_LEN, PRINT_H(g_PrintData.PatternY));
-                                   1416 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:634: }
+    000004AF CDr00r00         [17] 1414 	call	_VDP_CommandWriteLoop
+                                   1415 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:639: VDP_CommandHMMC((u8*)g_HeapStartAddress, PRINT_DATA.CursorX, PRINT_DATA.CursorY, DATA_LEN, PRINT_H(PRINT_DATA.PatternY));
+                                   1416 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:640: }
     000004B2 DD F9            [10] 1417 	ld	sp, ix
     000004B4 DD E1            [14] 1418 	pop	ix
     000004B6 C9               [10] 1419 	ret
-                                   1420 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:665: void DrawChar_Trans(u8 chr)
+                                   1420 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:671: void DrawChar_Trans(u8 chr)
                                    1421 ;	---------------------------------
                                    1422 ; Function DrawChar_Trans
                                    1423 ; ---------------------------------
@@ -1428,7 +1428,7 @@
     000004BF F5               [11] 1428 	push	af
     000004C0 3B               [ 6] 1429 	dec	sp
     000004C1 5F               [ 4] 1430 	ld	e, a
-                                   1431 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:667: const u8* patterns = g_PrintData.FontAddr + chr * PRINT_H(g_PrintData.PatternY); // Get character patterns' base address
+                                   1431 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:673: const u8* patterns = PRINT_DATA.FontAddr + chr * PRINT_H(PRINT_DATA.PatternY); // Get character patterns' base address
     000004C2 ED 4Br1Fr00      [20] 1432 	ld	bc, (#_g_PrintData + 31)
     000004C6 3Ar01r00         [13] 1433 	ld	a, (#(_g_PrintData + 1) + 0)
     000004C9 C5               [11] 1434 	push	bc
@@ -1447,23 +1447,23 @@
     000004D6 C1               [10] 1447 	pop	bc
     000004D7 09               [11] 1448 	add	hl, bc
     000004D8 E3               [19] 1449 	ex	(sp), hl
-                                   1450 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:726: g_VDP_Command.DY = g_PrintData.CursorY;
+                                   1450 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:732: g_VDP_Command.DY = PRINT_DATA.CursorY;
     000004D9 ED 4Br06r00      [20] 1451 	ld	bc, (#_g_PrintData + 6)
     000004DD ED 43r06r00      [20] 1452 	ld	((_g_VDP_Command + 6)), bc
-                                   1453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:727: g_VDP_Command.ARG = 0;
+                                   1453 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:733: g_VDP_Command.ARG = 0;
     000004E1 21r0Dr00         [10] 1454 	ld	hl, #(_g_VDP_Command + 13)
     000004E4 36 00            [10] 1455 	ld	(hl), #0x00
-                                   1456 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:728: g_VDP_Command.CMD = VDP_CMD_PSET + 0;
+                                   1456 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:734: g_VDP_Command.CMD = VDP_CMD_PSET + 0;
     000004E6 21r0Er00         [10] 1457 	ld	hl, #(_g_VDP_Command + 14)
     000004E9 36 50            [10] 1458 	ld	(hl), #0x50
-                                   1459 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:732: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j)
+                                   1459 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:738: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j)
     000004EB DD 36 FF 00      [19] 1460 	ld	-1 (ix), #0x00
     000004EF                       1461 00119$:
     000004EF 21r01r00         [10] 1462 	ld	hl, #(_g_PrintData + 1)
     000004F2 DD 7E FF         [19] 1463 	ld	a,-1 (ix)
     000004F5 96               [ 7] 1464 	sub	a,(hl)
     000004F6 D2rB5r05         [10] 1465 	jp	NC, 00121$
-                                   1466 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:735: g_VDP_Command.CLR = g_PrintData.TextColor[j];
+                                   1466 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:741: g_VDP_Command.CLR = PRINT_DATA.TextColor[j];
     000004F9 01r0Cr00         [10] 1467 	ld	bc, #_g_VDP_Command + 12
     000004FC 3Er08            [ 7] 1468 	ld	a, #<((_g_PrintData + 8))
     000004FE DD 86 FF         [19] 1469 	add	a, -1 (ix)
@@ -1473,12 +1473,12 @@
     00000506 57               [ 4] 1473 	ld	d, a
     00000507 1A               [ 7] 1474 	ld	a, (de)
     00000508 02               [ 7] 1475 	ld	(bc), a
-                                   1476 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:737: g_VDP_Command.DX = g_PrintData.CursorX;
+                                   1476 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:743: g_VDP_Command.DX = PRINT_DATA.CursorX;
     00000509 3Ar05r00         [13] 1477 	ld	a, (#_g_PrintData + 5)
     0000050C 4F               [ 4] 1478 	ld	c, a
     0000050D 06 00            [ 7] 1479 	ld	b, #0x00
     0000050F ED 43r04r00      [20] 1480 	ld	((_g_VDP_Command + 4)), bc
-                                   1481 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:739: u8 f = patterns[j];
+                                   1481 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:745: u8 f = patterns[j];
     00000513 DD 7E FD         [19] 1482 	ld	a, -3 (ix)
     00000516 DD 86 FF         [19] 1483 	add	a, -1 (ix)
     00000519 6F               [ 4] 1484 	ld	l, a
@@ -1488,112 +1488,112 @@
     0000051D CE 00            [ 7] 1488 	adc	a, #0x00
     0000051F 67               [ 4] 1489 	ld	h, a
     00000520 4E               [ 7] 1490 	ld	c, (hl)
-                                   1491 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:740: if (f & BIT_7) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1491 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:746: if (f & BIT_7) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     00000521 CB 79            [ 8] 1492 	bit	7, c
     00000523 28 05            [12] 1493 	jr	Z, 00102$
     00000525 C5               [11] 1494 	push	bc
-    00000526 CDr00r00         [17] 1495 	call	_VPD_CommandSetupR36
+    00000526 CDr00r00         [17] 1495 	call	_VDP_CommandSetupR36
     00000529 C1               [10] 1496 	pop	bc
     0000052A                       1497 00102$:
     0000052A ED 5Br04r00      [20] 1498 	ld	de, (#(_g_VDP_Command + 4) + 0)
     0000052E 13               [ 6] 1499 	inc	de
     0000052F ED 53r04r00      [20] 1500 	ld	((_g_VDP_Command + 4)), de
-                                   1501 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:741: if (f & BIT_6) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1501 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:747: if (f & BIT_6) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     00000533 CB 71            [ 8] 1502 	bit	6, c
     00000535 28 05            [12] 1503 	jr	Z, 00104$
     00000537 C5               [11] 1504 	push	bc
-    00000538 CDr00r00         [17] 1505 	call	_VPD_CommandSetupR36
+    00000538 CDr00r00         [17] 1505 	call	_VDP_CommandSetupR36
     0000053B C1               [10] 1506 	pop	bc
     0000053C                       1507 00104$:
     0000053C ED 5Br04r00      [20] 1508 	ld	de, (#(_g_VDP_Command + 4) + 0)
     00000540 13               [ 6] 1509 	inc	de
     00000541 ED 53r04r00      [20] 1510 	ld	((_g_VDP_Command + 4)), de
-                                   1511 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:742: if (f & BIT_5) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1511 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:748: if (f & BIT_5) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     00000545 CB 69            [ 8] 1512 	bit	5, c
     00000547 28 05            [12] 1513 	jr	Z, 00106$
     00000549 C5               [11] 1514 	push	bc
-    0000054A CDr00r00         [17] 1515 	call	_VPD_CommandSetupR36
+    0000054A CDr00r00         [17] 1515 	call	_VDP_CommandSetupR36
     0000054D C1               [10] 1516 	pop	bc
     0000054E                       1517 00106$:
     0000054E ED 5Br04r00      [20] 1518 	ld	de, (#(_g_VDP_Command + 4) + 0)
     00000552 13               [ 6] 1519 	inc	de
     00000553 ED 53r04r00      [20] 1520 	ld	((_g_VDP_Command + 4)), de
-                                   1521 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:743: if (f & BIT_4) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1521 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:749: if (f & BIT_4) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     00000557 CB 61            [ 8] 1522 	bit	4, c
     00000559 28 05            [12] 1523 	jr	Z, 00108$
     0000055B C5               [11] 1524 	push	bc
-    0000055C CDr00r00         [17] 1525 	call	_VPD_CommandSetupR36
+    0000055C CDr00r00         [17] 1525 	call	_VDP_CommandSetupR36
     0000055F C1               [10] 1526 	pop	bc
     00000560                       1527 00108$:
     00000560 ED 5Br04r00      [20] 1528 	ld	de, (#(_g_VDP_Command + 4) + 0)
     00000564 13               [ 6] 1529 	inc	de
     00000565 ED 53r04r00      [20] 1530 	ld	((_g_VDP_Command + 4)), de
-                                   1531 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:744: if (f & BIT_3) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1531 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:750: if (f & BIT_3) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     00000569 CB 59            [ 8] 1532 	bit	3, c
     0000056B 28 05            [12] 1533 	jr	Z, 00110$
     0000056D C5               [11] 1534 	push	bc
-    0000056E CDr00r00         [17] 1535 	call	_VPD_CommandSetupR36
+    0000056E CDr00r00         [17] 1535 	call	_VDP_CommandSetupR36
     00000571 C1               [10] 1536 	pop	bc
     00000572                       1537 00110$:
     00000572 ED 5Br04r00      [20] 1538 	ld	de, (#(_g_VDP_Command + 4) + 0)
     00000576 13               [ 6] 1539 	inc	de
     00000577 ED 53r04r00      [20] 1540 	ld	((_g_VDP_Command + 4)), de
-                                   1541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:745: if (f & BIT_2) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:751: if (f & BIT_2) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     0000057B CB 51            [ 8] 1542 	bit	2, c
     0000057D 28 05            [12] 1543 	jr	Z, 00112$
     0000057F C5               [11] 1544 	push	bc
-    00000580 CDr00r00         [17] 1545 	call	_VPD_CommandSetupR36
+    00000580 CDr00r00         [17] 1545 	call	_VDP_CommandSetupR36
     00000583 C1               [10] 1546 	pop	bc
     00000584                       1547 00112$:
     00000584 ED 5Br04r00      [20] 1548 	ld	de, (#(_g_VDP_Command + 4) + 0)
     00000588 13               [ 6] 1549 	inc	de
     00000589 ED 53r04r00      [20] 1550 	ld	((_g_VDP_Command + 4)), de
-                                   1551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:746: if (f & BIT_1) VPD_CommandSetupR36(); g_VDP_Command.DX++;
+                                   1551 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:752: if (f & BIT_1) VDP_CommandSetupR36(); g_VDP_Command.DX++;
     0000058D CB 49            [ 8] 1552 	bit	1, c
     0000058F 28 05            [12] 1553 	jr	Z, 00114$
     00000591 C5               [11] 1554 	push	bc
-    00000592 CDr00r00         [17] 1555 	call	_VPD_CommandSetupR36
+    00000592 CDr00r00         [17] 1555 	call	_VDP_CommandSetupR36
     00000595 C1               [10] 1556 	pop	bc
     00000596                       1557 00114$:
     00000596 ED 5Br04r00      [20] 1558 	ld	de, (#(_g_VDP_Command + 4) + 0)
     0000059A 13               [ 6] 1559 	inc	de
     0000059B ED 53r04r00      [20] 1560 	ld	((_g_VDP_Command + 4)), de
-                                   1561 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:747: if (f & BIT_0) VPD_CommandSetupR36();
+                                   1561 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:753: if (f & BIT_0) VDP_CommandSetupR36();
     0000059F CB 41            [ 8] 1562 	bit	0, c
     000005A1 28 03            [12] 1563 	jr	Z, 00116$
-    000005A3 CDr00r00         [17] 1564 	call	_VPD_CommandSetupR36
+    000005A3 CDr00r00         [17] 1564 	call	_VDP_CommandSetupR36
     000005A6                       1565 00116$:
-                                   1566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:748: g_VDP_Command.DY++;
+                                   1566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:754: g_VDP_Command.DY++;
     000005A6 ED 4Br06r00      [20] 1567 	ld	bc, (#(_g_VDP_Command + 6) + 0)
     000005AA 03               [ 6] 1568 	inc	bc
     000005AB ED 43r06r00      [20] 1569 	ld	((_g_VDP_Command + 6)), bc
-                                   1570 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:732: for (u8 j = 0; j < PRINT_H(g_PrintData.PatternY); ++j)
+                                   1570 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:738: for (u8 j = 0; j < PRINT_H(PRINT_DATA.PatternY); ++j)
     000005AF DD 34 FF         [23] 1571 	inc	-1 (ix)
     000005B2 C3rEFr04         [10] 1572 	jp	00119$
     000005B5                       1573 00121$:
-                                   1574 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:750: }
+                                   1574 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:756: }
     000005B5 DD F9            [10] 1575 	ld	sp, ix
     000005B7 DD E1            [14] 1576 	pop	ix
     000005B9 C9               [10] 1577 	ret
-                                   1578 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1100: void Print_Clear()
+                                   1578 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1096: void Print_Clear()
                                    1579 ;	---------------------------------
                                    1580 ; Function Print_Clear
                                    1581 ; ---------------------------------
     000005BA                       1582 _Print_Clear::
-                                   1583 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-                                   1584 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:494: return mode >= VDP_MODE_GRAPHIC4;
+                                   1583 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                   1584 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:499: return mode >= VDP_MODE_GRAPHIC4;
     000005BA 3Ar00r00         [13] 1585 	ld	a, (#_g_VDP_Data + 0)
     000005BD D6 06            [ 7] 1586 	sub	a, #0x06
     000005BF 3E 00            [ 7] 1587 	ld	a, #0x00
     000005C1 17               [ 4] 1588 	rla
-                                   1589 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1102: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
+                                   1589 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1098: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
     000005C2 EE 01            [ 7] 1590 	xor	a,#0x01
     000005C4 C8               [11] 1591 	ret	Z
-                                   1592 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1105: u8 color = Print_MergeColor(g_PrintData.BGColor);
+                                   1592 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1101: u8 color = Print_MergeColor(PRINT_DATA.BGColor);
     000005C5 3Ar14r00         [13] 1593 	ld	a, (#_g_PrintData + 20)
     000005C8 CDr00r00         [17] 1594 	call	_Print_MergeColor
     000005CB 4F               [ 4] 1595 	ld	c, a
-                                   1596 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1106: VDP_CommandHMMV(0, 0, g_PrintData.ScreenWidth, 212, color); // @todo Check the 192/212 lines parameter
+                                   1596 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1102: VDP_CommandHMMV(0, 0, PRINT_DATA.ScreenWidth, 212, color); // @todo Check the 192/212 lines parameter
     000005CC ED 5Br1Br00      [20] 1597 	ld	de, (#_g_PrintData + 27)
                                    1598 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
     000005D0 21 00 00         [10] 1599 	ld	hl, #0x0000
@@ -1614,12 +1614,12 @@
                                    1614 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
     000005EB 21r0Er00         [10] 1615 	ld	hl, #(_g_VDP_Command + 14)
     000005EE 36 C0            [10] 1616 	ld	(hl), #0xc0
-                                   1617 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:174: VPD_CommandSetupR36();
-    000005F0 CDr00r00         [17] 1618 	call	_VPD_CommandSetupR36
-                                   1619 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1107: VDP_CommandWait();
-                                   1620 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1116: }
+                                   1617 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
+    000005F0 CDr00r00         [17] 1618 	call	_VDP_CommandSetupR36
+                                   1619 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1103: VDP_CommandWait();
+                                   1620 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1112: }
     000005F3 C3r00r00         [10] 1621 	jp	_VDP_CommandWait
-                                   1622 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1121: void Print_Backspace(u8 num)
+                                   1622 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1117: void Print_Backspace(u8 num)
                                    1623 ;	---------------------------------
                                    1624 ; Function Print_Backspace
                                    1625 ; ---------------------------------
@@ -1631,16 +1631,16 @@
     00000601 39               [11] 1631 	add	hl, sp
     00000602 F9               [ 6] 1632 	ld	sp, hl
     00000603 5F               [ 4] 1633 	ld	e, a
-                                   1634 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:478: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
-                                   1635 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:494: return mode >= VDP_MODE_GRAPHIC4;
+                                   1634 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:483: inline u8 VDP_GetMode() { return g_VDP_Data.Mode; }
+                                   1635 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp.h:499: return mode >= VDP_MODE_GRAPHIC4;
     00000604 3Ar00r00         [13] 1636 	ld	a, (#_g_VDP_Data+0)
     00000607 D6 06            [ 7] 1637 	sub	a, #0x06
     00000609 3E 00            [ 7] 1638 	ld	a, #0x00
     0000060B 17               [ 4] 1639 	rla
-                                   1640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1124: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
+                                   1640 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1120: if (VDP_IsBitmapMode(VDP_GetMode())) // Bitmap mode
     0000060C EE 01            [ 7] 1641 	xor	a,#0x01
     0000060E CArA2r06         [10] 1642 	jp	Z, 00110$
-                                   1643 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1127: u16 x = PRINT_W(g_PrintData.UnitX) * num;
+                                   1643 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1123: u16 x = PRINT_W(PRINT_DATA.UnitX) * num;
     00000611 3Ar02r00         [13] 1644 	ld	a, (#_g_PrintData + 2)
     00000614 67               [ 4] 1645 	ld	h, a
                                    1646 ;	spillPairReg hl
@@ -1655,7 +1655,7 @@
     0000061E                       1655 00123$:
     0000061E 10 FA            [13] 1656 	djnz	00122$
     00000620 EB               [ 4] 1657 	ex	de, hl
-                                   1658 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1128: if (x >  g_PrintData.CursorX)
+                                   1658 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1124: if (x >  PRINT_DATA.CursorX)
     00000621 21r05r00         [10] 1659 	ld	hl, #(_g_PrintData + 5)
     00000624 4E               [ 7] 1660 	ld	c, (hl)
     00000625 69               [ 4] 1661 	ld	l, c
@@ -1667,11 +1667,11 @@
     00000627 67               [ 4] 1667 	ld	h, a
     00000628 ED 52            [15] 1668 	sbc	hl, de
     0000062A 30 06            [12] 1669 	jr	NC, 00102$
-                                   1670 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1129: x = 0;
+                                   1670 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1125: x = 0;
     0000062C 11 00 00         [10] 1671 	ld	de, #0x0000
     0000062F C3r39r06         [10] 1672 	jp	00103$
     00000632                       1673 00102$:
-                                   1674 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1131: x = g_PrintData.CursorX - x;
+                                   1674 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1127: x = PRINT_DATA.CursorX - x;
     00000632 26 00            [ 7] 1675 	ld	h, #0x00
                                    1676 ;	spillPairReg hl
                                    1677 ;	spillPairReg hl
@@ -1682,7 +1682,7 @@
     00000636 ED 52            [15] 1682 	sbc	hl, de
     00000638 EB               [ 4] 1683 	ex	de, hl
     00000639                       1684 00103$:
-                                   1685 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1133: u8 color = Print_MergeColor(g_PrintData.BGColor);
+                                   1685 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1129: u8 color = Print_MergeColor(PRINT_DATA.BGColor);
     00000639 21r14r00         [10] 1686 	ld	hl, #_g_PrintData + 20
     0000063C 4E               [ 7] 1687 	ld	c, (hl)
     0000063D D5               [11] 1688 	push	de
@@ -1690,7 +1690,7 @@
     0000063F CDr00r00         [17] 1690 	call	_Print_MergeColor
     00000642 D1               [10] 1691 	pop	de
     00000643 DD 77 FB         [19] 1692 	ld	-5 (ix), a
-                                   1693 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1134: VDP_CommandHMMV(x, g_PrintData.CursorY, x - g_PrintData.CursorX, PRINT_H(g_PrintData.UnitY), color); // @todo Check the 192/212 lines parameter
+                                   1693 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1130: VDP_CommandHMMV(x, PRINT_DATA.CursorY, x - PRINT_DATA.CursorX, PRINT_H(PRINT_DATA.UnitY), color); // @todo Check the 192/212 lines parameter
     00000646 3Ar03r00         [13] 1694 	ld	a, (#_g_PrintData + 3)
     00000649 DD 77 FC         [19] 1695 	ld	-4 (ix), a
     0000064C DD 36 FD 00      [19] 1696 	ld	-3 (ix), #0x00
@@ -1736,76 +1736,76 @@
                                    1736 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
     00000691 21r0Er00         [10] 1737 	ld	hl, #(_g_VDP_Command + 14)
     00000694 36 C0            [10] 1738 	ld	(hl), #0xc0
-                                   1739 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:174: VPD_CommandSetupR36();
+                                   1739 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
     00000696 D5               [11] 1740 	push	de
-    00000697 CDr00r00         [17] 1741 	call	_VPD_CommandSetupR36
+    00000697 CDr00r00         [17] 1741 	call	_VDP_CommandSetupR36
     0000069A D1               [10] 1742 	pop	de
-                                   1743 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1135: g_PrintData.CursorX = x;
+                                   1743 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1131: PRINT_DATA.CursorX = x;
     0000069B 21r05r00         [10] 1744 	ld	hl, #(_g_PrintData + 5)
     0000069E 73               [ 7] 1745 	ld	(hl), e
-                                   1746 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1136: VDP_CommandWait();	
+                                   1746 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1132: VDP_CommandWait();	
     0000069F CDr00r00         [17] 1747 	call	_VDP_CommandWait
     000006A2                       1748 00110$:
-                                   1749 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1147: }
+                                   1749 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1143: }
     000006A2 DD F9            [10] 1750 	ld	sp, ix
     000006A4 DD E1            [14] 1751 	pop	ix
     000006A6 C9               [10] 1752 	ret
-                                   1753 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1152: void Print_DrawChar(u8 chr)
+                                   1753 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1148: void Print_DrawChar(u8 chr)
                                    1754 ;	---------------------------------
                                    1755 ; Function Print_DrawChar
                                    1756 ; ---------------------------------
     000006A7                       1757 _Print_DrawChar::
-                                   1758 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1161: g_PrintData.DrawChar(chr);
+                                   1758 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1157: PRINT_DATA.DrawChar(chr);
     000006A7 2Ar18r00         [16] 1759 	ld	hl, (#_g_PrintData + 24)
     000006AA CDr00r00         [17] 1760 	call	___sdcc_call_hl
-                                   1761 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1164: g_PrintData.CursorX += PRINT_W(g_PrintData.UnitX);
+                                   1761 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1160: PRINT_DATA.CursorX += PRINT_W(PRINT_DATA.UnitX);
     000006AD 01r05r00         [10] 1762 	ld	bc, #_g_PrintData + 5
     000006B0 0A               [ 7] 1763 	ld	a, (bc)
     000006B1 21r02r00         [10] 1764 	ld	hl, #_g_PrintData + 2
     000006B4 5E               [ 7] 1765 	ld	e, (hl)
     000006B5 83               [ 4] 1766 	add	a, e
     000006B6 02               [ 7] 1767 	ld	(bc), a
-                                   1768 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1165: }
+                                   1768 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1161: }
     000006B7 C9               [10] 1769 	ret
-                                   1770 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1171: void Print_DrawCharX(c8 chr, u8 num)
+                                   1770 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1167: void Print_DrawCharX(c8 chr, u8 num)
                                    1771 ;	---------------------------------
                                    1772 ; Function Print_DrawCharX
                                    1773 ; ---------------------------------
     000006B8                       1774 _Print_DrawCharX::
     000006B8 4F               [ 4] 1775 	ld	c, a
-                                   1776 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1173: for (u8 i = 0; i < num; ++i)
+                                   1776 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1169: for (u8 i = 0; i < num; ++i)
     000006B9 06 00            [ 7] 1777 	ld	b, #0x00
     000006BB                       1778 00103$:
     000006BB 78               [ 4] 1779 	ld	a, b
     000006BC 95               [ 4] 1780 	sub	a, l
     000006BD D0               [11] 1781 	ret	NC
-                                   1782 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1174: Print_DrawChar(chr);
+                                   1782 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1170: Print_DrawChar(chr);
     000006BE E5               [11] 1783 	push	hl
     000006BF C5               [11] 1784 	push	bc
     000006C0 79               [ 4] 1785 	ld	a, c
     000006C1 CDrA7r06         [17] 1786 	call	_Print_DrawChar
     000006C4 C1               [10] 1787 	pop	bc
     000006C5 E1               [10] 1788 	pop	hl
-                                   1789 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1173: for (u8 i = 0; i < num; ++i)
+                                   1789 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1169: for (u8 i = 0; i < num; ++i)
     000006C6 04               [ 4] 1790 	inc	b
-                                   1791 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1175: }
+                                   1791 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1171: }
     000006C7 C3rBBr06         [10] 1792 	jp	00103$
-                                   1793 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1180: void Print_DrawText(const c8* str)
+                                   1793 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1176: void Print_DrawText(const c8* str)
                                    1794 ;	---------------------------------
                                    1795 ; Function Print_DrawText
                                    1796 ; ---------------------------------
     000006CA                       1797 _Print_DrawText::
     000006CA EB               [ 4] 1798 	ex	de, hl
-                                   1799 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1182: while (*str != 0)
+                                   1799 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1178: while (*str != 0)
     000006CB                       1800 00110$:
     000006CB 1A               [ 7] 1801 	ld	a, (de)
-                                   1802 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1184: if (*str == '\t')
+                                   1802 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1180: if (*str == '\t')
     000006CC 4F               [ 4] 1803 	ld	c,a
     000006CD B7               [ 4] 1804 	or	a,a
     000006CE C8               [11] 1805 	ret	Z
     000006CF D6 09            [ 7] 1806 	sub	a, #0x09
     000006D1 20 21            [12] 1807 	jr	NZ, 00108$
-                                   1808 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:446: g_PrintData.CursorX += PRINT_W(g_PrintData.UnitX) + g_PrintData.TabSize - 1;
+                                   1808 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:492: PRINT_DATA.CursorX += PRINT_W(PRINT_DATA.UnitX) + PRINT_DATA.TabSize - 1;
     000006D3 21r05r00         [10] 1809 	ld	hl, #(_g_PrintData + 5)
     000006D6 4E               [ 7] 1810 	ld	c, (hl)
     000006D7 3Ar02r00         [13] 1811 	ld	a, (#(_g_PrintData + 2) + 0)
@@ -1815,7 +1815,7 @@
     000006DF 3D               [ 4] 1815 	dec	a
     000006E0 81               [ 4] 1816 	add	a, c
     000006E1 32r05r00         [13] 1817 	ld	(#(_g_PrintData + 5)),a
-                                   1818 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:447: g_PrintData.CursorX &= ~(g_PrintData.TabSize - 1);
+                                   1818 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:493: PRINT_DATA.CursorX &= ~(PRINT_DATA.TabSize - 1);
     000006E4 21r05r00         [10] 1819 	ld	hl, #(_g_PrintData + 5)
     000006E7 4E               [ 7] 1820 	ld	c, (hl)
     000006E8 3Ar04r00         [13] 1821 	ld	a, (#(_g_PrintData + 4) + 0)
@@ -1823,17 +1823,17 @@
     000006EC 2F               [ 4] 1823 	cpl
     000006ED A1               [ 4] 1824 	and	a, c
     000006EE 32r05r00         [13] 1825 	ld	(#(_g_PrintData + 5)),a
-                                   1826 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1185: Print_Tab();
+                                   1826 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1181: Print_Tab();
     000006F1 C3r2Ar07         [10] 1827 	jp	00109$
     000006F4                       1828 00108$:
-                                   1829 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1186: else if (*str == '\n')
+                                   1829 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1182: else if (*str == '\n')
     000006F4 79               [ 4] 1830 	ld	a, c
     000006F5 D6 0A            [ 7] 1831 	sub	a, #0x0a
     000006F7 20 19            [12] 1832 	jr	NZ, 00105$
-                                   1833 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:454: g_PrintData.CursorX = 0;
+                                   1833 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:500: PRINT_DATA.CursorX = 0;
     000006F9 21r05r00         [10] 1834 	ld	hl, #(_g_PrintData + 5)
     000006FC 36 00            [10] 1835 	ld	(hl), #0x00
-                                   1836 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:455: g_PrintData.CursorY += PRINT_H(g_PrintData.UnitY);
+                                   1836 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:501: PRINT_DATA.CursorY += PRINT_H(PRINT_DATA.UnitY);
     000006FE ED 4Br06r00      [20] 1837 	ld	bc, (#(_g_PrintData + 6) + 0)
     00000702 3Ar03r00         [13] 1838 	ld	a, (#_g_PrintData + 3)
     00000705 26 00            [ 7] 1839 	ld	h, #0x00
@@ -1846,14 +1846,14 @@
     00000709 4D               [ 4] 1846 	ld	c, l
     0000070A 44               [ 4] 1847 	ld	b, h
     0000070B ED 43r06r00      [20] 1848 	ld	((_g_PrintData + 6)), bc
-                                   1849 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1187: Print_Return();
+                                   1849 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1183: Print_Return();
     0000070F C3r2Ar07         [10] 1850 	jp	00109$
     00000712                       1851 00105$:
-                                   1852 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1189: else if (*str == ' ')
+                                   1852 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1185: else if (*str == ' ')
     00000712 79               [ 4] 1853 	ld	a, c
     00000713 D6 20            [ 7] 1854 	sub	a, #0x20
     00000715 20 0D            [12] 1855 	jr	NZ, 00102$
-                                   1856 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:440: inline void Print_Space() { g_PrintData.CursorX += PRINT_W(g_PrintData.UnitX); }
+                                   1856 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:486: inline void Print_Space() { PRINT_DATA.CursorX += PRINT_W(PRINT_DATA.UnitX); }
     00000717 01r05r00         [10] 1857 	ld	bc, #_g_PrintData + 5
     0000071A 0A               [ 7] 1858 	ld	a, (bc)
     0000071B 21r02r00         [10] 1859 	ld	hl, #(_g_PrintData + 2)
@@ -1861,20 +1861,20 @@
                                    1861 ;	spillPairReg hl
     0000071F 85               [ 4] 1862 	add	a, l
     00000720 02               [ 7] 1863 	ld	(bc), a
-                                   1864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1190: Print_Space();
+                                   1864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1186: Print_Space();
     00000721 C3r2Ar07         [10] 1865 	jp	00109$
     00000724                       1866 00102$:
-                                   1867 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1193: Print_DrawChar(*str);
+                                   1867 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1189: Print_DrawChar(*str);
     00000724 D5               [11] 1868 	push	de
     00000725 79               [ 4] 1869 	ld	a, c
     00000726 CDrA7r06         [17] 1870 	call	_Print_DrawChar
     00000729 D1               [10] 1871 	pop	de
     0000072A                       1872 00109$:
-                                   1873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1194: str++;
+                                   1873 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1190: str++;
     0000072A 13               [ 6] 1874 	inc	de
-                                   1875 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1196: }
+                                   1875 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1192: }
     0000072B C3rCBr06         [10] 1876 	jp	00110$
-                                   1877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1201: void Print_DrawBin8(u8 value)
+                                   1877 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1197: void Print_DrawBin8(u8 value)
                                    1878 ;	---------------------------------
                                    1879 ; Function Print_DrawBin8
                                    1880 ; ---------------------------------
@@ -1882,14 +1882,14 @@
     0000072E 6F               [ 4] 1882 	ld	l, a
                                    1883 ;	spillPairReg hl
                                    1884 ;	spillPairReg hl
-                                   1885 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1203: u8 flag = (u8)(1 << 7);
-                                   1886 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1204: for (u8 i = 0; i < 8; ++i)
+                                   1885 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1199: u8 flag = (u8)(1 << 7);
+                                   1886 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1200: for (u8 i = 0; i < 8; ++i)
     0000072F 01 80 00         [10] 1887 	ld	bc, #0x80
     00000732                       1888 00103$:
     00000732 78               [ 4] 1889 	ld	a, b
     00000733 D6 08            [ 7] 1890 	sub	a, #0x08
     00000735 D0               [11] 1891 	ret	NC
-                                   1892 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1206: Print_DrawChar((value & flag) ? '1' : '0');
+                                   1892 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1202: Print_DrawChar((value & flag) ? '1' : '0');
     00000736 7D               [ 4] 1893 	ld	a, l
     00000737 A1               [ 4] 1894 	and	a,c
     00000738 28 06            [12] 1895 	jr	Z, 00107$
@@ -1904,19 +1904,19 @@
     00000746 CDrA7r06         [17] 1904 	call	_Print_DrawChar
     00000749 C1               [10] 1905 	pop	bc
     0000074A E1               [10] 1906 	pop	hl
-                                   1907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1207: flag >>= 1;
+                                   1907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1203: flag >>= 1;
     0000074B CB 39            [ 8] 1908 	srl	c
-                                   1909 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1204: for (u8 i = 0; i < 8; ++i)
+                                   1909 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1200: for (u8 i = 0; i < 8; ++i)
     0000074D 04               [ 4] 1910 	inc	b
-                                   1911 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1212: }
+                                   1911 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1208: }
     0000074E C3r32r07         [10] 1912 	jp	00103$
-                                   1913 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1217: void Print_DrawHex8(u8 value)
+                                   1913 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1213: void Print_DrawHex8(u8 value)
                                    1914 ;	---------------------------------
                                    1915 ; Function Print_DrawHex8
                                    1916 ; ---------------------------------
     00000751                       1917 _Print_DrawHex8::
     00000751 5F               [ 4] 1918 	ld	e, a
-                                   1919 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1219: Print_DrawChar(g_HexChar[(value >> 4) & 0x000F]);
+                                   1919 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1215: Print_DrawChar(g_HexChar[(value >> 4) & 0x000F]);
     00000752 01r20r00         [10] 1920 	ld	bc, #_g_HexChar+0
     00000755 7B               [ 4] 1921 	ld	a, e
     00000756 07               [ 4] 1922 	rlca
@@ -1942,7 +1942,7 @@
     00000764 CDrA7r06         [17] 1942 	call	_Print_DrawChar
     00000767 D1               [10] 1943 	pop	de
     00000768 C1               [10] 1944 	pop	bc
-                                   1945 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1220: Print_DrawChar(g_HexChar[value & 0x000F]);
+                                   1945 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1216: Print_DrawChar(g_HexChar[value & 0x000F]);
     00000769 16 00            [ 7] 1946 	ld	d, #0x00
     0000076B 7B               [ 4] 1947 	ld	a, e
     0000076C E6 0F            [ 7] 1948 	and	a, #0x0f
@@ -1955,24 +1955,24 @@
     00000771 09               [11] 1955 	add	hl, bc
     00000772 4E               [ 7] 1956 	ld	c, (hl)
     00000773 79               [ 4] 1957 	ld	a, c
-                                   1958 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1224: }
+                                   1958 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1220: }
     00000774 C3rA7r06         [10] 1959 	jp	_Print_DrawChar
-                                   1960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1229: void Print_DrawHex16(u16 value)
+                                   1960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1225: void Print_DrawHex16(u16 value)
                                    1961 ;	---------------------------------
                                    1962 ; Function Print_DrawHex16
                                    1963 ; ---------------------------------
     00000777                       1964 _Print_DrawHex16::
-                                   1965 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1231: Print_DrawHex8(value >> 8);
+                                   1965 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1227: Print_DrawHex8(value >> 8);
     00000777 4C               [ 4] 1966 	ld	c, h
     00000778 E5               [11] 1967 	push	hl
     00000779 79               [ 4] 1968 	ld	a, c
     0000077A CDr51r07         [17] 1969 	call	_Print_DrawHex8
     0000077D E1               [10] 1970 	pop	hl
-                                   1971 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1232: Print_DrawHex8((u8)value);
+                                   1971 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1228: Print_DrawHex8((u8)value);
     0000077E 7D               [ 4] 1972 	ld	a, l
-                                   1973 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1233: }
+                                   1973 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1229: }
     0000077F C3r51r07         [10] 1974 	jp	_Print_DrawHex8
-                                   1975 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1254: void Print_DrawInt(i16 value)
+                                   1975 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1250: void Print_DrawInt(i16 value)
                                    1976 ;	---------------------------------
                                    1977 ; Function Print_DrawInt
                                    1978 ; ---------------------------------
@@ -1985,16 +1985,16 @@
     00000790 FD F9            [10] 1985 	ld	sp, iy
     00000792 4D               [ 4] 1986 	ld	c, l
     00000793 44               [ 4] 1987 	ld	b, h
-                                   1988 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1257: if (value < 0)
+                                   1988 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1253: if (value < 0)
     00000794 50               [ 4] 1989 	ld	d, b
     00000795 CB 7A            [ 8] 1990 	bit	7, d
     00000797 28 0D            [12] 1991 	jr	Z, 00102$
-                                   1992 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1259: Print_DrawChar('-');
+                                   1992 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1255: Print_DrawChar('-');
     00000799 C5               [11] 1993 	push	bc
     0000079A 3E 2D            [ 7] 1994 	ld	a, #0x2d
     0000079C CDrA7r06         [17] 1995 	call	_Print_DrawChar
     0000079F C1               [10] 1996 	pop	bc
-                                   1997 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1260: value = -value;
+                                   1997 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1256: value = -value;
     000007A0 AF               [ 4] 1998 	xor	a, a
     000007A1 91               [ 4] 1999 	sub	a, c
     000007A2 4F               [ 4] 2000 	ld	c, a
@@ -2002,22 +2002,22 @@
     000007A4 90               [ 4] 2002 	sub	a, b
     000007A5 47               [ 4] 2003 	ld	b, a
     000007A6                       2004 00102$:
-                                   2005 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1264: c8* ptr = str;
+                                   2005 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1260: c8* ptr = str;
     000007A6 21 00 00         [10] 2006 	ld	hl, #0
     000007A9 39               [11] 2007 	add	hl, sp
-                                   2008 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1265: *ptr = 0;
+                                   2008 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1261: *ptr = 0;
     000007AA 36 00            [10] 2009 	ld	(hl), #0x00
-                                   2010 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1266: while (value >= 10)
+                                   2010 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1262: while (value >= 10)
     000007AC E5               [11] 2011 	push	hl
     000007AD FD E1            [14] 2012 	pop	iy
     000007AF                       2013 00103$:
     000007AF DD 71 FE         [19] 2014 	ld	-2 (ix), c
     000007B2 DD 70 FF         [19] 2015 	ld	-1 (ix), b
-                                   2016 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1268: *++ptr = '0' + (value % 10);
+                                   2016 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1264: *++ptr = '0' + (value % 10);
     000007B5 FD E5            [15] 2017 	push	iy
     000007B7 E1               [10] 2018 	pop	hl
     000007B8 23               [ 6] 2019 	inc	hl
-                                   2020 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1266: while (value >= 10)
+                                   2020 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1262: while (value >= 10)
     000007B9 DD 7E FE         [19] 2021 	ld	a, -2 (ix)
     000007BC D6 0A            [ 7] 2022 	sub	a, #0x0a
     000007BE DD 7E FF         [19] 2023 	ld	a, -1 (ix)
@@ -2026,7 +2026,7 @@
     000007C3 1F               [ 4] 2026 	rra
     000007C4 DE 80            [ 7] 2027 	sbc	a, #0x80
     000007C6 38 2E            [12] 2028 	jr	C, 00105$
-                                   2029 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1268: *++ptr = '0' + (value % 10);
+                                   2029 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1264: *++ptr = '0' + (value % 10);
     000007C8 E5               [11] 2030 	push	hl
     000007C9 FD E1            [14] 2031 	pop	iy
     000007CB E5               [11] 2032 	push	hl
@@ -2044,7 +2044,7 @@
     000007DD 7B               [ 4] 2044 	ld	a, e
     000007DE C6 30            [ 7] 2045 	add	a, #0x30
     000007E0 77               [ 7] 2046 	ld	(hl), a
-                                   2047 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1269: value /= 10;
+                                   2047 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1265: value /= 10;
     000007E1 FD E5            [15] 2048 	push	iy
     000007E3 11 0A 00         [10] 2049 	ld	de, #0x000a
     000007E6 DD 6E FE         [19] 2050 	ld	l, -2 (ix)
@@ -2059,16 +2059,16 @@
     000007F1 FD E1            [14] 2059 	pop	iy
     000007F3 C3rAFr07         [10] 2060 	jp	00103$
     000007F6                       2061 00105$:
-                                   2062 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1271: *++ptr = '0' + value;
+                                   2062 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1267: *++ptr = '0' + value;
     000007F6 79               [ 4] 2063 	ld	a, c
     000007F7 C6 30            [ 7] 2064 	add	a, #0x30
     000007F9 77               [ 7] 2065 	ld	(hl), a
-                                   2066 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1272: while (*ptr != 0)
+                                   2066 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1268: while (*ptr != 0)
     000007FA                       2067 00106$:
     000007FA 7E               [ 7] 2068 	ld	a, (hl)
     000007FB B7               [ 4] 2069 	or	a, a
     000007FC 28 0B            [12] 2070 	jr	Z, 00109$
-                                   2071 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1273: Print_DrawChar(*ptr--);	
+                                   2071 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1269: Print_DrawChar(*ptr--);	
     000007FE 2B               [ 6] 2072 	dec	hl
     000007FF 4F               [ 4] 2073 	ld	c, a
     00000800 E5               [11] 2074 	push	hl
@@ -2077,11 +2077,11 @@
     00000805 E1               [10] 2077 	pop	hl
     00000806 C3rFAr07         [10] 2078 	jp	00106$
     00000809                       2079 00109$:
-                                   2080 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1274: }
+                                   2080 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1270: }
     00000809 DD F9            [10] 2081 	ld	sp, ix
     0000080B DD E1            [14] 2082 	pop	ix
     0000080D C9               [10] 2083 	ret
-                                   2084 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1283: void Print_DrawFormat(const c8* format, ...)
+                                   2084 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1279: void Print_DrawFormat(const c8* format, ...)
                                    2085 ;	---------------------------------
                                    2086 ; Function Print_DrawFormat
                                    2087 ; ---------------------------------
@@ -2092,16 +2092,16 @@
     00000816 21 F5 FF         [10] 2092 	ld	hl, #-11
     00000819 39               [11] 2093 	add	hl, sp
     0000081A F9               [ 6] 2094 	ld	sp, hl
-                                   2095 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1288: va_start(args, format);
+                                   2095 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1284: va_start(args, format);
     0000081B 21 11 00         [10] 2096 	ld	hl, #17
     0000081E 39               [11] 2097 	add	hl, sp
     0000081F E3               [19] 2098 	ex	(sp), hl
-                                   2099 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1290: const c8* ptr = format;
+                                   2099 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1286: const c8* ptr = format;
     00000820 DD 7E 04         [19] 2100 	ld	a, 4 (ix)
     00000823 DD 77 FE         [19] 2101 	ld	-2 (ix), a
     00000826 DD 7E 05         [19] 2102 	ld	a, 5 (ix)
     00000829 DD 77 FF         [19] 2103 	ld	-1 (ix), a
-                                   2104 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1291: while (*ptr != 0)
+                                   2104 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1287: while (*ptr != 0)
     0000082C                       2105 00157$:
     0000082C DD 6E FE         [19] 2106 	ld	l, -2 (ix)
     0000082F DD 66 FF         [19] 2107 	ld	h, -1 (ix)
@@ -2109,11 +2109,11 @@
     00000833 DD 77 FD         [19] 2109 	ld	-3 (ix), a
     00000836 B7               [ 4] 2110 	or	a, a
     00000837 CAr48r0B         [10] 2111 	jp	Z, 00163$
-                                   2112 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1293: if (*ptr == '%')
+                                   2112 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1289: if (*ptr == '%')
     0000083A DD 7E FD         [19] 2113 	ld	a, -3 (ix)
     0000083D D6 25            [ 7] 2114 	sub	a, #0x25
     0000083F C2rE1r0A         [10] 2115 	jp	NZ,00155$
-                                   2116 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1295: ptr++;
+                                   2116 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1291: ptr++;
     00000842 DD 6E FE         [19] 2117 	ld	l, -2 (ix)
                                    2118 ;	spillPairReg hl
                                    2119 ;	spillPairReg hl
@@ -2121,9 +2121,9 @@
                                    2121 ;	spillPairReg hl
                                    2122 ;	spillPairReg hl
     00000848 23               [ 6] 2123 	inc	hl
-                                   2124 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1298: u8 len = 0;
+                                   2124 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1294: u8 len = 0;
     00000849 DD 36 F7 00      [19] 2125 	ld	-9 (ix), #0x00
-                                   2126 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1299: if ((*ptr >= '0') && (*ptr <= '9'))
+                                   2126 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1295: if ((*ptr >= '0') && (*ptr <= '9'))
     0000084D 4E               [ 7] 2127 	ld	c, (hl)
     0000084E 79               [ 4] 2128 	ld	a, c
     0000084F D6 30            [ 7] 2129 	sub	a, #0x30
@@ -2131,13 +2131,13 @@
     00000853 3E 39            [ 7] 2131 	ld	a, #0x39
     00000855 91               [ 4] 2132 	sub	a, c
     00000856 38 07            [12] 2133 	jr	C, 00171$
-                                   2134 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1301: len = *ptr - '0';
+                                   2134 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1297: len = *ptr - '0';
     00000858 79               [ 4] 2135 	ld	a, c
     00000859 C6 D0            [ 7] 2136 	add	a, #0xd0
     0000085B DD 77 F7         [19] 2137 	ld	-9 (ix), a
-                                   2138 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1302: ptr++;
+                                   2138 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1298: ptr++;
     0000085E 23               [ 6] 2139 	inc	hl
-                                   2140 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1304: while ((*ptr >= '0') && (*ptr <= '9'))
+                                   2140 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1300: while ((*ptr >= '0') && (*ptr <= '9'))
     0000085F                       2141 00171$:
     0000085F DD 75 FE         [19] 2142 	ld	-2 (ix), l
     00000862 DD 74 FF         [19] 2143 	ld	-1 (ix), h
@@ -2151,7 +2151,7 @@
     00000873 3E 39            [ 7] 2151 	ld	a, #0x39
     00000875 DD 96 FD         [19] 2152 	sub	a, -3 (ix)
     00000878 38 1C            [12] 2153 	jr	C, 00191$
-                                   2154 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1306: len *= 10;
+                                   2154 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1302: len *= 10;
     0000087A DD 6E F7         [19] 2155 	ld	l, -9 (ix)
                                    2156 ;	spillPairReg hl
                                    2157 ;	spillPairReg hl
@@ -2160,18 +2160,18 @@
     0000087F 29               [11] 2160 	add	hl, hl
     00000880 09               [11] 2161 	add	hl, bc
     00000881 29               [11] 2162 	add	hl, hl
-                                   2163 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1307: len += *ptr - '0';
+                                   2163 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1303: len += *ptr - '0';
     00000882 DD 7E FD         [19] 2164 	ld	a, -3 (ix)
     00000885 C6 D0            [ 7] 2165 	add	a, #0xd0
     00000887 85               [ 4] 2166 	add	a, l
     00000888 DD 77 F7         [19] 2167 	ld	-9 (ix), a
-                                   2168 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1308: ptr++;
+                                   2168 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1304: ptr++;
     0000088B DD 34 FE         [23] 2169 	inc	-2 (ix)
     0000088E 20 D5            [12] 2170 	jr	NZ, 00105$
     00000890 DD 34 FF         [23] 2171 	inc	-1 (ix)
     00000893 C3r65r08         [10] 2172 	jp	00105$
     00000896                       2173 00191$:
-                                   2174 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1312: if ((*ptr == 'i') || (*ptr == 'd'))
+                                   2174 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1308: if ((*ptr == 'i') || (*ptr == 'd'))
     00000896 DD 7E FD         [19] 2175 	ld	a, -3 (ix)
     00000899 D6 69            [ 7] 2176 	sub	a, #0x69
     0000089B 28 07            [12] 2177 	jr	Z, 00141$
@@ -2179,7 +2179,7 @@
     000008A0 D6 64            [ 7] 2179 	sub	a, #0x64
     000008A2 20 47            [12] 2180 	jr	NZ, 00142$
     000008A4                       2181 00141$:
-                                   2182 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1314: i16 val = (i16)va_arg(args, i16);
+                                   2182 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1310: i16 val = (i16)va_arg(args, i16);
     000008A4 DD 7E F5         [19] 2183 	ld	a, -11 (ix)
     000008A7 C6 02            [ 7] 2184 	add	a, #0x02
     000008A9 DD 77 FA         [19] 2185 	ld	-6 (ix), a
@@ -2203,7 +2203,7 @@
     000008DA 23               [ 6] 2203 	inc	hl
     000008DB 7E               [ 7] 2204 	ld	a, (hl)
     000008DC DD 77 FD         [19] 2205 	ld	-3 (ix), a
-                                   2206 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1315: Print_DrawInt(val);
+                                   2206 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1311: Print_DrawInt(val);
     000008DF DD 6E FC         [19] 2207 	ld	l, -4 (ix)
                                    2208 ;	spillPairReg hl
                                    2209 ;	spillPairReg hl
@@ -2213,11 +2213,11 @@
     000008E5 CDr82r07         [17] 2213 	call	_Print_DrawInt
     000008E8 C3r3Cr0B         [10] 2214 	jp	00156$
     000008EB                       2215 00142$:
-                                   2216 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1317: else if (*ptr == 'u')
+                                   2216 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1313: else if (*ptr == 'u')
     000008EB DD 7E FD         [19] 2217 	ld	a, -3 (ix)
     000008EE D6 75            [ 7] 2218 	sub	a, #0x75
     000008F0 20 47            [12] 2219 	jr	NZ, 00139$
-                                   2220 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1319: u16 val = (u16)va_arg(args, u16);
+                                   2220 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1315: u16 val = (u16)va_arg(args, u16);
     000008F2 DD 7E F5         [19] 2221 	ld	a, -11 (ix)
     000008F5 C6 02            [ 7] 2222 	add	a, #0x02
     000008F7 DD 77 FA         [19] 2223 	ld	-6 (ix), a
@@ -2241,7 +2241,7 @@
     00000928 23               [ 6] 2241 	inc	hl
     00000929 7E               [ 7] 2242 	ld	a, (hl)
     0000092A DD 77 FD         [19] 2243 	ld	-3 (ix), a
-                                   2244 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1320: Print_DrawInt(val);
+                                   2244 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1316: Print_DrawInt(val);
     0000092D DD 6E FC         [19] 2245 	ld	l, -4 (ix)
                                    2246 ;	spillPairReg hl
                                    2247 ;	spillPairReg hl
@@ -2251,18 +2251,18 @@
     00000933 CDr82r07         [17] 2251 	call	_Print_DrawInt
     00000936 C3r3Cr0B         [10] 2252 	jp	00156$
     00000939                       2253 00139$:
-                                   2254 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1322: else if (*ptr == 'x')
+                                   2254 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1318: else if (*ptr == 'x')
     00000939 DD 7E FD         [19] 2255 	ld	a, -3 (ix)
     0000093C D6 78            [ 7] 2256 	sub	a, #0x78
     0000093E C2r47r0A         [10] 2257 	jp	NZ,00136$
-                                   2258 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1324: if (len == 0)
+                                   2258 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1320: if (len == 0)
     00000941 DD 7E F7         [19] 2259 	ld	a, -9 (ix)
     00000944 B7               [ 4] 2260 	or	a, a
     00000945 20 04            [12] 2261 	jr	NZ, 00109$
-                                   2262 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1325: len = 4;
+                                   2262 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1321: len = 4;
     00000947 DD 36 F7 04      [19] 2263 	ld	-9 (ix), #0x04
     0000094B                       2264 00109$:
-                                   2265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1326: u16 val = (u16)va_arg(args, u16);
+                                   2265 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1322: u16 val = (u16)va_arg(args, u16);
     0000094B DD 7E F5         [19] 2266 	ld	a, -11 (ix)
     0000094E C6 02            [ 7] 2267 	add	a, #0x02
     00000950 DD 77 FA         [19] 2268 	ld	-6 (ix), a
@@ -2286,11 +2286,11 @@
     00000981 23               [ 6] 2286 	inc	hl
     00000982 7E               [ 7] 2287 	ld	a, (hl)
     00000983 DD 77 F9         [19] 2288 	ld	-7 (ix), a
-                                   2289 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1327: if (len > 3)
+                                   2289 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1323: if (len > 3)
     00000986 3E 03            [ 7] 2290 	ld	a, #0x03
     00000988 DD 96 F7         [19] 2291 	sub	a, -9 (ix)
     0000098B 30 14            [12] 2292 	jr	NC, 00111$
-                                   2293 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1328: Print_DrawChar(g_HexChar[(val >> 12) & 0x000F]);
+                                   2293 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1324: Print_DrawChar(g_HexChar[(val >> 12) & 0x000F]);
     0000098D DD 7E F9         [19] 2294 	ld	a, -7 (ix)
     00000990 07               [ 4] 2295 	rlca
     00000991 07               [ 4] 2296 	rlca
@@ -2304,11 +2304,11 @@
     0000099D 7E               [ 7] 2304 	ld	a, (hl)
     0000099E CDrA7r06         [17] 2305 	call	_Print_DrawChar
     000009A1                       2306 00111$:
-                                   2307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1329: if (len > 2)
+                                   2307 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1325: if (len > 2)
     000009A1 3E 02            [ 7] 2308 	ld	a, #0x02
     000009A3 DD 96 F7         [19] 2309 	sub	a, -9 (ix)
     000009A6 30 33            [12] 2310 	jr	NC, 00113$
-                                   2311 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1330: Print_DrawChar(g_HexChar[(val >> 8) & 0x000F]);
+                                   2311 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1326: Print_DrawChar(g_HexChar[(val >> 8) & 0x000F]);
     000009A8 DD 7E F9         [19] 2312 	ld	a, -7 (ix)
     000009AB DD 77 FD         [19] 2313 	ld	-3 (ix), a
     000009AE DD 77 FC         [19] 2314 	ld	-4 (ix), a
@@ -2328,11 +2328,11 @@
     000009D7 7E               [ 7] 2328 	ld	a, (hl)
     000009D8 CDrA7r06         [17] 2329 	call	_Print_DrawChar
     000009DB                       2330 00113$:
-                                   2331 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1331: if (len > 1)
+                                   2331 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1327: if (len > 1)
     000009DB 3E 01            [ 7] 2332 	ld	a, #0x01
     000009DD DD 96 F7         [19] 2333 	sub	a, -9 (ix)
     000009E0 30 52            [12] 2334 	jr	NC, 00115$
-                                   2335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1332: Print_DrawChar(g_HexChar[(val >> 4) & 0x000F]);
+                                   2335 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1328: Print_DrawChar(g_HexChar[(val >> 4) & 0x000F]);
     000009E2 DD 7E F8         [19] 2336 	ld	a, -8 (ix)
     000009E5 DD 77 FC         [19] 2337 	ld	-4 (ix), a
     000009E8 DD 7E F9         [19] 2338 	ld	a, -7 (ix)
@@ -2360,7 +2360,7 @@
     00000A30 7E               [ 7] 2360 	ld	a, (hl)
     00000A31 CDrA7r06         [17] 2361 	call	_Print_DrawChar
     00000A34                       2362 00115$:
-                                   2363 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1333: Print_DrawChar(g_HexChar[val & 0x000F]);
+                                   2363 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1329: Print_DrawChar(g_HexChar[val & 0x000F]);
     00000A34 DD 7E F8         [19] 2364 	ld	a, -8 (ix)
     00000A37 E6 0F            [ 7] 2365 	and	a, #0x0f
     00000A39 4F               [ 4] 2366 	ld	c, a
@@ -2371,18 +2371,18 @@
     00000A41 CDrA7r06         [17] 2371 	call	_Print_DrawChar
     00000A44 C3r3Cr0B         [10] 2372 	jp	00156$
     00000A47                       2373 00136$:
-                                   2374 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1335: else if (*ptr == 'b')
+                                   2374 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1331: else if (*ptr == 'b')
     00000A47 DD 7E FD         [19] 2375 	ld	a, -3 (ix)
     00000A4A D6 62            [ 7] 2376 	sub	a, #0x62
     00000A4C 20 53            [12] 2377 	jr	NZ, 00133$
-                                   2378 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1337: if (len == 0)
+                                   2378 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1333: if (len == 0)
     00000A4E DD 7E F7         [19] 2379 	ld	a, -9 (ix)
     00000A51 B7               [ 4] 2380 	or	a, a
     00000A52 20 04            [12] 2381 	jr	NZ, 00117$
-                                   2382 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1338: len = 16;
+                                   2382 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1334: len = 16;
     00000A54 DD 36 F7 10      [19] 2383 	ld	-9 (ix), #0x10
     00000A58                       2384 00117$:
-                                   2385 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1339: u16 val = (u16)va_arg(args, u16);
+                                   2385 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1335: u16 val = (u16)va_arg(args, u16);
     00000A58 C1               [10] 2386 	pop	bc
     00000A59 C5               [11] 2387 	push	bc
     00000A5A 03               [ 6] 2388 	inc	bc
@@ -2397,7 +2397,7 @@
     00000A65 03               [ 6] 2397 	inc	bc
     00000A66 0A               [ 7] 2398 	ld	a, (bc)
     00000A67 DD 77 FD         [19] 2399 	ld	-3 (ix), a
-                                   2400 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1340: u16 bit = 1 << (len - 1);
+                                   2400 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1336: u16 bit = 1 << (len - 1);
     00000A6A DD 46 F7         [19] 2401 	ld	b, -9 (ix)
     00000A6D 05               [ 4] 2402 	dec	b
     00000A6E 21 01 00         [10] 2403 	ld	hl, #0x0001
@@ -2407,12 +2407,12 @@
     00000A75 29               [11] 2407 	add	hl, hl
     00000A76                       2408 00309$:
     00000A76 10 FD            [13] 2409 	djnz	00308$
-                                   2410 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1341: while (bit)
+                                   2410 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1337: while (bit)
     00000A78                       2411 00121$:
     00000A78 7C               [ 4] 2412 	ld	a, h
     00000A79 B5               [ 4] 2413 	or	a, l
     00000A7A CAr3Cr0B         [10] 2414 	jp	Z, 00156$
-                                   2415 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1343: if (val & bit)
+                                   2415 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1339: if (val & bit)
     00000A7D 7D               [ 4] 2416 	ld	a, l
     00000A7E DD A6 FC         [19] 2417 	and	a, -4 (ix)
     00000A81 4F               [ 4] 2418 	ld	c, a
@@ -2420,29 +2420,29 @@
     00000A83 DD A6 FD         [19] 2420 	and	a, -3 (ix)
     00000A86 B1               [ 4] 2421 	or	a, c
     00000A87 28 0A            [12] 2422 	jr	Z, 00119$
-                                   2423 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1344: Print_DrawChar('1');
+                                   2423 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1340: Print_DrawChar('1');
     00000A89 E5               [11] 2424 	push	hl
     00000A8A 3E 31            [ 7] 2425 	ld	a, #0x31
     00000A8C CDrA7r06         [17] 2426 	call	_Print_DrawChar
     00000A8F E1               [10] 2427 	pop	hl
     00000A90 C3r9Ar0A         [10] 2428 	jp	00120$
     00000A93                       2429 00119$:
-                                   2430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1346: Print_DrawChar('0');
+                                   2430 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1342: Print_DrawChar('0');
     00000A93 E5               [11] 2431 	push	hl
     00000A94 3E 30            [ 7] 2432 	ld	a, #0x30
     00000A96 CDrA7r06         [17] 2433 	call	_Print_DrawChar
     00000A99 E1               [10] 2434 	pop	hl
     00000A9A                       2435 00120$:
-                                   2436 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1347: bit >>= 1;
+                                   2436 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1343: bit >>= 1;
     00000A9A CB 3C            [ 8] 2437 	srl	h
     00000A9C CB 1D            [ 8] 2438 	rr	l
     00000A9E C3r78r0A         [10] 2439 	jp	00121$
     00000AA1                       2440 00133$:
-                                   2441 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1399: else if (*ptr == 'c')
+                                   2441 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1395: else if (*ptr == 'c')
     00000AA1 DD 7E FD         [19] 2442 	ld	a, -3 (ix)
     00000AA4 D6 63            [ 7] 2443 	sub	a, #0x63
     00000AA6 20 10            [12] 2444 	jr	NZ, 00130$
-                                   2445 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1401: c8 val = (c8)va_arg(args, u16);
+                                   2445 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1397: c8 val = (c8)va_arg(args, u16);
     00000AA8 E1               [10] 2446 	pop	hl
     00000AA9 E5               [11] 2447 	push	hl
     00000AAA 23               [ 6] 2448 	inc	hl
@@ -2452,16 +2452,16 @@
     00000AAE E5               [11] 2452 	push	hl
     00000AAF 2B               [ 6] 2453 	dec	hl
     00000AB0 2B               [ 6] 2454 	dec	hl
-                                   2455 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1402: Print_DrawChar(val);
+                                   2455 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1398: Print_DrawChar(val);
     00000AB1 7E               [ 7] 2456 	ld	a, (hl)
     00000AB2 CDrA7r06         [17] 2457 	call	_Print_DrawChar
     00000AB5 C3r3Cr0B         [10] 2458 	jp	00156$
     00000AB8                       2459 00130$:
-                                   2460 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1404: else if (*ptr == 's')
+                                   2460 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1400: else if (*ptr == 's')
     00000AB8 DD 7E FD         [19] 2461 	ld	a, -3 (ix)
     00000ABB D6 73            [ 7] 2462 	sub	a, #0x73
     00000ABD 20 13            [12] 2463 	jr	NZ, 00127$
-                                   2464 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1406: const c8* val = (const c8*)va_arg(args, const c8*);
+                                   2464 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1402: const c8* val = (const c8*)va_arg(args, const c8*);
     00000ABF E1               [10] 2465 	pop	hl
     00000AC0 E5               [11] 2466 	push	hl
     00000AC1 23               [ 6] 2467 	inc	hl
@@ -2475,27 +2475,27 @@
     00000AC9 23               [ 6] 2475 	inc	hl
     00000ACA 66               [ 7] 2476 	ld	h, (hl)
                                    2477 ;	spillPairReg hl
-                                   2478 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1407: Print_DrawText(val);
+                                   2478 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1403: Print_DrawText(val);
     00000ACB 69               [ 4] 2479 	ld	l, c
                                    2480 ;	spillPairReg hl
                                    2481 ;	spillPairReg hl
     00000ACC CDrCAr06         [17] 2482 	call	_Print_DrawText
     00000ACF C3r3Cr0B         [10] 2483 	jp	00156$
     00000AD2                       2484 00127$:
-                                   2485 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1409: else if (*ptr == '%')
+                                   2485 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1405: else if (*ptr == '%')
     00000AD2 DD 7E FD         [19] 2486 	ld	a, -3 (ix)
     00000AD5 D6 25            [ 7] 2487 	sub	a, #0x25
     00000AD7 20 63            [12] 2488 	jr	NZ, 00156$
-                                   2489 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1411: Print_DrawChar('%');
+                                   2489 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1407: Print_DrawChar('%');
     00000AD9 3E 25            [ 7] 2490 	ld	a, #0x25
     00000ADB CDrA7r06         [17] 2491 	call	_Print_DrawChar
     00000ADE C3r3Cr0B         [10] 2492 	jp	00156$
     00000AE1                       2493 00155$:
-                                   2494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1415: else if (*ptr == '\t')
+                                   2494 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1411: else if (*ptr == '\t')
     00000AE1 DD 7E FD         [19] 2495 	ld	a, -3 (ix)
     00000AE4 D6 09            [ 7] 2496 	sub	a, #0x09
     00000AE6 20 1B            [12] 2497 	jr	NZ, 00152$
-                                   2498 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:446: g_PrintData.CursorX += PRINT_W(g_PrintData.UnitX) + g_PrintData.TabSize - 1;
+                                   2498 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:492: PRINT_DATA.CursorX += PRINT_W(PRINT_DATA.UnitX) + PRINT_DATA.TabSize - 1;
     00000AE8 01r05r00         [10] 2499 	ld	bc, #_g_PrintData + 5
     00000AEB 0A               [ 7] 2500 	ld	a, (bc)
     00000AEC 5F               [ 4] 2501 	ld	e, a
@@ -2505,7 +2505,7 @@
     00000AF4 82               [ 4] 2505 	add	a, d
     00000AF5 3D               [ 4] 2506 	dec	a
     00000AF6 83               [ 4] 2507 	add	a, e
-                                   2508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:447: g_PrintData.CursorX &= ~(g_PrintData.TabSize - 1);
+                                   2508 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:493: PRINT_DATA.CursorX &= ~(PRINT_DATA.TabSize - 1);
     00000AF7 02               [ 7] 2509 	ld	(bc), a
     00000AF8 5F               [ 4] 2510 	ld	e, a
     00000AF9 3Ar04r00         [13] 2511 	ld	a, (#(_g_PrintData + 4) + 0)
@@ -2513,17 +2513,17 @@
     00000AFD 2F               [ 4] 2513 	cpl
     00000AFE A3               [ 4] 2514 	and	a, e
     00000AFF 02               [ 7] 2515 	ld	(bc), a
-                                   2516 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1416: Print_Tab();
+                                   2516 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1412: Print_Tab();
     00000B00 C3r3Cr0B         [10] 2517 	jp	00156$
     00000B03                       2518 00152$:
-                                   2519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1417: else if (*ptr == '\n')
+                                   2519 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1413: else if (*ptr == '\n')
     00000B03 DD 7E FD         [19] 2520 	ld	a, -3 (ix)
     00000B06 D6 0A            [ 7] 2521 	sub	a, #0x0a
     00000B08 20 18            [12] 2522 	jr	NZ, 00149$
-                                   2523 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:454: g_PrintData.CursorX = 0;
+                                   2523 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:500: PRINT_DATA.CursorX = 0;
     00000B0A 21r05r00         [10] 2524 	ld	hl, #(_g_PrintData + 5)
     00000B0D 36 00            [10] 2525 	ld	(hl), #0x00
-                                   2526 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:455: g_PrintData.CursorY += PRINT_H(g_PrintData.UnitY);
+                                   2526 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:501: PRINT_DATA.CursorY += PRINT_H(PRINT_DATA.UnitY);
     00000B0F ED 4Br06r00      [20] 2527 	ld	bc, (#(_g_PrintData + 6) + 0)
     00000B13 3Ar03r00         [13] 2528 	ld	a, (#_g_PrintData + 3)
     00000B16 6F               [ 4] 2529 	ld	l, a
@@ -2535,35 +2535,35 @@
     00000B19 09               [11] 2535 	add	hl, bc
     00000B1A EB               [ 4] 2536 	ex	de, hl
     00000B1B ED 53r06r00      [20] 2537 	ld	((_g_PrintData + 6)), de
-                                   2538 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1418: Print_Return();
+                                   2538 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1414: Print_Return();
     00000B1F C3r3Cr0B         [10] 2539 	jp	00156$
     00000B22                       2540 00149$:
-                                   2541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1420: else if (*ptr == ' ')
+                                   2541 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1416: else if (*ptr == ' ')
     00000B22 DD 7E FD         [19] 2542 	ld	a, -3 (ix)
     00000B25 D6 20            [ 7] 2543 	sub	a, #0x20
     00000B27 20 0D            [12] 2544 	jr	NZ, 00146$
-                                   2545 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:440: inline void Print_Space() { g_PrintData.CursorX += PRINT_W(g_PrintData.UnitX); }
+                                   2545 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.h:486: inline void Print_Space() { PRINT_DATA.CursorX += PRINT_W(PRINT_DATA.UnitX); }
     00000B29 01r05r00         [10] 2546 	ld	bc, #_g_PrintData + 5
     00000B2C 0A               [ 7] 2547 	ld	a, (bc)
     00000B2D 21r02r00         [10] 2548 	ld	hl, #(_g_PrintData + 2)
     00000B30 5E               [ 7] 2549 	ld	e, (hl)
     00000B31 83               [ 4] 2550 	add	a, e
     00000B32 02               [ 7] 2551 	ld	(bc), a
-                                   2552 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1421: Print_Space();
+                                   2552 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1417: Print_Space();
     00000B33 C3r3Cr0B         [10] 2553 	jp	00156$
     00000B36                       2554 00146$:
-                                   2555 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1424: Print_DrawChar(*ptr);
+                                   2555 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1420: Print_DrawChar(*ptr);
     00000B36 DD 7E FD         [19] 2556 	ld	a, -3 (ix)
     00000B39 CDrA7r06         [17] 2557 	call	_Print_DrawChar
     00000B3C                       2558 00156$:
-                                   2559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1426: ptr++;
+                                   2559 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1422: ptr++;
     00000B3C DD 34 FE         [23] 2560 	inc	-2 (ix)
     00000B3F C2r2Cr08         [10] 2561 	jp	NZ,00157$
     00000B42 DD 34 FF         [23] 2562 	inc	-1 (ix)
     00000B45 C3r2Cr08         [10] 2563 	jp	00157$
-                                   2564 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1429: va_end(args);
+                                   2564 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1425: va_end(args);
     00000B48                       2565 00163$:
-                                   2566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1430: }
+                                   2566 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/print.c:1426: }
     00000B48 DD F9            [10] 2567 	ld	sp, ix
     00000B4A DD E1            [14] 2568 	pop	ix
     00000B4C C9               [10] 2569 	ret

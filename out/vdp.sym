@@ -7,50 +7,50 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  0 VDP_GetVersionAsm                                               0000046E R
-  0 VDP_IsTMS9918A                                                  0000048D R
-  0 VDP_IsTMS9918A_Wait                                             00000497 R
+  0 VDP_GetVersionAsm                                               00000463 R
+  0 VDP_IsTMS9918A                                                  00000482 R
+  0 VDP_IsTMS9918A_Wait                                             0000048C R
   0 _VDP_ClearVRAM                                                  00000096 GR
-  0 _VDP_CommandWait                                                000002FC GR
-  0 _VDP_FillLayout_GM2                                             000007BF GR
-  0 _VDP_FillVRAM_128K                                              0000022B GR
-  0 _VDP_FillVRAM_16K                                               00000108 GR
-  0 _VDP_GetVersion                                                 0000046E GR
-  0 _VDP_Initialize                                                 0000039B GR
-  0 _VDP_LoadColor_GM2                                              000006DE GR
-  0 _VDP_LoadPattern_GM2                                            00000668 GR
-  0 _VDP_Peek_128K                                                  000002D9 GR
-  0 _VDP_Peek_16K                                                   00000163 GR
-  0 _VDP_Poke_128K                                                  000002AE GR
-  0 _VDP_Poke_16K                                                   00000178 GR
-  0 _VDP_ReadDefaultStatus                                          000004FB GR
-  0 _VDP_ReadStatus                                                 000001AC GR
-  0 _VDP_ReadVRAM_128K                                              00000266 GR
-  0 _VDP_ReadVRAM_16K                                               0000012D GR
-  0 _VDP_RegWrite                                                   000004BD GR
-  0 _VDP_RegWriteBak                                                000004C9 GR
-  0 _VDP_RegWriteBakMask                                            000004DC GR
-  0 _VDP_SetAdjustOffset                                            000001C0 GR
-  0 _VDP_SetColorTable                                              0000056F GR
-  0 _VDP_SetLayoutTable                                             0000050C GR
-  0 _VDP_SetMode                                                    000003B7 GR
+  0 _VDP_CommandSetupR32                                            0000030A GR
+  0 _VDP_CommandSetupR36                                            0000033D GR
+  0 _VDP_CommandWait                                                000002F1 GR
+  0 _VDP_CommandWriteLoop                                           00000368 GR
+  0 _VDP_FillLayout_GM2                                             000007D0 GR
+  0 _VDP_FillVRAM_128K                                              00000220 GR
+  0 _VDP_FillVRAM_16K                                               000000FC GR
+  0 _VDP_GetVersion                                                 00000463 GR
+  0 _VDP_Initialize                                                 00000390 GR
+  0 _VDP_LoadColor_GM2                                              000006E1 GR
+  0 _VDP_LoadPattern_GM2                                            0000065D GR
+  0 _VDP_Peek_128K                                                  000002CE GR
+  0 _VDP_Peek_16K                                                   00000157 GR
+  0 _VDP_Poke_128K                                                  000002A3 GR
+  0 _VDP_Poke_16K                                                   0000016C GR
+  0 _VDP_ReadDefaultStatus                                          000004F0 GR
+  0 _VDP_ReadStatus                                                 000001A0 GR
+  0 _VDP_ReadVRAM_128K                                              0000025B GR
+  0 _VDP_ReadVRAM_16K                                               00000121 GR
+  0 _VDP_RegWrite                                                   000004B2 GR
+  0 _VDP_RegWriteBak                                                000004BE GR
+  0 _VDP_RegWriteBakMask                                            000004D1 GR
+  0 _VDP_SetAdjustOffset                                            000001B4 GR
+  0 _VDP_SetColorTable                                              00000564 GR
+  0 _VDP_SetLayoutTable                                             00000501 GR
+  0 _VDP_SetMode                                                    000003AC GR
   0 _VDP_SetModeFlag                                                00000000 GR
   0 _VDP_SetModeGraphic1                                            00000057 GR
   0 _VDP_SetModeGraphic2                                            00000076 GR
-  0 _VDP_SetModeGraphic4                                            00000190 GR
-  0 _VDP_SetModeGraphic7                                            0000019E GR
+  0 _VDP_SetModeGraphic4                                            00000184 GR
+  0 _VDP_SetModeGraphic7                                            00000192 GR
   0 _VDP_SetModeMultiColor                                          00000040 GR
   0 _VDP_SetModeText1                                               00000029 GR
-  0 _VDP_SetPage                                                    000004FE GR
-  0 _VDP_SetPalette                                                 000001CA GR
-  0 _VDP_SetPaletteEntry                                            000001D9 GR
-  0 _VDP_SetPatternTable                                            00000608 GR
-  0 _VDP_WriteLayout_GM2                                            00000754 GR
-  0 _VDP_WriteVRAM_128K                                             000001E8 GR
-  0 _VDP_WriteVRAM_16K                                              000000D1 GR
-  0 _VPD_CommandSetupR32                                            00000315 GR
-  0 _VPD_CommandSetupR36                                            00000348 GR
-  0 _VPD_CommandWriteLoop                                           00000373 GR
+  0 _VDP_SetPage                                                    000004F3 GR
+  0 _VDP_SetPalette                                                 000001BE GR
+  0 _VDP_SetPaletteEntry                                            000001CE GR
+  0 _VDP_SetPatternTable                                            000005FD GR
+  0 _VDP_WriteLayout_GM2                                            00000765 GR
+  0 _VDP_WriteVRAM_128K                                             000001DD GR
+  0 _VDP_WriteVRAM_16K                                              000000C5 GR
   7 __xinit__g_VDPInitilized                                        00000000 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -303,32 +303,32 @@ Hexadecimal [32-Bits]
 
 Symbol Table
 
-  0 fll16_loop_end                                                  0000012A R
-  0 fll16_loop_start                                                00000122 R
-  0 fll_loop_end                                                    00000262 R
-  0 fll_loop_start                                                  0000025A R
-  0 rd16_loop_end                                                   00000160 R
-  0 rd16_loop_init                                                  00000151 R
-  0 rd16_loop_start                                                 00000154 R
-  0 rd_loop_end                                                     000002A9 R
-  0 rd_loop_init                                                    0000029A R
-  0 rd_loop_start                                                   0000029D R
-  0 wait_vdp_ready                                                  000002FC R
-  0 write_finished                                                  00000392 R
-  0 write_loop                                                      00000387 R
-  0 wrt16_loop_end                                                  00000105 R
-  0 wrt16_loop_init                                                 000000F6 R
-  0 wrt16_loop_start                                                000000F9 R
-  0 wrt_loop_end                                                    00000227 R
-  0 wrt_loop_init                                                   00000218 R
-  0 wrt_loop_start                                                  0000021B R
+  0 fll16_loop_end                                                  0000011E R
+  0 fll16_loop_start                                                00000116 R
+  0 fll_loop_end                                                    00000257 R
+  0 fll_loop_start                                                  0000024F R
+  0 rd16_loop_end                                                   00000154 R
+  0 rd16_loop_init                                                  00000145 R
+  0 rd16_loop_start                                                 00000148 R
+  0 rd_loop_end                                                     0000029E R
+  0 rd_loop_init                                                    0000028F R
+  0 rd_loop_start                                                   00000292 R
+  0 wait_vdp_ready                                                  000002F1 R
+  0 write_finished                                                  00000387 R
+  0 write_loop                                                      0000037C R
+  0 wrt16_loop_end                                                  000000F9 R
+  0 wrt16_loop_init                                                 000000EA R
+  0 wrt16_loop_start                                                000000ED R
+  0 wrt_loop_end                                                    0000021C R
+  0 wrt_loop_init                                                   0000020D R
+  0 wrt_loop_start                                                  00000210 R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size      815   flags    0
+   0 _CODE                                      size      826   flags    0
    1 _DATA                                      size       36   flags    0
    2 _INITIALIZED                               size        1   flags    0
    3 _DABS                                      size        0   flags    8

@@ -386,7 +386,7 @@
     0000005D 11r00r00         [10]  386 	ld	de, #_HideSpriteMessage
     00000060 3E 05            [ 7]  387 	ld	a, #0x05
     00000062 CDr00r00         [17]  388 	call	_CallFnc_VOID
-                                    389 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
+                                    389 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     00000065 AF               [ 4]  390 	xor	a, a
     00000066 F5               [11]  391 	push	af
     00000067 33               [ 6]  392 	inc	sp
@@ -477,7 +477,7 @@
     00000101 DD 6E 06         [19]  477 	ld	l, 6 (ix)
                                     478 ;	spillPairReg hl
                                     479 ;	spillPairReg hl
-                                    480 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:777: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
+                                    480 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:782: inline void VDP_SetVerticalOffset(u8 offset) { VDP_RegWrite(23, offset); }
     00000104 3E 17            [ 7]  481 	ld	a, #0x17
     00000106 CDr00r00         [17]  482 	call	_VDP_RegWrite
                                     483 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s12_b3.c:43: CallFnc_VOID(SEG_GAMESTATE_2, AssignKickOffTargets);
@@ -1039,7 +1039,7 @@
     000004C5 11r00r00         [10] 1039 	ld	de, #_PrintScoreBoardRight
     000004C8 3E 05            [ 7] 1040 	ld	a, #0x05
     000004CA CDr00r00         [17] 1041 	call	_CallFnc_VOID_U8U16U16
-                                   1042 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:705: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
+                                   1042 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
     000004CD 3E 40            [ 7] 1043 	ld	a, #0x40
     000004CF F5               [11] 1044 	push	af
     000004D0 33               [ 6] 1045 	inc	sp

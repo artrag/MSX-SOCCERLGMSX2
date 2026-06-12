@@ -28,9 +28,9 @@ Symbol Table
   0 _Print_SetColorShade                                            0000024D GR
   0 _Print_SetFont                                                  000000E8 GR
   0 _Print_SetMode                                                  000000B1 GR
+    _VDP_CommandSetupR36                                            ******** GX
     _VDP_CommandWait                                                ******** GX
-    _VPD_CommandSetupR36                                            ******** GX
-    _VPD_CommandWriteLoop                                           ******** GX
+    _VDP_CommandWriteLoop                                           ******** GX
     ___sdcc_call_hl                                                 ******** GX
     __divsint                                                       ******** GX
     __modsint                                                       ******** GX

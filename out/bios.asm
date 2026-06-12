@@ -212,29 +212,24 @@
 	.globl _g_CLPRIM
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
-	.globl _Bios_Exit
-	.globl _Bios_SetHookCallback
-	.globl _Bios_InterSlotRead
-	.globl _Bios_InterSlotWrite
-	.globl _Bios_InterSlotCall
-	.globl _Bios_SwitchSlot
-	.globl _Bios_WriteVDP
-	.globl _Bios_WriteVRAM
-	.globl _Bios_FillVRAM
-	.globl _Bios_TransfertVRAMtoRAM
-	.globl _Bios_TransfertRAMtoVRAM
-	.globl _Bios_ChangeColor
-	.globl _Bios_InitScreen0Ex
-	.globl _Bios_InitScreen1Ex
-	.globl _Bios_InitScreen2Ex
-	.globl _Bios_InitScreen3Ex
-	.globl _Bios_GetPatternTableAddress
-	.globl _Bios_GetAttributeTableAddress
-	.globl _Bios_GraphPrintCharEx
-	.globl _Bios_WritePSG
-	.globl _Bios_HasCharacter
-	.globl _Bios_ClearScreen
-	.globl _Bios_SetCursorPosition
+	.globl _BIOS_Exit
+	.globl _BIOS_SetHookCallback
+	.globl _BIOS_InterSlotRead
+	.globl _BIOS_InterSlotWrite
+	.globl _BIOS_InterSlotCall
+	.globl _BIOS_SwitchSlot
+	.globl _BIOS_WriteVDP
+	.globl _BIOS_WriteVRAM
+	.globl _BIOS_FillVRAM
+	.globl _BIOS_CopyVRAMtoRAM
+	.globl _BIOS_CopyRAMtoVRAM
+	.globl _BIOS_InitScreen3Ex
+	.globl _BIOS_GetSpritePatternAddress
+	.globl _BIOS_GetSpriteAttributeAddress
+	.globl _BIOS_WritePSG
+	.globl _BIOS_HasCharacter
+	.globl _BIOS_ClearScreen
+	.globl _BIOS_TextSetCursor
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -329,14 +324,14 @@ _g_SLTSL	=	0xffff
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:27: void Bios_Exit(u8 ret)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:28: void BIOS_Exit(u8 ret)
 ;	---------------------------------
-; Function Bios_Exit
+; Function BIOS_Exit
 ; ---------------------------------
-_Bios_Exit::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:73: __endasm;
+_BIOS_Exit::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:74: __endasm;
 	call	0x0000
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:76: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:77: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -507,14 +502,14 @@ ___str_0:
 	.db 0x0d
 	.ascii "$"
 	.db 0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:81: void Bios_SetHookCallback(u16 hook, callback cb)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:82: void BIOS_SetHookCallback(u16 hook, callback cb)
 ;	---------------------------------
-; Function Bios_SetHookCallback
+; Function BIOS_SetHookCallback
 ; ---------------------------------
-_Bios_SetHookCallback::
+_BIOS_SetHookCallback::
 	ld	c, l
 	ld	b, h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:83: u8 slot = Sys_GetPageSlot((u16)cb >> 14);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:84: u8 slot = Sys_GetPageSlot((u16)cb >> 14);
 ;	spillPairReg hl
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -534,8 +529,8 @@ _Bios_SetHookCallback::
 	call	_Sys_GetPageSlot
 	pop	de
 	pop	bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:84: Bios_SetHookInterSlotCallback(hook, slot, cb);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:50: *((u8*)hook) = 0xF7; // RST #30
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:85: BIOS_SetHookInterSlotCallback(hook, slot, cb);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:58: *((u8*)hook) = 0xF7; // RST #30
 	ld	l, c
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -543,7 +538,7 @@ _Bios_SetHookCallback::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	(hl), #0xf7
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:51: *((u8*)++hook) = slot; // Slot ID
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:59: *((u8*)++hook) = slot; // Slot ID
 	inc	bc
 	ld	l, c
 ;	spillPairReg hl
@@ -552,32 +547,33 @@ _Bios_SetHookCallback::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:52: *((callback*)++hook) = cb; // Callback address
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios_hook.h:60: *((callback*)++hook) = cb; // Callback address
 	inc	bc
 	ld	a, e
 	ld	(bc), a
 	inc	bc
 	ld	a, d
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:84: Bios_SetHookInterSlotCallback(hook, slot, cb);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:85: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:85: BIOS_SetHookInterSlotCallback(hook, slot, cb);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:86: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:134: u8 Bios_InterSlotRead(u8 slot, u16 addr) __NAKED
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:135: u8 BIOS_InterSlotRead(u8 slot, u16 addr) __NAKED
 ;	---------------------------------
-; Function Bios_InterSlotRead
+; Function BIOS_InterSlotRead
 ; ---------------------------------
-_Bios_InterSlotRead::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:143: __endasm;
+_BIOS_InterSlotRead::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:145: __endasm;
 	ex	de, hl
 	call	0x000C
+	ei
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:144: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:172: void Bios_InterSlotWrite(u8 slot, u16 addr, u8 value)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:146: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:174: void BIOS_InterSlotWrite(u8 slot, u16 addr, u8 value)
 ;	---------------------------------
-; Function Bios_InterSlotWrite
+; Function BIOS_InterSlotWrite
 ; ---------------------------------
-_Bios_InterSlotWrite::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:188: __endasm;
+_BIOS_InterSlotWrite::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:191: __endasm;
 	push	iy
 	ld	iy, #4
 	add	iy, sp
@@ -586,16 +582,17 @@ _Bios_InterSlotWrite::
 	ld	e, 0(iy)
 	call	0x0014
 	pop	iy
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:189: }
+	ei
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:192: }
 	pop	hl
 	inc	sp
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:208: void Bios_InterSlotCall(u8 slot, u16 addr)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:211: void BIOS_InterSlotCall(u8 slot, u16 addr)
 ;	---------------------------------
-; Function Bios_InterSlotCall
+; Function BIOS_InterSlotCall
 ; ---------------------------------
-_Bios_InterSlotCall::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:227: __endasm;
+_BIOS_InterSlotCall::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:230: __endasm;
 	push	ix
 	ld	l, #0
 	ld	h, a
@@ -606,14 +603,14 @@ _Bios_InterSlotCall::
 	call	0x001C
 	ei
 	pop	ix
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:228: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:231: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:247: void Bios_SwitchSlot(u8 page, u8 slot)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:250: void BIOS_SwitchSlot(u8 page, u8 slot)
 ;	---------------------------------
-; Function Bios_SwitchSlot
+; Function BIOS_SwitchSlot
 ; ---------------------------------
-_Bios_SwitchSlot::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:259: __endasm;
+_BIOS_SwitchSlot::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:262: __endasm;
 	rrca	
 	rrca 
 	and a, #0xC0
@@ -621,40 +618,37 @@ _Bios_SwitchSlot::
 	ld	h, a
 	ld	a, b
 	call	0x0024
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:260: }
+	ei
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:263: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:340: void Bios_WriteVDP(u8 reg, u8 value)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:343: void BIOS_WriteVDP(u8 reg, u8 value)
 ;	---------------------------------
-; Function Bios_WriteVDP
+; Function BIOS_WriteVDP
 ; ---------------------------------
-_Bios_WriteVDP::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:349: __endasm;
+_BIOS_WriteVDP::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:352: __endasm;
 	ld	c, a
 	ld	b, l
 	call	0x0047
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:350: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:353: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:371: void Bios_WriteVRAM(u16 addr, u8 value)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:374: void BIOS_WriteVRAM(u8 value, u16 addr)
 ;	---------------------------------
-; Function Bios_WriteVRAM
+; Function BIOS_WriteVRAM
 ; ---------------------------------
-_Bios_WriteVRAM::
+_BIOS_WriteVRAM::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:382: __endasm;
-	ld	iy, #4
-	add	iy, sp
-	ld	a, 0(iy)
+	ex	de, hl
 	call	0x004D
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:383: }
-	pop	hl
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:415: void Bios_FillVRAM(u16 addr, u16 length, u8 value)
+	ret
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:415: void BIOS_FillVRAM(u16 addr, u16 length, u8 value)
 ;	---------------------------------
-; Function Bios_FillVRAM
+; Function BIOS_FillVRAM
 ; ---------------------------------
-_Bios_FillVRAM::
+_BIOS_FillVRAM::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:429: __endasm;
-	ld	iy, #4
+	ld	iy, #2
 	add	iy, sp
 	ld	c, e
 	ld	b, d
@@ -664,13 +658,13 @@ _Bios_FillVRAM::
 	pop	hl
 	inc	sp
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:441: void Bios_TransfertVRAMtoRAM(u16 vram, u16 ram, u16 length)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:441: void BIOS_CopyVRAMtoRAM(u16 vram, void* ram, u16 length)
 ;	---------------------------------
-; Function Bios_TransfertVRAMtoRAM
+; Function BIOS_CopyVRAMtoRAM
 ; ---------------------------------
-_Bios_TransfertVRAMtoRAM::
+_BIOS_CopyVRAMtoRAM::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:454: __endasm;
-	ld	iy, #4
+	ld	iy, #2
 	add	iy, sp
 	ld	c, 0(iy)
 	ld	b, 1(iy)
@@ -679,13 +673,13 @@ _Bios_TransfertVRAMtoRAM::
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:466: void Bios_TransfertRAMtoVRAM(u16 ram, u16 vram, u16 length)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:466: void BIOS_CopyRAMtoVRAM(const void* ram, u16 vram, u16 length)
 ;	---------------------------------
-; Function Bios_TransfertRAMtoVRAM
+; Function BIOS_CopyRAMtoVRAM
 ; ---------------------------------
-_Bios_TransfertRAMtoVRAM::
+_BIOS_CopyRAMtoVRAM::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:479: __endasm;
-	ld	iy, #4
+	ld	iy, #2
 	add	iy, sp
 	ld	c, 0(iy)
 	ld	b, 1(iy)
@@ -694,270 +688,108 @@ _Bios_TransfertRAMtoVRAM::
 	pop	hl
 	pop	af
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:501: void Bios_ChangeColor(u8 text, u8 back, u8 border)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:571: void BIOS_InitScreen3Ex(u16 pnt, u16 ct, u16 pgt, u16 sat, u16 sgt, u8 text, u8 bg, u8 border)
 ;	---------------------------------
-; Function Bios_ChangeColor
+; Function BIOS_InitScreen3Ex
 ; ---------------------------------
-_Bios_ChangeColor::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:516: __endasm;
-	ld	iy, #4
-	add	iy, sp
-	ld	(0xF3E9), a
-	ld	a, l
-	ld	(0xF3EA), a
-	ld	a, 0(iy)
-	ld	(0xF3EB), a
-	call	0x0062
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:517: }
-	pop	hl
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:543: void Bios_InitScreen0Ex(u16 pnt, u16 pgt, u8 width, u8 text, u8 bg, u8 border)
-;	---------------------------------
-; Function Bios_InitScreen0Ex
-; ---------------------------------
-_Bios_InitScreen0Ex::
-	ld	(_g_TXTNAM), hl
-	ld	(_g_TXTCGP), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:547: g_LINL40 = width;  // Character per line
-	ld	iy, #2
-	add	iy, sp
-	ld	a, 0 (iy)
-	ld	(_g_LINL40+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:548: g_FORCLR = text;   // Text color
-	ld	a, 1 (iy)
-	inc	iy
-	ld	(_g_FORCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:549: g_BAKCLR = bg;     // Background color
-	ld	a, 1 (iy)
-	inc	iy
-	ld	(_g_BAKCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:550: g_BDRCLR = border; // Border colour
-	ld	a, 1 (iy)
-	ld	(_g_BDRCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:234: inline void Call(u16 addr) { ((void(*)(void))addr)(); }
-	call	0x006c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:551: Call(R_INITXT);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:552: }
-	pop	hl
-	pop	af
-	pop	af
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:568: void Bios_InitScreen1Ex(u16 pnt, u16 ct, u16 pgt, u16 sat, u16 sgt, u8 text, u8 bg, u8 border)
-;	---------------------------------
-; Function Bios_InitScreen1Ex
-; ---------------------------------
-_Bios_InitScreen1Ex::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	(_g_T32NAM), hl
-	ld	(_g_T32COL), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:572: g_T32CGP = pgt;    // Address of pattern generator table
-	ld	l, 4 (ix)
-	ld	h, 5 (ix)
-	ld	(_g_T32CGP), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:573: g_T32ATR = sat;    // Address of sprite attribute table
-	ld	l, 6 (ix)
-	ld	h, 7 (ix)
-	ld	(_g_T32ATR), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:574: g_T32PAT = sgt;    // Address of sprite generator table
-	ld	l, 8 (ix)
-	ld	h, 9 (ix)
-	ld	(_g_T32PAT), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:575: g_FORCLR = text;   // Text color
-	ld	a, 10 (ix)
-	ld	(_g_FORCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:576: g_BAKCLR = bg;     // Background color
-	ld	a, 11 (ix)
-	ld	(_g_BAKCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:577: g_BDRCLR = border; // Border color
-	ld	a, 12 (ix)
-	ld	(_g_BDRCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:234: inline void Call(u16 addr) { ((void(*)(void))addr)(); }
-	call	0x006f
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:578: Call(R_INIT32);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:579: }
-	pop	ix
-	pop	hl
-	ld	iy, #9
-	add	iy, sp
-	ld	sp, iy
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:595: void Bios_InitScreen2Ex(u16 pnt, u16 ct, u16 pgt, u16 sat, u16 sgt, u8 text, u8 bg, u8 border)
-;	---------------------------------
-; Function Bios_InitScreen2Ex
-; ---------------------------------
-_Bios_InitScreen2Ex::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	ld	(_g_GRPNAM), hl
-	ld	(_g_GRPCOL), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:599: g_GRPCGP = pgt;    // Address of pattern generator table
-	ld	l, 4 (ix)
-	ld	h, 5 (ix)
-	ld	(_g_GRPCGP), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:600: g_GRPATR = sat;    // Address of sprite attribute table
-	ld	l, 6 (ix)
-	ld	h, 7 (ix)
-	ld	(_g_GRPATR), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:601: g_GRPPAT = sgt;    // Address of sprite generator table
-	ld	l, 8 (ix)
-	ld	h, 9 (ix)
-	ld	(_g_GRPPAT), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:602: g_FORCLR = text;   // Text color
-	ld	a, 10 (ix)
-	ld	(_g_FORCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:603: g_BAKCLR = bg;     // Background color
-	ld	a, 11 (ix)
-	ld	(_g_BAKCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:604: g_BDRCLR = border; // Border color
-	ld	a, 12 (ix)
-	ld	(_g_BDRCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:234: inline void Call(u16 addr) { ((void(*)(void))addr)(); }
-	call	0x0072
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:605: Call(R_INIGRP);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:606: }
-	pop	ix
-	pop	hl
-	ld	iy, #9
-	add	iy, sp
-	ld	sp, iy
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:622: void Bios_InitScreen3Ex(u16 pnt, u16 ct, u16 pgt, u16 sat, u16 sgt, u8 text, u8 bg, u8 border)
-;	---------------------------------
-; Function Bios_InitScreen3Ex
-; ---------------------------------
-_Bios_InitScreen3Ex::
+_BIOS_InitScreen3Ex::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
 	ld	(_g_MLTNAM), hl
 	ld	(_g_MLTCOL), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:626: g_MLTCGP = pgt;    // Address of pattern generator table
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:575: g_MLTCGP = pgt;    // Address of pattern generator table
 	ld	l, 4 (ix)
 	ld	h, 5 (ix)
 	ld	(_g_MLTCGP), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:627: g_MLTATR = sat;    // Address of sprite attribute table
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:576: g_MLTATR = sat;    // Address of sprite attribute table
 	ld	l, 6 (ix)
 	ld	h, 7 (ix)
 	ld	(_g_MLTATR), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:628: g_MLTPAT = sgt;    // Address of sprite generator table
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:577: g_MLTPAT = sgt;    // Address of sprite generator table
 	ld	l, 8 (ix)
 	ld	h, 9 (ix)
 	ld	(_g_MLTPAT), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:629: g_FORCLR = text;   // Text color
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:578: g_FORCLR = text;   // Text color
 	ld	a, 10 (ix)
 	ld	(_g_FORCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:630: g_BAKCLR = bg;     // Background color
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:579: g_BAKCLR = bg;     // Background color
 	ld	a, 11 (ix)
 	ld	(_g_BAKCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:631: g_BDRCLR = border; // Border color
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:580: g_BDRCLR = border; // Border color
 	ld	a, 12 (ix)
 	ld	(_g_BDRCLR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:234: inline void Call(u16 addr) { ((void(*)(void))addr)(); }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/system.h:231: inline void Call(u16 addr) { ((void(*)(void))addr)(); }
 	call	0x0075
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:632: Call(R_INIMLT);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:633: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:581: Call(R_INIMLT);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:582: }
 	pop	ix
 	pop	hl
 	ld	iy, #9
 	add	iy, sp
 	ld	sp, iy
 	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:674: u16 Bios_GetPatternTableAddress(u8 id) __NAKED __FASTCALL
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:623: u16 BIOS_GetSpritePatternAddress(u8 id) __NAKED
 ;	---------------------------------
-; Function Bios_GetPatternTableAddress
+; Function BIOS_GetSpritePatternAddress
 ; ---------------------------------
-_Bios_GetPatternTableAddress::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:682: __endasm;
-	ld	a, l
+_BIOS_GetSpritePatternAddress::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:631: __endasm;
 	call	0x0084
+	ex	de, hl
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:683: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:692: u16 Bios_GetAttributeTableAddress(u8 id) __NAKED __FASTCALL
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:632: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:641: u16 BIOS_GetSpriteAttributeAddress(u8 id) __NAKED
 ;	---------------------------------
-; Function Bios_GetAttributeTableAddress
+; Function BIOS_GetSpriteAttributeAddress
 ; ---------------------------------
-_Bios_GetAttributeTableAddress::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:700: __endasm;
-	ld	a, l
+_BIOS_GetSpriteAttributeAddress::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:649: __endasm;
 	call	0x0087
+	ex	de, hl
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:701: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:725: void Bios_GraphPrintCharEx(u8 chr, u16 x, u8 y, u8 color, u8 op)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:650: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:693: void BIOS_WritePSG(u8 reg, u8 value)
 ;	---------------------------------
-; Function Bios_GraphPrintCharEx
+; Function BIOS_WritePSG
 ; ---------------------------------
-_Bios_GraphPrintCharEx::
-	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:727: g_GRPACX = x;
-	ld	hl, #_g_GRPACX
-	ld	(hl), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:728: g_GRPACY = y;
-	ld	iy, #2
-	add	iy, sp
-	ld	a, 0 (iy)
-	ld	(_g_GRPACY+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:729: g_ATRBYT = color;
-	ld	a, 1 (iy)
-	inc	iy
-	ld	(_g_ATRBYT+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:730: g_LOGOPR = op;
-	ld	a, 1 (iy)
-	ld	(_g_LOGOPR+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.h:271: inline void Bios_GraphPrintChar(u8 chr) { ((void(*)(u8))R_GRPPRT)(chr); }
-	ld	a, c
-	call	0x008d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:731: Bios_GraphPrintChar(chr);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:732: }
-	pop	hl
-	pop	af
-	inc	sp
-	jp	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:760: void Bios_WritePSG(u8 reg, u8 value)
-;	---------------------------------
-; Function Bios_WritePSG
-; ---------------------------------
-_Bios_WritePSG::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:768: __endasm;	
+_BIOS_WritePSG::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:701: __endasm;	
 	ld	e, l
 	call	0x0093
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:769: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:702: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:804: u8 Bios_HasCharacter() __NAKED __FASTCALL
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:719: u8 BIOS_HasCharacter() __NAKED
 ;	---------------------------------
-; Function Bios_HasCharacter
+; Function BIOS_HasCharacter
 ; ---------------------------------
-_Bios_HasCharacter::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:813: __endasm;
+_BIOS_HasCharacter::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:727: __endasm;
 	ld	l, #0
 	call	0x009C
 	ret	z
 	call	0x009F
-	ld	l, a
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:814: }
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:915: void Bios_ClearScreen()
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:728: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:829: void BIOS_ClearScreen()
 ;	---------------------------------
-; Function Bios_ClearScreen
+; Function BIOS_ClearScreen
 ; ---------------------------------
-_Bios_ClearScreen::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:920: __endasm;
+_BIOS_ClearScreen::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:834: __endasm;
 	xor	a, a
 	call	0x00C3
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:921: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:835: }
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:930: void Bios_SetCursorPosition(u8 X, u8 Y)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:844: void BIOS_TextSetCursor(u8 x, u8 y)
 ;	---------------------------------
-; Function Bios_SetCursorPosition
+; Function BIOS_TextSetCursor
 ; ---------------------------------
-_Bios_SetCursorPosition::
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:938: __endasm;	
+_BIOS_TextSetCursor::
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:852: __endasm;	
 	ld	h, a
 	call	0x00C6
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:939: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\engine/src/bios.c:853: }
 	ret
 	.area _CODE
 	.area _INITIALIZER

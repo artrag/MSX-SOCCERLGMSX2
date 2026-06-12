@@ -201,6 +201,7 @@
 //-----------------------------------------------------------------------------
 
 // Print module setting
+#define PRINT_USE_MULTIFONT         FALSE
 #define PRINT_USE_TEXT				FALSE	// Allow use of Text font (T1-T2, G1-G3)
 #define PRINT_USE_BITMAP			TRUE	// Allow use of Bitmap font (G4-G7)
 #define PRINT_USE_VRAM				FALSE	// Allow use of VRAM stored font (G4-G7)

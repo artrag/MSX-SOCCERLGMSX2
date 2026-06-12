@@ -286,7 +286,7 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_UpdateAllInputs_s_prev_trigger_state_65536_774:
+_UpdateAllInputs_s_prev_trigger_state_65536_983:
 	.ds 2
 ;--------------------------------------------------------
 ; ram data
@@ -304,7 +304,7 @@ _UpdateAllInputs_s_prev_trigger_state_65536_774:
 	.area _GSFINAL
 	.area _GSINIT
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:152: static bool s_prev_trigger_state[2] = {FALSE, FALSE};
-	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_774+0
+	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_983+0
 	xor	a, a
 	ld	(bc), a
 	inc	bc
@@ -550,7 +550,7 @@ _GetJoystickDirection::
 00167$:
 	ld	hl, #0x004f
 00168$:
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/input.h:182: u8 in = ~Joystick_Read(port);
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/input.h:190: u8 in = ~Joystick_Read(port);
 	call	_Joystick_Read
 	ld	a, l
 	cpl
@@ -900,7 +900,7 @@ _UpdateAllInputs::
 	ld	a, e
 	or	a, a
 	jr	Z, 00106$
-	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_774 + 1) + 0)
+	ld	a, (#(_UpdateAllInputs_s_prev_trigger_state_65536_983 + 1) + 0)
 	or	a, a
 	jr	Z, 00107$
 00106$:
@@ -914,8 +914,8 @@ _UpdateAllInputs::
 	ld	hl, #(_g_player_input + 5)
 	ld	(hl), e
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:160: s_prev_trigger_state[1] = p1_trigger_down;
-	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_774+0
-	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_774 + 1)
+	ld	bc, #_UpdateAllInputs_s_prev_trigger_state_65536_983+0
+	ld	hl, #(_UpdateAllInputs_s_prev_trigger_state_65536_983 + 1)
 	ld	(hl), e
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:168: g_player_input[0].trigger_pressed = p2_trigger_down && !s_prev_trigger_state[0];
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s7_b3.c:169: g_player_input[0].trigger_down = p2_trigger_down;

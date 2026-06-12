@@ -12,7 +12,6 @@
 #include "debug.h"
 #include "soccerlg_rawdef.h"
 #include "bin/FieldMap.h"
-#include "ayfx/ayfx_player.h"
 #include "libs/yscc/yscc_player.h"
 
 // -----------------
@@ -813,6 +812,7 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	ld	a,(#(_g_Bank0Segment + 6))
 	push	af								; game seg (< 256) on stack
 
+	di
 	; Step 2: update g_Bank0Segment to sprite base (768 = 0x0300)
 	; This makes the cache consistent so ISR can restore bank3 correctly.
 	xor	a
@@ -823,7 +823,14 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	; Step 3+4: set tracking var BEFORE hardware write (ISR sees consistent state)
 	ld	a,#(SPRITES_BIN_SEG>>2) & #$%11000000
 	ld	(#_g_YSCC_CurrentOFFR),a			; read by _YSCC_CopyPCMBlock in ISR
+	push af
+	ld	a,#1
+	ld	(#0x7FFF),a							; ENAR: REGEN=1 (enable register writes)
+	pop	af
 	ld	(OFFR),a							; hardware OFFR = 0xC0
+	xor	a,a
+	ld	(#0x7FFF),a							; ENAR: REGEN=0 (restore ROM reads at 7FFE)
+	ei
 
 	call	SpriteFrame
 
@@ -831,18 +838,23 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	; Race: ISR between ld(OFFR)=0 and ld(CurrentOFFR)=0 would see stale
 	; CurrentOFFR=0xC0, save it as "previous OFFR", then restore 0xC0 to
 	; hardware — making bank3 map to game_seg+768 instead of game_seg → crash.
-	; DI/EI covers only 2 ld instructions (~7us), negligible vs 16ms VBlank.
+	; DI/EI covers only the OFFR writes (~10us), negligible vs 16ms VBlank.
+	; REGEN=1 before OFFR write, REGEN=0 after — prevents 7FFE ROM collision.
 	xor	a,a
 	di
-	ld	(OFFR),a
+	inc	a								; A=1
+	ld	(#0x7FFF),a						; ENAR: REGEN=1
+	dec	a								; A=0
+	ld	(OFFR),a						; hardware OFFR = 0
+	ld	(#0x7FFF),a						; ENAR: REGEN=0
 	ld	(#_g_YSCC_CurrentOFFR),a
-	ei
 	ld	(#(_g_Bank0Segment + 7)),a
 
 	; Step 7: restore game segment
 	pop	af
-	ld	(#0xB000),a							; restore bank3 hardware
 	ld	(#(_g_Bank0Segment + 6)),a			; restore cache LOW
+	ld	(#0xB000),a							; restore bank3 hardware
+	ei
 	ret
 
 SpriteFrame::
@@ -858,8 +870,8 @@ SpriteFrame::
 	rr  l
 	ld	a,#SPRITES_BIN_SEG
 	add a,l		; segments in the current offset (!)
-	ld	(#0xB000),a
 	ld	(#(_g_Bank0Segment + 6) + 0),a		; prevent future possible issues on the ISR
+	ld	(#0xB000),a
 
 	ld	h,d			; HLB  = y*256+X = 2 * VRAM_address
 	ld	l,e
@@ -973,7 +985,7 @@ void main()
 	if (Sys_GetMSXVersion() == MSXVER_1)
 	{
 		Bios_ClearScreen();
-		Bios_TextPrintSting("This game need MSX2 or above");
+		BIOS_TextPrint("This game need MSX2 or above");
 		Bios_GetCharacter();
 		return;
 	}
