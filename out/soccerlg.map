@@ -37,7 +37,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000034  _g_CHAR_16                         system
      0000006A  l__INITIALIZED                  
      0000006A  l__INITIALIZER                  
-     000000A5  l__SEG8                         
+     000000BF  l__SEG8                         
      000000C6  l__SEG11                        
      0000025E  l__SEG20                        
      00000262  l__SEG7                         
@@ -52,7 +52,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000CB4  l__SEG16                        
      00000CD5  l__SEG23                        
      00000CEE  l__SEG12                        
-     00000DEB  l__SEG5                         
+     00000DF8  l__SEG5                         
      0000121C  l__SEG22                        
      000012E3  l__SEG4                         
      00001320  l__SEG99                        
@@ -77,6 +77,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00001CB3  l__SEG21                        
      00001D4F  l__SEG15                        
      00001DB0  l__SEG95                        
+     00001FF6  l__SEG9                         
      00002000  l__SEG100                       
      00002000  l__SEG102                       
      00002000  l__SEG50                        
@@ -103,7 +104,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      00002000  l__SEG74                        
      00002000  l__SEG75                        
      00002000  l__SEG76                        
-     00002000  l__SEG9                         
      00002000  l__SEG90                        
      00002000  l__SEG92                        
      00002000  l__SEG94                        
@@ -803,7 +803,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00000DEB =        3563. bytes (REL,CON)
+_SEG5                               0005A000    00000DF8 =        3576. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -815,8 +815,8 @@ _SEG5                               0005A000    00000DEB =        3563. bytes (R
      0005A937  _PrintScoreBoardRight              soccerlg_s5_b3
      0005AA5C  _SetBallSprite                     soccerlg_s5_b3
      0005AA70  _IsBallForeground                  soccerlg_s5_b3
-     0005ABEF  _ShowSpriteMessage                 soccerlg_s5_b3
-     0005ADC9  _HideSpriteMessage                 soccerlg_s5_b3
+     0005ABFC  _ShowSpriteMessage                 soccerlg_s5_b3
+     0005ADD6  _HideSpriteMessage                 soccerlg_s5_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
@@ -846,7 +846,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG8                               0008A000    000000A5 =         165. bytes (REL,CON)
+_SEG8                               0008A000    000000BF =         191. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -855,21 +855,21 @@ _SEG8                               0008A000    000000A5 =         165. bytes (R
      0008A010  _EventPlayerFirstPresentationSta   soccerlg_s8_b3
      0008A011  _EventKickOffReady                 soccerlg_s8_b3
      0008A02B  _EventHalfTime                     soccerlg_s8_b3
-     0008A02C  _EventTimeUp                       soccerlg_s8_b3
-     0008A02D  _EventThrowIn                      soccerlg_s8_b3
-     0008A047  _EventCornerKick                   soccerlg_s8_b3
-     0008A061  _EventGoalKick                     soccerlg_s8_b3
-     0008A07C  _EventOffside                      soccerlg_s8_b3
-     0008A096  _EventGoal                         soccerlg_s8_b3
-     0008A0A3  _EventPenaltyWhistle               soccerlg_s8_b3
-     0008A0A4  _EventTeamSelected                 soccerlg_s8_b3
+     0008A039  _EventTimeUp                       soccerlg_s8_b3
+     0008A047  _EventThrowIn                      soccerlg_s8_b3
+     0008A061  _EventCornerKick                   soccerlg_s8_b3
+     0008A07B  _EventGoalKick                     soccerlg_s8_b3
+     0008A096  _EventOffside                      soccerlg_s8_b3
+     0008A0B0  _EventGoal                         soccerlg_s8_b3
+     0008A0BD  _EventPenaltyWhistle               soccerlg_s8_b3
+     0008A0BE  _EventTeamSelected                 soccerlg_s8_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00002000 =        8192. bytes (REL,CON)
+_SEG9                               0009A000    00001FF6 =        8182. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

@@ -41,10 +41,14 @@ void EventKickOffReady()
 
 void EventHalfTime()
 {
+	// Trigger sonoro per fischio fine tempo
+	PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
 }
 
 void EventTimeUp()
 {
+		// Trigger sonoro per fischio fine partita
+	PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
 }
 
 void EventThrowIn()

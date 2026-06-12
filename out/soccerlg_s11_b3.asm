@@ -361,9 +361,9 @@ _AssignKickOffTargets::
 	ld	(hl), #0xc8
 	ld	hl, #0x0138
 	ld	((_SwSprite + 312)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 242; // 3 è il battitore CPU
 	ld	bc, #_SwSprite + 81
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 242;
 	ld	de, #_SwSprite + 104
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:26: SwSprite[10].tx= 100; SwSprite[10].ty= 296;
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:27: SwSprite[11].tx= 140; SwSprite[11].ty= 296;
@@ -371,12 +371,12 @@ _AssignKickOffTargets::
 	ld	a, (_KickOffTeam+0)
 	or	a, a
 	jr	NZ, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:24: SwSprite[3].tx = 116; SwSprite[3].ty = 242; // 3 è il battitore CPU
 	ld	a, #0x74
 	ld	(bc), a
-	ld	hl, #0x00ec
+	ld	hl, #0x00f2
 	ld	((_SwSprite + 82)), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 236;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s11_b3.c:25: SwSprite[4].tx = 132; SwSprite[4].ty = 242;
 	ld	a, #0x84
 	ld	(de), a
 	ld	((_SwSprite + 105)), hl

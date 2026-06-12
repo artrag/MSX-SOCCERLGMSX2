@@ -21,17 +21,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 	} else if (*game_state == 3) {
 		// Gestione cambio tempo
 		if (Mins == 0 && Secs == 0) {
+			*wait_secs = 2;
+			*start_sec = Frms;
 			if (Half == 1) {
 				*game_state = 4;
-				*wait_secs = 2;
-				*start_sec = Frms;
 				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_HALFTIME);
 				CallFnc_VOID(SEG_EVENTS, EventHalfTime);
 			} else if (Half == 2) {
 				*game_state = 5;
-				*wait_secs = 2;
-				*start_sec = Frms;
 				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_TIMEUP);
+				CallFnc_VOID(SEG_EVENTS, EventTimeUp);
 			}
 			return;
 		}

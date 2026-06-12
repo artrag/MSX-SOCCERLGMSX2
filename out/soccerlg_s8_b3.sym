@@ -9,18 +9,18 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _CallFnc_VOID_16_P1                                             ******** GX
   7 _EventBallKicked                                                00000000 GR
-  7 _EventCornerKick                                                00000047 GR
-  7 _EventGoal                                                      00000096 GR
-  7 _EventGoalKick                                                  00000061 GR
+  7 _EventCornerKick                                                00000061 GR
+  7 _EventGoal                                                      000000B0 GR
+  7 _EventGoalKick                                                  0000007B GR
   7 _EventHalfTime                                                  0000002B GR
   7 _EventKickOffReady                                              00000011 GR
-  7 _EventOffside                                                   0000007C GR
-  7 _EventPenaltyWhistle                                            000000A3 GR
+  7 _EventOffside                                                   00000096 GR
+  7 _EventPenaltyWhistle                                            000000BD GR
   7 _EventPlayerFirstPresentationStarted                            00000010 GR
   7 _EventStartPresentationScrollig                                 00000001 GR
-  7 _EventTeamSelected                                              000000A4 GR
-  7 _EventThrowIn                                                   0000002D GR
-  7 _EventTimeUp                                                    0000002C GR
+  7 _EventTeamSelected                                              000000BE GR
+  7 _EventThrowIn                                                   00000047 GR
+  7 _EventTimeUp                                                    00000039 GR
     _PlaySCCEvent                                                   ******** GX
     _PlaySCCLoop                                                    ******** GX
     _PlaySCCThenCrowd                                               ******** GX
@@ -285,7 +285,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG8                                      size       A5   flags    0
+   7 _SEG8                                      size       BF   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
