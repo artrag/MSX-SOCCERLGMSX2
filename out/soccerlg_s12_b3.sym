@@ -19,7 +19,6 @@ Symbol Table
     _CallFnc_VOID_3PTR_U16                                          ******** GX
     _CallFnc_VOID_U8U16U16                                          ******** GX
     _CallSpriteFrame                                                ******** GX
-    _EventTimeUp                                                    ******** GX
     _Field                                                          ******** GX
     _Frms                                                           ******** GX
     _Half                                                           ******** GX
@@ -27,6 +26,7 @@ Symbol Table
     _IsBallForeground                                               ******** GX
     _KickOffTeam                                                    ******** GX
     _Mins                                                           ******** GX
+    _PlaySCCLoop                                                    ******** GX
     _PlotField                                                      ******** GX
     _PrintScoreBoardLeft                                            ******** GX
     _PrintScoreBoardRight                                           ******** GX
@@ -319,7 +319,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG12                                     size      CEE   flags    0
+   7 _SEG12                                     size      D5C   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

@@ -117,6 +117,15 @@ void PlayerAI(u8 i)
 		Player->dx = (target_x > Player->lx) ? 1 : ((target_x < Player->lx) ? -1 : 0);
 		Player->dy = 0;
 		
+		// Ritardo nel seguire la palla in base alla bravura del portiere (statistica da 1 a 5)
+		if (Player->dx != 0) {
+			u8 gk_skill = g_ActiveStats[team].gk_penalty_skill;
+			// Il modulo 6 bilancia i frame: a skill 5 non salta mai, a skill 2 salta 3 frame su 6.
+			if (((Frms + i) % 6) > gk_skill) {
+				Player->dx = 0;
+			}
+		}
+
 		Player->lx += Player->dx;
 		Player->ly = target_y; // Forza la Y corretta
 		

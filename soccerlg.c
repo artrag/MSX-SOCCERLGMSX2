@@ -962,7 +962,11 @@ void WaitForVBlank(){
     if (s_scc_after_action != SCC_AFTER_NONE && !YSCC_IsPlaying()) {
         if (s_scc_after_action == SCC_AFTER_START_CROWD) {
             s_scc_after_action = SCC_AFTER_NONE;
-            YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+            if (g_is_penalty_shootout) {
+                YSCC_PlayLoop(PENALTIES_BIN_SEG, PENALTIES_BIN_SIZE);
+            } else {
+                YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+            }
         } else {
             s_scc_after_action = SCC_AFTER_NONE;
             YSCC_LoadState(&s_crowd_state);

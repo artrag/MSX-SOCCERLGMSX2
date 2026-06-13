@@ -5288,1033 +5288,1046 @@
                                    5241 ;./soccerlg.c:963: if (s_scc_after_action == SCC_AFTER_START_CROWD) {
     000019C1 3Ar48r00         [13] 5242 	ld	a, (_s_scc_after_action+0)
     000019C4 3D               [ 4] 5243 	dec	a
-    000019C5 20 14            [12] 5244 	jr	NZ, 00105$
+    000019C5 20 29            [12] 5244 	jr	NZ, 00108$
                                    5245 ;./soccerlg.c:964: s_scc_after_action = SCC_AFTER_NONE;
     000019C7 21r48r00         [10] 5246 	ld	hl, #_s_scc_after_action
     000019CA 36 00            [10] 5247 	ld	(hl), #0x00
-                                   5248 ;./soccerlg.c:965: YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
-    000019CC 21 0B 00         [10] 5249 	ld	hl, #0x000b
-    000019CF E5               [11] 5250 	push	hl
-    000019D0 21 00 AB         [10] 5251 	ld	hl, #0xab00
-    000019D3 E5               [11] 5252 	push	hl
-    000019D4 21 36 01         [10] 5253 	ld	hl, #0x0136
-    000019D7 CDr00r00         [17] 5254 	call	_YSCC_PlayLoop
-    000019DA C9               [10] 5255 	ret
-    000019DB                       5256 00105$:
-                                   5257 ;./soccerlg.c:967: s_scc_after_action = SCC_AFTER_NONE;
-    000019DB FD 21r48r00      [14] 5258 	ld	iy, #_s_scc_after_action
-    000019DF FD 36 00 00      [19] 5259 	ld	0 (iy), #0x00
-                                   5260 ;./soccerlg.c:968: YSCC_LoadState(&s_crowd_state);
-    000019E3 21rDAr03         [10] 5261 	ld	hl, #_s_crowd_state
-                                   5262 ;./soccerlg.c:971: }
-    000019E6 C3r00r00         [10] 5263 	jp	_YSCC_LoadState
-                                   5264 ;./soccerlg.c:973: void LoadField(u8 vdp_page)
-                                   5265 ;	---------------------------------
-                                   5266 ; Function LoadField
-                                   5267 ; ---------------------------------
-    000019E9                       5268 _LoadField::
-    000019E9 DD E5            [15] 5269 	push	ix
-    000019EB DD 21 00 00      [14] 5270 	ld	ix,#0
-    000019EF DD 39            [15] 5271 	add	ix,sp
-    000019F1 21 FA FF         [10] 5272 	ld	hl, #-6
-    000019F4 39               [11] 5273 	add	hl, sp
-    000019F5 F9               [ 6] 5274 	ld	sp, hl
-    000019F6 5F               [ 4] 5275 	ld	e, a
-                                   5276 ;./soccerlg.c:975: u32 base     = (u32)vdp_page * 0x8000;
-    000019F7 16 00            [ 7] 5277 	ld	d, #0x00
-    000019F9 21 00 00         [10] 5278 	ld	hl, #0x0000
-    000019FC 65               [ 4] 5279 	ld	h, l
-                                   5280 ;	spillPairReg hl
-                                   5281 ;	spillPairReg hl
-    000019FD 6A               [ 4] 5282 	ld	l, d
-                                   5283 ;	spillPairReg hl
-                                   5284 ;	spillPairReg hl
-    000019FE 53               [ 4] 5285 	ld	d, e
-    000019FF 1E 00            [ 7] 5286 	ld	e, #0x00
-    00001A01 06 07            [ 7] 5287 	ld	b, #0x07
-    00001A03                       5288 00170$:
-    00001A03 CB 22            [ 8] 5289 	sla	d
-    00001A05 ED 6A            [15] 5290 	adc	hl, hl
-    00001A07 10 FA            [13] 5291 	djnz	00170$
-    00001A09 33               [ 6] 5292 	inc	sp
-    00001A0A 33               [ 6] 5293 	inc	sp
-    00001A0B D5               [11] 5294 	push	de
-    00001A0C DD 75 FC         [19] 5295 	ld	-4 (ix), l
-    00001A0F DD 74 FD         [19] 5296 	ld	-3 (ix), h
-                                   5297 ;./soccerlg.c:976: u8  u = GET_BANK_SEGMENT_HIGH(3);
-    00001A12 2Ar06r00         [16] 5298 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
-    00001A15 DD 74 FE         [19] 5299 	ld	-2 (ix), h
-                                   5300 ;./soccerlg.c:977: u8  v = GET_BANK_SEGMENT_LOW(3);
-    00001A18 DD 75 FF         [19] 5301 	ld	-1 (ix), l
-                                   5302 ;./soccerlg.c:979: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
-    00001A1B 0E 00            [ 7] 5303 	ld	c, #0x00
-    00001A1D                       5304 00147$:
-    00001A1D 79               [ 4] 5305 	ld	a, c
-    00001A1E D6 04            [ 7] 5306 	sub	a, #0x04
-    00001A20 30 60            [12] 5307 	jr	NC, 00101$
-                                   5308 ;./soccerlg.c:981: u32 addr    = base + (u32)i * 8192;
-    00001A22 51               [ 4] 5309 	ld	d, c
-    00001A23 AF               [ 4] 5310 	xor	a, a
-    00001A24 5F               [ 4] 5311 	ld	e, a
-    00001A25 6F               [ 4] 5312 	ld	l, a
-                                   5313 ;	spillPairReg hl
-                                   5314 ;	spillPairReg hl
-    00001A26 63               [ 4] 5315 	ld	h, e
-                                   5316 ;	spillPairReg hl
-                                   5317 ;	spillPairReg hl
-    00001A27 1E 00            [ 7] 5318 	ld	e, #0x00
-    00001A29 06 05            [ 7] 5319 	ld	b, #0x05
-    00001A2B                       5320 00172$:
-    00001A2B CB 22            [ 8] 5321 	sla	d
-    00001A2D ED 6A            [15] 5322 	adc	hl, hl
-    00001A2F 10 FA            [13] 5323 	djnz	00172$
-    00001A31 7B               [ 4] 5324 	ld	a, e
-    00001A32 DD 86 FA         [19] 5325 	add	a, -6 (ix)
-    00001A35 5F               [ 4] 5326 	ld	e, a
-    00001A36 7A               [ 4] 5327 	ld	a, d
-    00001A37 DD 8E FB         [19] 5328 	adc	a, -5 (ix)
-    00001A3A 57               [ 4] 5329 	ld	d, a
-    00001A3B 7D               [ 4] 5330 	ld	a, l
-    00001A3C DD 8E FC         [19] 5331 	adc	a, -4 (ix)
-    00001A3F 6F               [ 4] 5332 	ld	l, a
-                                   5333 ;	spillPairReg hl
-                                   5334 ;	spillPairReg hl
-    00001A40 7C               [ 4] 5335 	ld	a, h
-    00001A41 DD 8E FD         [19] 5336 	adc	a, -3 (ix)
-    00001A44 67               [ 4] 5337 	ld	h, a
-                                   5338 ;	spillPairReg hl
-                                   5339 ;	spillPairReg hl
-    00001A45 D5               [11] 5340 	push	de
-    00001A46 FD E1            [14] 5341 	pop	iy
-    00001A48 EB               [ 4] 5342 	ex	de, hl
-                                   5343 ;./soccerlg.c:983: SET_BANK_SEGMENT_LOW (3, (FIELD_BIN_SEG + i) & 255);
-    00001A49 79               [ 4] 5344 	ld	a, c
-    00001A4A C6 FC            [ 7] 5345 	add	a, #0xfc
-                                   5346 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:201: Poke((u16)&g_Bank0Segment[b] + 0, s);
-                                   5347 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A4C 32r06r00         [13] 5348 	ld	(#(_g_Bank0Segment + 6)),a
-    00001A4F 32 00 B0         [13] 5349 	ld	(#0xb000),a
-                                   5350 ;./soccerlg.c:984: SET_BANK_SEGMENT_HIGH(3, (FIELD_BIN_SEG + i) >>8);
-    00001A52 79               [ 4] 5351 	ld	a, c
-    00001A53 26 00            [ 7] 5352 	ld	h, #0x00
-                                   5353 ;	spillPairReg hl
-                                   5354 ;	spillPairReg hl
-    00001A55 C6 FC            [ 7] 5355 	add	a, #0xfc
-                                   5356 ;	spillPairReg hl
-                                   5357 ;	spillPairReg hl
-    00001A57 30 01            [12] 5358 	jr	NC, 00174$
-    00001A59 24               [ 4] 5359 	inc	h
-    00001A5A                       5360 00174$:
-    00001A5A 7C               [ 4] 5361 	ld	a, h
-                                   5362 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:209: YAMANOOTO_SET_OFFR(s << 6);
-    00001A5B 47               [ 4] 5363 	ld	b, a
-    00001A5C F5               [11] 5364 	push	af
-    00001A5D 78               [ 4] 5365 	ld	a, b
-    00001A5E 0F               [ 4] 5366 	rrca
-    00001A5F 0F               [ 4] 5367 	rrca
-    00001A60 E6 C0            [ 7] 5368 	and	a, #0xc0
-    00001A62 47               [ 4] 5369 	ld	b, a
-    00001A63 F1               [10] 5370 	pop	af
-                                   5371 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A64 21 FE 7F         [10] 5372 	ld	hl, #0x7ffe
-    00001A67 70               [ 7] 5373 	ld	(hl), b
-                                   5374 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:210: Poke((u16)&g_Bank0Segment[b] + 1, s);
-    00001A68 21r06r00         [10] 5375 	ld	hl, #(_g_Bank0Segment + 6)
-    00001A6B 23               [ 6] 5376 	inc	hl
-                                   5377 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A6C 77               [ 7] 5378 	ld	(hl), a
-                                   5379 ;./soccerlg.c:985: VDP_WriteVRAM_128K((u8*)BANK3_BASE, (addr & 0xFFFF), (addr >> 16), 8192);
-    00001A6D 7B               [ 4] 5380 	ld	a, e
-    00001A6E FD E5            [15] 5381 	push	iy
-    00001A70 D1               [10] 5382 	pop	de
-    00001A71 C5               [11] 5383 	push	bc
-    00001A72 21 00 20         [10] 5384 	ld	hl, #0x2000
-    00001A75 E5               [11] 5385 	push	hl
-    00001A76 F5               [11] 5386 	push	af
-    00001A77 33               [ 6] 5387 	inc	sp
-    00001A78 26 A0            [ 7] 5388 	ld	h, #0xa0
-    00001A7A CDr00r00         [17] 5389 	call	_VDP_WriteVRAM_128K
-    00001A7D C1               [10] 5390 	pop	bc
-                                   5391 ;./soccerlg.c:979: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
-    00001A7E 0C               [ 4] 5392 	inc	c
-    00001A7F C3r1Dr1A         [10] 5393 	jp	00147$
-    00001A82                       5394 00101$:
-                                   5395 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:209: YAMANOOTO_SET_OFFR(s << 6);
-    00001A82 DD 7E FE         [19] 5396 	ld	a, -2 (ix)
-    00001A85 0F               [ 4] 5397 	rrca
-    00001A86 0F               [ 4] 5398 	rrca
-    00001A87 E6 C0            [ 7] 5399 	and	a, #0xc0
-                                   5400 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A89 32 FE 7F         [13] 5401 	ld	(#0x7ffe),a
-                                   5402 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:210: Poke((u16)&g_Bank0Segment[b] + 1, s);
-    00001A8C 01r06r00         [10] 5403 	ld	bc, #(_g_Bank0Segment + 6)
-    00001A8F 03               [ 6] 5404 	inc	bc
-                                   5405 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A90 DD 7E FE         [19] 5406 	ld	a, -2 (ix)
-    00001A93 02               [ 7] 5407 	ld	(bc), a
-                                   5408 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:201: Poke((u16)&g_Bank0Segment[b] + 0, s);
-                                   5409 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001A94 01r06r00         [10] 5410 	ld	bc, #(_g_Bank0Segment + 6)
-    00001A97 DD 7E FF         [19] 5411 	ld	a, -1 (ix)
-    00001A9A 02               [ 7] 5412 	ld	(bc), a
-    00001A9B 21 00 B0         [10] 5413 	ld	hl, #0xb000
-    00001A9E DD 7E FF         [19] 5414 	ld	a, -1 (ix)
-    00001AA1 77               [ 7] 5415 	ld	(hl), a
-                                   5416 ;./soccerlg.c:989: SET_BANK_SEGMENT_LOW (3, v);
-                                   5417 ;./soccerlg.c:990: }
-    00001AA2 DD F9            [10] 5418 	ld	sp, ix
-    00001AA4 DD E1            [14] 5419 	pop	ix
-    00001AA6 C9               [10] 5420 	ret
-                                   5421 ;./soccerlg.c:997: void main()
-                                   5422 ;	---------------------------------
-                                   5423 ; Function main
-                                   5424 ; ---------------------------------
-    00001AA7                       5425 _main::
-                                   5426 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:193: inline u8 Sys_GetMSXVersion() { return g_MSXVER; } 
-    00001AA7 3A 2D 00         [13] 5427 	ld	a, (_g_MSXVER+0)
-                                   5428 ;./soccerlg.c:1000: if (Sys_GetMSXVersion() == MSXVER_1)
-    00001AAA B7               [ 4] 5429 	or	a, a
-    00001AAB 20 16            [12] 5430 	jr	NZ, 00102$
-                                   5431 ;./soccerlg.c:1002: Bios_ClearScreen();
-    00001AAD CDr00r00         [17] 5432 	call	_BIOS_ClearScreen
-                                   5433 ;./soccerlg.c:1003: BIOS_TextPrint("This game need MSX2 or above");
-    00001AB0 01rE3r1A         [10] 5434 	ld	bc, #___str_5+0
-                                   5435 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:546: inline void BIOS_TextPrint(const c8* str) { while (*str) BIOS_TextPrintChar(*str++); }
-    00001AB3                       5436 00105$:
-    00001AB3 0A               [ 7] 5437 	ld	a, (bc)
-    00001AB4 B7               [ 4] 5438 	or	a, a
-    00001AB5 CA 9F 00         [10] 5439 	jp	Z,0x009f
-    00001AB8 03               [ 6] 5440 	inc	bc
-    00001AB9 5F               [ 4] 5441 	ld	e, a
-                                   5442 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:251: inline void CallA(u16 addr, u8 a) { ((void(*)(u8))addr)(a); }
-    00001ABA C5               [11] 5443 	push	bc
-    00001ABB 7B               [ 4] 5444 	ld	a, e
-    00001ABC CD A2 00         [17] 5445 	call	0x00a2
-    00001ABF C1               [10] 5446 	pop	bc
-                                   5447 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:546: inline void BIOS_TextPrint(const c8* str) { while (*str) BIOS_TextPrintChar(*str++); }
-                                   5448 ;./soccerlg.c:1003: BIOS_TextPrint("This game need MSX2 or above");
-                                   5449 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:242: inline u8 CallToA(u16 addr) { return ((u8(*)(void))addr)(); }
-                                   5450 ;./soccerlg.c:1005: return;
-    00001AC0 C3rB3r1A         [10] 5451 	jp	00105$
-    00001AC3                       5452 00102$:
-                                   5453 ;./soccerlg.c:1008: DEBUG_INIT();
-    00001AC3 CDr00r00         [17] 5454 	call	_DEBUG_INIT
-                                   5455 ;./soccerlg.c:1009: YSCC_Init();
-    00001AC6 CDr00r00         [17] 5456 	call	_YSCC_Init
-                                   5457 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:68: inline void BIOS_SetKeyClick(bool enable) { g_CLIKSW = enable; }
-    00001AC9 21 DB F3         [10] 5458 	ld	hl, #_g_CLIKSW
-    00001ACC 36 00            [10] 5459 	ld	(hl), #0x00
-                                   5460 ;./soccerlg.c:1011: SplashScreenLoad();
-    00001ACE CDrBEr0A         [17] 5461 	call	_SplashScreenLoad
-                                   5462 ;./soccerlg.c:1013: Bios_SetHookCallback(H_TIMI, VSyncCallback);
-    00001AD1 11r2Cr19         [10] 5463 	ld	de, #_VSyncCallback
-    00001AD4 21 9F FD         [10] 5464 	ld	hl, #0xfd9f
-    00001AD7 CDr00r00         [17] 5465 	call	_BIOS_SetHookCallback
-    00001ADA                       5466 00114$:
-                                   5467 ;./soccerlg.c:1015: ShowMenu();
-    00001ADA CDrD5r0B         [17] 5468 	call	_ShowMenu
-                                   5469 ;./soccerlg.c:1016: StartGame();
-    00001ADD CDr00r1B         [17] 5470 	call	_StartGame
-                                   5471 ;./soccerlg.c:1018: }
-    00001AE0 C3rDAr1A         [10] 5472 	jp	00114$
-    00001AE3                       5473 ___str_5:
-    00001AE3 54 68 69 73 20 67 61  5474 	.ascii "This game need MSX2 or above"
+                                   5248 ;./soccerlg.c:965: if (g_is_penalty_shootout) {
+    000019CC 3Ar15r00         [13] 5249 	ld	a, (_g_is_penalty_shootout+0)
+    000019CF B7               [ 4] 5250 	or	a, a
+    000019D0 28 0F            [12] 5251 	jr	Z, 00105$
+                                   5252 ;./soccerlg.c:966: YSCC_PlayLoop(PENALTIES_BIN_SEG, PENALTIES_BIN_SIZE);
+    000019D2 21 12 00         [10] 5253 	ld	hl, #0x0012
+    000019D5 E5               [11] 5254 	push	hl
+    000019D6 21 80 4D         [10] 5255 	ld	hl, #0x4d80
+    000019D9 E5               [11] 5256 	push	hl
+    000019DA 21 30 02         [10] 5257 	ld	hl, #0x0230
+    000019DD CDr00r00         [17] 5258 	call	_YSCC_PlayLoop
+    000019E0 C9               [10] 5259 	ret
+    000019E1                       5260 00105$:
+                                   5261 ;./soccerlg.c:968: YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+    000019E1 21 0B 00         [10] 5262 	ld	hl, #0x000b
+    000019E4 E5               [11] 5263 	push	hl
+    000019E5 21 00 AB         [10] 5264 	ld	hl, #0xab00
+    000019E8 E5               [11] 5265 	push	hl
+    000019E9 21 36 01         [10] 5266 	ld	hl, #0x0136
+    000019EC CDr00r00         [17] 5267 	call	_YSCC_PlayLoop
+    000019EF C9               [10] 5268 	ret
+    000019F0                       5269 00108$:
+                                   5270 ;./soccerlg.c:971: s_scc_after_action = SCC_AFTER_NONE;
+    000019F0 FD 21r48r00      [14] 5271 	ld	iy, #_s_scc_after_action
+    000019F4 FD 36 00 00      [19] 5272 	ld	0 (iy), #0x00
+                                   5273 ;./soccerlg.c:972: YSCC_LoadState(&s_crowd_state);
+    000019F8 21rDAr03         [10] 5274 	ld	hl, #_s_crowd_state
+                                   5275 ;./soccerlg.c:975: }
+    000019FB C3r00r00         [10] 5276 	jp	_YSCC_LoadState
+                                   5277 ;./soccerlg.c:977: void LoadField(u8 vdp_page)
+                                   5278 ;	---------------------------------
+                                   5279 ; Function LoadField
+                                   5280 ; ---------------------------------
+    000019FE                       5281 _LoadField::
+    000019FE DD E5            [15] 5282 	push	ix
+    00001A00 DD 21 00 00      [14] 5283 	ld	ix,#0
+    00001A04 DD 39            [15] 5284 	add	ix,sp
+    00001A06 21 FA FF         [10] 5285 	ld	hl, #-6
+    00001A09 39               [11] 5286 	add	hl, sp
+    00001A0A F9               [ 6] 5287 	ld	sp, hl
+    00001A0B 5F               [ 4] 5288 	ld	e, a
+                                   5289 ;./soccerlg.c:979: u32 base     = (u32)vdp_page * 0x8000;
+    00001A0C 16 00            [ 7] 5290 	ld	d, #0x00
+    00001A0E 21 00 00         [10] 5291 	ld	hl, #0x0000
+    00001A11 65               [ 4] 5292 	ld	h, l
+                                   5293 ;	spillPairReg hl
+                                   5294 ;	spillPairReg hl
+    00001A12 6A               [ 4] 5295 	ld	l, d
+                                   5296 ;	spillPairReg hl
+                                   5297 ;	spillPairReg hl
+    00001A13 53               [ 4] 5298 	ld	d, e
+    00001A14 1E 00            [ 7] 5299 	ld	e, #0x00
+    00001A16 06 07            [ 7] 5300 	ld	b, #0x07
+    00001A18                       5301 00170$:
+    00001A18 CB 22            [ 8] 5302 	sla	d
+    00001A1A ED 6A            [15] 5303 	adc	hl, hl
+    00001A1C 10 FA            [13] 5304 	djnz	00170$
+    00001A1E 33               [ 6] 5305 	inc	sp
+    00001A1F 33               [ 6] 5306 	inc	sp
+    00001A20 D5               [11] 5307 	push	de
+    00001A21 DD 75 FC         [19] 5308 	ld	-4 (ix), l
+    00001A24 DD 74 FD         [19] 5309 	ld	-3 (ix), h
+                                   5310 ;./soccerlg.c:980: u8  u = GET_BANK_SEGMENT_HIGH(3);
+    00001A27 2Ar06r00         [16] 5311 	ld	hl, (#(_g_Bank0Segment + 6) + 0)
+    00001A2A DD 74 FE         [19] 5312 	ld	-2 (ix), h
+                                   5313 ;./soccerlg.c:981: u8  v = GET_BANK_SEGMENT_LOW(3);
+    00001A2D DD 75 FF         [19] 5314 	ld	-1 (ix), l
+                                   5315 ;./soccerlg.c:983: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
+    00001A30 0E 00            [ 7] 5316 	ld	c, #0x00
+    00001A32                       5317 00147$:
+    00001A32 79               [ 4] 5318 	ld	a, c
+    00001A33 D6 04            [ 7] 5319 	sub	a, #0x04
+    00001A35 30 60            [12] 5320 	jr	NC, 00101$
+                                   5321 ;./soccerlg.c:985: u32 addr    = base + (u32)i * 8192;
+    00001A37 51               [ 4] 5322 	ld	d, c
+    00001A38 AF               [ 4] 5323 	xor	a, a
+    00001A39 5F               [ 4] 5324 	ld	e, a
+    00001A3A 6F               [ 4] 5325 	ld	l, a
+                                   5326 ;	spillPairReg hl
+                                   5327 ;	spillPairReg hl
+    00001A3B 63               [ 4] 5328 	ld	h, e
+                                   5329 ;	spillPairReg hl
+                                   5330 ;	spillPairReg hl
+    00001A3C 1E 00            [ 7] 5331 	ld	e, #0x00
+    00001A3E 06 05            [ 7] 5332 	ld	b, #0x05
+    00001A40                       5333 00172$:
+    00001A40 CB 22            [ 8] 5334 	sla	d
+    00001A42 ED 6A            [15] 5335 	adc	hl, hl
+    00001A44 10 FA            [13] 5336 	djnz	00172$
+    00001A46 7B               [ 4] 5337 	ld	a, e
+    00001A47 DD 86 FA         [19] 5338 	add	a, -6 (ix)
+    00001A4A 5F               [ 4] 5339 	ld	e, a
+    00001A4B 7A               [ 4] 5340 	ld	a, d
+    00001A4C DD 8E FB         [19] 5341 	adc	a, -5 (ix)
+    00001A4F 57               [ 4] 5342 	ld	d, a
+    00001A50 7D               [ 4] 5343 	ld	a, l
+    00001A51 DD 8E FC         [19] 5344 	adc	a, -4 (ix)
+    00001A54 6F               [ 4] 5345 	ld	l, a
+                                   5346 ;	spillPairReg hl
+                                   5347 ;	spillPairReg hl
+    00001A55 7C               [ 4] 5348 	ld	a, h
+    00001A56 DD 8E FD         [19] 5349 	adc	a, -3 (ix)
+    00001A59 67               [ 4] 5350 	ld	h, a
+                                   5351 ;	spillPairReg hl
+                                   5352 ;	spillPairReg hl
+    00001A5A D5               [11] 5353 	push	de
+    00001A5B FD E1            [14] 5354 	pop	iy
+    00001A5D EB               [ 4] 5355 	ex	de, hl
+                                   5356 ;./soccerlg.c:987: SET_BANK_SEGMENT_LOW (3, (FIELD_BIN_SEG + i) & 255);
+    00001A5E 79               [ 4] 5357 	ld	a, c
+    00001A5F C6 FC            [ 7] 5358 	add	a, #0xfc
+                                   5359 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:201: Poke((u16)&g_Bank0Segment[b] + 0, s);
+                                   5360 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001A61 32r06r00         [13] 5361 	ld	(#(_g_Bank0Segment + 6)),a
+    00001A64 32 00 B0         [13] 5362 	ld	(#0xb000),a
+                                   5363 ;./soccerlg.c:988: SET_BANK_SEGMENT_HIGH(3, (FIELD_BIN_SEG + i) >>8);
+    00001A67 79               [ 4] 5364 	ld	a, c
+    00001A68 26 00            [ 7] 5365 	ld	h, #0x00
+                                   5366 ;	spillPairReg hl
+                                   5367 ;	spillPairReg hl
+    00001A6A C6 FC            [ 7] 5368 	add	a, #0xfc
+                                   5369 ;	spillPairReg hl
+                                   5370 ;	spillPairReg hl
+    00001A6C 30 01            [12] 5371 	jr	NC, 00174$
+    00001A6E 24               [ 4] 5372 	inc	h
+    00001A6F                       5373 00174$:
+    00001A6F 7C               [ 4] 5374 	ld	a, h
+                                   5375 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:209: YAMANOOTO_SET_OFFR(s << 6);
+    00001A70 47               [ 4] 5376 	ld	b, a
+    00001A71 F5               [11] 5377 	push	af
+    00001A72 78               [ 4] 5378 	ld	a, b
+    00001A73 0F               [ 4] 5379 	rrca
+    00001A74 0F               [ 4] 5380 	rrca
+    00001A75 E6 C0            [ 7] 5381 	and	a, #0xc0
+    00001A77 47               [ 4] 5382 	ld	b, a
+    00001A78 F1               [10] 5383 	pop	af
+                                   5384 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001A79 21 FE 7F         [10] 5385 	ld	hl, #0x7ffe
+    00001A7C 70               [ 7] 5386 	ld	(hl), b
+                                   5387 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:210: Poke((u16)&g_Bank0Segment[b] + 1, s);
+    00001A7D 21r06r00         [10] 5388 	ld	hl, #(_g_Bank0Segment + 6)
+    00001A80 23               [ 6] 5389 	inc	hl
+                                   5390 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001A81 77               [ 7] 5391 	ld	(hl), a
+                                   5392 ;./soccerlg.c:989: VDP_WriteVRAM_128K((u8*)BANK3_BASE, (addr & 0xFFFF), (addr >> 16), 8192);
+    00001A82 7B               [ 4] 5393 	ld	a, e
+    00001A83 FD E5            [15] 5394 	push	iy
+    00001A85 D1               [10] 5395 	pop	de
+    00001A86 C5               [11] 5396 	push	bc
+    00001A87 21 00 20         [10] 5397 	ld	hl, #0x2000
+    00001A8A E5               [11] 5398 	push	hl
+    00001A8B F5               [11] 5399 	push	af
+    00001A8C 33               [ 6] 5400 	inc	sp
+    00001A8D 26 A0            [ 7] 5401 	ld	h, #0xa0
+    00001A8F CDr00r00         [17] 5402 	call	_VDP_WriteVRAM_128K
+    00001A92 C1               [10] 5403 	pop	bc
+                                   5404 ;./soccerlg.c:983: for (u8 i = 0; i < FIELD_SEG_COUNT; i++)
+    00001A93 0C               [ 4] 5405 	inc	c
+    00001A94 C3r32r1A         [10] 5406 	jp	00147$
+    00001A97                       5407 00101$:
+                                   5408 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:209: YAMANOOTO_SET_OFFR(s << 6);
+    00001A97 DD 7E FE         [19] 5409 	ld	a, -2 (ix)
+    00001A9A 0F               [ 4] 5410 	rrca
+    00001A9B 0F               [ 4] 5411 	rrca
+    00001A9C E6 C0            [ 7] 5412 	and	a, #0xc0
+                                   5413 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001A9E 32 FE 7F         [13] 5414 	ld	(#0x7ffe),a
+                                   5415 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:210: Poke((u16)&g_Bank0Segment[b] + 1, s);
+    00001AA1 01r06r00         [10] 5416 	ld	bc, #(_g_Bank0Segment + 6)
+    00001AA4 03               [ 6] 5417 	inc	bc
+                                   5418 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001AA5 DD 7E FE         [19] 5419 	ld	a, -2 (ix)
+    00001AA8 02               [ 7] 5420 	ld	(bc), a
+                                   5421 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:201: Poke((u16)&g_Bank0Segment[b] + 0, s);
+                                   5422 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001AA9 01r06r00         [10] 5423 	ld	bc, #(_g_Bank0Segment + 6)
+    00001AAC DD 7E FF         [19] 5424 	ld	a, -1 (ix)
+    00001AAF 02               [ 7] 5425 	ld	(bc), a
+    00001AB0 21 00 B0         [10] 5426 	ld	hl, #0xb000
+    00001AB3 DD 7E FF         [19] 5427 	ld	a, -1 (ix)
+    00001AB6 77               [ 7] 5428 	ld	(hl), a
+                                   5429 ;./soccerlg.c:993: SET_BANK_SEGMENT_LOW (3, v);
+                                   5430 ;./soccerlg.c:994: }
+    00001AB7 DD F9            [10] 5431 	ld	sp, ix
+    00001AB9 DD E1            [14] 5432 	pop	ix
+    00001ABB C9               [10] 5433 	ret
+                                   5434 ;./soccerlg.c:1001: void main()
+                                   5435 ;	---------------------------------
+                                   5436 ; Function main
+                                   5437 ; ---------------------------------
+    00001ABC                       5438 _main::
+                                   5439 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:193: inline u8 Sys_GetMSXVersion() { return g_MSXVER; } 
+    00001ABC 3A 2D 00         [13] 5440 	ld	a, (_g_MSXVER+0)
+                                   5441 ;./soccerlg.c:1004: if (Sys_GetMSXVersion() == MSXVER_1)
+    00001ABF B7               [ 4] 5442 	or	a, a
+    00001AC0 20 16            [12] 5443 	jr	NZ, 00102$
+                                   5444 ;./soccerlg.c:1006: Bios_ClearScreen();
+    00001AC2 CDr00r00         [17] 5445 	call	_BIOS_ClearScreen
+                                   5446 ;./soccerlg.c:1007: BIOS_TextPrint("This game need MSX2 or above");
+    00001AC5 01rF8r1A         [10] 5447 	ld	bc, #___str_5+0
+                                   5448 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:546: inline void BIOS_TextPrint(const c8* str) { while (*str) BIOS_TextPrintChar(*str++); }
+    00001AC8                       5449 00105$:
+    00001AC8 0A               [ 7] 5450 	ld	a, (bc)
+    00001AC9 B7               [ 4] 5451 	or	a, a
+    00001ACA CA 9F 00         [10] 5452 	jp	Z,0x009f
+    00001ACD 03               [ 6] 5453 	inc	bc
+    00001ACE 5F               [ 4] 5454 	ld	e, a
+                                   5455 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:251: inline void CallA(u16 addr, u8 a) { ((void(*)(u8))addr)(a); }
+    00001ACF C5               [11] 5456 	push	bc
+    00001AD0 7B               [ 4] 5457 	ld	a, e
+    00001AD1 CD A2 00         [17] 5458 	call	0x00a2
+    00001AD4 C1               [10] 5459 	pop	bc
+                                   5460 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:546: inline void BIOS_TextPrint(const c8* str) { while (*str) BIOS_TextPrintChar(*str++); }
+                                   5461 ;./soccerlg.c:1007: BIOS_TextPrint("This game need MSX2 or above");
+                                   5462 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:242: inline u8 CallToA(u16 addr) { return ((u8(*)(void))addr)(); }
+                                   5463 ;./soccerlg.c:1009: return;
+    00001AD5 C3rC8r1A         [10] 5464 	jp	00105$
+    00001AD8                       5465 00102$:
+                                   5466 ;./soccerlg.c:1012: DEBUG_INIT();
+    00001AD8 CDr00r00         [17] 5467 	call	_DEBUG_INIT
+                                   5468 ;./soccerlg.c:1013: YSCC_Init();
+    00001ADB CDr00r00         [17] 5469 	call	_YSCC_Init
+                                   5470 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios.h:68: inline void BIOS_SetKeyClick(bool enable) { g_CLIKSW = enable; }
+    00001ADE 21 DB F3         [10] 5471 	ld	hl, #_g_CLIKSW
+    00001AE1 36 00            [10] 5472 	ld	(hl), #0x00
+                                   5473 ;./soccerlg.c:1015: SplashScreenLoad();
+    00001AE3 CDrBEr0A         [17] 5474 	call	_SplashScreenLoad
+                                   5475 ;./soccerlg.c:1017: Bios_SetHookCallback(H_TIMI, VSyncCallback);
+    00001AE6 11r2Cr19         [10] 5476 	ld	de, #_VSyncCallback
+    00001AE9 21 9F FD         [10] 5477 	ld	hl, #0xfd9f
+    00001AEC CDr00r00         [17] 5478 	call	_BIOS_SetHookCallback
+    00001AEF                       5479 00114$:
+                                   5480 ;./soccerlg.c:1019: ShowMenu();
+    00001AEF CDrD5r0B         [17] 5481 	call	_ShowMenu
+                                   5482 ;./soccerlg.c:1020: StartGame();
+    00001AF2 CDr15r1B         [17] 5483 	call	_StartGame
+                                   5484 ;./soccerlg.c:1022: }
+    00001AF5 C3rEFr1A         [10] 5485 	jp	00114$
+    00001AF8                       5486 ___str_5:
+    00001AF8 54 68 69 73 20 67 61  5487 	.ascii "This game need MSX2 or above"
              6D 65 20 6E 65 65 64
              20 4D 53 58 32 20 6F
              72 20 61 62 6F 76 65
-    00001AFF 00                    5475 	.db 0x00
-                                   5476 ;./soccerlg.c:1019: void StartGame(){
-                                   5477 ;	---------------------------------
-                                   5478 ; Function StartGame
-                                   5479 ; ---------------------------------
-    00001B00                       5480 _StartGame::
-    00001B00 DD E5            [15] 5481 	push	ix
-    00001B02 DD 21 00 00      [14] 5482 	ld	ix,#0
-    00001B06 DD 39            [15] 5483 	add	ix,sp
-    00001B08 F5               [11] 5484 	push	af
-                                   5485 ;./soccerlg.c:1020: YSCC_Stop();
-    00001B09 CDr00r00         [17] 5486 	call	_YSCC_Stop
-                                   5487 ;./soccerlg.c:1021: s_scc_after_action = SCC_AFTER_NONE;
-    00001B0C 21r48r00         [10] 5488 	ld	hl, #_s_scc_after_action
-    00001B0F 36 00            [10] 5489 	ld	(hl), #0x00
-                                   5490 ;./soccerlg.c:1022: ScoreTeam1 = 0;
-    00001B11 21r11r00         [10] 5491 	ld	hl, #_ScoreTeam1
-    00001B14 36 00            [10] 5492 	ld	(hl), #0x00
-                                   5493 ;./soccerlg.c:1023: ScoreTeam2 = 0;
-    00001B16 21r12r00         [10] 5494 	ld	hl, #_ScoreTeam2
-    00001B19 36 00            [10] 5495 	ld	(hl), #0x00
-                                   5496 ;./soccerlg.c:1024: LastScoreTeam1 = 0;
-    00001B1B 21r13r00         [10] 5497 	ld	hl, #_LastScoreTeam1
-    00001B1E 36 00            [10] 5498 	ld	(hl), #0x00
-                                   5499 ;./soccerlg.c:1025: LastScoreTeam2 = 0;
-    00001B20 21r14r00         [10] 5500 	ld	hl, #_LastScoreTeam2
-    00001B23 36 00            [10] 5501 	ld	(hl), #0x00
-                                   5502 ;./soccerlg.c:1026: Mins = HALF_TIME_MINS;
-    00001B25 21r0Er00         [10] 5503 	ld	hl, #_Mins
-    00001B28 36 01            [10] 5504 	ld	(hl), #0x01
-                                   5505 ;./soccerlg.c:1027: Secs = HALF_TIME_SECS;
-    00001B2A 21r0Dr00         [10] 5506 	ld	hl, #_Secs
-    00001B2D 36 00            [10] 5507 	ld	(hl), #0x00
-                                   5508 ;./soccerlg.c:1028: Half = 1;
-    00001B2F 21r10r00         [10] 5509 	ld	hl, #_Half
-    00001B32 36 01            [10] 5510 	ld	(hl), #0x01
-                                   5511 ;./soccerlg.c:1029: KickOffTeam = TEAM_2; // P1 (Team 2) batte nel primo tempo
-    00001B34 21r1Er00         [10] 5512 	ld	hl, #_KickOffTeam
-    00001B37 36 01            [10] 5513 	ld	(hl), #0x01
-                                   5514 ;./soccerlg.c:1030: g_is_penalty_shootout = FALSE;
-    00001B39 21r15r00         [10] 5515 	ld	hl, #_g_is_penalty_shootout
-    00001B3C 36 00            [10] 5516 	ld	(hl), #0x00
-                                   5517 ;./soccerlg.c:1031: g_penalty_shot_count[0] = 0;
-    00001B3E 01r16r00         [10] 5518 	ld	bc, #_g_penalty_shot_count+0
-    00001B41 AF               [ 4] 5519 	xor	a, a
-    00001B42 02               [ 7] 5520 	ld	(bc), a
-                                   5521 ;./soccerlg.c:1032: g_penalty_shot_count[1] = 0;
-    00001B43 03               [ 6] 5522 	inc	bc
-    00001B44 AF               [ 4] 5523 	xor	a, a
-    00001B45 02               [ 7] 5524 	ld	(bc), a
-                                   5525 ;./soccerlg.c:1033: TimerEnabled = FALSE;
-    00001B46 21r24r00         [10] 5526 	ld	hl, #_TimerEnabled
-    00001B49 36 00            [10] 5527 	ld	(hl), #0x00
-                                   5528 ;./soccerlg.c:1035: g_ActiveStats[0] = g_TeamStatsArray[Team1Code];
-    00001B4B 01rB3r03         [10] 5529 	ld	bc, #_g_TeamStatsArray+0
-    00001B4E ED 5Br1Cr00      [20] 5530 	ld	de, (_Team1Code)
-    00001B52 16 00            [ 7] 5531 	ld	d, #0x00
-    00001B54 6B               [ 4] 5532 	ld	l, e
-    00001B55 62               [ 4] 5533 	ld	h, d
-    00001B56 29               [11] 5534 	add	hl, hl
-    00001B57 19               [11] 5535 	add	hl, de
-    00001B58 29               [11] 5536 	add	hl, hl
-    00001B59 19               [11] 5537 	add	hl, de
-    00001B5A 09               [11] 5538 	add	hl, bc
-    00001B5B C5               [11] 5539 	push	bc
-    00001B5C 11rCCr03         [10] 5540 	ld	de, #_g_ActiveStats
-    00001B5F 01 07 00         [10] 5541 	ld	bc, #0x0007
-    00001B62 ED B0            [21] 5542 	ldir
-    00001B64 C1               [10] 5543 	pop	bc
-                                   5544 ;./soccerlg.c:1036: g_ActiveStats[1] = g_TeamStatsArray[Team2Code];
-    00001B65 ED 5Br1Dr00      [20] 5545 	ld	de, (_Team2Code)
-    00001B69 16 00            [ 7] 5546 	ld	d, #0x00
-    00001B6B 6B               [ 4] 5547 	ld	l, e
-    00001B6C 62               [ 4] 5548 	ld	h, d
+    00001B14 00                    5488 	.db 0x00
+                                   5489 ;./soccerlg.c:1023: void StartGame(){
+                                   5490 ;	---------------------------------
+                                   5491 ; Function StartGame
+                                   5492 ; ---------------------------------
+    00001B15                       5493 _StartGame::
+    00001B15 DD E5            [15] 5494 	push	ix
+    00001B17 DD 21 00 00      [14] 5495 	ld	ix,#0
+    00001B1B DD 39            [15] 5496 	add	ix,sp
+    00001B1D F5               [11] 5497 	push	af
+                                   5498 ;./soccerlg.c:1024: YSCC_Stop();
+    00001B1E CDr00r00         [17] 5499 	call	_YSCC_Stop
+                                   5500 ;./soccerlg.c:1025: s_scc_after_action = SCC_AFTER_NONE;
+    00001B21 21r48r00         [10] 5501 	ld	hl, #_s_scc_after_action
+    00001B24 36 00            [10] 5502 	ld	(hl), #0x00
+                                   5503 ;./soccerlg.c:1026: ScoreTeam1 = 0;
+    00001B26 21r11r00         [10] 5504 	ld	hl, #_ScoreTeam1
+    00001B29 36 00            [10] 5505 	ld	(hl), #0x00
+                                   5506 ;./soccerlg.c:1027: ScoreTeam2 = 0;
+    00001B2B 21r12r00         [10] 5507 	ld	hl, #_ScoreTeam2
+    00001B2E 36 00            [10] 5508 	ld	(hl), #0x00
+                                   5509 ;./soccerlg.c:1028: LastScoreTeam1 = 0;
+    00001B30 21r13r00         [10] 5510 	ld	hl, #_LastScoreTeam1
+    00001B33 36 00            [10] 5511 	ld	(hl), #0x00
+                                   5512 ;./soccerlg.c:1029: LastScoreTeam2 = 0;
+    00001B35 21r14r00         [10] 5513 	ld	hl, #_LastScoreTeam2
+    00001B38 36 00            [10] 5514 	ld	(hl), #0x00
+                                   5515 ;./soccerlg.c:1030: Mins = HALF_TIME_MINS;
+    00001B3A 21r0Er00         [10] 5516 	ld	hl, #_Mins
+    00001B3D 36 01            [10] 5517 	ld	(hl), #0x01
+                                   5518 ;./soccerlg.c:1031: Secs = HALF_TIME_SECS;
+    00001B3F 21r0Dr00         [10] 5519 	ld	hl, #_Secs
+    00001B42 36 00            [10] 5520 	ld	(hl), #0x00
+                                   5521 ;./soccerlg.c:1032: Half = 1;
+    00001B44 21r10r00         [10] 5522 	ld	hl, #_Half
+    00001B47 36 01            [10] 5523 	ld	(hl), #0x01
+                                   5524 ;./soccerlg.c:1033: KickOffTeam = TEAM_2; // P1 (Team 2) batte nel primo tempo
+    00001B49 21r1Er00         [10] 5525 	ld	hl, #_KickOffTeam
+    00001B4C 36 01            [10] 5526 	ld	(hl), #0x01
+                                   5527 ;./soccerlg.c:1034: g_is_penalty_shootout = FALSE;
+    00001B4E 21r15r00         [10] 5528 	ld	hl, #_g_is_penalty_shootout
+    00001B51 36 00            [10] 5529 	ld	(hl), #0x00
+                                   5530 ;./soccerlg.c:1035: g_penalty_shot_count[0] = 0;
+    00001B53 01r16r00         [10] 5531 	ld	bc, #_g_penalty_shot_count+0
+    00001B56 AF               [ 4] 5532 	xor	a, a
+    00001B57 02               [ 7] 5533 	ld	(bc), a
+                                   5534 ;./soccerlg.c:1036: g_penalty_shot_count[1] = 0;
+    00001B58 03               [ 6] 5535 	inc	bc
+    00001B59 AF               [ 4] 5536 	xor	a, a
+    00001B5A 02               [ 7] 5537 	ld	(bc), a
+                                   5538 ;./soccerlg.c:1037: TimerEnabled = FALSE;
+    00001B5B 21r24r00         [10] 5539 	ld	hl, #_TimerEnabled
+    00001B5E 36 00            [10] 5540 	ld	(hl), #0x00
+                                   5541 ;./soccerlg.c:1039: g_ActiveStats[0] = g_TeamStatsArray[Team1Code];
+    00001B60 01rB3r03         [10] 5542 	ld	bc, #_g_TeamStatsArray+0
+    00001B63 ED 5Br1Cr00      [20] 5543 	ld	de, (_Team1Code)
+    00001B67 16 00            [ 7] 5544 	ld	d, #0x00
+    00001B69 6B               [ 4] 5545 	ld	l, e
+    00001B6A 62               [ 4] 5546 	ld	h, d
+    00001B6B 29               [11] 5547 	add	hl, hl
+    00001B6C 19               [11] 5548 	add	hl, de
     00001B6D 29               [11] 5549 	add	hl, hl
     00001B6E 19               [11] 5550 	add	hl, de
-    00001B6F 29               [11] 5551 	add	hl, hl
-    00001B70 19               [11] 5552 	add	hl, de
-    00001B71 09               [11] 5553 	add	hl, bc
-    00001B72 11rD3r03         [10] 5554 	ld	de, #(_g_ActiveStats + 7)
-    00001B75 01 07 00         [10] 5555 	ld	bc, #0x0007
-    00001B78 ED B0            [21] 5556 	ldir
-                                   5557 ;./soccerlg.c:1038: VDP_SetMode(VDP_MODE_SCREEN5);
-    00001B7A 3E 06            [ 7] 5558 	ld	a, #0x06
-    00001B7C CDr00r00         [17] 5559 	call	_VDP_SetMode
-                                   5560 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:761: inline void VDP_EnableTransparency(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_TP, !enable ? R08_TP : 0); }
-    00001B7F 3E 20            [ 7] 5561 	ld	a, #0x20
-    00001B81 F5               [11] 5562 	push	af
-    00001B82 33               [ 6] 5563 	inc	sp
-    00001B83 2E DF            [ 7] 5564 	ld	l, #0xdf
-                                   5565 ;	spillPairReg hl
-                                   5566 ;	spillPairReg hl
-    00001B85 3E 08            [ 7] 5567 	ld	a, #0x08
-    00001B87 CDr00r00         [17] 5568 	call	_VDP_RegWriteBakMask
-                                   5569 ;./soccerlg.c:1040: VDP_SetPalette(g_Palette);
-    00001B8A 21r4Fr02         [10] 5570 	ld	hl, #_g_Palette
-    00001B8D CDr00r00         [17] 5571 	call	_VDP_SetPalette
-                                   5572 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:724: inline void VDP_SetColor(u8 color) { VDP_RegWrite(7, color); }
-    00001B90 2E 01            [ 7] 5573 	ld	l, #0x01
-                                   5574 ;	spillPairReg hl
-                                   5575 ;	spillPairReg hl
-    00001B92 3E 07            [ 7] 5576 	ld	a, #0x07
-    00001B94 CDr00r00         [17] 5577 	call	_VDP_RegWrite
-                                   5578 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:839: inline void VDP_SetLineCount(u8 lines) { VDP_RegWriteBakMask(9, (u8)~R09_LN, lines); }
-    00001B97 AF               [ 4] 5579 	xor	a, a
-    00001B98 F5               [11] 5580 	push	af
-    00001B99 33               [ 6] 5581 	inc	sp
-    00001B9A 2E 7F            [ 7] 5582 	ld	l, #0x7f
-                                   5583 ;	spillPairReg hl
-                                   5584 ;	spillPairReg hl
-    00001B9C 3E 09            [ 7] 5585 	ld	a, #0x09
-    00001B9E CDr00r00         [17] 5586 	call	_VDP_RegWriteBakMask
-                                   5587 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:750: inline void VDP_EnableSprite(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_SPD, !enable ? R08_SPD : 0); }
-    00001BA1 3E 02            [ 7] 5588 	ld	a, #0x02
-    00001BA3 F5               [11] 5589 	push	af
-    00001BA4 33               [ 6] 5590 	inc	sp
-    00001BA5 2E FD            [ 7] 5591 	ld	l, #0xfd
-                                   5592 ;	spillPairReg hl
-                                   5593 ;	spillPairReg hl
-    00001BA7 3E 08            [ 7] 5594 	ld	a, #0x08
-    00001BA9 CDr00r00         [17] 5595 	call	_VDP_RegWriteBakMask
-                                   5596 ;./soccerlg.c:1044: VDP_ClearVRAM();
-    00001BAC CDr00r00         [17] 5597 	call	_VDP_ClearVRAM
-                                   5598 ;./soccerlg.c:1045: VDP_FillVRAM(0x77, 0x0000, 0, 0x8000);
-    00001BAF 21 00 80         [10] 5599 	ld	hl, #0x8000
-    00001BB2 E5               [11] 5600 	push	hl
-    00001BB3 AF               [ 4] 5601 	xor	a, a
-    00001BB4 F5               [11] 5602 	push	af
-    00001BB5 33               [ 6] 5603 	inc	sp
-    00001BB6 11 00 00         [10] 5604 	ld	de, #0x0000
-    00001BB9 3E 77            [ 7] 5605 	ld	a, #0x77
-    00001BBB CDr00r00         [17] 5606 	call	_VDP_FillVRAM_128K
-                                   5607 ;./soccerlg.c:1050: LoadField(3);
-    00001BBE 3E 03            [ 7] 5608 	ld	a, #0x03
-    00001BC0 CDrE9r19         [17] 5609 	call	_LoadField
-                                   5610 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
-    00001BC3 21 00 00         [10] 5611 	ld	hl, #0x0000
-    00001BC6 22r04r00         [16] 5612 	ld	((_g_VDP_Command + 4)), hl
-                                   5613 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
-    00001BC9 26 03            [ 7] 5614 	ld	h, #0x03
-    00001BCB 22r06r00         [16] 5615 	ld	((_g_VDP_Command + 6)), hl
-                                   5616 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
-    00001BCE 21 08 00         [10] 5617 	ld	hl, #0x0008
-    00001BD1 22r08r00         [16] 5618 	ld	((_g_VDP_Command + 8)), hl
-                                   5619 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
-    00001BD4 2E D4            [ 7] 5620 	ld	l, #0xd4
-    00001BD6 22r0Ar00         [16] 5621 	ld	((_g_VDP_Command + 10)), hl
-                                   5622 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
-    00001BD9 21r0Cr00         [10] 5623 	ld	hl, #(_g_VDP_Command + 12)
-    00001BDC 36 77            [10] 5624 	ld	(hl), #0x77
-                                   5625 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
-    00001BDE 01r0Dr00         [10] 5626 	ld	bc, #_g_VDP_Command + 13
-    00001BE1 AF               [ 4] 5627 	xor	a, a
-    00001BE2 02               [ 7] 5628 	ld	(bc), a
-                                   5629 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
-    00001BE3 21r0Er00         [10] 5630 	ld	hl, #(_g_VDP_Command + 14)
-    00001BE6 36 C0            [10] 5631 	ld	(hl), #0xc0
-                                   5632 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
-    00001BE8 C5               [11] 5633 	push	bc
-    00001BE9 CDr00r00         [17] 5634 	call	_VDP_CommandSetupR36
-    00001BEC C1               [10] 5635 	pop	bc
-                                   5636 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
-    00001BED 21 00 00         [10] 5637 	ld	hl, #0x0000
-    00001BF0 22r04r00         [16] 5638 	ld	((_g_VDP_Command + 4)), hl
-                                   5639 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
-    00001BF3 26 03            [ 7] 5640 	ld	h, #0x03
-    00001BF5 22r06r00         [16] 5641 	ld	((_g_VDP_Command + 6)), hl
-                                   5642 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
-    00001BF8 21 08 00         [10] 5643 	ld	hl, #0x0008
-    00001BFB 22r08r00         [16] 5644 	ld	((_g_VDP_Command + 8)), hl
-                                   5645 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
-    00001BFE 2E D4            [ 7] 5646 	ld	l, #0xd4
-    00001C00 22r0Ar00         [16] 5647 	ld	((_g_VDP_Command + 10)), hl
-                                   5648 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
-    00001C03 21r0Cr00         [10] 5649 	ld	hl, #(_g_VDP_Command + 12)
-    00001C06 36 77            [10] 5650 	ld	(hl), #0x77
-                                   5651 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
-    00001C08 AF               [ 4] 5652 	xor	a, a
-    00001C09 02               [ 7] 5653 	ld	(bc), a
-                                   5654 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
-    00001C0A 21r0Er00         [10] 5655 	ld	hl, #(_g_VDP_Command + 14)
-    00001C0D 36 C0            [10] 5656 	ld	(hl), #0xc0
-                                   5657 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
-    00001C0F CDr00r00         [17] 5658 	call	_VDP_CommandSetupR36
-                                   5659 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:192: g_Bank0Segment[b] = s;
-    00001C12 21 04 00         [10] 5660 	ld	hl, #0x0004
-    00001C15 22r06r00         [16] 5661 	ld	((_g_Bank0Segment + 6)), hl
-                                   5662 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:193: YAMANOOTO_SET_OFFR((s >> 2) & 0xC0);
-    00001C18 3E 01            [ 7] 5663 	ld	a, #0x01
-    00001C1A E6 C0            [ 7] 5664 	and	a, #0xc0
-                                   5665 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001C1C 32 FE 7F         [13] 5666 	ld	(#0x7ffe),a
-                                   5667 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:197: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-    00001C1F 3E 04            [ 7] 5668 	ld	a, #0x04
-                                   5669 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001C21 32 00 B0         [13] 5670 	ld	(#0xb000),a
-                                   5671 ;./soccerlg.c:1056: Print_SetBitmapFont(g_Fonts);
-    00001C24 21r00r00         [10] 5672 	ld	hl, #_g_Fonts
-    00001C27 CDr00r00         [17] 5673 	call	_Print_SetBitmapFont
-                                   5674 ;./soccerlg.c:1057: Print_SetColor(4, 7);
-    00001C2A 2E 07            [ 7] 5675 	ld	l, #0x07
-                                   5676 ;	spillPairReg hl
-                                   5677 ;	spillPairReg hl
-    00001C2C 3E 04            [ 7] 5678 	ld	a, #0x04
-    00001C2E CDr00r00         [17] 5679 	call	_Print_SetColor
-                                   5680 ;./soccerlg.c:1060: str[1] = '\0';
-    00001C31 DD 36 FF 00      [19] 5681 	ld	-1 (ix), #0x00
-                                   5682 ;./soccerlg.c:1063: str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
-    00001C35 3Ar1Dr00         [13] 5683 	ld	a, (_Team2Code+0)
-    00001C38 26 00            [ 7] 5684 	ld	h, #0x00
-                                   5685 ;	spillPairReg hl
-                                   5686 ;	spillPairReg hl
-    00001C3A 6F               [ 4] 5687 	ld	l, a
-    00001C3B 29               [11] 5688 	add	hl, hl
-    00001C3C 11r00r00         [10] 5689 	ld	de, #_g_TeamNames
-    00001C3F 19               [11] 5690 	add	hl, de
-    00001C40 4E               [ 7] 5691 	ld	c, (hl)
-    00001C41 23               [ 6] 5692 	inc	hl
-    00001C42 46               [ 7] 5693 	ld	b, (hl)
-    00001C43 0A               [ 7] 5694 	ld	a, (bc)
-    00001C44 DD 77 FE         [19] 5695 	ld	-2 (ix), a
-                                   5696 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001C47 01r05r00         [10] 5697 	ld	bc, #_g_PrintData + 5
-    00001C4A AF               [ 4] 5698 	xor	a, a
-    00001C4B 02               [ 7] 5699 	ld	(bc), a
-                                   5700 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001C4C 21 08 03         [10] 5701 	ld	hl, #0x0308
-    00001C4F 22r06r00         [16] 5702 	ld	((_g_PrintData + 6)), hl
-                                   5703 ;./soccerlg.c:1063: str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
-    00001C52 C5               [11] 5704 	push	bc
-    00001C53 21 02 00         [10] 5705 	ld	hl, #2
-    00001C56 39               [11] 5706 	add	hl, sp
-    00001C57 CDr00r00         [17] 5707 	call	_Print_DrawText
-    00001C5A C1               [10] 5708 	pop	bc
-                                   5709 ;./soccerlg.c:1064: str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
-    00001C5B 3Ar1Dr00         [13] 5710 	ld	a, (_Team2Code+0)
-    00001C5E 6F               [ 4] 5711 	ld	l, a
-                                   5712 ;	spillPairReg hl
-                                   5713 ;	spillPairReg hl
-    00001C5F 26 00            [ 7] 5714 	ld	h, #0x00
-                                   5715 ;	spillPairReg hl
-                                   5716 ;	spillPairReg hl
-    00001C61 29               [11] 5717 	add	hl, hl
-    00001C62 11r00r00         [10] 5718 	ld	de, #_g_TeamNames
-    00001C65 19               [11] 5719 	add	hl, de
-    00001C66 5E               [ 7] 5720 	ld	e, (hl)
-    00001C67 23               [ 6] 5721 	inc	hl
-    00001C68 56               [ 7] 5722 	ld	d, (hl)
-    00001C69 13               [ 6] 5723 	inc	de
-    00001C6A 1A               [ 7] 5724 	ld	a, (de)
-    00001C6B DD 77 FE         [19] 5725 	ld	-2 (ix), a
-                                   5726 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001C6E AF               [ 4] 5727 	xor	a, a
-    00001C6F 02               [ 7] 5728 	ld	(bc), a
-                                   5729 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001C70 21 10 03         [10] 5730 	ld	hl, #0x0310
-    00001C73 22r06r00         [16] 5731 	ld	((_g_PrintData + 6)), hl
-                                   5732 ;./soccerlg.c:1064: str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
-    00001C76 C5               [11] 5733 	push	bc
-    00001C77 21 02 00         [10] 5734 	ld	hl, #2
-    00001C7A 39               [11] 5735 	add	hl, sp
-    00001C7B CDr00r00         [17] 5736 	call	_Print_DrawText
-    00001C7E C1               [10] 5737 	pop	bc
-                                   5738 ;./soccerlg.c:1065: str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
-    00001C7F 3Ar1Dr00         [13] 5739 	ld	a, (_Team2Code+0)
-    00001C82 6F               [ 4] 5740 	ld	l, a
-                                   5741 ;	spillPairReg hl
-                                   5742 ;	spillPairReg hl
-    00001C83 26 00            [ 7] 5743 	ld	h, #0x00
-                                   5744 ;	spillPairReg hl
-                                   5745 ;	spillPairReg hl
-    00001C85 29               [11] 5746 	add	hl, hl
-    00001C86 11r00r00         [10] 5747 	ld	de, #_g_TeamNames
-    00001C89 19               [11] 5748 	add	hl, de
-    00001C8A 5E               [ 7] 5749 	ld	e, (hl)
-    00001C8B 23               [ 6] 5750 	inc	hl
-    00001C8C 56               [ 7] 5751 	ld	d, (hl)
-    00001C8D 13               [ 6] 5752 	inc	de
-    00001C8E 13               [ 6] 5753 	inc	de
-    00001C8F 1A               [ 7] 5754 	ld	a, (de)
-    00001C90 DD 77 FE         [19] 5755 	ld	-2 (ix), a
-                                   5756 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001C93 AF               [ 4] 5757 	xor	a, a
-    00001C94 02               [ 7] 5758 	ld	(bc), a
-                                   5759 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001C95 21 18 03         [10] 5760 	ld	hl, #0x0318
-    00001C98 22r06r00         [16] 5761 	ld	((_g_PrintData + 6)), hl
-                                   5762 ;./soccerlg.c:1065: str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
-    00001C9B C5               [11] 5763 	push	bc
-    00001C9C 21 02 00         [10] 5764 	ld	hl, #2
-    00001C9F 39               [11] 5765 	add	hl, sp
-    00001CA0 CDr00r00         [17] 5766 	call	_Print_DrawText
-    00001CA3 C1               [10] 5767 	pop	bc
-                                   5768 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001CA4 AF               [ 4] 5769 	xor	a, a
-    00001CA5 02               [ 7] 5770 	ld	(bc), a
-                                   5771 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001CA6 21 20 03         [10] 5772 	ld	hl, #0x0320
-    00001CA9 22r06r00         [16] 5773 	ld	((_g_PrintData + 6)), hl
-                                   5774 ;./soccerlg.c:1066: Print_SetPosition(0,  32+768);Print_DrawText(" ");
-    00001CAC C5               [11] 5775 	push	bc
-    00001CAD 21rA0r1E         [10] 5776 	ld	hl, #___str_6
-    00001CB0 CDr00r00         [17] 5777 	call	_Print_DrawText
-    00001CB3 C1               [10] 5778 	pop	bc
-                                   5779 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001CB4 AF               [ 4] 5780 	xor	a, a
-    00001CB5 02               [ 7] 5781 	ld	(bc), a
-                                   5782 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001CB6 21 28 03         [10] 5783 	ld	hl, #0x0328
-    00001CB9 22r06r00         [16] 5784 	ld	((_g_PrintData + 6)), hl
-                                   5785 ;./soccerlg.c:1067: Print_SetPosition(0,  40+768);Print_DrawText("0");
-    00001CBC C5               [11] 5786 	push	bc
-    00001CBD 21rA2r1E         [10] 5787 	ld	hl, #___str_7
-    00001CC0 CDr00r00         [17] 5788 	call	_Print_DrawText
-    00001CC3 C1               [10] 5789 	pop	bc
-                                   5790 ;./soccerlg.c:1070: str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
-    00001CC4 3Ar1Cr00         [13] 5791 	ld	a, (_Team1Code+0)
-    00001CC7 6F               [ 4] 5792 	ld	l, a
-                                   5793 ;	spillPairReg hl
-                                   5794 ;	spillPairReg hl
-    00001CC8 26 00            [ 7] 5795 	ld	h, #0x00
-                                   5796 ;	spillPairReg hl
-                                   5797 ;	spillPairReg hl
-    00001CCA 29               [11] 5798 	add	hl, hl
-    00001CCB 11r00r00         [10] 5799 	ld	de, #_g_TeamNames
-    00001CCE 19               [11] 5800 	add	hl, de
-    00001CCF 5E               [ 7] 5801 	ld	e, (hl)
-    00001CD0 23               [ 6] 5802 	inc	hl
-    00001CD1 56               [ 7] 5803 	ld	d, (hl)
-    00001CD2 1A               [ 7] 5804 	ld	a, (de)
-    00001CD3 DD 77 FE         [19] 5805 	ld	-2 (ix), a
-                                   5806 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001CD6 AF               [ 4] 5807 	xor	a, a
-    00001CD7 02               [ 7] 5808 	ld	(bc), a
-                                   5809 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001CD8 21 38 03         [10] 5810 	ld	hl, #0x0338
-    00001CDB 22r06r00         [16] 5811 	ld	((_g_PrintData + 6)), hl
-                                   5812 ;./soccerlg.c:1070: str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
-    00001CDE C5               [11] 5813 	push	bc
-    00001CDF 21 02 00         [10] 5814 	ld	hl, #2
-    00001CE2 39               [11] 5815 	add	hl, sp
-    00001CE3 CDr00r00         [17] 5816 	call	_Print_DrawText
-    00001CE6 C1               [10] 5817 	pop	bc
-                                   5818 ;./soccerlg.c:1071: str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
-    00001CE7 3Ar1Cr00         [13] 5819 	ld	a, (_Team1Code+0)
-    00001CEA 6F               [ 4] 5820 	ld	l, a
-                                   5821 ;	spillPairReg hl
-                                   5822 ;	spillPairReg hl
-    00001CEB 26 00            [ 7] 5823 	ld	h, #0x00
-                                   5824 ;	spillPairReg hl
-                                   5825 ;	spillPairReg hl
-    00001CED 29               [11] 5826 	add	hl, hl
-    00001CEE 11r00r00         [10] 5827 	ld	de, #_g_TeamNames
-    00001CF1 19               [11] 5828 	add	hl, de
-    00001CF2 5E               [ 7] 5829 	ld	e, (hl)
-    00001CF3 23               [ 6] 5830 	inc	hl
-    00001CF4 56               [ 7] 5831 	ld	d, (hl)
-    00001CF5 13               [ 6] 5832 	inc	de
-    00001CF6 1A               [ 7] 5833 	ld	a, (de)
-    00001CF7 DD 77 FE         [19] 5834 	ld	-2 (ix), a
-                                   5835 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001CFA AF               [ 4] 5836 	xor	a, a
-    00001CFB 02               [ 7] 5837 	ld	(bc), a
-                                   5838 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001CFC 21 40 03         [10] 5839 	ld	hl, #0x0340
-    00001CFF 22r06r00         [16] 5840 	ld	((_g_PrintData + 6)), hl
-                                   5841 ;./soccerlg.c:1071: str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
-    00001D02 C5               [11] 5842 	push	bc
-    00001D03 21 02 00         [10] 5843 	ld	hl, #2
-    00001D06 39               [11] 5844 	add	hl, sp
-    00001D07 CDr00r00         [17] 5845 	call	_Print_DrawText
-    00001D0A C1               [10] 5846 	pop	bc
-                                   5847 ;./soccerlg.c:1072: str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
-    00001D0B 3Ar1Cr00         [13] 5848 	ld	a, (_Team1Code+0)
-    00001D0E 6F               [ 4] 5849 	ld	l, a
-                                   5850 ;	spillPairReg hl
-                                   5851 ;	spillPairReg hl
-    00001D0F 26 00            [ 7] 5852 	ld	h, #0x00
-                                   5853 ;	spillPairReg hl
-                                   5854 ;	spillPairReg hl
-    00001D11 29               [11] 5855 	add	hl, hl
-    00001D12 11r00r00         [10] 5856 	ld	de, #_g_TeamNames
-    00001D15 19               [11] 5857 	add	hl, de
-    00001D16 5E               [ 7] 5858 	ld	e, (hl)
-    00001D17 23               [ 6] 5859 	inc	hl
-    00001D18 56               [ 7] 5860 	ld	d, (hl)
-    00001D19 13               [ 6] 5861 	inc	de
-    00001D1A 13               [ 6] 5862 	inc	de
-    00001D1B 1A               [ 7] 5863 	ld	a, (de)
-    00001D1C DD 77 FE         [19] 5864 	ld	-2 (ix), a
-                                   5865 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D1F AF               [ 4] 5866 	xor	a, a
-    00001D20 02               [ 7] 5867 	ld	(bc), a
-                                   5868 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D21 21 48 03         [10] 5869 	ld	hl, #0x0348
-    00001D24 22r06r00         [16] 5870 	ld	((_g_PrintData + 6)), hl
-                                   5871 ;./soccerlg.c:1072: str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
-    00001D27 C5               [11] 5872 	push	bc
-    00001D28 21 02 00         [10] 5873 	ld	hl, #2
-    00001D2B 39               [11] 5874 	add	hl, sp
-    00001D2C CDr00r00         [17] 5875 	call	_Print_DrawText
-    00001D2F C1               [10] 5876 	pop	bc
-                                   5877 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D30 AF               [ 4] 5878 	xor	a, a
-    00001D31 02               [ 7] 5879 	ld	(bc), a
-                                   5880 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D32 21 50 03         [10] 5881 	ld	hl, #0x0350
-    00001D35 22r06r00         [16] 5882 	ld	((_g_PrintData + 6)), hl
-                                   5883 ;./soccerlg.c:1073: Print_SetPosition(0,  80+768);Print_DrawText(" ");
-    00001D38 C5               [11] 5884 	push	bc
-    00001D39 21rA0r1E         [10] 5885 	ld	hl, #___str_6
-    00001D3C CDr00r00         [17] 5886 	call	_Print_DrawText
-    00001D3F C1               [10] 5887 	pop	bc
-                                   5888 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D40 AF               [ 4] 5889 	xor	a, a
-    00001D41 02               [ 7] 5890 	ld	(bc), a
-                                   5891 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D42 21 58 03         [10] 5892 	ld	hl, #0x0358
-    00001D45 22r06r00         [16] 5893 	ld	((_g_PrintData + 6)), hl
-                                   5894 ;./soccerlg.c:1074: Print_SetPosition(0,  88+768);Print_DrawText("0");
-    00001D48 C5               [11] 5895 	push	bc
-    00001D49 21rA2r1E         [10] 5896 	ld	hl, #___str_7
-    00001D4C CDr00r00         [17] 5897 	call	_Print_DrawText
-    00001D4F C1               [10] 5898 	pop	bc
-                                   5899 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D50 3E F8            [ 7] 5900 	ld	a, #0xf8
-    00001D52 02               [ 7] 5901 	ld	(bc), a
-                                   5902 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D53 21 08 03         [10] 5903 	ld	hl, #0x0308
-    00001D56 22r06r00         [16] 5904 	ld	((_g_PrintData + 6)), hl
-                                   5905 ;./soccerlg.c:1077: Print_SetPosition(248,  8+768);Print_DrawText("T");
-    00001D59 C5               [11] 5906 	push	bc
-    00001D5A 21rA4r1E         [10] 5907 	ld	hl, #___str_8
-    00001D5D CDr00r00         [17] 5908 	call	_Print_DrawText
-    00001D60 C1               [10] 5909 	pop	bc
-                                   5910 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D61 3E F8            [ 7] 5911 	ld	a, #0xf8
-    00001D63 02               [ 7] 5912 	ld	(bc), a
-                                   5913 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D64 21 10 03         [10] 5914 	ld	hl, #0x0310
-    00001D67 22r06r00         [16] 5915 	ld	((_g_PrintData + 6)), hl
-                                   5916 ;./soccerlg.c:1078: Print_SetPosition(248,  16+768);Print_DrawText("I");
-    00001D6A C5               [11] 5917 	push	bc
-    00001D6B 21rA6r1E         [10] 5918 	ld	hl, #___str_9
-    00001D6E CDr00r00         [17] 5919 	call	_Print_DrawText
-    00001D71 C1               [10] 5920 	pop	bc
-                                   5921 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D72 3E F8            [ 7] 5922 	ld	a, #0xf8
-    00001D74 02               [ 7] 5923 	ld	(bc), a
-                                   5924 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D75 21 18 03         [10] 5925 	ld	hl, #0x0318
-    00001D78 22r06r00         [16] 5926 	ld	((_g_PrintData + 6)), hl
-                                   5927 ;./soccerlg.c:1079: Print_SetPosition(248,  24+768);Print_DrawText("M");
-    00001D7B C5               [11] 5928 	push	bc
-    00001D7C 21rA8r1E         [10] 5929 	ld	hl, #___str_10
-    00001D7F CDr00r00         [17] 5930 	call	_Print_DrawText
-    00001D82 C1               [10] 5931 	pop	bc
-                                   5932 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D83 3E F8            [ 7] 5933 	ld	a, #0xf8
-    00001D85 02               [ 7] 5934 	ld	(bc), a
-                                   5935 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D86 21 20 03         [10] 5936 	ld	hl, #0x0320
-    00001D89 22r06r00         [16] 5937 	ld	((_g_PrintData + 6)), hl
-                                   5938 ;./soccerlg.c:1080: Print_SetPosition(248,  32+768);Print_DrawText("E");
-    00001D8C C5               [11] 5939 	push	bc
-    00001D8D 21rAAr1E         [10] 5940 	ld	hl, #___str_11
-    00001D90 CDr00r00         [17] 5941 	call	_Print_DrawText
-    00001D93 C1               [10] 5942 	pop	bc
-                                   5943 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001D94 3E F8            [ 7] 5944 	ld	a, #0xf8
-    00001D96 02               [ 7] 5945 	ld	(bc), a
-                                   5946 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001D97 21 30 03         [10] 5947 	ld	hl, #0x0330
-    00001D9A 22r06r00         [16] 5948 	ld	((_g_PrintData + 6)), hl
-                                   5949 ;./soccerlg.c:1082: Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);//Print_DrawText("3");	
-    00001D9D 3Ar0Er00         [13] 5950 	ld	a, (_Mins+0)
-    00001DA0 5F               [ 4] 5951 	ld	e, a
-    00001DA1 16 00            [ 7] 5952 	ld	d, #0x00
-    00001DA3 C5               [11] 5953 	push	bc
-    00001DA4 D5               [11] 5954 	push	de
-    00001DA5 21rACr1E         [10] 5955 	ld	hl, #___str_12
-    00001DA8 E5               [11] 5956 	push	hl
-    00001DA9 CDr00r00         [17] 5957 	call	_Print_DrawFormat
-    00001DAC F1               [10] 5958 	pop	af
-    00001DAD F1               [10] 5959 	pop	af
-    00001DAE C1               [10] 5960 	pop	bc
-                                   5961 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001DAF 3E F8            [ 7] 5962 	ld	a, #0xf8
-    00001DB1 02               [ 7] 5963 	ld	(bc), a
-                                   5964 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001DB2 21 3C 03         [10] 5965 	ld	hl, #0x033c
-    00001DB5 22r06r00         [16] 5966 	ld	((_g_PrintData + 6)), hl
-                                   5967 ;./soccerlg.c:1083: Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
-    00001DB8 3Ar0Dr00         [13] 5968 	ld	a, (_Secs+0)
-    00001DBB 6F               [ 4] 5969 	ld	l, a
-                                   5970 ;	spillPairReg hl
-                                   5971 ;	spillPairReg hl
-    00001DBC 26 00            [ 7] 5972 	ld	h, #0x00
-                                   5973 ;	spillPairReg hl
-                                   5974 ;	spillPairReg hl
-    00001DBE C5               [11] 5975 	push	bc
-    00001DBF 11 0A 00         [10] 5976 	ld	de, #0x000a
-    00001DC2 CDr00r00         [17] 5977 	call	__divsint
-    00001DC5 D5               [11] 5978 	push	de
-    00001DC6 21rACr1E         [10] 5979 	ld	hl, #___str_12
-    00001DC9 E5               [11] 5980 	push	hl
-    00001DCA CDr00r00         [17] 5981 	call	_Print_DrawFormat
-    00001DCD F1               [10] 5982 	pop	af
-    00001DCE F1               [10] 5983 	pop	af
-    00001DCF C1               [10] 5984 	pop	bc
-                                   5985 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
-    00001DD0 3E F8            [ 7] 5986 	ld	a, #0xf8
-    00001DD2 02               [ 7] 5987 	ld	(bc), a
-                                   5988 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
-    00001DD3 21 44 03         [10] 5989 	ld	hl, #0x0344
-    00001DD6 22r06r00         [16] 5990 	ld	((_g_PrintData + 6)), hl
-                                   5991 ;./soccerlg.c:1084: Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);	
-    00001DD9 3Ar0Dr00         [13] 5992 	ld	a, (_Secs+0)
-    00001DDC 4F               [ 4] 5993 	ld	c, a
-    00001DDD 06 00            [ 7] 5994 	ld	b, #0x00
-    00001DDF C5               [11] 5995 	push	bc
-    00001DE0 11 0A 00         [10] 5996 	ld	de, #0x000a
-    00001DE3 69               [ 4] 5997 	ld	l, c
-                                   5998 ;	spillPairReg hl
-                                   5999 ;	spillPairReg hl
-    00001DE4 60               [ 4] 6000 	ld	h, b
-                                   6001 ;	spillPairReg hl
-                                   6002 ;	spillPairReg hl
-    00001DE5 CDr00r00         [17] 6003 	call	__divsint
-    00001DE8 C1               [10] 6004 	pop	bc
-    00001DE9 6B               [ 4] 6005 	ld	l, e
-    00001DEA 62               [ 4] 6006 	ld	h, d
-    00001DEB 29               [11] 6007 	add	hl, hl
-    00001DEC 29               [11] 6008 	add	hl, hl
-    00001DED 19               [11] 6009 	add	hl, de
-    00001DEE 29               [11] 6010 	add	hl, hl
-    00001DEF 79               [ 4] 6011 	ld	a, c
-    00001DF0 95               [ 4] 6012 	sub	a, l
-    00001DF1 4F               [ 4] 6013 	ld	c, a
-    00001DF2 78               [ 4] 6014 	ld	a, b
-    00001DF3 9C               [ 4] 6015 	sbc	a, h
-    00001DF4 47               [ 4] 6016 	ld	b, a
-    00001DF5 C5               [11] 6017 	push	bc
-    00001DF6 21rACr1E         [10] 6018 	ld	hl, #___str_12
-    00001DF9 E5               [11] 6019 	push	hl
-    00001DFA CDr00r00         [17] 6020 	call	_Print_DrawFormat
-    00001DFD F1               [10] 6021 	pop	af
-    00001DFE F1               [10] 6022 	pop	af
-                                   6023 ;./soccerlg.c:1093: Field.dy = 1;
-    00001DFF 21r99r03         [10] 6024 	ld	hl, #(_Field + 18)
-    00001E02 36 01            [10] 6025 	ld	(hl), #0x01
-                                   6026 ;./soccerlg.c:1094: Field.ly = 0;
-    00001E04 21 00 00         [10] 6027 	ld	hl, #0x0000
-    00001E07 22r8Br03         [16] 6028 	ld	((_Field + 4)), hl
-                                   6029 ;./soccerlg.c:1096: ScoreBoardLeft.lx = 0;
-    00001E0A 21r9Er03         [10] 6030 	ld	hl, #_ScoreBoardLeft
-    00001E0D 36 00            [10] 6031 	ld	(hl), #0x00
-                                   6032 ;./soccerlg.c:1097: ScoreBoardLeft.ly = Field.ly;
-    00001E0F ED 4Br8Br03      [20] 6033 	ld	bc, (#(_Field + 4) + 0)
-    00001E13 ED 43rA2r03      [20] 6034 	ld	((_ScoreBoardLeft + 4)), bc
-                                   6035 ;./soccerlg.c:1099: ScoreBoardRight.lx = 248;
-    00001E17 21rB5r03         [10] 6036 	ld	hl, #_ScoreBoardRight
-    00001E1A 36 F8            [10] 6037 	ld	(hl), #0xf8
-                                   6038 ;./soccerlg.c:1100: ScoreBoardRight.ly = Field.ly;
-    00001E1C ED 4Br8Br03      [20] 6039 	ld	bc, (#(_Field + 4) + 0)
-    00001E20 ED 43rB9r03      [20] 6040 	ld	((_ScoreBoardRight + 4)), bc
-                                   6041 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
-    00001E24 AF               [ 4] 6042 	xor	a, a
-    00001E25 F5               [11] 6043 	push	af
-    00001E26 33               [ 6] 6044 	inc	sp
-    00001E27 2E BF            [ 7] 6045 	ld	l, #0xbf
-                                   6046 ;	spillPairReg hl
-                                   6047 ;	spillPairReg hl
-    00001E29 3E 01            [ 7] 6048 	ld	a, #0x01
-    00001E2B CDr00r00         [17] 6049 	call	_VDP_RegWriteBakMask
-                                   6050 ;./soccerlg.c:1103: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
-    00001E2E 2Ar8Br03         [16] 6051 	ld	hl, (#(_Field + 4) + 0)
-    00001E31 11 00 00         [10] 6052 	ld	de, #0x0000
-    00001E34 D5               [11] 6053 	push	de
-    00001E35 E5               [11] 6054 	push	hl
-    00001E36 11r00r00         [10] 6055 	ld	de, #_PlotField
-    00001E39 3E 05            [ 7] 6056 	ld	a, #0x05
-    00001E3B CDr41r06         [17] 6057 	call	_CallFnc_VOID_16_P2
-                                   6058 ;./soccerlg.c:1104: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
-    00001E3E 2Ar8Br03         [16] 6059 	ld	hl, (#(_Field + 4) + 0)
-    00001E41 11 00 01         [10] 6060 	ld	de, #0x0100
-    00001E44 D5               [11] 6061 	push	de
-    00001E45 E5               [11] 6062 	push	hl
-    00001E46 11r00r00         [10] 6063 	ld	de, #_PlotField
-    00001E49 3E 05            [ 7] 6064 	ld	a, #0x05
-    00001E4B CDr41r06         [17] 6065 	call	_CallFnc_VOID_16_P2
-                                   6066 ;./soccerlg.c:1105: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
-    00001E4E 2Ar8Br03         [16] 6067 	ld	hl, (#(_Field + 4) + 0)
-    00001E51 11 00 02         [10] 6068 	ld	de, #0x0200
-    00001E54 D5               [11] 6069 	push	de
-    00001E55 E5               [11] 6070 	push	hl
-    00001E56 11r00r00         [10] 6071 	ld	de, #_PlotField
-    00001E59 3E 05            [ 7] 6072 	ld	a, #0x05
-    00001E5B CDr41r06         [17] 6073 	call	_CallFnc_VOID_16_P2
-                                   6074 ;./soccerlg.c:1117: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
-    00001E5E 01r9Fr03         [10] 6075 	ld	bc, #_ScoreBoardLeft + 1
-    00001E61 3Ar9Er03         [13] 6076 	ld	a, (#_ScoreBoardLeft + 0)
-    00001E64 02               [ 7] 6077 	ld	(bc), a
-                                   6078 ;./soccerlg.c:1118: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
-    00001E65 01rA0r03         [10] 6079 	ld	bc, #_ScoreBoardLeft + 2
-    00001E68 3Ar9Er03         [13] 6080 	ld	a, (#_ScoreBoardLeft + 0)
-    00001E6B 02               [ 7] 6081 	ld	(bc), a
-                                   6082 ;./soccerlg.c:1119: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
-    00001E6C 01rA1r03         [10] 6083 	ld	bc, #_ScoreBoardLeft + 3
-    00001E6F 3Ar9Er03         [13] 6084 	ld	a, (#_ScoreBoardLeft + 0)
-    00001E72 02               [ 7] 6085 	ld	(bc), a
-                                   6086 ;./soccerlg.c:1121: ScoreBoardRight.x0 = ScoreBoardRight.lx;
-    00001E73 01rB6r03         [10] 6087 	ld	bc, #_ScoreBoardRight + 1
-    00001E76 3ArB5r03         [13] 6088 	ld	a, (#_ScoreBoardRight + 0)
-    00001E79 02               [ 7] 6089 	ld	(bc), a
-                                   6090 ;./soccerlg.c:1122: ScoreBoardRight.x1 = ScoreBoardRight.lx;
-    00001E7A 01rB7r03         [10] 6091 	ld	bc, #_ScoreBoardRight + 2
-    00001E7D 3ArB5r03         [13] 6092 	ld	a, (#_ScoreBoardRight + 0)
-    00001E80 02               [ 7] 6093 	ld	(bc), a
-                                   6094 ;./soccerlg.c:1123: ScoreBoardRight.x2 = ScoreBoardRight.lx;
-    00001E81 01rB8r03         [10] 6095 	ld	bc, #_ScoreBoardRight + 3
-    00001E84 3ArB5r03         [13] 6096 	ld	a, (#_ScoreBoardRight + 0)
-    00001E87 02               [ 7] 6097 	ld	(bc), a
-                                   6098 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
-    00001E88 3E 40            [ 7] 6099 	ld	a, #0x40
-    00001E8A F5               [11] 6100 	push	af
-    00001E8B 33               [ 6] 6101 	inc	sp
-    00001E8C 2E BF            [ 7] 6102 	ld	l, #0xbf
-                                   6103 ;	spillPairReg hl
-                                   6104 ;	spillPairReg hl
-    00001E8E 3E 01            [ 7] 6105 	ld	a, #0x01
-    00001E90 CDr00r00         [17] 6106 	call	_VDP_RegWriteBakMask
-                                   6107 ;./soccerlg.c:1128: CallFnc_VOID(4,MainLoop);
-    00001E93 11r00r00         [10] 6108 	ld	de, #_MainLoop
-    00001E96 3E 04            [ 7] 6109 	ld	a, #0x04
-    00001E98 CDr00r00         [17] 6110 	call	_CallFnc_VOID
-                                   6111 ;./soccerlg.c:1130: }
-    00001E9B DD F9            [10] 6112 	ld	sp, ix
-    00001E9D DD E1            [14] 6113 	pop	ix
-    00001E9F C9               [10] 6114 	ret
-    00001EA0                       6115 ___str_6:
-    00001EA0 20                    6116 	.ascii " "
-    00001EA1 00                    6117 	.db 0x00
-    00001EA2                       6118 ___str_7:
-    00001EA2 30                    6119 	.ascii "0"
-    00001EA3 00                    6120 	.db 0x00
-    00001EA4                       6121 ___str_8:
-    00001EA4 54                    6122 	.ascii "T"
-    00001EA5 00                    6123 	.db 0x00
-    00001EA6                       6124 ___str_9:
-    00001EA6 49                    6125 	.ascii "I"
-    00001EA7 00                    6126 	.db 0x00
-    00001EA8                       6127 ___str_10:
-    00001EA8 4D                    6128 	.ascii "M"
-    00001EA9 00                    6129 	.db 0x00
-    00001EAA                       6130 ___str_11:
-    00001EAA 45                    6131 	.ascii "E"
-    00001EAB 00                    6132 	.db 0x00
-    00001EAC                       6133 ___str_12:
-    00001EAC 25 69                 6134 	.ascii "%i"
-    00001EAE 00                    6135 	.db 0x00
-                                   6136 	.area _CODE
-    00001EAF                       6137 ___str_13:
-    00001EAF 49 54 41              6138 	.ascii "ITA"
-    00001EB2 00                    6139 	.db 0x00
-    00001EB3                       6140 ___str_14:
-    00001EB3 46 52 41              6141 	.ascii "FRA"
-    00001EB6 00                    6142 	.db 0x00
-    00001EB7                       6143 ___str_15:
-    00001EB7 42 52 41              6144 	.ascii "BRA"
-    00001EBA 00                    6145 	.db 0x00
-    00001EBB                       6146 ___str_16:
-    00001EBB 47 45 52              6147 	.ascii "GER"
-    00001EBE 00                    6148 	.db 0x00
-    00001EBF                       6149 ___str_17:
-    00001EBF 4E 4C 44              6150 	.ascii "NLD"
-    00001EC2 00                    6151 	.db 0x00
-    00001EC3                       6152 ___str_18:
-    00001EC3 45 53 50              6153 	.ascii "ESP"
-    00001EC6 00                    6154 	.db 0x00
-                                   6155 	.area _INITIALIZER
-    00000000                       6156 __xinit__g_TeamNames:
-    00000000rAFr1E                 6157 	.dw ___str_13
-    00000002rB3r1E                 6158 	.dw ___str_14
-    00000004rB7r1E                 6159 	.dw ___str_15
-    00000006rBBr1E                 6160 	.dw ___str_16
-    00000008rBFr1E                 6161 	.dw ___str_17
-    0000000ArC3r1E                 6162 	.dw ___str_18
-    0000000C                       6163 __xinit__Frms:
-    0000000C 3C                    6164 	.db #0x3c	; 60
-    0000000D                       6165 __xinit__Secs:
-    0000000D 00                    6166 	.db #0x00	; 0
-    0000000E                       6167 __xinit__Mins:
-    0000000E 01                    6168 	.db #0x01	; 1
-    0000000F                       6169 __xinit__LastSecs:
-    0000000F FF                    6170 	.db #0xff	; 255
-    00000010                       6171 __xinit__Half:
-    00000010 01                    6172 	.db #0x01	; 1
-    00000011                       6173 __xinit__ScoreTeam1:
-    00000011 00                    6174 	.db #0x00	; 0
-    00000012                       6175 __xinit__ScoreTeam2:
-    00000012 00                    6176 	.db #0x00	; 0
-    00000013                       6177 __xinit__LastScoreTeam1:
-    00000013 00                    6178 	.db #0x00	; 0
-    00000014                       6179 __xinit__LastScoreTeam2:
-    00000014 00                    6180 	.db #0x00	; 0
-    00000015                       6181 __xinit__g_is_penalty_shootout:
-    00000015 00                    6182 	.db #0x00	; 0
-    00000016                       6183 __xinit__g_penalty_shot_count:
-    00000016 00                    6184 	.db #0x00	; 0
-    00000017 00                    6185 	.db #0x00	; 0
-    00000018                       6186 __xinit__g_penalty_shooter_idx:
-    00000018 00                    6187 	.db #0x00	; 0
-    00000019                       6188 __xinit__g_penalty_team:
-    00000019 01                    6189 	.db #0x01	; 1
-    0000001A                       6190 __xinit__g_penalty_arrow_pos:
-    0000001A 01                    6191 	.db #0x01	; 1
-    0000001B                       6192 __xinit__g_penalty_arrow_dir:
-    0000001B 01                    6193 	.db #0x01	;  1
-    0000001C                       6194 __xinit__Team1Code:
-    0000001C 00                    6195 	.db #0x00	; 0
-    0000001D                       6196 __xinit__Team2Code:
-    0000001D 04                    6197 	.db #0x04	; 4
-    0000001E                       6198 __xinit__KickOffTeam:
-    0000001E 01                    6199 	.db #0x01	; 1
-    0000001F                       6200 __xinit__GameMode:
-    0000001F 00                    6201 	.db #0x00	; 0
-    00000020                       6202 __xinit__T1_Carrier:
-    00000020 FF                    6203 	.db #0xff	; 255
-    00000021                       6204 __xinit__T1_Receiver:
-    00000021 FF                    6205 	.db #0xff	; 255
-    00000022                       6206 __xinit__T2_Carrier:
-    00000022 FF                    6207 	.db #0xff	; 255
-    00000023                       6208 __xinit__T2_Receiver:
-    00000023 FF                    6209 	.db #0xff	; 255
-    00000024                       6210 __xinit__TimerEnabled:
-    00000024 00                    6211 	.db #0x00	; 0
-    00000025                       6212 __xinit__LastTouchTeam:
-    00000025 FF                    6213 	.db #0xff	; 255
-    00000026                       6214 __xinit__LastTouchPlayer:
-    00000026 FF                    6215 	.db #0xff	; 255
-    00000027                       6216 __xinit__RestartType:
-    00000027 00                    6217 	.db #0x00	; 0
-    00000028                       6218 __xinit__RestartSideX:
-    00000028 00                    6219 	.db #0x00	; 0
-    00000029                       6220 __xinit__RestartSideY:
-    00000029 00 00                 6221 	.dw #0x0000
-    0000002B                       6222 __xinit__g_throw_rec_1:
-    0000002B FF                    6223 	.db #0xff	; 255
-    0000002C                       6224 __xinit__g_throw_rec_2:
-    0000002C FF                    6225 	.db #0xff	; 255
-    0000002D                       6226 __xinit__g_selected_rec:
-    0000002D 00                    6227 	.db #0x00	; 0
-    0000002E                       6228 __xinit__g_thrower_id:
-    0000002E FF                    6229 	.db #0xff	; 255
-    0000002F                       6230 __xinit__g_pass_start_x:
-    0000002F 00 00                 6231 	.dw #0x0000
-    00000031                       6232 __xinit__g_pass_start_y:
-    00000031 00 00                 6233 	.dw #0x0000
-    00000033                       6234 __xinit__g_pass_target_x:
-    00000033 00 00                 6235 	.dw #0x0000
-    00000035                       6236 __xinit__g_pass_target_y:
-    00000035 00 00                 6237 	.dw #0x0000
-    00000037                       6238 __xinit__g_pass_max_frames:
-    00000037 0A                    6239 	.db #0x0a	; 10
-    00000038                       6240 __xinit__g_pass_max_height:
-    00000038 07                    6241 	.db #0x07	; 7
-    00000039                       6242 __xinit__g_pass_receiver:
-    00000039 FF                    6243 	.db #0xff	; 255
-    0000003A                       6244 __xinit__g_last_dx:
-    0000003A 00                    6245 	.db #0x00	;  0
-    0000003B 00                    6246 	.db #0x00	;  0
-    0000003C                       6247 __xinit__g_last_dy:
-    0000003C 01                    6248 	.db #0x01	;  1
-    0000003D FF                    6249 	.db #0xff	; -1
-    0000003E                       6250 __xinit__g_last_input_dir:
-    0000003E 00                    6251 	.db #0x00	; 0
-    0000003F                       6252 __xinit__g_h_arrow_x:
-    0000003F 64 00                 6253 	.dw #0x0064
-    00000041                       6254 __xinit__g_h_arrow_dir:
-    00000041 01                    6255 	.db #0x01	;  1
-    00000042                       6256 __xinit__g_closest_t1:
-    00000042 FF                    6257 	.db #0xff	; 255
-    00000043                       6258 __xinit__g_closest_t2:
-    00000043 FF                    6259 	.db #0xff	; 255
-    00000044                       6260 __xinit__g_is_ball_carried:
-    00000044 00                    6261 	.db #0x00	; 0
-    00000045                       6262 __xinit__g_help_shown:
-    00000045 00                    6263 	.db #0x00	; 0
-    00000046                       6264 __xinit__g_scc_resume_timer:
-    00000046 00                    6265 	.db #0x00	; 0
-    00000047                       6266 __xinit__g_VSynch:
-    00000047 00                    6267 	.db #0x00	; 0
-    00000048                       6268 __xinit__s_scc_after_action:
-    00000048 00                    6269 	.db #0x00	; 0
-                                   6270 	.area _CABS (ABS)
+    00001B6F 09               [11] 5551 	add	hl, bc
+    00001B70 C5               [11] 5552 	push	bc
+    00001B71 11rCCr03         [10] 5553 	ld	de, #_g_ActiveStats
+    00001B74 01 07 00         [10] 5554 	ld	bc, #0x0007
+    00001B77 ED B0            [21] 5555 	ldir
+    00001B79 C1               [10] 5556 	pop	bc
+                                   5557 ;./soccerlg.c:1040: g_ActiveStats[1] = g_TeamStatsArray[Team2Code];
+    00001B7A ED 5Br1Dr00      [20] 5558 	ld	de, (_Team2Code)
+    00001B7E 16 00            [ 7] 5559 	ld	d, #0x00
+    00001B80 6B               [ 4] 5560 	ld	l, e
+    00001B81 62               [ 4] 5561 	ld	h, d
+    00001B82 29               [11] 5562 	add	hl, hl
+    00001B83 19               [11] 5563 	add	hl, de
+    00001B84 29               [11] 5564 	add	hl, hl
+    00001B85 19               [11] 5565 	add	hl, de
+    00001B86 09               [11] 5566 	add	hl, bc
+    00001B87 11rD3r03         [10] 5567 	ld	de, #(_g_ActiveStats + 7)
+    00001B8A 01 07 00         [10] 5568 	ld	bc, #0x0007
+    00001B8D ED B0            [21] 5569 	ldir
+                                   5570 ;./soccerlg.c:1042: VDP_SetMode(VDP_MODE_SCREEN5);
+    00001B8F 3E 06            [ 7] 5571 	ld	a, #0x06
+    00001B91 CDr00r00         [17] 5572 	call	_VDP_SetMode
+                                   5573 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:761: inline void VDP_EnableTransparency(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_TP, !enable ? R08_TP : 0); }
+    00001B94 3E 20            [ 7] 5574 	ld	a, #0x20
+    00001B96 F5               [11] 5575 	push	af
+    00001B97 33               [ 6] 5576 	inc	sp
+    00001B98 2E DF            [ 7] 5577 	ld	l, #0xdf
+                                   5578 ;	spillPairReg hl
+                                   5579 ;	spillPairReg hl
+    00001B9A 3E 08            [ 7] 5580 	ld	a, #0x08
+    00001B9C CDr00r00         [17] 5581 	call	_VDP_RegWriteBakMask
+                                   5582 ;./soccerlg.c:1044: VDP_SetPalette(g_Palette);
+    00001B9F 21r4Fr02         [10] 5583 	ld	hl, #_g_Palette
+    00001BA2 CDr00r00         [17] 5584 	call	_VDP_SetPalette
+                                   5585 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:724: inline void VDP_SetColor(u8 color) { VDP_RegWrite(7, color); }
+    00001BA5 2E 01            [ 7] 5586 	ld	l, #0x01
+                                   5587 ;	spillPairReg hl
+                                   5588 ;	spillPairReg hl
+    00001BA7 3E 07            [ 7] 5589 	ld	a, #0x07
+    00001BA9 CDr00r00         [17] 5590 	call	_VDP_RegWrite
+                                   5591 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:839: inline void VDP_SetLineCount(u8 lines) { VDP_RegWriteBakMask(9, (u8)~R09_LN, lines); }
+    00001BAC AF               [ 4] 5592 	xor	a, a
+    00001BAD F5               [11] 5593 	push	af
+    00001BAE 33               [ 6] 5594 	inc	sp
+    00001BAF 2E 7F            [ 7] 5595 	ld	l, #0x7f
+                                   5596 ;	spillPairReg hl
+                                   5597 ;	spillPairReg hl
+    00001BB1 3E 09            [ 7] 5598 	ld	a, #0x09
+    00001BB3 CDr00r00         [17] 5599 	call	_VDP_RegWriteBakMask
+                                   5600 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:750: inline void VDP_EnableSprite(u8 enable) { VDP_RegWriteBakMask(8, (u8)~R08_SPD, !enable ? R08_SPD : 0); }
+    00001BB6 3E 02            [ 7] 5601 	ld	a, #0x02
+    00001BB8 F5               [11] 5602 	push	af
+    00001BB9 33               [ 6] 5603 	inc	sp
+    00001BBA 2E FD            [ 7] 5604 	ld	l, #0xfd
+                                   5605 ;	spillPairReg hl
+                                   5606 ;	spillPairReg hl
+    00001BBC 3E 08            [ 7] 5607 	ld	a, #0x08
+    00001BBE CDr00r00         [17] 5608 	call	_VDP_RegWriteBakMask
+                                   5609 ;./soccerlg.c:1048: VDP_ClearVRAM();
+    00001BC1 CDr00r00         [17] 5610 	call	_VDP_ClearVRAM
+                                   5611 ;./soccerlg.c:1049: VDP_FillVRAM(0x77, 0x0000, 0, 0x8000);
+    00001BC4 21 00 80         [10] 5612 	ld	hl, #0x8000
+    00001BC7 E5               [11] 5613 	push	hl
+    00001BC8 AF               [ 4] 5614 	xor	a, a
+    00001BC9 F5               [11] 5615 	push	af
+    00001BCA 33               [ 6] 5616 	inc	sp
+    00001BCB 11 00 00         [10] 5617 	ld	de, #0x0000
+    00001BCE 3E 77            [ 7] 5618 	ld	a, #0x77
+    00001BD0 CDr00r00         [17] 5619 	call	_VDP_FillVRAM_128K
+                                   5620 ;./soccerlg.c:1054: LoadField(3);
+    00001BD3 3E 03            [ 7] 5621 	ld	a, #0x03
+    00001BD5 CDrFEr19         [17] 5622 	call	_LoadField
+                                   5623 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
+    00001BD8 21 00 00         [10] 5624 	ld	hl, #0x0000
+    00001BDB 22r04r00         [16] 5625 	ld	((_g_VDP_Command + 4)), hl
+                                   5626 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
+    00001BDE 26 03            [ 7] 5627 	ld	h, #0x03
+    00001BE0 22r06r00         [16] 5628 	ld	((_g_VDP_Command + 6)), hl
+                                   5629 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
+    00001BE3 21 08 00         [10] 5630 	ld	hl, #0x0008
+    00001BE6 22r08r00         [16] 5631 	ld	((_g_VDP_Command + 8)), hl
+                                   5632 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
+    00001BE9 2E D4            [ 7] 5633 	ld	l, #0xd4
+    00001BEB 22r0Ar00         [16] 5634 	ld	((_g_VDP_Command + 10)), hl
+                                   5635 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
+    00001BEE 21r0Cr00         [10] 5636 	ld	hl, #(_g_VDP_Command + 12)
+    00001BF1 36 77            [10] 5637 	ld	(hl), #0x77
+                                   5638 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
+    00001BF3 01r0Dr00         [10] 5639 	ld	bc, #_g_VDP_Command + 13
+    00001BF6 AF               [ 4] 5640 	xor	a, a
+    00001BF7 02               [ 7] 5641 	ld	(bc), a
+                                   5642 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
+    00001BF8 21r0Er00         [10] 5643 	ld	hl, #(_g_VDP_Command + 14)
+    00001BFB 36 C0            [10] 5644 	ld	(hl), #0xc0
+                                   5645 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
+    00001BFD C5               [11] 5646 	push	bc
+    00001BFE CDr00r00         [17] 5647 	call	_VDP_CommandSetupR36
+    00001C01 C1               [10] 5648 	pop	bc
+                                   5649 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:167: g_VDP_Command.DX = dx; 
+    00001C02 21 00 00         [10] 5650 	ld	hl, #0x0000
+    00001C05 22r04r00         [16] 5651 	ld	((_g_VDP_Command + 4)), hl
+                                   5652 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:168: g_VDP_Command.DY = dy; 
+    00001C08 26 03            [ 7] 5653 	ld	h, #0x03
+    00001C0A 22r06r00         [16] 5654 	ld	((_g_VDP_Command + 6)), hl
+                                   5655 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:169: g_VDP_Command.NX = nx; 
+    00001C0D 21 08 00         [10] 5656 	ld	hl, #0x0008
+    00001C10 22r08r00         [16] 5657 	ld	((_g_VDP_Command + 8)), hl
+                                   5658 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:170: g_VDP_Command.NY = ny; 
+    00001C13 2E D4            [ 7] 5659 	ld	l, #0xd4
+    00001C15 22r0Ar00         [16] 5660 	ld	((_g_VDP_Command + 10)), hl
+                                   5661 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:171: g_VDP_Command.CLR = col; 
+    00001C18 21r0Cr00         [10] 5662 	ld	hl, #(_g_VDP_Command + 12)
+    00001C1B 36 77            [10] 5663 	ld	(hl), #0x77
+                                   5664 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:172: g_VDP_Command.ARG = arg; 
+    00001C1D AF               [ 4] 5665 	xor	a, a
+    00001C1E 02               [ 7] 5666 	ld	(bc), a
+                                   5667 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:173: g_VDP_Command.CMD = VDP_CMD_HMMV;
+    00001C1F 21r0Er00         [10] 5668 	ld	hl, #(_g_VDP_Command + 14)
+    00001C22 36 C0            [10] 5669 	ld	(hl), #0xc0
+                                   5670 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp_inl.h:174: VDP_CommandSetupR36();
+    00001C24 CDr00r00         [17] 5671 	call	_VDP_CommandSetupR36
+                                   5672 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:192: g_Bank0Segment[b] = s;
+    00001C27 21 04 00         [10] 5673 	ld	hl, #0x0004
+    00001C2A 22r06r00         [16] 5674 	ld	((_g_Bank0Segment + 6)), hl
+                                   5675 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:193: YAMANOOTO_SET_OFFR((s >> 2) & 0xC0);
+    00001C2D 3E 01            [ 7] 5676 	ld	a, #0x01
+    00001C2F E6 C0            [ 7] 5677 	and	a, #0xc0
+                                   5678 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001C31 32 FE 7F         [13] 5679 	ld	(#0x7ffe),a
+                                   5680 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:197: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+    00001C34 3E 04            [ 7] 5681 	ld	a, #0x04
+                                   5682 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001C36 32 00 B0         [13] 5683 	ld	(#0xb000),a
+                                   5684 ;./soccerlg.c:1060: Print_SetBitmapFont(g_Fonts);
+    00001C39 21r00r00         [10] 5685 	ld	hl, #_g_Fonts
+    00001C3C CDr00r00         [17] 5686 	call	_Print_SetBitmapFont
+                                   5687 ;./soccerlg.c:1061: Print_SetColor(4, 7);
+    00001C3F 2E 07            [ 7] 5688 	ld	l, #0x07
+                                   5689 ;	spillPairReg hl
+                                   5690 ;	spillPairReg hl
+    00001C41 3E 04            [ 7] 5691 	ld	a, #0x04
+    00001C43 CDr00r00         [17] 5692 	call	_Print_SetColor
+                                   5693 ;./soccerlg.c:1064: str[1] = '\0';
+    00001C46 DD 36 FF 00      [19] 5694 	ld	-1 (ix), #0x00
+                                   5695 ;./soccerlg.c:1067: str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
+    00001C4A 3Ar1Dr00         [13] 5696 	ld	a, (_Team2Code+0)
+    00001C4D 26 00            [ 7] 5697 	ld	h, #0x00
+                                   5698 ;	spillPairReg hl
+                                   5699 ;	spillPairReg hl
+    00001C4F 6F               [ 4] 5700 	ld	l, a
+    00001C50 29               [11] 5701 	add	hl, hl
+    00001C51 11r00r00         [10] 5702 	ld	de, #_g_TeamNames
+    00001C54 19               [11] 5703 	add	hl, de
+    00001C55 4E               [ 7] 5704 	ld	c, (hl)
+    00001C56 23               [ 6] 5705 	inc	hl
+    00001C57 46               [ 7] 5706 	ld	b, (hl)
+    00001C58 0A               [ 7] 5707 	ld	a, (bc)
+    00001C59 DD 77 FE         [19] 5708 	ld	-2 (ix), a
+                                   5709 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001C5C 01r05r00         [10] 5710 	ld	bc, #_g_PrintData + 5
+    00001C5F AF               [ 4] 5711 	xor	a, a
+    00001C60 02               [ 7] 5712 	ld	(bc), a
+                                   5713 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001C61 21 08 03         [10] 5714 	ld	hl, #0x0308
+    00001C64 22r06r00         [16] 5715 	ld	((_g_PrintData + 6)), hl
+                                   5716 ;./soccerlg.c:1067: str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
+    00001C67 C5               [11] 5717 	push	bc
+    00001C68 21 02 00         [10] 5718 	ld	hl, #2
+    00001C6B 39               [11] 5719 	add	hl, sp
+    00001C6C CDr00r00         [17] 5720 	call	_Print_DrawText
+    00001C6F C1               [10] 5721 	pop	bc
+                                   5722 ;./soccerlg.c:1068: str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
+    00001C70 3Ar1Dr00         [13] 5723 	ld	a, (_Team2Code+0)
+    00001C73 6F               [ 4] 5724 	ld	l, a
+                                   5725 ;	spillPairReg hl
+                                   5726 ;	spillPairReg hl
+    00001C74 26 00            [ 7] 5727 	ld	h, #0x00
+                                   5728 ;	spillPairReg hl
+                                   5729 ;	spillPairReg hl
+    00001C76 29               [11] 5730 	add	hl, hl
+    00001C77 11r00r00         [10] 5731 	ld	de, #_g_TeamNames
+    00001C7A 19               [11] 5732 	add	hl, de
+    00001C7B 5E               [ 7] 5733 	ld	e, (hl)
+    00001C7C 23               [ 6] 5734 	inc	hl
+    00001C7D 56               [ 7] 5735 	ld	d, (hl)
+    00001C7E 13               [ 6] 5736 	inc	de
+    00001C7F 1A               [ 7] 5737 	ld	a, (de)
+    00001C80 DD 77 FE         [19] 5738 	ld	-2 (ix), a
+                                   5739 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001C83 AF               [ 4] 5740 	xor	a, a
+    00001C84 02               [ 7] 5741 	ld	(bc), a
+                                   5742 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001C85 21 10 03         [10] 5743 	ld	hl, #0x0310
+    00001C88 22r06r00         [16] 5744 	ld	((_g_PrintData + 6)), hl
+                                   5745 ;./soccerlg.c:1068: str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
+    00001C8B C5               [11] 5746 	push	bc
+    00001C8C 21 02 00         [10] 5747 	ld	hl, #2
+    00001C8F 39               [11] 5748 	add	hl, sp
+    00001C90 CDr00r00         [17] 5749 	call	_Print_DrawText
+    00001C93 C1               [10] 5750 	pop	bc
+                                   5751 ;./soccerlg.c:1069: str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
+    00001C94 3Ar1Dr00         [13] 5752 	ld	a, (_Team2Code+0)
+    00001C97 6F               [ 4] 5753 	ld	l, a
+                                   5754 ;	spillPairReg hl
+                                   5755 ;	spillPairReg hl
+    00001C98 26 00            [ 7] 5756 	ld	h, #0x00
+                                   5757 ;	spillPairReg hl
+                                   5758 ;	spillPairReg hl
+    00001C9A 29               [11] 5759 	add	hl, hl
+    00001C9B 11r00r00         [10] 5760 	ld	de, #_g_TeamNames
+    00001C9E 19               [11] 5761 	add	hl, de
+    00001C9F 5E               [ 7] 5762 	ld	e, (hl)
+    00001CA0 23               [ 6] 5763 	inc	hl
+    00001CA1 56               [ 7] 5764 	ld	d, (hl)
+    00001CA2 13               [ 6] 5765 	inc	de
+    00001CA3 13               [ 6] 5766 	inc	de
+    00001CA4 1A               [ 7] 5767 	ld	a, (de)
+    00001CA5 DD 77 FE         [19] 5768 	ld	-2 (ix), a
+                                   5769 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001CA8 AF               [ 4] 5770 	xor	a, a
+    00001CA9 02               [ 7] 5771 	ld	(bc), a
+                                   5772 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001CAA 21 18 03         [10] 5773 	ld	hl, #0x0318
+    00001CAD 22r06r00         [16] 5774 	ld	((_g_PrintData + 6)), hl
+                                   5775 ;./soccerlg.c:1069: str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
+    00001CB0 C5               [11] 5776 	push	bc
+    00001CB1 21 02 00         [10] 5777 	ld	hl, #2
+    00001CB4 39               [11] 5778 	add	hl, sp
+    00001CB5 CDr00r00         [17] 5779 	call	_Print_DrawText
+    00001CB8 C1               [10] 5780 	pop	bc
+                                   5781 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001CB9 AF               [ 4] 5782 	xor	a, a
+    00001CBA 02               [ 7] 5783 	ld	(bc), a
+                                   5784 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001CBB 21 20 03         [10] 5785 	ld	hl, #0x0320
+    00001CBE 22r06r00         [16] 5786 	ld	((_g_PrintData + 6)), hl
+                                   5787 ;./soccerlg.c:1070: Print_SetPosition(0,  32+768);Print_DrawText(" ");
+    00001CC1 C5               [11] 5788 	push	bc
+    00001CC2 21rB5r1E         [10] 5789 	ld	hl, #___str_6
+    00001CC5 CDr00r00         [17] 5790 	call	_Print_DrawText
+    00001CC8 C1               [10] 5791 	pop	bc
+                                   5792 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001CC9 AF               [ 4] 5793 	xor	a, a
+    00001CCA 02               [ 7] 5794 	ld	(bc), a
+                                   5795 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001CCB 21 28 03         [10] 5796 	ld	hl, #0x0328
+    00001CCE 22r06r00         [16] 5797 	ld	((_g_PrintData + 6)), hl
+                                   5798 ;./soccerlg.c:1071: Print_SetPosition(0,  40+768);Print_DrawText("0");
+    00001CD1 C5               [11] 5799 	push	bc
+    00001CD2 21rB7r1E         [10] 5800 	ld	hl, #___str_7
+    00001CD5 CDr00r00         [17] 5801 	call	_Print_DrawText
+    00001CD8 C1               [10] 5802 	pop	bc
+                                   5803 ;./soccerlg.c:1074: str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
+    00001CD9 3Ar1Cr00         [13] 5804 	ld	a, (_Team1Code+0)
+    00001CDC 6F               [ 4] 5805 	ld	l, a
+                                   5806 ;	spillPairReg hl
+                                   5807 ;	spillPairReg hl
+    00001CDD 26 00            [ 7] 5808 	ld	h, #0x00
+                                   5809 ;	spillPairReg hl
+                                   5810 ;	spillPairReg hl
+    00001CDF 29               [11] 5811 	add	hl, hl
+    00001CE0 11r00r00         [10] 5812 	ld	de, #_g_TeamNames
+    00001CE3 19               [11] 5813 	add	hl, de
+    00001CE4 5E               [ 7] 5814 	ld	e, (hl)
+    00001CE5 23               [ 6] 5815 	inc	hl
+    00001CE6 56               [ 7] 5816 	ld	d, (hl)
+    00001CE7 1A               [ 7] 5817 	ld	a, (de)
+    00001CE8 DD 77 FE         [19] 5818 	ld	-2 (ix), a
+                                   5819 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001CEB AF               [ 4] 5820 	xor	a, a
+    00001CEC 02               [ 7] 5821 	ld	(bc), a
+                                   5822 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001CED 21 38 03         [10] 5823 	ld	hl, #0x0338
+    00001CF0 22r06r00         [16] 5824 	ld	((_g_PrintData + 6)), hl
+                                   5825 ;./soccerlg.c:1074: str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
+    00001CF3 C5               [11] 5826 	push	bc
+    00001CF4 21 02 00         [10] 5827 	ld	hl, #2
+    00001CF7 39               [11] 5828 	add	hl, sp
+    00001CF8 CDr00r00         [17] 5829 	call	_Print_DrawText
+    00001CFB C1               [10] 5830 	pop	bc
+                                   5831 ;./soccerlg.c:1075: str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
+    00001CFC 3Ar1Cr00         [13] 5832 	ld	a, (_Team1Code+0)
+    00001CFF 6F               [ 4] 5833 	ld	l, a
+                                   5834 ;	spillPairReg hl
+                                   5835 ;	spillPairReg hl
+    00001D00 26 00            [ 7] 5836 	ld	h, #0x00
+                                   5837 ;	spillPairReg hl
+                                   5838 ;	spillPairReg hl
+    00001D02 29               [11] 5839 	add	hl, hl
+    00001D03 11r00r00         [10] 5840 	ld	de, #_g_TeamNames
+    00001D06 19               [11] 5841 	add	hl, de
+    00001D07 5E               [ 7] 5842 	ld	e, (hl)
+    00001D08 23               [ 6] 5843 	inc	hl
+    00001D09 56               [ 7] 5844 	ld	d, (hl)
+    00001D0A 13               [ 6] 5845 	inc	de
+    00001D0B 1A               [ 7] 5846 	ld	a, (de)
+    00001D0C DD 77 FE         [19] 5847 	ld	-2 (ix), a
+                                   5848 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D0F AF               [ 4] 5849 	xor	a, a
+    00001D10 02               [ 7] 5850 	ld	(bc), a
+                                   5851 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D11 21 40 03         [10] 5852 	ld	hl, #0x0340
+    00001D14 22r06r00         [16] 5853 	ld	((_g_PrintData + 6)), hl
+                                   5854 ;./soccerlg.c:1075: str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
+    00001D17 C5               [11] 5855 	push	bc
+    00001D18 21 02 00         [10] 5856 	ld	hl, #2
+    00001D1B 39               [11] 5857 	add	hl, sp
+    00001D1C CDr00r00         [17] 5858 	call	_Print_DrawText
+    00001D1F C1               [10] 5859 	pop	bc
+                                   5860 ;./soccerlg.c:1076: str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
+    00001D20 3Ar1Cr00         [13] 5861 	ld	a, (_Team1Code+0)
+    00001D23 6F               [ 4] 5862 	ld	l, a
+                                   5863 ;	spillPairReg hl
+                                   5864 ;	spillPairReg hl
+    00001D24 26 00            [ 7] 5865 	ld	h, #0x00
+                                   5866 ;	spillPairReg hl
+                                   5867 ;	spillPairReg hl
+    00001D26 29               [11] 5868 	add	hl, hl
+    00001D27 11r00r00         [10] 5869 	ld	de, #_g_TeamNames
+    00001D2A 19               [11] 5870 	add	hl, de
+    00001D2B 5E               [ 7] 5871 	ld	e, (hl)
+    00001D2C 23               [ 6] 5872 	inc	hl
+    00001D2D 56               [ 7] 5873 	ld	d, (hl)
+    00001D2E 13               [ 6] 5874 	inc	de
+    00001D2F 13               [ 6] 5875 	inc	de
+    00001D30 1A               [ 7] 5876 	ld	a, (de)
+    00001D31 DD 77 FE         [19] 5877 	ld	-2 (ix), a
+                                   5878 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D34 AF               [ 4] 5879 	xor	a, a
+    00001D35 02               [ 7] 5880 	ld	(bc), a
+                                   5881 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D36 21 48 03         [10] 5882 	ld	hl, #0x0348
+    00001D39 22r06r00         [16] 5883 	ld	((_g_PrintData + 6)), hl
+                                   5884 ;./soccerlg.c:1076: str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
+    00001D3C C5               [11] 5885 	push	bc
+    00001D3D 21 02 00         [10] 5886 	ld	hl, #2
+    00001D40 39               [11] 5887 	add	hl, sp
+    00001D41 CDr00r00         [17] 5888 	call	_Print_DrawText
+    00001D44 C1               [10] 5889 	pop	bc
+                                   5890 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D45 AF               [ 4] 5891 	xor	a, a
+    00001D46 02               [ 7] 5892 	ld	(bc), a
+                                   5893 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D47 21 50 03         [10] 5894 	ld	hl, #0x0350
+    00001D4A 22r06r00         [16] 5895 	ld	((_g_PrintData + 6)), hl
+                                   5896 ;./soccerlg.c:1077: Print_SetPosition(0,  80+768);Print_DrawText(" ");
+    00001D4D C5               [11] 5897 	push	bc
+    00001D4E 21rB5r1E         [10] 5898 	ld	hl, #___str_6
+    00001D51 CDr00r00         [17] 5899 	call	_Print_DrawText
+    00001D54 C1               [10] 5900 	pop	bc
+                                   5901 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D55 AF               [ 4] 5902 	xor	a, a
+    00001D56 02               [ 7] 5903 	ld	(bc), a
+                                   5904 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D57 21 58 03         [10] 5905 	ld	hl, #0x0358
+    00001D5A 22r06r00         [16] 5906 	ld	((_g_PrintData + 6)), hl
+                                   5907 ;./soccerlg.c:1078: Print_SetPosition(0,  88+768);Print_DrawText("0");
+    00001D5D C5               [11] 5908 	push	bc
+    00001D5E 21rB7r1E         [10] 5909 	ld	hl, #___str_7
+    00001D61 CDr00r00         [17] 5910 	call	_Print_DrawText
+    00001D64 C1               [10] 5911 	pop	bc
+                                   5912 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D65 3E F8            [ 7] 5913 	ld	a, #0xf8
+    00001D67 02               [ 7] 5914 	ld	(bc), a
+                                   5915 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D68 21 08 03         [10] 5916 	ld	hl, #0x0308
+    00001D6B 22r06r00         [16] 5917 	ld	((_g_PrintData + 6)), hl
+                                   5918 ;./soccerlg.c:1081: Print_SetPosition(248,  8+768);Print_DrawText("T");
+    00001D6E C5               [11] 5919 	push	bc
+    00001D6F 21rB9r1E         [10] 5920 	ld	hl, #___str_8
+    00001D72 CDr00r00         [17] 5921 	call	_Print_DrawText
+    00001D75 C1               [10] 5922 	pop	bc
+                                   5923 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D76 3E F8            [ 7] 5924 	ld	a, #0xf8
+    00001D78 02               [ 7] 5925 	ld	(bc), a
+                                   5926 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D79 21 10 03         [10] 5927 	ld	hl, #0x0310
+    00001D7C 22r06r00         [16] 5928 	ld	((_g_PrintData + 6)), hl
+                                   5929 ;./soccerlg.c:1082: Print_SetPosition(248,  16+768);Print_DrawText("I");
+    00001D7F C5               [11] 5930 	push	bc
+    00001D80 21rBBr1E         [10] 5931 	ld	hl, #___str_9
+    00001D83 CDr00r00         [17] 5932 	call	_Print_DrawText
+    00001D86 C1               [10] 5933 	pop	bc
+                                   5934 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D87 3E F8            [ 7] 5935 	ld	a, #0xf8
+    00001D89 02               [ 7] 5936 	ld	(bc), a
+                                   5937 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D8A 21 18 03         [10] 5938 	ld	hl, #0x0318
+    00001D8D 22r06r00         [16] 5939 	ld	((_g_PrintData + 6)), hl
+                                   5940 ;./soccerlg.c:1083: Print_SetPosition(248,  24+768);Print_DrawText("M");
+    00001D90 C5               [11] 5941 	push	bc
+    00001D91 21rBDr1E         [10] 5942 	ld	hl, #___str_10
+    00001D94 CDr00r00         [17] 5943 	call	_Print_DrawText
+    00001D97 C1               [10] 5944 	pop	bc
+                                   5945 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001D98 3E F8            [ 7] 5946 	ld	a, #0xf8
+    00001D9A 02               [ 7] 5947 	ld	(bc), a
+                                   5948 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001D9B 21 20 03         [10] 5949 	ld	hl, #0x0320
+    00001D9E 22r06r00         [16] 5950 	ld	((_g_PrintData + 6)), hl
+                                   5951 ;./soccerlg.c:1084: Print_SetPosition(248,  32+768);Print_DrawText("E");
+    00001DA1 C5               [11] 5952 	push	bc
+    00001DA2 21rBFr1E         [10] 5953 	ld	hl, #___str_11
+    00001DA5 CDr00r00         [17] 5954 	call	_Print_DrawText
+    00001DA8 C1               [10] 5955 	pop	bc
+                                   5956 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001DA9 3E F8            [ 7] 5957 	ld	a, #0xf8
+    00001DAB 02               [ 7] 5958 	ld	(bc), a
+                                   5959 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001DAC 21 30 03         [10] 5960 	ld	hl, #0x0330
+    00001DAF 22r06r00         [16] 5961 	ld	((_g_PrintData + 6)), hl
+                                   5962 ;./soccerlg.c:1086: Print_SetPosition(248,  48+768);Print_DrawFormat("%i",Mins);//Print_DrawText("3");	
+    00001DB2 3Ar0Er00         [13] 5963 	ld	a, (_Mins+0)
+    00001DB5 5F               [ 4] 5964 	ld	e, a
+    00001DB6 16 00            [ 7] 5965 	ld	d, #0x00
+    00001DB8 C5               [11] 5966 	push	bc
+    00001DB9 D5               [11] 5967 	push	de
+    00001DBA 21rC1r1E         [10] 5968 	ld	hl, #___str_12
+    00001DBD E5               [11] 5969 	push	hl
+    00001DBE CDr00r00         [17] 5970 	call	_Print_DrawFormat
+    00001DC1 F1               [10] 5971 	pop	af
+    00001DC2 F1               [10] 5972 	pop	af
+    00001DC3 C1               [10] 5973 	pop	bc
+                                   5974 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001DC4 3E F8            [ 7] 5975 	ld	a, #0xf8
+    00001DC6 02               [ 7] 5976 	ld	(bc), a
+                                   5977 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001DC7 21 3C 03         [10] 5978 	ld	hl, #0x033c
+    00001DCA 22r06r00         [16] 5979 	ld	((_g_PrintData + 6)), hl
+                                   5980 ;./soccerlg.c:1087: Print_SetPosition(248,  60+768);Print_DrawFormat("%i",Secs/10);	
+    00001DCD 3Ar0Dr00         [13] 5981 	ld	a, (_Secs+0)
+    00001DD0 6F               [ 4] 5982 	ld	l, a
+                                   5983 ;	spillPairReg hl
+                                   5984 ;	spillPairReg hl
+    00001DD1 26 00            [ 7] 5985 	ld	h, #0x00
+                                   5986 ;	spillPairReg hl
+                                   5987 ;	spillPairReg hl
+    00001DD3 C5               [11] 5988 	push	bc
+    00001DD4 11 0A 00         [10] 5989 	ld	de, #0x000a
+    00001DD7 CDr00r00         [17] 5990 	call	__divsint
+    00001DDA D5               [11] 5991 	push	de
+    00001DDB 21rC1r1E         [10] 5992 	ld	hl, #___str_12
+    00001DDE E5               [11] 5993 	push	hl
+    00001DDF CDr00r00         [17] 5994 	call	_Print_DrawFormat
+    00001DE2 F1               [10] 5995 	pop	af
+    00001DE3 F1               [10] 5996 	pop	af
+    00001DE4 C1               [10] 5997 	pop	bc
+                                   5998 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:268: PRINT_DATA.CursorX = x;
+    00001DE5 3E F8            [ 7] 5999 	ld	a, #0xf8
+    00001DE7 02               [ 7] 6000 	ld	(bc), a
+                                   6001 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:269: PRINT_DATA.CursorY = y;
+    00001DE8 21 44 03         [10] 6002 	ld	hl, #0x0344
+    00001DEB 22r06r00         [16] 6003 	ld	((_g_PrintData + 6)), hl
+                                   6004 ;./soccerlg.c:1088: Print_SetPosition(248,  68+768);Print_DrawFormat("%i",Secs-Secs/10*10);	
+    00001DEE 3Ar0Dr00         [13] 6005 	ld	a, (_Secs+0)
+    00001DF1 4F               [ 4] 6006 	ld	c, a
+    00001DF2 06 00            [ 7] 6007 	ld	b, #0x00
+    00001DF4 C5               [11] 6008 	push	bc
+    00001DF5 11 0A 00         [10] 6009 	ld	de, #0x000a
+    00001DF8 69               [ 4] 6010 	ld	l, c
+                                   6011 ;	spillPairReg hl
+                                   6012 ;	spillPairReg hl
+    00001DF9 60               [ 4] 6013 	ld	h, b
+                                   6014 ;	spillPairReg hl
+                                   6015 ;	spillPairReg hl
+    00001DFA CDr00r00         [17] 6016 	call	__divsint
+    00001DFD C1               [10] 6017 	pop	bc
+    00001DFE 6B               [ 4] 6018 	ld	l, e
+    00001DFF 62               [ 4] 6019 	ld	h, d
+    00001E00 29               [11] 6020 	add	hl, hl
+    00001E01 29               [11] 6021 	add	hl, hl
+    00001E02 19               [11] 6022 	add	hl, de
+    00001E03 29               [11] 6023 	add	hl, hl
+    00001E04 79               [ 4] 6024 	ld	a, c
+    00001E05 95               [ 4] 6025 	sub	a, l
+    00001E06 4F               [ 4] 6026 	ld	c, a
+    00001E07 78               [ 4] 6027 	ld	a, b
+    00001E08 9C               [ 4] 6028 	sbc	a, h
+    00001E09 47               [ 4] 6029 	ld	b, a
+    00001E0A C5               [11] 6030 	push	bc
+    00001E0B 21rC1r1E         [10] 6031 	ld	hl, #___str_12
+    00001E0E E5               [11] 6032 	push	hl
+    00001E0F CDr00r00         [17] 6033 	call	_Print_DrawFormat
+    00001E12 F1               [10] 6034 	pop	af
+    00001E13 F1               [10] 6035 	pop	af
+                                   6036 ;./soccerlg.c:1097: Field.dy = 1;
+    00001E14 21r99r03         [10] 6037 	ld	hl, #(_Field + 18)
+    00001E17 36 01            [10] 6038 	ld	(hl), #0x01
+                                   6039 ;./soccerlg.c:1098: Field.ly = 0;
+    00001E19 21 00 00         [10] 6040 	ld	hl, #0x0000
+    00001E1C 22r8Br03         [16] 6041 	ld	((_Field + 4)), hl
+                                   6042 ;./soccerlg.c:1100: ScoreBoardLeft.lx = 0;
+    00001E1F 21r9Er03         [10] 6043 	ld	hl, #_ScoreBoardLeft
+    00001E22 36 00            [10] 6044 	ld	(hl), #0x00
+                                   6045 ;./soccerlg.c:1101: ScoreBoardLeft.ly = Field.ly;
+    00001E24 ED 4Br8Br03      [20] 6046 	ld	bc, (#(_Field + 4) + 0)
+    00001E28 ED 43rA2r03      [20] 6047 	ld	((_ScoreBoardLeft + 4)), bc
+                                   6048 ;./soccerlg.c:1103: ScoreBoardRight.lx = 248;
+    00001E2C 21rB5r03         [10] 6049 	ld	hl, #_ScoreBoardRight
+    00001E2F 36 F8            [10] 6050 	ld	(hl), #0xf8
+                                   6051 ;./soccerlg.c:1104: ScoreBoardRight.ly = Field.ly;
+    00001E31 ED 4Br8Br03      [20] 6052 	ld	bc, (#(_Field + 4) + 0)
+    00001E35 ED 43rB9r03      [20] 6053 	ld	((_ScoreBoardRight + 4)), bc
+                                   6054 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
+    00001E39 AF               [ 4] 6055 	xor	a, a
+    00001E3A F5               [11] 6056 	push	af
+    00001E3B 33               [ 6] 6057 	inc	sp
+    00001E3C 2E BF            [ 7] 6058 	ld	l, #0xbf
+                                   6059 ;	spillPairReg hl
+                                   6060 ;	spillPairReg hl
+    00001E3E 3E 01            [ 7] 6061 	ld	a, #0x01
+    00001E40 CDr00r00         [17] 6062 	call	_VDP_RegWriteBakMask
+                                   6063 ;./soccerlg.c:1107: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly,   0);
+    00001E43 2Ar8Br03         [16] 6064 	ld	hl, (#(_Field + 4) + 0)
+    00001E46 11 00 00         [10] 6065 	ld	de, #0x0000
+    00001E49 D5               [11] 6066 	push	de
+    00001E4A E5               [11] 6067 	push	hl
+    00001E4B 11r00r00         [10] 6068 	ld	de, #_PlotField
+    00001E4E 3E 05            [ 7] 6069 	ld	a, #0x05
+    00001E50 CDr41r06         [17] 6070 	call	_CallFnc_VOID_16_P2
+                                   6071 ;./soccerlg.c:1108: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 256);
+    00001E53 2Ar8Br03         [16] 6072 	ld	hl, (#(_Field + 4) + 0)
+    00001E56 11 00 01         [10] 6073 	ld	de, #0x0100
+    00001E59 D5               [11] 6074 	push	de
+    00001E5A E5               [11] 6075 	push	hl
+    00001E5B 11r00r00         [10] 6076 	ld	de, #_PlotField
+    00001E5E 3E 05            [ 7] 6077 	ld	a, #0x05
+    00001E60 CDr41r06         [17] 6078 	call	_CallFnc_VOID_16_P2
+                                   6079 ;./soccerlg.c:1109: CallFnc_VOID_16_P2(SEG_DRAW, PlotField, Field.ly, 512);
+    00001E63 2Ar8Br03         [16] 6080 	ld	hl, (#(_Field + 4) + 0)
+    00001E66 11 00 02         [10] 6081 	ld	de, #0x0200
+    00001E69 D5               [11] 6082 	push	de
+    00001E6A E5               [11] 6083 	push	hl
+    00001E6B 11r00r00         [10] 6084 	ld	de, #_PlotField
+    00001E6E 3E 05            [ 7] 6085 	ld	a, #0x05
+    00001E70 CDr41r06         [17] 6086 	call	_CallFnc_VOID_16_P2
+                                   6087 ;./soccerlg.c:1121: ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
+    00001E73 01r9Fr03         [10] 6088 	ld	bc, #_ScoreBoardLeft + 1
+    00001E76 3Ar9Er03         [13] 6089 	ld	a, (#_ScoreBoardLeft + 0)
+    00001E79 02               [ 7] 6090 	ld	(bc), a
+                                   6091 ;./soccerlg.c:1122: ScoreBoardLeft.x1 = ScoreBoardLeft.lx;
+    00001E7A 01rA0r03         [10] 6092 	ld	bc, #_ScoreBoardLeft + 2
+    00001E7D 3Ar9Er03         [13] 6093 	ld	a, (#_ScoreBoardLeft + 0)
+    00001E80 02               [ 7] 6094 	ld	(bc), a
+                                   6095 ;./soccerlg.c:1123: ScoreBoardLeft.x2 = ScoreBoardLeft.lx;
+    00001E81 01rA1r03         [10] 6096 	ld	bc, #_ScoreBoardLeft + 3
+    00001E84 3Ar9Er03         [13] 6097 	ld	a, (#_ScoreBoardLeft + 0)
+    00001E87 02               [ 7] 6098 	ld	(bc), a
+                                   6099 ;./soccerlg.c:1125: ScoreBoardRight.x0 = ScoreBoardRight.lx;
+    00001E88 01rB6r03         [10] 6100 	ld	bc, #_ScoreBoardRight + 1
+    00001E8B 3ArB5r03         [13] 6101 	ld	a, (#_ScoreBoardRight + 0)
+    00001E8E 02               [ 7] 6102 	ld	(bc), a
+                                   6103 ;./soccerlg.c:1126: ScoreBoardRight.x1 = ScoreBoardRight.lx;
+    00001E8F 01rB7r03         [10] 6104 	ld	bc, #_ScoreBoardRight + 2
+    00001E92 3ArB5r03         [13] 6105 	ld	a, (#_ScoreBoardRight + 0)
+    00001E95 02               [ 7] 6106 	ld	(bc), a
+                                   6107 ;./soccerlg.c:1127: ScoreBoardRight.x2 = ScoreBoardRight.lx;
+    00001E96 01rB8r03         [10] 6108 	ld	bc, #_ScoreBoardRight + 3
+    00001E99 3ArB5r03         [13] 6109 	ld	a, (#_ScoreBoardRight + 0)
+    00001E9C 02               [ 7] 6110 	ld	(bc), a
+                                   6111 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/vdp.h:710: inline void VDP_EnableDisplay(bool enable) { VDP_RegWriteBakMask(1, (u8)~R01_BL, enable ? R01_BL : 0); }
+    00001E9D 3E 40            [ 7] 6112 	ld	a, #0x40
+    00001E9F F5               [11] 6113 	push	af
+    00001EA0 33               [ 6] 6114 	inc	sp
+    00001EA1 2E BF            [ 7] 6115 	ld	l, #0xbf
+                                   6116 ;	spillPairReg hl
+                                   6117 ;	spillPairReg hl
+    00001EA3 3E 01            [ 7] 6118 	ld	a, #0x01
+    00001EA5 CDr00r00         [17] 6119 	call	_VDP_RegWriteBakMask
+                                   6120 ;./soccerlg.c:1132: CallFnc_VOID(4,MainLoop);
+    00001EA8 11r00r00         [10] 6121 	ld	de, #_MainLoop
+    00001EAB 3E 04            [ 7] 6122 	ld	a, #0x04
+    00001EAD CDr00r00         [17] 6123 	call	_CallFnc_VOID
+                                   6124 ;./soccerlg.c:1134: }
+    00001EB0 DD F9            [10] 6125 	ld	sp, ix
+    00001EB2 DD E1            [14] 6126 	pop	ix
+    00001EB4 C9               [10] 6127 	ret
+    00001EB5                       6128 ___str_6:
+    00001EB5 20                    6129 	.ascii " "
+    00001EB6 00                    6130 	.db 0x00
+    00001EB7                       6131 ___str_7:
+    00001EB7 30                    6132 	.ascii "0"
+    00001EB8 00                    6133 	.db 0x00
+    00001EB9                       6134 ___str_8:
+    00001EB9 54                    6135 	.ascii "T"
+    00001EBA 00                    6136 	.db 0x00
+    00001EBB                       6137 ___str_9:
+    00001EBB 49                    6138 	.ascii "I"
+    00001EBC 00                    6139 	.db 0x00
+    00001EBD                       6140 ___str_10:
+    00001EBD 4D                    6141 	.ascii "M"
+    00001EBE 00                    6142 	.db 0x00
+    00001EBF                       6143 ___str_11:
+    00001EBF 45                    6144 	.ascii "E"
+    00001EC0 00                    6145 	.db 0x00
+    00001EC1                       6146 ___str_12:
+    00001EC1 25 69                 6147 	.ascii "%i"
+    00001EC3 00                    6148 	.db 0x00
+                                   6149 	.area _CODE
+    00001EC4                       6150 ___str_13:
+    00001EC4 49 54 41              6151 	.ascii "ITA"
+    00001EC7 00                    6152 	.db 0x00
+    00001EC8                       6153 ___str_14:
+    00001EC8 46 52 41              6154 	.ascii "FRA"
+    00001ECB 00                    6155 	.db 0x00
+    00001ECC                       6156 ___str_15:
+    00001ECC 42 52 41              6157 	.ascii "BRA"
+    00001ECF 00                    6158 	.db 0x00
+    00001ED0                       6159 ___str_16:
+    00001ED0 47 45 52              6160 	.ascii "GER"
+    00001ED3 00                    6161 	.db 0x00
+    00001ED4                       6162 ___str_17:
+    00001ED4 4E 4C 44              6163 	.ascii "NLD"
+    00001ED7 00                    6164 	.db 0x00
+    00001ED8                       6165 ___str_18:
+    00001ED8 45 53 50              6166 	.ascii "ESP"
+    00001EDB 00                    6167 	.db 0x00
+                                   6168 	.area _INITIALIZER
+    00000000                       6169 __xinit__g_TeamNames:
+    00000000rC4r1E                 6170 	.dw ___str_13
+    00000002rC8r1E                 6171 	.dw ___str_14
+    00000004rCCr1E                 6172 	.dw ___str_15
+    00000006rD0r1E                 6173 	.dw ___str_16
+    00000008rD4r1E                 6174 	.dw ___str_17
+    0000000ArD8r1E                 6175 	.dw ___str_18
+    0000000C                       6176 __xinit__Frms:
+    0000000C 3C                    6177 	.db #0x3c	; 60
+    0000000D                       6178 __xinit__Secs:
+    0000000D 00                    6179 	.db #0x00	; 0
+    0000000E                       6180 __xinit__Mins:
+    0000000E 01                    6181 	.db #0x01	; 1
+    0000000F                       6182 __xinit__LastSecs:
+    0000000F FF                    6183 	.db #0xff	; 255
+    00000010                       6184 __xinit__Half:
+    00000010 01                    6185 	.db #0x01	; 1
+    00000011                       6186 __xinit__ScoreTeam1:
+    00000011 00                    6187 	.db #0x00	; 0
+    00000012                       6188 __xinit__ScoreTeam2:
+    00000012 00                    6189 	.db #0x00	; 0
+    00000013                       6190 __xinit__LastScoreTeam1:
+    00000013 00                    6191 	.db #0x00	; 0
+    00000014                       6192 __xinit__LastScoreTeam2:
+    00000014 00                    6193 	.db #0x00	; 0
+    00000015                       6194 __xinit__g_is_penalty_shootout:
+    00000015 00                    6195 	.db #0x00	; 0
+    00000016                       6196 __xinit__g_penalty_shot_count:
+    00000016 00                    6197 	.db #0x00	; 0
+    00000017 00                    6198 	.db #0x00	; 0
+    00000018                       6199 __xinit__g_penalty_shooter_idx:
+    00000018 00                    6200 	.db #0x00	; 0
+    00000019                       6201 __xinit__g_penalty_team:
+    00000019 01                    6202 	.db #0x01	; 1
+    0000001A                       6203 __xinit__g_penalty_arrow_pos:
+    0000001A 01                    6204 	.db #0x01	; 1
+    0000001B                       6205 __xinit__g_penalty_arrow_dir:
+    0000001B 01                    6206 	.db #0x01	;  1
+    0000001C                       6207 __xinit__Team1Code:
+    0000001C 00                    6208 	.db #0x00	; 0
+    0000001D                       6209 __xinit__Team2Code:
+    0000001D 04                    6210 	.db #0x04	; 4
+    0000001E                       6211 __xinit__KickOffTeam:
+    0000001E 01                    6212 	.db #0x01	; 1
+    0000001F                       6213 __xinit__GameMode:
+    0000001F 00                    6214 	.db #0x00	; 0
+    00000020                       6215 __xinit__T1_Carrier:
+    00000020 FF                    6216 	.db #0xff	; 255
+    00000021                       6217 __xinit__T1_Receiver:
+    00000021 FF                    6218 	.db #0xff	; 255
+    00000022                       6219 __xinit__T2_Carrier:
+    00000022 FF                    6220 	.db #0xff	; 255
+    00000023                       6221 __xinit__T2_Receiver:
+    00000023 FF                    6222 	.db #0xff	; 255
+    00000024                       6223 __xinit__TimerEnabled:
+    00000024 00                    6224 	.db #0x00	; 0
+    00000025                       6225 __xinit__LastTouchTeam:
+    00000025 FF                    6226 	.db #0xff	; 255
+    00000026                       6227 __xinit__LastTouchPlayer:
+    00000026 FF                    6228 	.db #0xff	; 255
+    00000027                       6229 __xinit__RestartType:
+    00000027 00                    6230 	.db #0x00	; 0
+    00000028                       6231 __xinit__RestartSideX:
+    00000028 00                    6232 	.db #0x00	; 0
+    00000029                       6233 __xinit__RestartSideY:
+    00000029 00 00                 6234 	.dw #0x0000
+    0000002B                       6235 __xinit__g_throw_rec_1:
+    0000002B FF                    6236 	.db #0xff	; 255
+    0000002C                       6237 __xinit__g_throw_rec_2:
+    0000002C FF                    6238 	.db #0xff	; 255
+    0000002D                       6239 __xinit__g_selected_rec:
+    0000002D 00                    6240 	.db #0x00	; 0
+    0000002E                       6241 __xinit__g_thrower_id:
+    0000002E FF                    6242 	.db #0xff	; 255
+    0000002F                       6243 __xinit__g_pass_start_x:
+    0000002F 00 00                 6244 	.dw #0x0000
+    00000031                       6245 __xinit__g_pass_start_y:
+    00000031 00 00                 6246 	.dw #0x0000
+    00000033                       6247 __xinit__g_pass_target_x:
+    00000033 00 00                 6248 	.dw #0x0000
+    00000035                       6249 __xinit__g_pass_target_y:
+    00000035 00 00                 6250 	.dw #0x0000
+    00000037                       6251 __xinit__g_pass_max_frames:
+    00000037 0A                    6252 	.db #0x0a	; 10
+    00000038                       6253 __xinit__g_pass_max_height:
+    00000038 07                    6254 	.db #0x07	; 7
+    00000039                       6255 __xinit__g_pass_receiver:
+    00000039 FF                    6256 	.db #0xff	; 255
+    0000003A                       6257 __xinit__g_last_dx:
+    0000003A 00                    6258 	.db #0x00	;  0
+    0000003B 00                    6259 	.db #0x00	;  0
+    0000003C                       6260 __xinit__g_last_dy:
+    0000003C 01                    6261 	.db #0x01	;  1
+    0000003D FF                    6262 	.db #0xff	; -1
+    0000003E                       6263 __xinit__g_last_input_dir:
+    0000003E 00                    6264 	.db #0x00	; 0
+    0000003F                       6265 __xinit__g_h_arrow_x:
+    0000003F 64 00                 6266 	.dw #0x0064
+    00000041                       6267 __xinit__g_h_arrow_dir:
+    00000041 01                    6268 	.db #0x01	;  1
+    00000042                       6269 __xinit__g_closest_t1:
+    00000042 FF                    6270 	.db #0xff	; 255
+    00000043                       6271 __xinit__g_closest_t2:
+    00000043 FF                    6272 	.db #0xff	; 255
+    00000044                       6273 __xinit__g_is_ball_carried:
+    00000044 00                    6274 	.db #0x00	; 0
+    00000045                       6275 __xinit__g_help_shown:
+    00000045 00                    6276 	.db #0x00	; 0
+    00000046                       6277 __xinit__g_scc_resume_timer:
+    00000046 00                    6278 	.db #0x00	; 0
+    00000047                       6279 __xinit__g_VSynch:
+    00000047 00                    6280 	.db #0x00	; 0
+    00000048                       6281 __xinit__s_scc_after_action:
+    00000048 00                    6282 	.db #0x00	; 0
+                                   6283 	.area _CABS (ABS)

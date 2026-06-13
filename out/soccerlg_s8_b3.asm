@@ -548,7 +548,7 @@ _EventHalfTime::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:48: PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
 	ld	hl, #0x0000
 	push	hl
-	ld	h, #0x1f
+	ld	hl, #0x3b80
 	push	hl
 	ld	hl, #0x02f8
 	call	_PlaySCCEvent
@@ -566,7 +566,7 @@ _EventTimeUp::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s8_b3.c:55: PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
 	ld	hl, #0x0000
 	push	hl
-	ld	h, #0x1f
+	ld	hl, #0x3b80
 	push	hl
 	ld	hl, #0x02f8
 	call	_PlaySCCEvent
