@@ -1193,15 +1193,15 @@
     0000062C DD 36 FB 58      [19] 1193 	ld	-5 (ix), #0x58
     00000630 DD 36 FC 00      [19] 1194 	ld	-4 (ix), #0
     00000634                       1195 00166$:
-                                   1196 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:113: if (target_x > 140) target_x = 140;
+                                   1196 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:113: if (target_x > 152) target_x = 152;
     00000634 DD 4E FB         [19] 1197 	ld	c, -5 (ix)
     00000637 DD 46 FC         [19] 1198 	ld	b, -4 (ix)
-    0000063A 3E 8C            [ 7] 1199 	ld	a, #0x8c
+    0000063A 3E 98            [ 7] 1199 	ld	a, #0x98
     0000063C B9               [ 4] 1200 	cp	a, c
     0000063D 3E 00            [ 7] 1201 	ld	a, #0x00
     0000063F 98               [ 4] 1202 	sbc	a, b
     00000640 30 08            [12] 1203 	jr	NC, 00168$
-    00000642 DD 36 FB 8C      [19] 1204 	ld	-5 (ix), #0x8c
+    00000642 DD 36 FB 98      [19] 1204 	ld	-5 (ix), #0x98
     00000646 DD 36 FC 00      [19] 1205 	ld	-4 (ix), #0
     0000064A                       1206 00168$:
                                    1207 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:115: target_y = (team == TEAM_1) ? 32 : 452;

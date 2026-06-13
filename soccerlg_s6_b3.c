@@ -108,9 +108,9 @@ void PlayerAI(u8 i)
 		else if (Ball->lx < Player->lx - 4) target_x = Player->lx - 2;
 		else target_x = Ball->lx;
 		
-		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 146)
+		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 158)
 		if (target_x < 88) target_x = 88;
-		if (target_x > 140) target_x = 140;
+		if (target_x > 152) target_x = 152;
 		
 		target_y = (team == TEAM_1) ? 32 : 452;
 		

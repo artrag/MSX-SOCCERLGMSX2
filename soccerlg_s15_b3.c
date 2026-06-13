@@ -210,7 +210,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					Ball->anim = 0; // Tiro terminato
 					CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); // Ripristina grandezza a terra
 
-					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 146) {
+					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 158) {
 						if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;
 						RestartType = RESTART_GOAL; // Segnala il goal per poter attivare l'esultanza
 					}

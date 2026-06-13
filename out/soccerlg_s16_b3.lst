@@ -1678,10 +1678,10 @@
     00000A6B DD 6E FB         [19] 1678 	ld	l, -5 (ix)
     00000A6E DD 66 FC         [19] 1679 	ld	h, -4 (ix)
     00000A71 36 00            [10] 1680 	ld	(hl), #0x00
-                                   1681 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:163: u8 target_x_pos[] = {92, 120, 140};
+                                   1681 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:163: u8 target_x_pos[] = {92, 120, 148}; // Simmetria perfetta: -28, 0, +28 dal centro
     00000A73 DD 36 E1 5C      [19] 1682 	ld	-31 (ix), #0x5c
     00000A77 DD 36 E2 78      [19] 1683 	ld	-30 (ix), #0x78
-    00000A7B DD 36 E3 8C      [19] 1684 	ld	-29 (ix), #0x8c
+    00000A7B DD 36 E3 94      [19] 1684 	ld	-29 (ix), #0x94
                                    1685 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:164: g_pass_start_x = Ball->lx; g_pass_start_y = Ball->ly;
     00000A7F 3Ar42r01         [13] 1686 	ld	a, (#(_SwSprite + 322) + 0)
     00000A82 DD 77 FF         [19] 1687 	ld	-1 (ix), a
@@ -1893,7 +1893,7 @@
     00000C2D 36 64            [10] 1893 	ld	(hl), #0x64
     00000C2F C3r74r0C         [10] 1894 	jp	00204$
     00000C32                       1895 00203$:
-                                   1896 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:195: else if(dive_dir == 2) { // Tuffo a Destra (X=140)
+                                   1896 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:195: else if(dive_dir == 2) { // Tuffo a Destra (X=148)
     00000C32 DD 7E FF         [19] 1897 	ld	a, -1 (ix)
     00000C35 D6 02            [ 7] 1898 	sub	a, #0x02
     00000C37 20 16            [12] 1899 	jr	NZ, 00200$
@@ -1903,10 +1903,10 @@
     00000C3F 36 EE            [10] 1903 	ld	(hl), #0xee
     00000C41 23               [ 6] 1904 	inc	hl
     00000C42 36 00            [10] 1905 	ld	(hl), #0x00
-                                   1906 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->lx = 132; // Sposta il body a 132, mani della maglietta a 140
+                                   1906 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:197: Keeper->lx = 140; // Sposta il body a 140, mani della maglietta a 148
     00000C44 DD 6E F0         [19] 1907 	ld	l, -16 (ix)
     00000C47 DD 66 F1         [19] 1908 	ld	h, -15 (ix)
-    00000C4A 36 84            [10] 1909 	ld	(hl), #0x84
+    00000C4A 36 8C            [10] 1909 	ld	(hl), #0x8c
     00000C4C C3r74r0C         [10] 1910 	jp	00204$
     00000C4F                       1911 00200$:
                                    1912 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s16_b3.c:200: Keeper->frame = CallFnc_U16_P3(SEG_GAMESTATE_9, GetPlayerIdleFrame, keeper_idx, 0, 1); // Posa in attesa centrale

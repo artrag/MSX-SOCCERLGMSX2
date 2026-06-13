@@ -1193,15 +1193,15 @@ _PlayerAI::
 	ld	-5 (ix), #0x58
 	ld	-4 (ix), #0
 00166$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:113: if (target_x > 140) target_x = 140;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:113: if (target_x > 152) target_x = 152;
 	ld	c, -5 (ix)
 	ld	b, -4 (ix)
-	ld	a, #0x8c
+	ld	a, #0x98
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
 	jr	NC, 00168$
-	ld	-5 (ix), #0x8c
+	ld	-5 (ix), #0x98
 	ld	-4 (ix), #0
 00168$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:115: target_y = (team == TEAM_1) ? 32 : 452;

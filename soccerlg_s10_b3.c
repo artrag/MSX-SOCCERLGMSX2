@@ -83,9 +83,9 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 	}
 	
-	// Specchio porta: ricalibrato (allargato a sinistra di 8px per evitare falsi rinvii sul palo)
+	// Specchio porta: ricalibrato in perfetta simmetria rispetto al centro (X=120)
 	u8 goal_left = 82;
-	u8 goal_right = 146;
+	u8 goal_right = 158;
 	
 	// Controlla se la palla è portata da un giocatore (dribbling)
 	bool is_carried = FALSE;

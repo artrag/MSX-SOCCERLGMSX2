@@ -883,7 +883,7 @@ _CheckFieldBoundaries::
 	ld	a, -9 (ix)
 	sub	a, #0x52
 	jp	C, 00115$
-	ld	a, #0x92
+	ld	a, #0x9e
 	sub	a, -9 (ix)
 	jp	C, 00115$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
@@ -983,7 +983,7 @@ _CheckFieldBoundaries::
 	ld	a, -9 (ix)
 	sub	a, #0x52
 	jp	C, 00121$
-	ld	a, #0x92
+	ld	a, #0x9e
 	sub	a, -9 (ix)
 	jp	C, 00121$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s10_b3.c:92: if (LastTouchPlayer != 0xFF && Ball->anim != 5) {
