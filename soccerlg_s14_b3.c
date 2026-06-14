@@ -5,8 +5,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "print.h"
+#include "vdp.h"
+#include "debug.h"
 
-void ShowMenu()
-{
-	for(;;); // Ciclo infinito provvisorio
-}

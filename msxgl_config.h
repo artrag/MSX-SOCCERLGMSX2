@@ -88,10 +88,10 @@
 #define VDP_USE_MODE_G4				TRUE	// MSX2		Screen 5
 #define VDP_USE_MODE_G5				FALSE	// MSX2		Screen 6
 #define VDP_USE_MODE_G6				FALSE	// MSX2		Screen 7
-#define VDP_USE_MODE_G7				FALSE	// MSX2/2+	Screen 8, 10, 11 & 12
+#define VDP_USE_MODE_G7				TRUE	// MSX2/2+	Screen 8, 10, 11 & 12
 
 #define VDP_USE_VRAM16K				TRUE	// Use 16K VRAM access functions on MSX2
-#define VDP_USE_SPRITE				TRUE	// Use sprite handling functions
+#define VDP_USE_SPRITE				FALSE	// Use sprite handling functions
 #define VDP_USE_COMMAND				TRUE	// Use VDP commands wrapper functions
 #define VDP_USE_CUSTOM_CMD			FALSE	// Use custom VDP commands through data buffer
 #define VDP_AUTO_INIT				TRUE	// Call VDP_Initialize() at the first call to VDP_SetMode()
@@ -100,7 +100,7 @@
 #define VDP_USE_DEFAULT_PALETTE		FALSE	// Add data for default MSX2 palette
 #define VDP_USE_MSX1_PALETTE		FALSE	// Add data for default MSX1 palette
 #define VDP_USE_DEFAULT_SETTINGS	TRUE	// Auto-initialization of common VDP feature
-#define VDP_USE_16X16_SPRITE		TRUE	// Use 16x16 sprites mode
+#define VDP_USE_16X16_SPRITE		FALSE	// Use 16x16 sprites mode
 #define VDP_USE_RESTORE_S0			TRUE	// Do restore of status register pointer to S#0 (needed onlt for default BIOS ISR)
 #define VDP_USE_PALETTE16			TRUE	// Use 16 entries palette (use only 15 entries otherwise)
 

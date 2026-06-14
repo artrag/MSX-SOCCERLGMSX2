@@ -106,9 +106,9 @@ struct TeamStats {
 #define SPR_T1_PLAYER_SHOT_TO_NORTH_WEST 			38
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_EAST        	42
 #define SPR_T1_PLAYER_SHOT_TO_SOUTH_WEST        	41
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_1        		60
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_2        		61
-#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_3        		62
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_1        		46
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_2        		45
+#define SPR_T1_PLAYER_HAPPY_TO_SOUTH_3        		44
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_1        		92
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_2        		93
 #define SPR_T1_PLAYER_HAPPY_TO_NORTH_3        		94
@@ -209,16 +209,16 @@ struct TeamStats {
 #define SPR_GK_PLAYER_SHOT_TO_SOUTH_WEST        	249
 #define SPR_GK_PLAYER_SOUTH_WITH_BALL           	243
 #define SPR_GK_PLAYER_NORTH_WITH_BALL        		240
-#define SPR_GK_PLAYER_SOUTH_1			        	242
-#define SPR_GK_PLAYER_SOUTH_2			        	245
-#define SPR_GK_PLAYER_SOUTH_SHOT			    	246
 #define SPR_GK_PLAYER_NORTH_1			        	242
 #define SPR_GK_PLAYER_NORTH_2			        	245
+#define SPR_GK_PLAYER_SOUTH_SHOT			    	246
+#define SPR_GK_PLAYER_SOUTH_1			        	243
+#define SPR_GK_PLAYER_SOUTH_2			        	244
 #define SPR_GK_PLAYER_NORTH_SHOT			    	247
-#define SPR_GK_PLAYER_DOWN_EAST_NORTH				239
-#define SPR_GK_PLAYER_DOWN_WEST_NORTH			 	238
-#define SPR_GK_PLAYER_DOWN_EAST_SOUTH				226
-#define SPR_GK_PLAYER_DOWN_WEST_SOUTH	    		248
+#define SPR_GK_PLAYER_DOWN_EAST_NORTH				238
+#define SPR_GK_PLAYER_DOWN_WEST_NORTH			 	239
+#define SPR_GK_PLAYER_DOWN_EAST_SOUTH				238
+#define SPR_GK_PLAYER_DOWN_WEST_SOUTH	    		239
 #define SPR_GK_PLAYER_HAPPY_1					    253
 #define SPR_GK_PLAYER_HAPPY_2					    254
 #define SPR_GK_PLAYER_HAPPY_3					    255
@@ -253,7 +253,7 @@ struct TeamStats {
 #define SPR_REFEREE_FACE_TO_NORTH_EAST       		272
 #define SPR_REFEREE_FACE_TO_NORTH_WEST       		271
 #define SPR_REFEREE_FACE_TO_SOUTH_EAST       		265
-#define SPR_REFEREE_FACE_TO_SOUTH_WEST       		264
+#define SPR_REFEREE_FACE_TO_SOUTH_WEST       		265
 #define SPR_BALL_SIZE_1								96
 #define SPR_BALL_SIZE_2								97
 #define SPR_BALL_SIZE_3								98
@@ -333,22 +333,26 @@ struct TeamStats {
 #define BANK3_BASE              0xA000
 #define FIELD_SEG_COUNT         4
 
-#define SEG_LOOP 		4
-#define SEG_DRAW 		5
-#define SEG_LOGIC 		6
-#define SEG_INPUT 		7
-#define SEG_EVENTS  	8
-#define SEG_GAMESTATE_1 9
-#define SEG_FIELD		10
-#define SEG_GAMESTATE_2 11
-#define SEG_GAMESTATE_3 12
-#define SEG_GAMESTATE_4 13
-#define SEG_MENU        14
-#define SEG_GAMESTATE_5 15
-#define SEG_GAMESTATE_6 16
-#define SEG_GAMESTATE_7 17
-#define SEG_GAMESTATE_8 18
-#define SEG_GAMESTATE_9 19
+#define SEG_LOOP 		    4
+#define SEG_DRAW 		    5
+#define SEG_LOGIC 		    6
+#define SEG_INPUT 		    7
+#define SEG_EVENTS  	    8
+#define SEG_GAMESTATE_1     9
+#define SEG_FIELD		    10
+#define SEG_GAMESTATE_2     11
+#define SEG_GAMESTATE_3     12
+#define SEG_GAMESTATE_4     13
+#define SEG_MENU            14
+#define SEG_GAMESTATE_5     15
+#define SEG_GAMESTATE_6     16
+#define SEG_GAMESTATE_7     17
+#define SEG_GAMESTATE_8     18
+#define SEG_GAMESTATE_9     19
+#define SEG_HELPERS         20
+#define SEG_LOGIC_2         21
+#define SEG_GAMESTATE_10    22
+
 
 #define OnScreen(y)  	((y) < 512 && (((y) + 527 - Field.ly) & 511) < 207)
 #define SplitSprite(y)  (((y & 255))>240)
@@ -431,7 +435,6 @@ extern  i8  g_h_arrow_dir;
 extern  u8  g_closest_t1;
 extern  u8  g_closest_t2;
 extern  bool g_is_ball_carried;
-
 extern struct InputState g_player_input[2];
 extern struct TeamStats g_ActiveStats[2];
 
@@ -443,6 +446,7 @@ extern struct TeamStats g_ActiveStats[2];
 
 // +++ SEGMENT 0 +++
 void main();
+void SplashScreenLoad();
 void VSyncCallback();
 void WaitForVBlank();
 void CallSpriteFrame(u8 x, u16 y, u16 frame);
@@ -467,7 +471,11 @@ u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3,
 u16 CallFnc_U16_P4B(u8 segment, u16 (*func)(u8, u8, i8, i8), u8 p1, u8 p2, i8 p3, i8 p4);
 void AddLines(struct ObjectInfo* Field);
 void SetTeamColors(u8 team, const struct TeamColors* colors);
-
+void MenuScreenLoad();
+void MenuGrayScreenLoad();
+void StartGame();
+void ShowMenu();
+void ShowHelpScreen();
 
 // +++ SEGMENT SEG_LOOP (4) +++
 void MainLoop();
@@ -489,6 +497,8 @@ void HideSpriteMessage();
 // +++ SEGMENT SEG_LOGIC (6) +++
 void PlayerAI(u8 i);
 void SetBallSprite(u8 height);
+
+// +++ SEGMENT SEG_HELPERS (20) +++
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
 
 // +++ SEGMENT SEG_INPUT (7) +++
@@ -509,6 +519,7 @@ void EventGoalKick();
 void EventOffside();
 void EventGoal();
 void EventPenaltyWhistle();
+void EventTeamSelected(u8 team_id);
 
 // +++ SEGMENT SEG_GAMESTATE_1 (9) +++
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -529,11 +540,12 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 void UpdateGameState_Init(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_MENU (14) +++
-void ShowMenu();
+
 
 // +++ SEGMENT SEG_GAMESTATE_5 (15) +++
 void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
+void UpdateGameState_Celebrations(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
 
 // +++ SEGMENT SEG_GAMESTATE_6 (16) +++
 void UpdateGameState_Penalties(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly);
@@ -549,3 +561,6 @@ u16 GetPlayerIdleFrame(u8 i, i8 dx, i8 dy);
 // +++ SEGMENT SEG_FIELD (10) +++
 void UpdateFieldCamera();
 void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec);
+
+// +++ SEGMENT SEG_LOGIC_2 (21) +++
+void PlayerAI_Movement(u8 i);

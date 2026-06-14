@@ -12,6 +12,8 @@
 #include "debug.h"
 #include "soccerlg_rawdef.h"
 #include "bin/FieldMap.h"
+#include "ayfx/ayfx_player.h"
+#include "libs/yscc/yscc_player.h"
 
 // -----------------
 // *** CONSTANTS ***
@@ -37,6 +39,12 @@ const c8 g_Palette[] = {
     0x66, 0x06, // [F]  #D3CACA  Verde oliva acceso (Non usato)
 };
 
+static const c8 s_ScrollText[] =
+    "   2026 MSX WORLD SOCCER  BY FAUSTO PRACEK  -  ASSOCIAZIONE ITALIANA MSX - POWERED BY MSXGL  -  "
+    "SPECIAL THANKS TO ARTURO RAGOZINI FOR HIS HELP WITH SPRITES SOFTWARE AND SOUND EFFECTS  - "
+	"SPECIAL THANKS ALSO TO NICOLA BROGELLI FOR HIS TESTING AND SUPPORT THROUGHOUT THE GAMES' DEVELOPMENT ";
+	
+
 // Teams colours array (Formato MSX2: 0x0GRB)
 const struct TeamColors g_TeamColorsArray[] = {
     { 0x0526, 0x0777, 0x0777 }, // 0: ITA (Shirt: Azzurra, Shorts: Bianchi, Righe: Bianche)
@@ -55,6 +63,18 @@ const struct TeamStats g_TeamStatsArray[] = {
     { 3, 4, 4, 3, 4, 4, 5 }, // 3: GER (Rocciosi: Difesa 4, Attacco 4, Portiere 5)
     { 4, 4, 5, 4, 3, 4, 3 }, // 4: NLD (Calcio Totale: Passaggi 5, Velocità 4)
     { 3, 3, 5, 3, 3, 3, 3 }  // 5: ESP (Tiki-Taka: Passaggi 5, resto nella media)
+};
+	static const u8 menu_to_team[6] = {
+		TEAM_NLD_COLORS, // 0: NLD
+		TEAM_GER_COLORS, // 1: GER
+		TEAM_ITA_COLORS, // 2: ITA
+		TEAM_BRA_COLORS, // 3: BRA
+		TEAM_FRA_COLORS, // 4: FRA
+		TEAM_ESP_COLORS  // 5: ESP
+	};
+
+const c8* g_TeamNames[6] = {
+    "ITA", "FRA", "BRA", "GER", "NLD", "ESP"
 };
 
 // -----------------
@@ -109,16 +129,50 @@ const struct TeamStats g_TeamStatsArray[] = {
 	u8  g_closest_t1 = 0xFF;
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
+	bool g_help_shown = FALSE;
 
+	extern  unsigned char g_Menu_Fonts[];
 
-struct InputState g_player_input[2];
-struct ObjectInfo SwSprite[NumSprite];
-struct ObjectInfo Field;
-struct ObjectInfo ScoreBoardLeft;
-struct ObjectInfo ScoreBoardRight;
-struct TeamStats g_ActiveStats[2];
+	extern unsigned char g_SplashScreen1[];
+	extern unsigned char g_SplashScreen2[];
+	extern unsigned char g_SplashScreen3[];
+	extern unsigned char g_SplashScreen4[];
+	extern unsigned char g_SplashScreen5[];
+    extern unsigned char g_SplashScreen6[];
+	extern unsigned char g_SplashScreen7[];
 
-volatile bool g_VSynch=FALSE;
+	extern unsigned char g_MenuColorScreen1[];
+	extern unsigned char g_MenuColorScreen2[];
+	extern unsigned char g_MenuColorScreen3[];
+	extern unsigned char g_MenuColorScreen4[];
+	extern unsigned char g_MenuColorScreen5[];
+    extern unsigned char g_MenuColorScreen6[];
+	extern unsigned char g_MenuColorScreen7[];
+
+	extern unsigned char g_MenuGrayScreen1[];
+	extern unsigned char g_MenuGrayScreen2[];
+	extern unsigned char g_MenuGrayScreen3[];
+	extern unsigned char g_MenuGrayScreen4[];
+	extern unsigned char g_MenuGrayScreen5[];
+    extern unsigned char g_MenuGrayScreen6[];
+	extern unsigned char g_MenuGrayScreen7[];
+
+	extern unsigned char g_HelpScreen1[];
+	extern unsigned char g_HelpScreen2[];
+	extern unsigned char g_HelpScreen3[];
+	extern unsigned char g_HelpScreen4[];
+	extern unsigned char g_HelpScreen5[];
+    extern unsigned char g_HelpScreen6[];
+	extern unsigned char g_HelpScreen7[];
+
+	struct InputState g_player_input[2];
+	struct ObjectInfo SwSprite[NumSprite];
+	struct ObjectInfo Field;
+	struct ObjectInfo ScoreBoardLeft;
+	struct ObjectInfo ScoreBoardRight;
+	struct TeamStats g_ActiveStats[2];
+
+	volatile bool g_VSynch=FALSE;
 
 
 // -----------------------------
@@ -213,63 +267,14 @@ u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1) {
     return _res;
 }
 // +++ Call function with 3 parameters with u16 returned value +++
-u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) __naked
+u16 CallFnc_U16_P3(u8 segment, u16 (*func)(u8, i8, i8), u8 p1, i8 p2, i8 p3) 
 {
-	segment;func;p1;p2;p3;
-	__asm
-	
-; de  	->*func
-; a   	->segment
-;(sp-2) ->p1
-;(sp-3) ->p2
-;(sp-4) ->p3
-; (sp)	->return
-
-	ld	hl,#6
-	add	hl,sp
-	dec	sp
-	
-	ld	c, a
-	ld	a, (#(_g_Bank0Segment + 6) + 0)					; u8 _old = GET_BANK_SEGMENT(3);
-	ex  af,af
-	xor	a,a
-	ld	(#0x7ffe),a
-	ld	a, c											;	SET_BANK_SEGMENT(3, segment);
-	ld	((_g_Bank0Segment + 6)), a						;   g_Bank0Segment[b] = s;
-	ld	(#0xb000), a
-
-	ld	a, (hl)										; _res = func(p1, p2, p3);
-	push	af
-	inc	sp
-	dec		hl
-	ld	c, (hl)
-	dec		hl
-	ld	a, (hl)
-	ld	l,c
-	push	de
-	pop		iy
-	call	___sdcc_call_iy
-
-	xor	a,a
-	ld	(#0x7ffe),a
-	ex  af,af
-	ld	((_g_Bank0Segment + 6)), a						; g_Bank0Segment[b] = s;
-	ld	(#0xb000), a
-
-	inc	sp
-
-	pop	hl
-	pop	af
-	inc	sp
-	jp	(hl)
-	
-	__endasm;
-//	u16 _res;
-//	u8 _old = GET_BANK_SEGMENT(3);
-//	SET_BANK_SEGMENT(3, segment);
-//  _res = func(p1, p2, p3);
-//	SET_BANK_SEGMENT(3, _old);
-//  return _res;
+	u16 _res;
+	u8 _old = GET_BANK_SEGMENT(3);
+	SET_BANK_SEGMENT(3, segment);
+    _res = func(p1, p2, p3);
+	SET_BANK_SEGMENT(3, _old);
+    return _res;
 }
 // +++ Call function with 4 parameters with u16 returned value +++
 u16 CallFnc_U16_P4(u8 segment, u16 (*func)(u8, i8, i8, u8), u8 p1, i8 p2, i8 p3, u8 p4) {
@@ -328,6 +333,381 @@ void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
 // -----------------
 // *** FUNCTIONS ***
 // -----------------
+
+// +++ Splash screen load +++
+void SplashScreenLoad()
+{
+    VDP_SetMode(VDP_MODE_SCREEN8);
+	VDP_ClearVRAM();
+    VDP_SetPalette(g_Palette);
+    VDP_SetColor(0);
+	VDP_SetVerticalOffset(0);
+    VDP_SetPage(0);
+
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+
+    // Segmento 50
+    SET_BANK_SEGMENT(3, 50);
+    VDP_WriteVRAM_128K(g_SplashScreen1, vram_low, 0, 8192);
+
+    // Segmento 51
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 51);
+    VDP_WriteVRAM_128K(g_SplashScreen2, vram_low, 0, 8192);
+
+    // Segmento 52
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 52);
+    VDP_WriteVRAM_128K(g_SplashScreen3, vram_low, 0, 8192);
+    
+    // Segmento 53
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 53);
+    VDP_WriteVRAM_128K(g_SplashScreen4, vram_low, 0, 8192);
+
+    // Segmento 54
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 54);
+    VDP_WriteVRAM_128K(g_SplashScreen5, vram_low, 0, 8192);
+
+    // Segmento 55
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 55);
+    VDP_WriteVRAM_128K(g_SplashScreen6, vram_low, 0, 8192);
+
+    // Segmento 56
+    vram_low += 8192; 
+    SET_BANK_SEGMENT(3, 56);
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_SplashScreen7, vram_low, 0, 5120);
+
+    // Attesa di 2 secondi (circa 120 VBlank) prima di proseguire
+    for (u8 i = 0; i < 120; i++) {
+        __asm halt __endasm;
+    }
+}
+
+// +++ Show menu +++
+void ShowMenu()
+{
+	
+	
+
+	MenuScreenLoad();
+	MenuGrayScreenLoad();
+	SET_BANK_SEGMENT(3,4);
+	Print_SetBitmapFont(g_Menu_Fonts);
+	Print_SetPosition(25,  2);
+	Print_DrawText("TEAM 1 SELECTION (PLAYER)");
+
+	Print_SetColor(0xFF, 0x00); // Testo bianco (0xFF) su sfondo nero (0x00)
+
+	const c8* text_ptr = s_ScrollText;
+	u8 char_width = 8;
+	u8 shift_accum = 8; // Inizializza al massimo per stampare subito il primo carattere
+
+	// Coordinate off-screen per renderizzare il carattere in modo invisibile
+	// Questo previene l'effetto "storto" (tearing) causato dalla lentezza della CPU
+	u8 off_x = 0;
+	u16 off_y = 220; 
+
+	u8 menu_state = 0; // 0=Team1_Joy1, 1=Team2_Joy1(CPU), 2=Team2_Joy2(P2)
+	u8 cursor_id = 0;
+	u8 prev_cursor_id = 0xFF;
+	u8 t1_id = 0;
+	u8 t2_id = 1;
+	u8 prev_dir[2] = {DIRECTION_NONE, DIRECTION_NONE};
+	u8 input_delay = 0;
+
+	// Posizioni indicative sullo schermo per i 6 Team (modificabili se necessario)
+	static const u8 cursor_pos[6][2] = {
+		{ 30,  95}, {111,  95}, {194,  95},
+		{ 30, 181}, {110, 181}, {194, 181}
+	};
+
+	// Posizioni e dimensioni dei riquadri delle squadre (X, Y, Larghezza, Altezza)
+	static const u8 team_box[6][4] = {
+		{  6,  16, 80, 86}, // NLD
+		{ 86,  16, 80, 86}, // GER
+		{168,  16, 80, 86}, // ITA
+		{  6, 104, 80, 86}, // BRA
+		{ 86, 104, 80, 86}, // FRA
+		{168, 104, 80, 86}  // ESP
+	};
+
+	// Forza GameMode a P1 vs P2 nel menu per poter leggere anche l'input di JOY 2 / Tastiera P2
+	GameMode = GAMEMODE_P1_VS_P2;
+
+	for(;;) {
+		WaitForVBlank();
+
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		
+		u8 joy1_dir = g_player_input[1].direction; // P1 (Joy1)
+		u8 joy2_dir = g_player_input[0].direction; // P2 (Joy2)
+		bool joy1_trig = g_player_input[1].trigger_pressed;
+		bool joy2_trig = g_player_input[0].trigger_pressed;
+
+		bool move_left = FALSE;
+		bool move_right = FALSE;
+		bool move_toggle = FALSE;
+		bool trig = FALSE;
+
+		if (input_delay > 0) {
+			input_delay--;
+		} else {
+			if (menu_state == 0) {
+				if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+			} else if (menu_state == 1) {
+				if (joy1_dir == DIRECTION_LEFT && prev_dir[1] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy1_dir == DIRECTION_RIGHT && prev_dir[1] != DIRECTION_RIGHT) move_right = TRUE;
+				if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy1_dir == DIRECTION_DOWN && prev_dir[1] != DIRECTION_DOWN) move_toggle = TRUE;
+			} else if (menu_state == 2) {
+				if (joy2_dir == DIRECTION_LEFT && prev_dir[0] != DIRECTION_LEFT) move_left = TRUE;
+				if (joy2_dir == DIRECTION_RIGHT && prev_dir[0] != DIRECTION_RIGHT) move_right = TRUE;
+				if (joy1_dir == DIRECTION_UP && prev_dir[1] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy1_dir == DIRECTION_DOWN && prev_dir[1] != DIRECTION_DOWN) move_toggle = TRUE;
+				if (joy2_dir == DIRECTION_UP && prev_dir[0] != DIRECTION_UP) move_toggle = TRUE;
+				if (joy2_dir == DIRECTION_DOWN && prev_dir[0] != DIRECTION_DOWN) move_toggle = TRUE;
+			}
+			
+			// Aggiorna lo stato precedente solo al di fuori del periodo di debounce
+			prev_dir[1] = joy1_dir;
+			prev_dir[0] = joy2_dir;
+		}
+
+		if (menu_state == 0) {
+			if (joy1_trig) trig = TRUE;
+		} else if (menu_state == 1) {
+			if (joy1_trig) trig = TRUE;
+		} else if (menu_state == 2) {
+			if (joy2_trig) trig = TRUE;
+		}
+
+		if (move_left || move_right || move_toggle) {
+			input_delay = 12; // Circa 200ms di debounce per evitare input sporchi o movimenti doppi
+		}
+
+		if (move_left) {
+			do {
+				cursor_id = (cursor_id == 0) ? 5 : cursor_id - 1;
+			} while (menu_state > 0 && cursor_id == t1_id);
+		}
+		if (move_right) {
+			do {
+				cursor_id = (cursor_id == 5) ? 0 : cursor_id + 1;
+			} while (menu_state > 0 && cursor_id == t1_id);
+		}
+
+		// Cambio modalità di gioco (CPU / JOY2)
+		if (move_toggle && menu_state > 0) {
+			if (menu_state == 1) {
+				menu_state = 2;
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^JOY2_)");
+			} else {
+				menu_state = 1;
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^CPU_)");
+			}
+		}
+
+		if (prev_cursor_id != cursor_id) {
+			if (prev_cursor_id != 0xFF) {
+				VDP_CommandHMMV(cursor_pos[prev_cursor_id][0], cursor_pos[prev_cursor_id][1], 24, 11, 0x00);
+			}
+			Print_SetPosition(cursor_pos[cursor_id][0], cursor_pos[cursor_id][1]);
+			Print_DrawText("$$$");
+			prev_cursor_id = cursor_id;
+		}
+
+		if (trig) {
+				// 1. Cancella i caratteri "$$$" della squadra selezionata
+			VDP_CommandHMMV(cursor_pos[cursor_id][0], cursor_pos[cursor_id][1], 24, 11, 0x00);
+			
+			// 2. "Fotocopia" il riquadro grigio dalla pagina nascosta (Y+256) allo schermo visibile (Y)
+			VDP_CommandHMMM(team_box[cursor_id][0], team_box[cursor_id][1] + 256, team_box[cursor_id][0], team_box[cursor_id][1], team_box[cursor_id][2], team_box[cursor_id][3]);
+
+			if (menu_state == 0) {
+				t1_id = cursor_id;
+				Team1Code = t1_id;
+				Team2Code = menu_to_team[t1_id]; // Il Player 1 controlla TEAM_2 nel gioco (Sud)
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, Team2Code);
+
+
+				menu_state = 1;
+				cursor_id = (t1_id == 0) ? 1 : 0;
+				prev_cursor_id = 0xFF; // Forza il ridisegno nella nuova posizione
+				
+				VDP_CommandHMMV(0, 2, 256, 11, 0x00);
+				Print_SetPosition(25, 2);
+				Print_DrawText("TEAM 2 SELECTION (^CPU_)");
+			} else {
+				t2_id = cursor_id;
+				Team1Code = menu_to_team[t2_id]; // La CPU o P2 controlla TEAM_1 nel gioco (Nord)
+				CallFnc_VOID_P1(SEG_EVENTS, EventTeamSelected, Team1Code);
+				GameMode = (menu_state == 1) ? GAMEMODE_P1_VS_CPU : GAMEMODE_P1_VS_P2;
+
+				// Attesa di 1 secondo mantenendo il testo scorrevole per evidenziare il team 2 prima del break
+				for (u8 wait = 0; wait < 60; wait++) {
+					WaitForVBlank();
+					VDP_CommandHMMM(1, 200, 0, 200, 255, 11);
+					if (shift_accum >= char_width) {
+						shift_accum = 0;
+						if (*text_ptr == '\0') text_ptr = s_ScrollText;
+						c8 str[2] = { *text_ptr, '\0' };
+						VDP_CommandHMMV(off_x, off_y, 8, 11, 0x00);
+						Print_SetPosition(off_x, off_y);
+						Print_DrawText(str);
+						text_ptr++;
+					}
+					VDP_CommandHMMM(off_x + shift_accum, off_y, 255, 200, 1, 11);
+					shift_accum += 1;
+				}
+
+				
+				break; // Uscita dal menu ed avvio del gioco vero e proprio
+			}
+		}
+
+		// Scrolla l'area visibile a sinistra di 1 pixel (altezza 11 pixel)
+		VDP_CommandHMMM(1, 200, 0, 200, 255, 11);
+
+		// Se abbiamo finito di scorrere il carattere corrente, ne prepariamo un altro off-screen
+		if (shift_accum >= char_width) {
+			shift_accum = 0;
+			
+			if (*text_ptr == '\0') {
+				text_ptr = s_ScrollText; // Ricomincia il testo
+			}
+			
+			c8 str[2] = { *text_ptr, '\0' };
+			
+			// Pulisce l'area off-screen
+			VDP_CommandHMMV(off_x, off_y, 8, 11, 0x00);
+
+			// Disegna il carattere nell'area off-screen (nessun tearing visibile)
+			Print_SetPosition(off_x, off_y);
+			Print_DrawText(str);
+			
+			text_ptr++;
+		}
+
+		// Copia 1 singola colonna di pixel dall'area off-screen al margine destro dello schermo
+		VDP_CommandHMMM(off_x + shift_accum, off_y, 255, 200, 1, 11);
+
+		shift_accum += 1;
+	}
+	ShowHelpScreen();
+
+}
+void ShowHelpScreen()
+{
+	static bool first_time = TRUE;
+	
+	if (g_help_shown) {
+		return;
+	}
+	g_help_shown = TRUE;
+
+	VDP_SetMode(VDP_MODE_SCREEN8);
+	VDP_ClearVRAM();
+	
+	extern const c8 g_Palette[];
+	VDP_SetPalette(g_Palette);
+	VDP_SetColor(0);
+	VDP_EnableDisplay(TRUE);
+
+	u16 vram_low = 0; 
+	SET_BANK_SEGMENT(3, 71); VDP_WriteVRAM_128K(g_HelpScreen1, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 72); VDP_WriteVRAM_128K(g_HelpScreen2, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 73); VDP_WriteVRAM_128K(g_HelpScreen3, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 74); VDP_WriteVRAM_128K(g_HelpScreen4, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 75); VDP_WriteVRAM_128K(g_HelpScreen5, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 76); VDP_WriteVRAM_128K(g_HelpScreen6, vram_low, 0, 8192); vram_low += 8192;
+	SET_BANK_SEGMENT(3, 77); VDP_WriteVRAM_128K(g_HelpScreen7, vram_low, 0, 5120);
+
+	for (u16 wait = 0; wait < 300; wait++) { // 300 cicli = 5 secondi a 60 FPS
+		WaitForVBlank();
+		CallFnc_VOID(SEG_INPUT, UpdateAllInputs);
+		if (wait > 30 && (g_player_input[1].trigger_pressed || g_player_input[0].trigger_pressed)) {
+			break;
+		}
+	}
+}
+// +++ Menu screen load +++
+void MenuScreenLoad()
+{
+    VDP_SetMode(VDP_MODE_SCREEN8);
+	VDP_ClearVRAM();
+    VDP_SetPalette(g_Palette);
+    VDP_SetColor(0);
+	VDP_SetVerticalOffset(0);
+    VDP_SetPage(0);
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+
+    // Segmento 50
+    SET_BANK_SEGMENT(3, 57);
+    VDP_WriteVRAM_128K(g_MenuColorScreen1, vram_low, 0, 8192);
+
+    // Segmento 51
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 58);
+    VDP_WriteVRAM_128K(g_MenuColorScreen2, vram_low, 0, 8192);
+
+    // Segmento 52
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 59);
+    VDP_WriteVRAM_128K(g_MenuColorScreen3, vram_low, 0, 8192);
+    
+    // Segmento 53
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 60);
+    VDP_WriteVRAM_128K(g_MenuColorScreen4, vram_low, 0, 8192);
+
+    // Segmento 54
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 61);
+    VDP_WriteVRAM_128K(g_MenuColorScreen5, vram_low, 0, 8192);
+
+    // Segmento 55
+    vram_low += 8192;
+    SET_BANK_SEGMENT(3, 62);
+    VDP_WriteVRAM_128K(g_MenuColorScreen6, vram_low, 0, 8192);
+
+    // Segmento 56
+    vram_low += 8192; 
+    SET_BANK_SEGMENT(3, 63);
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_MenuColorScreen7, vram_low, 0, 5120);
+
+    
+}
+// +++ Menu gray screen load +++
+void MenuGrayScreenLoad()
+{
+    // Inizializziamo l'offset per la parte bassa dell'indirizzo VRAM
+    u16 vram_low = 0; 
+    u8 vram_high = 1; // Scrive a partire dall'indirizzo VRAM 0x10000, che corrisponde a Y=256 (Pagina nascosta)
+
+    SET_BANK_SEGMENT(3, 64); VDP_WriteVRAM_128K(g_MenuGrayScreen1, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 65); VDP_WriteVRAM_128K(g_MenuGrayScreen2, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 66); VDP_WriteVRAM_128K(g_MenuGrayScreen3, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 67); VDP_WriteVRAM_128K(g_MenuGrayScreen4, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 68); VDP_WriteVRAM_128K(g_MenuGrayScreen5, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 69); VDP_WriteVRAM_128K(g_MenuGrayScreen6, vram_low, vram_high, 8192); vram_low += 8192;
+    SET_BANK_SEGMENT(3, 70); 
+    
+    // Ultimo chunk (256*212 = 54272 byte totali)
+    VDP_WriteVRAM_128K(g_MenuGrayScreen7, vram_low, vram_high, 5120);
+}
+
 // +++ Set team colors +++
 void SetTeamColors(u8 team, const struct TeamColors* colors)
 {
@@ -451,6 +831,7 @@ SpriteFrame::
 //	u8 FieldMap[] 
 	#include "bin/FieldMap.h"
 
+	const u8 dummy[] = {0,0,0,0,0,0,0,0};
 
 // -----------
 // *** ISR ***
@@ -520,6 +901,31 @@ void main()
 	
 	DEBUG_INIT();
     Bios_SetKeyClick(FALSE);
+	SplashScreenLoad();
+	// Installa l'hook del VBlank, essenziale affinché WaitForVBlank() non si blocchi
+	Bios_SetHookCallback(H_TIMI, VSyncCallback);
+	for (;;) {
+		ShowMenu();
+		StartGame();
+	}
+}
+void StartGame(){
+	ScoreTeam1 = 0;
+	ScoreTeam2 = 0;
+	LastScoreTeam1 = 0;
+	LastScoreTeam2 = 0;
+	Mins = HALF_TIME_MINS;
+	Secs = HALF_TIME_SECS;
+	Half = 1;
+	KickOffTeam = TEAM_2; // P1 (Team 2) batte nel primo tempo
+	g_is_penalty_shootout = FALSE;
+	g_penalty_shot_count[0] = 0;
+	g_penalty_shot_count[1] = 0;
+	TimerEnabled = FALSE;
+
+	g_ActiveStats[0] = g_TeamStatsArray[Team1Code];
+	g_ActiveStats[1] = g_TeamStatsArray[Team2Code];
+
 	VDP_SetMode(VDP_MODE_SCREEN5);
 	VDP_EnableTransparency(FALSE);
     VDP_SetPalette(g_Palette);
@@ -541,15 +947,20 @@ void main()
 	Print_SetBitmapFont(g_Fonts);
 	Print_SetColor(4, 7);
 
-	Print_SetPosition(0,  8+768);Print_DrawText("A");
-    Print_SetPosition(0,  16+768);Print_DrawText("U");
-    Print_SetPosition(0,  24+768);Print_DrawText("S");
+	c8 str[2];
+	str[1] = '\0';
+	
+	// Team 2 (P1 in basso)
+	str[0] = g_TeamNames[Team2Code][0]; Print_SetPosition(0,  8+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team2Code][1]; Print_SetPosition(0, 16+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team2Code][2]; Print_SetPosition(0, 24+768); Print_DrawText(str);
     Print_SetPosition(0,  32+768);Print_DrawText(" ");
     Print_SetPosition(0,  40+768);Print_DrawText("0");
 
-	Print_SetPosition(0,  56+768);Print_DrawText("I");
-    Print_SetPosition(0,  64+768);Print_DrawText("T");
-    Print_SetPosition(0,  72+768);Print_DrawText("A");
+	// Team 1 (CPU/P2 in alto)
+	str[0] = g_TeamNames[Team1Code][0]; Print_SetPosition(0, 56+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team1Code][1]; Print_SetPosition(0, 64+768); Print_DrawText(str);
+    str[0] = g_TeamNames[Team1Code][2]; Print_SetPosition(0, 72+768); Print_DrawText(str);
     Print_SetPosition(0,  80+768);Print_DrawText(" ");
     Print_SetPosition(0,  88+768);Print_DrawText("0");
 
@@ -592,7 +1003,7 @@ void main()
     //RemoveScoreBoardRight(ScoreBoardRight.x0,ScoreBoardRight.y0,  0);
 
 
-	Bios_SetHookCallback(H_TIMI, VSyncCallback);
+	//Bios_SetHookCallback(H_TIMI, VSyncCallback);
 
 	ScoreBoardLeft.x0 = ScoreBoardLeft.lx;
 	ScoreBoardLeft.x1 = ScoreBoardLeft.lx;

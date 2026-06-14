@@ -39,7 +39,7 @@ void UpdateBallPhysics()
 				u16 top_boundary = 24;
 				u16 bottom_boundary = 478;
 				u8 goal_left = 82;
-				u8 goal_right = 156;
+				u8 goal_right = 146;
 				
 				i16 old_ly = (i16)g_pass_start_y + (dy_total * (progress - 1)) / g_pass_max_frames;
 				i16 new_ly = Ball->ly;

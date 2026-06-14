@@ -164,10 +164,10 @@ void AssignGoalKickTargets() {
 	SwSprite[other_gk].tx = 128;
 	SwSprite[other_gk].ty = (other_gk == 0) ? 32 : 444;
 	
-	// Salva i due attaccanti come ricevitori principali per il rinvio
+	// Salva i due difensori come ricevitori principali per il rinvio
 	u8 start_t = (team_to_kick == TEAM_1) ? 1 : 8;
-	g_throw_rec_1 = start_t + 4; // Attaccante Sx (ruolo 5)
-	g_throw_rec_2 = start_t + 5; // Attaccante Dx (ruolo 6)
+	g_throw_rec_1 = start_t;     // Difensore Sx (ruolo 1)
+	g_throw_rec_2 = start_t + 1; // Difensore Dx (ruolo 2)
 	g_selected_rec = 0;
 
 	// Schieramento per il rinvio: si riposizionano verso centrocampo e oltre in base ai ruoli
@@ -188,13 +188,13 @@ void AssignGoalKickTargets() {
 		u16 base_y;
 		if (team == team_to_kick) {
 			u16 rel_kick = (team_to_kick == TEAM_1) ? kick_y : (512 - kick_y);
-			if (role == 1 || role == 2) base_y = rel_kick + 36;
-			else if (role == 3 || role == 4) base_y = rel_kick + 84;
-			else base_y = rel_kick + 140; // Attaccanti visibili nello schermo per la selezione
+			if (role == 1 || role == 2) base_y = rel_kick + 96; // Più avanti di almeno 60px
+			else if (role == 3 || role == 4) base_y = rel_kick + 144;
+			else base_y = rel_kick + 200; // Attaccanti
 		} else {
-			if (role == 1 || role == 2) base_y = 280; 
-			else if (role == 3 || role == 4) base_y = 200; 
-			else base_y = 120; 
+			if (role == 1 || role == 2) base_y = 340; 
+			else if (role == 3 || role == 4) base_y = 260; 
+			else base_y = 150; // Attaccanti avversari più indietro dei difensori avversari
 		}
 		
 		// Specchia per il lato del campo

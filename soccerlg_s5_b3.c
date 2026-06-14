@@ -105,26 +105,32 @@ bool IsBallForeground()
 	if (g_is_penalty_shootout) {
 		return TRUE;
 	}
-
-	u8 closest_player = 0;
-	u16 min_dist = 0xFFFF;
 	
-	// Trova il giocatore più vicino
-	for (u8 i = 0; i < 14; i++) {
-		u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
-		u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
-		u16 dist = dx + dy;
-		
-		if (dist < min_dist) {
-			min_dist = dist;
-			closest_player = i;
+	u8 reference_player = 0;
+
+	// Se la palla è portata, il riferimento è il portatore (evita sfarfallii in mischia).
+	// Altrimenti cerchiamo il giocatore più vicino.
+	if (g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchPlayer < 14) {
+		reference_player = LastTouchPlayer;
+	} else {
+		u16 min_dist = 0xFFFF;
+		for (u8 i = 0; i < 14; i++) {
+			u16 dx = (SwSprite[i].lx > SwSprite[14].lx) ? (SwSprite[i].lx - SwSprite[14].lx) : (SwSprite[14].lx - SwSprite[i].lx);
+			u16 dy = (SwSprite[i].ly > SwSprite[14].ly) ? (SwSprite[i].ly - SwSprite[14].ly) : (SwSprite[14].ly - SwSprite[i].ly);
+			u16 dist = dx + dy;
+			
+			if (dist < min_dist) {
+				min_dist = dist;
+				reference_player = i;
+			}
 		}
 	}
-	
+
 	// Z-Order Top-Down: se la palla è ad un'altezza visiva (Y) inferiore al petto del giocatore (Y+4),
 	// va in Background, venendo coperta dai pixel della maglietta/schiena in modo naturale.
 	// Altrimenti (Sud, Est, Ovest), viene disegnata in Foreground (davanti ai piedi).
-	if (SwSprite[14].ly <= SwSprite[closest_player].ly + 4) {
+	// La soglia +1 compensa matematicamente il lag di smoothing del dribbling diagonale a Sud.
+	if (SwSprite[14].ly < SwSprite[reference_player].ly + 1) {
 		return FALSE;
 	}
 
