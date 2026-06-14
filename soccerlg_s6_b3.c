@@ -108,15 +108,24 @@ void PlayerAI(u8 i)
 		else if (Ball->lx < Player->lx - 4) target_x = Player->lx - 2;
 		else target_x = Ball->lx;
 		
-		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 146)
+		// Limiti dell'area di porta (specchio esteso tra i due pali 82 - 158)
 		if (target_x < 88) target_x = 88;
-		if (target_x > 140) target_x = 140;
+		if (target_x > 152) target_x = 152;
 		
 		target_y = (team == TEAM_1) ? 32 : 452;
 		
 		Player->dx = (target_x > Player->lx) ? 1 : ((target_x < Player->lx) ? -1 : 0);
 		Player->dy = 0;
 		
+		// Ritardo nel seguire la palla in base alla bravura del portiere (statistica da 1 a 5)
+		if (Player->dx != 0) {
+			u8 gk_skill = g_ActiveStats[team].gk_penalty_skill;
+			// Il modulo 6 bilancia i frame: a skill 5 non salta mai, a skill 2 salta 3 frame su 6.
+			if (((Frms + i) % 6) > gk_skill) {
+				Player->dx = 0;
+			}
+		}
+
 		Player->lx += Player->dx;
 		Player->ly = target_y; // Forza la Y corretta
 		

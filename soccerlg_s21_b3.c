@@ -5,6 +5,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "soccerlg_rawdef.h"
 
 static i8 ai_last_dx[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static i8 ai_last_dy[14] = {1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1};
@@ -335,6 +336,7 @@ void PlayerAI_Movement(u8 i)
 								
 								Ball->anim = 5;
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+								PlaySCCEvent(DANGER_KICK_BIN_SEG, DANGER_KICK_BIN_SIZE);
 							}
 						}
 
@@ -379,10 +381,13 @@ void PlayerAI_Movement(u8 i)
 											g_pass_start_y = Player->ly;
 											g_pass_target_x = SwSprite[receiver].lx;
 											g_pass_target_y = SwSprite[receiver].ly;
-											g_pass_max_frames = (r_dx + r_dy) / 5;
-											if (g_pass_max_frames < 8) g_pass_max_frames = 8;
-											if (g_pass_max_frames > 34) g_pass_max_frames = 34;
-											g_pass_max_height = 7;
+											
+											g_pass_max_frames = (r_dx + r_dy) / 6;
+											if (g_pass_max_frames < 6) g_pass_max_frames = 6;
+											if (g_pass_max_frames > 28) g_pass_max_frames = 28;
+											g_pass_max_height = (r_dx + r_dy) / 24;
+											if (g_pass_max_height < 1) g_pass_max_height = 1;
+											if (g_pass_max_height > 7) g_pass_max_height = 7;
 											
 											Ball->anim = 5;
 											CallFnc_VOID(SEG_EVENTS, EventBallKicked);

@@ -106,6 +106,12 @@ bool IsBallForeground()
 		return TRUE;
 	}
 	
+	// Durante il setup del calcio d'inizio del Team 2 (P1), la palla è sempre in background
+	// per evitare che copra il giocatore che sta per battere.
+	if (TimerEnabled == FALSE && KickOffTeam == TEAM_2) {
+		return FALSE;
+	}
+
 	u8 reference_player = 0;
 
 	// Se la palla è portata, il riferimento è il portatore (evita sfarfallii in mischia).

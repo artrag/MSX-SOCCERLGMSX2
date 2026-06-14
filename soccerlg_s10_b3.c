@@ -5,6 +5,7 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "soccerlg_rawdef.h"
 
 void UpdateFieldCamera()
 {
@@ -82,9 +83,9 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		RestartType = 0;
 	}
 	
-	// Specchio porta: ricalibrato (allargato a sinistra di 8px per evitare falsi rinvii sul palo)
+	// Specchio porta: ricalibrato in perfetta simmetria rispetto al centro (X=120)
 	u8 goal_left = 82;
-	u8 goal_right = 146;
+	u8 goal_right = 158;
 	
 	// Controlla se la palla è portata da un giocatore (dribbling)
 	bool is_carried = FALSE;
@@ -101,6 +102,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			ScoreTeam2++;
 			RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
 			Ball->anim = 0; // Ferma la palla
+			PlaySCCThenCrowd(INGOAL_BIN_SEG, INGOAL_BIN_SIZE);
 			return;
 		}
 		*game_state = 9;
@@ -109,6 +111,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		KickOffTeam = TEAM_1; // Il Team 1 subisce gol, quindi batte
 		ScoreTeam2++; // Aumenta il punteggio
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 2 segna
+		PlaySCCThenCrowd(INGOAL_BIN_SEG, INGOAL_BIN_SIZE);
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;
@@ -123,6 +126,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 			ScoreTeam1++;
 			RestartType = RESTART_GOAL; // Segnala il goal per lo stato 15
 			Ball->anim = 0; // Ferma la palla
+			PlaySCCThenCrowd(INGOAL_BIN_SEG, INGOAL_BIN_SIZE);
 			return;
 		}
 		*game_state = 9;
@@ -131,6 +135,7 @@ void CheckFieldBoundaries(u8* game_state, u8* wait_secs, u8* start_sec)
 		KickOffTeam = TEAM_2; // Il Team 2 subisce gol, quindi batte
 		ScoreTeam1++; // Aumenta il punteggio
 		CallFnc_VOID(SEG_EVENTS, EventGoal);  // Team 1 segna
+		PlaySCCThenCrowd(INGOAL_BIN_SEG, INGOAL_BIN_SIZE);
 		Ball->anim = Ball->dx = Ball->dy = 0;
 		Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
 		T1_Carrier = T2_Carrier = T1_Receiver = T2_Receiver = 0xFF;

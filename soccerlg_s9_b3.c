@@ -7,6 +7,7 @@
 #include "soccerlg.h"
 #include "debug.h"
 #include "input.h"
+#include "soccerlg_rawdef.h"
 
 void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
 {
@@ -20,17 +21,16 @@ void UpdateGameState(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly
 	} else if (*game_state == 3) {
 		// Gestione cambio tempo
 		if (Mins == 0 && Secs == 0) {
+			*wait_secs = 2;
+			*start_sec = Frms;
 			if (Half == 1) {
 				*game_state = 4;
-				*wait_secs = 2;
-				*start_sec = Frms;
 				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_HALFTIME);
 				CallFnc_VOID(SEG_EVENTS, EventHalfTime);
 			} else if (Half == 2) {
 				*game_state = 5;
-				*wait_secs = 2;
-				*start_sec = Frms;
 				CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_TIMEUP);
+				CallFnc_VOID(SEG_EVENTS, EventTimeUp);
 			}
 			return;
 		}
@@ -152,88 +152,38 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 
 		// --- ANIMAZIONE DRIBBLING PALLA E PORTATORE ---
 
-		// CONTROLLO PRESA DEL PORTIERE (su tiri, passaggi o dribbling ravvicinato)
-		u8 gks[2] = {0, 7};
-		for (u8 g = 0; g < 2; g++) {
-			u8 gk_idx = gks[g];
-			
-			// Disabilita la presa se il portiere ha appena rinviato la palla
-			if (LastTouchPlayer == gk_idx) continue;
-			
-			u16 dist_x = (SwSprite[gk_idx].lx > Ball->lx) ? (SwSprite[gk_idx].lx - Ball->lx) : (Ball->lx - SwSprite[gk_idx].lx);
-			u16 dist_y = (SwSprite[gk_idx].ly > Ball->ly) ? (SwSprite[gk_idx].ly - Ball->ly) : (Ball->ly - SwSprite[gk_idx].ly);
-			
-			if (dist_x <= 16 && dist_y <= 16) { // Area di presa (16 px)
-				if(g_is_penalty_shootout) {
-					RestartType = RESTART_GKSAVE; // Segnala la parata per lo stato 15
-					Ball->anim = 0; // Ferma la palla
-					return;
-				}
-
-				if (dist_x >= 6) {
-					if (Ball->lx < SwSprite[gk_idx].lx) {
-						SwSprite[gk_idx].lx = Ball->lx + 8;
-						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_WEST_NORTH : SPR_GK_PLAYER_DOWN_WEST_SOUTH;
-					} else {
-						SwSprite[gk_idx].lx = Ball->lx - 8;
-						SwSprite[gk_idx].frame = (gk_idx == 0) ? SPR_GK_PLAYER_DOWN_EAST_NORTH : SPR_GK_PLAYER_DOWN_EAST_SOUTH;
-					}
-					// Il GK si è spostato lateralmente: cancella le 3 posizioni VRAM vecchie e ridisegna.
-					// Senza questo le pagine VRAM avranno ancora il GK alla posizione pre-salto → ghost pixels.
-					CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[gk_idx].x0, SwSprite[gk_idx].y0, 0);
-					CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[gk_idx].x1, SwSprite[gk_idx].y1, 256);
-					CallFnc_VOID_U8U16U16(SEG_DRAW, RemoveSwSprite, SwSprite[gk_idx].x2, SwSprite[gk_idx].y2, 512);
-					CallSpriteFrame(SwSprite[gk_idx].lx, (SwSprite[gk_idx].ly & 255) + 0,   SwSprite[gk_idx].frame);
-					CallSpriteFrame(SwSprite[gk_idx].lx, (SwSprite[gk_idx].ly & 255) + 256, SwSprite[gk_idx].frame);
-					CallSpriteFrame(SwSprite[gk_idx].lx, (SwSprite[gk_idx].ly & 255) + 512, SwSprite[gk_idx].frame);
-					SwSprite[gk_idx].x0 = SwSprite[gk_idx].x1 = SwSprite[gk_idx].x2 = SwSprite[gk_idx].lx;
-					SwSprite[gk_idx].y0 = SwSprite[gk_idx].y1 = SwSprite[gk_idx].y2 = SwSprite[gk_idx].ly;
-				}
-
-				*game_state = 6; // Ferma il gioco per preparare il rinvio
-				Field.dy = 0;
-				RestartType = RESTART_GKSAVE;
-				RestartSideX = SwSprite[gk_idx].lx;
-				RestartSideY = SwSprite[gk_idx].ly;
-				Ball->anim = Ball->dx = Ball->dy = 0;
-				Ball->frame = SPR_BALL_SIZE_1; // Forza la dimensione a terra
-				Ball->lx = SwSprite[gk_idx].lx; // Teletrasporta la palla sulle braccia del portiere
-				Ball->ly = SwSprite[gk_idx].ly;
-				T1_Carrier = T2_Carrier = 0xFF;
-				TimerEnabled = FALSE;
-				*wait_secs = 1; *start_sec = 0; // start_sec=0: la pausa scade al frame successivo (nessun freeze)
-				return; // Esci dall'update per avviare la routine di pausa e ripresa
-			}
-		}
+		CallFnc_VOID_3PTR(SEG_HELPERS, UpdateGameState_GlobalChecks, game_state, wait_secs, start_sec);
+		if (*game_state == 6 || (g_is_penalty_shootout && RestartType == RESTART_GKSAVE)) return;
 		
 		// 1. Fisica della palla
 		CallFnc_VOID(SEG_GAMESTATE_8, UpdateBallPhysics);
 
 		// --- CONTROLLO OFFSIDE GLOBALE (CPU e UMANI) ---
-		if ((g_pass_receiver & 0x80) && Ball->anim < 5) {
+		if (g_pass_receiver & 0x80) {
 			u8 rec = g_pass_receiver & 0x7F;
-			u8 pass_team = (rec < 7) ? TEAM_1 : TEAM_2;
-			
-			if (LastTouchTeam != 0xFF && LastTouchTeam != pass_team) {
-				g_pass_receiver = 0xFF; // Intercettata dagli avversari
+			if (rec >= 14) {
+				g_pass_receiver = 0xFF;
 			} else {
-				u16 dist_x = (SwSprite[rec].lx > Ball->lx) ? (SwSprite[rec].lx - Ball->lx) : (Ball->lx - SwSprite[rec].lx);
-				u16 dist_y = (SwSprite[rec].ly > Ball->ly) ? (SwSprite[rec].ly - Ball->ly) : (Ball->ly - SwSprite[rec].ly);
-				
-				// Se il destinatario (in offside) tocca la palla
-				if (dist_x <= 20 && dist_y <= 20) {
-					*game_state = 6; 
-					RestartType = RESTART_OFFSIDE; 
-					RestartSideX = SwSprite[rec].lx; 
-					RestartSideY = SwSprite[rec].ly;
+				u8 pass_team = (rec < 7) ? TEAM_1 : TEAM_2;
+
+				if (LastTouchTeam != 0xFF && LastTouchTeam != pass_team) {
+					g_pass_receiver = 0xFF; // Intercettata dagli avversari: annulla offside
+				} else if (Ball->anim == 5) {
+					// Palla in volo verso ricevitore in fuorigioco: fischia subito
+					*game_state = 6;
+					RestartType = RESTART_OFFSIDE;
+					RestartSideX = (u8)g_pass_target_x;
+					RestartSideY = g_pass_target_y;
 					CallFnc_VOID(SEG_EVENTS, EventOffside);
 					Ball->anim = Ball->dx = Ball->dy = 0;
-					Ball->frame = SPR_BALL_SIZE_1; 
+					Ball->lx = g_pass_target_x;
+					Ball->ly = g_pass_target_y;
+					Ball->frame = SPR_BALL_SIZE_1;
 					T1_Carrier = T2_Carrier = 0xFF;
-					g_pass_receiver = 0xFF; 
+					g_pass_receiver = 0xFF;
 					TimerEnabled = FALSE;
 					*wait_secs = 2; *start_sec = Frms;
-					return; // Interrompe il frame e passa allo stato restart
+					return;
 				}
 			}
 		}
@@ -440,6 +390,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 							
 							Ball->anim = 5;
 							CallFnc_VOID(SEG_EVENTS, EventBallKicked);
+							PlaySCCEvent(DANGER_KICK_BIN_SEG, DANGER_KICK_BIN_SIZE);
 						} else {
 							// Se non si tira, si passa
 							u8 receiver = receivers[i];
@@ -468,10 +419,13 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 								
 								u16 r_dx = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 								u16 r_dy = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
-								g_pass_max_frames = (r_dx + r_dy) / 5; // Velocità di volo passaggi
-								if (g_pass_max_frames < 8) g_pass_max_frames = 8;
-								if (g_pass_max_frames > 34) g_pass_max_frames = 34;
-								g_pass_max_height = 7; // Passaggio normale alto
+								
+								g_pass_max_frames = (r_dx + r_dy) / 6; // Velocità aumentata
+								if (g_pass_max_frames < 6) g_pass_max_frames = 6;
+								if (g_pass_max_frames > 28) g_pass_max_frames = 28;
+								g_pass_max_height = (r_dx + r_dy) / 24; // Altezza proporzionale alla distanza
+								if (g_pass_max_height < 1) g_pass_max_height = 1;
+								if (g_pass_max_height > 7) g_pass_max_height = 7;
 								
 								Ball->anim = 5; // Flag per passaggio
 								CallFnc_VOID(SEG_EVENTS, EventBallKicked);

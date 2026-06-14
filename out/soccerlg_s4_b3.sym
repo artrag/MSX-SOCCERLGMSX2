@@ -42,9 +42,9 @@ Symbol Table
     _Team2Code                                                      ******** GX
     _UpdateAllInputs                                                ******** GX
     _UpdateGameState                                                ******** GX
+    _VDP_CommandSetupR36                                            ******** GX
     _VDP_RegWrite                                                   ******** GX
     _VDP_SetPage                                                    ******** GX
-    _VPD_CommandSetupR36                                            ******** GX
     _WaitForVBlank                                                  ******** GX
   7 ___str_0                                                        00000E42 R
     __divsint                                                       ******** GX

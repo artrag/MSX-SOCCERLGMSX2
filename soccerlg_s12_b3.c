@@ -7,6 +7,7 @@
 #include "soccerlg.h"
 #include "debug.h"
 #include "input.h"
+#include "soccerlg_rawdef.h"
 
 void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 target_ly) 
 {
@@ -54,8 +55,12 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 						for (u8 i=37; i<NumSprite; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
 						if (!ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
 						for (u8 i=0; i<14; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+						if (OnScreen(SwSprite[26].ly)) CallSpriteFrame(SwSprite[26].lx, (SwSprite[26].ly & 255) + page, SwSprite[26].frame);
 						if (ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
-						for (u8 i=15; i<37; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+						for (u8 i=15; i<37; i++) {
+							if (i == 26) continue;
+							if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+						}
 					}
 					
 					// Aggiorna la storia del triplo buffer per evitare che gli sprite spariscano
@@ -87,7 +92,6 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 				(*wait_secs)--;
 				if (*wait_secs == 0) {
 					CallFnc_VOID(SEG_DRAW, HideSpriteMessage);
-					CallFnc_VOID(SEG_EVENTS, EventTimeUp);
 					
 					if (ScoreTeam1 != ScoreTeam2) {
 						*game_state = 10; // Vittoria: Esultanza e Uscita
@@ -97,6 +101,7 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 					} else {
 						*game_state = 11; // Pareggio: Setup Rigori
 						CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_PENALTIES);
+						PlaySCCLoop(PENALTIES_BIN_SEG, PENALTIES_BIN_SIZE);
 						*wait_secs = 2;
 						*start_sec = Frms;
 					}
@@ -152,8 +157,12 @@ void UpdateGameState_Restarts(u8* game_state, u8* wait_secs, u8* start_sec, u16 
 							for (u8 i=37; i<NumSprite; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
 							if (!ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
 							for (u8 i=0; i<14; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+							if (OnScreen(SwSprite[26].ly)) CallSpriteFrame(SwSprite[26].lx, (SwSprite[26].ly & 255) + page, SwSprite[26].frame);
 							if (ball_fg && OnScreen(SwSprite[14].ly)) CallSpriteFrame(SwSprite[14].lx, (SwSprite[14].ly & 255) + page, SwSprite[14].frame);
-							for (u8 i=15; i<37; i++) if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+							for (u8 i=15; i<37; i++) {
+								if (i == 26) continue;
+								if (OnScreen(SwSprite[i].ly)) CallSpriteFrame(SwSprite[i].lx, (SwSprite[i].ly & 255) + page, SwSprite[i].frame);
+							}
 						}
 						
 						// Aggiorna la storia del triplo buffer per evitare che gli sprite vecchi corrompano il campo

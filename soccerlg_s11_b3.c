@@ -21,8 +21,8 @@ void AssignKickOffTargets() {
 	SwSprite[13].tx= 200; SwSprite[13].ty= 312;  
 
 	if (KickOffTeam == TEAM_1) {
-		SwSprite[3].tx = 116; SwSprite[3].ty = 236; // 3 è il battitore CPU
-		SwSprite[4].tx = 132; SwSprite[4].ty = 236;
+		SwSprite[3].tx = 116; SwSprite[3].ty = 242; // 3 è il battitore CPU
+		SwSprite[4].tx = 132; SwSprite[4].ty = 242;
 		SwSprite[10].tx= 100; SwSprite[10].ty= 296;
 		SwSprite[11].tx= 140; SwSprite[11].ty= 296;
 		

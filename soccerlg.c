@@ -12,7 +12,6 @@
 #include "debug.h"
 #include "soccerlg_rawdef.h"
 #include "bin/FieldMap.h"
-#include "ayfx/ayfx_player.h"
 #include "libs/yscc/yscc_player.h"
 
 // -----------------
@@ -130,6 +129,7 @@ const c8* g_TeamNames[6] = {
 	u8  g_closest_t2 = 0xFF;
 	bool g_is_ball_carried = FALSE;
 	bool g_help_shown = FALSE;
+	u8  g_scc_resume_timer = 0;
 
 	extern  unsigned char g_Menu_Fonts[];
 
@@ -173,6 +173,13 @@ const c8* g_TeamNames[6] = {
 	struct TeamStats g_ActiveStats[2];
 
 	volatile bool g_VSynch=FALSE;
+
+#define SCC_AFTER_NONE         0
+#define SCC_AFTER_START_CROWD  1
+#define SCC_AFTER_RESUME_CROWD 2
+
+static u8         s_scc_after_action = SCC_AFTER_NONE;
+static YSCC_State s_crowd_state;
 
 
 // -----------------------------
@@ -334,6 +341,38 @@ void CallFnc_VOID_U8U8(u8 segment, void (*func)(u8, u8), u8 p1, u8 p2) {
 // *** FUNCTIONS ***
 // -----------------
 
+void PlaySCC(u16 start_seg, u32 byte_size) {
+	YSCC_Play(start_seg, byte_size);
+}
+
+void PlaySCCLoop(u16 start_seg, u32 byte_size) {
+	YSCC_PlayLoop(start_seg, byte_size);
+}
+
+// Play one-shot audio then automatically start crowd loop
+void PlaySCCThenCrowd(u16 start_seg, u32 byte_size) {
+	g_scc_resume_timer = 0; // Azzera il timer in caso sia in corso per evitare tagli non voluti
+	s_scc_after_action = SCC_AFTER_START_CROWD;
+	YSCC_Play(start_seg, byte_size);
+}
+
+// Save crowd loop state, play event audio, then resume crowd from saved position
+void PlaySCCEvent(u16 start_seg, u32 byte_size) {
+	g_scc_resume_timer = 0;
+	if (s_scc_after_action != SCC_AFTER_RESUME_CROWD) {
+		YSCC_SaveState(&s_crowd_state);
+	}
+	s_scc_after_action = SCC_AFTER_RESUME_CROWD;
+	YSCC_Play(start_seg, byte_size);
+}
+
+void PlaySounds(){
+		// OFFR is managed entirely inside _YSCC_CopyPCMBlock:
+		// set to audio value before ROM reads, restored to 0 before returning.
+		// This ensures CH_ENABLE write in YSCC_Decode and all post-ISR accesses
+		// see OFFR=0, preventing menu character corruption with MENU_BIN_SEG=256.
+		YSCC_Decode();
+}
 // +++ Splash screen load +++
 void SplashScreenLoad()
 {
@@ -391,11 +430,9 @@ void SplashScreenLoad()
 // +++ Show menu +++
 void ShowMenu()
 {
-	
-	
-
 	MenuScreenLoad();
 	MenuGrayScreenLoad();
+	PlaySCCLoop(MENU_BIN_SEG, MENU_BIN_SIZE);
 	SET_BANK_SEGMENT(3,4);
 	Print_SetBitmapFont(g_Menu_Fonts);
 	Print_SetPosition(25,  2);
@@ -748,7 +785,7 @@ void AddLines(struct ObjectInfo* Field)
 		}
 	}
 }
-
+// +++ Sprite showing +++
 void CallSpriteFrame(u8 x, u16 y, u16 frame)  __naked
 {
 	x;			// A
@@ -765,37 +802,79 @@ CFGR 			.equ 		0x7FFD 			; configuration bits
 	pop hl		; hl = frame
 	push af		; push return
 
-	// ld 		a,#1
-	// ld		(ENAR),a		; <- !!! potrebbe causare problemi a MSXGL ma senza ci sono altri problemi nel codice @ 0x7FFF
-	ld 		a,#(SPRITES_BIN_SEG>>2) & #$%11000000
-	ld		(OFFR),a				; Data offset
-	
-	ld	a,(#(_g_Bank0Segment + 6) + 0)
-	push 	af								; save the current mapper page (!!) has to be < 256
-	call  SpriteFrame
-	xor 	a,a								; lower 2MB
-	ld 		(OFFR),a
-	// ld		(ENAR),a		; <- !!! potrebbe causare problemi a MSXGL ma senza ci sono altri problemi nel codice @ 0x7FFF
-	pop 	af
-	ld	(#0xB000),a							; restore the mapper page
-	ld	(#(_g_Bank0Segment + 6) + 0),a		
+	; Ordering is critical for ISR safety (no DI/EI needed):
+	;  1. Save game seg on stack  2. Update g_Bank0Segment to sprite base
+	;  3. Set g_YSCC_CurrentOFFR  4. Set OFFR hardware
+	;  → call sprites →
+	;  5. Clear OFFR hardware  6. Clear g_YSCC_CurrentOFFR + g_Bank0Segment+7
+	;  7. Restore game seg
+	; If ISR fires at any point, _YSCC_CopyPCMBlock reads g_YSCC_CurrentOFFR
+	; to determine what OFFR was active and restores it correctly after audio.
+
+	; Step 1: save game segment before ANY changes to g_Bank0Segment
+	ld	a,(#(_g_Bank0Segment + 6))
+	push	af								; game seg (< 256) on stack
+
+	di
+	; Step 2: update g_Bank0Segment to sprite base (768 = 0x0300)
+	; This makes the cache consistent so ISR can restore bank3 correctly.
+	xor	a
+	ld	(#(_g_Bank0Segment + 6)),a			; LOW  = 0  (768 & 0xFF)
+	ld	a,#3
+	ld	(#(_g_Bank0Segment + 7)),a			; HIGH = 3  (768 >> 8)
+
+	; Step 3+4: set tracking var BEFORE hardware write (ISR sees consistent state)
+	ld	a,#(SPRITES_BIN_SEG>>2) & #$%11000000
+	ld	(#_g_YSCC_CurrentOFFR),a			; read by _YSCC_CopyPCMBlock in ISR
+	push af
+	ld	a,#1
+	ld	(#0x7FFF),a							; ENAR: REGEN=1 (enable register writes)
+	pop	af
+	ld	(OFFR),a							; hardware OFFR = 0xC0
+	xor	a,a
+	ld	(#0x7FFF),a							; ENAR: REGEN=0 (restore ROM reads at 7FFE)
+	ei
+
+	call	SpriteFrame
+
+	; Step 5+6: restore OFFR=0 and clear tracking var atomically (DI/EI).
+	; Race: ISR between ld(OFFR)=0 and ld(CurrentOFFR)=0 would see stale
+	; CurrentOFFR=0xC0, save it as "previous OFFR", then restore 0xC0 to
+	; hardware — making bank3 map to game_seg+768 instead of game_seg → crash.
+	; DI/EI covers only the OFFR writes (~10us), negligible vs 16ms VBlank.
+	; REGEN=1 before OFFR write, REGEN=0 after — prevents 7FFE ROM collision.
+	xor	a,a
+	di
+	inc	a								; A=1
+	ld	(#0x7FFF),a						; ENAR: REGEN=1
+	dec	a								; A=0
+	ld	(OFFR),a						; hardware OFFR = 0
+	ld	(#0x7FFF),a						; ENAR: REGEN=0
+	ld	(#_g_YSCC_CurrentOFFR),a
+	ld	(#(_g_Bank0Segment + 7)),a
+
+	; Step 7: restore game segment
+	pop	af
+	ld	(#(_g_Bank0Segment + 6)),a			; restore cache LOW
+	ld	(#0xB000),a							; restore bank3 hardware
+	ei
 	ret
 
 SpriteFrame::
 	ld	a,l
 	and #3		; 4 sprite per pagina
 	add a,a
-	add a,a			
+	add a,a
 	ld	c,a		; in c the low address of the function to be called
-	
+
 	srl h		; page = SPRITES_BIN_SEG + frame / 4
 	rr  l
 	srl h
 	rr  l
 	ld	a,#SPRITES_BIN_SEG
 	add a,l		; segments in the current offset (!)
-	ld	(#0xB000),a		
 	ld	(#(_g_Bank0Segment + 6) + 0),a		; prevent future possible issues on the ISR
+	ld	(#0xB000),a
 
 	ld	h,d			; HLB  = y*256+X = 2 * VRAM_address
 	ld	l,e
@@ -843,6 +922,18 @@ void VSyncCallback()
 {
 	g_VSynch = TRUE;
 	
+	// Se il timer è attivo, scala il conto alla rovescia
+	if (g_scc_resume_timer > 0) {
+		g_scc_resume_timer--;
+		if (g_scc_resume_timer == 0) {
+			if (s_scc_after_action == SCC_AFTER_RESUME_CROWD) {
+				YSCC_Stop(); // Interrompe il pericolo forzatamente
+				s_scc_after_action = SCC_AFTER_NONE;
+				YSCC_LoadState(&s_crowd_state); // Riprende il tifo
+			}
+		}
+	}
+
 	Frms--;
 	if (Frms==0) {
 		Frms = 60;
@@ -857,11 +948,30 @@ void VSyncCallback()
 			}
 		}
 	}
+	// PlaySounds in ISR: garantisce esattamente 1 decode per VBlank (60Hz).
+	// OFFR viene ripristinato a 0 dentro PlaySounds prima che l'ISR ritorni.
+	PlaySounds();
 }
 
 void WaitForVBlank(){
     while(!g_VSynch) {}
     g_VSynch = FALSE;
+    // OFFR is restored to 0 inside _YSCC_CopyPCMBlock (called from ISR).
+    // Extra safety call in case audio is not currently playing (no-op when flag=0).
+    YSCC_RestoreOFFR();
+    if (s_scc_after_action != SCC_AFTER_NONE && !YSCC_IsPlaying()) {
+        if (s_scc_after_action == SCC_AFTER_START_CROWD) {
+            s_scc_after_action = SCC_AFTER_NONE;
+            if (g_is_penalty_shootout) {
+                YSCC_PlayLoop(PENALTIES_BIN_SEG, PENALTIES_BIN_SIZE);
+            } else {
+                YSCC_PlayLoop(PUBLIC_BIN_SEG, PUBLIC_BIN_SIZE);
+            }
+        } else {
+            s_scc_after_action = SCC_AFTER_NONE;
+            YSCC_LoadState(&s_crowd_state);
+        }
+    }
 }
 
 void LoadField(u8 vdp_page)
@@ -894,12 +1004,13 @@ void main()
 	if (Sys_GetMSXVersion() == MSXVER_1)
 	{
 		Bios_ClearScreen();
-		Bios_TextPrintSting("This game need MSX2 or above");
+		BIOS_TextPrint("This game need MSX2 or above");
 		Bios_GetCharacter();
 		return;
 	}
 	
 	DEBUG_INIT();
+	YSCC_Init();
     Bios_SetKeyClick(FALSE);
 	SplashScreenLoad();
 	// Installa l'hook del VBlank, essenziale affinché WaitForVBlank() non si blocchi
@@ -910,6 +1021,8 @@ void main()
 	}
 }
 void StartGame(){
+	YSCC_Stop();
+	s_scc_after_action = SCC_AFTER_NONE;
 	ScoreTeam1 = 0;
 	ScoreTeam2 = 0;
 	LastScoreTeam1 = 0;

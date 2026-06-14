@@ -9,8 +9,11 @@
 
 #include "msxgl.h"
 #include "soccerlg.h"
+#include "soccerlg_rawdef.h"
 #include "debug.h"
 #include "input.h"
+
+static bool s_timeup_played = FALSE;
 
 // -----------------
 // *** FUNCTIONS ***
@@ -24,7 +27,8 @@ void EventBallKicked()
 }
 void EventStartPresentationScrollig()
 {
-	// Trigger sonoro per l'inizio dello scrolling di presentazione
+	s_timeup_played = FALSE;
+	PlaySCCLoop(MATCH_BIN_SEG, MATCH_BIN_SIZE);
 }
 
 void EventPlayerFirstPresentationStarted()
@@ -34,41 +38,46 @@ void EventPlayerFirstPresentationStarted()
 
 void EventKickOffReady()
 {
-	// Trigger sonoro per il fischio dell'arbitro e giocatori pronti
+	PlaySCCThenCrowd(KICK_OFF_BIN_SEG, KICK_OFF_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_KICKOFF);
 }
 
 void EventHalfTime()
 {
-	// Trigger sonoro per la fine del primo tempo
+	// Trigger sonoro per fischio fine tempo
+	PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
 }
 
 void EventTimeUp()
 {
-	// Trigger sonoro per la fine della partita
+	// Trigger sonoro per fischio fine partita (evita doppioni)
+	if (!s_timeup_played) {
+		PlaySCCEvent(TIMEEND_BIN_SEG, TIMEEND_BIN_SIZE);
+		s_timeup_played = TRUE;
+	}
 }
 
 void EventThrowIn()
 {
-	// Trigger sonoro per rimessa laterale
+	PlaySCCEvent(THROW_IN_BIN_SEG, THROW_IN_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_THROWIN);
 }
 
 void EventCornerKick()
 {
-	// Trigger sonoro per calcio d'angolo
+	PlaySCCEvent(CORNER_KICK_BIN_SEG, CORNER_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_CORNERKICK);
 }
 
 void EventGoalKick()
 {
-	// Trigger sonoro per rinvio dal fondo
+	PlaySCCEvent(GOAL_KICK_BIN_SEG, GOAL_KICK_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_GOALKICK);
 }
 
 void EventOffside()
 {
-	// Trigger sonoro per fischio fuorigioco
+	PlaySCCEvent(OFFSIDE_BIN_SEG, OFFSIDE_BIN_SIZE);
 	CallFnc_VOID_16_P1(SEG_DRAW, ShowSpriteMessage, SPR_MSG_OFFSIDE);
 }
 

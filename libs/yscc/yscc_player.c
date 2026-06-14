@@ -7,6 +7,9 @@ u16          g_YSCC_SamplePage;
 volatile u16 g_YSCC_NumBlocksToPlay;
 u16          g_YSCC_Period;
 static u16   s_YSCC_SavedSeg3;
+static u8    s_YSCC_SavedOFFR;
+volatile u8  g_YSCC_CurrentOFFR = 0;
+static u8    s_YSCC_OFFRSet = 0;
 u16           g_currentSCCPlayingSegment=0xFFFF;
 static u16   s_YSCC_StartSeg;      // start segment (for loop/restart)
 static u16   s_YSCC_TotalBlocks;   // Blocks amount (for loop/restart)
@@ -15,24 +18,74 @@ static bool  s_YSCC_Paused;        // TRUE = riproduzione in pausa
 
 
 // INTERNAL Wave SCC table SCC reset and channels deactivating
+// NOTE: uses DJNZ direct-write loop instead of LDIR trick to avoid
+// reading from SCC hardware registers during ISR context.
 static void _YSCC_Silence() {
     __asm
         xor  a
         ld   (0x988F), a        ; CH_ENABLE = 0 (tutti i canali off)
+        ld   b, #0x80           ; 128 bytes (0x9800-0x987F)
         ld   hl, #0x9800
-        ld   de, #0x9801
-        ld   bc, #0x007F
-        ld   (hl), a            ; 0x9800 = 0
-        ldir                    ; 0x9801-0x987F = 0
+    _YSCC_Silence_fill:
+        ld   (hl), a            ; write 0 from register A (no SCC read)
+        inc  hl
+        djnz _YSCC_Silence_fill
+    __endasm;
+}
+
+// Set OFFR for audio segments >= 256 — call from main loop BEFORE WaitForVBlank spin.
+// No-op when current audio segment < 256 (OFFR already 0, no write to 0x7FFE).
+// Sets OFFR when audio segment >= 256, records if a write happened.
+// Safe to call from ISR: no write when segment < 256 (OFFR already 0).
+void YSCC_SetOFFRForAudio() {
+    __asm
+        ld   a, (_g_YSCC_SamplePage + 1)    ; high byte of SamplePage
+        or   a
+        jr   z, _YSCC_SetOFFR_skip           ; < 256: no write needed
+        rrca
+        rrca
+        and  #0xC0                           ; audio OFFR
+        push af                              ; save OFFR value
+        ld   a, #1
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=1 (enable register writes)
+        pop  af
+        ld   (#0x7FFE), a                    ; set OFFR
+        xor  a
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=0 (restore ROM reads at 7FFE)
+        ld   a, #1
+        ld   (_s_YSCC_OFFRSet), a            ; mark changed
+        jr   _YSCC_SetOFFR_done
+    _YSCC_SetOFFR_skip:
+        xor  a
+        ld   (_s_YSCC_OFFRSet), a            ; mark not changed
+    _YSCC_SetOFFR_done:
+    __endasm;
+}
+
+// Restores OFFR to 0 only if YSCC_SetOFFRForAudio actually wrote it.
+// Clears s_YSCC_OFFRSet so the flag doesn't stay permanently set.
+// Safe to call from ISR: write 0 only follows a prior non-zero write.
+void YSCC_RestoreOFFR() {
+    __asm
+        ld   a, (_s_YSCC_OFFRSet)
+        or   a
+        jr   z, _YSCC_RestoreOFFR_skip       ; was not changed, skip write-0
+        ld   a, #1
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=1
+        xor  a
+        ld   (#0x7FFE), a                    ; restore OFFR = 0
+        ld   (#0x7FFF), a                    ; ENAR: REGEN=0
+        ld   (_s_YSCC_OFFRSet), a            ; clear flag (A=0)
+    _YSCC_RestoreOFFR_skip:
     __endasm;
 }
 
 // Module initialization
 void YSCC_Init() {
     if (_YSCC_GetVdpFrequency() == 0) {
-        g_YSCC_Period = 0x08BD; 
+        g_YSCC_Period = 0x0749;  // 60Hz (NTSC): 3,580,000 / (32 × 1866) ≈ 60 Hz
     } else {
-        g_YSCC_Period = 0x0749; 
+        g_YSCC_Period = 0x08BD;  // 50Hz (PAL):  3,580,000 / (32 × 2238) ≈ 50 Hz
     }
     s_YSCC_Loop    = FALSE;
     s_YSCC_Paused  = FALSE;
@@ -128,8 +181,9 @@ bool YSCC_Decode() {
     if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
         return FALSE;
 
+    _YSCC_CopyPCMBlock();
+
     __asm
-        call __YSCC_CopyPCMBlock
         ld   a, #0x0F
         ld   (0x988F), a        ; abilita canali 1-4
     __endasm;
@@ -146,8 +200,14 @@ bool YSCC_Decode() {
             if(!s_YSCC_Loop){
                 g_currentSCCPlayingSegment=0xFFFF;
             }
-             
-            _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+            // Disable channels only; wave table will be zeroed by YSCC_Stop
+            // at next YSCC_Play call. Calling _YSCC_Silence() from inside the
+            // VBlank ISR (DJNZ loop over 128 bytes) was causing a HALT at
+            // end-of-song due to context/timing issues.
+            __asm
+                xor  a
+                ld   (0x988F), a    ; CH_ENABLE = 0 (tutti i canali off)
+            __endasm;
         }
         return TRUE;            // segnala fine ciclo al chiamante
     }
@@ -157,7 +217,49 @@ bool YSCC_Decode() {
 // INTERNAL Copy block
 void _YSCC_CopyPCMBlock() {
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
-    SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
+    // Set OFFR for the audio segment, and save/restore any OFFR already active
+    // (e.g. 0xC0 from CallSpriteFrame drawing sprites).  g_YSCC_CurrentOFFR is
+    // maintained by CallSpriteFrame so we always know the "outside" OFFR.
+    // Write OFFR hardware only when it differs from the current saved value to
+    // avoid spurious writes when both are 0 (normal case, no sprites drawing).
+    // CRITICAL ordering at end: restore OFFR hardware BEFORE bank3 hardware,
+    // because bank3's effective segment depends on the current OFFR value.
+    __asm
+        ; Save current OFFR (set to 0xC0 by CallSpriteFrame when sprites draw)
+        ld   a, (_g_YSCC_CurrentOFFR)
+        ld   (_s_YSCC_SavedOFFR), a          ; will be restored at end if changed
+
+        ; Compute audio OFFR from SamplePage (0 for segs < 256)
+        ld   a, (_g_YSCC_SamplePage + 1)     ; HIGH byte of SamplePage
+        rrca
+        rrca
+        and  #0xC0                            ; A = audio OFFR (0 for segs < 256)
+        ld   b, a                             ; B = audio OFFR
+
+        ; Write OFFR hardware only if audio OFFR differs from saved OFFR
+        ld   a, (_s_YSCC_SavedOFFR)
+        cp   b                                ; saved OFFR == audio OFFR?
+        jr   z, _CopyPCM_no_offr_write        ; same — no write needed
+        ld   a, #1
+        ld   (#0x7FFF), a                     ; ENAR: REGEN=1
+        ld   a, b
+        ld   (#0x7FFE), a                     ; write audio OFFR
+        xor  a
+        ld   (#0x7FFF), a                     ; ENAR: REGEN=0
+        ld   a, #1
+        ld   (_s_YSCC_OFFRSet), a            ; mark changed (restored at end)
+        jr   _CopyPCM_setbank
+    _CopyPCM_no_offr_write:
+        xor  a
+        ld   (_s_YSCC_OFFRSet), a            ; no change
+    _CopyPCM_setbank:
+        ld   a, (_g_YSCC_SamplePage)
+        ld   ((_g_Bank0Segment + 6)), a      ; cache LOW = audio seg
+        xor  a
+        ld   ((_g_Bank0Segment + 7)), a      ; cache HIGH = 0
+        ld   a, (_g_YSCC_SamplePage)
+        ld   (#0xB000), a                    ; hardware bank3
+    __endasm;
 
     __asm
         ; HL = 0xA000 + g_YSCC_SamplePos  (sorgente diretta in Bank3)
@@ -231,7 +333,26 @@ void _YSCC_CopyPCMBlock() {
         ldir
     __endasm;
 
-    SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
+    __asm
+        ld   de, (_s_YSCC_SavedSeg3)
+        ld   ((_g_Bank0Segment + 6)), de    ; restore full u16 cache
+
+        ; Restore OFFR BEFORE bank3 hardware: bank3's effective segment depends on
+        ; the current OFFR value (e.g. 0xC0 → adds 768 to the segment LOW byte).
+        ld   a, (_s_YSCC_OFFRSet)
+        or   a
+        jr   z, _CopyPCM_done               ; no OFFR change was made, skip restore
+        ld   a, #1
+        ld   (#0x7FFF), a                   ; ENAR: REGEN=1
+        ld   a, (_s_YSCC_SavedOFFR)         ; original OFFR before this call (0 or 0xC0)
+        ld   (#0x7FFE), a                   ; restore it
+        xor  a
+        ld   (#0x7FFF), a                   ; ENAR: REGEN=0
+        ld   (_s_YSCC_OFFRSet), a           ; clear flag (A=0)
+    _CopyPCM_done:
+        ld   a, e                           ; low byte of saved segment
+        ld   (#0xB000), a                   ; restore hardware bank3 (OFFR already correct)
+    __endasm;
 
     g_YSCC_SamplePos += 128;
     if (g_YSCC_SamplePos >= (u16)0x2000) {

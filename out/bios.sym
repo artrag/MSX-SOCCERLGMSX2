@@ -7,29 +7,24 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  0 _Bios_ChangeColor                                               000000A8 GR
-  0 _Bios_ClearScreen                                               00000213 GR
-  0 _Bios_Exit                                                      00000000 GR
-  0 _Bios_FillVRAM                                                  00000073 GR
-  0 _Bios_GetAttributeTableAddress                                  000001D7 GR
-  0 _Bios_GetPatternTableAddress                                    000001D2 GR
-  0 _Bios_GraphPrintCharEx                                          000001DC GR
-  0 _Bios_HasCharacter                                              00000208 GR
-  0 _Bios_InitScreen0Ex                                             000000C1 GR
-  0 _Bios_InitScreen1Ex                                             000000F1 GR
-  0 _Bios_InitScreen2Ex                                             0000013C GR
-  0 _Bios_InitScreen3Ex                                             00000187 GR
-  0 _Bios_InterSlotCall                                             00000041 GR
-  0 _Bios_InterSlotRead                                             00000027 GR
-  0 _Bios_InterSlotWrite                                            0000002C GR
-  0 _Bios_SetCursorPosition                                         00000218 GR
-  0 _Bios_SetHookCallback                                           00000008 GR
-  0 _Bios_SwitchSlot                                                00000053 GR
-  0 _Bios_TransfertRAMtoVRAM                                        00000096 GR
-  0 _Bios_TransfertVRAMtoRAM                                        00000084 GR
-  0 _Bios_WritePSG                                                  00000203 GR
-  0 _Bios_WriteVDP                                                  0000005E GR
-  0 _Bios_WriteVRAM                                                 00000064 GR
+  0 _BIOS_ClearScreen                                               00000105 GR
+  0 _BIOS_CopyRAMtoVRAM                                             0000008F GR
+  0 _BIOS_CopyVRAMtoRAM                                             0000007D GR
+  0 _BIOS_Exit                                                      00000000 GR
+  0 _BIOS_FillVRAM                                                  0000006C GR
+  0 _BIOS_GetSpriteAttributeAddress                                 000000F1 GR
+  0 _BIOS_GetSpritePatternAddress                                   000000EC GR
+  0 _BIOS_HasCharacter                                              000000FB GR
+  0 _BIOS_InitScreen3Ex                                             000000A1 GR
+  0 _BIOS_InterSlotCall                                             00000043 GR
+  0 _BIOS_InterSlotRead                                             00000027 GR
+  0 _BIOS_InterSlotWrite                                            0000002D GR
+  0 _BIOS_SetHookCallback                                           00000008 GR
+  0 _BIOS_SwitchSlot                                                00000055 GR
+  0 _BIOS_TextSetCursor                                             0000010A GR
+  0 _BIOS_WritePSG                                                  000000F6 GR
+  0 _BIOS_WriteVDP                                                  00000061 GR
+  0 _BIOS_WriteVRAM                                                 00000067 GR
     _Sys_GetPageSlot                                                ******** GX
   0 ___str_0                                                        00000004 R
     _g_ACPAGE                                                   =   0000FAF6 G
@@ -58,16 +53,16 @@ Symbol Table
     _g_CMASK                                                    =   0000F92C G
     _g_CNSDFG                                                   =   0000F3DE G
     _g_CODSAV                                                   =   0000FBCC G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
     _g_CS120                                                    =   0000F3FC G
     _g_CS240                                                    =   0000F401 G
     _g_CSRSW                                                    =   0000FCA9 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_CSRX                                                     =   0000F3DD G
     _g_CSRY                                                     =   0000F3DC G
     _g_CSTYLE                                                   =   0000FCAA G
@@ -118,16 +113,16 @@ Symbol Table
     _g_LINL32                                                   =   0000F3AF G
     _g_LINL40                                                   =   0000F3AE G
     _g_LINLEN                                                   =   0000F3B0 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_LINTTB                                                   =   0000FBB2 G
     _g_LINWRK                                                   =   0000FC18 G
     _g_LOGOPR                                                   =   0000FB02 G
     _g_LOW                                                      =   0000F406 G
     _g_LOWLIM                                                   =   0000FCA4 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_LSTCOM                                                   =   0000FB1E G
     _g_LSTMOD                                                   =   0000FB1F G
     _g_MASTER                                                   =   0000F348 G
@@ -178,16 +173,16 @@ Symbol Table
     _g_PortPrimarySlot                                          =   000000A8 
     _g_PortReadKeyboard                                         =   000000A9 
     _g_QUEBAK                                                   =   0000F971 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_QUETAB                                                   =   0000F959 G
     _g_QUEUEN                                                   =   0000FB3E G
     _g_QUEUES                                                   =   0000F3F3 G
     _g_RAMAD0                                                   =   0000F341 G
     _g_RAMAD1                                                   =   0000F342 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_RAMAD2                                                   =   0000F343 G
     _g_RAMAD3                                                   =   0000F344 G
     _g_RDPRIM                                                   =   0000F380 G
@@ -238,16 +233,16 @@ Symbol Table
     _g_SLTWRK                                                   =   0000FD09 G
     _g_STATFL                                                   =   0000F3E7 G
     _g_STRSRC                                                   =   00000002 G
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
-Hexadecimal [32-Bits]
-
-Symbol Table
-
     _g_SUBRID                                                   =   00000000 G
     _g_SVFFF8                                                   =   0000FFF8 G
     _g_SVFFFD                                                   =   0000FFFD G
     _g_T32ATR                                                   =   0000F3C3 G
     _g_T32CGP                                                   =   0000F3C1 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
+Hexadecimal [32-Bits]
+
+Symbol Table
+
     _g_T32COL                                                   =   0000F3BF G
     _g_T32NAM                                                   =   0000F3BD G
     _g_T32PAT                                                   =   0000F3C5 G
@@ -286,7 +281,7 @@ Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size      21D   flags    0
+   0 _CODE                                      size      10F   flags    0
    1 _DATA                                      size        0   flags    0
    2 _INITIALIZED                               size        0   flags    0
    3 _DABS                                      size        0   flags    8

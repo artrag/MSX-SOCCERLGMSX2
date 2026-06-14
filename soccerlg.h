@@ -437,6 +437,7 @@ extern  u8  g_closest_t2;
 extern  bool g_is_ball_carried;
 extern struct InputState g_player_input[2];
 extern struct TeamStats g_ActiveStats[2];
+extern u8 g_scc_resume_timer;
 
 
 
@@ -446,6 +447,10 @@ extern struct TeamStats g_ActiveStats[2];
 
 // +++ SEGMENT 0 +++
 void main();
+void PlaySCC(u16 start_seg, u32 byte_size);
+void PlaySCCLoop(u16 start_seg, u32 byte_size);
+void PlaySCCThenCrowd(u16 start_seg, u32 byte_size);
+void PlaySCCEvent(u16 start_seg, u32 byte_size);
 void SplashScreenLoad();
 void VSyncCallback();
 void WaitForVBlank();
@@ -500,6 +505,7 @@ void SetBallSprite(u8 height);
 
 // +++ SEGMENT SEG_HELPERS (20) +++
 u16 FindReceiver(u8 carrier, u8 ignore_player, i8 c_dx, i8 c_dy);
+void UpdateGameState_GlobalChecks(u8* game_state, u8* wait_secs, u8* start_sec);
 
 // +++ SEGMENT SEG_INPUT (7) +++
 bool IsTeamJoystickTriggerPressed(u8 player);

@@ -30,7 +30,7 @@ ProjModules = [ ProjName ];
 LibModules = [  "system", "input", "vdp", "print", "memory", "debug", "math", "bios" ];
 
 //-- Additional sources to be compiled and linked with the project (array)
-AddSources = [  ];
+AddSources = [ "libs/yscc/yscc_player.c" ];
 
 //-- Target MSX machine version (string)
 //   - 1        MSX1
@@ -106,7 +106,20 @@ BankedCall = false;
 //-- List of raw data files to be added to final binary (array). Each entry must be in the following format: { offset:0x0000, file:"myfile.bin" }
 RawFiles = [
     { segment:768, file:"bin/sprites.bin" },
-    { segment:252, file:"bin/field.bin" }
+    { segment:252, file:"bin/field.bin" },
+    { segment:106, file:"bin/presentation.bin" },
+    { segment:143, file:"bin/match.bin" },
+    { segment:238, file:"bin/kick_off.bin" },
+    { segment:240, file:"bin/goal_kick.bin" },
+    { segment:242, file:"bin/offside.bin" },
+    { segment:244, file:"bin/corner_kick.bin" },
+    { segment:246, file:"bin/throw_in.bin" },
+    { segment:151, file:"bin/menu.bin" },
+    { segment:310, file:"bin/public.bin" },
+    { segment:410, file:"bin/danger_kick.bin" },
+    { segment:460, file:"bin/ingoal.bin" },
+    { segment:560, file:"bin/penalties.bin" },
+    { segment:760, file:"bin/timeend.bin" },
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)

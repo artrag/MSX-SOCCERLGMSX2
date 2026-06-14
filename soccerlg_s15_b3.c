@@ -43,7 +43,7 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 			if (*wait_secs == 0) do_throw = TRUE; // Lancio automatico scaduto il tempo
 
 			if (do_throw) {
-				if (RestartType == RESTART_THROWIN) {
+				if (RestartType == RESTART_THROWIN || RestartType == RESTART_OFFSIDE) {
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
 				} else {
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, (g_selected_rec == 0) ? g_throw_rec_1 : g_throw_rec_2);
@@ -54,7 +54,7 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 		} else {
 			if (*wait_secs == 0) {
 				u8 target = ((Frms % 2) == 0) ? g_throw_rec_1 : g_throw_rec_2;
-				if (RestartType == RESTART_THROWIN) {
+				if (RestartType == RESTART_THROWIN || RestartType == RESTART_OFFSIDE) {
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteThrowIn, g_thrower_id, target);
 				} else {
 					// Selezione bersaglio largo per il Corner CPU (Fuori area o defilati)
@@ -67,7 +67,7 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 					out_targets[3] = start_t + 5;
 					target = out_targets[Frms % 4];
 					if (target == g_thrower_id) target = out_targets[(Frms + 1) % 4];
-					
+
 					CallFnc_VOID_U8U8(SEG_GAMESTATE_7, ExecuteCornerKick, g_thrower_id, target);
 				}
 				g_pass_max_frames = (g_pass_max_frames * 85) / 100; // Aumenta la velocità del 15%
@@ -137,10 +137,12 @@ void UpdateGameState_SetPieces(u8* game_state, u8* wait_secs, u8* start_sec, u16
 				u16 dist_x = (g_pass_target_x > g_pass_start_x) ? (g_pass_target_x - g_pass_start_x) : (g_pass_start_x - g_pass_target_x);
 				u16 dist_y = (g_pass_target_y > g_pass_start_y) ? (g_pass_target_y - g_pass_start_y) : (g_pass_start_y - g_pass_target_y);
 				
-				g_pass_max_frames = (dist_x + dist_y) / 4; 
-				if (g_pass_max_frames < 20) g_pass_max_frames = 20;
-				if (g_pass_max_frames > 60) g_pass_max_frames = 60;
-				g_pass_max_height = 7;
+				g_pass_max_frames = (dist_x + dist_y) / 5; 
+				if (g_pass_max_frames < 15) g_pass_max_frames = 15;
+				if (g_pass_max_frames > 45) g_pass_max_frames = 45;
+				g_pass_max_height = (dist_x + dist_y) / 24;
+				if (g_pass_max_height < 2) g_pass_max_height = 2;
+				if (g_pass_max_height > 7) g_pass_max_height = 7;
 				
 				Ball->lx = g_pass_start_x;
 				Ball->ly = g_pass_start_y;
@@ -208,7 +210,7 @@ void UpdateGameState_Penalties_End(u8* game_state, u8* wait_secs, u8* start_sec,
 					Ball->anim = 0; // Tiro terminato
 					CallFnc_VOID_P1(SEG_DRAW, SetBallSprite, 0); // Ripristina grandezza a terra
 
-					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 146) {
+					if (Ball->ly <= 24 && Ball->lx >= 82 && Ball->lx <= 158) {
 						if (g_penalty_team == TEAM_2) ScoreTeam2++; else ScoreTeam1++;
 						RestartType = RESTART_GOAL; // Segnala il goal per poter attivare l'esultanza
 					}
