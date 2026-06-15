@@ -957,13 +957,13 @@ _PlayerAI::
 	sbc	a, -2 (ix)
 00221$:
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:73: if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
-	ld	a, #0x1c
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:73: if (b_dist_x <= 32 && c_dist_y <= 24) can_steal = TRUE;
+	ld	a, #0x20
 	cp	a, -5 (ix)
 	ld	a, #0x00
 	sbc	a, -4 (ix)
 	jr	C, 00137$
-	ld	a, #0x10
+	ld	a, #0x18
 	cp	a, b
 	ld	a, #0x00
 	sbc	a, e

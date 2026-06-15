@@ -1957,7 +1957,7 @@ _PlayerAI_Movement::
 	ld	c, -17 (ix)
 	ld	-4 (ix), a
 	ld	-3 (ix), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 36 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
 	ld	a, (_g_is_ball_carried+0)
 	or	a, a
 	jp	Z, 00258$
@@ -1966,14 +1966,14 @@ _PlayerAI_Movement::
 	jp	Z,00258$
 	ld	c, -24 (ix)
 	ld	b, -23 (ix)
-	ld	a, #0x20
+	ld	a, #0x24
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
 	jp	C, 00258$
 	ld	c, -16 (ix)
 	ld	b, -15 (ix)
-	ld	a, #0x10
+	ld	a, #0x18
 	cp	a, c
 	ld	a, #0x00
 	sbc	a, b
@@ -3510,7 +3510,7 @@ _PlayerAI_Movement::
 	and	a, #0x01
 	ld	b, a
 	ld	((_SwSprite + 326)), bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 36 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:416: if (move_dx == 0) {
 	ld	a, e
 	or	a, a

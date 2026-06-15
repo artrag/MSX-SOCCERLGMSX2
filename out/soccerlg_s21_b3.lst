@@ -1957,7 +1957,7 @@
     00000BF4 DD 4E EF         [19] 1957 	ld	c, -17 (ix)
     00000BF7 DD 77 FC         [19] 1958 	ld	-4 (ix), a
     00000BFA DD 71 FD         [19] 1959 	ld	-3 (ix), c
-                                   1960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
+                                   1960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 36 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
     00000BFD 3Ar00r00         [13] 1961 	ld	a, (_g_is_ball_carried+0)
     00000C00 B7               [ 4] 1962 	or	a, a
     00000C01 CArBFr0C         [10] 1963 	jp	Z, 00258$
@@ -1966,14 +1966,14 @@
     00000C0A CArBFr0C         [10] 1966 	jp	Z,00258$
     00000C0D DD 4E E8         [19] 1967 	ld	c, -24 (ix)
     00000C10 DD 46 E9         [19] 1968 	ld	b, -23 (ix)
-    00000C13 3E 20            [ 7] 1969 	ld	a, #0x20
+    00000C13 3E 24            [ 7] 1969 	ld	a, #0x24
     00000C15 B9               [ 4] 1970 	cp	a, c
     00000C16 3E 00            [ 7] 1971 	ld	a, #0x00
     00000C18 98               [ 4] 1972 	sbc	a, b
     00000C19 DArBFr0C         [10] 1973 	jp	C, 00258$
     00000C1C DD 4E F0         [19] 1974 	ld	c, -16 (ix)
     00000C1F DD 46 F1         [19] 1975 	ld	b, -15 (ix)
-    00000C22 3E 10            [ 7] 1976 	ld	a, #0x10
+    00000C22 3E 18            [ 7] 1976 	ld	a, #0x18
     00000C24 B9               [ 4] 1977 	cp	a, c
     00000C25 3E 00            [ 7] 1978 	ld	a, #0x00
     00000C27 98               [ 4] 1979 	sbc	a, b
@@ -3510,7 +3510,7 @@
     0000179E E6 01            [ 7] 3510 	and	a, #0x01
     000017A0 47               [ 4] 3511 	ld	b, a
     000017A1 ED 43r46r01      [20] 3512 	ld	((_SwSprite + 326)), bc
-                                   3513 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
+                                   3513 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:215: if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 36 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
                                    3514 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s21_b3.c:416: if (move_dx == 0) {
     000017A5 7B               [ 4] 3515 	ld	a, e
     000017A6 B7               [ 4] 3516 	or	a, a

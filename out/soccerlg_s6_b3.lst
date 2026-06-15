@@ -957,13 +957,13 @@
     00000480 DD 9E FE         [19]  957 	sbc	a, -2 (ix)
     00000483                        958 00221$:
     00000483 5F               [ 4]  959 	ld	e, a
-                                    960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:73: if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
-    00000484 3E 1C            [ 7]  961 	ld	a, #0x1c
+                                    960 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgMSX2/soccerlg_s6_b3.c:73: if (b_dist_x <= 32 && c_dist_y <= 24) can_steal = TRUE;
+    00000484 3E 20            [ 7]  961 	ld	a, #0x20
     00000486 DD BE FB         [19]  962 	cp	a, -5 (ix)
     00000489 3E 00            [ 7]  963 	ld	a, #0x00
     0000048B DD 9E FC         [19]  964 	sbc	a, -4 (ix)
     0000048E 38 0A            [12]  965 	jr	C, 00137$
-    00000490 3E 10            [ 7]  966 	ld	a, #0x10
+    00000490 3E 18            [ 7]  966 	ld	a, #0x18
     00000492 B8               [ 4]  967 	cp	a, b
     00000493 3E 00            [ 7]  968 	ld	a, #0x00
     00000495 9B               [ 4]  969 	sbc	a, e

@@ -212,7 +212,7 @@ void PlayerAI_Movement(u8 i)
 			target_y = Ball->ly;
 			
 			// Decide se tentare la scivolata (orizzontale o laterale quando si insegue di fianco)
-			if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 32 && b_dist_y <= 16 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
+			if (g_is_ball_carried && LastTouchTeam != team && b_dist_x <= 36 && b_dist_y <= 24 && Player->count == 0 && RestartType == 0 && Ball->count == 0) {
 				u8 slide_chance = 20 + (g_ActiveStats[team].aggro_defense * 15); 
 				if ((Frms + i * 7) % 100 < slide_chance) {
 					Player->count = 30; // durata scivolata + cooldown per penalità se manca la palla
