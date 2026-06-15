@@ -70,7 +70,7 @@ void PlayerAI(u8 i)
 			bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
 			if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != team) {
 				u16 c_dist_y = (Player->ly > SwSprite[LastTouchPlayer].ly) ? (Player->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Player->ly);
-				if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
+				if (b_dist_x <= 32 && c_dist_y <= 24) can_steal = TRUE;
 			}
 
 			bool is_immune_tackle = (Ball->count > 0 && LastTouchTeam != team && LastTouchTeam != 0xFF);

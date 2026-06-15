@@ -1,0 +1,1 @@
+start Emulicious -set System=MSX -set Update=0 -set MSXSCCCartridgeEnabled=true -set IntegerScaling=true -set MSXRAMBankShift=6 -set MSXPAR=1.1428572 -set MSXModel=1 -set MSXPAL=false -nomenu -nodragandrop -fullscreen resource:soccerlg.rom

@@ -237,7 +237,7 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 					bool can_steal = (b_dist_x <= 24 && b_dist_y <= 24);
 					if (!can_steal && g_is_ball_carried && LastTouchPlayer != 0xFF && LastTouchTeam != carrier_team) {
 						u16 c_dist_y = (Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly);
-						if (b_dist_x <= 28 && c_dist_y <= 16) can_steal = TRUE;
+						if (b_dist_x <= 32 && c_dist_y <= 24) can_steal = TRUE;
 					}
 
 					bool is_immune_tackle = (Ball->count > 0 && LastTouchTeam != carrier_team && LastTouchTeam != 0xFF);
@@ -481,11 +481,22 @@ if (min_dist_t2 <= 24 && (LastTouchTeam == TEAM_2 || LastTouchTeam == 0xFF)) {
 						bool opponent_has_ball = (g_is_ball_carried && LastTouchTeam != carrier_team);
 						
 						if (opponent_has_ball) {
-							if (dist_x <= 32 && dist_y <= 16) {
-								// Tackle orizzontale: anche quando si insegue lateralmente
+							u16 c_dist_x = (LastTouchPlayer != 0xFF) ? ((Carrier->lx > SwSprite[LastTouchPlayer].lx) ? (Carrier->lx - SwSprite[LastTouchPlayer].lx) : (SwSprite[LastTouchPlayer].lx - Carrier->lx)) : 0xFFFF;
+							u16 c_dist_y = (LastTouchPlayer != 0xFF) ? ((Carrier->ly > SwSprite[LastTouchPlayer].ly) ? (Carrier->ly - SwSprite[LastTouchPlayer].ly) : (SwSprite[LastTouchPlayer].ly - Carrier->ly)) : 0xFFFF;
+							
+							if ((dist_x <= 20 && dist_y <= 20) || (c_dist_x <= 16 && c_dist_y <= 16)) {
+								// Contrasto in piedi immediato (spallata vincente)
+								Ball->count = 30; // Immunità aumentata
+								LastTouchTeam = carrier_team;
+								LastTouchPlayer = carrier;
+								if (Ball->anim > 3) Ball->anim = 3;
+								Ball->frame = SPR_BALL_SIZE_1;
+								g_pass_receiver = 0xFF;
+							} else if (dist_x <= 36 && dist_y <= 24) {
+								// Tackle orizzontale in scivolata
 								Carrier->count = 30; // Scivolata + Cooldown per penalità miss
 								Carrier->dx = (Ball->lx > Carrier->lx) ? 4 : -4;
-								Carrier->dy = 0; // Movimento rigorosamente orizzontale
+								Carrier->dy = 0;
 							}
 						}
 					}
